@@ -1341,7 +1341,6 @@
 #include "code\WorkInProgress\Cael_Aislinn\Rust\fuel_injector.dm"
 #include "code\WorkInProgress\Cael_Aislinn\Rust\gyrotron.dm"
 #include "code\WorkInProgress\Cael_Aislinn\Rust\gyrotron_controller.dm"
-#include "code\WorkInProgress\Cael_Aislinn\Rust\rad.dm"
 #include "code\WorkInProgress\Cael_Aislinn\Rust\radiation.dm"
 #include "code\WorkInProgress\Cael_Aislinn\Rust\virtual_particle_catcher.dm"
 #include "code\WorkInProgress\Cael_Aislinn\Supermatter\LaserComputer.dm"
