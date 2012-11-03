@@ -69,15 +69,6 @@
 	color = "mining"
 
 
-/obj/item/clothing/head/helmet/space/rig/research
-	name = "Research harsuit helmet"
-	icon_state = "rig0-research"
-	item_state = "research_helm"
-
-/obj/item/clothing/suit/space/rig/research
-	icon_state = "rig-research"
-	name = "Research harsuit"
-	item_state = "research_rig"
 
 
 /obj/item/clothing/suit/space/rig/mining
