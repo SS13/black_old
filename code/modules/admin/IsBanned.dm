@@ -1,30 +1,3 @@
-var/list/bwhitelist = list()
-
-/proc/load_bwhitelist()
-	log_admin("Loading whitelist")
-	var/DBConnection/dbcon = new()
-	dbcon.Connect("dbi:mysql:[sqldb]:[sqladdress]:[sqlport]","[sqllogin]","[sqlpass]")
-	if(!dbcon.IsConnected())
-		log_admin("Failed to load bwhitelist")
-		return
-	var/DBQuery/query = dbcon.NewQuery("SELECT byond FROM whitelist ORDER BY byond ASC")
-	query.Execute()
-	while(query.NextRow())
-		bwhitelist += "[query.item[1]]"
-	if (bwhitelist==list(  ))
-		log_admin("Failed to load bwhitelist or its empty")
-		return
-	dbcon.Disconnect()
-
-/proc/check_bwhitelist(var/K)
-	if (bwhitelist==list(  ))
-		load_bwhitelist()
-		if (bwhitelist==list(  ))
-			return 0
-	if (K in bwhitelist)
-		return 1
-	return 0
-
 //Blocks an attempt to connect before even creating our client datum thing.
 world/IsBanned(key,address,computer_id)
 	if(ckey(key) in admins)
