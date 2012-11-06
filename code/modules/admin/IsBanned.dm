@@ -9,7 +9,7 @@ world/IsBanned(key,address,computer_id)
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a byond account.")
 
 	//whitelist
-	if(check_bwhitelist(ckey(key)))
+	if(!check_bwhitelist(ckey(key)))
 		return list("reason"="not in whitelist", "desc"="\nYou are not in whitelist.\nGo to forum: http://forum.ss13.ru/index.php?showforum=48")
 
 	//check if the IP address is a known TOR node
