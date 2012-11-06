@@ -1,14 +1,5 @@
 var/list/bwhitelist = list()
 
-/proc/check_bwhitelist(var/K)
-	if (bwhitelist==list(  ))
-		load_bwhitelist()
-		if (bwhitelist==list(  ))
-			return 0
-	if (K in bwhitelist)
-		return 1
-	return 0
-
 /proc/load_bwhitelist()
 	log_admin("Loading whitelist")
 	var/DBConnection/dbcon = new()
@@ -25,18 +16,28 @@ var/list/bwhitelist = list()
 		return
 	dbcon.Disconnect()
 
+/proc/check_bwhitelist(var/K)
+	if (bwhitelist==list(  ))
+		load_bwhitelist()
+		if (bwhitelist==list(  ))
+			return 0
+	if (K in bwhitelist)
+		return 1
+	return 0
+
 //Blocks an attempt to connect before even creating our client datum thing.
 world/IsBanned(key,address,computer_id)
 	if(ckey(key) in admins)
 		return ..()
-	//whitelist
-	if(check_bwhitelist(ckey(key)))
-		return list("reason"="not in whitelist", "desc"="\nYou are not in whitelist.\nGo to forum: http://forum.ss13.ru/index.php?showforum=48")
 	//Guest Checking
 	if( !guests_allowed && IsGuestKey(key) )
 		log_access("Failed Login: [key] - Guests not allowed")
 		message_admins("\blue Failed Login: [key] - Guests not allowed")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a byond account.")
+
+	//whitelist
+	if(check_bwhitelist(ckey(key)))
+		return list("reason"="not in whitelist", "desc"="\nYou are not in whitelist.\nGo to forum: http://forum.ss13.ru/index.php?showforum=48")
 
 	//check if the IP address is a known TOR node
 	if( config && config.ToRban && ToRban_isbanned(address) )
