@@ -233,7 +233,7 @@ var/list/bwhitelist
 	var/DBConnection/dbcon = new()
 	dbcon.Connect("dbi:mysql:[sqldb]:[sqladdress]:[sqlport]","[sqllogin]","[sqlpass]")
 	if(!dbcon.IsConnected())
-		log_admin("Failed to load bwhitelist")
+		log_admin("Failed to load bwhitelist [dbcon.ErrorMsg()]")
 		return
 	var/DBQuery/query = dbcon.NewQuery("SELECT byond FROM whitelist ORDER BY byond ASC")
 	query.Execute()
