@@ -26,7 +26,6 @@ CREATE  TABLE IF NOT EXISTS `tgstation`.`death` (
   `oxyloss` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = MyISAM
-AUTO_INCREMENT = 3409
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -46,7 +45,6 @@ CREATE  TABLE IF NOT EXISTS `tgstation`.`karma` (
   `time` DATETIME NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = MyISAM
-AUTO_INCREMENT = 943
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -59,7 +57,6 @@ CREATE  TABLE IF NOT EXISTS `tgstation`.`karmatotals` (
   `karma` INT(11) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = MyISAM
-AUTO_INCREMENT = 244
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -74,7 +71,6 @@ CREATE  TABLE IF NOT EXISTS `tgstation`.`library` (
   `category` TEXT NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = MyISAM
-AUTO_INCREMENT = 184
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -88,7 +84,6 @@ CREATE  TABLE IF NOT EXISTS `tgstation`.`population` (
   `time` DATETIME NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = MyISAM
-AUTO_INCREMENT = 2544
 DEFAULT CHARACTER SET = utf8;
 
 
