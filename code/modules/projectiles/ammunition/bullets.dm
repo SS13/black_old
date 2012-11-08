@@ -58,13 +58,6 @@
 	projectile_type = "/obj/item/projectile/bullet"
 	m_amt = 12500
 
-/obj/item/ammo_casing/shotgun/lead
-	name = "shotgun lead shell"
-	desc = "A 12 gauge lead shell."
-	icon_state = "lshell"
-	projectile_type = "/obj/item/projectile/bullet/lead"
-	m_amt = 12000
-
 
 /obj/item/ammo_casing/shotgun/blank
 	name = "shotgun shell"

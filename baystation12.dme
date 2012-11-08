@@ -211,7 +211,6 @@
 #define FILE_DIR "code/WorkInProgress/animusstation"
 #define FILE_DIR "code/WorkInProgress/Apples"
 #define FILE_DIR "code/WorkInProgress/Cael_Aislinn"
-#define FILE_DIR "code/WorkInProgress/Cael_Aislinn/BirdMan"
 #define FILE_DIR "code/WorkInProgress/Cael_Aislinn/Rust"
 #define FILE_DIR "code/WorkInProgress/Cael_Aislinn/Supermatter"
 #define FILE_DIR "code/WorkInProgress/carn"
@@ -267,6 +266,8 @@
 #define FILE_DIR "sound/violin"
 #define FILE_DIR "sound/voice"
 #define FILE_DIR "sound/weapons"
+#define FILE_DIR "tools"
+#define FILE_DIR "tools/Redirector"
 // END_FILE_DIR
 
 // BEGIN_PREFERENCES
@@ -454,7 +455,6 @@
 #include "code\game\gamemodes\nuclear\nuclear.dm"
 #include "code\game\gamemodes\nuclear\nuclearbomb.dm"
 #include "code\game\gamemodes\nuclear\pinpointer.dm"
-#include "code\game\gamemodes\revolution\anti_revolution.dm"
 #include "code\game\gamemodes\revolution\revolution.dm"
 #include "code\game\gamemodes\revolution\rp_revolution.dm"
 #include "code\game\gamemodes\sandbox\h_sandbox.dm"
@@ -634,6 +634,7 @@
 #include "code\game\objects\objs.dm"
 #include "code\game\objects\structures.dm"
 #include "code\game\objects\weapons.dm"
+#include "code\game\objects\closets\walllocker.dm"
 #include "code\game\objects\effects\aliens.dm"
 #include "code\game\objects\effects\biomass_rift.dm"
 #include "code\game\objects\effects\bump_teleporter.dm"
@@ -1174,6 +1175,7 @@
 #include "code\modules\mob\new_player\savefile.dm"
 #include "code\modules\mob\new_player\skill.dm"
 #include "code\modules\mob\new_player\sprite_accessories.dm"
+#include "code\modules\mob\simple_animal\head.dm"
 #include "code\modules\paperwork\clipboard.dm"
 #include "code\modules\paperwork\filingcabinet.dm"
 #include "code\modules\paperwork\folders.dm"

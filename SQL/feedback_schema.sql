@@ -5,7 +5,7 @@ CREATE TABLE `erro_admin` (
   `level` int(2) NOT NULL DEFAULT '0',
   `flags` int(16) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_admin_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -14,7 +14,7 @@ CREATE TABLE `erro_admin_log` (
   `adminip` varchar(18) NOT NULL,
   `log` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_ban` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -41,7 +41,7 @@ CREATE TABLE `erro_ban` (
   `unbanned_computerid` varchar(32) DEFAULT NULL,
   `unbanned_ip` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_feedback` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -51,7 +51,7 @@ CREATE TABLE `erro_feedback` (
   `var_value` int(16) DEFAULT NULL,
   `details` text,
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_player` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -63,7 +63,7 @@ CREATE TABLE `erro_player` (
   `lastadminrank` varchar(32) NOT NULL DEFAULT 'Player',
   PRIMARY KEY (`id`),
   UNIQUE KEY `ckey` (`ckey`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_poll_option` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -76,7 +76,7 @@ CREATE TABLE `erro_poll_option` (
   `descmid` varchar(32) DEFAULT NULL,
   `descmax` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_poll_question` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -86,7 +86,7 @@ CREATE TABLE `erro_poll_question` (
   `question` varchar(255) NOT NULL,
   `adminonly` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_poll_textreply` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -97,7 +97,7 @@ CREATE TABLE `erro_poll_textreply` (
   `replytext` text NOT NULL,
   `adminrank` varchar(32) NOT NULL DEFAULT 'Player',
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_poll_vote` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -109,7 +109,7 @@ CREATE TABLE `erro_poll_vote` (
   `adminrank` varchar(32) NOT NULL,
   `rating` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);
 
 CREATE TABLE `erro_privacy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -117,4 +117,4 @@ CREATE TABLE `erro_privacy` (
   `ckey` varchar(32) NOT NULL,
   `option` varchar(128) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=Aria;
+);

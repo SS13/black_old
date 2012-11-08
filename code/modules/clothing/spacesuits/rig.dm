@@ -68,9 +68,6 @@
 	item_state = "mining_helm"
 	color = "mining"
 
-
-
-
 /obj/item/clothing/suit/space/rig/mining
 	icon_state = "rig-mining"
 	name = "mining hardsuit"

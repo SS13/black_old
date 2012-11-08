@@ -64,6 +64,8 @@
 	var/real_name = null
 //	var/original_name = null //Original name is only used in ghost chat! Depracated, now used bb
 	var/flavor_text = ""
+	var/med_record = ""
+	var/sec_record = ""
 	var/blinded = null
 	var/bhunger = 0			//Carbon
 	var/ajourn = 0
@@ -223,3 +225,5 @@
 
 	var/has_limbs = 1 //Whether this mob have any limbs he can move with
 	var/can_stand = 1 //Whether this mob have ability to stand
+
+	var/immune_to_ssd = 0

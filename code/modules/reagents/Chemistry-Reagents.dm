@@ -749,7 +749,7 @@ datum
 							return
 
 						if(H.head)
-							if(prob(15) && !H.head.unacidable)
+							if(!H.head.unacidable)
 								del(H.head)
 								H.update_inv_head()
 								H << "\red Your helmet melts away but protects you from the acid"
@@ -2696,10 +2696,10 @@ datum
 			var/dizzy_adj = 3
 			var/slurr_adj = 3
 			var/confused_adj = 2
-			var/slur_start = 300			//amount absorbed after which mob starts slurring
-			var/confused_start = 500	//amount absorbed after which mob starts confusing directions
-			var/blur_start = 700	//amount absorbed after which mob starts getting blurred vision
-			var/pass_out = 1000	//amount absorbed after which mob starts passing out
+			var/slur_start = 65			//amount absorbed after which mob starts slurring
+			var/confused_start = 130	//amount absorbed after which mob starts confusing directions
+			var/blur_start = 260	//amount absorbed after which mob starts getting blurred vision
+			var/pass_out = 325	//amount absorbed after which mob starts passing out
 
 			on_mob_life(var/mob/living/M as mob)
 				M:nutrition += nutriment_factor
@@ -3035,9 +3035,8 @@ datum
 					if(M:getBruteLoss() && prob(60)) M:heal_organ_damage(2,0)
 					if(M:getFireLoss() && prob(50)) M:heal_organ_damage(0,2)
 					if(M:getToxLoss() && prob(50)) M:adjustToxLoss(-2)
-					/*if(M.dizziness !=0) M.dizziness = max(0,M.dizziness-15)
+					if(M.dizziness !=0) M.dizziness = max(0,M.dizziness-15)
 					if(M.confused !=0) M.confused = max(0,M.confused - 5)
-					*/
 					..()
 					return
 

@@ -1,6 +1,5 @@
 var/CMinutes = null
 var/savefile/Banlist
-var/list/bwhitelist
 
 
 /proc/CheckBan(var/ckey, var/id, var/address)
@@ -252,4 +251,3 @@ var/list/bwhitelist
 	if (K in bwhitelist)
 		return 1
 	return 0
-

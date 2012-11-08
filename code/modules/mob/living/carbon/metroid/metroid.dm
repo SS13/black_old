@@ -190,10 +190,9 @@
 
 
 /mob/living/carbon/metroid/bullet_act(var/obj/item/projectile/Proj)
-        attacked += 10
-        if(!(istype(Proj, /obj/item/projectile)))
-                ..(Proj)
-        return 0
+	attacked += 10
+	..(Proj)
+	return 0
 
 
 /mob/living/carbon/metroid/emp_act(severity)
