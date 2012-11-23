@@ -34,8 +34,8 @@
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/Ticklag = 0.9
-	var/Tickcomp = 0
+	var/Ticklag = 0.5
+	var/Tickcomp = 1
 	var/socket_talk	= 0					// use socket_talk to communicate with other processes
 
 	var/list/mode_names = list()
@@ -91,7 +91,7 @@
 
 	//Used for modifying movement speed for mobs.
 	//Unversal modifiers
-	var/run_speed = 0
+	var/run_speed = 1.5
 	var/walk_speed = 0
 
 	//Mob specific modifiers. NOTE: These will affect different mob types in different ways
