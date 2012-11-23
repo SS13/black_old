@@ -85,6 +85,15 @@
 	w_class = 1.0
 	var/string_attached
 
+/obj/item/weapon/coin/attack_self(mob/user as mob)
+	var/result = rand(1, 2)
+	var/comment = ""
+	if(result == 2)
+		comment = "Tail!"
+	else if(result == 1)
+		comment = "Head!"
+	user.visible_message("<span class='notice'>[user] has flip [src]. Catch it in the air. [comment]</span>")
+
 /obj/item/weapon/coin/New()
 	pixel_x = rand(0,16)-8
 	pixel_y = rand(0,8)-8
