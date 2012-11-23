@@ -189,6 +189,8 @@
 				// internal wounds get worse over time
 				W.open_wound(0.1 * wound_update_accuracy)
 				owner.vessel.remove_reagent("blood",0.07 * W.damage * wound_update_accuracy)
+				if(prob(1 * wound_update_accuracy))
+					owner.custom_pain("You feel a stabbing pain in your [display_name]!",1)
 
 			if(W.bandaged || W.salved)
 				// slow healing
@@ -474,28 +476,29 @@
 					src.status |= ORGAN_BLEEDING
 					var/list/size_names = list(/datum/wound/cut, /datum/wound/deep_cut, /datum/wound/flesh_wound, /datum/wound/gaping_wound, /datum/wound/big_gaping_wound, /datum/wound/massive_wound)
 					wound_type = size_names[size]
+
 					W = new wound_type(damage)
-					//message_admins("DEBUG: Wound type CUT: [type]")
+
 				if(BRUISE)
 					var/list/size_names = list(/datum/wound/bruise/tiny_bruise, /datum/wound/bruise/small_bruise, /datum/wound/bruise/moderate_bruise, /datum/wound/bruise/large_bruise, /datum/wound/bruise/huge_bruise, /datum/wound/bruise/monumental_bruise)
 					wound_type = size_names[size]
+
 					W = new wound_type(damage)
-					//message_admins("DEBUG: Wound type BRUISE: [type]")
 				if(BURN)
 					var/list/size_names = list(/datum/wound/moderate_burn, /datum/wound/large_burn, /datum/wound/severe_burn, /datum/wound/deep_burn, /datum/wound/carbonised_area, /datum/wound/carbonised_area)
 					wound_type = size_names[size]
+
 					W = new wound_type(damage)
 
 			// Possibly trigger an internal wound, too.
-			if(damage > 10 && prob(damage) && type != BURN)
+			var/local_damage = brute_dam + burn_dam + damage
+			if(damage > 10 && type != BURN && local_damage > 20 && prob(damage))
 				var/datum/wound/internal_bleeding/I = new (15)
 				wounds += I
+				owner.custom_pain("You feel something rip in your [display_name]!", 1)
 
 			// check whether we can add the wound to an existing wound
 			for(var/datum/wound/other in wounds)
-				// nanodesu
-				//if(!(other && W))
-				//	return
 				if(other.desc == W.desc)
 					// okay, add it!
 					other.damage += W.damage

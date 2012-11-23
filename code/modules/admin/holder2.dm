@@ -1446,11 +1446,11 @@ var/list/admin_datums = list()
 		if(!input)
 			return
 
-		src.owner << "You sent [input] to [M] via a secure channel."
+		src.owner << "You sent [sanitize(html_decode(input))] to [M] via a secure channel."
 
 		log_admin("[src.owner] replied to [key_name(M)]'s Centcomm message with the message [input].")
-		message_admins("[src.owner] replied to [key_name(M)]'s Centcom message with: \"[input]\"")
-		M << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from Central Command.  Message as follows. [input].  Message ends.\""
+		message_admins("[src.owner] replied to [key_name(M)]'s Centcom message with: \"[sanitize(html_decode(input))]\"")
+		M << "You hear something crackle in your headset for a moment before a voice speaks. \"[sanitize(html_decode(input))]\""
 
 		return
 
@@ -1468,9 +1468,11 @@ var/list/admin_datums = list()
 		if(!input)
 			return
 
-		src.owner << "You sent [input] to [M] via a secure channel."
+		src.owner << "You sent [sanitize(html_decode(input))] to [M] via a secure channel."
+
 		log_admin("[src.owner] replied to [key_name(M)]'s Syndicate message with the message [input].")
-		M << "You hear something crackle in your headset for a moment before a voice speaks.  \"Please stand by for a message from your benefactor.  Message as follows, agent. [input].  Message ends.\""
+		message_admins("[src.owner] replied to [key_name(M)]'s Syndicate message with: \"[sanitize(html_decode(input))]\"")
+		M << "You hear something crackle in your headset for a moment before a voice speaks. \"[sanitize(html_decode(input))]\""
 
 		return
 

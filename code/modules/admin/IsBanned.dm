@@ -3,6 +3,7 @@ world/IsBanned(key,address,computer_id)
 	if(ckey(key) in admins)
 		return ..()
 
+
 	//Guest Checking
 	if( !guests_allowed && IsGuestKey(key) )
 		log_access("Failed Login: [key] - Guests not allowed")

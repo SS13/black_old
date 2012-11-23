@@ -734,8 +734,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			return
 		useMS.send_pda_message("[P.owner]","[owner]","[t]")
 
-		tnote += "<i><b>&rarr; To [P.owner]:</b></i><br>[t]<br>"
-		P.tnote += "<i><b>&larr; From <a href='byond://?src=\ref[P];choice=Message;target=\ref[src]'>[owner]</a> ([ownjob]):</b></i><br>[t]<br>"
+		tnote += "<i><b>&rarr; To [P.owner]:</b></i><br>[sanitize_uni(html_decode(t))]<br>"
+		P.tnote += "<i><b>&larr; From <a href='byond://?src=\ref[P];choice=Message;target=\ref[src]'>[owner]</a> ([ownjob]):</b></i><br>[sanitize_uni(html_decode(t))]<br>"
 
 		if (prob(15)) //Give the AI a chance of intercepting the message
 			var/who = src.owner

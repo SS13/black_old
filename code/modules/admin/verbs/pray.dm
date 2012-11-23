@@ -33,7 +33,7 @@
 //	log_admin("[key_name(Sender)] sent a message to Centcomm!  The message was [msg]")  // Handled somewhere else
 
 	for (var/client/C in admin_list)
-		C << "\blue <b><font color=orange>CENTCOMM:</font>[key_name(Sender, C)] (<A HREF='?src=\ref[C.holder];adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?src=\ref[C.holder];adminplayervars=\ref[Sender]'>VV</A>) (<A HREF='?src=\ref[C.holder];adminplayersubtlemessage=\ref[Sender]'>SM</A>) (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[Sender]'>JMP</A>) (<A HREF='?src=\ref[C.holder];secretsadmin=check_antagonist'>CA</A>) (<A HREF='?src=\ref[C.holder];BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?src=\ref[C.holder];CentcommReply=\ref[Sender]'>RPLY</A>):</b> [msg]"
+		C << "\blue <b><font color=orange>CENTCOMM: </font>[key_name(Sender, C)] (<A HREF='?src=\ref[C.holder];adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?src=\ref[C.holder];adminplayervars=\ref[Sender]'>VV</A>) (<A HREF='?src=\ref[C.holder];adminplayersubtlemessage=\ref[Sender]'>SM</A>) (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[Sender]'>JMP</A>) (<A HREF='?src=\ref[C.holder];secretsadmin=check_antagonist'>CA</A>) (<A HREF='?src=\ref[C.holder];BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?src=\ref[C.holder];CentcommReply=\ref[Sender]'>RPLY</A>):</b> [msg]"
 			//
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 
@@ -42,5 +42,5 @@
 //	log_admin("[key_name(Sender)] sent a message to the Syndicate!  The message was [msg]")  // Handled somewhere else
 
 	for (var/client/C in admin_list)
-		C << "\blue <b><font color=crimson>SYNDICATE:</font>[key_name(Sender, C)] (<A HREF='?src=\ref[C.holder];adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?src=\ref[C.holder];adminplayervars=\ref[Sender]'>VV</A>) (<A HREF='?src=\ref[C.holder];adminplayersubtlemessage=\ref[Sender]'>SM</A>) (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[Sender]'>JMP</A>) (<A HREF='?src=\ref[C.holder];secretsadmin=check_antagonist'>CA</A>) (<A HREF='?src=\ref[C.holder];BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?src=\ref[C.holder];SyndicateReply=\ref[Sender]'>RPLY</A>):</b> [msg]"
+		C << "\blue <b><font color=crimson>SYNDICATE: </font>[key_name(Sender, C)] (<A HREF='?src=\ref[C.holder];adminplayeropts=\ref[Sender]'>PP</A>) (<A HREF='?src=\ref[C.holder];adminplayervars=\ref[Sender]'>VV</A>) (<A HREF='?src=\ref[C.holder];adminplayersubtlemessage=\ref[Sender]'>SM</A>) (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[Sender]'>JMP</A>) (<A HREF='?src=\ref[C.holder];secretsadmin=check_antagonist'>CA</A>) (<A HREF='?src=\ref[C.holder];BlueSpaceArtillery=\ref[Sender]'>BSA</A>) (<A HREF='?src=\ref[C.holder];SyndicateReply=\ref[Sender]'>RPLY</A>):</b> [msg]"
 			//

@@ -53,8 +53,8 @@ Doesn't work on other aliens/AI.*/
 		var/msg = sanitize(input("Message:", "Alien Whisper") as text|null)
 		if(msg)
 			log_say("AlienWhisper: [key_name(src)]->[M.key] : [msg]")
-			M << "\green You hear a strange, alien voice in your head... \italic [msg]"
-			src << {"\green You said: "[msg]" to [M]"}
+			M << "\green You hear a strange, alien voice in your head... \italic [sanitize(html_decode(msg))]"
+			src << {"\green You said: "[sanitize(html_decode(msg))]" to [M]"}
 	return
 
 /mob/living/carbon/alien/humanoid/verb/transfer_plasma(mob/living/carbon/alien/M as mob in oview())

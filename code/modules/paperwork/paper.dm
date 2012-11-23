@@ -226,7 +226,7 @@
 
 /obj/item/weapon/paper/Topic(href, href_list)
 	..()
-	if((usr.stat || usr.restrained()))
+	if(!usr || (usr.stat || usr.restrained()))
 		return
 
 	if(href_list["write"])
@@ -244,7 +244,7 @@
 		if((!in_range(src, usr) && loc != usr && !( istype(loc, /obj/item/weapon/clipboard) ) && loc.loc != usr && usr.get_active_hand() != i)) // Some check to see if he's allowed to write
 			return
 
-		t = parsepencode(t, i, usr, iscrayon) // Encode everything from pencode to html
+		t = parsepencode(sanitize_uni(t), i, usr, iscrayon) // Encode everything from pencode to html
 
 		if(id!="end")
 			addtofield(text2num(id), t) // He wants to edit a field, let him.

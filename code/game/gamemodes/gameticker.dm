@@ -134,8 +134,6 @@ var/global/datum/controller/gameticker/ticker
 	for(var/client/C)
 		if(C.holder)
 			admins_number++
-	if(admins_number == 0)
-		send2irc("Server", "Round just started with no admins online!")
 
 	supply_shuttle.process() 		//Start the supply shuttle regenerating points -- TLE
 	master_controller.process()		//Start master_controller.process()

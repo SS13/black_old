@@ -96,7 +96,7 @@
 		var/message_a = message
 
 		if (italics)
-			message_a = "<i>[message_a]</i>"
+			message_a = "<i>[sanitize(message_a)]</i>"
 		//This appears copied from carbon/living say.dm so the istype check for mob is probably not needed. Appending for src is also not needed as the game will check that automatically.
 		rendered = "<span class='game say'><span class='name'>[GetVoice()]</span>[alt_name] whispers, <span class='message'>\"[message_a]\"</span></span>"
 
@@ -112,7 +112,7 @@
 			message_b = stars(message)
 
 		if (italics)
-			message_b = "<i>[message_b]</i>"
+			message_b = "<i>[sanitize(message_b)]</i>"
 
 		rendered = "<span class='game say'><span class='name'>[src.voice_name]</span> whispers, <span class='message'>\"[message_b]\"</span></span>"
 
@@ -122,7 +122,7 @@
 	for (var/mob/M in eavesdropping)
 		if (M.say_understands(src))
 			var/message_c
-			message_c = stars(message)
+			message_c = sanitize(stars(message))
 			rendered = "<span class='game say'><span class='name'>[GetVoice()]</span>[alt_name] whispers, <span class='message'>\"[message_c]\"</span></span>"
 			M.show_message(rendered, 2)
 		else
@@ -130,7 +130,7 @@
 			M.show_message(rendered, 2)
 
 	if (italics)
-		message = "<i>[message]</i>"
+		message = "<i>[sanitize(message)]</i>"
 	rendered = "<span class='game say'><span class='name'>[GetVoice()]</span>[alt_name] whispers, <span class='message'>\"[message]\"</span></span>"
 
 	for (var/mob/M in dead_mob_list)

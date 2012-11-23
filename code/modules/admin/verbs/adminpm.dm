@@ -58,7 +58,6 @@
 	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))
 		return
 
-	// Sanitize admin msgs too - Nanodesu
 	msg = sanitize(msg)
 
 	//clean the message if it's not sent by a GA or GM

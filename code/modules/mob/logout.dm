@@ -26,7 +26,6 @@
 					cheesy_message += " (No admins online)"
 
 
-				send2irc("Server", "[cheesy_message]")
 	..()
 
 	return 1

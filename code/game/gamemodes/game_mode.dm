@@ -184,7 +184,6 @@ Whitespace:Seperator;
 	if(escaped_on_pod_5 > 0)
 		feedback_set("escaped_on_pod_5",escaped_on_pod_5)
 
-	send2irc("Server", "Round just ended.")
 
 	return 0
 
@@ -217,7 +216,7 @@ Whitespace:Seperator;
 		else
 			intercepttext += i_text.build(A, pick(modePlayer))
 
-	for (var/obj/machinery/computer/communications/comm in world)
+	/*for (var/obj/machinery/computer/communications/comm in world)
 		if (!(comm.stat & (BROKEN | NOPOWER)) && comm.prints_intercept)
 			var/obj/item/weapon/paper/intercept = new /obj/item/weapon/paper( comm.loc )
 			intercept.name = "paper- 'Cent. Com. Status Summary'"
@@ -225,7 +224,7 @@ Whitespace:Seperator;
 
 			comm.messagetitle.Add("Cent. Com. Status Summary")
 			comm.messagetext.Add(intercepttext)
-	world << sound('commandreport.ogg')
+	world << sound('commandreport.ogg')*/
 
 /*	command_alert("Summary downloaded and printed out at all communications consoles.", "Enemy communication intercept. Security Level Elevated.")
 	world << sound('sound/AI/intercept.ogg')

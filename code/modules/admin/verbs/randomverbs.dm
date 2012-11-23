@@ -56,14 +56,13 @@
 
 	if (!msg)
 		return
-	msg = sanitize(msg)
 	if(usr)
 		if (usr.client)
 			if(usr.client.holder)
-				M << "\bold You hear a voice in your head... \italic [msg]"
+				M << "\bold You hear a voice in your head... \italic [sanitize(html_decode(msg))]"
 
 	log_admin("SubtlePM: [key_name(usr)] -> [key_name(M)] : [msg]")
-	message_admins("\blue \bold SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [msg]", 1)
+	message_admins("\blue \bold SubtleMessage: [key_name_admin(usr)] -> [key_name_admin(M)] : [sanitize(html_decode(msg))]", 1)
 	feedback_add_details("admin_verb","SMS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_world_narrate() // Allows administrators to fluff events a little easier -- TLE
@@ -78,10 +77,9 @@
 
 	if (!msg)
 		return
-	msg = sanitize(msg)
-	world << "[msg]"
+	world << "[sanitize(html_decode(msg))]"
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
-	message_admins("\blue \bold GlobalNarrate: [key_name_admin(usr)] : [msg]<BR>", 1)
+	message_admins("\blue \bold GlobalNarrate: [key_name_admin(usr)] : [sanitize(html_decode(msg))]<BR>", 1)
 	feedback_add_details("admin_verb","GLN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
@@ -102,10 +100,10 @@
 
 	if( !msg )
 		return
-	msg = sanitize(msg)
-	M << msg
+
+	M << sanitize(html_decode(msg))
 	log_admin("DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [msg]")
-	message_admins("\blue \bold DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [msg]<BR>", 1)
+	message_admins("\blue \bold DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [sanitize(html_decode(msg))]<BR>", 1)
 	feedback_add_details("admin_verb","DIRN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)
@@ -450,7 +448,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
 	if(!input)
 		return
-	input = sanitize(input) //Sanitize AI law text - Nanodesu
+	input = sanitize(input)
 	for(var/mob/living/silicon/ai/M in mob_list)
 		if (M.stat == 2)
 			usr << "Upload failed. No signal is being detected from the AI."
@@ -500,27 +498,26 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
 		return
-	input = sanitize(input)
 	if(!customname)
-		customname = "NanoTrasen Update"
+		customname = "Message"
 	for (var/obj/machinery/computer/communications/C in machines)
 		if(! (C.stat & (BROKEN|NOPOWER) ) )
-			var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
-			P.name = "'[command_name()] Update.'"
+			/*var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
+			P.name = customname
 			P.info = input
-			P.update_icon()
-			C.messagetitle.Add("[command_name()] Update")
-			C.messagetext.Add(P.info)
+			P.update_icon()*/
+			C.messagetitle.Add(customname)
+			C.messagetext.Add(sanitize_uni(input))
 
 	switch(alert("Should this be announced to the general population?",,"Yes","No"))
 		if("Yes")
 			command_alert(input, maintitle=customname);
 		if("No")
-			world << "\red New NanoTrasen Update available at all communication consoles."
+			world << "\red New message available at all communication consoles."
 
 	world << sound('commandreport.ogg')
 	log_admin("[key_name(src)] has created a command report: [input]")
-	message_admins("[key_name_admin(src)] has created a command report", 1)
+	message_admins("[key_name_admin(src)] has created a command report.", 1)
 	feedback_add_details("admin_verb","CCR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_delete(atom/O as obj|mob|turf in world)

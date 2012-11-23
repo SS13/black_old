@@ -918,12 +918,12 @@
 
 	var/say = input ("What do you wish to say")
 	if(mRemotetalk in target.mutations)
-		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
+		target.show_message("\blue You hear [src.real_name]'s voice: [sanitize(html_decode(say))]")
 	else
-		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
-	usr.show_message("\blue You project your mind into [target.real_name]: [say]")
+		target.show_message("\blue You hear a voice that seems to echo around the room: [sanitize(html_decode(say))]")
+	usr.show_message("\blue You project your mind into [target.real_name]: [sanitize(html_decode(say))]")
 	for(var/mob/dead/observer/G in world)
-		G.show_message("<i>Telepathic message from <b>[src]</b> to <b>[target]</b>: [say]</i>")
+		G.show_message("<i>Telepathic message from <b>[src]</b> to <b>[target]</b>: [sanitize(html_decode(say))]</i>")
 
 /mob/living/carbon/human/proc/remoteobserve()
 	set name = "Remote View"
@@ -972,7 +972,7 @@
 		gloves.germ_level += n
 	else
 		germ_level += n
-		
+
 /mob/living/carbon/human/revive()
 	for (var/datum/organ/external/O in organs)
 		O.status &= ~ORGAN_BROKEN
@@ -1002,7 +1002,7 @@
 
 /mob/living/carbon/human/proc/rupture_lung()
 	var/datum/organ/external/chest/E = get_organ("chest")
-	
+
 	if(E.ruptured_lungs == 0)
 		src.custom_pain("You feel a stabbing pain in your chest!", 1)
 
