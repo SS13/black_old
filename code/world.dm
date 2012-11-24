@@ -198,7 +198,7 @@ Starting up. [time2text(world.timeofday, "hh:mm.ss")]
 /world/proc/load_admins()
 	if(config.admin_legacy_system)
 		//Legacy admin system uses admins.txt
-		var/text = file2text("config/admins.txt")
+		var/text = file2text("config/admins_animus.txt")
 		if (!text)
 			diary << "Failed to load config/admins.txt\n"
 		else
