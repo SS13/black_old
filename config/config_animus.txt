@@ -58,7 +58,7 @@ SQL_ENABLED 0
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
 ## Cult mode is in alpha test, enable at your own risk
-PROBABILITY EXTENDED 0
+PROBABILITY EXTENDED 1
 PROBABILITY TRAITOR 6
 PROBABILITY METEOR 0
 PROBABILITY MALFUNCTION 1
@@ -121,7 +121,7 @@ ALLOW_AI
 # DONT_DEL_NEWMOB
 
 ## set a hosted by name for unix platforms
-HOSTEDBY RNM4RL3Y
+#HOSTEDBY RNM4RL3Y
 
 ## Set to jobban "Guest-" accounts from Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, and AI positions.
 ## Set to 1 to jobban them from those positions, set to 0 to allow them.

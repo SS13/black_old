@@ -34,8 +34,8 @@
 	var/protect_roles_from_antagonist = 0// If security and such can be tratior/cult/other
 	var/allow_Metadata = 0				// Metadata is supported.
 	var/popup_admin_pm = 0				//adminPMs to non-admins show in a pop-up 'reply' window when set to 1.
-	var/Ticklag = 0.5
-	var/Tickcomp = 1
+	var/Ticklag = 0.6
+	var/Tickcomp = 0
 	var/socket_talk	= 0					// use socket_talk to communicate with other processes
 
 	var/list/mode_names = list()
@@ -46,7 +46,7 @@
 	var/allow_random_events = 0			// enables random events mid-round when set to 1
 	var/allow_ai = 1					// allow ai job
 	var/hostedby = null
-	var/respawn = 1
+	var/respawn = 0
 	var/guest_jobban = 1
 	var/usewhitelist = 0
 	var/kick_inactive = 0				//force disconnect for inactive players
@@ -97,8 +97,8 @@
 	//Mob specific modifiers. NOTE: These will affect different mob types in different ways
 	var/human_delay = 0
 	var/robot_delay = 0
-	var/monkey_delay = 0
-	var/alien_delay = 0
+	var/monkey_delay = -0.1
+	var/alien_delay = -0.3
 	var/metroid_delay = 0
 	var/animal_delay = 0
 
@@ -226,10 +226,10 @@
 					config.vote_no_default = 1
 
 				if ("vote_delay")
-					config.vote_delay = text2num(value)
+					config.vote_delay = 12000
 
 				if ("vote_period")
-					config.vote_period = text2num(value)
+					config.vote_period = 1200
 
 				if ("allow_ai")
 					config.allow_ai = 1

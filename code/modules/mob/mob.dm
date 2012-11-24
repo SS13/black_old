@@ -432,7 +432,7 @@ var/list/slot_equipment_priority = list( \
 							 'html/changelog.css',
 							 'html/changelog.js'
 							 )
-		src << browse('html/changelog.html', "window=changes;size=675x650")
+		src << browse('html/changelog_animus.html', "window=changes;size=675x650")
 		client.changes = 1
 
 /client/var/ghost_ears = 0

@@ -821,7 +821,7 @@
 /mob/living/carbon/human/proc/morph()
 	set name = "Morph"
 	set category = "Superpower"
-	
+
 	if(stat!=CONSCIOUS)
 		reset_view(0)
 		remoteview_target = null

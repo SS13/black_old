@@ -5,3 +5,10 @@
 *.lk
 info.json
 /config/admins.txt
+/config/alienwhitelist.txt
+/config/config.txt
+/config/custom_items.txt
+/config/game_options.txt
+/config/motd.txt
+/config/rules.html
+/data/mode.txt

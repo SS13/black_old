@@ -300,8 +300,8 @@ Starting up. [time2text(world.timeofday, "hh:mm.ss")]
 
 /world/proc/load_configuration()
 	config = new /datum/configuration()
-	config.load("config/config.txt")
-	config.load("config/game_options.txt","game_options")
+	config.load("config/config_animus.txt")
+	config.load("config/game_options_animus.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
 	config.loadforumsql("config/forumdbconfig.txt")
 	// apply some settings from config..
