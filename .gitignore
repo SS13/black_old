@@ -4,10 +4,4 @@
 *.dmb
 *.lk
 info.json
-/config/alienwhitelist.txt
-/config/config.txt
-/config/custom_items.txt
-/config/game_options.txt
-/config/motd.txt
-/config/rules.html
-/data/mode.txt
+/config/admins.txt
