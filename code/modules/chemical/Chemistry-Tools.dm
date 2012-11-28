@@ -1816,6 +1816,9 @@ var/list/grind_products = list()
 			del(src)
 			return 0
 		if(istype(M, /mob/living/carbon))
+			if(!M.wear_mask:can_eat)
+				user << "\red [M.wear_mask] prevents you from doing this action"
+				return 0
 			if(M == user)								//If you're eating it yourself.
 				var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 				if (fullness <= 50)
