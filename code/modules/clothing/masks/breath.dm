@@ -35,3 +35,4 @@
 	name = "medical mask"
 	icon_state = "medical"
 	item_state = "medical"
+	can_breath = 1
