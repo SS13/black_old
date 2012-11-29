@@ -8,6 +8,8 @@
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
 	var/hanging = 0
+	can_breath = 1
+	can_eat = 0
 
 	verb/toggle()
 		set category = "Object"
@@ -35,4 +37,3 @@
 	name = "medical mask"
 	icon_state = "medical"
 	item_state = "medical"
-	can_breath = 1
