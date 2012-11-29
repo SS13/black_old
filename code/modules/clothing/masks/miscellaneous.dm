@@ -26,6 +26,7 @@
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.05
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 25, rad = 0)
+	can_eat = 0
 
 /obj/item/clothing/mask/fakemoustache
 	name = "fake moustache"
