@@ -2058,6 +2058,10 @@ var/list/grind_products = list()
 			user << "\red None of [src] left, oh no!"
 			return 0
 
+		if(!M.wear_mask:can_eat)
+			user << "\red [M.wear_mask] prevents you from doing this action"
+			return 0
+
 		if(M == user)
 			M << "\blue You swallow a gulp of [src]."
 			if(reagents.total_volume)
