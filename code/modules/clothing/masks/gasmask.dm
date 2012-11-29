@@ -9,6 +9,7 @@
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
 	can_breath = 1
+	can_eat = 0
 
 //Plague Dr suit can be found in clothing/suits/bio.dm
 /obj/item/clothing/mask/gas/plaguedoctor
@@ -49,6 +50,7 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	can_breath = 0
+	can_eat = 1
 
 /obj/item/clothing/mask/gas/sexyclown
 	name = "sexy-clown wig and mask"
@@ -56,6 +58,7 @@
 	icon_state = "sexyclown"
 	item_state = "sexyclown"
 	can_breath = 0
+	can_eat = 1
 
 /obj/item/clothing/mask/gas/mime
 	name = "mime mask"
@@ -63,6 +66,7 @@
 	icon_state = "mime"
 	item_state = "mime"
 	can_breath = 0
+	can_eat = 1
 
 /obj/item/clothing/mask/gas/monkeymask
 	name = "monkey mask"
@@ -70,6 +74,7 @@
 	icon_state = "monkeymask"
 	item_state = "monkeymask"
 	can_breath = 0
+	can_eat = 1
 
 /obj/item/clothing/mask/gas/sexymime
 	name = "sexy mime mask"
@@ -77,6 +82,7 @@
 	icon_state = "sexymime"
 	item_state = "sexymime"
 	can_breath = 0
+	can_eat = 1
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
