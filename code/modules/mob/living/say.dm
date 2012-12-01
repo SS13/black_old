@@ -238,7 +238,7 @@ var/list/department_radio_keys = list(
 
 		//I see no reason to restrict such way of whispering
 		if ("whisper")
-			whisper(message)
+			whisper(html_decode(message))
 			return
 
 		if ("binary")

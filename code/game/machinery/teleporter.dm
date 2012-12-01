@@ -38,21 +38,10 @@
 			user.drop_item()
 			del(I)
 
-			if(C.data == "Clown Land")
-				//whoops
-				for(var/mob/O in hearers(src, null))
-					O.show_message("\red Incoming bluespace portal detected, unable to lock in.", 2)
-
-				for(var/obj/machinery/teleport/hub/H in range(1))
-					var/amount = rand(2,5)
-					for(var/i=0;i<amount;i++)
-						new /mob/living/simple_animal/hostile/carp(get_turf(H))
-				//
-			else
-				for(var/mob/O in hearers(src, null))
-					O.show_message("\blue Locked In", 2)
-				src.locked = L
-				one_time_use = 1
+			for(var/mob/O in hearers(src, null))
+				O.show_message("\blue Locked In", 2)
+			src.locked = L
+			one_time_use = 1
 
 			src.add_fingerprint(usr)
 	else

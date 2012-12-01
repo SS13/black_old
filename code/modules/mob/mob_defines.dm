@@ -96,7 +96,7 @@
 	var/is_jittery = 0
 	var/jitteriness = 0//Carbon
 	var/charges = 0.0
-	var/nutrition = 400.0//Carbon
+	var/nutrition = 390.0//Carbon
 
 	var/overeatduration = 0		// How long this guy is overeating //Carbon
 	var/paralysis = 0.0

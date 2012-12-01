@@ -259,10 +259,10 @@
 					config.banappeals = value
 
 				if ("wikiurl")
-					config.wikiurl = value
+					config.wikiurl = "http://baystation12.net/wiki/index.php?title=Main_Page"
 
 				if ("forumurl")
-					config.forumurl = value
+					config.forumurl = "http://forum.ss13.ru/"
 
 				if ("guest_jobban")
 					config.guest_jobban = 1

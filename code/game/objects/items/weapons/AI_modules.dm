@@ -51,6 +51,7 @@ AI MODULES
 					R << "These are your laws now:"
 					R.show_laws()
 			usr << "Upload complete. The AI's laws have been modified."
+			message_admins("[key_name_admin(usr)] has changed the AI's laws with a module: [src.name].",1)
 
 
 	else if (istype(C, /obj/machinery/computer/borgupload))
