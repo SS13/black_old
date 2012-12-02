@@ -345,7 +345,7 @@ var/list/slot_equipment_priority = list( \
 		src << "<span class='alert'>Your flavor text is likely out of date! <a href='byond://?src=\ref[src];flavor_change=1'>Change</a></span>"
 
 /mob/proc/print_flavor_text()
-	if (flavor_text && flavor_text != "")
+	if (flavor_text && flavor_text != "" && src.name != "Unknown")
 		return "\blue <a href='byond://?src=\ref[src];flavor_more=1'>More...</a>"
 
 /*
