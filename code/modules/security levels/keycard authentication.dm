@@ -141,4 +141,14 @@
 	switch(event)
 		if("Red alert")
 			set_security_level(SEC_LEVEL_RED)
+			for (var/obj/machinery/computer/communications/C in machines)
+				if(! (C.stat & (BROKEN|NOPOWER) ) )
+					var/area/security/nuke_storage/nukeloc = locate()
+					var/obj/machinery/nuclearbomb/nuke = locate() in nukeloc
+					if(!nuke)
+						nuke = locate() in world
+					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
+					P.name = "ULTIMA RATIO"
+					P.info = "The nuclear authorization code is: <b>[nuke.r_code]</b>"
+					P.update_icon()
 			feedback_inc("alert_keycard_auth_red",1)

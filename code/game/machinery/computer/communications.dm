@@ -455,6 +455,10 @@
 		user << "The emergency shuttle is already on its way."
 		return
 
+	if(emergency_shuttle.deny_shuttle)
+		user << "Centcom does not currently have a shuttle available in your sector. Please try again later."
+		return
+
 	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || ticker.mode.name == "sandbox")
 		//New version pretends to call the shuttle but cause the shuttle to return after a random duration.
 		emergency_shuttle.fake_recall = rand(300,500)
