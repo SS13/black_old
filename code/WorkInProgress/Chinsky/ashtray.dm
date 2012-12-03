@@ -17,7 +17,7 @@
 /obj/item/ashtray/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (health < 1)
 		return
-	if (istype(W,/obj/item/clothing/mask/cigarette) || istype(W, /obj/item/weapon/match))
+	if (istype(W,/obj/item/clothing/mask/cigarette) || istype(W, /obj/item/weapon/match) || istype(W, /obj/item/weapon/cigbutt))
 		if(user)
 			if (contents.len >= max_butts)
 				user << "This ashtray is full."
@@ -33,10 +33,14 @@
 			else if (cig.lit == 0)
 				if(istype(cig, /obj/item/weapon/match))
 					user << "You place [cig] in [src] without even lighting it. Why would you do that?"
+					src.visible_message("[user] places [cig] in [src].")
 				else
 					user << "You place [cig] in [src] without even smoking it. Why would you do that?"
+					src.visible_message("[user] places [cig] in [src].")
 			else if (cig.lit == -1)
 				src.visible_message("[user] places [cig] in [src].")
+			if(istype(cig, /obj/item/weapon/cigbutt))
+				src.visible_message("[user] crushes [cig] in [src], putting it out.")
 			user.update_inv_l_hand()
 			user.update_inv_r_hand()
 			add_fingerprint(user)
