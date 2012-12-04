@@ -1823,9 +1823,6 @@ var/list/grind_products = list()
 					user << "\red [M.wear_mask] prevents you form eating [src]"
 					return 0
 
-				if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-					user << "\red [M.wear_mask] prevents you form drinking [src]"
-					return 0
 				var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 				if (fullness <= 50)
 					M << "\red You hungrily chew out a piece of [src] and gobble it!"
