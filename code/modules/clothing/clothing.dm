@@ -71,6 +71,8 @@ BLIND     // can't see anything
 	body_parts_covered = HEAD
 	slot_flags = SLOT_MASK
 	flags = MASKINTERNALS
+	var/can_breath = 0
+	var/can_eat = 1
 
 //Shoes
 /obj/item/clothing/shoes

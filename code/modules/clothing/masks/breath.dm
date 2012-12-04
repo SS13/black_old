@@ -8,6 +8,8 @@
 	gas_transfer_coefficient = 0.10
 	permeability_coefficient = 0.50
 	var/hanging = 0
+	can_breath = 1
+	can_eat = 0
 
 	verb/toggle()
 		set category = "Object"
@@ -21,6 +23,8 @@
 				flags_inv |= MASKCOVERSMOUTH | MASKINTERNALS
 				icon_state = "breathdown"
 				usr << "Your mask is now hanging on your neck."
+				can_breath = 0
+				can_eat = 1
 
 			else
 				src.hanging = !src.hanging
@@ -28,6 +32,8 @@
 				flags_inv &= ~(MASKCOVERSMOUTH | MASKINTERNALS)
 				icon_state = "breath"
 				usr << "You pull the mask up to cover your face."
+				can_breath = 1
+				can_eat = 0
 			usr.update_inv_wear_mask()
 
 /obj/item/clothing/mask/breath/medical
