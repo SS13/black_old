@@ -37,6 +37,11 @@
 		return 0
 	if(istype(M, /mob/living/carbon))
 		if(M == user)								//If you're eating it yourself.
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form drinking [src]"
+				return 0
+
 			var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 			if (fullness <= 50)
 				M << "\red You hungrily chew out a piece of [src] and gobble it!"
@@ -51,6 +56,11 @@
 				return 0
 		else
 			if(!istype(M, /mob/living/carbon/metroid))		//If you're feeding it to someone else.
+
+				if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+					user << "\red [M.wear_mask] prevents you form force [M.name] to eat [src]"
+					return 0
+
 				var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 				if (fullness <= (550 * (1 + M.overeatduration / 1000)))
 					for(var/mob/O in viewers(world.view, user))
