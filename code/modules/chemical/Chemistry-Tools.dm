@@ -1816,7 +1816,16 @@ var/list/grind_products = list()
 			del(src)
 			return 0
 		if(istype(M, /mob/living/carbon))
+
 			if(M == user)								//If you're eating it yourself.
+
+				if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+					user << "\red [M.wear_mask] prevents you form eating [src]"
+					return 0
+
+				if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+					user << "\red [M.wear_mask] prevents you form drinking [src]"
+					return 0
 				var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 				if (fullness <= 50)
 					M << "\red You hungrily chew out a piece of [src] and gobble it!"
@@ -1831,6 +1840,11 @@ var/list/grind_products = list()
 					return 0
 			else
 				if(!istype(M, /mob/living/carbon/metroid))		//If you're feeding it to someone else.
+
+					if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+						user << "\red [M.wear_mask] prevents you form force [M.name] to eating [src]"
+						return 0
+
 					var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 					if (fullness <= (550 * (1 + M.overeatduration / 1000)))
 						for(var/mob/O in viewers(world.view, user))
@@ -2056,6 +2070,10 @@ var/list/grind_products = list()
 			return 0
 
 		if(M == user)
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form drinking [src]"
+				return 0
+
 			M << "\blue You swallow a gulp of [src]."
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
@@ -2065,6 +2083,10 @@ var/list/grind_products = list()
 			playsound(M.loc,'drink.ogg', rand(10,50), 1)
 			return 1
 		else if( istype(M, /mob/living/carbon/human) )
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form force [M.name] to drinking [src]"
+				return 0
 
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to feed [M] [src].", 1)
