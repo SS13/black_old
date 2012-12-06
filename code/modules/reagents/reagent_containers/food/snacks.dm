@@ -39,7 +39,7 @@
 		if(M == user)								//If you're eating it yourself.
 
 			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-				user << "\red [M.wear_mask] prevents you form drinking [src]"
+				user << "\red [M.wear_mask] prevents you form eating [src]"
 				return 0
 
 			var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
