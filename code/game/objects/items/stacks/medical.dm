@@ -1,4 +1,3 @@
-
 //What is this even used for?
 
 /obj/item/stack/medical/attack(mob/living/carbon/M as mob, mob/user as mob)
@@ -24,6 +23,15 @@
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		var/datum/organ/external/affecting = H.get_organ("chest")
+
+		if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
+			if (istype(H.head, /obj/item/clothing/head/helmet/space/))
+				user << "\red \The [src] cannot be applied to [H] through [H.head]!"
+				return 1
+		else
+			if (istype(H.wear_suit, /obj/item/clothing/suit/space))
+				user << "\red \The [src] cannot be applied to [M] through [H.wear_suit]!"
+				return 1
 
 		if(affecting.status & ORGAN_ROBOT)
 			user << "\red This isn't useful at all on a robotic limb.."
