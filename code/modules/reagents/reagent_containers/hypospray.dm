@@ -30,7 +30,7 @@
 	if (!( istype(M, /mob) ))
 		return
 
-	if(istype(M, /mob/living/carbon))
+	if(istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
 			if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood))
