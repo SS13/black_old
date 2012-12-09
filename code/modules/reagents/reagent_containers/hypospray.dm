@@ -25,10 +25,22 @@
 
 /obj/item/weapon/reagent_containers/hypospray/attack(mob/M as mob, mob/user as mob)
 	if(!reagents.total_volume)
-		user << "\red The hypospray is empty."
+		user << "\red The [name] is empty."
 		return
 	if (!( istype(M, /mob) ))
 		return
+
+	if(istype(M, /mob/living/carbon))
+		var/mob/living/carbon/human/H = M
+		if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
+			if (istype(H.head, /obj/item/clothing/head/helmet/space/))
+				user << "\red [H] can't be inject through [H.head]!"
+				return
+		else
+			if (istype(H.wear_suit, /obj/item/clothing/suit/space))
+				user << "\red [H] can't be inject through [H.wear_suit]!"
+				return
+
 	if (reagents.total_volume)
 		user << "\blue You inject [M] with the hypospray."
 		M << "\red You feel a tiny prick!"
