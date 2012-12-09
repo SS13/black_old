@@ -26,19 +26,19 @@
 
 		if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
 			if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood))
-				user << "\red [H] can't be inject through [H.head]!"
+				user << "\red \The [src] can't be applied to [H] through [H.head]!"
 				return 1
 		else
 			if (istype(H.wear_suit, /obj/item/clothing/suit/space) || istype(H.wear_suit, /obj/item/clothing/suit/bio_suit))
-				user << "\red [H] can't be inject through [H.wear_suit]!"
+				user << "\red \The [src] can't be applied to [M] through [H.wear_suit]!"
 				return 1
 			if (istype(H.wear_suit, /obj/item/clothing/suit/armor))
 				if (H.wear_suit:full_protect)
-					user << "\red [H] can't be inject through [H.wear_suit]!"
+					user << "\red \The [src] can't be applied to [M] through [H.wear_suit]!"
 					return 1
 				else
 					if(user.zone_sel.selecting == "chest")
-						user << "\red [H] can't be inject through [H.wear_suit]!"
+						user << "\red \The [src] can't be applied to [M] through [H.wear_suit]!"
 						return 1
 
 
