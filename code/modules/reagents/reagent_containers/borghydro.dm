@@ -1,5 +1,4 @@
 
-
 /obj/item/weapon/reagent_containers/borghypo
 	name = "Cyborg Hypospray"
 	desc = "An advanced chemical synthesizer and injection system, designed for heavy-duty medical equipment."
@@ -50,6 +49,26 @@
 		return
 	if (!( istype(M, /mob) ))
 		return
+
+	if(istype(M, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = M
+		if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
+			if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood))
+				user << "\red [H] can't be inject through [H.head]!"
+				return
+		else
+			if (istype(H.wear_suit, /obj/item/clothing/suit/space) || istype(H.wear_suit, /obj/item/clothing/suit/bio_suit))
+				user << "\red [H] can't be inject through [H.wear_suit]!"
+				return
+			if (istype(H.wear_suit, /obj/item/clothing/suit/armor))
+				if (H.wear_suit:full_protect)
+					user << "\red [H] can't be inject through [H.wear_suit]!"
+					return
+				else
+					if(user.zone_sel.selecting == "chest")
+						user << "\red [H] can't be inject through [H.wear_suit]!"
+						return
+
 	if (reagents.total_volume)
 		user << "\blue You inject [M] with the injector."
 		M << "\red You feel a tiny prick!"
