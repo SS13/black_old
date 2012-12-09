@@ -51,7 +51,7 @@
 	afterattack(obj/target, mob/user , flag)
 		if(!target.reagents) return
 
-		if(ismob(target) && istype(target, /mob/living/carbon))
+		if(ismob(target) && istype(target, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = target
 			if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
 				if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood))
@@ -271,7 +271,7 @@
 	afterattack(obj/target, mob/user , flag)
 		if(!target.reagents) return
 
-		if(ismob(target) && istype(target, /mob/living/carbon))
+		if(ismob(target) && istype(target, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = target
 			if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
 				if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood))
