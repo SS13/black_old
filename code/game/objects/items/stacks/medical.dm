@@ -25,22 +25,13 @@
 		var/datum/organ/external/affecting = H.get_organ("chest")
 
 		if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
-			if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood))
+			if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood) || istype(H.head, /obj/item/clothing/head/bomb_hood))
 				user << "\red \The [src] can't be applied to [H] through [H.head]!"
 				return 1
 		else
-			if (istype(H.wear_suit, /obj/item/clothing/suit/space) || istype(H.wear_suit, /obj/item/clothing/suit/bio_suit))
+			if (istype(H.wear_suit, /obj/item/clothing/suit))
 				user << "\red \The [src] can't be applied to [M] through [H.wear_suit]!"
 				return 1
-			if (istype(H.wear_suit, /obj/item/clothing/suit/armor))
-				if (H.wear_suit:full_protect)
-					user << "\red \The [src] can't be applied to [M] through [H.wear_suit]!"
-					return 1
-				else
-					if(user.zone_sel.selecting == "chest")
-						user << "\red \The [src] can't be applied to [M] through [H.wear_suit]!"
-						return 1
-
 
 		if(affecting.status & ORGAN_ROBOT)
 			user << "\red This isn't useful at all on a robotic limb.."
