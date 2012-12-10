@@ -1,5 +1,4 @@
 /obj/item/clothing/suit/armor
-	var/full_protect = 0
 	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags = FPRINT | TABLEPASS
@@ -35,7 +34,6 @@
 	slowdown = 1
 	armor = list(melee = 80, bullet = 10, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
 	flags_inv = HIDEJUMPSUIT
-	full_protect = 1
 
 
 /obj/item/clothing/suit/armor/bulletproof
@@ -52,33 +50,6 @@
 	icon_state = "armor_reflec"
 	item_state = "armor_reflec"
 	armor = list(melee = 10, bullet = 10, laser = 80, energy = 50, bomb = 0, bio = 0, rad = 0)
-
-
-/obj/item/clothing/suit/armor/swat
-	name = "swat suit"
-	desc = "A heavily armored suit that protects against moderate damage. Used in special operations."
-	icon_state = "deathsquad"
-	item_state = "swat_suit"
-	gas_transfer_coefficient = 0.01
-	permeability_coefficient = 0.01
-	flags = FPRINT | TABLEPASS
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
-	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen)
-	slowdown = 1
-	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 0, rad = 0)
-	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
-	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
-	full_protect = 1
-
-
-/obj/item/clothing/suit/armor/swat/officer
-	name = "officer jacket"
-	desc = "An armored jacket used in special operations."
-	icon_state = "detective"
-	item_state = "det_suit"
-	flags_inv = 0
-
 
 /obj/item/clothing/suit/armor/det_suit
 	name = "armor"
@@ -141,7 +112,6 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
-	full_protect = 1
 
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor"
@@ -157,7 +127,6 @@
 /obj/item/clothing/suit/armor/tdome
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
-	full_protect = 1
 
 /obj/item/clothing/suit/armor/tdome/red
 	name = "Thunderdome suit (red)"
