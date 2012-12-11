@@ -332,7 +332,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			if (1)
 				dat += "<h4><img src=pda_notes.png> Notekeeper V2.1</h4>"
 				dat += "<a href='byond://?src=\ref[src];choice=Edit'> Edit</a><br>"
-				dat += note
+				dat += sanitize_uni(html_decode(note))
 
 			if (2)
 				dat += "<h4><img src=pda_mail.png> SpaceMessenger V3.9.4</h4>"
@@ -533,7 +533,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				if ("Edit")
 					var/n = input(U, "Please enter message", name, notehtml) as message
 					if (in_range(src, U) && loc == U)
-						n = copytext(adminscrub(n), 1, MAX_MESSAGE_LEN)
 						if (mode == 1)
 							note = dd_replacetext(n, "\n", "<BR>")
 							notehtml = n

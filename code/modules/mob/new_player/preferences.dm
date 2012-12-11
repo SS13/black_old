@@ -690,21 +690,21 @@ datum/preferences
 			else
 				user << browse(null, "window=records")
 			if(href_list["task"] == "med_record")
-				var/medmsg = input(usr,"Set your medical notes here.","Medical Records",html_decode(med_record)) as message
+				var/medmsg = input(usr,"Set your medical notes here.","Medical Records",med_record) as message
 
 				if(medmsg != null)
 					medmsg = copytext(medmsg, 1, MAX_PAPER_MESSAGE_LEN)
-					medmsg = html_encode(medmsg)
+					medmsg = sanitize_uni(medmsg)
 
 					med_record = medmsg
 					SetRecords(user)
 
 			if(href_list["task"] == "sec_record")
-				var/secmsg = input(usr,"Set your security notes here.","Security Records",html_decode(sec_record)) as message
+				var/secmsg = input(usr,"Set your security notes here.","Security Records",sec_record) as message
 
 				if(secmsg != null)
 					secmsg = copytext(secmsg, 1, MAX_PAPER_MESSAGE_LEN)
-					secmsg = html_encode(secmsg)
+					secmsg = sanitize_uni(secmsg)
 
 					sec_record = secmsg
 					SetRecords(user)

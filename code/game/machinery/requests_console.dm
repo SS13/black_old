@@ -154,7 +154,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 			if(9)	//authentication before sending
 				dat += text("<B>Message Authentication</B><BR><BR>")
-				dat += text("<b>Message for [dpt]: </b>[message]<BR><BR>")
+				dat += text("<b>Message for [dpt]: </b>[sanitize_uni(message)]<BR><BR>")
 				dat += text("You may authenticate your message now by scanning your ID or your stamp<BR><BR>")
 				dat += text("Validated by: [msgVerified]<br>");
 				dat += text("Stamped by: [msgStamped]<br>");
@@ -167,7 +167,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 					dat += text("<b>Authentication accepted</b><BR><BR>")
 				else
 					dat += text("Swipe your card to authenticate yourself.<BR><BR>")
-				dat += text("<b>Message: </b>[message] <A href='?src=\ref[src];writeAnnouncement=1'>Write</A><BR><BR>")
+				dat += text("<b>Message: </b>[sanitize_uni(message)] <A href='?src=\ref[src];writeAnnouncement=1'>Write</A><BR><BR>")
 				if (announceAuth && message)
 					dat += text("<A href='?src=\ref[src];sendAnnouncement=1'>Announce</A><BR>");
 				dat += text("<BR><A href='?src=\ref[src];setScreen=0'>Back</A><BR>")
@@ -231,7 +231,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)	return
-		world << "<b><font size = 3><font color = red>[department] announcement:</font color> [message]</font size></b>"
+		world << "<b><font size = 3><font color = red>[department] announcement:</font color> [sanitize(html_decode(message))]</font size></b>"
 		announceAuth = 0
 		message = ""
 		screen = 0
@@ -268,7 +268,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 									playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
 									for (var/mob/O in hearers(5, Console.loc))
 										O.show_message(text("\icon[Console] *The Requests Console beeps: 'PRIORITY Alert in [department]'"))
-								Console.messages += "<B><FONT color='red'>High Priority message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[sending]"
+								Console.messages += "<B><FONT color='red'>High Priority message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[sanitize_uni(html_decode(sending))]"
 
 		//					if("3")		//Not implemanted, but will be 		//Removed as it doesn't look like anybody intends on implimenting it ~Carn
 		//						if(Console.newmessagepriority < 3)
@@ -288,11 +288,11 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 									playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
 									for (var/mob/O in hearers(4, Console.loc))
 										O.show_message(text("\icon[Console] *The Requests Console beeps: 'Message from [department]'"))
-								Console.messages += "<B>Message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[message]"
+								Console.messages += "<B>Message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[sanitize_uni(html_decode(message))]"
 
 						screen = 6
 						Console.luminosity = 2
-				messages += "<B>Message sent to [dpt]</B><BR>[message]"
+				messages += "<B>Message sent to [dpt]</B><BR>[sanitize_uni(message)]"
 			else
 				for (var/mob/O in hearers(4, src.loc))
 					O.show_message(text("\icon[src] *The Requests Console beeps: 'NOTICE: No server detected!'"))

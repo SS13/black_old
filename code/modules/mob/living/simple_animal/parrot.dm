@@ -303,7 +303,7 @@
 		if(speak.len)
 			speak.Remove(pick(speak))
 
-		speak.Add(pick(speech_buffer))
+		speak.Add(sanitize_uni(pick(speech_buffer)))
 		clearlist(speech_buffer)
 
 

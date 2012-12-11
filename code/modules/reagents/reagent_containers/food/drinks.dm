@@ -27,6 +27,11 @@
 			return 0
 
 		if(M == user)
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form drinking [src]"
+				return 0
+
 			M << "\blue You swallow a gulp of [src]."
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
@@ -36,6 +41,10 @@
 			playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)
 			return 1
 		else if( istype(M, /mob/living/carbon/human) )
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form force [M.name] to drink [src]"
+				return 0
 
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to feed [M] [src].", 1)

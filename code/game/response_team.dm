@@ -227,7 +227,7 @@ proc/trigger_armed_response_team(var/force = 0)
 	equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(src), slot_gloves)
 
 	//Removed
-//	equip_to_slot_or_del(new /obj/item/clothing/suit/armor/swat(src), slot_wear_suit)
+//	equip_to_slot_or_del(new /obj/item/clothing/suit/space/ert/swat(src), slot_wear_suit)
 //	equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/deathsquad(src), slot_head)
 
 	//Backpack

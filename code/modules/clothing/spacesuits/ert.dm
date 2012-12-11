@@ -19,6 +19,26 @@
 	/obj/item/device/radio, /obj/item/device/analyzer, /obj/item/weapon/gun/energy/laser, /obj/item/weapon/gun/energy/pulse_rifle, \
 	/obj/item/weapon/gun/energy/taser, /obj/item/weapon/melee/baton, /obj/item/weapon/gun/energy/gun)
 
+//Death Squad
+/obj/item/clothing/suit/space/ert/swat
+	name = "swat suit"
+	desc = "A heavily armored suit that protects against moderate damage. Used in special operations."
+	icon_state = "deathsquad"
+	item_state = "swat_suit"
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.01
+	flags = FPRINT | TABLEPASS
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen)
+	armor = list(melee = 80, bullet = 60, laser = 50,energy = 25, bomb = 50, bio = 0, rad = 0)
+	
+/obj/item/clothing/suit/space/ert/swat/officer
+	name = "officer jacket"
+	desc = "An armored jacket used in special operations."
+	icon_state = "detective"
+	item_state = "det_suit"
+	flags_inv = 0
+	
 //Commander
 /obj/item/clothing/head/helmet/space/ert/commander
 	name = "emergency response team commander helmet"

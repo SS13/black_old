@@ -355,7 +355,9 @@
 					H = new /obj/item/weapon/organ/head(owner.loc, owner)
 					if(ishuman(owner))
 						if(owner.gender == FEMALE)
-							H.icon_state = "head_f_l"
+							H.icon_state = "head_f"
+						else
+							H.icon_state = "head_m"
 						H.overlays += owner.generate_head_icon()
 					H:transfer_identity(owner)
 					H.pixel_x = -10

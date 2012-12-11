@@ -49,7 +49,7 @@ WALK_DELAY 0
 ## The variables below affect the movement of specific mob types.
 HUMAN_DELAY 0
 ROBOT_DELAY 0
-MONKEY_DELAY 0
-ALIEN_DELAY 0
+MONKEY_DELAY -0.1
+ALIEN_DELAY -0.3
 METROID_DELAY 0
 ANIMAL_DELAY 0

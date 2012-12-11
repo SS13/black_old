@@ -28,8 +28,10 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(H), slot_glasses)
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/id_kit(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H), slot_l_hand)
 		else
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/id_kit(H.back), slot_in_backpack)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_in_backpack)
 		var/obj/item/weapon/implant/loyalty/L = new/obj/item/weapon/implant/loyalty(H)
 		L.imp_in = H
 		L.implanted = 1
@@ -63,6 +65,8 @@
 		H.equip_to_slot_or_del(new /obj/item/device/pda/heads/hop(H), slot_belt)
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/id_kit(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H), slot_l_hand)
 		else
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/id_kit(H.back), slot_in_backpack)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_in_backpack)
 		return 1

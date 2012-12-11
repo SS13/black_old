@@ -86,11 +86,11 @@
 	New()
 		..()
 		sleep(2)
-		for(var/i = 0, i < 3, i++)
-			new /obj/item/weapon/spacecash/c1000(src)
 		for(var/i = 0, i < 5, i++)
+			new /obj/item/weapon/spacecash/c1000(src)
+		for(var/i = 0, i < 7, i++)
 			new /obj/item/weapon/spacecash/c500(src)
-		for(var/i = 0, i < 6, i++)
+		for(var/i = 0, i < 9, i++)
 			new /obj/item/weapon/spacecash/c200(src)
 		return
 

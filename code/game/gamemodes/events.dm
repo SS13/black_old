@@ -77,9 +77,9 @@
 			high_radiation_event()
 		if(6)
 			viral_outbreak()
-		if(7)
+		/*if(7)
 			if(prob(10))
-				alien_infestation()
+				alien_infestation()*/
 		if(8)
 			prison_break()
 		if(9)

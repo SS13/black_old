@@ -79,7 +79,7 @@
 		return
 	world << "[sanitize(html_decode(msg))]"
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
-	message_admins("\blue \bold GlobalNarrate: [key_name_admin(usr)] : [sanitize(html_decode(msg))]<BR>", 1)
+	message_admins("\blue \bold GlobalNarrate: [key_name_admin(usr)] : [sanitize(html_decode(msg))]", 1)
 	feedback_add_details("admin_verb","GLN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
@@ -103,7 +103,7 @@
 
 	M << sanitize(html_decode(msg))
 	log_admin("DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [msg]")
-	message_admins("\blue \bold DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [sanitize(html_decode(msg))]<BR>", 1)
+	message_admins("\blue \bold DirectNarrate: [key_name(usr)] to ([M.name]/[M.key]): [sanitize(html_decode(msg))]", 1)
 	feedback_add_details("admin_verb","DIRN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_godmode(mob/M as mob in mob_list)

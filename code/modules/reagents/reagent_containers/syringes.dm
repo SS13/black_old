@@ -51,6 +51,17 @@
 	afterattack(obj/target, mob/user , flag)
 		if(!target.reagents) return
 
+		if(ismob(target) && istype(target, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = target
+			if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
+				if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood) || istype(H.head, /obj/item/clothing/head/bomb_hood))
+					user << "\red [H] can't be inject through [H.head]!"
+					return
+			else
+				if (istype(H.wear_suit, /obj/item/clothing/suit/space) || istype(H.wear_suit, /obj/item/clothing/suit/bio_suit) || istype(H.wear_suit, /obj/item/clothing/suit/bomb_suit))
+					user << "\red [H] can't be inject through [H.wear_suit]!"
+					return
+
 		switch(mode)
 			if(SYRINGE_DRAW)
 
@@ -251,6 +262,17 @@
 
 	afterattack(obj/target, mob/user , flag)
 		if(!target.reagents) return
+
+		if(ismob(target) && istype(target, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = target
+			if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
+				if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood) || istype(H.head, /obj/item/clothing/head/bomb_hood))
+					user << "\red [H] can't be inject through [H.head]!"
+					return
+			else
+				if (istype(H.wear_suit, /obj/item/clothing/suit/space) || istype(H.wear_suit, /obj/item/clothing/suit/bio_suit) || istype(H.wear_suit, /obj/item/clothing/suit/bomb_suit))
+					user << "\red [H] can't be inject through [H.wear_suit]!"
+					return
 
 		switch(mode)
 			if(SYRINGE_DRAW)
