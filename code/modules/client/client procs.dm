@@ -121,7 +121,7 @@
 	if(custom_event_msg && custom_event_msg != "")
 		src << "<h1 class='alert'>Custom Event</h1>"
 		src << "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>"
-		src << "<span class='alert'>[html_encode(custom_event_msg)]</span>"
+		src << "<span class='alert'>[sanitize(html_decode(custom_event_msg))]</span>"
 		src << "<br>"
 
 	..()	//calls mob.Login()

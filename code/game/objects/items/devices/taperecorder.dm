@@ -209,7 +209,7 @@
 	var/obj/item/weapon/paper/P = new /obj/item/weapon/paper(get_turf(src))
 	var/t1 = "<B>Transcript:</B><BR><BR>"
 	for(var/i=1,storedinfo.len >= i,i++)
-		t1 += "[storedinfo[i]]<BR>"
+		t1 += "[sanitize_uni(html_decode(storedinfo[i]))]<BR>"
 	P.info = t1
 	P.name = "paper- 'Transcript'"
 	canprint = 0

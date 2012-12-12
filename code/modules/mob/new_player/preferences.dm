@@ -867,12 +867,11 @@ datum/preferences
 							b_type = new_b_type
 
 					if("hair")
-						if(species == "Human" || species == "Soghun")
-							var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
-							if(new_hair)
-								r_hair = hex2num(copytext(new_hair, 2, 4))
-								g_hair = hex2num(copytext(new_hair, 4, 6))
-								b_hair = hex2num(copytext(new_hair, 6, 8))
+						var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
+						if(new_hair)
+							r_hair = hex2num(copytext(new_hair, 2, 4))
+							g_hair = hex2num(copytext(new_hair, 4, 6))
+							b_hair = hex2num(copytext(new_hair, 6, 8))
 
 					if("h_style")
 						var/list/valid_hairstyles = list()
@@ -930,11 +929,12 @@ datum/preferences
 							b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
 					if("s_tone")
-						if(species != "Human")
-							return
-						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
+						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Intensity: 1-220 for humans or 20-70 for other species.)", "Character Preference")  as num|null
 						if(new_s_tone)
-							s_tone = max(min(round(new_s_tone), 220), 1)
+							if(species != "Human")
+								s_tone = max(min(round(new_s_tone), 70), 20)
+							else
+								s_tone = max(min(round(new_s_tone), 220), 1)
 							s_tone = -s_tone + 35
 
 					if("ooccolor")
