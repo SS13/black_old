@@ -23,15 +23,37 @@
 	if (istype(M, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
 		var/datum/organ/external/affecting = H.get_organ("chest")
+		var/cover = 0
 
-		if (user.zone_sel.selecting == "head" || user.zone_sel.selecting == "eyes" || user.zone_sel.selecting == "mouth")
-			if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood) || istype(H.head, /obj/item/clothing/head/bomb_hood))
-				user << "\red \The [src] can't be applied to [H] through [H.head]!"
-				return 1
-		else
-			if (istype(H.wear_suit, /obj/item/clothing/suit))
-				user << "\red \The [src] can't be applied to [M] through [H.wear_suit]!"
-				return 1
+		switch (user.zone_sel.selecting)
+			if ("head","eyes","mouth")
+				if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood) || istype(H.head, /obj/item/clothing/head/bomb_hood))
+					cover = H.head
+			if ("chest")
+				if (H.wear_suit.body_parts_covered&UPPER_TORSO)
+					cover = H.wear_suit
+			if ("groin")
+				if (H.wear_suit.body_parts_covered&LOWER_TORSO)
+					cover = H.wear_suit
+			if ("l_hand","r_hand")
+				if (H.wear_suit.body_parts_covered&ARMS)
+					cover = H.wear_suit
+				if (H.gloves)
+					cover = H.gloves
+			if ("l_foot","r_foot")
+				if (H.wear_suit.body_parts_covered&FEET)
+					cover = H.wear_suit
+				if (H.shoes)
+					cover = H.shoes
+			if ("l_leg","r_leg")
+				if (H.wear_suit.body_parts_covered&LEGS)
+					cover = H.wear_suit
+			if ("l_arm","r_arm")
+				if (H.wear_suit.body_parts_covered&ARMS)
+					cover = H.wear_suit
+		if (cover)
+			user << "\red \The [src] can't be applied to [H] through [cover]!"
+			return 1
 
 		if(affecting.status & ORGAN_ROBOT)
 			user << "\red This isn't useful at all on a robotic limb.."
