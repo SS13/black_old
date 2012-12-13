@@ -51,12 +51,12 @@
 				buckled_mob.visible_message(\
 					"\blue [buckled_mob.name] was unbuckled by [user.name]!",\
 					"You were unbuckled from [src] by [user.name].",\
-					"You hear metal clanking")
+					"You hear metal clanking.")
 			else
 				buckled_mob.visible_message(\
 					"\blue [buckled_mob.name] unbuckled \himself!",\
 					"You unbuckle yourself from [src].",\
-					"You hear metal clanking")
+					"You hear metal clanking.")
 			unbuckle()
 			src.add_fingerprint(user)
 	return

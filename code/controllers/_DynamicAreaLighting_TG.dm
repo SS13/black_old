@@ -31,7 +31,7 @@
 		No directional lighting support. Fairly easy to add this and the code is ready.
 */
 
-#define LIGHTING_MAX_LUMINOSITY 12	//Hard maximum luminosity to prevet lag which could be caused by coders making mini-suns
+#define LIGHTING_MAX_LUMINOSITY 9	//Hard maximum luminosity to prevet lag which could be caused by coders making mini-suns
 #define LIGHTING_MAX_LUMINOSITY_MOB 7	//Mobs get their own max because 60-odd human suns running around would be pretty silly
 #define LIGHTING_LAYER 10			//Drawing layer for lighting overlays
 #define LIGHTING_ICON 'icons/effects/ss13_dark_alpha7.dmi'	//Icon used for lighting shading effects

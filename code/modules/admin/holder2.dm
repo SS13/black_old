@@ -2643,7 +2643,7 @@ var/list/admin_datums = list()
 		var/datum/player_info/P = new
 		P.author = usr.key
 		P.rank = usr.client.holder.rank
-		P.content = add
+		P.content = sanitize_uni(html_decode(add))
 		var/modifyer = "th"
 		switch(time2text(world.timeofday, "DD"))
 			if("01","21","31")

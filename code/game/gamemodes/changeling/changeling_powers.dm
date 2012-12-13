@@ -184,6 +184,7 @@
 	usr.dna = chosen_dna
 	usr.real_name = chosen_dna.real_name
 	updateappearance(usr, usr.dna.uni_identity)
+	usr.warn_flavor_changed()
 	domutcheck(usr, null)
 
 	usr.verbs -= /mob/proc/changeling_transform
@@ -323,7 +324,8 @@
 
 	O.loc = C.loc
 
-	updateappearance(O,O.dna.uni_identity)
+	updateappearance(O, O.dna.uni_identity)
+	O.warn_flavor_changed()
 	domutcheck(O, null)
 	O.setToxLoss(C.getToxLoss())
 	O.adjustBruteLoss(C.getBruteLoss())
