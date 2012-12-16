@@ -64,6 +64,9 @@
 	<A href='byond://?src=\ref[src];code=1'>+</A>
 	<A href='byond://?src=\ref[src];code=5'>+</A><BR>
 	[t1]
+	<BR>
+	<BR>
+	<A href='byond://?src=\ref[src];buttoncraft=1'>Craft button</A>
 	</TT>"}
 		user << browse(dat, "window=radio")
 		onclose(user, "radio")
@@ -93,6 +96,33 @@
 		if(href_list["send"])
 			spawn( 0 )
 				signal()
+
+		if(href_list["buttoncraft"])
+			if(ishuman(usr))
+				var/mob/living/carbon/human/H = usr
+				if(H.l_hand == src)
+					var /obj/machinery/door_control/radio/R = new /obj/machinery/door_control/radio(usr.loc)
+					src.dropped(usr)
+					src.loc = R
+					R.signaler = src
+					H.l_hand = null
+					usr.u_equip(src)
+					usr.update_icons()
+					usr.client.screen -= src
+					return
+				else if(H.r_hand == src)
+					var /obj/machinery/door_control/radio/R = new /obj/machinery/door_control/radio(usr.loc)
+					src.dropped(usr)
+					src.loc = R
+					R.signaler = src
+					H.r_hand = null
+					usr.u_equip(src)
+					usr.update_icons()
+					usr.client.screen -= src
+					return
+				else
+					usr << "\red You should take signaler in your hand to craft something"
+
 
 		if(usr)
 			attack_self(usr)
@@ -172,3 +202,34 @@
 		deadman = 1
 		processing_objects.Add(src)
 		usr.visible_message("\red [usr] moves their finger over [src]'s signal button...")
+
+
+/obj/machinery/door_control/radio
+	var/obj/item/device/assembly/signaler/signaler
+
+
+/obj/machinery/door_control/radio/attack_hand(mob/user as mob)
+	src.add_fingerprint(usr)
+	if(stat & (NOPOWER|BROKEN))
+		return
+	use_power(5)
+	icon_state = "doorctrl1"
+	add_fingerprint(user)
+
+	if(signaler)
+		signaler.signal()
+
+	desiredstate = !desiredstate
+	spawn(15)
+		if(!(stat & NOPOWER))
+			icon_state = "doorctrl0"
+
+/obj/machinery/door_control/radio/attackby(obj/item/weapon/W, mob/user as mob)
+	if(istype(W, /obj/item/device/detective_scanner))
+		return
+	if(istype(W, /obj/item/weapon/screwdriver))
+		user << "\red You disassembled button with [W]"
+		signaler.loc = loc
+		del(src)
+		return
+	return src.attack_hand(user)
