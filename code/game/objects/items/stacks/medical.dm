@@ -26,7 +26,6 @@
 		var/cover = 0
 
 		switch (user.zone_sel.selecting)
-		switch (user.zone_sel.selecting)
 			if ("head","eyes","mouth")
 				if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood) || istype(H.head, /obj/item/clothing/head/bomb_hood))
 					cover = H.head
