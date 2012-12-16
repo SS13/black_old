@@ -109,6 +109,8 @@
 					usr.u_equip(src)
 					usr.update_icons()
 					usr.client.screen -= src
+					usr.update_inv_l_hand()
+					usr << browse(null, "window=radio")
 					return
 				else if(H.r_hand == src)
 					var /obj/machinery/door_control/radio/R = new /obj/machinery/door_control/radio(usr.loc)
@@ -119,6 +121,8 @@
 					usr.u_equip(src)
 					usr.update_icons()
 					usr.client.screen -= src
+					usr.update_inv_r_hand()
+					usr << browse(null, "window=radio")
 					return
 				else
 					usr << "\red You should take signaler in your hand to craft something"
@@ -166,7 +170,7 @@
 		if(!(src.wires & WIRE_RADIO_RECEIVE))	return 0
 		pulse(1)
 
-		if(!holder)
+		if(!holder || src.loc != /obj/machinery/door_control/radio)
 			for(var/mob/O in hearers(1, src.loc))
 				O.show_message(text("\icon[] *beep* *beep*", src), 3, "*beep* *beep*", 2)
 		return
