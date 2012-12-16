@@ -26,30 +26,31 @@
 		var/cover = 0
 
 		switch (user.zone_sel.selecting)
+		switch (user.zone_sel.selecting)
 			if ("head","eyes","mouth")
 				if (istype(H.head, /obj/item/clothing/head/helmet/space/) || istype(H.head, /obj/item/clothing/head/bio_hood) || istype(H.head, /obj/item/clothing/head/bomb_hood))
 					cover = H.head
 			if ("chest")
-				if (H.wear_suit.body_parts_covered&UPPER_TORSO)
+				if (H.wear_suit && H.wear_suit.body_parts_covered&UPPER_TORSO)
 					cover = H.wear_suit
 			if ("groin")
-				if (H.wear_suit.body_parts_covered&LOWER_TORSO)
+				if (H.wear_suit && H.wear_suit.body_parts_covered&LOWER_TORSO)
 					cover = H.wear_suit
 			if ("l_hand","r_hand")
-				if (H.wear_suit.body_parts_covered&ARMS)
+				if (H.wear_suit && H.wear_suit.body_parts_covered&ARMS)
 					cover = H.wear_suit
 				if (H.gloves)
 					cover = H.gloves
 			if ("l_foot","r_foot")
-				if (H.wear_suit.body_parts_covered&FEET)
+				if (H.wear_suit && H.wear_suit.body_parts_covered&FEET)
 					cover = H.wear_suit
 				if (H.shoes)
 					cover = H.shoes
 			if ("l_leg","r_leg")
-				if (H.wear_suit.body_parts_covered&LEGS)
+				if (H.wear_suit && H.wear_suit.body_parts_covered&LEGS)
 					cover = H.wear_suit
 			if ("l_arm","r_arm")
-				if (H.wear_suit.body_parts_covered&ARMS)
+				if (H.wear_suit && H.wear_suit.body_parts_covered&ARMS)
 					cover = H.wear_suit
 		if (cover)
 			user << "\red \The [src] can't be applied to [H] through [cover]!"
