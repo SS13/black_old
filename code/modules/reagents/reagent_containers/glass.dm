@@ -43,6 +43,8 @@
 						usr << "\blue [R.volume] units of [R.name]"
 				else
 					usr << "\blue [src.reagents.total_volume] units of something liquid"
+			else 
+				usr << "\blue [src.reagents.total_volume] units of something liquid"
 		else
 			usr << "\blue Nothing."
 
