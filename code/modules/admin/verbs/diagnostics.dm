@@ -161,17 +161,18 @@
 		feedback_add_details("admin_verb","RR") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 	reload_admins()
-		set name = "Reload Admins"
+		set name = "Reload Lists"
 		set category = "Debug"
 
 		if(!(usr.client.holder && usr.client.holder.level >= 6)) // protect and prevent
 			usr << "\red Not a good cop"
 			return
 
-		message_admins("[usr] manually reloaded admins.txt and moderators.txt")
-		usr << "You reload admins.txt and moderators.txt"
+		message_admins("[usr] manually reloaded admins.txt, moderators.txt and whitelist.")
+		usr << "You reload admins.txt, moderators.txt and whitelist."
 		world.load_admins()
 		world.load_mods()
+		load_bwhitelist()
 		feedback_add_details("admin_verb","RLDA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 //todo:

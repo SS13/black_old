@@ -366,6 +366,14 @@
 				"\red You have wet \the [O], it shocks you!")
 			return
 
+	else if (istype(O, /obj/item/ashtray))
+		var/obj/item/ashtray/ash = O
+		if (ash.contents.len)
+			src.visible_message("[user] drops all the trash from [ash] to [src].")
+		for (var/obj/item/I in ash.contents)
+			ash.contents -= I
+		ash.icon_state = ash.icon_empty
+
 	var/turf/location = user.loc
 	if(!isturf(location)) return
 
