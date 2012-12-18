@@ -50,6 +50,13 @@
 			else if (contents.len > max_butts/2)
 				icon_state = icon_half
 				desc = empty_desc + " It's half-filled."
+	if (istype(W, /obj/item/weapon/trashbag) || istype(W, /obj/item/weapon/storage/trashbag))
+		if (src.contents.len)
+			src.visible_message("[user] picks up all the trash from [src].")
+		for (var/obj/item/O in contents)
+			contents -= O
+			W.contents += O
+		icon_state = icon_empty
 	else
 		health = max(0,health - W.force)
 		user << "You hit [src] with [W]."
@@ -65,7 +72,7 @@
 			return
 		if (contents.len)
 			src.visible_message("\red [src] slams into [hit_atom] spilling its contents!")
-		for (var/obj/item/clothing/mask/cigarette/O in contents)
+		for (var/obj/item/O in contents)
 			contents -= O
 			O.loc = src.loc
 		icon_state = icon_empty
@@ -73,7 +80,7 @@
 
 /obj/item/ashtray/proc/die()
 	src.visible_message("\red [src] shatters spilling its contents!")
-	for (var/obj/item/clothing/mask/cigarette/O in contents)
+	for (var/obj/item/O in contents)
 		contents -= O
 		O.loc = src.loc
 	icon_state = icon_broken

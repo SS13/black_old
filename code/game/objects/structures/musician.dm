@@ -8,7 +8,7 @@
 /obj/structure/device/piano
 	name = "space minimoog"
 	icon = 'musician.dmi'
-	icon_state = "piano"
+	icon_state = "minimoog"
 	anchored = 1
 	density = 1
 	var/datum/song/song

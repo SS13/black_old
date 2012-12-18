@@ -83,7 +83,7 @@ Whitespace:Seperator;
 	for(var/mob/new_player/player in player_list)
 		if((player.client)&&(player.ready))
 			playerC++
-	if(playerC >= required_players)
+	if(playerC)
 		return 1
 	return 0
 

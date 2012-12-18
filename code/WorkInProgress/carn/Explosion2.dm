@@ -12,7 +12,7 @@ proc/explosion(turf/epicenter, devastation_range, heavy_impact_range, light_impa
 			message_admins("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range]) in area [epicenter.loc.name] ")
 			log_game("Explosion with size ([devastation_range], [heavy_impact_range], [light_impact_range]) in area [epicenter.loc.name] ")
 
-		playsound(epicenter, 'sound/effects/explosionfar.ogg', 100, 1, round(devastation_range*7,1) )
+		playsound(epicenter, 'sound/effects/explosionfar.ogg', 100, 1, round(light_impact_range*7,1) )
 		playsound(epicenter, "explosion", 100, 1, round(devastation_range,1) )
 
 		tension_master.explosion()

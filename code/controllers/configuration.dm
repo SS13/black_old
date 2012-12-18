@@ -286,14 +286,14 @@
 					config.protect_roles_from_antagonist = 1
 
 				if ("probability")
-					config.probabilities["Extend-A-Traitormongous"] = 4
-					config.probabilities["traitorchan"] = 6
-					config.probabilities["traitor"] = 9
+					config.probabilities["Extend-A-Traitormongous"] = 2
+					config.probabilities["traitorchan"] = 3
+					config.probabilities["traitor"] = 3
 					config.probabilities["blob"] = 0
-					config.probabilities["changeling"] = 6
+					config.probabilities["changeling"] = 3
 					config.probabilities["cult"] = 2
 					config.probabilities["extended"] = 1
-					config.probabilities["malfunction"] = 2
+					config.probabilities["malfunction"] = 1
 					config.probabilities["meteor"] = 0
 					config.probabilities["nuclear"] = 1
 					config.probabilities["rp-revolution"] = 1
