@@ -51,8 +51,8 @@
 				M.dna.struc_enzymes = setblock(M.dna.struc_enzymes,block,dna,3)
 				domutcheck(M, null,1)
 				uses--
-			if(prob(5))
-				trigger_side_effect(M)
+//			if(prob(5))
+//				trigger_side_effect(M)
 
 	spawn(0)//this prevents the collapse of space-time continuum
 		user.drop_from_inventory(src)
@@ -88,7 +88,7 @@
 					inuse = 0
 				M.requests += O
 				if (dnatype == "se")
-					if (isblockon(getblock(dna, 14,3),14) && istype(M, /mob/living/carbon/human))
+					if (isblockon(getblock(dna, MONKEYBLOCK,3),MONKEYBLOCK) && istype(M, /mob/living/carbon/human))
 						message_admins("[key_name_admin(user)] injected [key_name_admin(M)] with the [name] \red(MONKEY)")
 						log_attack("[key_name(user)] injected [key_name(M)] with the [name] (MONKEY)")
 					else
@@ -354,9 +354,27 @@
 	desc = "Will make you a flea bag."
 	dnatype = "se"
 	dna = "FA0"
-	block = 14
+	New()
+		..()
+		block = MONKEYBLOCK
 
 /obj/item/weapon/dnainjector/m2h
+	name = "DNA-Injector (Monkey > Human)"
+	desc = "Will make you...less hairy."
+	dnatype = "se"
+	dna = "708"
+	New()
+		..()
+		block = MONKEYBLOCK
+	
+/obj/item/weapon/dnainjector/h2mold
+	name = "DNA-Injector (Human > Monkey)"
+	desc = "Will make you a flea bag."
+	dnatype = "se"
+	dna = "FA0"
+	block = 14
+
+/obj/item/weapon/dnainjector/m2hold
 	name = "DNA-Injector (Monkey > Human)"
 	desc = "Will make you...less hairy."
 	dnatype = "se"
