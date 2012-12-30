@@ -1,8 +1,11 @@
 /var/security_level = 0
-//0 = code green
-//1 = code blue
-//2 = code red
-//3 = code delta
+//Security levels
+//GREEN	 0
+//YELLOW 1
+//ORANGE 2
+//BLUE	 3
+//RED	 4
+//DELTA	 5
 
 //config.alert_desc_blue_downto
 
@@ -10,6 +13,10 @@
 	switch(level)
 		if("green")
 			level = SEC_LEVEL_GREEN
+		if("yellow")
+			level = SEC_LEVEL_YELLOW
+		if("orange")
+			level = SEC_LEVEL_ORANGE
 		if("blue")
 			level = SEC_LEVEL_BLUE
 		if("red")
@@ -28,6 +35,24 @@
 					if(FA.z == 1)
 						FA.overlays = list()
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_green")
+			if(SEC_LEVEL_YELLOW)
+				if(security_level < SEC_LEVEL_YELLOW)
+					world << "<font size=4 color='red'>Attention! Security level elevated to yellow</font>"
+					world << "<font color='red'>[config.alert_desc_yellow_upto]</font>"
+				else
+					world << "<font size=4 color='red'>Attention! Security level lowered to yellow</font>"
+					world << "<font color='red'>[config.alert_desc_yellow_downto]</font>"
+				security_level = SEC_LEVEL_YELLOW
+				////
+			if(SEC_LEVEL_ORANGE)
+				if(security_level < SEC_LEVEL_ORANGE)
+					world << "<font size=4 color='red'>Attention! Security level elevated to orange</font>"
+					world << "<font color='red'>[config.alert_desc_orange_upto]</font>"
+				else
+					world << "<font size=4 color='red'>Attention! Security level lowered to orange</font>"
+					world << "<font color='red'>[config.alert_desc_orange_downto]</font>"
+				security_level = SEC_LEVEL_ORANGE
+				////
 			if(SEC_LEVEL_BLUE)
 				if(security_level < SEC_LEVEL_BLUE)
 					world << "<font size=4 color='red'>Attention! Security level elevated to blue</font>"
@@ -42,10 +67,10 @@
 						FA.overlays += image('icons/obj/monitors.dmi', "overlay_blue")
 			if(SEC_LEVEL_RED)
 				if(security_level < SEC_LEVEL_RED)
-					world << "<font size=4 color='red'>Attention! Code red!</font>"
+					world << "<font size=4 color='red'>Attention! Code red! Code red!</font>"
 					world << "<font color='red'>[config.alert_desc_red_upto]</font>"
 				else
-					world << "<font size=4 color='red'>Attention! Code red!</font>"
+					world << "<font size=4 color='red'>Attention! Code red! Code red!</font>"
 					world << "<font color='red'>[config.alert_desc_red_downto]</font>"
 				security_level = SEC_LEVEL_RED
 
@@ -73,6 +98,10 @@
 	switch(security_level)
 		if(SEC_LEVEL_GREEN)
 			return "green"
+		if(SEC_LEVEL_YELLOW)
+			return "yellow"
+		if(SEC_LEVEL_ORANGE)
+			return "orange"
 		if(SEC_LEVEL_BLUE)
 			return "blue"
 		if(SEC_LEVEL_RED)
@@ -84,6 +113,10 @@
 	switch(num)
 		if(SEC_LEVEL_GREEN)
 			return "green"
+		if(SEC_LEVEL_YELLOW)
+			return "yellow"
+		if(SEC_LEVEL_ORANGE)
+			return "orange"
 		if(SEC_LEVEL_BLUE)
 			return "blue"
 		if(SEC_LEVEL_RED)
@@ -95,6 +128,10 @@
 	switch( lowertext(seclevel) )
 		if("green")
 			return SEC_LEVEL_GREEN
+		if("yellow")
+			return SEC_LEVEL_YELLOW
+		if("orange")
+			return SEC_LEVEL_ORANGE
 		if("blue")
 			return SEC_LEVEL_BLUE
 		if("red")
