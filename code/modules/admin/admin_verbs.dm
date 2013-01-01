@@ -188,6 +188,7 @@
 			verbs += /client/proc/unjobban_panel
 			verbs += /client/proc/jobbans
 			verbs += /client/proc/unban_panel
+			verbs += /client/proc/warn
 			verbs += /datum/admins/proc/toggleooc
 			verbs += /datum/admins/proc/toggleoocdead
 		else
