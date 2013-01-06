@@ -256,7 +256,6 @@
 			verbs += /client/proc/giveruntimelog							//used by coders to retrieve runtime logs
 			verbs += /client/proc/togglebuildmodeself
 			verbs += /client/proc/debug_controller
-			verbs += /client/proc/wmessage
 		else
 			return
 
@@ -286,6 +285,7 @@
 			verbs += /client/proc/admin_memo
 			verbs += /client/proc/ToRban									//ToRban  frontend to access its features.
 			verbs += /client/proc/game_panel
+			verbs += /client/proc/hide_debug_verbs
 		else
 			return
 
@@ -598,7 +598,7 @@
 		src << "Only administrators may use this command."
 		return
 	if(M.client && M.client.holder && (M.client.holder.level >= holder.level))
-		alert("Suck, please. This pedalque have a higher administrative rank(ILI ETO TY, YOBA)!", null, null, null, null, null)
+		alert("This administrator have a higher administrative rank(or is it you, of course)!", null, null, null, null, null)
 		return
 	if(!M.client.warned)
 		M << "\red<BIG><B>You have been warned by an administrator. This is the only warning you will recieve.</B></BIG>"
@@ -616,11 +616,6 @@
 		del(M.client)
 	feedback_add_details("admin_verb","WARN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/wmessage() // At the moment it is a faike message to NAR-SIE. I will correct it later.
-	set category = "Fun"
-	set name = "World Message"
-	set desc = "Display custom message to world"
-	world << "<font size='28' color='red'><b>NAR-SIE HAS RISEN</b></font>"
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Special Verbs"
@@ -768,6 +763,17 @@
 			usr << "You are now a normal player."
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/hide_debug_verbs()
+	set name = "Toggle testing or debug verbs"
+	set category = "Debug"
+	src << "Hiding testing or debug verbs"
+
+	if(holder.level >= 5)//Game Admin********************************************************************
+		verbs += /client/proc/enable_debug_verbs
+		verbs += /client/proc/cmd_debug_mob_lists
+		verbs += /client/proc/callproc
+
+	return
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Toggle most admin verb visibility"
