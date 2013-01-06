@@ -256,6 +256,7 @@
 			verbs += /client/proc/giveruntimelog							//used by coders to retrieve runtime logs
 			verbs += /client/proc/togglebuildmodeself
 			verbs += /client/proc/debug_controller
+			verbs += /client/proc/wmessage
 		else
 			return
 
@@ -590,17 +591,17 @@
 
 #define AUTOBATIME 10
 /client/proc/warn(var/mob/M in player_list)
-	/*set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Warn"
-	set desc = "Warn a player"*/ //Based on the information I gathered via stat logging this verb was not used. Use the show player panel alternative. --erro
+	set desc = "Warn a player" //Based on the information I gathered via stat logging this verb was not used. Use the show player panel alternative. --erro
 	if(!holder)
 		src << "Only administrators may use this command."
 		return
 	if(M.client && M.client.holder && (M.client.holder.level >= holder.level))
-		alert("You cannot perform this action. You must be of a higher administrative rank!", null, null, null, null, null)
+		alert("Suck, please. This pedalque have a higher administrative rank(ILI ETO TY, YOBA)!", null, null, null, null, null)
 		return
 	if(!M.client.warned)
-		M << "\red <B>You have been warned by an administrator. This is the only warning you will recieve.</B>"
+		M << "\red<BIG><B>You have been warned by an administrator. This is the only warning you will recieve.</B></BIG>"
 		M.client.warned = 1
 		message_admins("\blue [ckey] warned [M.ckey].")
 	else
@@ -615,6 +616,11 @@
 		del(M.client)
 	feedback_add_details("admin_verb","WARN") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/wmessage() // At the moment it is a faike message to NAR-SIE. I will correct it later.
+	set category = "Fun"
+	set name = "World Message"
+	set desc = "Display custom message to world"
+	world << "<font size='28' color='red'><b>NAR-SIE HAS RISEN</b></font>"
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Special Verbs"
