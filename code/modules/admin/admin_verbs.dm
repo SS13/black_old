@@ -188,6 +188,7 @@
 			verbs += /client/proc/unjobban_panel
 			verbs += /client/proc/jobbans
 			verbs += /client/proc/unban_panel
+			verbs += /client/proc/warn
 			verbs += /datum/admins/proc/toggleooc
 			verbs += /datum/admins/proc/toggleoocdead
 		else
@@ -284,6 +285,7 @@
 			verbs += /client/proc/admin_memo
 			verbs += /client/proc/ToRban									//ToRban  frontend to access its features.
 			verbs += /client/proc/game_panel
+			verbs += /client/proc/hide_debug_verbs
 		else
 			return
 
@@ -589,17 +591,17 @@
 
 #define AUTOBATIME 10
 /client/proc/warn(var/mob/M in player_list)
-	/*set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Warn"
-	set desc = "Warn a player"*/ //Based on the information I gathered via stat logging this verb was not used. Use the show player panel alternative. --erro
+	set desc = "Warn a player" //Based on the information I gathered via stat logging this verb was not used. Use the show player panel alternative. --erro
 	if(!holder)
 		src << "Only administrators may use this command."
 		return
 	if(M.client && M.client.holder && (M.client.holder.level >= holder.level))
-		alert("You cannot perform this action. You must be of a higher administrative rank!", null, null, null, null, null)
+		alert("This administrator have a higher administrative rank(or is it you, of course)!", null, null, null, null, null)
 		return
 	if(!M.client.warned)
-		M << "\red <B>You have been warned by an administrator. This is the only warning you will recieve.</B>"
+		M << "\red<BIG><B>You have been warned by an administrator. This is the only warning you will recieve.</B></BIG>"
 		M.client.warned = 1
 		message_admins("\blue [ckey] warned [M.ckey].")
 	else
@@ -761,6 +763,17 @@
 			usr << "You are now a normal player."
 	feedback_add_details("admin_verb","DAS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
+/client/proc/hide_debug_verbs()
+	set name = "Toggle testing or debug verbs"
+	set category = "Debug"
+	src << "Hiding testing or debug verbs"
+
+	if(holder.level >= 5)//Game Admin********************************************************************
+		verbs += /client/proc/enable_debug_verbs
+		verbs += /client/proc/cmd_debug_mob_lists
+		verbs += /client/proc/callproc
+
+	return
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Toggle most admin verb visibility"
