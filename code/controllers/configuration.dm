@@ -65,10 +65,6 @@
 
 	//Alert level description
 	var/alert_desc_green = "All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced."
-	var/alert_desc_yellow_upto = "Yellow security level upto filler. Station have serious damage."
-	var/alert_desc_yellow_downto = "Yellow security level upto filler. Station have serious damage, but not have danger from people." //My bad english D:
-	var/alert_desc_orange_upto = "Orange security level upto filler. Station under inner danger."
-	var/alert_desc_orange_downto = "Orange security level downto filler. Station under inner danger but not have damage."
 	var/alert_desc_blue_upto = "The station has received reliable information about possible hostile activity on the station. Security staff may have weapons visible, random searches are permitted."
 	var/alert_desc_blue_downto = "The immediate threat has passed. Security may no longer have weapons drawn at all times, but may continue to have them visible. Random searches are still allowed."
 	var/alert_desc_red_upto = "There is an immediate serious threat to the station. Security may have weapons unholstered at all times. Random searches are allowed and advised."
@@ -290,13 +286,13 @@
 					config.protect_roles_from_antagonist = 1
 
 				if ("probability")
-					config.probabilities["Extend-A-Traitormongous"] = 1
-					config.probabilities["traitorchan"] = 1
+					config.probabilities["Extend-A-Traitormongous"] = 2
+					config.probabilities["traitorchan"] = 3
 					config.probabilities["traitor"] = 3
 					config.probabilities["blob"] = 0
-					config.probabilities["changeling"] = 1
-					config.probabilities["cult"] = 1
-					config.probabilities["extended"] = 2
+					config.probabilities["changeling"] = 3
+					config.probabilities["cult"] = 2
+					config.probabilities["extended"] = 1
 					config.probabilities["malfunction"] = 1
 					config.probabilities["meteor"] = 0
 					config.probabilities["nuclear"] = 1
