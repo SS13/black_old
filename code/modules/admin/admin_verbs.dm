@@ -188,6 +188,7 @@
 			verbs += /client/proc/unjobban_panel
 			verbs += /client/proc/jobbans
 			verbs += /client/proc/unban_panel
+			verbs += /client/proc/warn
 			verbs += /datum/admins/proc/toggleooc
 			verbs += /datum/admins/proc/toggleoocdead
 		else
@@ -589,9 +590,9 @@
 
 #define AUTOBATIME 10
 /client/proc/warn(var/mob/M in player_list)
-	/*set category = "Special Verbs"
+	set category = "Admin"
 	set name = "Warn"
-	set desc = "Warn a player"*/ //Based on the information I gathered via stat logging this verb was not used. Use the show player panel alternative. --erro
+	set desc = "Warn a player" //Based on the information I gathered via stat logging this verb was not used. Use the show player panel alternative. --erro
 	if(!holder)
 		src << "Only administrators may use this command."
 		return
@@ -599,7 +600,7 @@
 		alert("You cannot perform this action. You must be of a higher administrative rank!", null, null, null, null, null)
 		return
 	if(!M.client.warned)
-		M << "\red <B>You have been warned by an administrator. This is the only warning you will recieve.</B>"
+		M << "\red<BIG><B>You have been warned by an administrator. This is the only warning you will recieve.</B></BIG>"
 		M.client.warned = 1
 		message_admins("\blue [ckey] warned [M.ckey].")
 	else
