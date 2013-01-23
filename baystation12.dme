@@ -274,6 +274,7 @@
 #include "code\game\machinery\biogenerator.dm"
 #include "code\game\machinery\cell_charger.dm"
 #include "code\game\machinery\cloning.dm"
+#include "code\game\machinery\clothing_factory.dm"
 #include "code\game\machinery\constructable_frame.dm"
 #include "code\game\machinery\cryo.dm"
 #include "code\game\machinery\deployable.dm"
