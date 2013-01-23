@@ -35,50 +35,68 @@
 	name = "blue shoes"
 	icon_state = "blue"
 	color = "blue"
+	g_amt = 3260
+	m_amt = 3350
 
 /obj/item/clothing/shoes/green
 	name = "green shoes"
 	icon_state = "green"
 	color = "green"
+	g_amt = 3700
+	m_amt = 1250
 
 /obj/item/clothing/shoes/yellow
 	name = "yellow shoes"
 	icon_state = "yellow"
 	color = "yellow"
+	g_amt = 3400
+	m_amt = 3450
 
 /obj/item/clothing/shoes/purple
 	name = "purple shoes"
 	icon_state = "purple"
 	color = "purple"
+	g_amt = 3100
+	m_amt = 3650
 
 /obj/item/clothing/shoes/brown
 	name = "brown shoes"
 	icon_state = "brown"
 	color = "brown"
+	g_amt = 3000
+	m_amt = 3250
 
 /obj/item/clothing/shoes/red
 	name = "red shoes"
 	desc = "Stylish red shoes."
 	icon_state = "red"
 	color = "red"
+	g_amt = 3250
+	m_amt = 3250
 
 /obj/item/clothing/shoes/white
 	name = "white shoes"
 	icon_state = "white"
 	permeability_coefficient = 0.25
 	color = "white"
+	g_amt = 3600
+	m_amt = 3250
 
 /obj/item/clothing/shoes/rainbow
 	name = "rainbow shoes"
 	desc = "Very gay shoes."
 	icon_state = "rain_bow"
 	color = "rainbow"
+	g_amt = 3300
+	m_amt = 3250
 
 /obj/item/clothing/shoes/orange
 	name = "orange shoes"
 	icon_state = "orange"
 	var/chained = 0
 	color = "orange"
+	g_amt = 3500
+	m_amt = 3250
 
 /obj/item/clothing/shoes/orange/attack_self(mob/user as mob)
 	if (src.chained)

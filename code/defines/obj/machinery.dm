@@ -41,6 +41,30 @@
 	idle_power_usage = 10
 	active_power_usage = 100
 
+/obj/machinery/clothing_factory
+	name = "\improper Clothing Factory"
+	desc = "It produces items using metal and glass."
+	icon = 'icons/obj/machines/heavy_lathe.dmi'
+	icon_state = "h_lathe"
+	density = 1
+	var/m_amount = 0.0
+	var/g_amount = 0.0
+	var/operating = 0.0
+	var/opened = 0.0
+	anchored = 1.0
+	var/list/L = list()
+	var/list/LL = list()
+	var/hacked = 0
+	var/disabled = 0
+	var/shocked = 0
+	var/list/wires = list()
+	var/hack_wire
+	var/disable_wire
+	var/shock_wire
+	use_power = 1
+	idle_power_usage = 10
+	active_power_usage = 50
+
 /obj/machinery/dna_scanner
 	name = "\improper DNA scanner/implanter"
 	desc = "It scans DNA structures."

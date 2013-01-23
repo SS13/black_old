@@ -12,6 +12,8 @@
 	name = "mime shoes"
 	icon_state = "mime"
 	color = "mime"
+	g_amt = 4500
+	m_amt = 3000
 
 /obj/item/clothing/shoes/swat
 	name = "\improper SWAT shoes"
@@ -49,11 +51,15 @@
 	desc = "A pair of rather plain, wooden sandals."
 	name = "sandals"
 	icon_state = "wizard"
+	g_amt = 4500
+	m_amt = 3000
 
 /obj/item/clothing/shoes/sandal/marisa
 	desc = "A pair of magic, black shoes."
 	name = "magic shoes"
 	icon_state = "black"
+	g_amt = 4500
+	m_amt = 3000
 
 /obj/item/clothing/shoes/galoshes
 	desc = "Rubber boots"
@@ -62,6 +68,8 @@
 	permeability_coefficient = 0.05
 	flags = NOSLIP
 	slowdown = SHOES_SLOWDOWN+1
+	g_amt = 4500
+	m_amt = 3000
 
 /obj/item/clothing/shoes/clown_shoes
 	desc = "The prankster's standard-issue clowning shoes. Damn they're huge!"
@@ -70,6 +78,8 @@
 	item_state = "clown_shoes"
 	slowdown = SHOES_SLOWDOWN+1
 	color = "clown"
+	g_amt = 4500
+	m_amt = 3000
 
 /obj/item/clothing/shoes/jackboots
 	name = "jackboots"
@@ -77,6 +87,8 @@
 	icon_state = "jackboots"
 	item_state = "jackboots"
 	color = "hosred"
+	g_amt = 4500
+	m_amt = 3000
 
 /obj/item/clothing/shoes/cult
 	name = "boots"

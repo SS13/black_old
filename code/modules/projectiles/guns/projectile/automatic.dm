@@ -2,6 +2,7 @@
 	name = "Submachine Gun"
 	desc = "A lightweight, fast firing gun. Uses 9mm rounds."
 	icon_state = "saber"
+	item_state = "c20r"
 	w_class = 3.0
 	max_shells = 18
 	caliber = "9mm"

@@ -19,6 +19,8 @@
 	name = "collectable xenomorph helmet!"
 	desc = "Hiss hiss hiss!"
 	icon_state = "xenom"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/chef
 	name = "collectable chef's hat"
@@ -52,6 +54,8 @@
 	name = "collectable beret"
 	desc = "A Collectable red Beret. It smells faintly of Garlic."
 	icon_state = "beret"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/welding
 	name = "collectable welding helmet"
@@ -64,35 +68,47 @@
 	desc = "Just like a real Brain Slug!"
 	icon_state = "headslime"
 	item_state = "headslime"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/flatcap
 	name = "collectable flat cap"
 	desc = "A Collectible farmer's Flat Cap!"
 	icon_state = "flat_cap"
 	item_state = "detective"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/pirate
 	name = "collectable pirate hat"
 	desc = "You'd make a great Dread Syndie Roberts!"
 	icon_state = "pirate"
 	item_state = "pirate"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/kitty
 	name = "collectable kitty ears"
 	desc = "The fur feels.....a bit too realistic."
 	icon_state = "kitty"
 	item_state = "kitty"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/rabbitears
 	name = "collectable rabbit ears"
 	desc = "Not as lucky as the feet!"
 	icon_state = "bunny"
 	item_state = "bunny"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/wizard
 	name = "collectable wizard's hat"
 	desc = "NOTE:Any magical powers gained from wearing this hat are purely coincidental."
 	icon_state = "wizard"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/hardhat
 	name = "collectable hard hat"
@@ -104,6 +120,8 @@
 	name = "collectable HoS hat"
 	desc = "Now you can beat prisoners, set silly sentences and arrest for no reason too!"
 	icon_state = "hoscap"
+	g_amt = 5000
+	m_amt = 5000
 
 /obj/item/clothing/head/collectable/thunderdome
 	name = "collectable Thunderdome helmet"

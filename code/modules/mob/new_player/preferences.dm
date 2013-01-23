@@ -88,6 +88,7 @@ datum/preferences
 		//Mob preview
 	var/icon/preview_icon_front = null
 	var/icon/preview_icon_side = null
+//	var/preview_dir = SOUTH
 
 		//Jobs, uses bitflags
 	var/job_civilian_high = 0
@@ -333,7 +334,13 @@ datum/preferences
 		dat += "Backpack Type:<br><a href =\"byond://?src=\ref[user];preference=bag;task=input\"><b>[backbaglist[backbag]]</b></a><br>"
 
 		dat += "</td><td><b>Preview</b><br><img src=previewicon.png height=64 width=64><img src=previewicon2.png height=64 width=64></td></tr></table>"
-
+/*
+		dat += "</td><td style='text-align:center;padding-left:2em'><b>Preview</b><br>"
+		dat += "<a href='?src=\ref[user];preferences=1;preview_dir=[turn(preview_dir,-90)]'>&lt;</a>"
+		dat += "<img src=previewicon.png height=64 width=64 style='vertical-align:middle'>"
+		dat += "<a href='?src=\ref[user];preferences=1;preview_dir=[turn(preview_dir,90)]'>&gt;</a>"
+		dat += "</td></tr></table>"
+*/
 		dat += "<br><b>Hair</b><br>"
 		dat += "<a href='byond://?src=\ref[user];preference=hair;task=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]\"><table style='display:inline;' bgcolor=\"#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]\"><tr><td>__</td></tr></table></font><br>"
 		dat += "Style: <a href='byond://?src=\ref[user];preference=h_style;task=input'>[h_style]</a><br>"
@@ -627,6 +634,10 @@ datum/preferences
 
 	proc/process_link(mob/user, list/href_list)
 		if(!user)	return
+
+//		if(href_list["preview_dir"])
+//			preview_dir = text2num(href_list["preview_dir"])
+
 		if(href_list["preference"] == "job")
 			switch(href_list["task"])
 				if("close")
@@ -932,7 +943,7 @@ datum/preferences
 						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Intensity: 1-220 for humans or 20-70 for other species.)", "Character Preference")  as num|null
 						if(new_s_tone)
 							if(species != "Human")
-								s_tone = max(min(round(new_s_tone), 70), 20)
+								s_tone = max(min(round(new_s_tone), 70), 1)
 							else
 								s_tone = max(min(round(new_s_tone), 220), 1)
 							s_tone = -s_tone + 35

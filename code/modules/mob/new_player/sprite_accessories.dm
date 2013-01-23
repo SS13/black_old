@@ -91,6 +91,11 @@
 		name = "Longer Fringe"
 		icon_state = "hair_vlongfringe"
 
+	ladylike
+		name = "Ladylike Fringe"
+		icon_state = "hair_test"
+		species_allowed = list("Human","Soghun")
+
 	halfbang
 		name = "Half-banged Hair"
 		icon_state = "hair_halfbang"
@@ -106,7 +111,6 @@
 	ponytail2
 		name = "Ponytail 2"
 		icon_state = "hair_pa"
-		choose_male = 0
 
 	ponytail3
 		name = "Ponytail 3"
@@ -115,14 +119,17 @@
 	bedhead
 		name = "Bedhead"
 		icon_state = "hair_bedhead"
+		species_allowed = list("Human","Soghun")
 
 	bedhead2
 		name = "Bedhead 2"
 		icon_state = "hair_bedheadv2"
+		species_allowed = list("Human","Soghun")
 
 	bedhead3
 		name = "Bedhead 3"
 		icon_state = "hair_bedheadv3"
+		species_allowed = list("Human","Soghun")
 
 	dreadlocks
 		name = "Dreadlocks"

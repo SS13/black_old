@@ -95,7 +95,7 @@
 	product_amounts = "25;25;25"
 	vend_delay = 34
 	product_hidden = "/obj/item/weapon/reagent_containers/food/drinks/ice"
-	product_ads = "Have a drink!;Drink up!;It's good for you!;Would you like a hot joe?;I'd kill for some coffee!;The best beans in the galaxy.;Only the finest brew for you.;Mmmm. Nothing like a coffee.;I like coffee, don't you?;Coffee helps you work!;Try some tea.;We hope you like the best!;Try our new chocolate!;Admin conspiracies"
+	product_ads = "Выпей!;ПРОСТО ВЫПЕЙ КОФЕ И НИКТО НЕ ПОСТРАДАЕТ!!!;Псс... не хочешь немножечко кофе?;Хочешь горячего Джо?;Я готов убить за кофе!;Лучшие бобы в галактике.;Для тебя только лучшие напитки.;Ммм... нет ничего лучше кофе.;Я люблю кофе, не так ли?;Кофе поможет вам с работой!;Попробуй чай.;Наше кофе крепче удара тулбоксом по голове!!;Попробуйте наш новый шоколад!;Администраторские заговоры."
 	product_hideamt = "10"
 
 /obj/machinery/vending/snack
@@ -119,7 +119,7 @@
 	product_slogans = "Robust Softdrinks: More robust than a toolbox to the head!"
 	product_hidden = "/obj/item/weapon/reagent_containers/food/drinks/thirteenloko"
 	product_hideamt = "5"
-	product_ads = "Refreshing!;Hope you're thirsty!;Over 1 million drinks sold!;Thirsty? Why not cola?;Please, have a drink!;Drink up!;The best drinks in space."
+	product_ads = "Освежись!;Жажда совращает!;Было продано около одного миллиона напитков!;Выпить? Может быть колу?;Пожалуйста, выпей!;ДОПЕЙ!;Лучшие напитки в космосе."
 
 //This one's from bay12
 /obj/machinery/vending/cart

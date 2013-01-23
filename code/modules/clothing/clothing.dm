@@ -7,6 +7,8 @@
 	w_class = 1.0
 	throwforce = 2
 	slot_flags = SLOT_EARS
+	g_amt = 3500
+	m_amt = 3250
 
 /obj/item/clothing/ears/earmuffs
 	name = "earmuffs"
@@ -25,6 +27,8 @@
 	var/vision_flags = 0
 	var/darkness_view = 0//Base human is 2
 	var/invisa_view = 0
+	g_amt = 500
+	m_amt = 1250
 
 /*
 SEE_SELF  // can see self, no matter what
@@ -49,6 +53,8 @@ BLIND     // can't see anything
 	body_parts_covered = HANDS
 	slot_flags = SLOT_GLOVES
 	attack_verb = list("challenged")
+	g_amt = 2500
+	m_amt = 1250
 
 /obj/item/clothing/gloves/examine()
 	set src in usr
@@ -62,6 +68,8 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
+	g_amt = 1200
+	m_amt = 650
 
 
 //Mask
@@ -80,6 +88,8 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/shoes.dmi'
 	desc = "Comfortable-looking shoes."
 	gender = PLURAL //Carn: for grammarically correct text-parsing
+	g_amt = 500
+	m_amt = 250
 
 	body_parts_covered = FEET
 	slot_flags = SLOT_FEET

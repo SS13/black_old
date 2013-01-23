@@ -2,7 +2,7 @@
 	name = "laser gun"
 	desc = "a basic weapon designed kill with concentrated energy bolts"
 	icon_state = "laser"
-	item_state = "laser"
+	item_state = "laser100"
 	fire_sound = 'sound/weapons/Laser.ogg'
 	w_class = 3.0
 	m_amt = 2000
@@ -13,16 +13,19 @@
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."
 	projectile_type = "/obj/item/projectile/beam/practice"
+	item_state = "laser100"
 	clumsy_check = 0
 
 obj/item/weapon/gun/energy/laser/retro
 	name ="retro laser"
 	icon_state = "retro"
+	item_state = "laser100"
 	desc = "An older model of the basic lasergun, no longer used by Nanotrasen's security or military forces. Nevertheless, it is still quite deadly and easy to maintain, making it a favorite amongst pirates and other outlaws."
 
 
 /obj/item/weapon/gun/energy/laser/captain
 	icon_state = "caplaser"
+	item_state = "capgun100"
 	desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It is decorated with assistant leather and chrome. The object menaces with spikes of energy. On the item is an image of Space Station 13. The station is exploding."
 	force = 10
 	origin_tech = null
@@ -67,6 +70,7 @@ obj/item/weapon/gun/energy/laser/retro
 	name = "laser cannon"
 	desc = "With the L.A.S.E.R. cannon, the lasing medium is enclosed in a tube lined with uranium-235 and subjected to high neutron flux in a nuclear reactor core. This incredible technology may help YOU achieve high excitation rates with small laser volumes!"
 	icon_state = "lasercannon"
+	item_state = "laser100"
 	fire_sound = 'sound/weapons/lasercannonfire.ogg'
 	origin_tech = "combat=4;materials=3;powerstorage=3"
 	projectile_type = "/obj/item/projectile/beam/heavylaser"

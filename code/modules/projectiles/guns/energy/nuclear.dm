@@ -2,6 +2,7 @@
 	icon_state = "energystun100"
 	name = "energy gun"
 	desc = "A basic energy-based gun with two settings: Stun and kill."
+	item_state = "energystun100"
 	fire_sound = 'sound/weapons/Taser.ogg'
 
 	charge_cost = 100 //How much energy is needed to fire.
@@ -21,6 +22,7 @@
 				user << "\red [src.name] is now set to kill."
 				projectile_type = "/obj/item/projectile/beam"
 				modifystate = "energykill"
+				item_state = "energykill100"
 			if(1)
 				mode = 0
 				charge_cost = 100
@@ -28,6 +30,7 @@
 				user << "\red [src.name] is now set to stun."
 				projectile_type = "/obj/item/projectile/energy/electrode"
 				modifystate = "energystun"
+				item_state = "energystun100"
 		update_icon()
 		return
 
@@ -35,6 +38,7 @@
 
 /obj/item/weapon/gun/energy/gun/nuclear
 	name = "Advanced Energy Gun"
+	item_state = "nucgun100"
 	desc = "An energy gun with an experimental miniaturized reactor."
 	origin_tech = "combat=3;materials=5;powerstorage=3"
 	var/lightfail = 0
