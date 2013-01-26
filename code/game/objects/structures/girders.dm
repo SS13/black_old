@@ -274,6 +274,8 @@
 								if(X)	X.add_hiddenprint(usr)
 							del(src)
 						return
+				else
+					return
 
 			add_hiddenprint(usr)
 			del(src)
