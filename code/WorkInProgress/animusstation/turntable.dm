@@ -32,8 +32,8 @@
 /obj/machinery/party/turntable/attack_hand(mob/user as mob)
 
 	var/t = "<body background='http://pics.kz/i1/1e/ca/1eca739222cecbc8dac809d8897471f4.jpg'><br><br><br><div align='center'><table border='0'><B><font color='maroon' size='6'>J</font><font size='5' color='purple'>uke Box</font> <font size='5' color='green'>Interface</font></B><br><br><br><br>"
-	//t += "<A href='?src=\ref[src];on=1'>On</A><br>"
-//	t += "<tr><td height='50' weight='50'></td><td height='50' weight='50'><A href='?src=\ref[src];off=1'><font color='maroon'>T</font><font color='geen'>urn</font> <font color='red'>Off</font></A></td><td height='50' weight='50'></td></tr>"
+//	t += "<A href='?src=\ref[src];on=1'>On</A><br>"
+	t += "<tr><td height='50' weight='50'></td><td height='50' weight='50'><A href='?src=\ref[src];off=1'><font color='maroon'>T</font><font color='geen'>urn</font> <font color='red'>Off</font></A></td><td height='50' weight='50'></td></tr>"
 	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on1=Track 1'><font color='maroon'>J</font><font color='purple'>awa Bar</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on2=Track 2'><font color='maroon'>C</font><font color='green'>lassic 1</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on6=Track 6'><font color='maroon'>C</font><font color='purple'>lassic 2</font></A></td></tr>"
@@ -49,19 +49,6 @@
 	..()
 
 	if( href_list["on1"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
 		if(src.playing == 1)
 			var/sound/S = sound(null)
 			S.channel = 10
@@ -120,19 +107,6 @@
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
 
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('down_with_the_sickness.ogg')
@@ -165,19 +139,6 @@
 			return
 
 	if( href_list["on3"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
 		if(src.playing == 1)
 			var/sound/S = sound(null)
 			S.channel = 10
@@ -236,19 +197,6 @@
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
 
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('WadeInTheWater.ogg')
@@ -281,19 +229,6 @@
 			return
 
 	if( href_list["on5"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
 		if(src.playing == 1)
 			var/sound/S = sound(null)
 			S.channel = 10
@@ -352,19 +287,6 @@
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
 
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('L.A.NoireSoundtrack.ogg')
@@ -397,19 +319,6 @@
 			return
 
 	if( href_list["on7"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
 		if(src.playing == 1)
 			var/sound/S = sound(null)
 			S.channel = 10
@@ -468,19 +377,6 @@
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
 
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('CantHardlyStandIt.ogg')
@@ -512,7 +408,7 @@
 				sleep(10)
 			return
 
-/*	if( href_list["off"] )
+	if( href_list["off"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
 			S.channel = 10
@@ -525,7 +421,7 @@
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
-*/
+
 
 /obj/machinery/party/lasermachine
 	name = "laser machine"
