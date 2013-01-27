@@ -6,12 +6,11 @@
 /mob/var/music = 0
 
 /obj/machinery/party/turntable
-	name = "Juke Box"
-	desc = "A jukebox is a partially automated music-playing device, usually a coin-operated machine, that will play a patron's selection from self-contained media."
+	name = "Turntable"
+	desc = "A turntable used for parties and shit."
 	icon = 'lasers2.dmi'
-	icon_state = "Jukebox7"
+	icon_state = "turntable"
 	var/playing = 0
-	density = 1
 	anchored = 1
 
 /obj/machinery/party/mixer

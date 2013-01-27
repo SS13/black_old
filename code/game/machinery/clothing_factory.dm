@@ -40,6 +40,13 @@ var/global/list/clothing_factory_recipes = list( \
 		new /obj/item/clothing/shoes/sandal(),\
 		new /obj/item/clothing/shoes/jackboots(),\
 
+		new /obj/item/clothing/mask/ninjascarf(),\
+		new /obj/item/clothing/mask/greenscarf(),\
+		new /obj/item/clothing/mask/redscarf(),\
+		new /obj/item/clothing/mask/bluescarf(),\
+		new /obj/item/clothing/mask/surgical(),\
+		new /obj/item/clothing/mask/muzzle(),\
+
 	)
 
 var/global/list/clothing_factory_hidden = list( \

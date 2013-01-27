@@ -5,6 +5,8 @@
 	item_state = "muzzle"
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
+	g_amt = 50
+	m_amt = 100
 	gas_transfer_coefficient = 0.90
 
 //Monkeys can not take the muzzle off of themself! Call PETA!
@@ -22,6 +24,8 @@
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = 1
+	g_amt = 50
+	m_amt = 100
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.90
 	permeability_coefficient = 0.05
@@ -49,6 +53,8 @@
 	item_state = "blueneckscarf"
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
+	g_amt = 50
+	m_amt = 100
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/redscarf
@@ -58,6 +64,8 @@
 	item_state = "redwhite_scarf"
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
+	g_amt = 50
+	m_amt = 100
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/greenscarf
@@ -67,6 +75,8 @@
 	item_state = "green_scarf"
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
+	g_amt = 50
+	m_amt = 100
 	gas_transfer_coefficient = 0.90
 
 /obj/item/clothing/mask/ninjascarf
@@ -76,4 +86,6 @@
 	item_state = "ninja_scarf"
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
+	g_amt = 50
+	m_amt = 100
 	gas_transfer_coefficient = 0.90
