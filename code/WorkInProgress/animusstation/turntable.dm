@@ -9,7 +9,7 @@
 	name = "Turntable"
 	desc = "A turntable used for parties and shit."
 	icon = 'lasers2.dmi'
-	icon_state = "turntable"
+	icon_state = "Jukebox7"
 	var/playing = 0
 	anchored = 1
 

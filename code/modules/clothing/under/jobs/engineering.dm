@@ -31,3 +31,17 @@
 	icon_state = "robotics"
 	item_state = "robotics"
 	color = "robotics"
+
+/obj/item/clothing/under/rank/roboticist_orange
+	desc = "It's a slimming black with reinforced seams; great for industrial work."
+	name = "roboticist's jumpsuit"
+	icon_state = "robotics2"
+	item_state = "robotics2"
+	color = "robotics2"
+
+/obj/item/clothing/under/rank/roboticist_white
+	desc = "It's a slimming white with reinforced seams; great for industrial work."
+	name = "roboticist's jumpsuit"
+	icon_state = "robotics3"
+	item_state = "robotics3"
+	color = "robotics3"

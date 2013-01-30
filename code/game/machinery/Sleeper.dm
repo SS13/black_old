@@ -390,3 +390,10 @@
 			src.add_fingerprint(usr)
 			return
 		return
+
+/obj/machinery/sleeper/syndi
+	name = "Sleeper"
+	icon = 'icons/obj/Cryogenic2.dmi'
+	icon_state = "syndipod_0"
+	density = 1
+	anchored = 1

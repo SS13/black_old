@@ -3,6 +3,17 @@
 	desc = "You sit in this. Either by will or force."
 	icon_state = "chair"
 
+/obj/structure/stool/bed/chair/schair
+	name = "shuttle chair"
+	desc = "It shuttle chair."
+	icon_state = "schair"
+	anchored = 1
+
+/obj/structure/stool/bed/chair/capchair
+	name = "chapell chair"
+	desc = "Its chapell chair."
+	icon_state = "capchair"
+
 /obj/structure/stool/bed/chair/New()
 	if(anchored)
 		src.verbs -= /atom/movable/verb/pull

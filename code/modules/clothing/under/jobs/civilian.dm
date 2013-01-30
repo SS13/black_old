@@ -69,6 +69,13 @@
 	color = "hop"
 	flags = FPRINT | TABLEPASS
 
+/obj/item/clothing/under/rank/head_of_personnel_blue
+	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
+	name = "head of personnel's blue jumpsuit"
+	icon_state = "hopblue"
+	item_state = "hopblue"
+	color = "hopblue"
+	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/under/rank/hydroponics
 	desc = "It's a jumpsuit designed to protect against minor plant-related hazards."
