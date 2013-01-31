@@ -188,6 +188,14 @@
 	icon_state = "ianshirt"
 	item_state = "ianshirt"
 
+/obj/item/clothing/suit/grim_reaper
+	name = "Grim reaper suit"
+	desc = "It's good to be a dead god."
+	icon_state = "grim_reaper"
+	item_state = "grim_reaper"
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET|HANDS
+	flags_inv = HIDEJUMPSUIT
+
 //Blue suit jacket toggle
 /obj/item/clothing/suit/suit/verb/toggle()
 	set name = "Toggle Jacket Buttons"
@@ -284,3 +292,4 @@
 	desc = "A rather skimpy green dress."
 	icon_state = "stripper_g_over"
 	item_state = "stripper_g"
+

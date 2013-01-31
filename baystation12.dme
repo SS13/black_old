@@ -381,6 +381,7 @@
 #include "code\defines\obj\toy.dm"
 #include "code\defines\obj\vending.dm"
 #include "code\defines\obj\weapon.dm"
+#include "code\defines\obj\clothing\costume.dm"
 #include "code\defines\procs\AStar.dm"
 #include "code\defines\procs\captain_announce.dm"
 #include "code\defines\procs\church_name.dm"

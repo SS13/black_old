@@ -17,6 +17,8 @@
 			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
 			if(4) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(H), slot_back)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(H), slot_shoes)
+		if(prob(30))
+			H.equip_to_slot_or_del(new /obj/item/clothing/gloves/fingerless_black(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/armor/vest(H), slot_wear_suit)
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/bartender(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/bar(H), slot_belt)
@@ -82,7 +84,10 @@
 		if(!H)	return 0
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/hydroponics(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(H), slot_shoes)
-		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/botanic_leather(H), slot_gloves)
+		if(prob(25))
+			H.equip_to_slot_or_del(new /obj/item/clothing/gloves/botanic_leather(H), slot_gloves)
+		else
+			H.equip_to_slot_or_del(new /obj/item/clothing/gloves/fingerless_black(H), slot_gloves)
 		H.equip_to_slot_or_del(new /obj/item/clothing/suit/apron(H), slot_wear_suit)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H), slot_l_store)
 		H.equip_to_slot_or_del(new /obj/item/device/analyzer/plant_analyzer(H), slot_s_store)
@@ -143,7 +148,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/cargo(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H), slot_l_store)
-		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
+		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/fingerless_black(H), slot_gloves)
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 		else
@@ -174,7 +179,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/miner(H), slot_w_uniform)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/black(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H), slot_r_store)
-		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
+		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/fingerless_black(H), slot_gloves)
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/crowbar(H), slot_l_hand)

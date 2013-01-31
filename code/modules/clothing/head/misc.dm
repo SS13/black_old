@@ -7,6 +7,14 @@
 	flags = FPRINT|TABLEPASS
 	item_state = "centhat"
 
+/obj/item/clothing/head/grim_reaper_hood
+	name = "Grim reaper hood"
+	icon_state = "grim_reaper_hood"
+	item_state = "grim_reaper_hood"
+	desc = "It's good to be a dead god."
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+
 /obj/item/clothing/head/powdered_wig
 	name = "powdered wig"
 	desc = "A powdered wig."

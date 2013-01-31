@@ -40,7 +40,7 @@
 	new /obj/item/clothing/under/blackskirt(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/beret , /obj/item/clothing/head/rabbitears )
 	new CHOICE(src.loc)
-	new /obj/item/clothing/glasses/blindfold(src.loc)
+	new /obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
 	del(src)
 
 /obj/effect/landmark/costume/butler/New()
@@ -93,6 +93,7 @@
 /obj/effect/landmark/costume/pirate/New()
 	new /obj/item/clothing/under/pirate(src.loc)
 	new /obj/item/clothing/suit/pirate(src.loc)
+	new /obj/item/clothing/gloves/fingerless_black(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/pirate , /obj/item/clothing/head/bandana )
 	new CHOICE(src.loc)
 	new /obj/item/clothing/glasses/eyepatch(src.loc)
@@ -131,6 +132,7 @@
 /obj/effect/landmark/costume/sexymime/New()
 	new /obj/item/clothing/mask/gas/sexymime(src.loc)
 	new /obj/item/clothing/under/sexymime(src.loc)
+	new /obj/item/clothing/gloves/sexymime(src.loc)
 	del(src)
 
 ///obj/effect/landmark/costume/hidden/master/New()

@@ -9,6 +9,25 @@
 	var/mindrain = 200
 	var/maxdrain = 400
 
+/obj/item/clothing/gloves/fingerless_black
+	desc = "This is gloves with cut fingers."
+	name = "Fingerless gloves"
+	icon_state = "fingerless_black"
+	item_state = "fingerless_black"
+	m_amt = "200"
+	g_amt = "100"
+
+	cold_protection = HANDS
+	min_cold_protection_temperature = GLOVES_MIN_COLD_PROTECITON_TEMPERATURE
+
+/obj/item/clothing/gloves/sexymime
+	desc = "So sexy."
+	name = "Sexy mime gloves"
+	icon_state = "sexymime_gloves"
+	item_state = "sexymime_gloves"
+	m_amt = "200"
+	g_amt = "100"
+
 /obj/item/clothing/gloves/captain
 	desc = "Regal blue gloves, with a nice gold trim. Swanky."
 	name = "captain's gloves"
@@ -57,6 +76,8 @@
 	desc = "Sterile latex gloves."
 	icon_state = "latex"
 	item_state = "lgloves"
+	m_amt = "200"
+	g_amt = "100"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
 	color="white"
@@ -70,3 +91,5 @@
 	icon_state = "leather"
 	item_state = "ggloves"
 	permeability_coefficient = 0.9
+	m_amt = "200"
+	g_amt = "100"
