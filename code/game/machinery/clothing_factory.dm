@@ -23,37 +23,25 @@ var/global/list/clothing_factory_recipes = list( \
 		new /obj/item/clothing/under/brown(), \
 		new /obj/item/clothing/under/yellowgreen(), \
 		new /obj/item/clothing/under/darkblue(), \
-		new /obj/item/clothing/under/lightred(),\
-		new /obj/item/clothing/under/darkred(),\
-		new /obj/item/clothing/under/schoolgirl(),\
-		new /obj/item/clothing/under/sexymime(),\
+		new /obj/item/clothing/under/lightred(), \
+		new /obj/item/clothing/under/darkred(), \
+		new /obj/item/clothing/under/schoolgirl(), \
 
-		new /obj/item/clothing/shoes/blue(),\
-		new /obj/item/clothing/shoes/green(),\
-		new /obj/item/clothing/shoes/yellow(),\
-		new /obj/item/clothing/shoes/purple(),\
-		new /obj/item/clothing/shoes/brown(),\
-		new /obj/item/clothing/shoes/red(),\
-		new /obj/item/clothing/shoes/white(),\
-		new /obj/item/clothing/shoes/rainbow(),\
-		new /obj/item/clothing/shoes/orange(),\
-		new /obj/item/clothing/shoes/mime(),\
-		new /obj/item/clothing/shoes/clown_shoes(),\
-		new /obj/item/clothing/shoes/sandal(),\
-		new /obj/item/clothing/shoes/jackboots(),\
+		new /obj/item/clothing/shoes/blue(), \
+		new /obj/item/clothing/shoes/green(), \
+		new /obj/item/clothing/shoes/yellow(), \
+		new /obj/item/clothing/shoes/purple(), \
+		new /obj/item/clothing/shoes/brown(), \
+		new /obj/item/clothing/shoes/red(), \
+		new /obj/item/clothing/shoes/white(), \
+		new /obj/item/clothing/shoes/orange(), \
 
-		new /obj/item/clothing/mask/ninjascarf(),\
-		new /obj/item/clothing/mask/greenscarf(),\
-		new /obj/item/clothing/mask/redscarf(),\
-		new /obj/item/clothing/mask/bluescarf(),\
-		new /obj/item/clothing/mask/surgical(),\
-		new /obj/item/clothing/mask/muzzle(),\
-
-		new /obj/item/clothing/gloves/fingerless_black(),\
-		new /obj/item/clothing/gloves/sexymime(),\
-		new /obj/item/clothing/gloves/latex(),\
-		new /obj/item/clothing/gloves/botanic_leather(),\
-
+		new /obj/item/clothing/mask/ninjascarf(), \
+		new /obj/item/clothing/mask/greenscarf(), \
+		new /obj/item/clothing/mask/redscarf(), \
+		new /obj/item/clothing/mask/bluescarf(), \
+		new /obj/item/clothing/mask/surgical(), \
+		new /obj/item/clothing/mask/muzzle(), \
 	)
 
 var/global/list/clothing_factory_hidden = list( \

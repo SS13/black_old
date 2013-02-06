@@ -6,6 +6,8 @@
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	color="yellow"
+	m_amt = "100"
+	g_amt = "100"
 
 /obj/item/clothing/gloves/fyellow                             //Cheap Chinese Crap
 	desc = "These gloves are cheap copies of the coveted gloves, no way this can end badly."
@@ -26,6 +28,8 @@
 	icon_state = "black"
 	item_state = "bgloves"
 	color="brown"
+	m_amt = "100"
+	g_amt = "100"
 
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_COLD_PROTECITON_TEMPERATURE
@@ -45,6 +49,8 @@
 	icon_state = "orange"
 	item_state = "orangegloves"
 	color="orange"
+	m_amt = "100"
+	g_amt = "100"
 
 /obj/item/clothing/gloves/red
 	name = "red gloves"
@@ -52,6 +58,8 @@
 	icon_state = "red"
 	item_state = "redgloves"
 	color = "red"
+	m_amt = "100"
+	g_amt = "100"
 
 /obj/item/clothing/gloves/rainbow
 	name = "rainbow gloves"
@@ -59,6 +67,8 @@
 	icon_state = "rainbow"
 	item_state = "rainbowgloves"
 	color = "rainbow"
+	m_amt = "100"
+	g_amt = "100"
 
 	clown
 		color = "clown"
@@ -69,6 +79,8 @@
 	icon_state = "blue"
 	item_state = "bluegloves"
 	color="blue"
+	m_amt = "100"
+	g_amt = "100"
 
 /obj/item/clothing/gloves/purple
 	name = "purple gloves"
@@ -76,6 +88,8 @@
 	icon_state = "purple"
 	item_state = "purplegloves"
 	color="purple"
+	m_amt = "100"
+	g_amt = "100"
 
 /obj/item/clothing/gloves/green
 	name = "green gloves"
@@ -83,6 +97,8 @@
 	icon_state = "green"
 	item_state = "greengloves"
 	color="green"
+	m_amt = "100"
+	g_amt = "100"
 
 /obj/item/clothing/gloves/grey
 	name = "grey gloves"

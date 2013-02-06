@@ -12,6 +12,7 @@
 	icon_state = "Jukebox7"
 	var/playing = 0
 	anchored = 1
+	density = 1
 
 /obj/machinery/party/mixer
 	name = "mixer"
@@ -56,7 +57,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -74,17 +75,17 @@
 			//		world << "Found the song..."
 			//		M << S
 			//		M.music = 1
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/obj/machinery/party/lasermachine/L in A)
 				L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc == src.loc.loc && M.music == 0)
+					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc != src.loc.loc && M.music == 1)
+					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -101,7 +102,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -119,17 +120,17 @@
 			//		world << "Found the song..."
 			//		M << S
 			//		M.music = 1
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/obj/machinery/party/lasermachine/L in A)
 				L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc == src.loc.loc && M.music == 0)
+					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc != src.loc.loc && M.music == 1)
+					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -146,7 +147,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -164,17 +165,17 @@
 			//		world << "Found the song..."
 			//		M << S
 			//		M.music = 1
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/obj/machinery/party/lasermachine/L in A)
 				L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc == src.loc.loc && M.music == 0)
+					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc != src.loc.loc && M.music == 1)
+					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -191,7 +192,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -209,17 +210,17 @@
 			//		world << "Found the song..."
 			//		M << S
 			//		M.music = 1
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/obj/machinery/party/lasermachine/L in A)
 				L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc == src.loc.loc && M.music == 0)
+					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc != src.loc.loc && M.music == 1)
+					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -236,7 +237,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -260,11 +261,11 @@
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc == src.loc.loc && M.music == 0)
+					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc != src.loc.loc && M.music == 1)
+					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -281,7 +282,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -299,17 +300,17 @@
 			//		world << "Found the song..."
 			//		M << S
 			//		M.music = 1
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/obj/machinery/party/lasermachine/L in A)
 				L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc == src.loc.loc && M.music == 0)
+					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc != src.loc.loc && M.music == 1)
+					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -326,7 +327,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -344,17 +345,17 @@
 			//		world << "Found the song..."
 			//		M << S
 			//		M.music = 1
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/obj/machinery/party/lasermachine/L in A)
 				L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc == src.loc.loc && M.music == 0)
+					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc != src.loc.loc && M.music == 1)
+					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -371,7 +372,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -389,17 +390,17 @@
 			//		world << "Found the song..."
 			//		M << S
 			//		M.music = 1
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/obj/machinery/party/lasermachine/L in A)
 				L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc == src.loc.loc && M.music == 0)
+					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc != src.loc.loc && M.music == 1)
+					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -416,7 +417,7 @@
 				M << S
 				M.music = 0
 			playing = 0
-			var/area/A = src.loc.loc
+			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
 					L.turnoff()
@@ -549,5 +550,4 @@
 	for(var/area/RA in A.related)
 		for(var/obj/effects/laser/F in RA)
 			del(F)
-
 
