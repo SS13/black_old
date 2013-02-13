@@ -286,6 +286,7 @@ proc/freezemob(mob/M as mob in world)
 	M.loc = I
 	M.weakened = 5 //dunno how make it true or falce, but mob shouldnt use hist equip while freezed
 	I.occupant = M
+	processing_objects.Add(I)
 	return 1
 
 /mob/var/freezed = 0
@@ -313,6 +314,7 @@ proc/freezemob(mob/M as mob in world)
 
 	New()
 		..()
+		use_power = 1
 		//processing_objects.Add(src)
 
 /obj/machinery/freezer_platform/verb/turn_power()
