@@ -63,7 +63,6 @@ obj/item/weapon/gun/energy/freezegun
 		generate_air()
 		processing_objects.Add(src)
 
-
 	Del()
 		processing_objects.Remove(src)
 		..()
@@ -99,7 +98,6 @@ obj/item/weapon/gun/energy/freezegun
 			if(!check)
 				ice -= (environment.temperature-273)/2
 			icecheck()
-		return 1
 
 /obj/structure/freezedmob/return_air()
 	return incide_air
@@ -286,7 +284,6 @@ proc/freezemob(mob/M as mob in world)
 	M.loc = I
 	M.weakened = 5 //dunno how make it true or falce, but mob shouldnt use hist equip while freezed
 	I.occupant = M
-	processing_objects.Add(I)
 	return 1
 
 /mob/var/freezed = 0
