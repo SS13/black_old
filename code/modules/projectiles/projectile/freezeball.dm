@@ -305,7 +305,7 @@ proc/freezemob(mob/M as mob in world)
 	desc = "."
 	icon = 'freezer.dmi'
 	icon_state = "freezer"
-	dencity = 0
+	density = 0
 	opacity = 0
 	active_power_usage = 10
 	idle_power_usage   = 2
