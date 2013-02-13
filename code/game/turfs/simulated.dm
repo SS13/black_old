@@ -29,7 +29,8 @@
 						playsound(src, "clownstep", 50, 1) // this will get annoying very fast.
 				else
 					playsound(src, "clownstep", 20, 1)
-
+		else
+			step_sound(src)
 		switch (src.wet)
 			if(1)
 				if(istype(M, /mob/living/carbon/human)) // Added check since monkeys don't have shoes
@@ -69,3 +70,22 @@
 					M.Weaken(10)
 
 	..()
+
+
+proc/step_sound(var/mob/living/carbon/human/user as mob)
+	if(user.m_intent == "walk")
+		return
+	var/mode = "default"
+	var/obj/item/clothing/shoes/S = user.shoes
+
+	if(!S)
+		mode = "barefoot"
+
+	var/sound
+	switch(mode)
+		if("default")
+			sound = null//pick()
+		if("barefoot")
+			sound = null
+	playsound(user.loc, sound, 50, 1, -3)
+	return
