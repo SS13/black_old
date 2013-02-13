@@ -132,10 +132,10 @@ var/global/datum/controller/gameticker/ticker
 
 	start_events() //handles random events and space dust.
 
-	var/admins_number = 0
-	for(var/client/C)
-		if(C.holder)
-			admins_number++
+//	var/admins_number = 0
+//	for(var/client/C)
+//		if(C.holder)
+//			admins_number++
 
 	supply_shuttle.process() 		//Start the supply shuttle regenerating points -- TLE
 	master_controller.process()		//Start master_controller.process()
