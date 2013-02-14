@@ -342,12 +342,14 @@ proc/freezemob(mob/M as mob in world)
 			M = O
 	if(!M)
 		return 0
+	if(M.lying)
+		return 0
 	freezemob(M)
 	return 1
 
-/obj/machinery/freezer/freezer_platform/attack_hand(mob/user as mob)
-	..()
-	turn_power()
+//obj/machinery/freezer/freezer_platform/attack_hand(mob/user as mob)
+//	..()
+//	turn_power()
 //	if(!Freezing())
 //		user.visible_message("[src] tried to turn on freezer platform.", "You trying turn on this freezer platform but it's not working.")
 
@@ -369,6 +371,22 @@ proc/freezemob(mob/M as mob in world)
 
 /obj/machinery/freezer/freezer_generator/attack_hand(mob/user as mob)
 	..()
+
+	var/t
 	if(!slave)
-		return
-	slave.Freezing()
+		t = "Has no slave"
+	else if(slave.on)
+		t = "<A href='?src=\ref[src];off=1'>Turn Off</A>"
+		t += "<br><A href='?src=\ref[src];freezing=1'>Freeze</A>"
+	else
+		t = "<A href='?src=\ref[src];on=1'>Turn On</A>"
+	user << browse(t, "window=turntable;size=450x700")
+
+/obj/machinery/freezer/freezer_generator/Topic(href, href_list)
+	if(href_list["off"])
+		slave.turn_power()
+	if(href_list["on"])
+		slave.turn_power()
+	if(href_list["freezing"])
+		slave.Freezing()
+
