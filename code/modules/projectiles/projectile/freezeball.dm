@@ -309,7 +309,6 @@ proc/freezemob(mob/M as mob in world)
 	idle_power_usage   = 2
 	var/on = 0
 	var/obj/machinery/freezer/freezer_generator/master = null
-	var/
 	New()
 		..()
 		use_power = 1
@@ -364,7 +363,6 @@ proc/freezemob(mob/M as mob in world)
 		..()
 		use_power = 1
 		sleep(10)
-		while
 		slave = locate(/obj/machinery/freezer/freezer_platform,WEST)
 		if(slave)
 			slave.master = src
