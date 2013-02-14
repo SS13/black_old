@@ -89,7 +89,7 @@ obj/item/weapon/gun/energy/freezegun
 				return 0
 			var/datum/gas_mixture/environment = location.return_air()
 			var/check = 0
-			for(var/obj/machinery/freezer_platform/O in src.loc)
+			for(var/obj/machinery/freezer/freezer_platform/O in src.loc)
 				if(O.on)
 					check = 1
 					if(ice <= 120)
@@ -298,37 +298,43 @@ proc/freezemob(mob/M as mob in world)
 	wholebody += overlays
 	return wholebody
 
-/obj/machinery/freezer_platform
+/obj/machinery/freezer/freezer_platform
 	name = "Freezer platform"
 	desc = "."
 	icon = 'freezer.dmi'
-	icon_state = "freezer"
+	icon_state = "freezer_pad"
 	density = 0
 	opacity = 0
 	active_power_usage = 10
 	idle_power_usage   = 2
 	var/on = 0
+	var/obj/machinery/freezer/freezer_generator/master = null
 
 	New()
 		..()
 		use_power = 1
 		//processing_objects.Add(src)
 
-/obj/machinery/freezer_platform/verb/turn_power()
-	set src in oview(1)
+/obj/machinery/freezer/freezer_platform/proc/turn_power()
 	if(stat & (BROKEN|NOPOWER))
+		return 0
+	if(!master)
 		return 0
 	if(src.use_power == 1)
 		src.use_power = 2
 		on = 1
+		master.icon_state = "generator_on"
 	else if (src.use_power >= 2)
 		src.use_power = 1
 		on = 0
+		master.icon_state = "generator_off"
 	return 0
 
-/obj/machinery/freezer_platform/proc/Freezing()
+/obj/machinery/freezer/freezer_platform/proc/Freezing()
 	if(src.use_power < 2)
-		return 0
+		return
+	if(!master)
+		return
 	var/mob/living/M = null
 	for(var/mob/living/O in src.loc)
 		if(M != null)
@@ -340,7 +346,30 @@ proc/freezemob(mob/M as mob in world)
 	freezemob(M)
 	return 1
 
-/obj/machinery/freezer_platform/attack_hand(mob/user as mob)
+/obj/machinery/freezer/freezer_platform/attack_hand(mob/user as mob)
 	..()
-	if(!Freezing())
-		user.visible_message("[src] tried to turn on freezer platform.", "You trying turn on this freezer platform but it's not working.")
+	turn_power()
+//	if(!Freezing())
+//		user.visible_message("[src] tried to turn on freezer platform.", "You trying turn on this freezer platform but it's not working.")
+
+/obj/machinery/freezer/freezer_generator
+	name = "Freezer generator"
+	desc = "."
+	icon = 'freezer.dmi'
+	icon_state = "generator_off"
+	density = 1
+	opacity = 0
+	var/obj/machinery/freezer/freezer_platform/slave = null
+	New()
+		..()
+		use_power = 1
+		sleep(10)
+		slave = locate(/obj/machinery/freezer/freezer_platform,WEST)
+		if(slave)
+			slave.master = src
+
+/obj/machinery/freezer/freezer_generator/attack_hand(mob/user as mob)
+	..()
+	if(!slave)
+		return
+	slave.Freezing()
