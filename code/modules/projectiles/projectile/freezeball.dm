@@ -300,7 +300,7 @@ proc/freezemob(mob/M as mob in world)
 
 /obj/machinery/freezer/freezer_platform
 	name = "Freezer platform"
-	desc = "."
+	desc = "Neponjatnaja hujnja, kotoraja neob'jasnimym obrazom zamorazhivaet ljudej."
 	icon = 'freezer.dmi'
 	icon_state = "freezer_pad"
 	density = 0
@@ -309,7 +309,7 @@ proc/freezemob(mob/M as mob in world)
 	idle_power_usage   = 2
 	var/on = 0
 	var/obj/machinery/freezer/freezer_generator/master = null
-
+	var/
 	New()
 		..()
 		use_power = 1
@@ -364,6 +364,7 @@ proc/freezemob(mob/M as mob in world)
 		..()
 		use_power = 1
 		sleep(10)
+		while
 		slave = locate(/obj/machinery/freezer/freezer_platform,WEST)
 		if(slave)
 			slave.master = src
