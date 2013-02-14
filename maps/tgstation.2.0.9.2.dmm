@@ -56,7 +56,7 @@
 "abd" = (/turf/simulated/floor{dir = 6; icon_state = "warning"},/area/security/range)
 "abe" = (/obj/machinery/door/airlock/maintenance{name = "Freezer Room"; req_access_txt = "3"},/turf/simulated/floor{icon_state = "dark"},/area/security/prison)
 "abf" = (/turf/simulated/floor{icon_state = "dark"},/area/security/prison)
-"abg" = (/obj/structure/table,/obj/item/weapon/paper{info = "Guide for setup freezer machine: <br> 1.Turn on 'Freezer Pad™'<br> 2.Put prisoner on 'Freezer Pad™' (He must stay) <br> 3.Start 'Freezing Process' by generator"; name = "Freezer setting"},/turf/simulated/floor{icon_state = "dark"},/area/security/prison)
+"abg" = (/obj/structure/table,/turf/simulated/floor{icon_state = "dark"},/area/security/prison)
 "abh" = (/obj/machinery/portable_atmospherics/scrubber/huge/stationary,/obj/machinery/atmospherics/pipe/simple{dir = 6},/turf/simulated/floor/plating,/area/security/prison)
 "abi" = (/obj/machinery/vending/snack,/obj/machinery/atmospherics/pipe/simple{dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/prison)
 "abj" = (/obj/machinery/atmospherics/pipe/simple{dir = 4},/turf/simulated/floor{icon_state = "floorgrime"},/area/security/prison)
