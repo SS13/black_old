@@ -365,7 +365,7 @@ proc/freezemob(mob/M as mob in world)
 		..()
 		use_power = 1
 		sleep(10)
-		slave = locate(/obj/machinery/freezer/freezer_platform,WEST)
+		slave = locate(/obj/machinery/freezer/freezer_platform, get_step(src, WEST))
 		if(slave)
 			slave.master = src
 
