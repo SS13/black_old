@@ -87,5 +87,5 @@ proc/step_sound(var/mob/living/carbon/human/user as mob)
 			sound = null//pick()
 		if("barefoot")
 			sound = null
-	playsound(user.loc, sound, 50, 1, -3)
+	playsound(user.loc, sound, 20, 1, -3)
 	return
