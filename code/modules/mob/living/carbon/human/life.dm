@@ -779,7 +779,7 @@
 
 		else if(bodytemperature < 260.15)
 			fire_alert = max(fire_alert, 1)
-			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell) && !freezed))
 				switch(bodytemperature)
 					if(200 to 260)
 						apply_damage(COLD_DAMAGE_LEVEL_1, BURN)

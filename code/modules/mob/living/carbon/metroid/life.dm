@@ -189,11 +189,9 @@
 
 				if(bodytemperature <= (T0C - 50)) // hurt temperature
 					if(bodytemperature <= 50) // sqrting negative numbers is bad
-						if(!freezed)
-							adjustFireLoss(200)
+						adjustFireLoss(200)
 					else
-						if(!freezed)
-							adjustFireLoss(round(sqrt(bodytemperature)) * 2)
+						adjustFireLoss(round(sqrt(bodytemperature)) * 2)
 
 			else
 				Tempstun = 0
