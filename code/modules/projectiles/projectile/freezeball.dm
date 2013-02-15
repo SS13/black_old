@@ -105,7 +105,7 @@ obj/item/weapon/gun/energy/freezegun
 
 /obj/structure/freezedmob/proc/generate_air()
 	incide_air = new
-	incide_air.temperature = 260
+	incide_air.temperature = 261
 	incide_air.volume = 200
 	incide_air.oxygen = O2STANDARD*incide_air.volume/(R_IDEAL_GAS_EQUATION*incide_air.temperature)
 	incide_air.nitrogen = N2STANDARD*incide_air.volume/(R_IDEAL_GAS_EQUATION*incide_air.temperature)
