@@ -11,6 +11,7 @@
 	icon = 'lasers2.dmi'
 	icon_state = "Jukebox7"
 	var/playing = 0
+	var/volume  = 100
 	anchored = 1
 	density = 1
 
@@ -51,6 +52,7 @@
 	if( href_list["on1"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
@@ -65,6 +67,7 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('Cantina_Band_Jawa_Bar_Tatooine_Mos_Eisly.ogg')
+			S.volume = volume
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -96,6 +99,7 @@
 	if( href_list["on2"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
@@ -110,6 +114,7 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('down_with_the_sickness.ogg')
+			S.volume = volume
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -141,6 +146,7 @@
 	if( href_list["on3"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
@@ -155,6 +161,7 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('soviet_anthem.ogg')
+			S.volume = volume
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -186,6 +193,7 @@
 	if( href_list["on4"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
@@ -200,6 +208,7 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('WadeInTheWater.ogg')
+			S.volume = volume
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -231,6 +240,7 @@
 	if( href_list["on5"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
@@ -245,6 +255,7 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('GlennMiller-InTheMood.ogg')
+			S.volume = volume
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -276,6 +287,7 @@
 	if( href_list["on6"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
@@ -290,6 +302,7 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('L.A.NoireSoundtrack.ogg')
+			S.volume = volume
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -321,6 +334,7 @@
 	if( href_list["on7"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
@@ -335,6 +349,7 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('TheAssassinationofJesseJames.ogg')
+			S.volume = volume
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -366,6 +381,7 @@
 	if( href_list["on8"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
@@ -380,6 +396,7 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S = sound('CantHardlyStandIt.ogg')
+			S.volume = volume
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -411,6 +428,7 @@
 	if( href_list["off"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)
+			S.volume = volume
 			S.channel = 10
 			S.wait = 1
 			for(var/mob/M in world)
