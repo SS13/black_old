@@ -303,8 +303,9 @@ proc/freezemob(mob/M as mob in world)
 	desc = "Neponjatnaja hujnja, kotoraja neob'jasnimym obrazom zamorazhivaet ljudej."
 	icon = 'freezer.dmi'
 	icon_state = "freezer_pad"
-	density = 0
-	opacity = 0
+	anchored = 1
+	density  = 0
+	opacity  = 0
 	active_power_usage = 10
 	idle_power_usage   = 2
 	var/on = 0
@@ -358,8 +359,9 @@ proc/freezemob(mob/M as mob in world)
 	desc = "."
 	icon = 'freezer.dmi'
 	icon_state = "generator_off"
-	density = 1
-	opacity = 0
+	density  = 1
+	opacity  = 0
+	anchored = 1
 	var/obj/machinery/freezer/freezer_platform/slave = null
 	New()
 		..()
