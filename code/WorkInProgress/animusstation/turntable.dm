@@ -31,26 +31,23 @@
 	return
 
 /obj/machinery/party/turntable/attack_hand(mob/user as mob)
+
 	var/t = "<body background='http://pics.kz/i1/1e/ca/1eca739222cecbc8dac809d8897471f4.jpg'><br><br><br><div align='center'><table border='0'><B><font color='maroon' size='6'>J</font><font size='5' color='purple'>uke Box</font> <font size='5' color='green'>Interface</font></B><br><br><br><br>"
 //	t += "<A href='?src=\ref[src];on=1'>On</A><br>"
 	t += "<tr><td height='50' weight='50'></td><td height='50' weight='50'><A href='?src=\ref[src];off=1'><font color='maroon'>T</font><font color='geen'>urn</font> <font color='red'>Off</font></A></td><td height='50' weight='50'></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on1=Track 1,mob = [user]'><font color='maroon'>J</font><font color='purple'>awa Bar</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on2=Track 2,mob = [user]'><font color='maroon'>C</font><font color='green'>lassic 1</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on6=Track 6,mob = [user]'><font color='maroon'>C</font><font color='purple'>lassic 2</font></A></td></tr>"
-	t += "<tr height='50' weight='50'><td><A href='?src=\ref[src];on5=Track 5,mob = [user]'><font color='maroon'>I</font><font color='green'>n The Mood</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on3=Track 3,mob = [user]'><font color='maroon'>S</font><font color='purple'>oviet Theme</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on7=Track 7,mob = [user]'><font color='maroon'>T</font><font color='green'>he Assassination of Jesse James</font></A></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on4=Track 4,mob = [user]'><font color='maroon'>W</font><font color='purple'>ade In The Water</font></A><td height='50' weight='50'></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on8=Track 8,mob = [user]'><font color='maroon'>C</font><font color='purple'>ant Hardly Stand It</font></A></td><td height='50' weight='50'></td></tr>"
+	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on1=Track 1'><font color='maroon'>J</font><font color='purple'>awa Bar</font></A></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on2=Track 2'><font color='maroon'>C</font><font color='green'>lassic 1</font></A></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on6=Track 6'><font color='maroon'>C</font><font color='purple'>lassic 2</font></A></td></tr>"
+	t += "<tr height='50' weight='50'><td><A href='?src=\ref[src];on5=Track 5'><font color='maroon'>I</font><font color='green'>n The Mood</font></A></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on3=Track 3'><font color='maroon'>S</font><font color='purple'>oviet Theme</font></A></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on7=Track 7'><font color='maroon'>T</font><font color='green'>he Assassination of Jesse James</font></A></td></tr>"
+	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on4=Track 4'><font color='maroon'>W</font><font color='purple'>ade In The Water</font></A><td height='50' weight='50'></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on8=Track 8'><font color='maroon'>C</font><font color='purple'>ant Hardly Stand It</font></A></td><td height='50' weight='50'></td></tr>"
 	t += "</table></div></body>"
 	user << browse(t, "window=turntable;size=450x700")
 
 /obj/machinery/party/turntable/Topic(href, href_list)
 	..()
-	if( href_list["mob"] )
-		var/mob/user = href_list["mob"]
-		if(user in !orange(1))
-			return
 
 	if( href_list["on1"] )
 		if(src.playing == 1)
