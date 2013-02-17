@@ -56,5 +56,6 @@
 	var/failed_last_breath = 0 //This is used to determine if the mob failed a breath. If they did fail a brath, they will attempt to breathe each tick, otherwise just once per 4 ticks.
 
 	var/xylophone = 0 //For the spoooooooky xylophone cooldown
+	var/attack_modifier = 0
 
 	var/mob/remoteview_target = null

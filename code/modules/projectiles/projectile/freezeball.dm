@@ -182,7 +182,7 @@ obj/item/weapon/gun/energy/freezegun
 		M.weakened = 2
 		M.freezed = 0
 		M.stat = src.sighn_of_life
-		M.bodytemperature = 250
+		M.bodytemperature = 275
 //		M.silent = 0
 		if(M.stat != 2)
 			if (!M.client)
@@ -373,7 +373,6 @@ proc/freezemob(mob/M as mob in world)
 
 /obj/machinery/freezer/freezer_generator/attack_hand(mob/user as mob)
 	..()
-
 	var/t
 	if(!slave)
 		t = "Has no slave"

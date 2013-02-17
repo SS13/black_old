@@ -142,7 +142,7 @@
 
 			log_attack("<font color='red'>[M.name] ([M.ckey]) [attack_verb]ed [src.name] ([src.ckey])</font>")
 
-			var/damage = rand(0, 5)//BS12 EDIT
+			var/damage = rand(0, 5) + attack_modifier//BS12 EDIT
 			if(!damage)
 				switch(attack_verb)
 					if("slash")
