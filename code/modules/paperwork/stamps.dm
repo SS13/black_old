@@ -29,6 +29,9 @@
 	icon_state = "stamp-hos"
 	color = "hosred"
 
+/obj/item/weapon/stamp/hos/warden
+	name = "warden's rubber stamp"
+
 /obj/item/weapon/stamp/ce
 	name = "chief engineer's rubber stamp"
 	icon_state = "stamp-ce"
