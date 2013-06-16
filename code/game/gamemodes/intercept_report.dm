@@ -88,7 +88,7 @@
 
 /datum/intercept_text/proc/pick_mob()
 	var/list/dudes = list()
-	for(var/mob/living/carbon/human/man in player_list)
+	for(var/mob/living/carbon/human/man in world)
 		if (!man.mind) continue
 		if (man.mind.assigned_role=="MODE") continue
 		dudes += man

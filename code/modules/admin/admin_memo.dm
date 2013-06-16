@@ -5,7 +5,7 @@
 /client/proc/admin_memo(task in list("write","show","delete"))
 	set name = "Memo"
 	set category = "Server"
-	if(!holder || !ENABLE_MEMOS)	return
+	if(!holder)	return
 	switch(task)
 		if("write")
 			admin_memo_write()
@@ -29,7 +29,7 @@
 				return
 		if( findtext(memo,"<script",1,0) )
 			return
-		F[ckey] << "[key] on [time2text(world.realtime,"(DDD) DD MMM hh:mm")]<br>[sanitize(html_decode(memo))]"
+		F[ckey] << "[key] on [time2text(world.realtime,"(DDD) DD MMM hh:mm")]<br>[memo]"
 		message_admins("[key] set an admin memo:<br>[sanitize(html_decode(memo))]")
 
 //show all memos
@@ -38,7 +38,7 @@
 		var/savefile/F = new(MEMOFILE)
 		if(F)
 			for(var/ckey in F.dir)
-				src << "<center><span class='motd'><b>Admin Memo</b><i> by [F[ckey]]</i></span></center>"
+				src << "<center><span class='motd'><b>Admin Memo</b><i> by [sanitize(html_decode(F[ckey]))]</i></span></center>"
 
 //delete your own or somebody else's memo
 /client/proc/admin_memo_delete()
@@ -52,6 +52,3 @@
 		if(ckey)
 			F.dir.Remove(ckey)
 			src << "<b>Removed Memo created by [ckey].</b>"
-
-#undef MEMOFILE
-#undef ENABLE_MEMOS

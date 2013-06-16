@@ -1,7 +1,7 @@
 /obj/machinery/space_heater
 	anchored = 0
 	density = 1
-	icon = 'icons/obj/atmos.dmi'
+	icon = 'atmos.dmi'
 	icon_state = "sheater0"
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater is guaranteed not to set the station on fire."
@@ -52,7 +52,7 @@
 					return
 				else
 					// insert cell
-					var/obj/item/weapon/cell/C = usr.get_active_hand()
+					var/obj/item/weapon/cell/C = usr.equipped()
 					if(istype(C))
 						user.drop_item()
 						cell = C
@@ -123,17 +123,24 @@
 					set_temperature = dd_range(20, 90, set_temperature + value)
 
 				if("cellremove")
-					if(open && cell && !usr.get_active_hand())
-						cell.updateicon()
-						usr.put_in_hands(cell)
+					if(open && cell && !usr.equipped())
+						cell.loc = usr
+						cell.layer = 20
+						if(usr.hand)
+							usr.l_hand = cell
+						else
+							usr.r_hand = cell
+
 						cell.add_fingerprint(usr)
+						cell.updateicon()
 						cell = null
+
 						usr.visible_message("\blue [usr] removes the power cell from \the [src].", "\blue You remove the power cell from \the [src].")
 
 
 				if("cellinstall")
 					if(open && !cell)
-						var/obj/item/weapon/cell/C = usr.get_active_hand()
+						var/obj/item/weapon/cell/C = usr.equipped()
 						if(istype(C))
 							usr.drop_item()
 							cell = C
@@ -159,7 +166,7 @@
 					var/datum/gas_mixture/env = L.return_air()
 					if(env.temperature < (set_temperature+T0C))
 
-						var/transfer_moles = 0.25 * env.total_moles()
+						var/transfer_moles = 0.25 * env.total_moles
 
 						var/datum/gas_mixture/removed = env.remove(transfer_moles)
 

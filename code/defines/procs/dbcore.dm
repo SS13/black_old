@@ -1,36 +1,41 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:04
 
 //cursors
-#define Default_Cursor	0
-#define Client_Cursor	1
-#define Server_Cursor	2
-//conversions
-#define TEXT_CONV		1
-#define RSC_FILE_CONV	2
-#define NUMBER_CONV		3
-//column flag values:
-#define IS_NUMERIC		1
-#define IS_BINARY		2
-#define IS_NOT_NULL		4
-#define IS_PRIMARY_KEY	8
-#define IS_UNSIGNED		16
-//types
-#define TINYINT		1
-#define SMALLINT	2
-#define MEDIUMINT	3
-#define INTEGER		4
-#define BIGINT		5
-#define DECIMAL		6
-#define FLOAT		7
-#define DOUBLE		8
-#define DATE		9
-#define DATETIME	10
-#define TIMESTAMP	11
-#define TIME		12
-#define STRING		13
-#define BLOB		14
-// TODO: Investigate more recent type additions and see if I can handle them. - Nadrew
+#define Default_Cursor 0
+#define Client_Cursor 1
+#define Server_Cursor 2
 
+
+//conversions
+#define TEXT_CONV 1
+#define RSC_FILE_CONV 2
+#define NUMBER_CONV 3
+
+
+//column flag values:
+#define IS_NUMERIC 1
+#define IS_BINARY 2
+#define IS_NOT_NULL 4
+#define IS_PRIMARY_KEY 8
+#define IS_UNSIGNED 16
+
+
+//types
+#define TINYINT 1
+#define SMALLINT 2
+#define MEDIUMINT 3
+#define INTEGER 4
+#define BIGINT 5
+#define DECIMAL 6
+#define FLOAT 7
+#define DOUBLE 8
+#define DATE 9
+#define DATETIME 10
+#define TIMESTAMP 11
+#define TIME 12
+#define STRING 13
+#define BLOB 14
+// TODO: Investigate more recent type additions and see if I can handle them. - Nadrew
 
 // Deprecated! See global.dm for new configuration vars
 /*
@@ -54,9 +59,7 @@ DBConnection
 
 		Disconnect() return _dm_db_close(_db_con)
 
-		IsConnected()
-			var/success = _dm_db_is_connected(_db_con)
-			return success
+		IsConnected() return _dm_db_is_connected(_db_con)
 
 		Quote(str) return _dm_db_quote(_db_con,str)
 
@@ -175,30 +178,3 @@ DBColumn
 				if(TIME) return "TIME"
 				if(STRING) return "STRING"
 				if(BLOB) return "BLOB"
-
-
-#undef Default_Cursor
-#undef Client_Cursor
-#undef Server_Cursor
-#undef TEXT_CONV
-#undef RSC_FILE_CONV
-#undef NUMBER_CONV
-#undef IS_NUMERIC
-#undef IS_BINARY
-#undef IS_NOT_NULL
-#undef IS_PRIMARY_KEY
-#undef IS_UNSIGNED
-#undef TINYINT
-#undef SMALLINT
-#undef MEDIUMINT
-#undef INTEGER
-#undef BIGINT
-#undef DECIMAL
-#undef FLOAT
-#undef DOUBLE
-#undef DATE
-#undef DATETIME
-#undef TIMESTAMP
-#undef TIME
-#undef STRING
-#undef BLOB

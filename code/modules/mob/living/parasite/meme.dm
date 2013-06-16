@@ -220,10 +220,10 @@ mob/living/parasite/meme/verb/Thought()
 	if(!use_points(50)) return
 
 	message = say_quote(message)
-	var/rendered = "<span class='game say'><span class='name'>[speaker]</span> <span class='message'>[message]</span></span>"
+	var/rendered = "<span class='game say'><span class='name'>[speaker]</span> <span class='message'>[sanitize(html_decode(message))]</span></span>"
 	target.show_message(rendered)
 
-	usr << "<i>You make [target] hear:</i> [rendered]"
+	usr << "<i>You make [target] hear:</i> [sanitize(html_decode(rendered))]"
 
 // Mutes the host
 mob/living/parasite/meme/verb/Mute()

@@ -1,3 +1,3 @@
 
-/datum/hud/proc/ghost_hud()
+/obj/hud/proc/ghost_hud()
 	return

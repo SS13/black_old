@@ -7,8 +7,7 @@
 		return
 	proc/ChangeSign(var/Text)
 		src.icon_state = "[Text]"
-		//on = 0
-		//brightness_on = 4 //uncomment these when the lighting fixes get in
+		ul_SetLuminosity(3,0,0)
 		return
 
 /obj/effect/sign/securearea/ex_act(severity)

@@ -1,4 +1,4 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:04
 
 /*
 Space dust
@@ -32,7 +32,7 @@ The "dust" will damage the hull of the station causin minor hull breaches.
 /obj/effect/space_dust
 	name = "Space Dust"
 	desc = "Dust in space."
-	icon = 'icons/obj/meteor.dmi'
+	icon = 'meteor.dmi'
 	icon_state = "space_dust"
 	density = 1
 	anchored = 1
@@ -61,25 +61,25 @@ The "dust" will damage the hull of the station causin minor hull breaches.
 
 		switch(startside)
 			if(NORTH)
-				starty = world.maxy-(TRANSITIONEDGE+1)
-				startx = rand((TRANSITIONEDGE+1), world.maxx-(TRANSITIONEDGE+1))
-				endy = TRANSITIONEDGE
-				endx = rand(TRANSITIONEDGE, world.maxx-TRANSITIONEDGE)
+				starty = world.maxy-1
+				startx = rand(1, world.maxx-1)
+				endy = 1
+				endx = rand(1, world.maxx-1)
 			if(EAST)
-				starty = rand((TRANSITIONEDGE+1),world.maxy-(TRANSITIONEDGE+1))
-				startx = world.maxx-(TRANSITIONEDGE+1)
-				endy = rand(TRANSITIONEDGE, world.maxy-TRANSITIONEDGE)
-				endx = TRANSITIONEDGE
+				starty = rand(1,world.maxy-1)
+				startx = world.maxx-1
+				endy = rand(1, world.maxy-1)
+				endx = 1
 			if(SOUTH)
-				starty = (TRANSITIONEDGE+1)
-				startx = rand((TRANSITIONEDGE+1), world.maxx-(TRANSITIONEDGE+1))
-				endy = world.maxy-TRANSITIONEDGE
-				endx = rand(TRANSITIONEDGE, world.maxx-TRANSITIONEDGE)
+				starty = 1
+				startx = rand(1, world.maxx-1)
+				endy = world.maxy-1
+				endx = rand(1, world.maxx-1)
 			if(WEST)
-				starty = rand((TRANSITIONEDGE+1), world.maxy-(TRANSITIONEDGE+1))
-				startx = (TRANSITIONEDGE+1)
-				endy = rand(TRANSITIONEDGE,world.maxy-TRANSITIONEDGE)
-				endx = world.maxx-TRANSITIONEDGE
+				starty = rand(1, world.maxy-1)
+				startx = 1
+				endy = rand(1,world.maxy-1)
+				endx = world.maxx-1
 		var/goal = locate(endx, endy, 1)
 		src.x = startx
 		src.y = starty
@@ -96,13 +96,11 @@ The "dust" will damage the hull of the station causin minor hull breaches.
 					if(!M.stat && !istype(M, /mob/living/silicon/ai))
 						shake_camera(M, 3, 1)
 			if (A)
-				playsound(src.loc, 'sound/effects/meteorimpact.ogg', 40, 1)
-
+				playsound(src.loc, 'meteorimpact.ogg', 40, 1)
 				if(ismob(A))
 					A.meteorhit(src)//This should work for now I guess
-				else if(!istype(A,/obj/machinery/emitter) && !istype(A,/obj/machinery/field_generator)) //Protect the singularity from getting released every round!
-					A.ex_act(strength) //Changing emitter/field gen ex_act would make it immune to bombs and C4
-
+				else
+					A.ex_act(strength)
 				life--
 				if(life <= 0)
 					walk(src,0)

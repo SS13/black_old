@@ -1,15 +1,14 @@
 /obj/machinery/door/window
 	name = "interior door"
 	desc = "A strong door."
-	icon = 'icons/obj/doors/windoor.dmi'
+	icon = 'windoor.dmi'
 	icon_state = "left"
 	var/base_state = "left"
-	var/health = 150.0 //If you change this, consiter changing ../door/window/brigdoor/ health at the bottom of this .dm file
+	var/health = 200.0 //If you change this, consiter changing ../door/window/brigdoor/ health at the bottom of this .dm file
 	visible = 0.0
 	flags = ON_BORDER
 	opacity = 0
 	var/obj/item/weapon/airlock_electronics/electronics = null
-	explosion_resistance = 5
 
 
 /obj/machinery/door/window/update_nearby_tiles(need_rebuild)
@@ -66,7 +65,7 @@
 	return
 
 /obj/machinery/door/window/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+	if(istype(mover) && mover.pass_flags & PASSGLASS)
 		return 1
 	if(get_dir(loc, target) == dir) //Make sure looking at appropriate border
 		if(air_group) return 0
@@ -75,7 +74,7 @@
 		return 1
 
 /obj/machinery/door/window/CheckExit(atom/movable/mover as mob|obj, turf/target as turf)
-	if(istype(mover) && mover.checkpass(PASSGLASS))
+	if(istype(mover) && mover.pass_flags & PASSGLASS)
 		return 1
 	if(get_dir(loc, target) == dir)
 		return !density
@@ -90,13 +89,12 @@
 	if(!src.operating) //in case of emag
 		src.operating = 1
 	flick(text("[]opening", src.base_state), src)
-	playsound(src.loc, 'sound/machines/windowdoor.ogg', 100, 1)
+	playsound(src.loc, 'windowdoor.ogg', 100, 1)
 	src.icon_state = text("[]open", src.base_state)
 	sleep(10)
 
-	explosion_resistance = 0
 	src.density = 0
-//	src.sd_SetOpacity(0)	//TODO: why is this here? Opaque windoors? ~Carn
+	src.ul_SetOpacity(0)
 	update_nearby_tiles()
 
 	if(operating == 1) //emag again
@@ -108,13 +106,12 @@
 		return 0
 	src.operating = 1
 	flick(text("[]closing", src.base_state), src)
-	playsound(src.loc, 'sound/machines/windowdoor.ogg', 100, 1)
-	src.icon_state = src.base_state
+	playsound(src.loc, 'windowdoor.ogg', 100, 1)
+	src.icon_state = text("[]", src.base_state)
 
 	src.density = 1
-	explosion_resistance = initial(explosion_resistance)
-//	if(src.visible)
-//		SetOpacity(1)	//TODO: why is this here? Opaque windoors? ~Carn
+	if (src.visible)
+		src.ul_SetOpacity(1)
 	update_nearby_tiles()
 
 	sleep(10)
@@ -133,7 +130,7 @@
 		tforce = 40
 	else
 		tforce = AM:throwforce
-	playsound(src.loc, 'sound/effects/Glasshit.ogg', 100, 1)
+	playsound(src.loc, 'Glasshit.ogg', 100, 1)
 	src.health = max(0, src.health - tforce)
 	if (src.health <= 0)
 		new /obj/item/weapon/shard(src.loc)
@@ -149,26 +146,14 @@
 /obj/machinery/door/window/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
+
 /obj/machinery/door/window/attack_paw(mob/user as mob)
-	if(istype(user, /mob/living/carbon/alien/humanoid) || istype(user, /mob/living/carbon/metroid/adult))
-		if(src.operating)
-			return
-		src.health = max(0, src.health - 25)
-		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
-		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[user] smashes against the [src.name].</B>", 1)
-		if (src.health <= 0)
-			new /obj/item/weapon/shard(src.loc)
-			var/obj/item/weapon/cable_coil/CC = new /obj/item/weapon/cable_coil(src.loc)
-			CC.amount = 2
-			src.density = 0
-			del(src)
-	else
-		return src.attack_hand(user)
+	return src.attack_hand(user)
 
 
 /obj/machinery/door/window/attack_hand(mob/user as mob)
 	return src.attackby(user, user)
+
 
 /obj/machinery/door/window/attackby(obj/item/weapon/I as obj, mob/user as mob)
 
@@ -178,13 +163,19 @@
 
 	//Emags and ninja swords? You may pass.
 	if (src.density && (istype(I, /obj/item/weapon/card/emag)||istype(I, /obj/item/weapon/melee/energy/blade)))
+		if(istype(I, /obj/item/weapon/card/emag))
+			var/obj/item/weapon/card/emag/E = I
+			if(E.uses)
+				E.uses--
+			else
+				return
 		src.operating = -1
 		if(istype(I, /obj/item/weapon/melee/energy/blade))
 			var/datum/effect/effect/system/spark_spread/spark_system = new /datum/effect/effect/system/spark_spread()
 			spark_system.set_up(5, 0, src.loc)
 			spark_system.start()
 			playsound(src.loc, "sparks", 50, 1)
-			playsound(src.loc, 'sound/weapons/blade1.ogg', 50, 1)
+			playsound(src.loc, 'blade1.ogg', 50, 1)
 			for(var/mob/O in viewers(user, 5))
 				O.show_message(text("\blue The glass door was sliced open by []!", user), 1, text("\red You hear glass being sliced and sparks flying."), 2)
 		flick(text("[]spark", src.base_state), src)
@@ -197,9 +188,8 @@
 		var/aforce = I.force
 		if(I.damtype == BRUTE || I.damtype == BURN)
 			src.health = max(0, src.health - aforce)
-		playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
-		for(var/mob/O in viewers(src, null))
-			O.show_message("\red <B>[src] was hit by [I].</B>", 1)
+		playsound(src.loc, 'Glasshit.ogg', 75, 1)
+		user.visible_message("\red <B>\The [src] was hit with \a [I] by \the [user]!</B>", "\red <B>You hit \the [src] with \the [I]!</B>", "You hear an object hitting glass.")
 		if (src.health <= 0)
 			new /obj/item/weapon/shard(src.loc)
 			var/obj/item/weapon/cable_coil/CC = new /obj/item/weapon/cable_coil(src.loc)
@@ -214,7 +204,7 @@
 		//don't care who they are or what they have, act as if they're NOTHING
 		user = null
 
-	if (src.allowed(user))
+	if (src.allowed(user) || istype(I, /obj/item/device/hacktool))
 		if (src.density)
 			open()
 		else
@@ -229,12 +219,12 @@
 
 /obj/machinery/door/window/brigdoor
 	name = "Secure Door"
-	icon = 'icons/obj/doors/windoor.dmi'
+	icon = 'windoor.dmi'
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
-	req_access = list(access_security)
+	req_access = list(ACCESS_SECURITY)
 	var/id = null
-	health = 300.0 //Stronger doors for prison (regular window door health is 200)
+	health = 500.0 //Stronger doors for prison (regular window door health is 200)
 
 
 /obj/machinery/door/window/northleft

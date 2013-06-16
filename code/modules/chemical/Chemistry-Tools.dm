@@ -626,17 +626,13 @@
 								M.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>syringegun</b> ([R])"
 								user.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>syringegun</b> ([R])"
 								log_attack("<font color='red'>[user] ([user.ckey]) shot [M] ([M.ckey]) with a syringegun ([R])</font>")
-
 								log_admin("ATTACK: [user] ([user.ckey]) shot [M] ([M.ckey]) with a syringegun ([R]).")
-								msg_admin_attack("ATTACK: [user] ([user.ckey]) shot [M] ([M.ckey]) with a syringegun ([R]).")
-
+								message_admins("ATTACK: [user] ([user.ckey]) shot [M] ([M.ckey]) with a syringegun ([R]).")
 							else
 								M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>syringegun</b> ([R])"
 								log_attack("<font color='red'>UNKNOWN shot [M] ([M.ckey]) with a <b>syringegun</b> ([R])</font>")
-
 								log_admin("ATTACK: UNKNOWN shot [M] ([M.ckey]) with a <b>syringegun</b> ([R]).")
-								msg_admin_attack("ATTACK: UNKNOWN shot [M] ([M.ckey]) with a <b>syringegun</b> ([R]).")
-
+								message_admins("ATTACK: UNKNOWN shot [M] ([M.ckey]) with a <b>syringegun</b> ([R]).")
 							D.reagents.trans_to(M, 15)
 							M.take_organ_damage(5)
 							for(var/mob/O in viewers(world.view, D))
@@ -1334,10 +1330,8 @@
 
 		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been injected with [src.name] by [user.name] ([user.ckey])</font>")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to inject [M.name] ([M.ckey])</font>")
-
 		log_admin("ATTACK: [user] ([user.ckey]) injected [M] ([M.ckey]) with [src].")
-		msg_admin_attack("ATTACK: [user] ([user.ckey]) injected [M] ([M.ckey]) with [src].")
-
+		message_admins("ATTACK: [user] ([user.ckey]) injected [M] ([M.ckey]) with [src].")
 		log_attack("<font color='red'>[user.name] ([user.ckey]) injected [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
 
 
@@ -1816,13 +1810,7 @@ var/list/grind_products = list()
 			del(src)
 			return 0
 		if(istype(M, /mob/living/carbon))
-
 			if(M == user)								//If you're eating it yourself.
-
-				if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-					user << "\red [M.wear_mask] prevents you form eating [src]"
-					return 0
-
 				var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 				if (fullness <= 50)
 					M << "\red You hungrily chew out a piece of [src] and gobble it!"
@@ -1837,11 +1825,6 @@ var/list/grind_products = list()
 					return 0
 			else
 				if(!istype(M, /mob/living/carbon/metroid))		//If you're feeding it to someone else.
-
-					if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-						user << "\red [M.wear_mask] prevents you form force [M.name] to eating [src]"
-						return 0
-
 					var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 					if (fullness <= (550 * (1 + M.overeatduration / 1000)))
 						for(var/mob/O in viewers(world.view, user))
@@ -1855,9 +1838,8 @@ var/list/grind_products = list()
 
 					M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: \ref[reagents]</font>")
 					user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: \ref[reagents]</font>")
-
 					log_admin("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
-					msg_admin_attack("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
+					message_admins("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
 
 					log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
 
@@ -2067,10 +2049,6 @@ var/list/grind_products = list()
 			return 0
 
 		if(M == user)
-			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-				user << "\red [M.wear_mask] prevents you form drinking [src]"
-				return 0
-
 			M << "\blue You swallow a gulp of [src]."
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
@@ -2081,10 +2059,6 @@ var/list/grind_products = list()
 			return 1
 		else if( istype(M, /mob/living/carbon/human) )
 
-			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-				user << "\red [M.wear_mask] prevents you form force [M.name] to drinking [src]"
-				return 0
-
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to feed [M] [src].", 1)
 			if(!do_mob(user, M)) return
@@ -2093,9 +2067,8 @@ var/list/grind_products = list()
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: \ref[reagents]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: \ref[reagents]</font>")
-
 			log_admin("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
-			msg_admin_attack("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
+			message_admins("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
 
 			log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
 
@@ -2235,9 +2208,9 @@ var/list/grind_products = list()
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: \ref[reagents]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: \ref[reagents]</font>")
-
 			log_admin("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
-			msg_admin_attack("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
+			message_admins("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
+
 
 			log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
 
@@ -2926,9 +2899,9 @@ var/list/grind_products = list()
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: \ref[reagents]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] by [M.name] ([M.ckey]) Reagents: \ref[reagents]</font>")
-
 			log_admin("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
-			msg_admin_attack("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
+			message_admins("ATTACK: [user] ([user.ckey]) fed [M] ([M.ckey]) with [src].")
+
 
 			log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
 
@@ -3998,11 +3971,11 @@ var/list/grind_products = list()
 				if("bananahonk")
 					icon_state = "bananahonkglass"
 					name = "Banana Honk"
-					desc = "A drink from Banana Heaven."
+					desc = "A drink from Clown Heaven."
 				if("silencer")
 					icon_state = "silencerglass"
 					name = "Silencer"
-					desc = "A drink from silent Heaven."
+					desc = "A drink from mime Heaven."
 				if("nothing")
 					icon_state = "nothing"
 					name = "Nothing"

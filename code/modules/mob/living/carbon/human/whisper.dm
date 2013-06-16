@@ -1,20 +1,19 @@
-//Lallander was here
 /mob/living/carbon/human/whisper(message as text)
-	message = trim(copytext(strip_html_simple(message), 1, MAX_MESSAGE_LEN))
+	//Figured it out.  If you use say :w (message) it HTML encodes it, THEN passes it to the whisper code, which does so again.  Jeez.  --SkyMarshal
+	message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 
-	if (!message || silent || miming)
+	if (!message)
 		return
 
 	log_whisper("[src.name]/[src.key] : [message]")
 
-	if (src.client)
-		if (src.client.muted & MUTE_IC)
-			src << "\red You cannot whisper (muted)."
-			return
+	if (src.client && (src.client.muted || src.client.muted_complete))
+		src << "You are muted."
+		return
 
-		if (src.client.handle_spam_prevention(message,MUTE_IC))
-			return
-
+	if(!speech_allowed && usr == src)
+		usr << "\red You can't speak."
+		return
 
 	if (src.stat == 2)
 		return src.say_dead(message)
@@ -23,11 +22,11 @@
 		return
 
 	var/alt_name = ""
-	if (istype(src, /mob/living/carbon/human) && src.name != GetVoice())
+	if (istype(src, /mob/living/carbon/human) && src.name != src.real_name)
 		var/mob/living/carbon/human/H = src
 		alt_name = " (as [H.get_id_name("Unknown")])"
 	// Mute disability
-	if (src.sdisabilities & MUTE)
+	if (src.disabilities & 64)
 		return
 
 	if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
@@ -48,25 +47,30 @@
 				temp_message[H] = ninjaspeak(temp_message[H])
 				pick_list -= H
 			message = dd_list2text(temp_message, " ")
-			message = dd_replacetext(message, "o", "¤")
-			message = dd_replacetext(message, "p", "þ")
-			message = dd_replacetext(message, "l", "£")
-			message = dd_replacetext(message, "s", "§")
-			message = dd_replacetext(message, "u", "µ")
-			message = dd_replacetext(message, "b", "ß")
+			message = dd_replaceText(message, "o", "¤")
+			message = dd_replaceText(message, "p", "þ")
+			message = dd_replaceText(message, "l", "£")
+			message = dd_replaceText(message, "s", "§")
+			message = dd_replaceText(message, "u", "µ")
+			message = dd_replaceText(message, "b", "ß")
+
+	message = capitalize(message)
 
 	if (src.stuttering)
-		message = stutter(message)
+		message = NewStutter(message,stunned)
+	if (src.slurring)
+		message = slur(message)
 
 	for (var/obj/O in view(message_range, src))
 		spawn (0)
 			if (O)
 				O.hear_talk(src, message)
 
-	var/list/listening = hearers(message_range, src)
-	listening -= src
-	listening += src
-	var/list/eavesdropping = hearers(2, src)
+	var/list/listening = get_mobs_in_view(message_range, src)
+//	listening -= src
+//	listening += src
+// WAT.
+	var/list/eavesdropping = get_mobs_in_view(message_range, src)
 	eavesdropping -= src
 	eavesdropping -= listening
 	var/list/watching  = hearers(5, src)
@@ -96,9 +100,17 @@
 		var/message_a = message
 
 		if (italics)
-			message_a = "<i>[sanitize(message_a)]</i>"
+			message_a = "<i>[message_a]</i>"
 		//This appears copied from carbon/living say.dm so the istype check for mob is probably not needed. Appending for src is also not needed as the game will check that automatically.
-		rendered = "<span class='game say'><span class='name'>[GetVoice()]</span>[alt_name] whispers, <span class='message'>\"[message_a]\"</span></span>"
+		if (!istype(src, /mob/living/carbon/human))
+			rendered = "<span class='game say'><span class='name'>[name]</span> whispers, <span class='message'>\"[message_a]\"</span></span>"
+		else if (istype(wear_mask, /obj/item/clothing/mask/gas/voice))
+			if (wear_mask:vchange)
+				rendered = "<span class='game say'><span class='name'>[wear_mask:voice]</span> whispers, <span class='message'>\"[message_a]\"</span></span>"
+			else
+				rendered = "<span class='game say'><span class='name'>[name]</span> whispers, <span class='message'>\"[message_a]\"</span></span>"
+		else
+			rendered = "<span class='game say'><span class='name'>[real_name]</span>[alt_name] whispers, <span class='message'>\"[message_a]\"</span></span>"
 
 		for (var/mob/M in heard_a)
 			M.show_message(rendered, 2)
@@ -112,7 +124,7 @@
 			message_b = stars(message)
 
 		if (italics)
-			message_b = "<i>[sanitize(message_b)]</i>"
+			message_b = "<i>[message_b]</i>"
 
 		rendered = "<span class='game say'><span class='name'>[src.voice_name]</span> whispers, <span class='message'>\"[message_b]\"</span></span>"
 
@@ -122,19 +134,38 @@
 	for (var/mob/M in eavesdropping)
 		if (M.say_understands(src))
 			var/message_c
-			message_c = sanitize(stars(message))
-			rendered = "<span class='game say'><span class='name'>[GetVoice()]</span>[alt_name] whispers, <span class='message'>\"[message_c]\"</span></span>"
+			message_c = stars(message)
+			if (!istype(src, /mob/living/carbon/human))
+				rendered = "<span class='game say'><span class='name'>[name]</span> whispers, <span class='message'>\"[message_c]\"</span></span>"
+			else if(istype(wear_mask, /obj/item/clothing/mask/gas/voice))
+				if(wear_mask:vchange)
+					rendered = "<span class='game say'><span class='name'>[wear_mask:voice]</span> whispers, <span class='message'>\"[message_c]\"</span></span>"
+				else
+					rendered = "<span class='game say'><span class='name'>[name]</span> whispers, <span class='message'>\"[message_c]\"</span></span>"
+			else
+				rendered = "<span class='game say'><span class='name'>[real_name]</span>[alt_name] whispers, <span class='message'>\"[message_c]\"</span></span>"
 			M.show_message(rendered, 2)
 		else
 			rendered = "<span class='game say'><span class='name'>[src.voice_name]</span> whispers something.</span>"
 			M.show_message(rendered, 2)
 
 	if (italics)
-		message = "<i>[sanitize(message)]</i>"
-	rendered = "<span class='game say'><span class='name'>[GetVoice()]</span>[alt_name] whispers, <span class='message'>\"[message]\"</span></span>"
+		message = "<i>[message]</i>"
 
-	for (var/mob/M in dead_mob_list)
-		if (!(M.client))
+	if (!istype(src, /mob/living/carbon/human))
+		rendered = "<span class='game say'><span class='name'>[name]</span> whispers, <span class='message'>\"[message]\"</span></span>"
+	else if (istype(src.wear_mask, /obj/item/clothing/mask/gas/voice))
+		if(wear_mask:vchange)
+			rendered = "<span class='game say'><span class='name'>[wear_mask:voice]</span> whispers, <span class='message'>\"[message]\"</span></span>"
+		else
+			rendered = "<span class='game say'><span class='name'>[name]</span> whispers, <span class='message'>\"[message]\"</span></span>"
+	else
+		rendered = "<span class='game say'><span class='name'>[real_name]</span>[alt_name] whispers, <span class='message'>\"[message]\"</span></span>"
+
+	for (var/mob/M in world)
+		if(!M.client)
 			continue
-		if (M.stat > 1 && !(M in heard_a))
+		if (istype(M, /mob/new_player))
+			continue
+		if (M.stat > 1 && !(M in heard_a) && M.client.ghost_ears)
 			M.show_message(rendered, 2)

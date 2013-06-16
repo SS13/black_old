@@ -1,4 +1,4 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
+//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:05
 
 /obj/item/weapon/implantcase
 	name = "Glass Case"
@@ -25,7 +25,7 @@
 		..()
 		if (istype(I, /obj/item/weapon/pen))
 			var/t = input(user, "What would you like the label to be?", text("[]", src.name), null)  as text
-			if (user.get_active_hand() != I)
+			if (user.equipped() != I)
 				return
 			if((!in_range(src, usr) && src.loc != user))
 				return
@@ -68,7 +68,7 @@
 /obj/item/weapon/implantcase/tracking
 	name = "Glass Case- 'Tracking'"
 	desc = "A case containing a tracking implant."
-	icon = 'icons/obj/items.dmi'
+	icon = 'items.dmi'
 	icon_state = "implantcase-b"
 
 
@@ -80,9 +80,9 @@
 
 
 /obj/item/weapon/implantcase/explosive
-	name = "Glass Case- 'Explosive'"
+	name = "Glass Case- '(BIO-HAZARD) BIO-detpack'"
 	desc = "A case containing an explosive implant."
-	icon = 'icons/obj/items.dmi'
+	icon = 'items.dmi'
 	icon_state = "implantcase-r"
 
 
@@ -96,7 +96,7 @@
 /obj/item/weapon/implantcase/chem
 	name = "Glass Case- 'Chem'"
 	desc = "A case containing a chemical implant."
-	icon = 'icons/obj/items.dmi'
+	icon = 'items.dmi'
 	icon_state = "implantcase-b"
 /obj/item/weapon/implantcase/chem/New()
 
@@ -108,7 +108,7 @@
 /obj/item/weapon/implantcase/loyalty
 	name = "Glass Case- 'Loyalty'"
 	desc = "A case containing a loyalty implant."
-	icon = 'icons/obj/items.dmi'
+	icon = 'items.dmi'
 	icon_state = "implantcase-r"
 
 
@@ -116,7 +116,6 @@
 		src.imp = new /obj/item/weapon/implant/loyalty( src )
 		..()
 		return
-
 
 /obj/item/weapon/implantcase/death_alarm
 	name = "Glass Case- 'Death Alarm'"

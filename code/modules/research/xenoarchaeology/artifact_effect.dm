@@ -1,4 +1,3 @@
-//
 
 /datum/artifact_effect
 	var/artifact_id = ""       // Display ID of the spawning artifact
@@ -50,18 +49,19 @@
 /datum/artifact_effect/proc/DoEffect(var/atom/originator)
 	archived_loc = originator.loc
 	if (src.effectmode == "contact")
-		var/mob/living/user = originator
+		var/mob/user = originator
 		if(!user)
 			return
 		switch(src.effecttype)
 			if("healing")
-				//caeltodo
 				if (istype(user, /mob/living/carbon/human/))
 					user << "\blue You feel a soothing energy invigorate you."
 
 					var/mob/living/carbon/human/H = user
-					for(var/datum/organ/external/affecting in H.organs)
-						if(!affecting)    continue
+					for(var/A in H.organs)
+						var/datum/organ/external/affecting = null
+						if(!H.organs[A])    continue
+						affecting = H.organs[A]
 						if(!istype(affecting, /datum/organ/external))    continue
 						affecting.heal_damage(25, 25)    //fixes getting hit after ingestion, killing you when game updates organ health
 						//user:heal_organ_damage(25, 25)
@@ -78,7 +78,9 @@
 						H.vessel.add_reagent("blood",50)
 						spawn(1)
 							H.fixblood()
-						H.regenerate_icons()
+						H.update_body()
+						H.update_face()
+						H.UpdateDamageIcon()
 					return 1
 					//
 				if (istype(user, /mob/living/carbon/monkey/))
@@ -104,7 +106,7 @@
 					user.weakened += 6
 					return 1
 				else user << "Nothing happens."
-			if("stun")
+			/*if("stun")
 				if (istype(user, /mob/living/carbon/))
 					user << "\red A powerful force overwhelms your consciousness."
 					user.paralysis += 30
@@ -112,7 +114,7 @@
 					user.weakened += 45
 					user.stuttering += 45
 					return 1
-				else user << "Nothing happens."
+				else user << "Nothing happens."*/
 			if("roboheal")
 				if (istype(user, /mob/living/silicon/robot))
 					user << "\blue Your systems report damaged components mending by themselves!"
@@ -134,6 +136,69 @@
 					E.strength = 1
 					E.density = 1
 					E.invisibility = 0
+				/*var/obj/effect/energy_field/E = new /obj/effect/energy_field(locate(user.x + 2,user.y,user.z))
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x + 2,user.y + 1,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x + 2,user.y + 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x + 2,user.y - 1,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x + 2,user.y - 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x - 2,user.y,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x - 2,user.y + 1,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x - 2,user.y + 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x - 2,user.y - 1,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x - 2,user.y - 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x,user.y + 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x + 1,user.y + 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x - 1,user.y + 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x,user.y - 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x + 1,user.y - 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0
+				E = new /obj/effect/energy_field(locate(user.x - 1,user.y - 2,user.z))
+				created_field.Add(E)
+				E.strength = 1
+				E.invisibility = 0*/
 				return 1
 			if("teleport")
 				var/list/randomturfs = new/list()
@@ -143,8 +208,6 @@
 					randomturfs.Add(T)
 				if(randomturfs.len > 0)
 					user << "\red You are suddenly zapped away elsewhere!"
-					if (user.buckled)
-						user.buckled.unbuckle()
 					user.loc = pick(randomturfs)
 					var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread()
 					sparks.set_up(3, 0, get_turf(originator)) //no idea what the 0 is
@@ -152,7 +215,6 @@
 				return 1
 	else if (src.effectmode == "aura")
 		switch(src.effecttype)
-			//caeltodo
 			if("healing")
 				for (var/mob/living/carbon/M in range(src.aurarange,originator))
 					if(ishuman(M) && istype(M:wear_suit,/obj/item/clothing/suit/bio_suit/anomaly) && istype(M:head,/obj/item/clothing/head/bio_hood/anomaly))
@@ -177,7 +239,7 @@
 					M.adjustBrainLoss(1)
 					M.updatehealth()
 				return 1
-			if("stun")
+			/*if("stun")
 				for (var/mob/living/carbon/M in range(src.aurarange,originator))
 					if(ishuman(M) && istype(M:wear_suit,/obj/item/clothing/suit/bio_suit/anomaly) && istype(M:head,/obj/item/clothing/head/bio_hood/anomaly))
 						continue
@@ -187,7 +249,7 @@
 						M.stunned += 2
 						M.weakened += 2
 						M.stuttering += 2
-				return 1
+				return 1*/
 			if("roboheal")
 				for (var/mob/living/silicon/robot/M in range(src.aurarange,originator))
 					if(prob(10)) M << "\blue SYSTEM ALERT: Beneficial energy field detected!"
@@ -215,12 +277,11 @@
 			if("celldrain")
 				for (var/obj/machinery/power/apc/C in range(src.aurarange,originator))
 					for (var/obj/item/weapon/cell/B in C.contents)
-						B.charge = max(B.charge-10,0)
-				for (var/obj/machinery/power/smes/S in range (src.aurarange,originator))
-					S.charge = max(S.charge-20,0)
+						B.charge -= 10
+				for (var/obj/machinery/power/smes/S in range (src.aurarange,originator)) S.charge -= 20
 				for (var/mob/living/silicon/robot/M in range(src.aurarange,originator))
 					for (var/obj/item/weapon/cell/D in M.contents)
-						D.charge = max(D.charge-10,0)
+						D.charge -= 10
 						if(prob(10)) M << "\red SYSTEM ALERT: Energy draining field detected!"
 				return 1
 			if("planthelper")
@@ -242,7 +303,6 @@
 		for(var/mob/O in viewers(originator, null))
 			O.show_message(text("<b>[]</b> emits a pulse of energy!", originator), 1)
 		switch(src.effecttype)
-			//caeltodo
 			if("healing")
 				for (var/mob/living/carbon/M in range(src.aurarange,originator))
 					if(ishuman(M) && istype(M:wear_suit,/obj/item/clothing/suit/bio_suit/anomaly) && istype(M:head,/obj/item/clothing/head/bio_hood/anomaly))
@@ -269,7 +329,7 @@
 					M.weakened += 3
 					M.updatehealth()
 				return 1
-			if("stun")
+			/*if("stun")
 				for (var/mob/living/carbon/M in range(src.aurarange,originator))
 					if(ishuman(M) && istype(M:wear_suit,/obj/item/clothing/suit/bio_suit/anomaly) && istype(M:head,/obj/item/clothing/head/bio_hood/anomaly))
 						continue
@@ -278,7 +338,7 @@
 					M.stunned += 4
 					M.weakened += 4
 					M.stuttering += 4
-				return 1
+				return 1*/
 			if("roboheal")
 				for (var/mob/living/silicon/robot/M in range(src.aurarange,originator))
 					M << "\blue SYSTEM ALERT: Structural damage has been repaired by energy pulse!"
@@ -306,12 +366,11 @@
 			if("celldrain")
 				for (var/obj/machinery/power/apc/C in range(src.aurarange,originator))
 					for (var/obj/item/weapon/cell/B in C.contents)
-						B.charge = max(B.charge-500,0)
-				for (var/obj/machinery/power/smes/S in range (src.aurarange,originator))
-					S.charge = max(S.charge-400,0)
+						B.charge -= 500
+				for (var/obj/machinery/power/smes/S in range (src.aurarange,originator)) S.charge -= 400
 				for (var/mob/living/silicon/robot/M in range(src.aurarange,originator))
 					for (var/obj/item/weapon/cell/D in M.contents)
-						D.charge = max(D.charge-500,0)
+						D.charge -= 500
 						M << "\red SYSTEM ALERT: Severe energy drain detected!"
 				return 1
 			if("planthelper")
@@ -338,8 +397,6 @@
 						randomturfs.Add(T)
 					if(randomturfs.len > 0)
 						M << "\red You are displaced by a strange force!"
-						if(M.buckled)
-							M.buckled.unbuckle()
 						M.loc = pick(randomturfs)
 						var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread()
 						sparks.set_up(3, 0, get_turf(originator)) //no idea what the 0 is
@@ -349,7 +406,6 @@
 		for(var/mob/O in viewers(originator, null))
 			O.show_message(text("<b>[]</b> emits a powerful burst of energy!", originator), 1)
 		switch(src.effecttype)
-			//caeltodo
 			if("healing")
 				for (var/mob/living/carbon/M in world)
 					if(ishuman(M) && istype(M:wear_suit,/obj/item/clothing/suit/bio_suit/anomaly) && istype(M:head,/obj/item/clothing/head/bio_hood/anomaly))
@@ -372,7 +428,7 @@
 					M.adjustBrainLoss(3)
 					M.updatehealth()
 				return 1
-			if("stun")
+			/*if("stun")
 				for (var/mob/living/carbon/M in world)
 					if(ishuman(M) && istype(M:wear_suit,/obj/item/clothing/suit/bio_suit/anomaly) && istype(M:head,/obj/item/clothing/head/bio_hood/anomaly))
 						continue
@@ -381,7 +437,7 @@
 					M.stunned += 8
 					M.weakened += 8
 					M.stuttering += 8
-				return 1
+				return 1*/
 			if("roboheal")
 				for (var/mob/living/silicon/robot/M in world)
 					M << "\blue SYSTEM ALERT: Structural damage has been repaired by energy pulse!"
@@ -409,12 +465,11 @@
 			if("celldrain")
 				for (var/obj/machinery/power/apc/C in world)
 					for (var/obj/item/weapon/cell/B in C.contents)
-						B.charge = max(B.charge-250,0)
-				for (var/obj/machinery/power/smes/S in range (src.aurarange,src))
-					S.charge = max(S.charge-250,0)
+						B.charge -= 250
+				for (var/obj/machinery/power/smes/S in range (src.aurarange,src)) S.charge -= 250
 				for (var/mob/living/silicon/robot/M in world)
 					for (var/obj/item/weapon/cell/D in M.contents)
-						D.charge = max(D.charge-250,0)
+						D.charge -= 250
 						M << "\red SYSTEM ALERT: Energy drain detected!"
 				return 1
 			if("teleport")
@@ -428,8 +483,6 @@
 						randomturfs.Add(T)
 					if(randomturfs.len > 0)
 						M << "\red You are displaced by a strange force!"
-						if(M.buckled)
-							M.buckled.unbuckle()
 						M.loc = pick(randomturfs)
 						var/datum/effect/effect/system/spark_spread/sparks = new /datum/effect/effect/system/spark_spread()
 						sparks.set_up(3, 0, get_turf(originator)) //no idea what the 0 is
@@ -480,3 +533,7 @@
 			E.loc = locate(originator.x - 2,originator.y - 1,originator.z)
 			E = created_field[16]
 			E.loc = locate(originator.x - 2,originator.y - 2,originator.z)
+
+	/*for(var/obj/effect/energy_field/F in created_field)
+		created_field.Remove(F)
+		del F*/

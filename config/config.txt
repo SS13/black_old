@@ -8,9 +8,6 @@ ALERT_RED_UPTO There is an immediate serious threat to the station. Security may
 ALERT_RED_DOWNTO The self-destruct mechanism has been deactivated, there is still however an immediate serious threat to the station. Security may have weapons unholstered at all times, random searches are allowed and advised.
 ALERT_DELTA The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill.
 
-## Add a # infront of this if you want to use the SQL based admin system, the legacy system uses admins.txt
-ADMIN_LEGACY_SYSTEM
-
 ## log OOC channel
 LOG_OOC
 
@@ -42,37 +39,37 @@ LOG_ATTACK
 LOG_PDA
 
 ## log all Topic() calls (for use by coders in tracking down Topic issues)
-# LOG_HREFS
+#LOG_HREFS
 
 ## log admin warning messages
-##LOG_ADMINWARN  ## Also duplicates a bunch of other messages.
+#LOG_ADMINWARN
 
 ## sql switching
-SQL_ENABLED 0
+SQL_ENABLED 1
 
 ## disconnect players who did nothing during 10 minutes
-# KICK_INACTIVE
+#KICK_INACTIVE
 
 ## probablities for game modes chosen in "secret" and "random" modes
 ## 
 ## default probablity is 1, increase to make that mode more likely to be picked
 ## set to 0 to disable that mode
 ## Cult mode is in alpha test, enable at your own risk
-PROBABILITY EXTENDED 0
-PROBABILITY TRAITOR 6
+PROBABILITY EXTENDED 1
+PROBABILITY TRAITOR 0
 PROBABILITY METEOR 0
-PROBABILITY MALFUNCTION 1
+PROBABILITY MALFUNCTION 0
 PROBABILITY BLOB 0
-PROBABILITY NUCLEAR 1
+PROBABILITY NUCLEAR 0
 PROBABILITY SANDBOX 0
 PROBABILITY WIZARD 0
 PROBABILITY RESTRUCTURING 0
 PROBABILITY REVOLUTION 0
-PROBABILITY CHANGELING 2
-PROBABILITY CULT 1
+PROBABILITY CHANGELING 0
+PROBABILITY CULT 2
 PROBABILITY MONKEY 0
-PROBABILITY TRAITORCHAN 2
-PROBABILITY EXTEND-A-TRAITORMONGOUS 1
+PROBABILITY TRAITORCHAN 0
+PROBABILITY EXTEND-A-TRAITORMONGOUS 0
 PROBABILITY EPIDEMIC 0
 PROBABILITY MEME 0
 
@@ -90,7 +87,7 @@ TRAITOR_SCALING
 #TENSIONER_ACTIVE
 
 ## If metadata is supported
-# ALLOW_METADATA
+#ALLOW_METADATA
 
 ## allow players to initiate a restart vote
 ALLOW_VOTE_RESTART
@@ -98,30 +95,30 @@ ALLOW_VOTE_RESTART
 ## allow players to initate a mode-change start
 #ALLOW_VOTE_MODE
 
-## min delay (deciseconds) between voting sessions (default 10 minutes)
-VOTE_DELAY 12000
+## min delay (seconds) between voting sessions (default 10 minutes)
+VOTE_DELAY 1200
 
-## time period (deciseconds) which voting session will last (default 1 minute)
-VOTE_PERIOD 1200
+## time period (seconds) which voting session will last (default 1 minute)
+VOTE_PERIOD 120
 
 ## prevents dead players from voting or starting votes
 NO_DEAD_VOTE
 
 ## players' votes default to "No vote" (otherwise,  default to "No change")
-DEFAULT_NO_VOTE
+#DEFAULT_NO_VOTE
 
 ## allow AI job
 ALLOW_AI
 
 
 ## disable abandon mob
-# NORESPAWN
+NORESPAWN
 
 ## disables calling del(src) on newmobs if they logout before spawnin in
-# DONT_DEL_NEWMOB
+#DONT_DEL_NEWMOB
 
 ## set a hosted by name for unix platforms
-HOSTEDBY RNM4RL3Y
+HOSTEDBY yournamehere
 
 ## Set to jobban "Guest-" accounts from Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, and AI positions.
 ## Set to 1 to jobban them from those positions, set to 0 to allow them.
@@ -129,39 +126,39 @@ GUEST_JOBBAN 1
 
 ## Set to jobban everyone who's key is not listed in data/whitelist.txt from Captain, HoS, HoP, CE, RD, CMO, Warden, Security, Detective, and AI positions.
 ## Uncomment to 1 to jobban, leave commented out to allow these positions for everyone (but see GUEST_JOBBAN above and regular jobbans)
-# USEWHITELIST
+#USEWHITELIST
 
 ## set a server location for world reboot. Don't include the byond://, just give the address and port.
-SERVER ss13.ru:2507
+#SERVER example.com:2506
 
 ## forum address
-FORUMURL http://forum.ss13.ru
+#FORUMURL http://example.com
 
 ## Wiki address
-WIKIURL http://baystation12.net/wiki/index.php?title=Main_Page
+#WIKIURL http://example.com
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
-# BANAPPEALS http://example.com
+#BANAPPEALS http://example.com
 
 ## In-game features
 ## spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
-# FEATURE_OBJECT_SPELL_SYSTEM
+#FEATURE_OBJECT_SPELL_SYSTEM
 
-##Toggle for having jobs load up from the .txt
-# LOAD_JOBS_FROM_TXT
+## Toggle for having jobs load up from the .txt
+#LOAD_JOBS_FROM_TXT
 
-##Remove the # mark infront of this to forbid admins from posssessing the singularity.
+## Remove the # mark infront of this to forbid admins from posssessing the singularity.
 #FORBID_SINGULO_POSSESSION
 
 ## Remove the # to show a popup 'reply to' window to every non-admin that recieves an adminPM. 
 ## The intention is to make adminPMs more visible. (although I fnd popups annoying so this defaults to off)
 #POPUP_ADMIN_PM
 
-##What address should banned people appeal ther ban at?  Remember to escape the characters, if needed!
-# APPEAL_ADDRESS http://example.com
+## What address should banned people appeal ther ban at?  Remember to escape the characters, if needed!
+#APPEAL_ADDRESS http://example.com
 
-##Defines the ticklag for the world.  0.9 is the normal one, 0.5 is smoother.
-TICKLAG 0.6
+## Defines the ticklag for the world.  0.9 is the normal one, 0.5 is smoother.
+TICKLAG 0.5
 
 ## Defines if Tick Compensation is used.  It results in a minor slowdown of movement of all mobs, but attempts to result in a level movement speed across all ticks.  Recommended if tickrate is lowered.
 TICKCOMP 0
@@ -169,17 +166,5 @@ TICKCOMP 0
 ## Whether the server will talk to other processes through socket_talk
 SOCKET_TALK 0
 
-## Uncomment this to ban use of ToR
-#TOR_BAN
-
-## Comment this out to disable automuting
-#AUTOMUTE_ON
-
-## Uncomment to restrict non-admins from using humanoid alien races
+## Uncomment to restrict non-admins using humanoid alien races
 #USEALIENWHITELIST
-
-## Location of the nudge.py script
-NUDGE_SCRIPT_PATH nudge.py
-
-## Comment this to unrestrict the number of alien players allowed in the round. The number represents the number of alien players for every human player.
-ALIEN_PLAYER_RATIO 0.4

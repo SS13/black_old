@@ -53,7 +53,7 @@
 					return
 
 			spawn(0) //Overload the light, spectacularly.
-				//Light.sd_SetLuminosity(10)
+				//Light.ul_SetLuminosity(10)
 				//sleep(2)
 				Light.on = 1
 				Light.broken()

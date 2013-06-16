@@ -1,10 +1,22 @@
 /obj/machinery/door/poddoor
 	name = "Podlock"
-	desc = "Why it no open!!!"
-	icon = 'icons/obj/doors/rapid_pdoor.dmi'
+	desc = "A type of powerful blast door."
+	icon = 'rapid_pdoor.dmi'
 	icon_state = "pdoor1"
-	var/id = 1.0
-	explosion_resistance = 25
+	var/id = ""
+	var/network = ""
+
+	Topic(href, href_list)
+		..()
+		if( href_list["open"] )
+			open()
+		if( href_list["close"] )
+			close()
+		if( href_list["toggle"] )
+			if(src.density)
+				open()
+			else
+				close()
 
 /obj/machinery/door/poddoor/Bumped(atom/AM)
 	if(!density)
@@ -21,14 +33,14 @@
 			src.operating = 1
 			flick("pdoorc0", src)
 			src.icon_state = "pdoor0"
-			src.SetOpacity(0)
 			sleep(15)
 			src.density = 0
+			src.ul_SetOpacity(0)
 			src.operating = 0
 			return
 	return
 
-/obj/machinery/door/poddoor/open()
+/obj/machinery/door/poddoor/open(var/closeafterdelay = 0)
 	if (src.operating == 1) //doors can still open when emag-disabled
 		return
 	if (!ticker)
@@ -37,15 +49,15 @@
 		src.operating = 1
 	flick("pdoorc0", src)
 	src.icon_state = "pdoor0"
-	src.SetOpacity(0)
 	sleep(10)
 	src.density = 0
+	src.ul_SetOpacity(0)
 	update_nearby_tiles()
 
 	if(operating == 1) //emag again
 		src.operating = 0
-	if(autoclose)
-		spawn(150)
+	if(closeafterdelay)
+		spawn(50)
 			autoclose()
 	return 1
 
@@ -56,14 +68,14 @@
 	flick("pdoorc1", src)
 	src.icon_state = "pdoor1"
 	src.density = 1
-	src.SetOpacity(initial(opacity))
+	if (src.visible)
+		src.ul_SetOpacity(1)
 	update_nearby_tiles()
 
 	sleep(10)
 	src.operating = 0
 	return
 
-/*
 /obj/machinery/door/poddoor/two_tile_hor/open()
 	if (src.operating == 1) //doors can still open when emag-disabled
 		return
@@ -73,14 +85,14 @@
 		src.operating = 1
 	flick("pdoorc0", src)
 	src.icon_state = "pdoor0"
-	src.SetOpacity(0)
-	f1.SetOpacity(0)
-	f2.SetOpacity(0)
-
 	sleep(10)
 	src.density = 0
+	src.ul_SetOpacity(0)
+
 	f1.density = 0
+	f1.ul_SetOpacity(0)
 	f2.density = 0
+	f2.ul_SetOpacity(0)
 
 	update_nearby_tiles()
 
@@ -97,18 +109,18 @@
 	src.operating = 1
 	flick("pdoorc1", src)
 	src.icon_state = "pdoor1"
-
 	src.density = 1
+
 	f1.density = 1
+	f1.ul_SetOpacity(1)
 	f2.density = 1
+	f2.ul_SetOpacity(1)
 
-	sleep(10)
-	src.SetOpacity(initial(opacity))
-	f1.SetOpacity(initial(opacity))
-	f2.SetOpacity(initial(opacity))
-
+	if (src.visible)
+		src.ul_SetOpacity(1)
 	update_nearby_tiles()
 
+	sleep(10)
 	src.operating = 0
 	return
 
@@ -123,16 +135,16 @@
 	src.icon_state = "pdoor0"
 	sleep(10)
 	src.density = 0
-	src.sd_SetOpacity(0)
+	src.ul_SetOpacity(0)
 
 	f1.density = 0
-	f1.sd_SetOpacity(0)
+	f1.ul_SetOpacity(0)
 	f2.density = 0
-	f2.sd_SetOpacity(0)
+	f2.ul_SetOpacity(0)
 	f3.density = 0
-	f3.sd_SetOpacity(0)
+	f3.ul_SetOpacity(0)
 	f4.density = 0
-	f4.sd_SetOpacity(0)
+	f4.ul_SetOpacity(0)
 
 	update_nearby_tiles()
 
@@ -152,16 +164,16 @@
 	src.density = 1
 
 	f1.density = 1
-	f1.sd_SetOpacity(1)
+	f1.ul_SetOpacity(1)
 	f2.density = 1
-	f2.sd_SetOpacity(1)
+	f2.ul_SetOpacity(1)
 	f3.density = 1
-	f3.sd_SetOpacity(1)
+	f3.ul_SetOpacity(1)
 	f4.density = 1
-	f4.sd_SetOpacity(1)
+	f4.ul_SetOpacity(1)
 
 	if (src.visible)
-		src.sd_SetOpacity(1)
+		src.ul_SetOpacity(1)
 	update_nearby_tiles()
 
 	sleep(10)
@@ -179,12 +191,12 @@
 	src.icon_state = "pdoor0"
 	sleep(10)
 	src.density = 0
-	src.sd_SetOpacity(0)
+	src.ul_SetOpacity(0)
 
 	f1.density = 0
-	f1.sd_SetOpacity(0)
+	f1.ul_SetOpacity(0)
 	f2.density = 0
-	f2.sd_SetOpacity(0)
+	f2.ul_SetOpacity(0)
 
 	update_nearby_tiles()
 
@@ -204,12 +216,12 @@
 	src.density = 1
 
 	f1.density = 1
-	f1.sd_SetOpacity(1)
+	f1.ul_SetOpacity(1)
 	f2.density = 1
-	f2.sd_SetOpacity(1)
+	f2.ul_SetOpacity(1)
 
 	if (src.visible)
-		src.sd_SetOpacity(1)
+		src.ul_SetOpacity(1)
 	update_nearby_tiles()
 
 	sleep(10)
@@ -227,16 +239,16 @@
 	src.icon_state = "pdoor0"
 	sleep(10)
 	src.density = 0
-	src.sd_SetOpacity(0)
+	src.ul_SetOpacity(0)
 
 	f1.density = 0
-	f1.sd_SetOpacity(0)
+	f1.ul_SetOpacity(0)
 	f2.density = 0
-	f2.sd_SetOpacity(0)
+	f2.ul_SetOpacity(0)
 	f3.density = 0
-	f3.sd_SetOpacity(0)
+	f3.ul_SetOpacity(0)
 	f4.density = 0
-	f4.sd_SetOpacity(0)
+	f4.ul_SetOpacity(0)
 
 	update_nearby_tiles()
 
@@ -256,16 +268,16 @@
 	src.density = 1
 
 	f1.density = 1
-	f1.sd_SetOpacity(1)
+	f1.ul_SetOpacity(1)
 	f2.density = 1
-	f2.sd_SetOpacity(1)
+	f2.ul_SetOpacity(1)
 	f3.density = 1
-	f3.sd_SetOpacity(1)
+	f3.ul_SetOpacity(1)
 	f4.density = 1
-	f4.sd_SetOpacity(1)
+	f4.ul_SetOpacity(1)
 
 	if (src.visible)
-		src.sd_SetOpacity(1)
+		src.ul_SetOpacity(1)
 	update_nearby_tiles()
 
 	sleep(10)
@@ -278,7 +290,7 @@
 /obj/machinery/door/poddoor/two_tile_hor
 	var/obj/machinery/door/poddoor/filler_object/f1
 	var/obj/machinery/door/poddoor/filler_object/f2
-	icon = 'icons/obj/doors/1x2blast_hor.dmi'
+	icon = '1x2blast_hor.dmi'
 
 	New()
 		..()
@@ -286,8 +298,8 @@
 		f2 = new/obj/machinery/door/poddoor/filler_object (get_step(src,EAST))
 		f1.density = density
 		f2.density = density
-		f1.sd_SetOpacity(opacity)
-		f2.sd_SetOpacity(opacity)
+		f1.ul_SetOpacity(opacity)
+		f2.ul_SetOpacity(opacity)
 
 	Del()
 		del f1
@@ -297,7 +309,7 @@
 /obj/machinery/door/poddoor/two_tile_ver
 	var/obj/machinery/door/poddoor/filler_object/f1
 	var/obj/machinery/door/poddoor/filler_object/f2
-	icon = 'icons/obj/doors/1x2blast_vert.dmi'
+	icon = '1x2blast_vert.dmi'
 
 	New()
 		..()
@@ -305,8 +317,8 @@
 		f2 = new/obj/machinery/door/poddoor/filler_object (get_step(src,NORTH))
 		f1.density = density
 		f2.density = density
-		f1.sd_SetOpacity(opacity)
-		f2.sd_SetOpacity(opacity)
+		f1.ul_SetOpacity(opacity)
+		f2.ul_SetOpacity(opacity)
 
 	Del()
 		del f1
@@ -318,7 +330,7 @@
 	var/obj/machinery/door/poddoor/filler_object/f2
 	var/obj/machinery/door/poddoor/filler_object/f3
 	var/obj/machinery/door/poddoor/filler_object/f4
-	icon = 'icons/obj/doors/1x4blast_hor.dmi'
+	icon = '1x4blast_hor.dmi'
 
 	New()
 		..()
@@ -330,10 +342,10 @@
 		f2.density = density
 		f3.density = density
 		f4.density = density
-		f1.sd_SetOpacity(opacity)
-		f2.sd_SetOpacity(opacity)
-		f4.sd_SetOpacity(opacity)
-		f3.sd_SetOpacity(opacity)
+		f1.ul_SetOpacity(opacity)
+		f2.ul_SetOpacity(opacity)
+		f4.ul_SetOpacity(opacity)
+		f3.ul_SetOpacity(opacity)
 
 	Del()
 		del f1
@@ -347,7 +359,7 @@
 	var/obj/machinery/door/poddoor/filler_object/f2
 	var/obj/machinery/door/poddoor/filler_object/f3
 	var/obj/machinery/door/poddoor/filler_object/f4
-	icon = 'icons/obj/doors/1x4blast_vert.dmi'
+	icon = '1x4blast_vert.dmi'
 
 	New()
 		..()
@@ -359,10 +371,10 @@
 		f2.density = density
 		f3.density = density
 		f4.density = density
-		f1.sd_SetOpacity(opacity)
-		f2.sd_SetOpacity(opacity)
-		f4.sd_SetOpacity(opacity)
-		f3.sd_SetOpacity(opacity)
+		f1.ul_SetOpacity(opacity)
+		f2.ul_SetOpacity(opacity)
+		f4.ul_SetOpacity(opacity)
+		f3.ul_SetOpacity(opacity)
 
 	Del()
 		del f1
@@ -370,7 +382,7 @@
 		del f3
 		del f4
 		..()
-*/
+
 /obj/machinery/door/poddoor/filler_object
 	name = ""
 	icon_state = ""

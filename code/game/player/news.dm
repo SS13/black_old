@@ -109,8 +109,8 @@ client/proc/display_news_list()
 			if(N.ID in read_news)
 				continue
 			read_news += N.ID
-			output += "<b>[N.title]</b><br>"
-			output += "[N.body]<br>"
+			output += "<b>[sanitize_uni(html_decode(N.title))]</b><br>"
+			output += "[sanitize_uni(html_decode(N.body))]<br>"
 			output += "<small>authored by <i>[N.author]</i></small><br>"
 			output += "<br>"
 
@@ -120,7 +120,7 @@ client/proc/display_news_list()
 
 	output += "<a href='?src=\ref[news_topic_handler];client=\ref[src];action=show_all_news'>Display All</a><br>"
 	if(src.holder)
-		output += "<a href='?src=\ref[news_topic_handler];client=\ref[src];action=add_news'>Add</a> <a href=http://baystation12.net/forums/index.php/topic,3680.0.html>Guidelines</a><br>"
+		output += "<a href='?src=\ref[news_topic_handler];client=\ref[src];action=add_news'>Add</a>"
 
 	usr << browse(output, "window=news;size=600x400")
 
@@ -146,8 +146,8 @@ client/proc/display_all_news_list()
 		if(!(N.ID in read_news))
 			read_news += N.ID
 		var/date = time2text(N.date,"MM/DD")
-		output += "[date] <b>[N.title]</b><br>"
-		output += "[N.body]<br>"
+		output += "[date] <b>[sanitize_uni(html_decode(N.title))]</b><br>"
+		output += "[sanitize_uni(html_decode(N.body))]<br>"
 		output += "<small>authored by <i>[N.author]</i></small>"
 		if(src.holder)
 			output += " <a href='?src=\ref[news_topic_handler];client=\ref[src];action=remove;ID=[N.ID]'>Delete</a> <a href='?src=\ref[news_topic_handler];client=\ref[src];action=edit;ID=[N.ID]'>Edit</a>"
@@ -155,7 +155,7 @@ client/proc/display_all_news_list()
 		output += "<br>"
 	F["read_news"] << read_news
 	if(admin)
-		output += "<a href='?src=\ref[news_topic_handler];client=\ref[src];action=add_news'>Add</a> <a href=http://baystation12.net/forums/index.php/topic,3680.0.html>Guidelines</a><br>"
+		output += "<a href='?src=\ref[news_topic_handler];client=\ref[src];action=add_news'>Add</a>"
 	usr << browse(output, "window=news;size=600x400")
 
 

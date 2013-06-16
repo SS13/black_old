@@ -1,7 +1,6 @@
+var/list/whitelist
+
 #define WHITELISTFILE "data/whitelist.txt"
-
-var/list/whitelist = list()
-
 /proc/load_whitelist()
 	var/text = file2text(WHITELISTFILE)
 	if (!text)
@@ -14,7 +13,7 @@ var/list/whitelist = list()
 		return 0
 	return ("[M.ckey]" in whitelist)
 
-var/list/alien_whitelist = list()
+#undef WHITELISTFILE
 
 proc/load_alienwhitelist()
 	var/text = file2text("config/alienwhitelist.txt")
@@ -25,16 +24,11 @@ proc/load_alienwhitelist()
 
 /proc/is_alien_whitelisted(mob/M, var/species)
 	if(!alien_whitelist)
-		return 0
+		return
 	if((M.client) && (M.client.holder) && (M.client.holder.level) && (M.client.holder.level >= 5))
 		return 1
 	if(M && species)
 		for (var/s in alien_whitelist)
 			if(findtext(s,"[M.ckey] - [species]"))
 				return 1
-			if(findtext(s,"[M.ckey] - All"))
-				return 1
-
-	return 0
-
-#undef WHITELISTFILE
+		return 0

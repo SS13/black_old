@@ -84,8 +84,8 @@
 	range = -1
 	include_user = 1
 
-	emp_heavy = 6
-	emp_light = 10
+	emp_heavy = 5
+	emp_light = 7
 
 /obj/effect/proc_holder/spell/targeted/turf_teleport/blink
 	name = "Blink"
@@ -104,8 +104,6 @@
 
 	inner_tele_radius = 0
 	outer_tele_radius = 6
-
-	centcomm_cancast = 0 //prevent people from getting to centcomm
 
 /obj/effect/proc_holder/spell/targeted/area_teleport/teleport
 	name = "Teleport"
@@ -252,7 +250,6 @@
 	invocation_type = "none"
 	range = 0
 	summon_type = list("/turf/simulated/floor/engine/cult")
-	centcomm_cancast = 0 //Stop crashing the server by spawning turfs on transit tiles
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall
 	name = "Leser Construction"
@@ -265,7 +262,6 @@
 	invocation_type = "none"
 	range = 0
 	summon_type = list("/turf/simulated/wall/cult")
-	centcomm_cancast = 0 //Stop crashing the server by spawning turfs on transit tiles
 
 /obj/effect/proc_holder/spell/aoe_turf/conjure/wall/reinforced
 	name = "Greater Construction"
@@ -277,8 +273,6 @@
 	invocation = "none"
 	invocation_type = "none"
 	range = 0
-	centcomm_cancast = 0 //Stop crashing the server by spawning turfs on transit tiles
-	delay = 50
 
 	summon_type = list("/turf/simulated/wall/r_wall")
 
@@ -310,6 +304,8 @@
 	summon_lifespan = 50
 
 
+
+
 /obj/effect/proc_holder/spell/targeted/ethereal_jaunt/shift
 	name = "Phase Shift"
 	desc = "This spell allows you to pass through walls"
@@ -323,4 +319,3 @@
 	include_user = 1
 	phaseshift = 1
 	jaunt_duration = 50 //in deciseconds
-	centcomm_cancast = 0 //Stop people from getting to centcomm

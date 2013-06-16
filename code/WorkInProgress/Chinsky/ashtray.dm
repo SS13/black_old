@@ -17,7 +17,7 @@
 /obj/item/ashtray/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (health < 1)
 		return
-	if (istype(W,/obj/item/clothing/mask/cigarette) || istype(W, /obj/item/weapon/match) || istype(W, /obj/item/weapon/cigbutt))
+	if (istype(W,/obj/item/clothing/mask/cigarette))
 		if(user)
 			if (contents.len >= max_butts)
 				user << "This ashtray is full."
@@ -28,21 +28,13 @@
 				user.client.screen -= W
 			var/obj/item/clothing/mask/cigarette/cig = W
 			if (cig.lit == 1)
-				src.visible_message("[user] crushes [cig] in [src], putting it out.")
+				src.visible_message("[user] crushes a [cig] in the [src], putting it out.")
 				cig.put_out()
 			else if (cig.lit == 0)
-				if(istype(cig, /obj/item/weapon/match))
-					user << "You place [cig] in [src] without even lighting it. Why would you do that?"
-					src.visible_message("[user] places [cig] in [src].")
-				else
-					user << "You place [cig] in [src] without even smoking it. Why would you do that?"
-					src.visible_message("[user] places [cig] in [src].")
+				user << "You place a [cig] in [src] without even smoking it. Why would you do that?"
 			else if (cig.lit == -1)
-				src.visible_message("[user] places [cig] in [src].")
-			if(istype(cig, /obj/item/weapon/cigbutt))
-				src.visible_message("[user] crushes [cig] in [src], putting it out.")
-			user.update_inv_l_hand()
-			user.update_inv_r_hand()
+				src.visible_message("[user] places a [cig] in the [src],.")
+			user.update_clothing()
 			add_fingerprint(user)
 			if (contents.len == max_butts)
 				icon_state = icon_full
@@ -50,13 +42,6 @@
 			else if (contents.len > max_butts/2)
 				icon_state = icon_half
 				desc = empty_desc + " It's half-filled."
-	if (istype(W, /obj/item/weapon/trashbag) || istype(W, /obj/item/weapon/storage/trashbag))
-		if (src.contents.len)
-			src.visible_message("[user] picks up all the trash from [src].")
-		for (var/obj/item/O in contents)
-			contents -= O
-			W.contents += O
-		icon_state = icon_empty
 	else
 		health = max(0,health - W.force)
 		user << "You hit [src] with [W]."
@@ -72,7 +57,7 @@
 			return
 		if (contents.len)
 			src.visible_message("\red [src] slams into [hit_atom] spilling its contents!")
-		for (var/obj/item/O in contents)
+		for (var/obj/item/clothing/mask/cigarette/O in contents)
 			contents -= O
 			O.loc = src.loc
 		icon_state = icon_empty
@@ -80,7 +65,7 @@
 
 /obj/item/ashtray/proc/die()
 	src.visible_message("\red [src] shatters spilling its contents!")
-	for (var/obj/item/O in contents)
+	for (var/obj/item/clothing/mask/cigarette/O in contents)
 		contents -= O
 		O.loc = src.loc
 	icon_state = icon_broken

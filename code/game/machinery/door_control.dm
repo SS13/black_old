@@ -1,3 +1,35 @@
+/obj/machinery/door_control
+	name = "remote door-control"
+	desc = "It controls doors, remotely."
+	icon = 'stationobjs.dmi'
+	icon_state = "doorctrl0"
+	desc = "A remote control-switch for a door."
+	var/network = null
+	var/range = 10
+	var/normaldoorcontrol = 0
+	var/desiredstate = 0 // Zero is closed, 1 is open.
+	var/specialfunctions = 1
+	/*
+	Bitflag, 	1= open
+				2= idscan,
+				4= bolts
+				8= shock
+				16= door safties
+
+	*/
+
+	var/exposedwires = 0
+	var/wires = 3
+	/*
+	Bitflag,	1=checkID
+				2=Network Access
+	*/
+
+	anchored = 1.0
+	use_power = 1
+	idle_power_usage = 2
+	active_power_usage = 4
+
 /obj/machinery/door_control/attack_ai(mob/user as mob)
 	if(wires & 2)
 		return src.attack_hand(user)
@@ -42,7 +74,7 @@
 
 	if(normaldoorcontrol)
 		for(var/obj/machinery/door/airlock/D in range(range))
-			if(D.id_tag == src.id)
+			if(D.id_tag == src.network)
 				if(desiredstate == 1)
 					if(specialfunctions & OPEN)
 						if (D.density)
@@ -56,8 +88,6 @@
 						D.update_icon()
 					if(specialfunctions & SHOCK)
 						D.secondsElectrified = -1
-					if(specialfunctions & SAFE)
-						D.safe = 0
 
 				else
 					if(specialfunctions & OPEN)
@@ -68,17 +98,17 @@
 					if(specialfunctions & IDSCAN)
 						D.aiDisabledIdScanner = 0
 					if(specialfunctions & BOLTS)
-						if(!D.isWireCut(4) && D.arePowerSystemsOn())
-							D.locked = 0
-							D.update_icon()
+						D.locked = 0
+						D.update_icon()
 					if(specialfunctions & SHOCK)
 						D.secondsElectrified = 0
-					if(specialfunctions & SAFE)
-						D.safe = 1
+
+
 
 	else
 		for(var/obj/machinery/door/poddoor/M in world)
-			if (M.id == src.id)
+			if ( M.network == src.network || (!M.network && src.network == M.id))
+				//if the network tags match or the door id tag matcehes the control network tag, go ahead
 				if (M.density)
 					spawn( 0 )
 						M.open()

@@ -17,10 +17,11 @@
 			usr.verbs += /client/proc/blind
 
 		usr.whisper("STI KALY")
+	//	usr.spellvoice()
 
 		var/obj/effect/overlay/B = new /obj/effect/overlay( M.loc )
 		B.icon_state = "blspell"
-		B.icon = 'icons/obj/wizard.dmi'
+		B.icon = 'wizard.dmi'
 		B.name = "spell"
 		B.anchored = 1
 		B.density = 0
@@ -30,9 +31,9 @@
 			del(B)
 			M.canmove = 1
 		M << text("\blue Your eyes cry out in pain!")
-		M.disabilities |= NEARSIGHTED
+		M.disabilities |= 1
 		spawn(300)
-			M.disabilities &= ~NEARSIGHTED
+			M.disabilities &= ~1
 		M.eye_blind = 10
 		M.eye_blurry = 20
 		return
@@ -49,12 +50,13 @@
 	if(!usr.casting()) return
 
 	usr.say("FORTI GY AMA")
+	usr.spellvoice()
 
 	for (var/mob/living/M as mob in oview())
 		spawn(0)
 			var/obj/effect/overlay/A = new /obj/effect/overlay( usr.loc )
 			A.icon_state = "magicm"
-			A.icon = 'icons/obj/wizard.dmi'
+			A.icon = 'wizard.dmi'
 			A.name = "a magic missile"
 			A.anchored = 0
 			A.density = 0
@@ -65,7 +67,7 @@
 					break
 				var/obj/effect/overlay/B = new /obj/effect/overlay( A.loc )
 				B.icon_state = "magicmd"
-				B.icon = 'icons/obj/wizard.dmi'
+				B.icon = 'wizard.dmi'
 				B.name = "trail"
 				B.anchored = 1
 				B.density = 0
@@ -127,7 +129,7 @@
 /obj/effect/forcefield
 	desc = "A space wizard's magic wall."
 	name = "FORCEWALL"
-	icon = 'icons/effects/effects.dmi'
+	icon = 'effects.dmi'
 	icon_state = "m_shield"
 	anchored = 1.0
 	opacity = 0
@@ -160,6 +162,7 @@
 	var/forcefield
 
 	usr.whisper("TARCOL MINTI ZHERI")
+//	usr.spellvoice()
 
 	forcefield =  new /obj/effect/forcefield(locate(usr.x,usr.y,usr.z))
 	spawn (300)
@@ -168,7 +171,7 @@
 
 //FIREBALLAN
 
-/client/proc/fireball()
+/client/proc/fireball(mob/living/T as mob in oview())
 	set category = "Spells"
 	set name = "Fireball"
 	set desc = "This spell fires a fireball at a target and does not require wizard garb."
@@ -178,63 +181,28 @@
 //	if(!usr.casting()) return
 
 	usr.verbs -= /client/proc/fireball
-	spawn(100)
+	spawn(200)
 		usr.verbs += /client/proc/fireball
 
 	usr.say("ONI SOMA")
-
-	var/mob/living/user = src
-	if(!istype(user))
-		return
-
-	var/i
-	var/turf/T
-	var/range = 15
-
-	var/x = user.loc.x
-	var/y = user.loc.y
-	var/z = user.loc.z
-
-	switch(user.dir)
-		if(NORTH)
-			T = get_turf(locate(x, y + range, z))
-		if(EAST)
-			T = get_turf(locate(x + range, y, z))
-		if(SOUTH)
-			T = get_turf(locate(x, y - range, z))
-		if(WEST)
-			T = get_turf(locate(x - range, y, z))
-		else
-			return
+	//	usr.spellvoice()
 
 	var/obj/effect/overlay/A = new /obj/effect/overlay( usr.loc )
-
 	A.icon_state = "fireball"
-	A.icon = 'icons/obj/wizard.dmi'
+	A.icon = 'wizard.dmi'
 	A.name = "a fireball"
 	A.anchored = 0
 	A.density = 0
-	A.luminosity = 3
-
-	step_to(A, T, 0)
+	var/i
 	for(i=0, i<100, i++)
-		var/hit = 0
-		var/moving = step_to(A,T,0)
-		for(var/mob/living/target in range(1, A))
-			hit = 1
-			target.take_overall_damage(20,25)
-		if(hit)
-			explosion(A.loc, -1, -1, 2, 2)
-			del(A)
-			return
-		if(!moving)
-			explosion(A.loc, -1, -1, 2, 2)
+		step_to(A,T,0)
+		if (get_dist(A,T) <= 1)
+			T.take_overall_damage(20,25)
+			explosion(T.loc, -1, -1, 2, 2)
 			del(A)
 			return
 		sleep(2)
-	if(A)
-		explosion(A.loc, -1, -1, 2, 2)
-		del(A)
+	del(A)
 	return
 
 //KNOCK
@@ -252,6 +220,7 @@
 		usr.verbs += /client/proc/knock
 
 	usr.whisper("AULIE OXIN FIERA")
+//	usr.spellvoice()
 
 	for(var/obj/machinery/door/G in oview(3))
 		spawn(1)
@@ -260,6 +229,7 @@
 
 //KILL
 
+/*
 /mob/proc/kill(mob/living/M as mob in oview(1))
 	set category = "Spells"
 	set name = "Disintegrate"
@@ -273,12 +243,14 @@
 		usr.verbs += /mob/proc/kill
 
 	usr.say("EI NATH")
+	usr.spellvoice()
 
 	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 	s.set_up(4, 1, M)
 	s.start()
 
 	M.dust()
+*/
 
 //DISABLE TECH
 
@@ -295,6 +267,7 @@
 		usr.verbs += /mob/proc/tech
 
 	usr.say("NEC CANTIO")
+	usr.spellvoice()
 	empulse(src, 6, 10)
 	return
 
@@ -332,12 +305,13 @@
 	set category = "Spells"
 	set name = "Teleport"
 	set desc = "This spell teleports you to a type of area of your selection."
+
 	if(usr.stat)
 		src << "Not when you are incapacitated."
 		return
+
 	if(!usr.casting()) return
-	var/A
-	usr.verbs -= /mob/proc/teleport
+
 /*
 	var/list/theareas = new/list()
 	for(var/area/AR in world)
@@ -349,14 +323,18 @@
 			theareas[AR.name] = AR
 */
 
-	A = input("Area to jump to", "BOOYEA", A) in teleportlocs
+	var/A = input("Area to jump to", "Teleport") as null|anything in teleportlocs
+	if (isnull(A))
+		return
 
+	usr.verbs -= /mob/proc/teleport
 	spawn(600)
 		usr.verbs += /mob/proc/teleport
 
 	var/area/thearea = teleportlocs[A]
 
 	usr.say("SCYAR NILA [uppertext(A)]")
+	usr.spellvoice()
 
 	var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
 	smoke.set_up(5, 0, usr.loc)
@@ -372,18 +350,10 @@
 					break
 			if(clear)
 				L+=T
-
-	if(!L.len)
-		usr <<"The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."
-		return
-
-	var/attempt = 0
-	var/success = 0
-	while(!success)
-		success = Move(pick(L))
-		if(attempt > 20) break	//Failsafe
-	if(!success)
+	if(L.len)
 		usr.loc = pick(L)
+	else
+		usr << "The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."
 
 	smoke.start()
 
@@ -391,9 +361,11 @@
 	if(usr.stat)
 		usr << "Not when you are incapacitated."
 		return
-	var/A
 
-	A = input("Area to jump to", "BOOYEA", A) in teleportlocs
+	var/A = input("Area to jump to", "Teleport") as null|anything in teleportlocs
+	if (isnull(A))
+		return
+
 	var/area/thearea = teleportlocs[A]
 
 	var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
@@ -412,17 +384,12 @@
 				L+=T
 
 	if(!L.len)
-		usr <<"The spell matrix was unable to locate a suitable teleport destination for an unknown reason. Sorry."
+		usr <<"Invalid teleport destination."
 		return
 
-	var/attempt = 0
-	var/success = 0
-	while(!success)
-		success = Move(pick(L))
-		if(attempt > 20) break	//Failsafe
-	if(!success)
+	else
 		usr.loc = pick(L)
-	smoke.start()
+		smoke.start()
 
 //JAUNT
 
@@ -448,7 +415,7 @@
 		animation.name = "water"
 		animation.density = 0
 		animation.anchored = 1
-		animation.icon = 'icons/mob/mob.dmi'
+		animation.icon = 'mob.dmi'
 		animation.icon_state = "liquify"
 		animation.layer = 5
 		animation.master = holder
@@ -467,12 +434,7 @@
 		sleep(20)
 		flick("reappear",animation)
 		sleep(5)
-		if(!H.Move(mobloc))
-			for(var/direction in list(1,2,4,8,5,6,9,10))
-				var/turf/T = get_step(mobloc, direction)
-				if(T)
-					if(H.Move(T))
-						break
+		H.loc = mobloc
 		H.canmove = 1
 		H.client.eye = H
 		del(animation)
@@ -480,7 +442,7 @@
 /*
 /obj/effect/dummy/spell_jaunt
 	name = "water"
-	icon = 'icons/effects/effects.dmi'
+	icon = 'effects.dmi'
 	icon_state = "nothing"
 	var/canmove = 1
 	density = 0
@@ -532,6 +494,7 @@
 		usr.verbs += /client/proc/mutate
 
 	usr.say("BIRUZ BENNAR")
+	usr.spellvoice()
 
 	usr << text("\blue You feel strong! You feel pressure building behind your eyes!")
 	if (!(HULK in usr.mutations))
@@ -561,23 +524,20 @@
 
 				U.whisper("GIN'YU CAPAN")
 				U.verbs -= /mob/proc/swap
-				//Remove special verbs from both mobs
 				if(U.mind.special_verbs.len)
 					for(var/V in U.mind.special_verbs)
 						U.verbs -= V
+
+				var/mob/dead/observer/G = new /mob/dead/observer(H) //To properly transfer clients so no-one gets kicked off the game.
+
+				H.client.mob = G
 				if(H.mind.special_verbs.len)
 					for(var/V in H.mind.special_verbs)
 						H.verbs -= V
+				G.mind = H.mind
 
-				//empty out H
-				var/mob/dead/observer/G = H.ghostize(0) //Transfers H to a temporary mob
-
-				//Start the Transfer
-				U.mind.transfer_to(H)
-				G.mind.transfer_to(U)
-				U.key = G.key			//has to be called explicitly since ghostize() set the datum/mind/var/active = 0
-
-				//Re-add those special verbs and stuff
+				U.client.mob = H
+				H.mind = U.mind
 				if(H.mind.special_verbs.len)
 					var/spell_loss = 1//Can lose only one spell during transfer.
 					var/probability = 95 //To determine the chance of wizard losing their spell.
@@ -594,10 +554,19 @@
 								spawn(500)
 									H << "The mind transfer has robbed you of a spell."
 
+			/*	//This code SHOULD work to prevent Mind Swap spam since the spell transfer code above instantly resets it.
+				//I can't test this code because I can't test mind stuff on my own :x -- Darem.
+				if(hascall(H, /mob/proc/swap))
+					H.verbs -= /mob/proc/swap
+				*/
+				G.client.mob = U
+				U.mind = G.mind
 				if(U.mind.special_verbs.len)//Basic fix to swap verbs for any mob if needed.
 					for(var/V in U.mind.special_verbs)
 						U.verbs += V
 
+				U.mind.current = U
+				H.mind.current = H
 				spawn(500)
 					U << "Something about your body doesn't seem quite right..."
 
@@ -607,6 +576,7 @@
 				spawn(600)
 					H.verbs += /mob/proc/swap
 
+				del(G)
 			else
 				src << "Their mind is not compatible."
 				return

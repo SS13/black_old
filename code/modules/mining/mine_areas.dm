@@ -20,22 +20,22 @@
 	name = "Mining station Storage"
 
 /area/mine/production
-	name = "Mining Station Starboard Wing"
+	name = "Mining station Production Area"
 	icon_state = "mining_production"
 
 /area/mine/abandoned
 	name = "Abandoned Mining Station"
 
 /area/mine/living_quarters
-	name = "Mining Station Port Wing"
+	name = "Mining Station Living Quarters"
 	icon_state = "mining_living"
 
 /area/mine/eva
-	name = "Mining Station EVA"
+	name = "Mining station EVA"
 	icon_state = "mining_eva"
 
 /area/mine/maintenance
-	name = "Mining Station Communications"
+	name = "Mining station Maintenance"
 
 /area/mine/cafeteria
 	name = "Mining station Cafeteria"

@@ -56,7 +56,7 @@ obj/machinery/atmospherics/pipe
 		..()
 
 	simple
-		icon = 'icons/obj/pipes.dmi'
+		icon = 'pipes.dmi'
 		icon_state = "intact-f"
 
 		name = "pipe"
@@ -106,7 +106,7 @@ obj/machinery/atmospherics/pipe
 			if(!parent) //This should cut back on the overhead calling build_network thousands of times per cycle
 				..()
 			else
-				. = PROCESS_KILL
+				machines.Remove(src)
 
 			/*if(!node1)
 				parent.mingle_with_turf(loc, volume)
@@ -158,8 +158,8 @@ obj/machinery/atmospherics/pipe
 			else return 1
 
 		proc/burst()
-			src.visible_message("\red \bold [src] bursts!");
-			playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
+			src.visible_message("\red \bold \The [src] bursts!");
+			playsound(src.loc, 'bang.ogg', 25, 1)
 			var/datum/effect/effect/system/harmless_smoke_spread/smoke = new
 			smoke.set_up(1,0, src.loc, 0)
 			smoke.start()
@@ -253,11 +253,19 @@ obj/machinery/atmospherics/pipe
 		name="Scrubbers pipe"
 		color="red"
 		icon_state = ""
+		initialize()
+			..()
+			if(istype(node1, /obj/machinery/atmospherics/pipe/simple/supply) || istype(node1, /obj/machinery/atmospherics/pipe/simple/supply))
+				log_admin("Warning, scrubber pipeline connected to supply pipeline at [x], [y], [z]!")
 
 	simple/supply
 		name="Air supply pipe"
 		color="blue"
 		icon_state = ""
+		initialize()
+			..()
+			if(istype(node1, /obj/machinery/atmospherics/pipe/simple/scrubbers) || istype(node1, /obj/machinery/atmospherics/pipe/simple/scrubbers))
+				log_admin("Warning, supply  pipeline connected to scrubber pipeline at [x], [y], [z]!")
 
 	simple/supplymain
 		name="Main air supply pipe"
@@ -301,23 +309,10 @@ obj/machinery/atmospherics/pipe
 		level = 1
 		icon_state = "intact-f"
 
-	simple/yellow
-		name="Pipe"
-		color="yellow"
-		icon_state = ""
-
-	simple/yellow/visible
-		level = 2
-		icon_state = "intact-y"
-
-	simple/yellow/hidden
-		level = 1
-		icon_state = "intact-y-f"
-
 
 
 	simple/insulated
-		icon = 'icons/obj/atmospherics/red_pipe.dmi'
+		icon = 'red_pipe.dmi'
 		icon_state = "intact"
 
 		minimum_temperature_difference = 10000
@@ -330,13 +325,13 @@ obj/machinery/atmospherics/pipe
 
 
 	tank
-		icon = 'icons/obj/atmospherics/pipe_tank.dmi'
+		icon = 'pipe_tank.dmi'
 		icon_state = "intact"
 
 		name = "Pressure Tank"
 		desc = "A large vessel containing pressurized gas."
 
-		volume = 2000 //in liters, 1 meters by 1 meters by 2 meters
+		volume = 1620 //in liters, 0.9 meters by 0.9 meters by 2 meters
 
 		dir = SOUTH
 		initialize_directions = SOUTH
@@ -346,13 +341,15 @@ obj/machinery/atmospherics/pipe
 
 		New()
 			initialize_directions = dir
+			if(air_temporary)
+				air_temporary.update_values()
 			..()
 
 		process()
 			if(!parent)
 				..()
 			else
-				. = PROCESS_KILL
+				machines.Remove(src)
 /*			if(!node1)
 				parent.mingle_with_turf(loc, 200)
 				if(!nodealert)
@@ -374,7 +371,7 @@ obj/machinery/atmospherics/pipe
 				..()
 
 		toxins
-			icon = 'icons/obj/atmospherics/orange_pipe_tank.dmi'
+			icon = 'orange_pipe_tank.dmi'
 			name = "Pressure Tank (Plasma)"
 
 			New()
@@ -386,24 +383,8 @@ obj/machinery/atmospherics/pipe
 
 				..()
 
-		oxygen_agent_b
-			icon = 'icons/obj/atmospherics/red_orange_pipe_tank.dmi'
-			name = "Pressure Tank (Oxygen + Plasma)"
-
-			New()
-				air_temporary = new
-				air_temporary.volume = volume
-				air_temporary.temperature = T0C
-
-				var/datum/gas/oxygen_agent_b/trace_gas = new
-				trace_gas.moles = (25*ONE_ATMOSPHERE)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
-
-				air_temporary.trace_gases += trace_gas
-
-				..()
-
 		oxygen
-			icon = 'icons/obj/atmospherics/blue_pipe_tank.dmi'
+			icon = 'blue_pipe_tank.dmi'
 			name = "Pressure Tank (Oxygen)"
 
 			New()
@@ -416,7 +397,7 @@ obj/machinery/atmospherics/pipe
 				..()
 
 		nitrogen
-			icon = 'icons/obj/atmospherics/red_pipe_tank.dmi'
+			icon = 'red_pipe_tank.dmi'
 			name = "Pressure Tank (Nitrogen)"
 
 			New()
@@ -429,7 +410,7 @@ obj/machinery/atmospherics/pipe
 				..()
 
 		air
-			icon = 'icons/obj/atmospherics/red_pipe_tank.dmi'
+			icon = 'red_pipe_tank.dmi'
 			name = "Pressure Tank (Air)"
 
 			New()
@@ -441,6 +422,107 @@ obj/machinery/atmospherics/pipe
 				air_temporary.nitrogen = (25*ONE_ATMOSPHERE*N2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
 
 				..()
+
+		n2o
+			icon = 'n2o_pipe_tank.dmi'
+			name = "Pressure Tank (N2O)"
+
+			New()
+				air_temporary = new
+				air_temporary.volume = volume
+				air_temporary.temperature = T0C
+
+				var/datum/gas/sleeping_agent/trace_gas = new
+				trace_gas.moles = (25*ONE_ATMOSPHERE)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+
+				air_temporary.trace_gases += trace_gas
+
+				..()
+
+
+		highcap
+			carbon_dioxide
+				name = "High Capacity Pressure Tank (Carbon Dioxide)"
+
+				New()
+					air_temporary = new
+					air_temporary.volume = volume
+					air_temporary.temperature = T20C
+
+					air_temporary.carbon_dioxide = (160*ONE_ATMOSPHERE)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+
+					..()
+
+			toxins
+				icon = 'orange_pipe_tank.dmi'
+				name = "High Capacity Pressure Tank (Plasma)"
+
+				New()
+					air_temporary = new
+					air_temporary.volume = volume
+					air_temporary.temperature = T20C
+
+					air_temporary.toxins = (160*ONE_ATMOSPHERE)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+
+					..()
+
+			oxygen
+				icon = 'blue_pipe_tank.dmi'
+				name = "High Capacity Pressure Tank (Oxygen)"
+
+				New()
+					air_temporary = new
+					air_temporary.volume = volume
+					air_temporary.temperature = T20C
+
+					air_temporary.oxygen = (160*ONE_ATMOSPHERE)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+
+					..()
+
+			nitrogen
+				icon = 'red_pipe_tank.dmi'
+				name = "High Capacity Pressure Tank (Nitrogen)"
+
+				New()
+					air_temporary = new
+					air_temporary.volume = volume
+					air_temporary.temperature = T20C
+
+					air_temporary.nitrogen = (160*ONE_ATMOSPHERE)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+
+					..()
+
+			air
+				icon = 'red_pipe_tank.dmi'
+				name = "High Capacity Pressure Tank (Air)"
+
+				New()
+					air_temporary = new
+					air_temporary.volume = volume
+					air_temporary.temperature = T20C
+
+					air_temporary.oxygen = (160*ONE_ATMOSPHERE*O2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+					air_temporary.nitrogen = (160*ONE_ATMOSPHERE*N2STANDARD)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+
+					..()
+
+			n2o
+				icon = 'n2o_pipe_tank.dmi'
+				name = "High Capacity Pressure Tank (N2O)"
+
+				New()
+					air_temporary = new
+					air_temporary.volume = volume
+					air_temporary.temperature = T0C
+
+					var/datum/gas/sleeping_agent/trace_gas = new
+					trace_gas.moles = (160*ONE_ATMOSPHERE)*(air_temporary.volume)/(R_IDEAL_GAS_EQUATION*air_temporary.temperature)
+
+					air_temporary.trace_gases += trace_gas
+
+					..()
+
+
 
 		Del()
 			if(node1)
@@ -487,7 +569,7 @@ obj/machinery/atmospherics/pipe
 					O << "\red [user] has used the analyzer on \icon[icon]"
 
 				var/pressure = parent.air.return_pressure()
-				var/total_moles = parent.air.total_moles()
+				var/total_moles = parent.air.total_moles
 
 				user << "\blue Results of analysis of \icon[icon]"
 				if (total_moles>0)
@@ -510,7 +592,7 @@ obj/machinery/atmospherics/pipe
 					user << "\blue Tank is empty!"
 
 	vent
-		icon = 'icons/obj/atmospherics/pipe_vent.dmi'
+		icon = 'pipe_vent.dmi'
 		icon_state = "intact"
 
 		name = "Vent"
@@ -526,24 +608,20 @@ obj/machinery/atmospherics/pipe
 		var/build_killswitch = 1
 
 		var/obj/machinery/atmospherics/node1
-		New()		
+		New()
 			initialize_directions = dir
 			..()
-
-		high_volume
-			name = "Larger vent"
-			volume = 1000
 
 		process()
 			if(!parent)
 				if(build_killswitch <= 0)
-					. = PROCESS_KILL
+					machines.Remove(src)
 				else
 					build_killswitch--
 				..()
 				return
 			else
-				parent.mingle_with_turf(loc, volume)
+				parent.mingle_with_turf(loc, 250)
 /*
 			if(!node1)
 				if(!nodealert)
@@ -598,7 +676,7 @@ obj/machinery/atmospherics/pipe
 				icon_state = "exposed"
 
 	manifold
-		icon = 'icons/obj/atmospherics/pipe_manifold.dmi'
+		icon = 'pipe_manifold.dmi'
 		icon_state = "manifold-f"
 
 		name = "pipe manifold"
@@ -643,7 +721,7 @@ obj/machinery/atmospherics/pipe
 			if(!parent)
 				..()
 			else
-				. = PROCESS_KILL
+				machines.Remove(src)
 /*
 			if(!node1)
 				parent.mingle_with_turf(loc, 70)
@@ -786,11 +864,6 @@ obj/machinery/atmospherics/pipe
 		color="gray"
 		icon_state = ""
 
-	manifold/yellow
-		name="Air supply pipe"
-		color="yellow"
-		icon_state = ""
-
 	manifold/scrubbers/visible
 		level = 2
 		icon_state = "manifold-r"
@@ -822,14 +895,6 @@ obj/machinery/atmospherics/pipe
 	manifold/general/hidden
 		level = 1
 		icon_state = "manifold-f"
-
-	manifold/yellow/visible
-		level = 2
-		icon_state = "manifold-y"
-
-	manifold/yellow/hidden
-		level = 1
-		icon_state = "manifold-y-f"
 
 	manifold4w
 		icon = 'pipe_manifold.dmi'
@@ -1027,34 +1092,110 @@ obj/machinery/atmospherics/pipe
 		level = 1
 		icon_state = "manifold4w-f"
 
+	cap
+		name = "pipe endcap"
+		desc = "An endcap for pipes"
+		icon = 'pipes.dmi'
+		icon_state = "cap"
+		level = 2
+
+		volume = 35
+
+		dir = SOUTH
+		initialize_directions = NORTH
+
+		var/obj/machinery/atmospherics/node
+
+		New()
+			..()
+			switch(dir)
+				if(SOUTH)
+				 initialize_directions = NORTH
+				if(NORTH)
+				 initialize_directions = SOUTH
+				if(WEST)
+				 initialize_directions = EAST
+				if(EAST)
+				 initialize_directions = WEST
+
+		hide(var/i)
+			if(level == 1 && istype(loc, /turf/simulated))
+				invisibility = i ? 101 : 0
+			update_icon()
+
+		pipeline_expansion()
+			return list(node)
+
+		process()
+			if(!parent)
+				..()
+			else
+				machines.Remove(src)
+/*
+			if(!node1)
+				parent.mingle_with_turf(loc, 70)
+				if(!nodealert)
+					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
+					nodealert = 1
+			else if(!node2)
+				parent.mingle_with_turf(loc, 70)
+				if(!nodealert)
+					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
+					nodealert = 1
+			else if(!node3)
+				parent.mingle_with_turf(loc, 70)
+				if(!nodealert)
+					//world << "Missing node from [src] at [src.x],[src.y],[src.z]"
+					nodealert = 1
+			else if (nodealert)
+				nodealert = 0
+*/
+		Del()
+			if(node)
+				node.disconnect(src)
+
+			..()
+
+		disconnect(obj/machinery/atmospherics/reference)
+			if(reference == node)
+				if(istype(node, /obj/machinery/atmospherics/pipe))
+					del(parent)
+				node = null
+
+			update_icon()
+
+			..()
+
+		update_icon()
+			overlays = new()
+
+			icon_state = "cap[invisibility ? "-f" : ""]"
+			return
+
+		initialize()
+			for(var/obj/machinery/atmospherics/target in get_step(src, dir))
+				if(target.initialize_directions & get_dir(target,src))
+					node = target
+					break
+
+			var/turf/T = src.loc			// hide if turf is not intact
+			hide(T.intact)
+			//update_icon()
+			update_icon()
+
+		visible
+			level = 2
+			icon_state = "cap"
+
+		hidden
+			level = 1
+			icon_state = "cap-f"
+
 obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 	if (istype(src, /obj/machinery/atmospherics/pipe/tank))
 		return ..()
 	if (istype(src, /obj/machinery/atmospherics/pipe/vent))
 		return ..()
-
-	// ===== Handle paints =====
-	if(istype(W, /obj/item/weapon/reagent_containers/glass/paint/red))
-		src.color = "red"
-		user << "\red You paint the pipe red."
-		update_icon()
-		return 1
-	if(istype(W, /obj/item/weapon/reagent_containers/glass/paint/blue))
-		src.color = "blue"
-		user << "\red You paint the pipe blue."
-		update_icon()
-		return 1
-	if(istype(W, /obj/item/weapon/reagent_containers/glass/paint/green))
-		src.color = "green"
-		user << "\red You paint the pipe green."
-		update_icon()
-		return 1
-	if(istype(W, /obj/item/weapon/reagent_containers/glass/paint/yellow))
-		src.color = "yellow"
-		user << "\red You paint the pipe yellow."
-		update_icon()
-		return 1
-    
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	var/turf/T = src.loc
@@ -1067,7 +1208,7 @@ obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/u
 		user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
 		add_fingerprint(user)
 		return 1
-	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+	playsound(src.loc, 'Ratchet.ogg', 50, 1)
 	user << "\blue You begin to unfasten \the [src]..."
 	if (do_after(user, 40))
 		user.visible_message( \

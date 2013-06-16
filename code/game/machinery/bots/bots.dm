@@ -1,29 +1,25 @@
 // AI (i.e. game AI, not the AI player) controlled bots
 
 /obj/machinery/bot
-	icon = 'icons/obj/aibots.dmi'
+	icon = 'aibots.dmi'
 	layer = MOB_LAYER
-	luminosity = 3
 	var/obj/item/weapon/card/id/botcard			// the ID card that the bot "holds"
 	var/on = 1
 	var/health = 0 //do not forget to set health for your bot!
 	var/maxhealth = 0
 	var/fire_dam_coeff = 1.0
 	var/brute_dam_coeff = 1.0
-	var/open = 0//Maint panel
-	var/locked = 1
 	//var/emagged = 0 //Urist: Moving that var to the general /bot tree as it's used by most bots
 
 
 /obj/machinery/bot/proc/turn_on()
-	if(stat)	return 0
-	on = 1
-	SetLuminosity(initial(luminosity))
+	if (stat)
+		return 0
+	src.on = 1
 	return 1
 
 /obj/machinery/bot/proc/turn_off()
-	on = 0
-	SetLuminosity(0)
+	src.on = 0
 
 /obj/machinery/bot/proc/explode()
 	del(src)
@@ -33,21 +29,16 @@
 		src.explode()
 
 /obj/machinery/bot/proc/Emag(mob/user as mob)
-	if(locked)
-		locked = 0
-		emagged = 1
-		user << "<span class='warning'>You bypass [src]'s controls.</span>"
-	if(!locked && open)
-		emagged = 2
+	if(!emagged) emagged = 1
 
 /obj/machinery/bot/examine()
 	set src in view()
 	..()
 	if (src.health < maxhealth)
 		if (src.health > maxhealth/3)
-			usr << "<span class='warning'>[src]'s parts look loose.</span>"
+			usr << text("\red [src]'s parts look loose.")
 		else
-			usr << "<span class='danger'>[src]'s parts look very loose!</span>"
+			usr << text("\red <B>[src]'s parts look very loose!</B>")
 	return
 
 /obj/machinery/bot/attack_alien(var/mob/living/carbon/alien/user as mob)
@@ -60,7 +51,7 @@
 	*/
 	src.health -= rand(15,30)*brute_dam_coeff
 	src.visible_message("\red <B>[user] has slashed [src]!</B>")
-	playsound(src.loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+	playsound(src.loc, 'slice.ogg', 25, 1, -1)
 	if(prob(10))
 		new /obj/effect/decal/cleanable/oil(src.loc)
 	healthcheck()
@@ -70,7 +61,6 @@
 	if(M.melee_damage_upper == 0)	return
 	src.health -= M.melee_damage_upper
 	src.visible_message("\red <B>[M] has [M.attacktext] [src]!</B>")
-	M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name]</font>")
 	if(prob(10))
 		new /obj/effect/decal/cleanable/oil(src.loc)
 	healthcheck()
@@ -79,20 +69,21 @@
 
 
 /obj/machinery/bot/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weapon/screwdriver))
-		if(!locked)
-			open = !open
-			user << "<span class='notice'>Maintenance panel is now [src.open ? "opened" : "closed"].</span>"
-	else if(istype(W, /obj/item/weapon/weldingtool))
-		if(health < maxhealth)
-			if(open)
-				health = min(maxhealth, health+10)
-				user.visible_message("\red [user] repairs [src]!","\blue You repair [src]!")
-			else
-				user << "<span class='notice'>Unable to repair with the maintenance panel closed.</span>"
+	if (istype(W, /obj/item/weapon/screwdriver))
+		if (src.health < maxhealth)
+			src.health = min(maxhealth, src.health+25)
+			user.visible_message(
+				"\red [user] repairs [src]!",
+				"\blue You repair [src]!"
+			)
 		else
-			user << "<span class='notice'>[src] does not need a repair.</span>"
-	else if (istype(W, /obj/item/weapon/card/emag) && emagged < 2)
+			user << "\blue [src] does not need a repair!"
+	else if (istype(W, /obj/item/weapon/card/emag) && !emagged)
+		var/obj/item/weapon/card/emag/E = W
+		if(E.uses)
+			E.uses--
+		else
+			return
 		Emag(user)
 	else
 		switch(W.damtype)
@@ -139,7 +130,7 @@
 	var/was_on = on
 	stat |= EMPED
 	var/obj/effect/overlay/pulse2 = new/obj/effect/overlay ( src.loc )
-	pulse2.icon = 'icons/effects/effects.dmi'
+	pulse2.icon = 'effects.dmi'
 	pulse2.icon_state = "empdisable"
 	pulse2.name = "emp sparks"
 	pulse2.anchored = 1

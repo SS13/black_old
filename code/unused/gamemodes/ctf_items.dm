@@ -45,7 +45,7 @@
 
 /obj/item/weapon/ctf_flag/proc/check_if_equipped()
 	var/equipped = 0
-	for(var/mob/M in living_mob_list)
+	for(var/mob/M in world)
 		if(M &&!M.stat)
 			var/list/L = M.get_contents()
 			if(src in L)

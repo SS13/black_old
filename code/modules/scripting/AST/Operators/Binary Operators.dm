@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
-
 /*
 	File: Binary Operators
 */
@@ -8,7 +6,8 @@
 	Represents a binary operator in the AST. A binary operator takes two operands (ie x and y) and returns a value.
 */
 /node/expression/operator/binary
-	var/node/expression/exp2
+	var
+		node/expression/exp2
 
 ////////// Comparison Operators //////////
 /*

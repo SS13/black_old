@@ -1,16 +1,19 @@
+//Some of this is being changed to a datum to cut down on uneccessary variables at the client level.	~Carn
 /client
 		////////////////
 		//ADMIN THINGS//
 		////////////////
-	var/datum/admins/holder = null
+	var/obj/admins/holder = null
 	var/buildmode		= 0
+	var/stealth			= 0
+	var/fakekey			= null
 	var/seeprayers		= 0
-
-	var/muted			= 0
-	var/last_message	= "" //Contains the last message sent by this client - used to protect against copy-paste spamming.
-	var/last_message_count = 0 //contins a number of how many times a message identical to last_message was sent.
-
+	var/ooccolor		= "#b82e00"
+	var/muted			= null 	//Can't talk in OOC, say, whisper, emote... anything except for adminhelp and admin-pm. An admin punishment
+	var/muted_complete	= null	//Can't talk in any way shape or form (muted + can't adminhelp or respond to admin pm-s). An admin punishment
 	var/warned			= 0
+	var/sound_adminhelp = 0 	//If set to 1 this will play a sound when adminhelps are received.
+	var/admin_invis = 0
 
 		/////////
 		//OTHER//
@@ -23,13 +26,15 @@
 	var/changes			= 0
 	var/area			= null
 	var/played			= 0
+	var/team			= null
 	var/be_alien		= 0		//Check if that guy wants to be an alien
 	var/be_pai			= 1		//Consider client when searching for players to recruit as a pAI
-	var/be_syndicate    = 1     //Consider client for late-game autotraitor
-	var/activeslot		= 1		//Default active slot!
+	var/vote			= null
+	var/showvote		= null
 	var/STFU_ghosts				//80+ people rounds are fun to admin when text flies faster than airport security
 	var/STFU_radio				//80+ people rounds are fun to admin when text flies faster than airport security
-	var/STFU_atklog		= 0
+	var/be_syndicate	= 0 	//Moving this into client vars, since I was silly when I made it.
+	var/bubbles			= 1		//Check if bubbles should be displayed for someone
 
 		///////////////
 		//SOUND STUFF//
@@ -44,4 +49,7 @@
 		////////////
 	var/next_allowed_topic_time = 10
 	// comment out the line below when debugging locally to enable the options & messages menu
-	control_freak = 1
+	//control_freak = 1
+
+
+

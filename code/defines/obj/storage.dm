@@ -2,7 +2,6 @@
 	name = "backpack"
 	desc = "You wear this on your back and put items into it."
 	icon_state = "backpack"
-	item_state = "backpack"
 	w_class = 4.0
 	flags = FPRINT|TABLEPASS
 	slot_flags = SLOT_BACK	//ERROOOOO
@@ -35,7 +34,7 @@
 	name = "pill bottle"
 	desc = "It's an airtight container for storing medication."
 	icon_state = "pill_canister"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'chemical.dmi'
 	item_state = "contsolid"
 	w_class = 2.0
 	can_hold = list("/obj/item/weapon/reagent_containers/pill")
@@ -45,7 +44,7 @@
 	name = "pack of dice"
 	desc = "It's a small container with dice inside."
 	icon_state = "pill_canister"
-	icon = 'icons/obj/chemical.dmi'
+	icon = 'chemical.dmi'
 	item_state = "contsolid"
 	w_class = 2.0
 	can_hold = list("/obj/item/weapon/dice")
@@ -58,7 +57,17 @@
 
 /obj/item/weapon/storage/box/engineer
 
+/obj/item/weapon/storage/box/medic
+	name = "anesthetic box"
+	desc = "Full of masks and emergency anesthetic tanks."
+
 /obj/item/weapon/storage/box/syndicate
+
+/obj/item/weapon/storage/box/ert
+	name = "medical box"
+	desc = "Full of goodness."
+	icon_state = "implant"
+	item_state = "syringe_kit"
 
 /obj/item/weapon/storage/cupbox
 	name = "box of paper cups"
@@ -94,29 +103,31 @@
 	name = "Giggles Von Honkerton"
 	desc = "It's a backpack made by Honk! Co."
 	icon_state = "clownpack"
-	item_state = "clownpack"
 
 /obj/item/weapon/storage/backpack/medic
 	name = "medical backpack"
 	desc = "It's a backpack especially designed for use in a sterile environment."
 	icon_state = "medicalpack"
-	item_state = "medicalpack"
+
+/obj/item/weapon/storage/backpack/medic/full
+//Spawns with 2 boxes of ERT gear, a box of ERT gear and a hypo, and a box of anesthetic.
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/hypospray/ert(src)
+		for(var/i = 1, i <=2, i++)
+			new /obj/item/weapon/storage/box/ert(src)
+		new /obj/item/weapon/storage/box/medic(src)
+		new /obj/item/device/healthanalyzer(src)
+		return
 
 /obj/item/weapon/storage/backpack/security
 	name = "security backpack"
 	desc = "It's a very robust backpack."
 	icon_state = "securitypack"
-	item_state = "securitypack"
-
-/obj/item/weapon/storage/backpack/captain
-	name = "captain's backpack"
-	desc = "It's a special backpack made exclusively for Nanotrasen officers."
-	icon_state = "captainpack"
-	item_state = "captainpack"
 
 /obj/item/weapon/storage/backpack/satchel
-	name = "leather satchel"
-	desc = "It's a very fancy satchel made with fine leather."
+	name = "satchel"
+	desc = "It's a very robust satchel to wear on your back."
 	icon_state = "satchel"
 
 /obj/item/weapon/storage/backpack/satchel/withwallet
@@ -135,13 +146,11 @@
 	name = "industrial satchel"
 	desc = "A tough satchel with extra pockets."
 	icon_state = "satchel-eng"
-	item_state = "engiepack"
 
 /obj/item/weapon/storage/backpack/satchel_med
 	name = "medical satchel"
 	desc = "A sterile satchel used in medical departments."
 	icon_state = "satchel-med"
-	item_state = "medicalpack"
 
 /obj/item/weapon/storage/backpack/satchel_vir
 	name = "virologist satchel"
@@ -167,24 +176,75 @@
 	name = "security satchel"
 	desc = "A robust satchel for security related needs."
 	icon_state = "satchel-sec"
-	item_state = "securitypack"
 
 /obj/item/weapon/storage/backpack/satchel_hyd
 	name = "hydroponics satchel"
 	desc = "A green satchel for plant related work."
 	icon_state = "satchel_hyd"
 
-/obj/item/weapon/storage/backpack/satchel_cap
-	name = "captain's satchel"
-	desc = "An exclusive satchel for Nanotrasen officers."
-	icon_state = "satchel-cap"
-	item_state = "captainpack"
+
+
+/obj/item/weapon/storage/backpack/bandolier
+	name = "bandolier"
+	desc = "It's a very old bandolier to wear on your back."
+	icon_state = "bandolier"
+
+/obj/item/weapon/storage/backpack/medicalsatchel
+	name = "medic's satchel"
+	desc = "Easy to access medical satchel for quick responses."
+	icon_state = "medicalsatchel"
 
 /obj/item/weapon/storage/backpack/industrial
 	name = "industrial backpack"
 	desc = "It's a tough backpack for the daily grind of station life."
 	icon_state = "engiepack"
-	item_state = "engiepack"
+
+/obj/item/weapon/storage/backpack/industrial/full
+	name = "loaded industrial backpack"
+	desc = "A tough backpack for the daily grind, full of gear"
+	icon_state = "engiepack"
+
+//Spawns with 2 glass, 2 metal, 1 steel, and 2 special boxes.
+	New()
+		..()
+		for(var/i = 1, i <=2, i++)
+			var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src)
+			G.amount = 50
+			G.loc = src
+		for(var/i = 1, i <=2, i++)
+			var/obj/item/stack/sheet/metal/G = new /obj/item/stack/sheet/metal(src)
+			G.amount = 50
+			G.loc = src
+		var/obj/item/stack/sheet/plasteel/R = new /obj/item/stack/sheet/plasteel(src)
+		R.amount = 50
+		R.loc = src
+		var/obj/item/weapon/storage/box/B1 = new /obj/item/weapon/storage/box(src)
+		B1.name = "power and airlock circuit box"
+		B1.desc = "Bursting with repair gear"
+		B1.w_class = 2
+		for(var/i = 1, i <= 7, i++)
+			if(i < 4)
+				var/obj/item/weapon/module/power_control/P = new /obj/item/weapon/module/power_control(B1)
+				P.loc = B1
+			if(i >= 4)
+				var/obj/item/weapon/airlock_electronics/P = new /obj/item/weapon/airlock_electronics(B1)
+				P.loc = B1
+		var/obj/item/weapon/storage/box/B2 = new /obj/item/weapon/storage/box(src)
+		B2.name = "power cells and wire box"
+		B2.desc = "Bursting with repair gear"
+		B2.w_class = 2
+		var/color = pick("red","yellow","green","blue")
+		for(var/i = 1, i <= 7, i++)
+			if(i < 4)
+				var/obj/item/weapon/cable_coil/P = new /obj/item/weapon/cable_coil(B2,30,color)
+				P.loc = B2
+			if(i >= 4)
+				var/obj/item/weapon/cell/P = new /obj/item/weapon/cell(B2)
+				P.maxcharge = 15000
+				P.charge = 15000
+				P.updateicon()
+				P.loc = B2
+		return
 
 /obj/item/weapon/storage/briefcase
 	name = "briefcase"
@@ -205,7 +265,7 @@
 	icon_state = "wallet"
 	w_class = 2
 	can_hold = list(
-		"/obj/item/weapon/spacecash",
+		"/obj/item/weapon/money",
 		"/obj/item/weapon/card",
 		"/obj/item/clothing/mask/cigarette",
 		"/obj/item/device/flashlight/pen",
@@ -256,18 +316,11 @@
 
 /obj/item/weapon/storage/wallet/random/New()
 	..()
-	var/item1_type
-	if(prob(75))
-		item1_type = pick( /obj/item/weapon/spacecash/c10,/obj/item/weapon/spacecash/c100,/obj/item/weapon/spacecash/c1000,/obj/item/weapon/spacecash/c20,/obj/item/weapon/spacecash/c200,/obj/item/weapon/spacecash/c50, /obj/item/weapon/spacecash/c500)
+	var/item1_type = pick( /obj/item/weapon/money/c10,/obj/item/weapon/money/c100,/obj/item/weapon/money/c1000,/obj/item/weapon/money/c20,/obj/item/weapon/money/c200,/obj/item/weapon/money/c50, /obj/item/weapon/money/c500)
 	var/item2_type
-	if(prob(70))
-		item2_type = pick( /obj/item/weapon/spacecash/c10,/obj/item/weapon/spacecash/c100,/obj/item/weapon/spacecash/c1000,/obj/item/weapon/spacecash/c20,/obj/item/weapon/spacecash/c200,/obj/item/weapon/spacecash/c50, /obj/item/weapon/spacecash/c500)
-	var/item3_type
-	if(prob(55))
-		item3_type = pick( /obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/gold, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron )
-	var/item4_type
 	if(prob(50))
-		item4_type = pick( /obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/gold, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron )
+		item2_type = pick( /obj/item/weapon/money/c10,/obj/item/weapon/money/c100,/obj/item/weapon/money/c1000,/obj/item/weapon/money/c20,/obj/item/weapon/money/c200,/obj/item/weapon/money/c50, /obj/item/weapon/money/c500)
+	var/item3_type = pick( /obj/item/weapon/coin/silver, /obj/item/weapon/coin/silver, /obj/item/weapon/coin/gold, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron, /obj/item/weapon/coin/iron )
 
 	spawn(2)
 		if(item1_type)
@@ -276,8 +329,6 @@
 			new item2_type(src)
 		if(item3_type)
 			new item3_type(src)
-		if(item4_type)
-			new item4_type(src)
 
 
 /obj/item/weapon/storage/disk_kit
@@ -299,7 +350,7 @@
 
 /obj/item/weapon/storage/firstaid
 	name = "first-aid kit"
-	desc = "It's an emergency medical kit for those serious boo-boos."
+	desc = "In case of injury."
 	icon_state = "firstaid"
 	throw_speed = 2
 	throw_range = 8
@@ -307,7 +358,7 @@
 
 /obj/item/weapon/storage/firstaid/fire
 	name = "fire first-aid kit"
-	desc = "It's an emergency medical kit for when the toxins lab <i>-spontaneously-</i> burns down."
+	desc = "Contains burn treatments."
 	icon_state = "ointment"
 	item_state = "firstaid-ointment"
 
@@ -317,25 +368,31 @@
 /obj/item/weapon/storage/syringes
 	name = "syringes"
 	desc = "A box full of syringes."
-	desc = "A biohazard alert warning is printed on the box"
+	desc = "A biohazard alert warning is printed on the box."
 	icon_state = "syringe"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
 /obj/item/weapon/storage/firstaid/toxin
 	name = "toxin first aid"
-	desc = "Used to treat when you have a high amoutn of toxins in your body."
+	desc = "Contains anti-toxin medication."
 	icon_state = "antitoxin"
 	item_state = "firstaid-toxin"
 
 /obj/item/weapon/storage/firstaid/o2
 	name = "oxygen deprivation first aid"
-	desc = "A box full of oxygen goodies."
+	desc = "Contains oxygen deprivation medication."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
 
+/obj/item/weapon/storage/firstaid/adv
+	name = "advanced first-aid kit"
+	desc = "Contains advanced medical treatments."
+	icon_state = "advfirstaid"
+	item_state = "firstaid-advanced"
+
 /obj/item/weapon/storage/flashbang_kit
 	name = "flashbangs (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
+	desc = ""
 	icon_state = "flashbang"
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
@@ -349,7 +406,7 @@
 
 /obj/item/weapon/storage/gl_kit
 	name = "Prescription Glasses"
-	desc = "This box contains nerd glasses."
+	desc = "This box contains vison correcting glasses."
 	icon_state = "glasses"
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
@@ -357,7 +414,7 @@
 /obj/item/weapon/storage/seccart_kit
 	name = "Spare R.O.B.U.S.T. Cartridges"
 	desc = "A box full of R.O.B.U.S.T. Cartridges, used by Security."
-	icon = 'icons/obj/pda.dmi'
+	icon = 'pda.dmi'
 	icon_state = "pdabox"
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
@@ -371,7 +428,7 @@
 
 /obj/item/weapon/storage/id_kit
 	name = "Spare IDs"
-	desc = "Has so many empty IDs."
+	desc = "Has many empty IDs."
 	icon_state = "id"
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
@@ -385,21 +442,21 @@
 
 /obj/item/weapon/storage/injectbox
 	name = "DNA-Injectors"
-	desc = "This box contains injectors it seems."
+	desc = "This box contains injectors."
 	icon_state = "box"
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
 /obj/item/weapon/storage/stma_kit
 	name = "Sterile Masks"
-	desc = "This box contains masks of sterility."
-	icon_state = "sterile"
+	desc = "This box contains masks of +2 constitution." //I made it better.  --SkyMarshal
+	icon_state = "mask"
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
 /obj/item/weapon/storage/trackimp_kit
 	name = "Tracking Implant Kit"
-	desc = "Box full of scum-bag tracking utensils."
+	desc = "Box full of tracking implants."
 	icon_state = "implant"
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
@@ -411,57 +468,123 @@
 	item_state = "syringe_kit"
 	foldable = /obj/item/stack/sheet/cardboard	//BubbleWrap
 
+/obj/item/weapon/storage/deathalarm_kit
+	name = "Death Alarm Kit"
+	desc = "Box of stuff used to implant death alarms."
+	icon_state = "implant"
+	item_state = "syringe_kit"
+
+	New()
+		..()
+		new /obj/item/weapon/implanter(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
+		new /obj/item/weapon/implantcase/death_alarm(src)
+
 /obj/item/weapon/storage/toolbox
 	name = "toolbox"
-	desc = "Danger. Very robust."
-	icon = 'icons/obj/storage.dmi'
+	desc = "Danger. Very heavy."
+	icon = 'storage.dmi'
 	icon_state = "red"
 	item_state = "toolbox_red"
 	flags = FPRINT | TABLEPASS| CONDUCT
-	force = 5.0
+	force = 10.0
 	throwforce = 10.0
 	throw_speed = 1
 	throw_range = 7
 	w_class = 4.0
 	origin_tech = "combat=1"
-	attack_verb = list("robusted")
+
+	var/selfdamage = 0
+
+/obj/item/weapon/storage/toolbox/afterattack(atom/target as mob|obj|turf|area, mob/user as mob)
+	if(contents.len && istype(user.loc, /turf) && prob(10))
+		// have a chance to swing open
+		user.visible_message("\red \The [src] swings wide open and its contents are scattered on the floor!")
+		for(var/obj/O in contents)
+			O.loc = user.loc
+			O.layer = OBJ_LAYER
+			if(prob(50)) step_rand(O)
+	..()
 
 /obj/item/weapon/storage/toolbox/emergency
 	name = "emergency toolbox"
+	desc = "A toolbox for emergencies"
 	icon_state = "red"
 	item_state = "toolbox_red"
 
 /obj/item/weapon/storage/toolbox/mechanical
 	name = "mechanical toolbox"
+	desc = "A toolbox for holding tools about machinery."
 	icon_state = "blue"
 	item_state = "toolbox_blue"
 
 /obj/item/weapon/storage/toolbox/electrical
 	name = "electrical toolbox"
+	desc = "A toolbox for holding tools about electronics."
 	icon_state = "yellow"
 	item_state = "toolbox_yellow"
 
+/obj/item/weapon/storage/PCMBox
+	name = "spare power control modules"
+	desc = "A box of spare power control module circuit boards."
+	icon = 'storage.dmi'
+	icon_state = "circuit"
+	item_state = "syringe_kit"
+
+/obj/item/weapon/storage/AirlockBox
+	name = "spare airlock electronics"
+	desc = "A box of spare airlock circuit boards."
+	icon = 'storage.dmi'
+	icon_state = "circuit"
+	item_state = "syringe_kit"
+
 /obj/item/weapon/storage/toolbox/syndicate
-	name = "suspicious looking toolbox"
+	name = "red and black toolbox"
+	desc = "An oddly coloured toolbox."
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=1;syndicate=1"
-	force = 7.0
+	force = 14.0
+
+/obj/item/weapon/storage/book
+	name = "book"
+	icon = 'library.dmi'
+	icon_state ="book"
+	throw_speed = 1
+	throw_range = 5
+	w_class = 2.0
+	max_w_class = 1
+	max_combined_w_class = 3
+	storage_slots = 3
+	flags = FPRINT | TABLEPASS
 
 /obj/item/weapon/storage/bible
 	name = "bible"
-	desc = "A holy book." //BS12 EDIT
+	desc = "Holds the word of religion."
 	icon_state ="bible"
 	throw_speed = 1
 	throw_range = 5
-	w_class = 3.0
+	w_class = 2.0
+	max_w_class = 1
+	max_combined_w_class = 7
+	storage_slots = 7
 	flags = FPRINT | TABLEPASS
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 
 /obj/item/weapon/storage/bible/booze
 	name = "bible"
-	desc = "A holy book. Smells faintly of alcohol" //BS12 EDIT
+	desc = "Holds the word of religion."
+	icon_state ="bible"
+
+/obj/item/weapon/storage/bible/tajaran
+	name = "The Holy Book of S'rendarr"
+	desc = "Holds the word of religion."
+	icon_state ="koran"
 
 /obj/item/weapon/storage/mousetraps
 	name = "box of Pest-B-Gon Mousetraps"
@@ -567,7 +690,7 @@
 	/obj/item/stack/sheet/plasma,
 	/obj/item/stack/sheet/uranium,
 	/obj/item/stack/sheet/diamond,
-	/obj/item/stack/sheet/clown,
+//	/obj/item/stack/sheet/clown,
 	/obj/item/stack/sheet/plasteel,
 	/obj/item/stack/rods
 
@@ -581,23 +704,3 @@
 			R.amount = R.max_amount
 
 	return
-
-
-/obj/item/weapon/storage/satchel
-	name = "Mining Satchel"
-	desc = "This little bugger can be used to store and transport ores."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel"
-	slot_flags = SLOT_BELT | SLOT_POCKET
-	w_class = 3
-	storage_slots = 50
-	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
-	use_to_pickup = 1
-	max_w_class = 3
-	display_contents_with_number = 1
-	allow_quick_empty = 1
-	allow_quick_gather = 1
-
-	can_hold = list(
-		"/obj/item/weapon/ore"
-	)

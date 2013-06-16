@@ -8,12 +8,11 @@
 
 	animation = new(loc)
 	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
+	animation.icon = 'mob.dmi'
 	animation.master = src
 
 	flick("gibbed-a", animation)
 	xgibs(loc, viruses)
-	dead_mob_list -= src
 
 	spawn(15)
 		if(animation)	del(animation)
@@ -29,12 +28,11 @@
 
 	animation = new(loc)
 	animation.icon_state = "blank"
-	animation.icon = 'icons/mob/mob.dmi'
+	animation.icon = 'mob.dmi'
 	animation.master = src
 
 	flick("dust-a", animation)
 	new /obj/effect/decal/remains/xeno(loc)
-	dead_mob_list -= src
 
 	spawn(15)
 		if(animation)	del(animation)

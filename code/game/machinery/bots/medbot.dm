@@ -13,10 +13,12 @@
 	anchored = 0
 	health = 20
 	maxhealth = 20
-	req_access =list(access_medical)
+	req_access =list(ACCESS_MEDICAL)
 	var/stunned = 0 //It can be stunned by tasers. Delicate circuits.
+	var/locked = 1
+//var/emagged = 0
 	var/obj/machinery/camera/cam = null
-	var/list/botcard_access = list(access_medical, access_morgue, access_genetics, access_robotics)
+	var/list/botcard_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_ROBOTICS)
 	var/obj/item/weapon/reagent_containers/glass/reagent_glass = null //Can be set to draw from this for reagents.
 	var/skin = null //Set to "tox", "ointment" or "o2" for the other two firstaid kits.
 	var/frustration = 0
@@ -294,7 +296,7 @@
 
 	if(src.patient && src.path.len == 0 && (get_dist(src,src.patient) > 1))
 		spawn(0)
-			src.path = AStar(src.loc, get_turf(src.patient), /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance, 0, 30,id=botcard)
+			src.path = AStar(src.loc, get_turf(src.patient), /turf/proc/CardinalTurfsWithAccess, /turf/proc/Distance_ortho, 0, 30,id=botcard)
 			src.path = reverselist(src.path)
 			if(src.path.len == 0)
 				src.oldpatient = src.patient
@@ -392,13 +394,6 @@
 	if(src.emagged) //Emagged! Time to poison everybody.
 		reagent_id = "toxin"
 
-	if(reagent_id == "internal_beaker" && \
-		src.patient.reagents.has_reagent(src.reagent_glass.reagents.get_master_reagent_id()) )
-		if(prob(10))
-			var/message = pick("Oops, that's an overdose!", "You're going to be just fine!")
-			src.speak(message)
-		return
-
 	if(C.getOxyLoss() < 10 && reagent_id == "inaprovaline") //If they don't need any of that they're probably cured!
 		src.oldpatient = src.patient
 		src.patient = null
@@ -409,7 +404,8 @@
 		return
 	else
 		src.icon_state = "medibots"
-		visible_message("\red <B>[src] is trying to inject [src.patient]!</B>")
+		for(var/mob/O in viewers(src, null))
+			O.show_message("\red <B>[src] is trying to inject [src.patient]!</B>", 1)
 		spawn(30)
 			if ((get_dist(src, src.patient) <= 1) && (src.on))
 				if((reagent_id == "internal_beaker") && (src.reagent_glass) && (src.reagent_glass.reagents.total_volume))
@@ -417,7 +413,8 @@
 					src.reagent_glass.reagents.reaction(src.patient, 2)
 				else
 					src.patient.reagents.add_reagent(reagent_id,src.injection_amount)
-				visible_message("\red <B>[src] injects [src.patient] with the syringe!</B>")
+				for(var/mob/O in viewers(src, null))
+					O.show_message("\red <B>[src] injects [src.patient] with the syringe!</B>", 1)
 
 			src.icon_state = "medibot[src.on]"
 			src.currently_healing = 0
@@ -430,7 +427,8 @@
 /obj/machinery/bot/medbot/proc/speak(var/message)
 	if((!src.on) || (!message))
 		return
-	visible_message("[src] beeps, \"[message]\"")
+	for(var/mob/O in hearers(src, null))
+		O.show_message("<span class='game say'><span class='name'>[src]</span> beeps, \"[message]\"",2)
 	return
 
 /obj/machinery/bot/medbot/bullet_act(var/obj/item/projectile/Proj)
@@ -445,7 +443,8 @@
 
 /obj/machinery/bot/medbot/explode()
 	src.on = 0
-	visible_message("\red <B>[src] blows apart!</B>", 1)
+	for(var/mob/O in hearers(src, null))
+		O.show_message("\red <B>[src] blows apart!</B>", 1)
 	var/turf/Tsec = get_turf(src)
 
 	new /obj/item/weapon/storage/firstaid(Tsec)
@@ -488,6 +487,36 @@
 			M:loc = T
 
 /*
+ *	Pathfinding procs, allow the medibot to path through doors it has access to.
+ */
+
+//Pretty ugh
+/*
+/turf/proc/AdjacentTurfsAllowMedAccess()
+	var/L[] = new()
+	for(var/turf/t in oview(src,1))
+		if(!t.density)
+			if(!LinkBlocked(src, t) && !TurfBlockedNonWindowNonDoor(t,get_access("Medical Doctor")))
+				L.Add(t)
+	return L
+
+
+//It isn't blocked if we can open it, man.
+/proc/TurfBlockedNonWindowNonDoor(turf/loc, var/list/access)
+	for(var/obj/O in loc)
+		if(O.density && !istype(O, /obj/structure/window) && !istype(O, /obj/machinery/door))
+			return 1
+
+		if (O.density && (istype(O, /obj/machinery/door)) && (access.len))
+			var/obj/machinery/door/D = O
+			for(var/req in D.req_access)
+				if(!(req in access)) //doesn't have this access
+					return 1
+
+	return 0
+*/
+
+/*
  *	Medbot Assembly -- Can be made out of all three medkits.
  */
 
@@ -512,16 +541,13 @@
 	else if(istype(src,/obj/item/weapon/storage/firstaid/adv))
 		A.skin = "adv"
 
-	//A.loc = user
-	if(src.loc == user)
-		if (user.r_hand == S)
-			user.u_equip(S)
-			user.equip_to_slot_if_possible(A, slot_r_hand)
-		else
-			user.u_equip(S)
-			user.equip_to_slot_if_possible(A, slot_l_hand)
+	A.loc = user
+	if (user.r_hand == S)
+		user.u_equip(S)
+		user.r_hand = A
 	else
-		A.loc = src.loc
+		user.u_equip(S)
+		user.l_hand = A
 	A.layer = 20
 	user << "You add the robot arm to the first aid kit"
 	del(S)
@@ -556,4 +582,3 @@
 			return
 
 		src.created_name = t
-

@@ -57,6 +57,52 @@
 		usr << "\red This mob type cannot drop items."
 	return
 
+//This gets called when you press the insert button.
+/client/verb/insert_key_pressed()
+	set hidden = 1
+
+	if(!src.mob)
+		return
+	var/mob/M = src.mob
+	if(ishuman(M) || isrobot(usr) || ismonkey(M) || istype(M,/mob/living/carbon/alien/humanoid) || islarva(M))
+		switch(M.a_intent)
+			if("help")
+				if(issilicon(usr))
+					usr.a_intent = "hurt"
+					usr.hud_used.action_intent.icon_state = "harm"
+				else
+					usr.a_intent = "disarm"
+					usr.hud_used.action_intent.icon_state = "disarm"
+					usr.hud_used.hurt_intent.icon_state = "harm_small"
+					usr.hud_used.help_intent.icon_state = "help_small"
+					usr.hud_used.grab_intent.icon_state = "grab_small"
+					usr.hud_used.disarm_intent.icon_state = "disarm_small_active"
+			if("disarm")
+				usr.a_intent = "hurt"
+				usr.hud_used.action_intent.icon_state = "harm"
+				usr.hud_used.hurt_intent.icon_state = "harm_small_active"
+				usr.hud_used.help_intent.icon_state = "help_small"
+				usr.hud_used.grab_intent.icon_state = "grab_small"
+				usr.hud_used.disarm_intent.icon_state = "disarm_small"
+			if("hurt")
+				if(issilicon(usr))
+					usr.a_intent = "help"
+					usr.hud_used.action_intent.icon_state = "help"
+				else
+					usr.a_intent = "grab"
+					usr.hud_used.action_intent.icon_state = "grab"
+					usr.hud_used.hurt_intent.icon_state = "harm_small"
+					usr.hud_used.help_intent.icon_state = "help_small"
+					usr.hud_used.grab_intent.icon_state = "grab_small_active"
+					usr.hud_used.disarm_intent.icon_state = "disarm_small"
+			if("grab")
+				usr.a_intent = "help"
+				usr.hud_used.action_intent.icon_state = "help"
+				usr.hud_used.hurt_intent.icon_state = "harm_small"
+				usr.hud_used.help_intent.icon_state = "help_small_active"
+				usr.hud_used.grab_intent.icon_state = "grab_small"
+				usr.hud_used.disarm_intent.icon_state = "disarm_small"
+
 //This gets called when you press the delete button.
 /client/verb/delete_key_pressed()
 	set hidden = 1
@@ -64,7 +110,7 @@
 	if(!usr.pulling)
 		usr << "\blue You are not pulling anything."
 		return
-	usr.stop_pulling()
+	usr.pulling = null
 
 /client/verb/swap_hand()
 	set hidden = 1
@@ -143,14 +189,9 @@
 
 /client/verb/attack_self()
 	set hidden = 1
-	if(mob.hand)
-		if(mob.l_hand)
-			mob.l_hand.attack_self(mob)
-			mob.update_inv_l_hand()
-	else
-		if(mob.r_hand)
-			mob.r_hand.attack_self(mob)
-			mob.update_inv_r_hand()
+	var/obj/item/weapon/W = mob.equipped()
+	if (W)
+		W.attack_self(mob)
 	return
 
 
@@ -249,14 +290,19 @@
 
 	if(mob.monkeyizing)	return//This is sota the goto stop mobs from moving var
 
-	if(isliving(mob))
-		var/mob/living/L = mob
-		if(L.incorporeal_move)//Move though walls
-			Process_Incorpmove(direct)
-			return
+	if(mob.incorporeal_move)//Move though walls
+		Process_Incorpmove(direct)
+		return
 
 	if(Process_Grab())	return
 	if(!mob.canmove)	return
+
+//Making mob movememnt changes instant.
+	if(mob.paralysis || mob.stunned || mob.resting || mob.weakened || mob.buckled || (mob.changeling && mob.changeling.changeling_fakedeath))
+		mob.canmove = 0
+		return
+	else
+		mob.canmove = 1
 
 
 	//if(istype(mob.loc, /turf/space) || (mob.flags & NOGRAV))
@@ -277,20 +323,25 @@
 
 		if(mob.restrained())//Why being pulled while cuffed prevents you from moving
 			for(var/mob/M in range(mob, 1))
-				if(M.pulling == mob && !M.restrained() && M.stat == 0 && M.canmove)
+				if(((M.pulling == mob && (!( M.restrained() ) && M.stat == 0)) || locate(/obj/item/weapon/grab, mob.grabbed_by.len)))
 					src << "\blue You're restrained! You can't move!"
 					return 0
 
 		move_delay = world.time//set move delay
-
+		mob.last_move_intent = world.time + 10
 		switch(mob.m_intent)
 			if("run")
 				if(mob.drowsyness > 0)
-					move_delay += 6
-				move_delay += 1+config.run_speed
+					move_delay += 5
+//				if(mob.organStructure && mob.organStructure.legs)
+//					move_delay += mob.organStructure.legs.moveRunDelay
+				move_delay += 2
 			if("walk")
-				move_delay += 7+config.walk_speed
+//				if(mob.organStructure && mob.organStructure.legs)
+//					move_delay += mob.organStructure.legs.moveWalkDelay
+				move_delay += 5
 		move_delay += mob.movement_delay()
+		move_delay += mob.grav_delay
 
 		if(config.Tickcomp)
 			move_delay -= 1.3
@@ -335,10 +386,13 @@
 							M.animate_movement = 2
 							return
 
-		else if(mob.confused)
+		else if(mob.confused && prob(30))
 			step(mob, pick(cardinal))
 		else
 			. = ..()
+			for(var/obj/effect/speech_bubble/S in range(1, mob))
+				if(S.parent == mob)
+					S.loc = mob.loc
 
 		moving = 0
 
@@ -379,13 +433,10 @@
 ///Allows mobs to run though walls
 /client/proc/Process_Incorpmove(direct)
 	var/turf/mobloc = get_turf(mob)
-	if(!isliving(mob))
-		return
-	var/mob/living/L = mob
-	switch(L.incorporeal_move)
+	switch(mob.incorporeal_move)
 		if(1)
-			L.loc = get_step(L, direct)
-			L.dir = direct
+			mob.loc = get_step(mob, direct)
+			mob.dir = direct
 		if(2)
 			if(prob(50))
 				var/locx
@@ -413,19 +464,19 @@
 							return
 					else
 						return
-				L.loc = locate(locx,locy,mobloc.z)
+				mob.loc = locate(locx,locy,mobloc.z)
 				spawn(0)
 					var/limit = 2//For only two trailing shadows.
-					for(var/turf/T in getline(mobloc, L.loc))
+					for(var/turf/T in getline(mobloc, mob.loc))
 						spawn(0)
-							anim(T,L,'icons/mob/mob.dmi',,"shadow",,L.dir)
+							anim(T,mob,'mob.dmi',,"shadow",,mob.dir)
 						limit--
 						if(limit<=0)	break
 			else
 				spawn(0)
-					anim(mobloc,mob,'icons/mob/mob.dmi',,"shadow",,L.dir)
-				L.loc = get_step(L, direct)
-			L.dir = direct
+					anim(mobloc,mob,'mob.dmi',,"shadow",,mob.dir)
+				mob.loc = get_step(mob, direct)
+			mob.dir = direct
 	return 1
 
 

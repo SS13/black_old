@@ -53,13 +53,12 @@
 			affected_mob.updatehealth()
 			if(prob(40)) //So everyone can feel like robot Seth Brundle
 				if(src.gibbed != 0) return 0
-				var/turf/T = find_loc(affected_mob)
+				var/turf/T = get_turf(affected_mob)
 				gibs(T)
 				src.cure(0)
 				gibbed = 1
-				var/mob/living/carbon/human/H = affected_mob
-				if(istype(H) && !jobban_isbanned(affected_mob, "Cyborg"))
-					H.Robotize()
+				if(!jobban_isbanned(affected_mob, "Cyborg"))
+					affected_mob:Robotize()
 				else
 					affected_mob.death(1)
 

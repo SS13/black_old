@@ -1,2 +1,2 @@
-/datum/hud/proc/ai_hud()
+/obj/hud/proc/ai_hud()
 	return

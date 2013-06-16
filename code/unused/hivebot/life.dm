@@ -121,13 +121,13 @@
 				src.sight |= SEE_MOBS
 				src.sight |= SEE_OBJS
 				src.see_in_dark = 8
-				src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+				src.see_invisible = 2
 			else if (src.stat != 2)
 				src.sight &= ~SEE_MOBS
 				src.sight &= ~SEE_TURFS
 				src.sight &= ~SEE_OBJS
 				src.see_in_dark = 8
-				src.see_invisible = SEE_INVISIBLE_LEVEL_TWO
+				src.see_invisible = 2
 
 			if (src.healths)
 				if (src.stat != 2)

@@ -1,6 +1,6 @@
 /obj/item/weapon/clipboard
 	name = "clipboard"
-	icon = 'icons/obj/bureaucracy.dmi'
+	icon = 'bureaucracy.dmi'
 	icon_state = "clipboard"
 	item_state = "clipboard"
 	throwforce = 0
@@ -8,7 +8,7 @@
 	throw_speed = 3
 	throw_range = 10
 	var/obj/item/weapon/pen/haspen		//The stored pen.
-	var/obj/item/weapon/toppaper	//The topmost piece of paper.
+	var/obj/item/weapon/paper/toppaper	//The topmost piece of paper.
 	flags = FPRINT | TABLEPASS
 	slot_flags = SLOT_BELT
 	pressure_resistance = 10
@@ -17,21 +17,22 @@
 	update_icon()
 
 /obj/item/weapon/clipboard/MouseDrop(obj/over_object as obj) //Quick clipboard fix. -Agouri
-	if(ishuman(usr))
+	if(ishuman(usr) || ismonkey(usr)) //Can monkeys even place items in the pocket slots? Leaving this in just in case~
 		var/mob/M = usr
-		if(!(istype(over_object, /obj/screen) ))
+		if (!(istype(over_object, /obj/screen) ))
 			return ..()
-
-		if(!M.restrained() && !M.stat)
-			switch(over_object.name)
-				if("r_hand")
+		if((!(M.restrained()) && !(M.stat)))
+			if(over_object.name == "r_hand")
+				if(!(M.r_hand))
 					M.u_equip(src)
-					M.put_in_r_hand(src)
-				if("l_hand")
-					M.u_equip(src)
-					M.put_in_l_hand(src)
-
-			add_fingerprint(usr)
+					M.r_hand = src
+			else
+				if(over_object.name == "l_hand")
+					if(!(M.l_hand))
+						M.u_equip(src)
+						M.l_hand = src
+			M.update_clothing()
+			src.add_fingerprint(usr)
 			return
 
 /obj/item/weapon/clipboard/update_icon()
@@ -45,12 +46,11 @@
 	return
 
 /obj/item/weapon/clipboard/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/photo))
+	if(istype(W, /obj/item/weapon/paper))
 		user.drop_item()
 		W.loc = src
-		if(istype(W, /obj/item/weapon/paper))
-			toppaper = W
-		user << "<span class='notice'>You clip the [W] onto \the [src].</span>"
+		toppaper = W
+		user << "\blue You clip the paper onto the clipboard."
 		update_icon()
 	else if(toppaper)
 		toppaper.attackby(usr.get_active_hand(), usr)
@@ -59,7 +59,7 @@
 
 /obj/item/weapon/clipboard/attack_self(mob/user as mob)
 	var/dat = "<title>Clipboard</title>"
-	if(haspen)
+	if (haspen)
 		dat += "<A href='?src=\ref[src];pen=1'>Remove Pen</A><BR><HR>"
 	else
 		dat += "<A href='?src=\ref[src];addpen=1'>Add Pen</A><BR><HR>"
@@ -69,13 +69,10 @@
 		var/obj/item/weapon/paper/P = toppaper
 		dat += "<A href='?src=\ref[src];write=\ref[P]'>Write</A> <A href='?src=\ref[src];remove=\ref[P]'>Remove</A> - <A href='?src=\ref[src];read=\ref[P]'>[P.name]</A><BR><HR>"
 
-	for(var/obj/item/weapon/paper/P in src)
-		if(P==toppaper)
-			continue
-		dat += "<A href='?src=\ref[src];remove=\ref[P]'>Remove</A> - <A href='?src=\ref[src];read=\ref[P]'>[P.name]</A><BR>"
-	for(var/obj/item/weapon/photo/Ph in src)
-		dat += "<A href='?src=\ref[src];remove=\ref[Ph]'>Remove</A> - <A href='?src=\ref[src];look=\ref[Ph]'>[Ph.name]</A><BR>"
-
+		for(P in src)
+			if(P == toppaper)
+				continue
+			dat += "<A href='?src=\ref[src];write=\ref[P]'>Write</A> <A href='?src=\ref[src];remove=\ref[P]'>Remove</A> <A href='?src=\ref[src];top=\ref[P]'>Move to top</A> - <A href='?src=\ref[src];read=\ref[P]'>[P.name]</A><BR>"
 	user << browse(dat, "window=clipboard")
 	onclose(user, "clipboard")
 	add_fingerprint(usr)
@@ -83,16 +80,18 @@
 
 /obj/item/weapon/clipboard/Topic(href, href_list)
 	..()
-	if((usr.stat || usr.restrained()))
+	if ((usr.stat || usr.restrained()))
 		return
 
-	if(usr.contents.Find(src))
+	if (usr.contents.Find(src))
 
 		if(href_list["pen"])
 			if(haspen)
 				haspen.loc = usr.loc
-				usr.put_in_hands(haspen)
-				haspen = null
+				if(ishuman(usr))
+					if(!usr.get_active_hand())
+						usr.put_in_hand(haspen)
+						haspen = null
 
 		if(href_list["addpen"])
 			if(!haspen)
@@ -101,7 +100,7 @@
 					usr.drop_item()
 					W.loc = src
 					haspen = W
-					usr << "<span class='notice'>You slot the pen into \the [src].</span>"
+					usr << "\blue You slot the pen into the clipboard."
 
 		if(href_list["write"])
 			var/obj/item/P = locate(href_list["write"])
@@ -113,11 +112,14 @@
 			var/obj/item/P = locate(href_list["remove"])
 			if(P)
 				P.loc = usr.loc
-				usr.put_in_hands(P)
+				if(ishuman(usr))
+					if(!usr.get_active_hand())
+						usr.put_in_hand(P)
+				else
+					P.loc = get_turf(usr)
 				if(P == toppaper)
-					toppaper = null
-					var/obj/item/weapon/paper/newtop = locate(/obj/item/weapon/paper) in src
-					if(newtop && (newtop != P))
+					var/obj/item/weapon/paper/newtop = locate(/obj/item/weapon/paper in src)
+					if(newtop && (newtop != toppaper))
 						toppaper = newtop
 					else
 						toppaper = null
@@ -132,16 +134,11 @@
 					usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[P.info][P.stamps]</BODY></HTML>", "window=[P.name]")
 					onclose(usr, "[P.name]")
 
-		if(href_list["look"])
-			var/obj/item/weapon/photo/P = locate(href_list["look"])
-			if(P)
-				P.show(usr)
-
 		if(href_list["top"])
 			var/obj/item/P = locate(href_list["top"])
 			if(P)
 				toppaper = P
-				usr << "<span class='notice'>You move [P.name] to the top.</span>"
+				usr << "You move [P.name] to the top."
 
 		//Update everything
 		attack_self(usr)

@@ -61,7 +61,7 @@ proc/move_research_shuttle()
 	name = "Research Shuttle Console"
 	icon = 'computer.dmi'
 	icon_state = "shuttle"
-	req_access = list(access_research)
+	req_access = list(ACCESS_RESEARCH)
 	circuit = "/obj/item/weapon/circuitboard/research_shuttle"
 	var/hacked = 0
 	var/location = 0 //0 = station, 1 = research base

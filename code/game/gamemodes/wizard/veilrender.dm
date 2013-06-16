@@ -1,7 +1,7 @@
 /obj/item/weapon/veilrender
 	name = "veil render"
 	desc = "A wicked curved blade of alien origin, recovered from the ruins of a vast city."
-	icon = 'icons/obj/wizard.dmi'
+	icon = 'wizard.dmi'
 	icon_state = "render"
 	item_state = "render"
 	flags = FPRINT | TABLEPASS
@@ -14,7 +14,7 @@
 /obj/effect/rend
 	name = "Tear in the fabric of reality"
 	desc = "You should run now"
-	icon = 'icons/obj/biomass.dmi'
+	icon = 'biomass.dmi'
 	icon_state = "rift"
 	density = 1
 	unacidable = 1
@@ -33,7 +33,9 @@
 	if(charged == 1)
 		new /obj/effect/rend(get_turf(usr))
 		charged = 0
-		visible_message("\red <B>[src] hums with power as [usr] deals a blow to reality itself!</B>")
+		for(var/mob/M in viewers(usr, null))
+			if ((M.client && !( M.blinded )))
+				M.show_message("\red <B>[src] hums with power as [usr] deals a blow to reality itself!</B>")
 	else
 		user << "\red The unearthly energies that powered the blade are now dormant"
 

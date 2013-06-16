@@ -18,7 +18,7 @@
 
 
 /obj/machinery/door/unpowered/shuttle
-	icon = 'icons/turf/shuttle.dmi'
+	icon = 'shuttle.dmi'
 	name = "door"
 	icon_state = "door1"
 	opacity = 1

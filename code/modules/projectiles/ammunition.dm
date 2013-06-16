@@ -1,7 +1,9 @@
+//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:05
+
 /obj/item/ammo_casing
 	name = "bullet casing"
 	desc = "A bullet casing."
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'ammo.dmi'
 	icon_state = "s-casing"
 	flags = FPRINT | TABLEPASS | CONDUCT
 	slot_flags = SLOT_BELT
@@ -27,7 +29,7 @@
 	name = "ammo box (.357)"
 	desc = "A box of ammo"
 	icon_state = "357"
-	icon = 'icons/obj/ammo.dmi'
+	icon = 'ammo.dmi'
 	flags = FPRINT | TABLEPASS | CONDUCT
 	slot_flags = SLOT_BELT
 	item_state = "syringe_kit"

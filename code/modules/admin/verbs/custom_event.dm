@@ -20,7 +20,7 @@
 	custom_event_msg = input
 
 	world << "<h1 class='alert'>Custom Event</h1>"
-	world << "<h2 class='alert'>A custom event is starting. Info:</h2>"
+	world << "<h2 class='alert'>A custom event is starting. OOC Info:</h2>"
 	world << "<span class='alert'>[sanitize(html_decode(custom_event_msg))]</span>"
 	world << "<br>"
 

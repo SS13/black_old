@@ -1,7 +1,7 @@
 /obj/machinery/keycard_auth
 	name = "Keycard Authentication Device"
 	desc = "This device is used to trigger station functions, which require more than one ID card to authenticate."
-	icon = 'icons/obj/monitors.dmi'
+	icon = 'monitors.dmi'
 	icon_state = "auth_off"
 	var/active = 0 //This gets set to 1 on all devices except the one where the initial request was made.
 	var/event = ""
@@ -34,7 +34,7 @@
 		return
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/ID = W
-		if(access_keycard_auth in ID.access)
+		if(ACCESS_KEYCARD_AUTH in ID.access)
 			if(active == 1)
 				//This is not the device that made the initial request. It is the device confirming the request.
 				if(event_source)
@@ -141,14 +141,4 @@
 	switch(event)
 		if("Red alert")
 			set_security_level(SEC_LEVEL_RED)
-			for (var/obj/machinery/computer/communications/C in machines)
-				if(! (C.stat & (BROKEN|NOPOWER) ) )
-					var/area/security/nuke_storage/nukeloc = locate()
-					var/obj/machinery/nuclearbomb/nuke = locate() in nukeloc
-					if(!nuke)
-						nuke = locate() in world
-					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( C.loc )
-					P.name = "ULTIMA RATIO"
-					P.info = "The nuclear authorization code is: <b>[nuke.r_code]</b>"
-					P.update_icon()
 			feedback_inc("alert_keycard_auth_red",1)

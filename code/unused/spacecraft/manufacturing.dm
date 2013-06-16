@@ -1,4 +1,4 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
+//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:06
 
 // Entirely unfinished. Mostly just bouncing ideas off the code.
 
@@ -9,7 +9,7 @@
 // Crate
 
 /obj/deploycrate
-	icon = 'icons/obj/mining.dmi'
+	icon = 'mining.dmi'
 	icon_state = "deploycrate"
 	density = 1
 	var/payload
@@ -27,7 +27,7 @@
 
 
 /obj/machinery/nanosprayer
-	icon = 'icons/obj/mining.dmi'
+	icon = 'mining.dmi'
 	icon_state = "sprayer"
 	density = 1
 	anchored = 1
@@ -167,7 +167,7 @@ obj/machinery/nanosprayer/Topic(href, href_list)
 	src.updateUsrDialog()
 
 /obj/machinery/smelter
-	icon = 'icons/obj/mining.dmi'
+	icon = 'mining.dmi'
 	icon_state = "sprayer"
 	density = 1
 	anchored = 1
@@ -225,7 +225,7 @@ obj/machinery/smelter/Topic(href, href_list)
 
 
 /obj/machinery/slaggrinder
-	icon = 'icons/obj/mining.dmi'
+	icon = 'mining.dmi'
 
 	density = 1
 	anchored = 1
@@ -233,7 +233,7 @@ obj/machinery/smelter/Topic(href, href_list)
 
 
 /obj/machinery/adminmachine
-	icon = 'icons/obj/mining.dmi'
+	icon = 'mining.dmi'
 	icon_state = "sprayer"
 	density = 1
 	anchored = 1

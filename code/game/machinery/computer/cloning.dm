@@ -1,14 +1,12 @@
 /obj/machinery/computer/scan_consolenew
 	name = "DNA Modifier Access Console"
-	desc = "Scand DNA."
-	icon = 'icons/obj/computer.dmi'
+	desc = "Scans DNA."
+	icon = 'computer.dmi'
 	icon_state = "scanner"
 	density = 1
 	var/uniblock = 1.0
 	var/strucblock = 1.0
 	var/subblock = 1.0
-	var/unitarget = 1
-	var/unitargethex = 1
 	var/status = null
 	var/radduration = 2.0
 	var/radstrength = 1.0
@@ -33,6 +31,7 @@
 	var/temphtml = null
 	var/obj/machinery/dna_scanner/connected = null
 	var/obj/item/weapon/disk/data/diskette = null
+	var/list/message = list()
 	anchored = 1.0
 	use_power = 1
 	idle_power_usage = 10
@@ -40,7 +39,7 @@
 
 /obj/machinery/computer/scan_consolenew/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
 			if (src.stat & BROKEN)
 				user << "\blue The broken glass falls out."
@@ -79,10 +78,10 @@
 
 /obj/machinery/computer/cloning
 	name = "Cloning console"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'computer.dmi'
 	icon_state = "dna"
 	circuit = "/obj/item/weapon/circuitboard/cloning"
-	req_access = list(access_heads) //Only used for record deletion right now.
+	req_access = list(ACCESS_HEADS) //Only used for record deletion right now.
 	var/obj/machinery/dna_scannernew/scanner = null //Linked scanner. For scanning.
 	var/obj/machinery/clonepod/pod1 = null //Linked cloning pod.
 	var/temp = ""
@@ -92,6 +91,9 @@
 	var/datum/data/record/active_record = null
 	var/obj/item/weapon/disk/data/diskette = null //Mostly so the geneticist can steal everything.
 	var/loading = 0 // Nice loading text
+	var/wantsscan = 1
+	var/wantspod = 1
+	var/list/message = list()
 
 /obj/machinery/computer/cloning/New()
 	..()
@@ -104,14 +106,14 @@
 	src.scanner = findscanner()
 	src.pod1 = findcloner()
 
-	if (!isnull(src.pod1))
+	if (!isnull(src.pod1)  && !wantspod)
 		src.pod1.connected = src // Some variable the pod needs
 
 /obj/machinery/computer/cloning/proc/findscanner()
 	var/obj/machinery/dna_scannernew/scannerf = null
 
 	// Loop through every direction
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
+	for(dir in list(1,2,4,8,5,6,9,10))
 
 		// Try to find a scanner in that direction
 		scannerf = locate(/obj/machinery/dna_scannernew, get_step(src, dir))
@@ -120,13 +122,14 @@
 		if (!isnull(scannerf))
 			break
 
+
 	// If no scanner was found, it will return null
 	return scannerf
 
 /obj/machinery/computer/cloning/proc/findcloner()
 	var/obj/machinery/clonepod/podf = null
 
-	for(dir in list(NORTH,EAST,SOUTH,WEST))
+	for(dir in list(1,2,4,8,5,6,9,10))
 
 		podf = locate(/obj/machinery/clonepod, get_step(src, dir))
 
@@ -155,6 +158,9 @@
 	return attack_hand(user)
 
 /obj/machinery/computer/cloning/attack_hand(mob/user as mob)
+	if(!(user in message))
+		user << "\blue This machine looks extremely complex. You'd probably need a decent knowledge of Genetics to understand it."
+		message += user
 	user.machine = src
 	add_fingerprint(user)
 
@@ -170,50 +176,40 @@
 
 	switch(src.menu)
 		if(1)
-			// Modules
-			dat += "<h4>Modules</h4>"
-			//dat += "<a href='byond://?src=\ref[src];relmodules=1'>Reload Modules</a>"
-			if (isnull(src.scanner))
-				dat += " <font color=red>Scanner-ERROR</font><br>"
-			else
-				dat += " <font color=green>Scanner-Found!</font><br>"
-			if (isnull(src.pod1))
-				dat += " <font color=red>Pod-ERROR</font><br>"
-			else
-				dat += " <font color=green>Pod-Found!</font><br>"
+			if(wantsscan)
+				dat += "<h4>Scanner Functions</h4>"
 
-			// Scanner
-			dat += "<h4>Scanner Functions</h4>"
-
-			if(loading)
-				dat += "<b>Scanning...</b><br>"
-			else
-				dat += "<b>[scantemp]</b><br>"
-
-			if (isnull(src.scanner))
-				dat += "No scanner connected!<br>"
-			else
-				if (src.scanner.occupant)
-					if(scantemp == "Scanner unoccupied") scantemp = "" // Stupid check to remove the text
-
-					dat += "<a href='byond://?src=\ref[src];scan=1'>Scan - [src.scanner.occupant]</a><br>"
+				if (isnull(src.scanner))
+					dat += "No scanner connected!<br>"
 				else
-					scantemp = "Scanner unoccupied"
+					if (src.scanner.occupant)
+						if(scantemp == "Scanner unoccupied") scantemp = "" // Stupid check to remove the text
 
-				dat += "Lock status: <a href='byond://?src=\ref[src];lock=1'>[src.scanner.locked ? "Locked" : "Unlocked"]</a><br>"
+						// Make sure we can't scan a headless person. It breaks the cloner permanently.
+						var/datum/organ/external/temp = src.scanner.occupant.organs["head"]
+						if(temp && !(temp.status & ORGAN_DESTROYED))
+							dat += "<a href='byond://?src=\ref[src];scan=1'>Scan - [src.scanner.occupant]</a><br>"
+						else
+							dat += "Error: Cannot locate brain for mental indexing. Unable to continue.<br>"
+					else
+						dat += "Scanner unoccupied"
 
-			// Database
-			dat += "<h4>Database Functions</h4>"
-			dat += "<a href='byond://?src=\ref[src];menu=2'>View Records</a><br>"
-			if (src.diskette)
-				dat += "<a href='byond://?src=\ref[src];disk=eject'>Eject Disk</a>"
+					dat += "Lock status: <a href='byond://?src=\ref[src];lock=1'>[src.scanner.locked ? "Locked" : "Unlocked"]</a><br>"
+
+				// Database
+				dat += "<h4>Database Functions</h4>"
+				dat += "<a href='byond://?src=\ref[src];menu=2'>View Records</a><br>"
+				if (src.diskette)
+					dat += "<a href='byond://?src=\ref[src];disk=eject'>Eject Disk</a>"
 
 
 		if(2)
 			dat += "<h4>Current records</h4>"
 			dat += "<a href='byond://?src=\ref[src];menu=1'>Back</a><br><br>"
-			for(var/datum/data/record/R in src.records)
-				dat += "<a href='byond://?src=\ref[src];view_rec=\ref[R]'>[R.fields["id"]]-[R.fields["name"]]</a><br>"
+			for(var/id in geneticsrecords)
+				var/datum/data/record/R = geneticsrecords[id]
+				if(R)
+					dat += "<a href='byond://?src=\ref[src];view_rec=[id]'>[R.fields["id"]]-[R.fields["name"]]</a><br>"
 
 		if(3)
 			dat += "<h4>Selected Record</h4>"
@@ -243,8 +239,9 @@
 					dat += "<br>" //Keeping a line empty for appearances I guess.
 
 				dat += {"<b>UI:</b> [src.active_record.fields["UI"]]<br>
-				<b>SE:</b> [src.active_record.fields["SE"]]<br><br>
-				<a href='byond://?src=\ref[src];clone=\ref[src.active_record]'>Clone</a><br>"}
+				<b>SE:</b> [src.active_record.fields["SE"]]<br><br>"}
+				if(wantspod)
+					dat += "<a href='byond://?src=\ref[src];clone=[src.active_record.fields["id"]]'>Clone</a><br>"
 
 		if(4)
 			if (!src.active_record)
@@ -288,7 +285,7 @@
 			src.scanner.locked = 0
 
 	else if (href_list["view_rec"])
-		src.active_record = locate(href_list["view_rec"])
+		src.active_record = geneticsrecords[href_list["view_rec"]]
 		if ((isnull(src.active_record.fields["ckey"])) || (src.active_record.fields["ckey"] == ""))
 			del(src.active_record)
 			src.temp = "ERROR: Record Corrupt"
@@ -303,10 +300,10 @@
 			src.menu = 4
 
 		else if (src.menu == 4)
-			var/obj/item/weapon/card/id/C = usr.get_active_hand()
+			var/obj/item/weapon/card/id/C = usr.equipped()
 			if (istype(C)||istype(C, /obj/item/device/pda))
 				if(src.check_access(C))
-					src.records.Remove(src.active_record)
+					geneticsrecords.Remove(active_record["id"])
 					del(src.active_record)
 					src.temp = "Record deleted."
 					src.menu = 2
@@ -366,32 +363,22 @@
 		src.updateUsrDialog()
 
 	else if (href_list["clone"])
-		var/datum/data/record/C = locate(href_list["clone"])
+		var/datum/data/record/C = geneticsrecords[href_list["clone"]]
 		//Look for that player! They better be dead!
-		if(istype(C))
-			//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
-			if(!pod1)
-				temp = "Error: No Clonepod detected."
-			else if(pod1.occupant)
-				temp = "Error: Clonepod is currently occupied."
-			else if(pod1.mess)
-				temp = "Error: Clonepod malfunction."
-			else if(!config.revival_cloning)
-				temp = "Error: Unable to initiate cloning cycle."
-			else
-				var/mob/selected = find_dead_player("[C.fields["ckey"]]")
-				selected << 'chime.ogg'	//probably not the best sound but I think it's reasonable
-				var/answer = alert(selected,"Do you want to return to life?","Cloning","Yes","No")
-				if(answer != "No" && pod1.growclone(C.fields["ckey"], C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mind"], C.fields["mrace"], C.fields["interface"]))
-					temp = "Initiating cloning cycle..."
-					records.Remove(C)
-					del(C)
-					menu = 1
-				else
-					temp = "Initiating cloning cycle...<br>Error: Post-initialisation failed. Cloning cycle aborted."
-
-		else
-			temp = "Error: Data corruption."
+		if(C)
+			var/mob/selected = find_dead_player("[C.fields["ckey"]]")
+			selected << 'chime.ogg'	//probably not the best sound but I think it's reasonable
+			var/answer = alert(selected,"Do you want to return to life?","Cloning","Yes","No")
+			if(answer == "No")
+				selected = null
+//Can't clone without someone to clone.  Or a pod.  Or if the pod is busy. Or full of gibs.
+			if ((!selected) || (!src.pod1) || (src.pod1.occupant) || (src.pod1.mess) || !config.revival_cloning)
+				src.temp = "Unable to initiate cloning cycle." // most helpful error message in THE HISTORY OF THE WORLD
+			else if (src.pod1.growclone(selected, C.fields["name"], C.fields["UI"], C.fields["SE"], C.fields["mind"], C.fields["mrace"], C.fields["interface"],C.fields["changeling"],C.fields["original"]))
+				src.temp = "Cloning cycle activated."
+				geneticsrecords.Remove(C.fields["id"])
+				del(C)
+				src.menu = 1
 
 	else if (href_list["menu"])
 		src.menu = text2num(href_list["menu"])
@@ -402,36 +389,39 @@
 
 /obj/machinery/computer/cloning/proc/scan_mob(mob/living/carbon/human/subject as mob)
 	if ((isnull(subject)) || (!(ishuman(subject))) || (!subject.dna))
-		scantemp = "Error: Unable to locate valid genetic data."
+		src.temp = "Error: Unable to locate valid genetic data."
 		return
 	if (subject.brain_op_stage == 4.0)
-		scantemp = "Error: No signs of intelligence detected."
+		src.temp = "Error: No signs of intelligence detected."
 		return
-	if (subject.suiciding == 1)
-		scantemp = "Error: Subject's brain is not responding to scanning stimuli."
-		return
+//	if (subject.suiciding == 1)
+//		src.temp = "Error: Subject's brain is not responding to scanning stimuli."
+//		return
 //	if ((!subject.ckey) || (!subject.client))
-//		scantemp = "Error: Mental interface failure."
+//		src.temp = "Error: Mental interface failure."
 //		return
 	if (NOCLONE in subject.mutations)
-		scantemp = "Error: Mental interface failure."
+		src.temp = "Error: Mental interface failure."
 		return
 	if (!isnull(find_record(subject.ckey)))
-		scantemp = "Subject already in database."
+		src.temp = "Subject already in database."
 		return
 
 	subject.dna.check_integrity()
 
+	var/ckey = subject.ckey
+	if(!ckey && subject && subject.mind)
+		ckey = subject.mind.key
+
 	var/datum/data/record/R = new /datum/data/record(  )
-	if(subject.dna)
-		R.fields["mrace"] = subject.dna.mutantrace
-	else
-		R.fields["mrace"] = null
-	R.fields["ckey"] = subject.ckey
+	R.fields["mrace"] = subject.mutantrace
+	R.fields["ckey"] = ckey
 	R.fields["name"] = subject.real_name
 	R.fields["id"] = copytext(md5(subject.real_name), 2, 6)
 	R.fields["UI"] = subject.dna.uni_identity
 	R.fields["SE"] = subject.dna.struc_enzymes
+	R.fields["changeling"] = subject.changeling
+	R.fields["original"] = subject.original_name
 
 	// Preferences stuff
 	R.fields["interface"] = subject.UI
@@ -441,7 +431,9 @@
 	//Add an implant if needed
 	var/obj/item/weapon/implant/health/imp = locate(/obj/item/weapon/implant/health, subject)
 	if (isnull(imp))
-		imp = new /obj/item/weapon/implant/health(subject)
+		var/datum/organ/external/O = subject.organs[pick(subject.organs)]
+		imp = new /obj/item/weapon/implant/health(O)
+		O.implant += imp
 		imp.implanted = subject
 		R.fields["imp"] = "\ref[imp]"
 	//Update it if needed
@@ -451,13 +443,13 @@
 	if (!isnull(subject.mind)) //Save that mind so traitors can continue traitoring after cloning.
 		R.fields["mind"] = "\ref[subject.mind]"
 
-	src.records += R
-	scantemp = "Subject successfully scanned."
+	geneticsrecords["[copytext(md5(subject.real_name), 2, 6)]"] = R //Save it to the global scan list.
+	src.temp = "Subject successfully scanned."
 
 //Find a specific record by key.
 /obj/machinery/computer/cloning/proc/find_record(var/find_key)
 	var/selected_record = null
-	for(var/datum/data/record/R in src.records)
+	for(var/datum/data/record/R in geneticsrecords)
 		if (R.fields["ckey"] == find_key)
 			selected_record = R
 			break

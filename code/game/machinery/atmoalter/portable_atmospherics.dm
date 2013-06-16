@@ -15,6 +15,7 @@
 
 		air_contents.volume = volume
 		air_contents.temperature = T20C
+		air_contents.update_values()
 
 		return 1
 
@@ -106,10 +107,11 @@
 				return
 
 	else if ((istype(W, /obj/item/device/analyzer) || (istype(W, /obj/item/device/pda))) && get_dist(user, src) <= 1)
-		visible_message("\red [user] has used [W] on \icon[icon]")
+		for (var/mob/O in viewers(user, null))
+			O << "\red [user] has used [W] on \icon[icon]"
 		if(air_contents)
 			var/pressure = air_contents.return_pressure()
-			var/total_moles = air_contents.total_moles()
+			var/total_moles = air_contents.total_moles
 
 			user << "\blue Results of analysis of \icon[icon]"
 			if (total_moles>0)

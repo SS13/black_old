@@ -17,7 +17,8 @@ var/list/beam_master = list()
 	flag = "laser"
 	eyeblur = 4
 	var/frequency = 1
-	process()
+
+	fired()
 		var/reference = "\ref[src]" //So we do not have to recalculate it a ton
 		var/first = 1 //So we don't make the overlay in the same tile as the firer
 
@@ -74,7 +75,7 @@ var/list/beam_master = list()
 				T.overlays -= beam_master[laser_state]
 		return
 
-/obj/item/projectile/beam/practice
+/obj/item/projectile/practice
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
@@ -83,10 +84,11 @@ var/list/beam_master = list()
 	flag = "laser"
 	eyeblur = 2
 
+
 /obj/item/projectile/beam/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
-	damage = 40
+	damage = 60
 
 /obj/item/projectile/beam/xray
 	name = "xray beam"
@@ -96,7 +98,7 @@ var/list/beam_master = list()
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
-	damage = 50
+	damage = 40
 
 
 /obj/item/projectile/beam/deathlaser
@@ -110,9 +112,9 @@ var/list/beam_master = list()
 
 
 
-/obj/item/projectile/beam/lastertag/blue
+/obj/item/projectile/bluetag
 	name = "lasertag beam"
-	icon_state = "bluelaser"
+	icon_state = "ice_2"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	damage = 0
 	damage_type = BURN
@@ -125,7 +127,7 @@ var/list/beam_master = list()
 				M.Weaken(5)
 		return 1
 
-/obj/item/projectile/beam/lastertag/red
+/obj/item/projectile/redtag
 	name = "lasertag beam"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
@@ -137,20 +139,5 @@ var/list/beam_master = list()
 		if(istype(target, /mob/living/carbon/human))
 			var/mob/living/carbon/human/M = target
 			if(istype(M.wear_suit, /obj/item/clothing/suit/bluetag))
-				M.Weaken(5)
-		return 1
-
-/obj/item/projectile/beam/lastertag/omni//A laser tag bolt that stuns EVERYONE
-	name = "lasertag beam"
-	icon_state = "omnilaser"
-	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
-	damage = 0
-	damage_type = BURN
-	flag = "laser"
-
-	on_hit(var/atom/target, var/blocked = 0)
-		if(istype(target, /mob/living/carbon/human))
-			var/mob/living/carbon/human/M = target
-			if((istype(M.wear_suit, /obj/item/clothing/suit/bluetag))||(istype(M.wear_suit, /obj/item/clothing/suit/redtag)))
 				M.Weaken(5)
 		return 1

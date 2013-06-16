@@ -2,8 +2,27 @@
 
 /obj/item/weapon/ore
 	name = "Rock"
-	icon = 'icons/obj/mining.dmi'
+	icon = 'Mining.dmi'
 	icon_state = "ore"
+
+/obj/item/weapon/ore/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	..()
+	if (istype(W, /obj/item/weapon/satchel))
+		var/obj/item/weapon/satchel/S = W
+		if (S.mode == 1)
+			for (var/obj/item/weapon/ore/O in locate(src.x,src.y,src.z))
+				if (S.contents.len < S.capacity)
+					S.contents += O;
+				else
+					user << "\blue The satchel is full."
+					return
+			user << "\blue You pick up all the ores."
+		else
+			if (S.contents.len < S.capacity)
+				S.contents += src;
+			else
+				user << "\blue The satchel is full."
+	return
 
 
 /obj/item/weapon/ore/uranium
@@ -66,7 +85,7 @@
 	var/obj/inside
 	var/method // 0 = fire, 1+ = acid
 	origin_tech = "materials=5"
-	//unacidable = 1 //This can prevent acid from gooey grey massing
+
 
 /obj/item/weapon/ore/New()
 	pixel_x = rand(0,16)-8
@@ -76,7 +95,7 @@
 /*****************************Coin********************************/
 
 /obj/item/weapon/coin
-	icon = 'icons/obj/items.dmi'
+	icon = 'items.dmi'
 	name = "Coin"
 	icon_state = "coin"
 	flags = FPRINT | TABLEPASS| CONDUCT
@@ -84,15 +103,6 @@
 	throwforce = 0.0
 	w_class = 1.0
 	var/string_attached
-
-/obj/item/weapon/coin/attack_self(mob/user as mob)
-	var/result = rand(1, 2)
-	var/comment = ""
-	if(result == 2)
-		comment = "Tail!"
-	else if(result == 1)
-		comment = "Head!"
-	user.visible_message("<span class='notice'>[user] has flip [src]. Catch it in the air. [comment]</span>")
 
 /obj/item/weapon/coin/New()
 	pixel_x = rand(0,16)-8
@@ -146,7 +156,7 @@
 			del(CC)
 			return
 
-		overlays += image('icons/obj/items.dmi',"coin_string_overlay")
+		overlays += image('items.dmi',"coin_string_overlay")
 		string_attached = 1
 		user << "\blue You attach a string to the coin."
 		CC.use(1)

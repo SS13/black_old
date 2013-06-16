@@ -4,80 +4,53 @@
 obj/machinery/door/airlock
 	var/id_tag
 	var/frequency
-	var/shockedby = list()
+
 	var/datum/radio_frequency/radio_connection
-	explosion_resistance = 15
 
+	receive_signal(datum/signal/signal)
+		if(!signal || signal.encryption) return
 
-obj/machinery/door/airlock/receive_signal(datum/signal/signal)
-	if(!signal || signal.encryption) return
+		if(id_tag != signal.data["tag"] || !signal.data["command"]) return
 
-	if(id_tag != signal.data["tag"] || !signal.data["command"]) return
+		switch(signal.data["command"])
+			if("open")
+				spawn open(1)
 
-	switch(signal.data["command"])
-		if("open")
-			open(1)
+			if("close")
+				spawn close(1)
 
-		if("close")
-			close(1)
+			if("unlock")
+				locked = 0
+				update_icon()
 
-		if("unlock")
-			locked = 0
-			update_icon()
+			if("lock")
+				locked = 1
+				update_icon()
 
-		if("lock")
-			locked = 1
-			update_icon()
+			if("secure_open")
+				spawn
+					locked = 0
+					update_icon()
 
-		if("secure_open")
-			locked = 0
-			update_icon()
+					sleep(2)
+					open(1)
 
-			sleep(2)
-			open(1)
+					locked = 1
+					update_icon()
 
-			locked = 1
-			update_icon()
+			if("secure_close")
+				spawn
+					locked = 0
+					close(1)
 
-		if("secure_close")
-			locked = 0
-			close(1)
+					locked = 1
+					sleep(2)
+					update_icon()
 
-			locked = 1
-			sleep(2)
-			update_icon()
+		send_status()
 
-	send_status()
-
-
-obj/machinery/door/airlock/proc/send_status()
-	if(radio_connection)
-		var/datum/signal/signal = new
-		signal.transmission_method = 1 //radio signal
-		signal.data["tag"] = id_tag
-		signal.data["timestamp"] = world.time
-
-		signal.data["door_status"] = density?("closed"):("open")
-		signal.data["lock_status"] = locked?("locked"):("unlocked")
-
-		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
-
-
-obj/machinery/door/airlock/open(surpress_send)
-	. = ..()
-	if(!surpress_send) send_status()
-
-
-obj/machinery/door/airlock/close(surpress_send)
-	. = ..()
-	if(!surpress_send) send_status()
-
-
-obj/machinery/door/airlock/Bumped(atom/AM)
-	..(AM)
-	if(istype(AM, /obj/mecha))
-		var/obj/mecha/mecha = AM
-		if(density && radio_connection && mecha.occupant && (src.allowed(mecha.occupant) || src.check_access_list(mecha.operation_req_access)))
+	proc/send_status()
+		if(radio_connection)
 			var/datum/signal/signal = new
 			signal.transmission_method = 1 //radio signal
 			signal.data["tag"] = id_tag
@@ -86,41 +59,40 @@ obj/machinery/door/airlock/Bumped(atom/AM)
 			signal.data["door_status"] = density?("closed"):("open")
 			signal.data["lock_status"] = locked?("locked"):("unlocked")
 
-			signal.data["bumped_with_access"] = 1
-
 			radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
-	return
-		
-obj/machinery/door/airlock/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
-	if(new_frequency)
-		frequency = new_frequency
-		radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
+	open(surpress_send)
+		. = ..()
+		if(!surpress_send) send_status()
 
-obj/machinery/door/airlock/initialize()
-	if(frequency)
-		set_frequency(frequency)
+	close(surpress_send)
+		. = ..()
+		if(!surpress_send) send_status()
 
-	update_icon()
+	proc/set_frequency(new_frequency)
+		radio_controller.remove_object(src, frequency)
+		if(new_frequency)
+			frequency = new_frequency
+			radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
+	initialize()
+		if(frequency)
+			set_frequency(frequency)
 
-obj/machinery/door/airlock/New()
-	..()
+		update_icon()
 
-	if(radio_controller)
-		set_frequency(frequency)
+	New()
+		..()
 
-
-
+		if(radio_controller)
+			set_frequency(frequency)
 
 obj/machinery/airlock_sensor
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
-	name = "airlock sensor"
+	name = "Airlock Sensor"
 
 	anchored = 1
-	power_channel = ENVIRON
 
 	var/id_tag
 	var/master_tag
@@ -131,67 +103,62 @@ obj/machinery/airlock_sensor
 	var/on = 1
 	var/alert = 0
 
-
-obj/machinery/airlock_sensor/update_icon()
-	if(on)
-		if(alert)
-			icon_state = "airlock_sensor_alert"
+	update_icon()
+		if(on)
+			if(alert)
+				icon_state = "airlock_sensor_alert"
+			else
+				icon_state = "airlock_sensor_standby"
 		else
-			icon_state = "airlock_sensor_standby"
-	else
-		icon_state = "airlock_sensor_off"
+			icon_state = "airlock_sensor_off"
 
-obj/machinery/airlock_sensor/attack_hand(mob/user)
-	var/datum/signal/signal = new
-	signal.transmission_method = 1 //radio signal
-	signal.data["tag"] = master_tag
-	signal.data["command"] = "cycle"
-
-	radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
-	flick("airlock_sensor_cycle", src)
-
-obj/machinery/airlock_sensor/process()
-	if(on)
+	attack_hand(mob/user)
 		var/datum/signal/signal = new
 		signal.transmission_method = 1 //radio signal
-		signal.data["tag"] = id_tag
-		signal.data["timestamp"] = world.time
-
-		var/datum/gas_mixture/air_sample = return_air()
-
-		var/pressure = round(air_sample.return_pressure(),0.1)
-		alert = (pressure < ONE_ATMOSPHERE*0.8)
-
-		signal.data["pressure"] = num2text(pressure)
+		signal.data["tag"] = master_tag
+		signal.data["command"] = "cycle"
 
 		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+		flick("airlock_sensor_cycle", src)
 
-	update_icon()
+	process()
+		if(on)
+			var/datum/signal/signal = new
+			signal.transmission_method = 1 //radio signal
+			signal.data["tag"] = id_tag
+			signal.data["timestamp"] = world.time
 
-obj/machinery/airlock_sensor/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
+			var/datum/gas_mixture/air_sample = return_air()
 
-obj/machinery/airlock_sensor/initialize()
-	set_frequency(frequency)
+			var/pressure = round(air_sample.return_pressure(),0.1)
+			alert = (pressure < ONE_ATMOSPHERE*0.8)
 
-obj/machinery/airlock_sensor/New()
-	..()
+			signal.data["pressure"] = num2text(pressure)
 
-	if(radio_controller)
+			radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+
+		update_icon()
+
+	proc/set_frequency(new_frequency)
+		radio_controller.remove_object(src, frequency)
+		frequency = new_frequency
+		radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
+
+	initialize()
 		set_frequency(frequency)
 
+	New()
+		..()
 
-
+		if(radio_controller)
+			set_frequency(frequency)
 
 obj/machinery/access_button
-	icon = 'icons/obj/airlock_machines.dmi'
+	icon = 'airlock_machines.dmi'
 	icon_state = "access_button_standby"
-	name = "access button"
+	name = "Access Button"
 
 	anchored = 1
-	power_channel = ENVIRON
 
 	var/master_tag
 	var/frequency = 1449
@@ -201,41 +168,37 @@ obj/machinery/access_button
 
 	var/on = 1
 
+	update_icon()
+		if(on)
+			icon_state = "access_button_standby"
+		else
+			icon_state = "access_button_off"
 
-obj/machinery/access_button/update_icon()
-	if(on)
-		icon_state = "access_button_standby"
-	else
-		icon_state = "access_button_off"
+	attack_hand(mob/user)
+		src.add_fingerprint(usr)
+		if(!allowed(user))
+			user << "\red Access Denied"
 
+		else if(radio_connection)
+			var/datum/signal/signal = new
+			signal.transmission_method = 1 //radio signal
+			signal.data["tag"] = master_tag
+			signal.data["command"] = command
 
-obj/machinery/access_button/attack_hand(mob/user)
-	add_fingerprint(usr)
-	if(!allowed(user))
-		user << "\red Access Denied"
+			radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
+		flick("access_button_cycle", src)
 
-	else if(radio_connection)
-		var/datum/signal/signal = new
-		signal.transmission_method = 1 //radio signal
-		signal.data["tag"] = master_tag
-		signal.data["command"] = command
+	proc
+		set_frequency(new_frequency)
+			radio_controller.remove_object(src, frequency)
+			frequency = new_frequency
+			radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
 
-		radio_connection.post_signal(src, signal, range = AIRLOCK_CONTROL_RANGE, filter = RADIO_AIRLOCK)
-	flick("access_button_cycle", src)
-
-
-obj/machinery/access_button/proc/set_frequency(new_frequency)
-	radio_controller.remove_object(src, frequency)
-	frequency = new_frequency
-	radio_connection = radio_controller.add_object(src, frequency, RADIO_AIRLOCK)
-
-
-obj/machinery/access_button/initialize()
-	set_frequency(frequency)
-
-
-obj/machinery/access_button/New()
-	..()
-
-	if(radio_controller)
+	initialize()
 		set_frequency(frequency)
+
+	New()
+		..()
+
+		if(radio_controller)
+			set_frequency(frequency)

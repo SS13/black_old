@@ -1,4 +1,4 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
+//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:06
 
 // pure concentrated antibodies
 datum/reagent/antibodies
@@ -13,9 +13,8 @@ datum/reagent/antibodies
 			if(src.data && method == INGEST)
 				if(M:virus2) if(src.data["antibodies"] & M:virus2.antigen)
 					M:virus2.dead = 1
-			// if the virus is killed this way it immunizes
-			//		M:antibodies |= M:virus2.antigen
-				M:antibodies |= src.data["antibodies"]
+					// if the virus is killed this way it immunizes
+					M:antibodies |= M:virus2.antigen
 		return
 
 // reserving some numbers for later special antigens
@@ -46,7 +45,7 @@ var/global/list/ANTIGENS = list("[ANTIGEN_A]" = "A", "[ANTIGEN_B]" = "B", "[ANTI
 	w_class = 2.0
 	item_state = "electronic"
 	flags = FPRINT | TABLEPASS | CONDUCT | USEDELAY
-
+	slot_flags = SLOT_BELT
 
 /obj/item/device/antibody_scanner/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	if(! istype(M, /mob/living/carbon) || !M:antibodies)

@@ -134,25 +134,30 @@ Malf AIs/silicons aren't added. Monkeys aren't added. Messes with objective comp
 	//Here we pick a location and spawn the ninja.
 	var/list/spawn_list = list()
 	for(var/obj/effect/landmark/L in world)
-		if(L.name == "carpspawn")
+		if (L.name == "carpspawn")
 			spawn_list.Add(L)
 
-
-	var/list/candidates = list()	//list of candidate keys
-	for(var/mob/dead/observer/G in player_list)
-		if(!G.client.holder && ((G.client.inactivity/10)/60) <= 5)
-			if(!(G.mind && G.mind.current && G.mind.current.stat != DEAD))
-				candidates += G.key
-	if(!candidates.len)	return
-
+	var/mob/dead/observer/G
+	var/list/candidates = list()
+	for(G in world)
+		if(G.client)//Now everyone can ninja!
+			if(((G.client.inactivity/10)/60) <= 5)
+				candidates.Add(G)
 
 	//The ninja will be created on the right spawn point or at late join.
 	var/mob/living/carbon/human/new_ninja = create_space_ninja(pick(spawn_list.len ? spawn_list : latejoin ))
-	new_ninja.key = pick(candidates)
-	new_ninja.wear_suit:randomize_param()//Give them a random set of suit parameters.
-	new_ninja.internal = new_ninja.s_store //So the poor ninja has something to breath when they spawn in spess.
-	new_ninja.internals.icon_state = "internal1"
 
+	if(candidates.len)
+		G = pick(candidates)
+		new_ninja.key = G.key
+		new_ninja.mind.key = new_ninja.key
+		new_ninja.wear_suit:randomize_param()//Give them a random set of suit parameters.
+		new_ninja.internal = new_ninja.s_store //So the poor ninja has something to breath when they spawn in spess.
+		new_ninja.internals.icon_state = "internal1"
+		del(G)
+	else
+		del(new_ninja)
+		return
 	//Now for the rest of the stuff.
 
 	var/datum/mind/ninja_mind = new_ninja.mind//For easier reference.
@@ -160,7 +165,7 @@ Malf AIs/silicons aren't added. Monkeys aren't added. Messes with objective comp
 	//Xenos and deathsquads take precedence over everything else.
 
 	//Unless the xenos are hiding in a locker somewhere, this'll find em.
-	for(var/mob/living/carbon/alien/humanoid/xeno in player_list)
+	for(var/mob/living/carbon/alien/humanoid/xeno in world)
 		if(istype(xeno))
 			xeno_list += xeno
 
@@ -238,10 +243,9 @@ In either case, it's a good idea to spawn the ninja with a semi-random set of ob
 
 					hostile_targets -= current_mind//Remove them from the list.
 				if(2)//Steal
-					var/datum/objective/steal/ninja_objective = new
-					var/target_item = pick(ninja_objective.possible_items_special)
-					ninja_objective.set_target(target_item)
-					ninja_mind.objectives += ninja_objective
+					var/list/datum/objective/theft = GenerateTheft(ninja_mind.assigned_role,ninja_mind)
+					var/datum/objective/steal/steal_objective = pickweight(theft)
+					ninja_mind.objectives += steal_objective
 
 					objective_list -= 2
 				if(3)//Protect. Keeping people alive can be pretty difficult.
@@ -249,7 +253,7 @@ In either case, it's a good idea to spawn the ninja with a semi-random set of ob
 
 					if(current_mind)
 
-						var/datum/objective/protect/ninja_objective = new
+						var/datum/objective/protection/ninja_objective = new
 						ninja_objective.owner = ninja_mind
 						ninja_objective.find_target_by_role((current_mind.special_role ? current_mind.special_role : current_mind.assigned_role),(current_mind.special_role?1:0))
 						ninja_mind.objectives += ninja_objective
@@ -325,7 +329,7 @@ Making this random or semi-random will probably not work without it also being i
 As such, it's hard-coded for now. No reason for it not to be, really.
 */
 /proc/generate_ninja_directive(side)
-	var/directive = "[side=="face"?"Nanotrasen":"The Syndicate"] is your employer. "//Let them know which side they're on.
+	var/directive = "[side=="face"?"NanoTrasen":"The Syndicate"] is your employer. "//Let them know which side they're on.
 	switch(rand(1,13))
 		if(1)
 			directive += "The Spider Clan must not be linked to this operation. Remain as hidden and covert as possible."
@@ -336,7 +340,7 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 		if(4)
 			directive += "The Spider Clan absolutely cannot be linked to this operation. Eliminate all witnesses using most extreme prejudice."
 		if(5)
-			directive += "We are currently negotiating with Nanotrasen command. Prioritize saving human lives over ending them."
+			directive += "We are currently negotiating with NanoTrasen command. Prioritize saving human lives over ending them."
 		if(6)
 			directive += "We are engaged in a legal dispute over [station_name]. If a laywer is present on board, force their cooperation in the matter."
 		if(7)
@@ -344,7 +348,7 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 		if(8)
 			directive += "Let no one question the mercy of the Spider Clan. Ensure the safety of all non-essential personnel you encounter."
 		if(9)
-			directive += "A free agent has proposed a lucrative business deal. Implicate Nanotrasen involvement in the operation."
+			directive += "A free agent has proposed a lucrative business deal. Implicate NanoTrasen involvement in the operation."
 		if(10)
 			directive += "Our reputation is on the line. Harm as few civilians or innocents as possible."
 		if(11)
@@ -357,7 +361,7 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 
 //=======//CURRENT PLAYER VERB//=======//
 
-/client/proc/cmd_admin_ninjafy(var/mob/M in player_list)
+/client/proc/cmd_admin_ninjafy(var/mob/M in world)
 	set category = null
 	set name = "Make Space Ninja"
 
@@ -416,13 +420,13 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 			spawn_list.Add(L)
 
 
-	var/input = ckey(input("Pick character to spawn as the Space Ninja", "Key", ""))
+	var/input = input("Pick character to spawn as the Space Ninja", "Key", "")
 	if(!input)
 		return
 
 	var/mob/dead/observer/G
-	for(var/mob/dead/observer/G_find in player_list)
-		if(G_find.ckey == input)
+	for(var/mob/dead/observer/G_find in world)
+		if(G_find.client&&ckey(G_find.key)==ckey(input))
 			G = G_find
 			break
 
@@ -434,6 +438,7 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 	var/mob/living/carbon/human/new_ninja = create_space_ninja(pick(spawn_list.len ? spawn_list : latejoin ))
 	new_ninja.wear_suit:randomize_param()
 
+	new_ninja.mind.key = G.key
 	new_ninja.key = G.key
 	new_ninja.mind.store_memory("<B>Mission:</B> \red [mission].<br>")
 
@@ -448,6 +453,7 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 	message_admins("\blue [admin_name] has spawned [new_ninja.key] as a Space Ninja. Hide yo children! \nTheir <b>mission</b> is: [mission]", 1)
 	log_admin("[admin_name] used Spawn Space Ninja.")
 
+	del(G)
 	return
 
 //=======//NINJA CREATION PROCS//=======//
@@ -467,12 +473,19 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 	return new_ninja
 
 /mob/living/carbon/human/proc/create_mind_space_ninja()
-	mind_initialize()
-	mind.assigned_role = "MODE"
-	mind.special_role = "Space Ninja"
-
-	//Adds them to current traitor list. Which is really the extra antagonist list.
-	ticker.mode.traitors |= mind
+	if(mind)
+		mind.assigned_role = "MODE"
+		mind.special_role = "Space Ninja"
+	else
+		mind = new
+		mind.current = src
+		mind.original = src
+		mind.assigned_role = "MODE"
+		mind.special_role = "Space Ninja"
+	if(!(mind in ticker.minds))
+		ticker.minds += mind//Adds them to regular mind list.
+	if(!(mind in ticker.mode.traitors))//If they weren't already an extra traitor.
+		ticker.mode.traitors += mind//Adds them to current traitor list. Which is really the extra antagonist list.
 	return 1
 
 /mob/living/carbon/human/proc/equip_space_ninja(safety=0)//Safety in case you need to unequip stuff for existing characters.
@@ -485,20 +498,20 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 		del(gloves)
 
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset(src)
-	equip_to_slot_or_del(R, slot_ears)
+	equip_if_possible(R, slot_ears)
 	if(gender==FEMALE)
-		equip_to_slot_or_del(new /obj/item/clothing/under/color/blackf(src), slot_w_uniform)
+		equip_if_possible(new /obj/item/clothing/under/color/blackf(src), slot_w_uniform)
 	else
-		equip_to_slot_or_del(new /obj/item/clothing/under/color/black(src), slot_w_uniform)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/space_ninja(src), slot_shoes)
-	equip_to_slot_or_del(new /obj/item/clothing/suit/space/space_ninja(src), slot_wear_suit)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/space_ninja(src), slot_gloves)
-	equip_to_slot_or_del(new /obj/item/clothing/head/helmet/space/space_ninja(src), slot_head)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/voice/space_ninja(src), slot_wear_mask)
-	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_belt)
-	equip_to_slot_or_del(new /obj/item/weapon/plastique(src), slot_r_store)
-	equip_to_slot_or_del(new /obj/item/weapon/plastique(src), slot_l_store)
-	equip_to_slot_or_del(new /obj/item/weapon/tank/emergency_oxygen(src), slot_s_store)
+		equip_if_possible(new /obj/item/clothing/under/color/black(src), slot_w_uniform)
+	equip_if_possible(new /obj/item/clothing/shoes/space_ninja(src), slot_shoes)
+	equip_if_possible(new /obj/item/clothing/suit/space/space_ninja(src), slot_wear_suit)
+	equip_if_possible(new /obj/item/clothing/gloves/space_ninja(src), slot_gloves)
+	equip_if_possible(new /obj/item/clothing/head/helmet/space/space_ninja(src), slot_head)
+	equip_if_possible(new /obj/item/clothing/mask/gas/voice/space_ninja(src), slot_wear_mask)
+	equip_if_possible(new /obj/item/device/flashlight(src), slot_belt)
+	equip_if_possible(new /obj/item/weapon/plastique(src), slot_r_store)
+	equip_if_possible(new /obj/item/weapon/plastique(src), slot_l_store)
+	equip_if_possible(new /obj/item/weapon/tank/emergency_oxygen(src), slot_s_store)
 	resistances += "alien_embryo"
 	return 1
 
@@ -568,10 +581,10 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 
 //Allows the mob to grab a stealth icon.
 /mob/proc/NinjaStealthActive(atom/A)//A is the atom which we are using as the overlay.
-	invisibility = INVISIBILITY_LEVEL_TWO//Set ninja invis to 2.
+	invisibility = 2//Set ninja invis to 2.
 	var/icon/opacity_icon = new(A.icon, A.icon_state)
 	var/icon/alpha_mask = getIconMask(src)
-	var/icon/alpha_mask_2 = new('icons/effects/effects.dmi', "at_shield1")
+	var/icon/alpha_mask_2 = new('effects.dmi', "at_shield1")
 	alpha_mask.AddAlphaMask(alpha_mask_2)
 	opacity_icon.AddAlphaMask(alpha_mask)
 	for(var/i=0,i<5,i++)//And now we add it as overlays. It's faster than creating an icon and then merging it.
@@ -587,13 +600,13 @@ As such, it's hard-coded for now. No reason for it not to be, really.
 				I.pixel_y += 1
 
 		overlays += I//And finally add the overlay.
-	overlays += image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = layer+0.9)
+	overlays += image("icon"='effects.dmi',"icon_state" ="electricity","layer" = layer+0.9)
 
 //When ninja steal malfunctions.
 /mob/proc/NinjaStealthMalf()
 	invisibility = 0//Set ninja invis to 0.
-	overlays += image("icon"='icons/effects/effects.dmi',"icon_state" ="electricity","layer" = layer+0.9)
-	playsound(loc, 'sound/effects/stealthoff.ogg', 75, 1)
+	overlays += image("icon"='effects.dmi',"icon_state" ="electricity","layer" = layer+0.9)
+	playsound(loc, 'stealthoff.ogg', 75, 1)
 
 //=======//GENERIC VERB MODIFIERS//=======//
 
@@ -983,7 +996,7 @@ That is why you attached them to objects.
 		var/safety = 4
 		for(var/turf/T in oview(5))
 			if(prob(20))
-				var/current_clone = image('icons/mob/mob.dmi',T,"s-ninja")
+				var/current_clone = image('mob.dmi',T,"s-ninja")
 				safety--
 				spawn(0)
 					src << current_clone

@@ -1,10 +1,10 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
+//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:04
 
 /obj/machinery/computer/card
 	name = "Identification Computer"
-	desc = "You can use this to change ID's."
+	desc = "A computer used to modify ID cards."
 	icon_state = "id"
-	req_access = list(access_change_ids)
+	req_access = list(ACCESS_CHANGE_IDS)
 	circuit = "/obj/item/weapon/circuitboard/card"
 	var/obj/item/weapon/card/id/scan = null
 	var/obj/item/weapon/card/id/modify = null
@@ -16,7 +16,7 @@
 /obj/machinery/computer/card/attackby(O as obj, user as mob)//TODO:SANITY
 	if(istype(O, /obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/idcard = O
-		if(access_change_ids in idcard.access)
+		if(ACCESS_CHANGE_IDS in idcard.access)
 			if(!scan)
 				usr.drop_item()
 				idcard.loc = src
@@ -51,14 +51,8 @@
 	if (!( ticker ))
 		return
 	if (mode) // accessing crew manifest
-		var/crew = ""
-		var/list/L = list()
-		for (var/datum/data/record/t in data_core.general)
-			var/R = t.fields["name"] + " - " + t.fields["rank"]
-			L += R
-		for(var/R in sortList(L))
-			crew += "[R]<br>"
-		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=\ref[src];choice=print'>Print</a><br><br><a href='?src=\ref[src];choice=mode;mode_target=0'>Access ID modification console.</a><br></tt>"
+		var/crew = data_core.get_manifest()
+		dat = "<tt><b>Crew Manifest:</b><br>Please use the security record computer to modify entries.<br>[crew]<a href='?src=\ref[src];choice=print'>Print</a><br><br><a href='?src=\ref[src];choice=mode;mode_target=0'>Access ID modification console.</a><br></tt>"
 	else
 		var/header = "<div align='center'><b>Identification Card Modifier</b></div>"
 
@@ -126,7 +120,7 @@
 			carddesc += "<form name='cardcomp' action='?src=\ref[src]' method='get'>"
 			carddesc += "<input type='hidden' name='src' value='\ref[src]'>"
 			carddesc += "<input type='hidden' name='choice' value='reg'>"
-			carddesc += "<b>registered_name:</b> <input type='text' id='namefield' name='reg' value='[target_owner]' style='width:250px; background-color:white;' onchange='markRed()'>"
+			carddesc += "<b>Registered:</b> <input type='text' id='namefield' name='reg' value='[target_owner]' style='width:250px; background-color:white;' onchange='markRed()'>"
 			carddesc += "<input type='submit' value='Rename' onclick='markGreen()'>"
 			carddesc += "</form>"
 			carddesc += "<b>Assignment:</b> "
@@ -158,7 +152,14 @@
 						accesses += "<br>"
 					accesses += "</td>"
 				accesses += "</tr></table>"
-			body = "[carddesc]<br>[jobs]<br><br>[accesses]" //CHECK THIS
+
+			var/biometric = ""
+			biometric += 	"<b>Biometric Data</b>:<br />\
+							Blood type: <a href='?src=\ref[src];choice=bio_btype'>[modify.blood_type]</a><br />\
+							DNA hash: <a href='?src=\ref[src];choice=bio_dna'>[modify.dna_hash]</a><br />\
+							Fingerprint hash: <a href='?src=\ref[src];choice=bio_fprint'>[modify.fingerprint_hash]</a>"
+
+			body = "[carddesc]<br>[jobs]<br>[biometric]<br><br>[accesses]" //CHECK THIS
 		else
 			body = "<a href='?src=\ref[src];choice=auth'>{Log in}</a> <br><hr>"
 			body += "<a href='?src=\ref[src];choice=mode;mode_target=1'>Access Crew Manifest</a>"
@@ -173,20 +174,34 @@
 		return
 	usr.machine = src
 	switch(href_list["choice"])
+		if("bio_btype")
+			var/new_b_type = input("Please input the blood type.", "Biometric Input")  as null|anything in list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" )
+			if(new_b_type)
+				modify.blood_type = new_b_type
+
+		if("bio_dna")
+			modify.dna_hash = input("Please input the DNA hash.", "Biometric Input", modify.dna_hash)
+
+		if("bio_fprint")
+			modify.fingerprint_hash = input("Please input the fingerprint hash.", "Biometric Input", modify.fingerprint_hash)
+
 		if ("modify")
 			if (modify)
 				data_core.manifest_modify(modify.registered_name, modify.assignment)
-				modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
+				if(istype(modify,/obj/item/weapon/card/id/fluff/lifetime))
+					modify.name = text("[modify.registered_name]'s Lifetime ID Card ([modify.assignment])")
+				else
+					modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
 				if(ishuman(usr))
 					modify.loc = usr.loc
 					if(!usr.get_active_hand())
-						usr.put_in_hands(modify)
+						usr.put_in_hand(modify)
 					modify = null
 				else
 					modify.loc = loc
 					modify = null
 			else
-				var/obj/item/I = usr.get_active_hand()
+				var/obj/item/I = usr.equipped()
 				if (istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
 					I.loc = src
@@ -198,13 +213,13 @@
 				if(ishuman(usr))
 					scan.loc = usr.loc
 					if(!usr.get_active_hand())
-						usr.put_in_hands(scan)
+						usr.put_in_hand(scan)
 					scan = null
 				else
 					scan.loc = src.loc
 					scan = null
 			else
-				var/obj/item/I = usr.get_active_hand()
+				var/obj/item/I = usr.equipped()
 				if (istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
 					I.loc = src
@@ -231,7 +246,7 @@
 			if (authenticated)
 				var/t1 = href_list["assign_target"]
 				if(t1 == "Custom")
-					var/temp_t = copytext(sanitize(input("Enter a custom job assignment.","Assignment")),1,MAX_MESSAGE_LEN)
+					var/temp_t = copytext(sanitize(input("Enter a custom job assignment.","Assignment")),1,MAX_NAME_LEN)
 					if(temp_t)
 						t1 = temp_t
 				else
@@ -251,15 +266,8 @@
 				printing = 1
 				sleep(50)
 				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
-				var/t1 = "<B>Crew Manifest:</B><BR>"
-				var/list/L = list()
-				for (var/datum/data/record/t in data_core.general)
-					var/R = t.fields["name"] + " - " + t.fields["rank"]
-					L += R
-				for(var/R in sortList(L))
-					t1 += "[R]<br>"
-				P.info = t1
-				P.name = "paper- 'Crew Manifest'"
+				P.info = "<B>Crew Manifest:</B><BR>" + data_core.get_manifest()
+				P.name = "paper - 'Crew Manifest'"
 				printing = null
 	if (modify)
 		modify.name = text("[modify.registered_name]'s ID Card ([modify.assignment])")
@@ -271,5 +279,5 @@
 /obj/machinery/computer/card/centcom
 	name = "CentCom Identification Computer"
 	circuit = "/obj/item/weapon/circuitboard/card/centcom"
-	req_access = list(access_cent_captain)
+	req_access = list(ACCESS_CENT_CAPTAIN)
 

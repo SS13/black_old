@@ -1,9 +1,9 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
+//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:05
 
 /obj/machinery/implantchair
 	name = "Loyalty Implanter"
 	desc = "Used to implant occupants with loyalty implants."
-	icon = 'icons/obj/machines/implantchair.dmi'
+	icon = 'implantchair.dmi'
 	icon_state = "implantchair"
 	density = 1
 	opacity = 0
@@ -116,7 +116,7 @@
 		if(M.client)
 			M.client.perspective = EYE_PERSPECTIVE
 			M.client.eye = src
-		M.stop_pulling()
+		M.pulling = null
 		M.loc = src
 		src.occupant = M
 		src.add_fingerprint(usr)
@@ -133,11 +133,10 @@
 			if(istype(imp, /obj/item/weapon/implant/loyalty))
 				for (var/mob/O in viewers(M, null))
 					O.show_message("\red [M] has been implanted by the [src.name].", 1)
-
-				if(imp.implanted(M))
-					imp.loc = M
-					imp.imp_in = M
-					imp.implanted = 1
+				imp.loc = M
+				imp.imp_in = M
+				imp.implanted = 1
+				imp.implanted(M)
 				implant_list -= imp
 				break
 		return

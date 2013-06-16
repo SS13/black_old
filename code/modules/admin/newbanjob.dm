@@ -177,7 +177,6 @@ var/savefile/Banlistjob
 		message_admins("[key_name_admin(usr)] unjobbanned:[key] from [rank]")
 		ban_unban_log_save("[key_name_admin(usr)] unjobbanned [key] from [rank]")
 		feedback_inc("ban_job_unban",1)
-		feedback_add_details("ban_job_unban","- [rank]")
 
 	for (var/A in Banlistjob.dir)
 		Banlistjob.cd = "/base/[A]"
@@ -203,7 +202,7 @@ var/savefile/Banlistjob
 			timeleftstring = "[exp] Minutes"
 		return timeleftstring
 
-/datum/admins/proc/unjobbanpanel()
+/obj/admins/proc/unjobbanpanel()
 	var/count = 0
 	var/dat
 	//var/dat = "<HR><B>Unban Player:</B> \blue(U) = Unban , (E) = Edit Ban\green (Total<HR><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >"
@@ -217,7 +216,7 @@ var/savefile/Banlistjob
 	dat = "<HR><B>Bans:</B> <FONT COLOR=blue>(U) = Unban , </FONT> - <FONT COLOR=green>([count] Bans)</FONT><HR><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >[dat]"
 	usr << browse(dat, "window=unbanp;size=875x400")
 
-/*/datum/admins/proc/permjobban(ckey, computerid, reason, bannedby, temp, minutes, rank)
+/*/obj/admins/proc/permjobban(ckey, computerid, reason, bannedby, temp, minutes, rank)
 	if(AddBanjob(ckey, computerid, reason, usr.ckey, 0, 0, job))
 		M << "\red<BIG><B>You have been banned from [job] by [usr.client.ckey].\nReason: [reason].</B></BIG>"
 		M << "\red This is a permanent ban."
@@ -227,7 +226,7 @@ var/savefile/Banlistjob
 			M << "\red No ban appeals URL has been set."
 		log_admin("[usr.client.ckey] has banned from [job] [ckey].\nReason: [reason]\nThis is a permanent ban.")
 		message_admins("\blue[usr.client.ckey] has banned from [job] [ckey].\nReason: [reason]\nThis is a permanent ban.")
-/datum/admins/proc/timejobban(ckey, computerid, reason, bannedby, temp, minutes, rank)
+/obj/admins/proc/timejobban(ckey, computerid, reason, bannedby, temp, minutes, rank)
 	if(AddBanjob(ckey, computerid, reason, usr.ckey, 1, mins, job))
 		M << "\red<BIG><B>You have been jobbanned from [job] by [usr.client.ckey].\nReason: [reason].</B></BIG>"
 		M << "\red This is a temporary ban, it will be removed in [mins] minutes."

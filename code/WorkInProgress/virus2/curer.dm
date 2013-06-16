@@ -1,15 +1,15 @@
 /obj/machinery/computer/curer
 	name = "Cure Research Machine"
-	icon = 'icons/obj/computer.dmi'
+	icon = 'computer.dmi'
 	icon_state = "dna"
 	var/curing
-	var/virusing
+	var/virusing = 0
 
 	var/obj/item/weapon/reagent_containers/container = null
 
 /obj/machinery/computer/curer/attackby(var/obj/I as obj, var/mob/user as mob)
 	if(istype(I, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
 			if (src.stat & BROKEN)
 				user << "\blue The broken glass falls out."
@@ -40,6 +40,8 @@
 			container = I
 			C.drop_item()
 			I.loc = src
+		state("The [src.name] Buzzes", "blue")
+		return
 	if(istype(I,/obj/item/weapon/virusdish))
 		if(virusing)
 			user << "<b>The pathogen materializer is still recharging.."
@@ -55,6 +57,7 @@
 
 		state("The [src.name] Buzzes", "blue")
 		return
+
 	//else
 	src.attack_hand(user)
 	return
@@ -132,16 +135,16 @@
 	var/obj/item/weapon/reagent_containers/glass/beaker/product = new(src.loc)
 
 	var/datum/reagent/blood/B = locate() in container.reagents.reagent_list
+	if(!B) return
 
 	var/list/data = list()
 	data["antibodies"] = B.data["antibodies"]
 	product.reagents.add_reagent("antibodies",30,data)
 
 	state("The [src.name] Buzzes", "blue")
-/*
+
 /obj/machinery/computer/curer/proc/createvirus(var/datum/disease2/disease/virus2)
 	var/obj/item/weapon/cureimplanter/implanter = new /obj/item/weapon/cureimplanter(src.loc)
 	implanter.name = "Viral implanter (MAJOR BIOHAZARD)"
 	implanter.works = 3
 	state("The [src.name] Buzzes", "blue")
-*/

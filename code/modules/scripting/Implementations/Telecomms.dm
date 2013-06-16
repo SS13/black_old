@@ -2,7 +2,7 @@
 
 
 /* --- Traffic Control Scripting Language --- */
-	// Nanotrasen TCS Language - Made by Doohl
+	// NanoTrasen TCS Language - Made by Doohl
 
 /n_Interpreter/TCS_Interpreter
 	var/datum/TCS_Compiler/Compiler
@@ -268,6 +268,4 @@ datum/signal
 		newsign.data["vmessage"] = H.voice_message
 		newsign.data["vname"] = H.voice_name
 		newsign.data["vmask"] = 0
-
 		S.relay_information(newsign, "/obj/machinery/telecomms/broadcaster") // send this simple message to broadcasters
-		S.relay_information(newsign, "/obj/machinery/telecomms/hub")

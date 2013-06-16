@@ -43,14 +43,11 @@ to null does not delete the object itself. Thank you.
 	var/severity = null//severity descr
 	var/longevity = 250//time in "ticks" the virus stays in inanimate object (blood stains, corpses, etc). In syringes, bottles and beakers it stays infinitely.
 	var/list/hidden = list(0, 0)
-	var/can_carry = 1 // If the disease allows "carriers".
-	var/age = 0 // age of the disease in the current mob
-	var/stage_minimum_age = 0 // how old the disease must be to advance per stage
 	// if hidden[1] is true, then virus is hidden from medical scanners
 	// if hidden[2] is true, then virus is hidden from PANDEMIC machine
 
+
 /datum/disease/proc/stage_act()
-	age++
 	var/cure_present = has_cure()
 	//world << "[cure_present]"
 
@@ -62,7 +59,7 @@ to null does not delete the object itself. Thank you.
 
 	if(stage > max_stages)
 		stage = max_stages
-	if(stage_prob != 0 && prob(stage_prob) && stage != max_stages && !cure_present && age > stage_minimum_age * stage) //now the disease shouldn't get back up to stage 4 in no time
+	if(stage_prob != 0 && prob(stage_prob) && stage != max_stages && !cure_present) //now the disease shouldn't get back up to stage 4 in no time
 		stage++
 	if(stage != 1 && (prob(1) || (cure_present && prob(cure_chance))))
 		stage--
@@ -133,7 +130,7 @@ to null does not delete the object itself. Thank you.
 					del(D) // if there are somehow two viruses of the same kind in the system, delete the other one
 
 	if(holder == affected_mob)
-		if(affected_mob.stat != DEAD) //he's alive
+		if(affected_mob.stat < 2) //he's alive
 			stage_act()
 		else //he's dead.
 			if(spread_type!=SPECIAL)
@@ -148,14 +145,15 @@ to null does not delete the object itself. Thank you.
 	return
 
 /datum/disease/proc/cure(var/resistance=1)//if resistance = 0, the mob won't develop resistance to disease
-	if(affected_mob)
-		if(resistance && !(type in affected_mob.resistances))
-			var/saved_type = "[type]"
-			affected_mob.resistances += text2path(saved_type)
-		if(istype(src, /datum/disease/alien_embryo))	//Get rid of the infection flag if it's a xeno embryo.
-			affected_mob.status_flags &= ~(XENO_HOST)
-		affected_mob.viruses -= src		//remove the datum from the list
-	del(src)	//delete the datum to stop it processing
+	if(resistance && affected_mob && !(type in affected_mob.resistances))
+//		world << "Setting res to [src]"
+		var/saved_type = "[type]"//copy the value, not create the reference to it, so when the object is deleted, the value remains.
+		affected_mob.resistances += text2path(saved_type)
+	if((affected_mob) && (istype(src, /datum/disease/alien_embryo)))//Get rid of the flag.
+		affected_mob.alien_egg_flag = 0
+//	world << "Removing [src]"
+	spawn(0)
+		del(src)
 	return
 
 

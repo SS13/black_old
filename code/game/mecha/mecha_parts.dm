@@ -4,9 +4,9 @@
 
 /obj/item/mecha_parts
 	name = "mecha part"
-	icon = 'icons/mecha/mech_construct.dmi'
+	icon = 'mech_construct.dmi'
 	icon_state = "blank"
-	w_class = 20
+	w_class = 5 //I'm pretty sure that's silly.
 	flags = FPRINT | TABLEPASS | CONDUCT
 	origin_tech = "programming=2;materials=2"
 	var/construction_time = 100
@@ -399,7 +399,7 @@
 
 /obj/item/weapon/circuitboard/mecha
 	name = "Exosuit Circuit board"
-	icon = 'icons/obj/module.dmi'
+	icon = 'module.dmi'
 	icon_state = "std_mod"
 	item_state = "electronic"
 	flags = FPRINT | TABLEPASS | CONDUCT

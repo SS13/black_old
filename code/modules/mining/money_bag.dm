@@ -1,7 +1,7 @@
 /*****************************Money bag********************************/
 
 /obj/item/weapon/moneybag
-	icon = 'icons/obj/storage.dmi'
+	icon = 'storage.dmi'
 	name = "Money bag"
 	icon_state = "moneybag"
 	flags = FPRINT | TABLEPASS| CONDUCT

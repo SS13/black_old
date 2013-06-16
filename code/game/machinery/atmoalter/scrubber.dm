@@ -1,7 +1,7 @@
 /obj/machinery/portable_atmospherics/scrubber
 	name = "Portable Air Scrubber"
 
-	icon = 'icons/obj/atmos.dmi'
+	icon = 'atmos.dmi'
 	icon_state = "pscrubber:0"
 	density = 1
 
@@ -10,57 +10,26 @@
 
 	volume = 750
 
-/obj/machinery/portable_atmospherics/scrubber/huge
-	name = "Huge Air Scrubber"
-	icon_state = "scrubber:0"
-	anchored = 1
-	volume = 50000
-	volume_rate = 5000
+	stationary
+		name = "Stationary Air Scrubber"
+		icon_state = "scrubber:0"
+		anchored = 1
+		volume = 30000
+		volume_rate = 5000
 
-	var/global/gid = 1
-	var/id = 0
-	New()
-		..()
-		id = gid
-		gid++
+		attack_hand(var/mob/user as mob)
+			usr << "\blue You can't directly interact with this machine. Use the area atmos computer."
 
-		name = "[name] (ID [id])"
+		update_icon()
+			src.overlays = 0
 
-	attack_hand(var/mob/user as mob)
-		usr << "\blue You can't directly interact with this machine. Use the area atmos computer."
-
-	update_icon()
-		src.overlays = 0
-
-		if(on)
-			icon_state = "scrubber:1"
-		else
-			icon_state = "scrubber:0"
-
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-		if(istype(W, /obj/item/weapon/wrench))
 			if(on)
-				user << "\blue Turn it off first!"
-				return
+				icon_state = "scrubber:1"
+			else
+				icon_state = "scrubber:0"
 
-			anchored = !anchored
-			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You [anchored ? "wrench" : "unwrench"] \the [src]."
-
+		attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
 			return
-
-		..()
-
-/obj/machinery/portable_atmospherics/scrubber/huge/stationary
-	name = "Stationary Air Scrubber"
-
-	attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-		if(istype(W, /obj/item/weapon/wrench))
-			user << "\blue The bolts are too tight for you to unscrew!"
-			return
-
-		..()
-
 
 /obj/machinery/portable_atmospherics/scrubber/update_icon()
 	src.overlays = 0
@@ -87,7 +56,7 @@
 			environment = holding.air_contents
 		else
 			environment = loc.return_air()
-		var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles()
+		var/transfer_moles = min(1, volume_rate/environment.volume)*environment.total_moles
 
 		//Take a gas sample
 		var/datum/gas_mixture/removed
@@ -114,12 +83,7 @@
 					if(istype(trace_gas, /datum/gas/sleeping_agent))
 						removed.trace_gases -= trace_gas
 						filtered_out.trace_gases += trace_gas
-
-			if(removed.trace_gases.len>0)
-				for(var/datum/gas/trace_gas in removed.trace_gases)
-					if(istype(trace_gas, /datum/gas/oxygen_agent_b))
-						removed.trace_gases -= trace_gas
-						filtered_out.trace_gases += trace_gas
+			filtered_out.update_values()
 
 		//Remix the resulting gases
 			air_contents.merge(filtered_out)

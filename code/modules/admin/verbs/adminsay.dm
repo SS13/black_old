@@ -7,11 +7,8 @@
 		src << "Only administrators may use this command."
 		return
 
-	if (src.muted & MUTE_ADMINHELP)
-		src << "You cannot send ASAY messages (muted)."
-		return
-
-	if (src.handle_spam_prevention(msg,MUTE_ADMINHELP))
+	if (src.muted || src.muted_complete)
+		src << "You are muted."
 		return
 
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
@@ -20,13 +17,14 @@
 
 	if (!msg)
 		return
-	feedback_add_details("admin_verb","M") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	//feedback_add_details("admin_verb","M") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-	for (var/client/C in admin_list)
-		if (src.holder.rank == "Admin Observer")
-			C << "<span class='adminobserver'><span class='prefix'>ADMIN:</span> <EM>[key_name(usr, C)]:</EM> <span class='message'>[msg]</span></span>"
-		else if(C.holder && C.holder.level != 0)
-			C << "<span class='admin'><span class='prefix'>ADMIN:</span> <EM>[key_name(usr, C)]</EM> (<A HREF='?src=\ref[C.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
+	for (var/mob/M in world)
+		if (M.client && M.client.holder && M.client.holder.level != 0) //Moderators cannot see it.
+			if (src.holder.rank == "Admin Observer")
+				M << "<span class='adminobserver'><span class='prefix'>ADMIN:</span> <EM>[key_name(usr, M)]:</EM> <span class='message'>[msg]</span></span>"
+			else
+				M << "<span class='admin'><span class='prefix'>ADMIN:</span> <EM>[key_name(usr, M)]</EM> (<A HREF='?src=\ref[M.client.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
 
 /client/proc/cmd_mod_say(msg as text)
 	set category = "Special Verbs"
@@ -37,10 +35,9 @@
 		src << "Only administrators may use this command."
 		return
 
-	//todo: what? why does this not compile
-	/*if (src.muted || src.muted_complete)
+	if (src.muted || src.muted_complete)
 		src << "You are muted."
-		return*/
+		return
 
 	msg = copytext(sanitize(msg), 1, MAX_MESSAGE_LEN)
 	log_admin("MOD: [key_name(src)] : [msg]")
@@ -58,3 +55,4 @@
 				M << "<span class='mod'><span class='prefix'>MOD:</span> <EM>[key_name(usr, M)]</EM> (<A HREF='?src=\ref[M.client.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
 			else
 				M << "<span class='adminmod'><span class='prefix'>MOD:</span> <EM>[key_name(usr, M)]</EM> (<A HREF='?src=\ref[M.client.holder];adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"
+

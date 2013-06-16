@@ -1,6 +1,6 @@
 /obj/item/weapon/hive_module
 	name = "hive robot module"
-	icon = 'icons/obj/module.dmi'
+	icon = 'module.dmi'
 	icon_state = "std_module"
 	w_class = 2.0
 	item_state = "electronic"

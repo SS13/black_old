@@ -1,74 +1,24 @@
-/mob/living/carbon/metroid
-	name = "baby roro"
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "baby roro"
-	pass_flags = PASSTABLE
-	voice_message = "skree!"
-	say_message = "hums"
-
-	layer = 5
-
-	maxHealth = 150
-	health = 150
-	gender = NEUTER
-
-	update_icon = 0
-	nutrition = 700 // 1000 = max
-
-	see_in_dark = 8
-
-	// canstun and canweaken don't affect metroids because they ignore stun and weakened variables
-	// for the sake of cleanliness, though, here they are.
-	status_flags = CANPARALYSE
-
-	var/cores = 3 // the number of /obj/item/metroid_core's the metroid has left inside
-
-	var/powerlevel = 0 	// 1-10 controls how much electricity they are generating
-	var/amount_grown = 0 // controls how long the metroid has been overfed, if 10, grows into an adult
-						 // if adult: if 10: reproduces
-
-
-	var/mob/living/Victim = null // the person the metroid is currently feeding on
-	var/mob/living/Target = null // AI variable - tells the Metroid to hunt this down
-
-	var/attacked = 0 // determines if it's been attacked recently. Can be any number, is a cooloff-ish variable
-	var/tame = 0 // if set to 1, the Metroid will not eat humans ever, or attack them
-	var/rabid = 0 // if set to 1, the Metroid will attack and eat anything it comes in contact with
-
-	var/list/Friends = list() // A list of potential friends
-	var/list/FriendsWeight = list() // A list containing values respective to Friends. This determines how many times a Metroid "likes" something. If the Metroid likes it more than 2 times, it becomes a friend
-
-	// Metroids pass on genetic data, so all their offspring have the same "Friends",
-
-/mob/living/carbon/metroid/adult
-	name = "adult roro"
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "adult roro"
-
-	health = 200
-	gender = NEUTER
-
-	update_icon = 0
-	nutrition = 800 // 1200 = max
-
-
 /mob/living/carbon/metroid/New()
 	var/datum/reagents/R = new/datum/reagents(100)
 	reagents = R
 	R.my_atom = src
-	if(name == "baby roro")
-		name = text("baby roro ([rand(1, 1000)])")
+	if(name == "baby metroid")
+		name = text("baby metroid ([rand(1, 1000)])")
 	else
-		name = text("adult roro ([rand(1,1000)])")
+		name = text("adult metroid ([rand(1,1000)])")
+
 	real_name = name
 	spawn (1)
-		regenerate_icons()
+		rebuild_appearance()
 		src << "\blue Your icons have been generated!"
 	..()
 
-/mob/living/carbon/metroid/adult/New()
-	verbs.Remove(/mob/living/carbon/metroid/verb/ventcrawl)
-	..()
+/mob/living/carbon/metroid/proc/mind_initialize(mob/G)
+	mind = new
+	mind.current = src
+	mind.assigned_role = "Metroid"
+	//mind.special_role = alien_caste
+	mind.key = G.key
 
 /mob/living/carbon/metroid/movement_delay()
 	var/tally = 0
@@ -92,7 +42,7 @@
 	if (bodytemperature >= 330.23) // 135 F
 		return -1	// Metroids become supercharged at high temperatures
 
-	return tally+config.metroid_delay
+	return tally
 
 
 /mob/living/carbon/metroid/Bump(atom/movable/AM as mob|obj, yes)
@@ -200,7 +150,14 @@
 	..()
 
 /mob/living/carbon/metroid/ex_act(severity)
+/*
+	if (stat == 2 && client)
+		return
 
+	else if (stat == 2 && !client)
+		del(src)
+		return
+*/
 	var/b_loss = null
 	var/f_loss = null
 	switch (severity)
@@ -249,7 +206,7 @@
 	return
 
 
-/mob/living/carbon/metroid/attack_ui(slot)
+/mob/living/carbon/metroid/db_click(text, t1)
 	return
 
 /mob/living/carbon/metroid/meteorhit(O as obj)
@@ -277,7 +234,7 @@
 
 		if (pulling && pulling.loc)
 			if(!( isturf(pulling.loc) ))
-				stop_pulling()
+				pulling = null
 				return
 			else
 				if(Debug)
@@ -286,7 +243,7 @@
 
 		/////
 		if(pulling && pulling.anchored)
-			stop_pulling()
+			pulling = null
 			return
 
 		if (!restrained())
@@ -311,19 +268,56 @@
 						if (locate(/obj/item/weapon/grab, M.grabbed_by.len))
 							ok = 0
 					if (ok)
-						var/atom/movable/t = M.pulling
-						M.stop_pulling()
+						var/t = M.pulling
+						M.pulling = null
 						step(pulling, get_dir(pulling.loc, T))
-						M.start_pulling(t)
+						M.pulling = t
 				else
 					if (pulling)
 						step(pulling, get_dir(pulling.loc, T))
 	else
-		stop_pulling()
+		pulling = null
 		. = ..()
 	if ((s_active && !( s_active in contents ) ))
 		s_active.close(src)
 	return
+
+
+
+/mob/living/carbon/metroid/update_clothing()
+	..()
+
+	if (monkeyizing)
+		return
+
+
+	if (client)
+		if (i_select)
+			if (intent)
+				client.screen += hud_used.intents
+
+				var/list/L = dd_text2list(intent, ",")
+				L[1] += ":-11"
+				i_select.screen_loc = dd_list2text(L,",") //ICONS4, FUCKING SHIT
+			else
+				i_select.screen_loc = null
+		if (m_select)
+			if (m_int)
+				client.screen += hud_used.mov_int
+
+				var/list/L = dd_text2list(m_int, ",")
+				L[1] += ":-11"
+				m_select.screen_loc = dd_list2text(L,",") //ICONS4, FUCKING SHIT
+			else
+				m_select.screen_loc = null
+
+
+	for (var/mob/M in viewers(1, src))
+		if ((M.client && M.machine == src))
+			spawn (0)
+				show_inv(M)
+				return
+
 
 
 /mob/living/carbon/metroid/attack_metroid(mob/living/carbon/metroid/M as mob)
@@ -359,12 +353,8 @@
 	if(M.melee_damage_upper == 0)
 		M.emote("[M.friendly] [src]")
 	else
-		if(M.attack_sound)
-			playsound(loc, M.attack_sound, 50, 1, 1)
 		for(var/mob/O in viewers(src, null))
 			O.show_message("\red <B>[M]</B> [M.attacktext] [src]!", 1)
-		M.attack_log += text("\[[time_stamp()]\] <font color='red'>attacked [src.name] ([src.ckey])</font>")
-		src.attack_log += text("\[[time_stamp()]\] <font color='orange'>was attacked by [M.name] ([M.ckey])</font>")
 		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
 		adjustBruteLoss(damage)
 		updatehealth()
@@ -390,7 +380,7 @@
 				return
 			if (health > 0)
 				attacked += 10
-				playsound(loc, 'sound/weapons/bite.ogg', 50, 1, -1)
+				playsound(loc, 'bite.ogg', 50, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
 						O.show_message(text("\red <B>[M.name] has bit [src]!</B>"), 1)
@@ -416,13 +406,13 @@
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
 						O.show_message("\red [M] attempts to wrestle \the [name] off!", 1)
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				playsound(loc, 'punchmiss.ogg', 25, 1, -1)
 
 			else
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
 						O.show_message("\red [M] manages to wrestle \the [name] off!", 1)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'thudswoosh.ogg', 50, 1, -1)
 
 				if(prob(90) && !client)
 					Discipline++
@@ -444,13 +434,13 @@
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
 						O.show_message("\red [M] attempts to wrestle \the [name] off of [Victim]!", 1)
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				playsound(loc, 'punchmiss.ogg', 25, 1, -1)
 
 			else
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
 						O.show_message("\red [M] manages to wrestle \the [name] off of [Victim]!", 1)
-				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				playsound(loc, 'thudswoosh.ogg', 50, 1, -1)
 
 				if(prob(80) && !client)
 					Discipline++
@@ -496,16 +486,20 @@
 		if ("grab")
 			if (M == src)
 				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M, M, src )
-
-			M.put_in_active_hand(G)
-
+			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M )
+			G.assailant = M
+			if (M.hand)
+				M.l_hand = G
+			else
+				M.r_hand = G
+			G.layer = 20
+			G.affecting = src
 			grabbed_by += G
 			G.synch()
 
 			LAssailant = M
 
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(loc, 'thudswoosh.ogg', 50, 1, -1)
 			for(var/mob/O in viewers(src, null))
 				if ((O.client && !( O.blinded )))
 					O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
@@ -513,15 +507,27 @@
 		else
 			if(ELECTRICHANDS in M.augmentations)
 				var/gendertxt = "their"
-				if(M.gender == MALE)
+				if(M.gender == "male")
 					gendertxt = "his"
-				if(M.gender == FEMALE)
+				if(M.gender == "female")
 					gendertxt = "her"
 
 				visible_message("\red <B>[M] has shocked [src] with [gendertxt] bare hands!</B>")
 				return
 
 			var/damage = rand(1, 9)
+
+			var/attack_verb
+			switch(M.mutantrace)
+				if("lizard")
+					attack_verb = "scratch"
+				if("plant")
+					attack_verb = "slash"
+				else
+					attack_verb = "punch"
+
+			if(M.type == /mob/living/carbon/human/tajaran)
+				attack_verb = "slash"
 
 			attacked += 10
 			if (prob(90))
@@ -539,18 +545,25 @@
 						step_away(src,M,15)
 
 
-				playsound(loc, "punch", 25, 1, -1)
+				if(M.type != /mob/living/carbon/human/tajaran)
+					playsound(loc, "punch", 25, 1, -1)
+				else if (M.type == /mob/living/carbon/human/tajaran)
+					damage += 10
+					playsound(loc, 'slice.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] has punched []!</B>", M, src), 1)
+						O.show_message(text("\red <B>[] has [attack_verb]ed []!</B>", M, src), 1)
 
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
-				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				if(M.type != /mob/living/carbon/human/tajaran)
+					playsound(loc, 'punchmiss.ogg', 25, 1, -1)
+				else if (M.type == /mob/living/carbon/human/tajaran)
+					playsound(loc, 'slashmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
-						O.show_message(text("\red <B>[] has attempted to punch []!</B>", M, src), 1)
+						O.show_message(text("\red <B>[] has attempted to [attack_verb] []!</B>", M, src), 1)
 	return
 
 
@@ -574,7 +587,7 @@
 
 			if ((prob(95) && health > 0))
 				attacked += 10
-				playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
+				playsound(loc, 'slice.ogg', 25, 1, -1)
 				var/damage = rand(15, 30)
 				if (damage >= 25)
 					damage = rand(20, 40)
@@ -588,7 +601,7 @@
 				adjustBruteLoss(damage)
 				updatehealth()
 			else
-				playsound(loc, 'sound/weapons/slashmiss.ogg', 25, 1, -1)
+				playsound(loc, 'slashmiss.ogg', 25, 1, -1)
 				for(var/mob/O in viewers(src, null))
 					if ((O.client && !( O.blinded )))
 						O.show_message(text("\red <B>[] has attempted to lunge at [name]!</B>", M), 1)
@@ -596,21 +609,25 @@
 		if ("grab")
 			if (M == src)
 				return
-			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M, M, src )
-
-			M.put_in_active_hand(G)
-
+			var/obj/item/weapon/grab/G = new /obj/item/weapon/grab( M )
+			G.assailant = M
+			if (M.hand)
+				M.l_hand = G
+			else
+				M.r_hand = G
+			G.layer = 20
+			G.affecting = src
 			grabbed_by += G
 			G.synch()
 
 			LAssailant = M
 
-			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			playsound(loc, 'thudswoosh.ogg', 50, 1, -1)
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("\red [] has grabbed [name] passively!", M), 1)
 
 		if ("disarm")
-			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
+			playsound(loc, 'pierce.ogg', 25, 1, -1)
 			var/damage = 5
 			attacked += 10
 
@@ -683,11 +700,17 @@ mob/living/carbon/metroid/var/temperature_resistance = T0C+75
 			health = 150
 		stat = 0
 
-
 /mob/living/carbon/metroid/proc/get_obstacle_ok(atom/A)
 	var/direct = get_dir(src, A)
-	var/obj/item/weapon/dummy/D = new /obj/item/weapon/dummy( src.loc )
+	var/obj/item/weapon/dummy/D = locate() in DummyCache //See atom_procs.dm
+	if(!D)
+		D = new /obj/item/weapon/dummy( src.loc )
+	else
+		D.loc = src.loc
+		DummyCache.Remove(D)
+
 	var/ok = 0
+
 	if ( (direct - 1) & direct)
 		var/turf/Step_1
 		var/turf/Step_2
@@ -708,136 +731,64 @@ mob/living/carbon/metroid/var/temperature_resistance = T0C+75
 				Step_1 = get_step(src, SOUTH)
 				Step_2 = get_step(src, WEST)
 
-			else
 		if(Step_1 && Step_2)
 			var/check_1 = 0
 			var/check_2 = 0
+
 			if(step_to(D, Step_1))
 				check_1 = 1
 				for(var/obj/border_obstacle in Step_1)
 					if(border_obstacle.flags & ON_BORDER)
 						if(!border_obstacle.CheckExit(D, A))
 							check_1 = 0
-				for(var/obj/border_obstacle in get_turf(A))
-					if((border_obstacle.flags & ON_BORDER) && (src != border_obstacle))
-						if(!border_obstacle.CanPass(D, D.loc, 1, 0))
-							check_1 = 0
+							break
+
+				if(check_1 != 0)
+					for(var/obj/border_obstacle in get_turf(A))
+						if((border_obstacle.flags & ON_BORDER) && (src != border_obstacle))
+							if(!border_obstacle.CanPass(D, D.loc, 1, 0))
+								check_1 = 0
+								break
 
 			D.loc = src.loc
-			if(step_to(D, Step_2))
+			if(check_1 != 1 && step_to(D, Step_2))
 				check_2 = 1
 
 				for(var/obj/border_obstacle in Step_2)
 					if(border_obstacle.flags & ON_BORDER)
 						if(!border_obstacle.CheckExit(D, A))
 							check_2 = 0
-				for(var/obj/border_obstacle in get_turf(A))
-					if((border_obstacle.flags & ON_BORDER) && (src != border_obstacle))
-						if(!border_obstacle.CanPass(D, D.loc, 1, 0))
-							check_2 = 0
+							break
+
+				if(check_2 != 0)
+					for(var/obj/border_obstacle in get_turf(A))
+						if((border_obstacle.flags & ON_BORDER) && (src != border_obstacle))
+							if(!border_obstacle.CanPass(D, D.loc, 1, 0))
+								check_2 = 0
+								break
+
 			if(check_1 || check_2)
 				ok = 1
 	else
-		if(loc == src.loc)
-			ok = 1
-		else
-			ok = 1
+		ok = 1
 
-			//Now, check objects to block exit that are on the border
-			for(var/obj/border_obstacle in src.loc)
-				if(border_obstacle.flags & ON_BORDER)
-					if(!border_obstacle.CheckExit(D, A))
-						ok = 0
+		//Now, check objects to block exit that are on the border
+		for(var/obj/border_obstacle in src.loc)
+			if(border_obstacle.flags & ON_BORDER)
+				if(!border_obstacle.CheckExit(D, A))
+					ok = 0
+					break
 
+		if(ok != 0)
 			//Next, check objects to block entry that are on the border
 			for(var/obj/border_obstacle in get_turf(A))
 				if((border_obstacle.flags & ON_BORDER) && (A != border_obstacle))
 					if(!border_obstacle.CanPass(D, D.loc, 1, 0))
 						ok = 0
 
-	//del(D)
-	//Garbage Collect Dummy
 	D.loc = null
-	D = null
+	DummyCache.Add(D)
 	if (!( ok ))
-
 		return 0
 
 	return 1
-
-
-// Basically this Metroid Core catalyzes reactions that normally wouldn't happen anywhere
-/obj/item/metroid_core
-	name = "roro core"
-	desc = "A very slimy and tender part of a Rorobeast. Legends claim these to have \"magical powers\"."
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "roro core"
-	flags = TABLEPASS
-	force = 1.0
-	w_class = 1.0
-	throwforce = 1.0
-	throw_speed = 3
-	throw_range = 6
-	origin_tech = "biotech=4"
-	var/POWERFLAG = 0 // sshhhhhhh
-	var/Flush = 30
-	var/Uses = 5 // uses before it goes inert
-
-	New()
-		..()
-		var/datum/reagents/R = new/datum/reagents(100)
-		reagents = R
-		R.my_atom = src
-		POWERFLAG = rand(1,10)
-		Uses = rand(7, 25)
-		//flags |= NOREACT
-
-		spawn()
-			Life()
-
-	proc/Life()
-		while(src)
-			sleep(25)
-			Flush--
-			if(Flush <= 0)
-				reagents.clear_reagents()
-				Flush = 30
-
-/obj/item/weapon/reagent_containers/food/snacks/roro_egg
-	name = "roro egg"
-	desc = "A small, gelatinous egg."
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "roro egg-growing"
-	bitesize = 12
-	origin_tech = "biotech=4"
-	var/grown = 0
-
-	New()
-		..()
-		reagents.add_reagent("nutriment", 5)
-		spawn(rand(1200,1500))//the egg takes a while to "ripen"
-			Grow()
-
-	proc/Grow()
-		grown = 1
-		icon_state = "roro egg-grown"
-		processing_objects.Add(src)
-		return
-
-	proc/Hatch()
-		processing_objects.Remove(src)
-		var/turf/T = get_turf(src)
-		for(var/mob/O in hearers(T))
-			O.show_message("\blue The [name] pulsates and quivers!")
-		spawn(rand(50,100))
-			for(var/mob/O in hearers(T))
-				O.show_message("\blue The [name] bursts open!")
-			new/mob/living/carbon/metroid(T)
-			del(src)
-
-
-/obj/item/weapon/reagent_containers/food/snacks/roro_egg/process()
-	var/turf/location = get_turf(src)
-	var/datum/gas_mixture/environment = location.return_air()
-	if (environment.toxins > MOLES_PLASMA_VISIBLE)//plasma exposure causes the egg to hatch
-		src.Hatch()

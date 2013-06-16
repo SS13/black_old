@@ -1,6 +1,5 @@
 var/CMinutes = null
 var/savefile/Banlist
-var/list/bwhitelist
 
 
 /proc/CheckBan(var/ckey, var/id, var/address)
@@ -17,14 +16,14 @@ var/list/bwhitelist
 	if( "[ckey][id]" in Banlist.dir )
 		Banlist.cd = "[ckey][id]"
 		if (Banlist["temp"])
-			if (!GetExp(Banlist["minutes"]))
+			if (!GetBanExp(Banlist["minutes"]))
 				ClearTempbans()
 				return 0
 			else
-				.["desc"] = "\nReason: [Banlist["reason"]]\nExpires: [GetExp(Banlist["minutes"])]\nBy: [Banlist["bannedby"]][appeal]"
+				.["desc"] = "\nReason: [Banlist["reason"]]\nExpires: [GetBanExp(Banlist["minutes"])]\nBy: [Banlist["bannedby"]][appeal]"
 		else
 			Banlist.cd	= "/base/[ckey][id]"
-			.["desc"]	= "\nReason: [Banlist["reason"]]\nExpires: <B>PERMANENT</B>\nBy: [Banlist["bannedby"]][appeal]"
+			.["desc"]	= "\nReason: [Banlist["reason"]]\nExpires: <B>PERMENANT</B>\nBy: [Banlist["bannedby"]][appeal]"
 		.["reason"]	= "ckey/id"
 		return .
 	else
@@ -33,24 +32,24 @@ var/list/bwhitelist
 			var/matches
 			if( ckey == Banlist["key"] )
 				matches += "ckey"
-			if( id == Banlist["id"] )
+			if( id == Banlist["id"] && Banlist["skipIdCheck"] == 0)
 				if(matches)
 					matches += "/"
 				matches += "id"
-			if( address == Banlist["ip"] )
-				if(matches)
-					matches += "/"
-				matches += "ip"
+//			if( address == Banlist["ip"] )
+//				if(matches)
+//					matches += "/"
+//				matches += "ip"
 
 			if(matches)
 				if(Banlist["temp"])
-					if (!GetExp(Banlist["minutes"]))
+					if (!GetBanExp(Banlist["minutes"]))
 						ClearTempbans()
 						return 0
 					else
-						.["desc"] = "\nReason: [Banlist["reason"]]\nExpires: [GetExp(Banlist["minutes"])]\nBy: [Banlist["bannedby"]][appeal]"
+						.["desc"] = "\nReason: [Banlist["reason"]]\nExpires: [GetBanExp(Banlist["minutes"])]\nBy: [Banlist["bannedby"]][appeal]"
 				else
-					.["desc"] = "\nReason: [Banlist["reason"]]\nExpires: <B>PERMANENT</B>\nBy: [Banlist["bannedby"]][appeal]"
+					.["desc"] = "\nReason: [Banlist["reason"]]\nExpires: <B>PERMENANT</B>\nBy: [Banlist["bannedby"]][appeal]"
 				.["reason"] = matches
 				return .
 	return 0
@@ -69,9 +68,8 @@ var/list/bwhitelist
 	if (!Banlist.dir.Find("base"))
 		log_admin("Banlist missing base dir.")
 		Banlist.dir.Add("base")
-		Banlist.cd = "/base"
-	else if (Banlist.dir.Find("base"))
-		Banlist.cd = "/base"
+
+	Banlist.cd = "/base"
 
 	ClearTempbans()
 	return 1
@@ -94,7 +92,7 @@ var/list/bwhitelist
 	return 1
 
 
-/proc/AddBan(ckey, computerid, reason, bannedby, temp, minutes, address)
+/proc/AddBan(ckey, computerid, reason, bannedby, temp, minutes)
 
 	var/bantimestamp
 
@@ -111,12 +109,13 @@ var/list/bwhitelist
 		Banlist.cd = "/base/[ckey][computerid]"
 		Banlist["key"] << ckey
 		Banlist["id"] << computerid
-		Banlist["ip"] << address
+		Banlist["skipIdCheck"] << 0
 		Banlist["reason"] << reason
 		Banlist["bannedby"] << bannedby
 		Banlist["temp"] << temp
 		if (temp)
 			Banlist["minutes"] << bantimestamp
+
 	return 1
 
 /proc/RemoveBan(foldername)
@@ -125,7 +124,6 @@ var/list/bwhitelist
 
 	Banlist.cd = "/base/[foldername]"
 	Banlist["key"] >> key
-	Banlist["id"] >> id
 	Banlist.cd = "/base"
 
 	if (!Banlist.dir.Remove(foldername)) return 0
@@ -138,17 +136,17 @@ var/list/bwhitelist
 		log_admin("[key_name_admin(usr)] unbanned [key]")
 		message_admins("[key_name_admin(usr)] unbanned: [key]")
 		feedback_inc("ban_unban",1)
-		usr.client.holder.DB_ban_unban( ckey(key), BANTYPE_ANY_FULLBAN)
+
 	for (var/A in Banlist.dir)
 		Banlist.cd = "/base/[A]"
-		if (key == Banlist["key"] /*|| id == Banlist["id"]*/)
+		if (key == Banlist["key"] || id == Banlist["id"])
 			Banlist.cd = "/base"
 			Banlist.dir.Remove(A)
 			continue
 
 	return 1
 
-/proc/GetExp(minutes as num)
+/proc/GetBanExp(minutes as num)
 	UpdateTime()
 	var/exp = minutes - CMinutes
 	if (exp <= 0)
@@ -163,7 +161,7 @@ var/list/bwhitelist
 			timeleftstring = "[exp] Minutes"
 		return timeleftstring
 
-/datum/admins/proc/unbanpanel()
+/obj/admins/proc/unbanpanel()
 	var/count = 0
 	var/dat
 	//var/dat = "<HR><B>Unban Player:</B> \blue(U) = Unban , (E) = Edit Ban\green (Total<HR><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >"
@@ -171,27 +169,15 @@ var/list/bwhitelist
 	for (var/A in Banlist.dir)
 		count++
 		Banlist.cd = "/base/[A]"
-		var/ref		= "\ref[src]"
-		var/key		= Banlist["key"]
-		var/id		= Banlist["id"]
-		var/ip		= Banlist["ip"]
-		var/reason	= Banlist["reason"]
-		var/by		= Banlist["bannedby"]
-		var/expiry
-		if(Banlist["temp"])
-			expiry = GetExp(Banlist["minutes"])
-			if(!expiry)		expiry = "Removal Pending"
-		else				expiry = "Permaban"
-
-		dat += text("<tr><td><A href='?src=[ref];unbanf=[key][id]'>(U)</A><A href='?src=[ref];unbane=[key][id]'>(E)</A> Key: <B>[key]</B></td><td>ComputerID: <B>[id]</B></td><td>IP: <B>[ip]</B></td><td> [expiry]</td><td>(By: [by])</td><td>(Reason: [reason])</td></tr>")
+		dat += text("<tr><td><A href='?src=\ref[src];unban_del=[Banlist["key"]][Banlist["id"]]'>(U)</A><A href='?src=\ref[src];unban_edit=[Banlist["key"]][Banlist["id"]]'>(E)</A><A href='?src=\ref[src];unban_cid=[Banlist["key"]][Banlist["id"]]'>(K)</A> Key: <B>[Banlist["key"]]</B></td><td> ([Banlist["temp"] ? "[GetBanExp(Banlist["minutes"]) ? GetBanExp(Banlist["minutes"]) : "Removal pending" ]" : "Permaban"])</td><td>(By: [Banlist["bannedby"]])</td><td>(Reason: [Banlist["reason"]])</td></tr>")
 
 	dat += "</table>"
-	dat = "<HR><B>Bans:</B> <FONT COLOR=blue>(U) = Unban , (E) = Edit Ban</FONT> - <FONT COLOR=green>([count] Bans)</FONT><HR><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >[dat]"
+	dat = "<HR><B>Bans:</B> <FONT COLOR=blue>(U) = Unban , (E) = Edit Ban , (K) = Remove Computer ID</FONT> - <FONT COLOR=green>([count] Bans)</FONT><HR><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >[dat]"
 	usr << browse(dat, "window=unbanp;size=875x400")
 
 //////////////////////////////////// DEBUG ////////////////////////////////////
 
-/proc/CreateBans()
+/*/proc/CreateBans()
 
 	UpdateTime()
 
@@ -223,30 +209,5 @@ var/list/bwhitelist
 /proc/ClearAllBans()
 	Banlist.cd = "/base"
 	for (var/A in Banlist.dir)
-		RemoveBan(A)
+		RemoveBan(A)*/
 
-/proc/load_bwhitelist()
-	log_admin("Loading whitelist")
-	bwhitelist = list()
-	var/DBConnection/dbcon = new()
-	dbcon.Connect("dbi:mysql:[sqldb]:[sqladdress]:[sqlport]","[sqllogin]","[sqlpass]")
-	if(!dbcon.IsConnected())
-		log_admin("Failed to load bwhitelist. Error: [dbcon.ErrorMsg()]")
-		return
-	var/DBQuery/query = dbcon.NewQuery("SELECT byond FROM whitelist ORDER BY byond ASC")
-	query.Execute()
-	while(query.NextRow())
-		bwhitelist += "[query.item[1]]"
-	if (bwhitelist==list(  ))
-		log_admin("Failed to load bwhitelist or its empty")
-		return
-	dbcon.Disconnect()
-
-/proc/check_bwhitelist(var/K)
-	if (!bwhitelist)
-		load_bwhitelist()
-		if (!bwhitelist)
-			return 0
-	if (K in bwhitelist)
-		return 1
-	return 0

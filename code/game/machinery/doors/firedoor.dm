@@ -1,17 +1,13 @@
-/var/const/OPEN = 1
-/var/const/CLOSED = 2
-
 /obj/machinery/door/firedoor
-	name = "Firelock"
+	name = "Emergency shutter"
 	desc = "Apply crowbar"
-	icon = 'icons/obj/doors/Doorfire.dmi'
+	icon = 'DoorHazard.dmi'
 	icon_state = "door_open"
+	var/blocked = 0
 	opacity = 0
 	density = 0
-	power_channel = ENVIRON
-	var/blocked = 0
 	var/nextstate = null
-
+	var/net_id
 
 	Bumped(atom/AM)
 		if(p_open || operating)	return
@@ -20,7 +16,7 @@
 
 
 	power_change()
-		if(powered(power_channel))
+		if(powered(ENVIRON))
 			stat &= ~NOPOWER
 		else
 			stat |= NOPOWER
@@ -28,24 +24,26 @@
 
 
 	attackby(obj/item/weapon/C as obj, mob/user as mob)
-		add_fingerprint(user)
+		src.add_fingerprint(user)
 		if(operating)	return//Already doing something.
 		if(istype(C, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/W = C
 			if(W.remove_fuel(0, user))
-				blocked = !blocked
+				src.blocked = !src.blocked
 				user << text("\red You [blocked?"welded":"unwelded"] the [src]")
 				update_icon()
 				return
 
-		if(istype(C, /obj/item/weapon/crowbar) || (istype(C,/obj/item/weapon/twohanded/fireaxe) && C:wielded == 1))
+		if (istype(C, /obj/item/weapon/crowbar) || (istype(C,/obj/item/weapon/twohanded/fireaxe) && C:wielded == 1))
 			if(blocked || operating)	return
-			if(density)
-				open()
-				return
-			else	//close it up again	//fucking 10/10 commenting here einstein
-				close()
-				return
+			if(src.density)
+				spawn(0)
+					open()
+					return
+			else //close it up again
+				spawn(0)
+					close()
+					return
 		return
 
 
@@ -54,9 +52,11 @@
 			return
 		switch(nextstate)
 			if(OPEN)
-				open()
+				spawn()
+					open()
 			if(CLOSED)
-				close()
+				spawn()
+					close()
 		nextstate = null
 		return
 
@@ -83,6 +83,4 @@
 		return
 
 
-
-//border_only fire doors are special when it comes to air groups
 /obj/machinery/door/firedoor/border_only

@@ -1,15 +1,16 @@
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
+
+#define CANDLE_LUM 3
+
 /obj/item/candle
 	name = "red candle"
 	desc = "a candle"
-	icon = 'icons/obj/candle.dmi'
+	icon = 'candle.dmi'
 	icon_state = "candle1"
 	item_state = "candle1"
-	w_class = 1
-	light_on = 0
-	brightness_on = 3 //luminosity when on
 
 	var/wax = 200
-
+	var/lit = 0
 	proc
 		light(var/flavor_text = "\red [usr] lights the [name].")
 
@@ -21,7 +22,7 @@
 		else if(wax>80)
 			i = 2
 		else i = 3
-		icon_state = "candle[i][light_on ? "_lit" : ""]"
+		icon_state = "candle[i][lit ? "_lit" : ""]"
 
 
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -32,30 +33,30 @@
 				light("\red [user] casually lights the [name] with [W], what a badass.")
 		else if(istype(W, /obj/item/weapon/lighter))
 			var/obj/item/weapon/lighter/L = W
-			if(L.light_on)
+			if(L.lit)
 				light()
 		else if(istype(W, /obj/item/weapon/match))
 			var/obj/item/weapon/match/M = W
-			if(M.light_on)
+			if(M.lit)
 				light()
 		else if(istype(W, /obj/item/candle))
 			var/obj/item/candle/C = W
-			if(C.light_on)
+			if(C.lit)
 				light()
 
 
 	light(var/flavor_text = "\red [usr] lights the [name].")
-		if(!src.light_on)
-			src.light_on = 1
+		if(!src.lit)
+			src.lit = 1
 			//src.damtype = "fire"
 			for(var/mob/O in viewers(usr, null))
 				O.show_message(flavor_text, 1)
-			SetLuminosity(brightness_on)
+			ul_SetLuminosity(CANDLE_LUM, CANDLE_LUM -2, 0)
 			processing_objects.Add(src)
 
 
 	process()
-		if(!light_on)
+		if(!lit)
 			return
 		wax--
 		if(!wax)
@@ -70,29 +71,56 @@
 
 
 	attack_self(mob/user as mob)
-		if(light_on)
-			light_on = 0
+		if(lit)
+			lit = 0
 			update_icon()
-			SetLuminosity(0)
-			user.SetLuminosity(search_light(user, src))
+			ul_SetLuminosity(0)
+			user.ul_SetLuminosity(user.ul_Red - CANDLE_LUM, user.ul_Green - (CANDLE_LUM - 2), user.ul_Blue)
 
 
 	pickup(mob/user)
-		if(light_on)
-			if (user.luminosity < brightness_on)
-				user.SetLuminosity(brightness_on)
-			SetLuminosity(0)
-
+		if(lit)
+			ul_SetLuminosity(0)
+			user.ul_SetLuminosity(user.ul_Red + CANDLE_LUM, user.ul_Green + (CANDLE_LUM - 2), user.ul_Blue)
 
 	dropped(mob/user)
-		if(light_on)
-			if ((layer <= 3) || (loc != user.loc))
-				user.SetLuminosity(search_light(user, src))
-				SetLuminosity(brightness_on)
+		if(lit)
+			user.ul_SetLuminosity(user.ul_Red - CANDLE_LUM, user.ul_Green - (CANDLE_LUM - 2), user.ul_Blue)
+			src.ul_SetLuminosity(CANDLE_LUM, CANDLE_LUM, 0)
 
 
-	equipped(mob/user, slot)
-		if(light_on)
-			if (user.luminosity < brightness_on)
-				user.SetLuminosity(brightness_on)
-			SetLuminosity(0)
+
+///////////////
+//CANDLE PACK//
+///////////////
+/obj/item/weapon/candlepack
+	name = "Candle pack"
+	//desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics."
+	icon = 'candle.dmi'
+	icon_state = "pack5"
+	item_state = "pack5"
+	w_class = 1
+	throwforce = 2
+	var/candlecount = 5
+	flags = TABLEPASS
+	slot_flags = SLOT_BELT
+
+
+/obj/item/weapon/candlepack/update_icon()
+	src.icon_state = text("pack[]", src.candlecount)
+	src.desc = text("There are [] candles left!", src.candlecount)
+	return
+
+/obj/item/weapon/candlepack/attack_hand(mob/user as mob)
+	if(user.r_hand == src || user.l_hand == src)
+		if(src.candlecount == 0)
+			//user << "\red You're out of cigs, shit! How you gonna get through the rest of the day..."
+			return
+		else
+			src.candlecount--
+			var/obj/item/candle/W = new /obj/item/candle(user)
+			user.put_in_hand(W)
+	else
+		return ..()
+	src.update_icon()
+	return
