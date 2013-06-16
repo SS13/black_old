@@ -17,7 +17,10 @@
 		icon_state = "stunbaton_active"
 	else
 		icon_state = "stunbaton"
-
+/obj/item/weapon/melee/baton/examine()
+	set src in usr
+	usr << text("A stun baton for incapacitating people with.\n \blue The [src] have [charges] charges.")
+	return
 /obj/item/weapon/melee/baton/attack_self(mob/user as mob)
 	if(status && (CLUMSY in user.mutations) && prob(50))
 		user << "\red You grab the [src] on the wrong side."
@@ -29,7 +32,7 @@
 		return
 	if(charges > 0)
 		status = !status
-		user << "<span class='notice'>\The [src] is now [status ? "on" : "off"].</span>"
+		user << "<span class='notice'>\The [src] is now [status ? "on" : "off"]. There are [charges] charges</span>"
 		playsound(src.loc, "sparks", 75, 1, -1)
 		update_icon()
 	else
@@ -44,7 +47,10 @@
 		charges--
 		if(charges < 1)
 			status = 0
+			user << "<span class='warning'>\The [src] is out of charge.</span>"
 			update_icon()
+		else
+			user << "<span class='warning'>\The [src] have [charges] charges.</span>"
 		return
 
 	var/mob/living/carbon/human/H = M
@@ -85,7 +91,10 @@
 		playsound(src.loc, 'Egloves.ogg', 50, 1, -1)
 		if(charges < 1)
 			status = 0
+			user << "<span class='warning'>\The [src] is out of charge.</span>"
 			update_icon()
+		else
+			user << "<span class='notice'>\The [src] have [charges] charges.</span>"
 
 	add_fingerprint(user)
 

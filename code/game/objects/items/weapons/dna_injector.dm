@@ -51,11 +51,11 @@
 				M.dna.struc_enzymes = setblock(M.dna.struc_enzymes,block,dna,3)
 				domutcheck(M, null,1)
 				uses--
-
 	spawn(0)//this prevents the collapse of space-time continuum
 		spawn(5)
 			usr.update_clothing()
 		del(src)
+	M:update_body()
 	return uses
 
 /obj/item/weapon/dnainjector/attack(mob/M as mob, mob/user as mob)
@@ -120,8 +120,6 @@
 			if(!isnull(user))//If the user still exists. Their mob may not.
 				user.show_message(text("\red You inject [M]"))
 	return
-
-
 
 /obj/item/weapon/dnainjector/antihulk
 	name = "DNA-Injector (Anti-Hulk)"

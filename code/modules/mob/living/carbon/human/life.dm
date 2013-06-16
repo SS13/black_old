@@ -316,6 +316,7 @@
 			if ((HULK in mutations) && health <= 25)
 				mutations.Remove(HULK)
 				src << "\red You suddenly feel very weak."
+				src:update_body()
 				Weaken(3)
 				emote("collapse")
 

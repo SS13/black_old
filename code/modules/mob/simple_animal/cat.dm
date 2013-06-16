@@ -10,6 +10,7 @@
 	emote_hear = list("meows","mews")
 	emote_see = list("shakes its head", "shivers")
 	speak_chance = 1
+	emote_allowed = 1
 	turns_per_move = 5
 	see_in_dark = 6
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
@@ -23,6 +24,8 @@
 	maxbodytemp = 323	//Above 50 Degrees Celcius
 
 /mob/living/simple_animal/cat/Life()
+	if(!(pass_flags & PASSTABLE))
+		pass_flags |= PASSTABLE
 	//MICE!
 	if((src.loc) && isturf(src.loc))
 		if(!stat && !resting && !buckled)

@@ -672,6 +672,7 @@
 	if (M)
 		M.rebuild_appearance()
 	return null
+
 /////////////////////////// DNA MISC-PROCS
 
 

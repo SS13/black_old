@@ -903,6 +903,7 @@ datum
 				M.mutations = list()
 				M.disabilities = 0
 				M.jitteriness = 0
+				M:update_body()
 				if(volume > REAGENTS_OVERDOSE)
 					M:adjustToxLoss(1)
 //				switch(data)

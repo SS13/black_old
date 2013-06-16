@@ -908,9 +908,11 @@
 	body_overlays_standing.Cut()
 	body_overlays_lying.Cut()
 
-	if (HULK in mutations)
+	/*if (HULK in mutations)
+		stand_icon.Blend(new /icon('genetics.dmi', "icon_state" = "hulk_[gender]_s"), ICON_OVERLAY)
+		lying_icon.Blend(new /icon('genetics.dmi', "icon_state" = "hulk_[gender]_l"), ICON_OVERLAY)
 		body_overlays_standing += image("icon" = 'genetics.dmi', "icon_state" = "hulk_[gender]_s")
-		body_overlays_lying    += image("icon" = 'genetics.dmi', "icon_state" = "hulk_[gender]_l")
+		body_overlays_lying    += image("icon" = 'genetics.dmi', "icon_state" = "hulk_[gender]_l")*/
 
 	if (COLD_RESISTANCE in mutations)
 		body_overlays_standing += image("icon" = 'genetics.dmi', "icon_state" = "fire_s")
@@ -1468,6 +1470,10 @@
 			update_face()
 		if(!stand_icon || !lying_icon)
 			update_body()
+
+	if (HULK in mutations)
+		stand_icon.Blend(new /icon('genetics.dmi', "icon_state" = "hulk_[gender]_s"), ICON_OVERLAY)
+		lying_icon.Blend(new /icon('genetics.dmi', "icon_state" = "hulk_[gender]_l"), ICON_OVERLAY)
 
 	if (husk)
 		var/icon/husk_s = new /icon('human.dmi', "husk_s")
