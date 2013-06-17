@@ -278,7 +278,6 @@ var/global/datum/controller/occupations/job_master
 			if(!equipped)
 				var/obj/item/clothing/glasses/G = H.glasses
 				G.prescription = 1
-		H.client.add_roundsjoined()
 		H.update_clothing()
 		return 1
 

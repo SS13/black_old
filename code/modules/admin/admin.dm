@@ -2766,21 +2766,6 @@ var/global/BSACooldown = 0
 //			if(lvl == 6 )
 	usr << browse(dat, "window=admin2;size=210x280")
 	return
-/*
-/obj/admins/proc/goons()
-	var/dat = "<HR><B>GOOOOOOONS</B><HR><table cellspacing=5><tr><th>Key</th><th>SA Username</th></tr>"
-	for(var/t in goon_keylist)
-		dat += text("<tr><td><A href='?src=\ref[src];remove=[ckey(t)]'><B>[t]</B></A></td><td>[goon_keylist[ckey(t)]]</td></tr>")
-	dat += "</table>"
-	usr << browse(dat, "window=ban;size=300x400")
-
-/obj/admins/proc/beta_testers()
-	var/dat = "<HR><B>Beta testers</B><HR><table cellspacing=5><tr><th>Key</th></tr>"
-	for(var/t in beta_tester_keylist)
-		dat += text("<tr><td>[t]</td></tr>")
-	dat += "</table>"
-	usr << browse(dat, "window=ban;size=300x400")
-*/
 /obj/admins/proc/Secrets()
 	if (!usr.client.holder)
 		return
@@ -3058,7 +3043,6 @@ var/global/BSACooldown = 0
 
 		if(blackbox)
 			blackbox.save_all_data_to_sql()
-		//send2irc(world.url,"Server Rebooting!")
 		sleep(50)
 		world.Reboot()
 

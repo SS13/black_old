@@ -67,8 +67,6 @@
 	var/tod = time2text(world.realtime,"hh:mm:ss") //weasellos time of death patch
 	store_memory("Time of death: [tod]", 0)
 
-//	sql_report_cyborg_death(src)
-
 	if (src.key)
 		spawn(50)
 			if(src.key && src.stat == 2)

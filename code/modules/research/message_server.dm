@@ -246,26 +246,6 @@ var/obj/machinery/blackbox_recorder/blackbox
 				pda_msg_amt = MS.pda_msgs.len
 			if(MS.rc_msgs.len > rc_msg_amt)
 				rc_msg_amt = MS.rc_msgs.len
-/*
-		feedback_set_details("radio_usage","")
-
-		feedback_add_details("radio_usage","COM-[msg_common.len]")
-		feedback_add_details("radio_usage","SCI-[msg_science.len]")
-		feedback_add_details("radio_usage","HEA-[msg_command.len]")
-		feedback_add_details("radio_usage","MED-[msg_medical.len]")
-		feedback_add_details("radio_usage","ENG-[msg_engineering.len]")
-		feedback_add_details("radio_usage","SEC-[msg_security.len]")
-		feedback_add_details("radio_usage","DTH-[msg_deathsquad.len]")
-		feedback_add_details("radio_usage","SYN-[msg_syndicate.len]")
-		feedback_add_details("radio_usage","MIN-[msg_mining.len]")
-		feedback_add_details("radio_usage","CAR-[msg_cargo.len]")
-		feedback_add_details("radio_usage","OTH-[messages.len]")
-		feedback_add_details("radio_usage","PDA-[pda_msg_amt]")
-		feedback_add_details("radio_usage","RC-[rc_msg_amt]")
-
-
-		feedback_set_details("round_end","[time2text(world.realtime)]") //This one MUST be the last one that gets set.
-*/
 
 	//This proc is only to be called at round end.
 	proc/save_all_data_to_sql()
@@ -273,15 +253,9 @@ var/obj/machinery/blackbox_recorder/blackbox
 
 		round_end_data_gathering() //round_end time logging and some other data processing
 
-		var/user = sqlfdbklogin
-		var/pass = sqlfdbkpass
-		var/db = sqlfdbkdb
-		var/address = sqladdress
-		var/port = sqlport
-
 		var/DBConnection/dbcon = new()
 
-		dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
+		dbcon.Connect("dbi:mysql:[sqldb]:[sqladdress]:[sqlport]","[sqllogin]","[sqlpass]")
 		if(!dbcon.IsConnected()) return
 		var/round_id
 

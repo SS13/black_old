@@ -194,27 +194,7 @@ var/sqldb = "tgstation"
 var/sqllogin = "root"
 var/sqlpass = ""
 
-	// Feedback gathering sql connection
 
-var/sqlfdbkdb = "test"
-var/sqlfdbklogin = "root"
-var/sqlfdbkpass = ""
-
-var/sqllogging = 0 // Should we log deaths, population stats, etc?
-
-
-
-	// Forum MySQL configuration (for use with forum account/key authentication)
-	// These are all default values that will load should the forumdbconfig.txt
-	// file fail to read for whatever reason.
-
-/*	forumsqladdress = "localhost"
-	forumsqlport = "3306"
-	forumsqldb = "tgstation"
-	forumsqllogin = "root"
-	forumsqlpass = ""
-	forum_activated_group = "2"
-	forum_authenticated_group = "10"*/
 
 	// For FTP requests. (i.e. downloading runtime logs.)
 	// However it'd be ok to use for accessing attack logs and such too, which are even laggier.

@@ -273,9 +273,6 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 			else
 				item:loc = get_turf(A)
 			usr.update_clothing()
-			usr.client.onBought("[item:name]")
-	/*		if(istype(item, /obj/spawner)) // Spawners need to have del called on them to avoid leaving a marker behind
-				del item*/
 	//HEADFINDBACK
 		src.attack_self(usr)
 		src.hostpda.attack_self(usr)
@@ -375,9 +372,6 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 							item:layer = 20
 					else
 						item:loc = get_turf(A)
-	/*				if(istype(item, /obj/spawner)) // Spawners need to have del called on them to avoid leaving a marker behind
-						del item*/
-					usr.client.onBought("[item:name]")
 				src.attack_self(usr)
 				return
 

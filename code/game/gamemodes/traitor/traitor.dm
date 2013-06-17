@@ -236,15 +236,6 @@
 				"Frame_Total" = success_log["Frame-Win"]+success_log["Frame-Fail"],
 				"Protect_Total" = success_log["Protect-Win"]+success_log["Protect-Fail"])
 			traitor_logs << infos
-
-			var/datum/traitorinfo/info = logtraitors[traitor]
-			if (info)
-				var/DBConnection/dbcon = new()
-				dbcon.Connect("dbi:mysql:[sqldb]:[sqladdress]:[sqlport]","[sqllogin]","[sqlpass]")
-				if(dbcon.IsConnected())
-					var/DBQuery/query = dbcon.NewQuery("INSERT INTO `bay12`.`traitorlogs` (`CKey`, `Objective`, `Succeeded`, `Spawned`, `Occupation`, `PlayerCount`) VALUES ('[info.ckey]', [dbcon.Quote(info.starting_objective)], '[traitorwin]', '[dd_list2text(info.spawnlist, ";")]', '[info.starting_occupation]', '[info.starting_player_count]')")
-					query.Execute()
-
 	return 1
 
 

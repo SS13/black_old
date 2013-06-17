@@ -21,7 +21,7 @@
 	join_motd = file2text("config/motd.txt")
 
 
-/world/proc/load_admins()
+/world/proc/load_admins_txt()
 	var/text = file2text("config/admins.txt")
 	if (!text)
 		diary << "Failed to load config/admins.txt\n"
@@ -41,50 +41,39 @@
 				admins[m_key] = a_lev
 				diary << ("ADMIN: [m_key] = [a_lev]")
 
-	// look for moderators in a separate file
-	text = file2text("config/moderators.txt")
-	if (!text)
-		diary << "Failed to load config/moderators.txt\n"
+/world/proc/load_admins()
+	var/DBConnection/dbcon = new()
+	dbcon.Connect("dbi:mysql:[sqldb]:[sqladdress]:[sqlport]","[sqllogin]","[sqlpass]")
+	if(dbcon.IsConnected())
+		var/DBQuery/query = dbcon.NewQuery("SELECT ckey,rank FROM `admins`")
+		if(query.Execute())
+			while(query.NextRow())
+				var/rank = world.convert_ranks(text2num(query.item[2]))
+				diary << ("ADMIN: [query.item[1]] = [rank]")
+				admins[query.item[1]] = rank
+		else
+			load_admins_txt()
+		dbcon.Disconnect()
 	else
-		var/list/lines = dd_text2list(text, "\n")
-		for(var/line in lines)
-			if (!line)
-				continue
+		load_admins_txt()
 
-			if (copytext(line, 1, 2) == ";")
-				continue
-
-			var/m_key = copytext(line, 1, length(line)+1)
-			var/a_lev = "Moderator"
-			admins[m_key] = a_lev
-
-
-/world/proc/load_testers()
-	var/text = file2text("config/testers.txt")
-	if (!text)
-		diary << "Failed to load config/testers.txt\n"
-	else
-		var/list/lines = dd_text2list(text, "\n")
-		for(var/line in lines)
-			if (!line)
-				continue
-
-			if (copytext(line, 1, 2) == ";")
-				continue
-
-			var/pos = findtext(line, " - ", 1, null)
-			if (pos)
-				var/m_key = copytext(line, 1, pos)
-				var/a_lev = copytext(line, pos + 3, length(line) + 1)
-				admins[m_key] = a_lev
-
+/world/proc/convert_ranks(var/nym as num)
+	switch(nym)
+		if(0) return "Admin Observer"
+		if(1) return "Moderator"
+		if(2) return "Temporary Admin"
+		if(3) return "Admin Candidate"
+		if(4) return "Trial Admin"
+		if(5) return "Badmin"
+		if(6) return "Game Admin"
+		if(7) return "Game Master"
+		else  return "Banned"
 
 /world/proc/load_configuration()
 	config = new /datum/configuration()
 	config.load("config/config.txt")
 	config.load("config/game_options.txt","game_options")
 	config.loadsql("config/dbconfig.txt")
-	//config.loadforumsql("config/forumdbconfig.txt")
 	// apply some settings from config..
 	abandon_allowed = config.respawn
 
@@ -135,7 +124,6 @@
 
 	src.update_status()
 
-	socket_talk = new /datum/socket_talk()
 	master_controller = new /datum/controller/game_controller()
 	spawn(-1)
 		master_controller.setup()
@@ -143,8 +131,6 @@
 
 //Crispy fullban
 /world/Reboot(var/reason)
-	send2irc(world.url,"Server Rebooting!")
-	socket_talk.send_raw("type=reboot")
 	for(var/client/C)
 		if (config.server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[config.server]")

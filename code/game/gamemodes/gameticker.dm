@@ -1,5 +1,4 @@
 var/global/datum/controller/gameticker/ticker
-var/datum/roundinfo/roundinfo = new()
 #define GAME_STATE_PREGAME		1
 #define GAME_STATE_SETTING_UP	2
 #define GAME_STATE_PLAYING		3
@@ -156,9 +155,6 @@ var/datum/roundinfo/roundinfo = new()
 
 	//Start master_controller.process()
 	spawn master_controller.process()
-//	if (config.sql_enabled)
-//		spawn(3000)
-//		statistic_cycle() // Polls population totals regularly and stores them in an SQL DB -- TLE
 	return 1
 
 /datum/controller/gameticker

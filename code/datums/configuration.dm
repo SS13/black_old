@@ -15,7 +15,6 @@
 	var/log_adminwarn = 0				// log warnings admins get about bomb construction and such
 	var/log_pda = 0						// log pda messages
 	var/log_hrefs = 0					// logs all links clicked in-game. Could be used for debugging and tracking down exploits
-	var/sql_enabled = 1					// for sql switching
 	var/allow_vote_restart = 0 			// allow votes to restart
 	var/allow_vote_mode = 0				// allow votes to change mode
 	var/allow_admin_jump = 1			// allows admin jumping
@@ -25,7 +24,6 @@
 	var/vote_period = 60				// length of voting period (seconds, default 1 minute)
 	var/vote_no_default = 0				// vote does not default to nochange/norestart (tbi)
 	var/vote_no_dead = 0				// dead people can't vote (tbi)
-	var/socket_talk	= 0					// use socket_talk to communicate with other processes
 //	var/enable_authentication = 0		// goon authentication
 	var/del_new_on_log = 1				// del's new players if they log before they spawn in
 	var/feature_object_spell_system = 0 //spawns a spellbook which gives object-type spells instead of verb-type spells for the wizard
@@ -139,9 +137,6 @@
 
 				if ("log_access")
 					config.log_access = 1
-
-				if ("sql_enabled")
-					config.sql_enabled = text2num(value)
 
 				if ("log_say")
 					config.log_say = 1
@@ -310,9 +305,6 @@
 				if("ticklag")
 					Ticklag = text2num(value)
 
-				if("socket_talk")
-					socket_talk = text2num(value)
-
 				if("tickcomp")
 					Tickcomp = 1
 
@@ -390,70 +382,8 @@
 				sqllogin = value
 			if ("password")
 				sqlpass = value
-			if ("feedback_database")
-				sqlfdbkdb = value
-			if ("feedback_login")
-				sqlfdbklogin = value
-			if ("feedback_password")
-				sqlfdbkpass = value
-			if ("enable_stat_tracking")
-				sqllogging = 1
 			else
 				diary << "Unknown setting in configuration: '[name]'"
-/* //Don't touch this, we don't use it. DMTG
-/datum/configuration/proc/loadforumsql(filename)  // -- TLE
-	var/text = file2text(filename)
-
-	if (!text)
-		diary << "No forumdbconfig.txt file found, retaining defaults"
-		world << "No forumdbconfig.txt file found, retaining defaults"
-		return
-
-	diary << "Reading forum database configuration file [filename]"
-
-	var/list/CL = dd_text2list(text, "\n")
-
-	for (var/t in CL)
-		if (!t)
-			continue
-
-		t = trim(t)
-		if (length(t) == 0)
-			continue
-		else if (copytext(t, 1, 2) == "#")
-			continue
-
-		var/pos = findtext(t, " ")
-		var/name = null
-		var/value = null
-
-		if (pos)
-			name = lowertext(copytext(t, 1, pos))
-			value = copytext(t, pos + 1)
-		else
-			name = lowertext(t)
-
-		if (!name)
-			continue
-
-		switch (name)
-			if ("address")
-				forumsqladdress = value
-			if ("port")
-				forumsqlport = value
-			if ("database")
-				forumsqldb = value
-			if ("login")
-				forumsqllogin = value
-			if ("password")
-				forumsqlpass = value
-			if ("activatedgroup")
-				forum_activated_group = value
-			if ("authenticatedgroup")
-				forum_authenticated_group = value
-			else
-				diary << "Unknown setting in configuration: '[name]'"
-*/
 /datum/configuration/proc/pick_mode(mode_name)
 	// I wish I didn't have to instance the game modes in order to look up
 	// their information, but it is the only way (at least that I know of).

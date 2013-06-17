@@ -86,7 +86,6 @@
 		world.update_status()
 
 	..()	//calls mob.Login()
-	makejson()
 
 	if(custom_event_msg && custom_event_msg != "")
 		src << "<h1 class='alert'>Custom Event</h1>"
@@ -109,5 +108,4 @@
 	spawn(0)
 		if(holder)
 			del(holder)
-	makejson()
 	return ..()
