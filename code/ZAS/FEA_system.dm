@@ -106,8 +106,6 @@ datum
 			var/current_cycle = 0
 			var/update_delay = 5 //How long between check should it try to process atmos again.
 			var/failed_ticks = 0 //How many ticks have runtimed?
-			var/next_stat_check = 10
-
 			var/tick_progress = 0
 
 
@@ -171,13 +169,6 @@ datum
 
 			proc/tick()
 				. = 1 //Set the default return value, for runtime detection.
-
-				tick_progress = "next_stat_check (atmos statistics)"
-				if(current_cycle >= next_stat_check)
-					var/zone/z = pick(zones)
-					var/log_file = file("[time2text(world.timeofday, "statistics/DD-MM-YYYY-air.txt")]")
-					log_file << "\"\The [get_area(pick(z.contents))]\",[z.air.oxygen],[z.air.nitrogen],[z.air.carbon_dioxide],[z.air.toxins],[z.air.temperature],[z.air.group_multiplier * z.air.volume]"
-					next_stat_check = current_cycle + (rand(5,7)*60)
 
 				tick_progress = "update_air_properties"
 				if(tiles_to_update.len) //If there are tiles to update, do so.

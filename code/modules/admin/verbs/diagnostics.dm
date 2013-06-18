@@ -160,69 +160,10 @@
 			usr << "\red Not a good cop"
 			return
 
-		message_admins("[usr] manually reloaded admins.txt and whitelist.")
-		usr << "You reload admins.txt and whitelist."
+		message_admins("[usr] manually reloaded admins and whitelist.")
+		usr << "You reload admins and whitelist."
 		load_bwhitelist()
-		var/text = file2text("config/admins.txt")
-		if (!text)
-			diary << "Failed to reload config/admins.txt\n"
-		else
-			var/list/lines = dd_text2list(text, "\n")
-			for(var/line in lines)
-				if (!line)
-					continue
-
-				if (copytext(line, 1, 2) == ";")
-					continue
-
-				var/pos = findtext(line, " - ", 1, null)
-				if (pos)
-					var/m_key = copytext(line, 1, pos)
-					var/a_lev = copytext(line, pos + 3, length(line) + 1)
-					admins[m_key] = a_lev
-					diary << ("ADMIN: [m_key] = [a_lev]")
-		//feedback_add_details("admin_verb","RLDA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-	/*jump_to_dead_group()
-		set name = "Jump to dead group"
-		set category = "Debug"
-		if(!holder)
-			src << "Only administrators may use this command."
-			return
-
-		if(!air_master)
-			usr << "Cannot find air_system"
-			return
-		var/datum/air_group/dead_groups = list()
-		for(var/datum/air_group/group in air_master.air_groups)
-			if (!group.group_processing)
-				dead_groups += group
-		var/datum/air_group/dest_group = pick(dead_groups)
-		usr.loc = pick(dest_group.members)
-		//feedback_add_details("admin_verb","JDAG") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-		return
-
-	kill_airgroup()
-		set name = "Kill Local Airgroup"
-		set desc = "Use this to allow manual manipulation of atmospherics."
-		set category = "Debug"
-		if(!holder)
-			src << "Only administrators may use this command."
-			return
-
-		if(!air_master)
-			usr << "Cannot find air_system"
-			return
-
-		var/turf/T = get_turf(usr)
-		if(istype(T, /turf/simulated))
-			var/datum/air_group/AG = T:parent
-			AG.group_processing = 0
-		else
-			usr << "Local airgroup is unsimulated!"
-		//feedback_add_details("admin_verb","KLAG") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-*/
+		world.load_admins()
 
 	tension_report()
 		set category = "Debug"
