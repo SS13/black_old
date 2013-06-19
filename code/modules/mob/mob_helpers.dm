@@ -1,4 +1,3 @@
-
 // fun if you want to typecast humans/monkeys/etc without writing long path-filled lines.
 /proc/ishuman(A)
 	return istype(A, /mob/living/carbon/human)
@@ -169,7 +168,7 @@ proc/hasorgans(A)
 
 proc/slur(phrase)
 	phrase = html_decode(phrase)
-	var/leng=lentext(phrase)
+/*	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
 	var/newletter=""
@@ -188,7 +187,8 @@ proc/slur(phrase)
 			if(11,12)	newletter="<big>[newletter]</big>"
 			if(13)	newletter="<small>[newletter]</small>"
 		newphrase+="[newletter]";counter-=1
-	return newphrase
+	return newphrase*/
+	return phrase
 
 /proc/stutter(n)
 	var/te = html_decode(n)
