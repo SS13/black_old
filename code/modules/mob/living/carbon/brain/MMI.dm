@@ -33,7 +33,6 @@
 			O:brainmob = null
 			brainmob.loc = src
 			brainmob.container = src
-			brainmob.verbs -= /mob/proc/ghost
 			brainmob.stat = 0
 
 			// force re-entering corpse
@@ -76,7 +75,6 @@
 			brainmob.container = null//Reset brainmob mmi var.
 			brainmob.loc = brain//Throw mob into brain.
 			brain.brainmob = brainmob//Set the brain to use the brainmob
-			brainmob.verbs += /mob/proc/ghost
 			brainmob = null//Set mmi brainmob var to null
 
 			icon_state = "mmi_empty"
@@ -89,7 +87,6 @@
 			brainmob.real_name = H.real_name
 			brainmob.dna = H.dna
 			brainmob.container = src
-			brainmob.verbs -= /mob/proc/ghost
 
 			name = "Man-Machine Interface: [brainmob.real_name]"
 			icon_state = "mmi_full"

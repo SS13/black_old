@@ -6,7 +6,7 @@
 	var/now_pushing = null
 	var/cameraFollow = null
 	var/age = null
-
+	var/tod = null // Time of death
 
 // lists used to cache overlays
 /mob/living/var/list/body_overlays_standing	= list()

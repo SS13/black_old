@@ -47,16 +47,16 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = input(src,"Message:", "Private message") as text|null // This is to stop identification of stealthmins for now -- Erthilo
+		msg = input(src,"Message:", "to [C]") as text|null // This is to stop identification of stealthmins for now -- Erthilo
 		if(!msg)	return
 		if(!C)
 			if(holder)	src << "<font color='red'>Error: Admin-PM: Client not found.</font>"
 			else		adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
 
-	// sanitize it anyway		
+	// sanitize it anyway
 	msg = sanitize(msg)
-	
+
 	//clean the message if it's not sent by a GA or GM
 	if( !holder || !(holder.rank in list("Game Admin", "Game Master")) )
 		msg = copytext(msg,1,MAX_MESSAGE_LEN)

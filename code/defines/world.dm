@@ -15,3 +15,6 @@ world
 //			return "Hello world!"
 //		world << "End of Topic() call."
 //		..()
+
+proc/worldtime2text()
+	return "[round(world.time / 36000)+12]:[(world.time / 600 % 60) < 10 ? add_zero(world.time / 600 % 60, 1) : world.time / 600 % 60]"
