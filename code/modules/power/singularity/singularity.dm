@@ -228,6 +228,9 @@ var/global/list/uneatable = list(
 				consume(X)
 			for(var/atom/movable/X in orange(grav_pull,src))
 				if(is_type_in_list(X, uneatable))	continue
+				if(istype(X,/obj/machinery/emitter))
+					X:energy=0
+					X:active=0
 				if((((X) && (!X:anchored)) || (src.current_size >= 9)) && (!istype(X,/mob/living/carbon/human)))
 					spawn(rand(0,15))
 						step_towards(X,src)
