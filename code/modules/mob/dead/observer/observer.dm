@@ -141,7 +141,7 @@ Works together with spawning an observer, noted above.
 				if (timeleft)
 					stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
 
-/mob/dead/observer/proc/reenter_corpse()
+/mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
 	set name = "Re-enter Corpse"
 	if(!corpse)
@@ -165,7 +165,7 @@ Works together with spawning an observer, noted above.
 	client.mob = corpse
 	del(src)
 
-/mob/dead/observer/proc/become_mouse()
+/mob/dead/observer/verb/become_mouse()
 	set category = "Ghost"
 	set name = "Become mouse"
 
@@ -282,4 +282,3 @@ Works together with spawning an observer, noted above.
 /mob/dead/observer/add_memory()
 	set hidden = 1
 	src << "\red You are dead! You have no mind to store memory!"
-
