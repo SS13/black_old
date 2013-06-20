@@ -23,7 +23,7 @@
 
 	holder.rank = rank
 
-	if(!holder.state)
+/*	if(!holder.state)
 		var/state = alert("Which state do you want the admin to begin in?", "Admin-state", "Play", "Observe", "Neither")
 		if(state == "Play")
 			holder.state = 1
@@ -35,7 +35,7 @@
 			return
 		else
 			del(holder)
-			return
+			return*/
 
 	switch (rank)
 		if ("Game Master")
@@ -121,8 +121,7 @@
 		if (holder.level >= 0)
 			verbs += /client/proc/cmd_admin_pm_context
 			verbs += /client/proc/cmd_admin_pm_panel
-			verbs += /client/proc/admin_play
-			verbs += /client/proc/admin_observe
+			verbs += /client/proc/admin_ghost
 			verbs += /client/proc/hide_verbs
 			verbs += /client/proc/deadmin_self
 			verbs += /client/proc/Report
@@ -409,8 +408,7 @@
 	verbs -= /client/proc/cmd_mod_say
 	verbs -= /client/proc/cmd_admin_subtle_message
 	verbs -= /client/proc/dsay
-	verbs -= /client/proc/admin_play
-	verbs -= /client/proc/admin_observe
+	verbs -= /client/proc/admin_ghost
 	verbs -= /client/proc/game_panel
 //	verbs -= /client/proc/player_panel
 	verbs -= /client/proc/unban_panel
@@ -484,8 +482,27 @@
 	verbs -= /client/proc/enable_debug_verbs
 	return
 
+/client/proc/admin_ghost()
+	set category = "Admin"
+	set name = "Aghost"
+	if(!holder)	return
+	if(istype(mob,/mob/dead/observer))
+		//re-enter
+		var/mob/dead/observer/ghost = mob
+		ghost.can_reenter_corpse = 1			//just in-case.
+		ghost.reenter_corpse()
+		feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	else if(istype(mob,/mob/new_player))
+		src << "<font color='red'>Error: Aghost: Can't admin-ghost whilst in the lobby. Join or Observe first.</font>"
+	else
+		//ghostize
+		var/mob/body = mob
+		body.ghostize(1)
+		if(body && !body.key)
+			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
+		feedback_add_details("admin_verb","O") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/proc/admin_observe()
+/*/client/proc/admin_observe()
 	set category = "Admin"
 	set name = "Set Observe"
 	if(!holder)
@@ -522,6 +539,7 @@
 		mob:reenter_corpse()
 	src << "\blue You are now playing"
 //	feedback_add_details("admin_verb","P") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+*/
 
 /client/proc/get_admin_state()
 	set name = "Get Admin State"
@@ -847,8 +865,7 @@
 		verbs += /client/proc/togglebuildmodeself
 
 	verbs += /client/proc/dsay
-	verbs += /client/proc/admin_play
-	verbs += /client/proc/admin_observe
+	verbs += /client/proc/admin_ghost
 	verbs += /client/proc/game_panel
 //	verbs += /client/proc/player_panel
 	verbs += /client/proc/cmd_admin_subtle_message

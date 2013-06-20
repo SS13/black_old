@@ -34,9 +34,4 @@
 
 	ticker.mode.check_win()
 
-	if (src.key)
-		spawn(50)
-			if(src.key && src.stat == 2)
-				src.verbs += /mob/proc/ghost
-
 	return ..(gibbed)

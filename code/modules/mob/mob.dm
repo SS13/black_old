@@ -443,12 +443,6 @@
 		del(M)
 		return
 
-
-
-	if(client && client.holder && (client.holder.state == 2))
-		client.admin_play()
-		return
-
 	M.key = client.key
 	M.Login()
 	return

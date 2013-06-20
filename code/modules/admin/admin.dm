@@ -1401,14 +1401,14 @@ var/global/BSACooldown = 0
 			if(src && src.owner)
 				if(istype(src.owner,/client))
 					var/client/cl = src.owner
-					cl.admin_observe()
+					cl.admin_ghost()
 					sleep(2)
 					cl.jumptomob(M)
 				else if(ismob(src.owner))
 					var/mob/MO = src.owner
 					if(MO.client)
 						var/client/cl = MO.client
-						cl.admin_observe()
+						cl.admin_ghost()
 						sleep(2)
 						cl.jumptomob(M)
 		else
