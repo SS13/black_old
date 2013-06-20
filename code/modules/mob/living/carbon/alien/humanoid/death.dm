@@ -22,11 +22,6 @@
 		drop_item()
 		src.hand = h
 
-		if (src.key)
-			spawn(10)
-				if(src.key && src.stat == 2)
-					src.verbs += /mob/proc/ghost
-
 	var/tod = time2text(world.realtime,"hh:mm:ss") //weasellos time of death patch
 	if (mind) mind.store_memory("Time of death: [tod]", 0)
 	else src << "We seem to have misplaced your mind datum, so we can't add this to your memory, but you died at [tod]"

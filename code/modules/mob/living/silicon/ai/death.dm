@@ -49,9 +49,4 @@
 
 	var/tod = time2text(world.realtime,"hh:mm:ss") //weasellos time of death patch
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)
-
-	if (key)
-		spawn(50)
-			if(key && stat == 2)
-				verbs += /mob/proc/ghost
 	return ..(gibbed)

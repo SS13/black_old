@@ -131,10 +131,6 @@ obj/item/weapon/organ/head/proc/transfer_identity(var/mob/living/carbon/human/H)
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 	brainmob.container = src
-	if (brainmob.client)
-		spawn(10)
-			if(brainmob.client)
-				verbs += /mob/proc/ghost
 
 obj/item/weapon/organ/head/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/scalpel))

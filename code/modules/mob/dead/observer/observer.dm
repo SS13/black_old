@@ -1,41 +1,54 @@
-/mob/dead/observer/New(mob/body, var/safety = 0)
+/mob/dead/observer
+	name = "ghost"
+	desc = "It's a g-g-g-g-ghooooost!" //jinkies!
+	icon = 'mob.dmi'
+	icon_state = "ghost"
+	layer = 4
+	stat = DEAD
+	density = 0
+	canmove = 0
+	blinded = 0
+	anchored = 1	//  don't get pushed around
 	invisibility = 10
+	universal_speak = 1	//Ghosts are multi-lingual!
+	var/mob/corpse = null	//	observer mode
+	var/datum/hud/living/carbon/hud = null // hud
+	var/atom/movable/following = null
+	var/can_reenter_corpse
+
+/mob/dead/observer/New(mob/body)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = 15
 	see_in_dark = 100
 	verbs += /mob/dead/observer/proc/dead_tele
-	verbs += /mob/dead/observer/proc/become_mouse
-	taj_talk_understand = 1
+	stat = DEAD
 
-	if(body)
-		var/turf/location = get_turf(body)//Where is the mob located?
-		if(location)//Found turf.
-			loc = location
-		else//Safety, in case a turf cannot be found.
-			loc = pick(latejoin)
-		if(!istype(body,/mob))	return//This needs to be recoded sometime so it has loc as its first arg
-		real_name = body.name
-		if(!body.original_name)
-			body.original_name = real_name
-		original_name = body.original_name
-		//name = body.original_name		//original
-		if(issimpleanimal(body))
-			name = original_name
-		else
+	var/turf/T
+	if(ismob(body))
+		T = get_turf(body)				//Where is the body located?
+		attack_log = body.attack_log	//preserve our attack logs by copying them to our ghost
+
+		gender = body.gender
+		if(body.mind && body.name)
 			name = body.name
-		real_name = body.real_name
+		else
+			if(body.real_name)
+				name = body.real_name
+			else
+				if(gender == MALE)
+					name = capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+				else
+					name = capitalize(pick(first_names_female)) + " " + capitalize(pick(last_names))
 
-		if(!name)
-			name = capitalize(pick(first_names_male) + " " + capitalize(pick(last_names)))
-			real_name = name
+		mind = body.mind	//we don't transfer the mind but we keep a reference to it.
 
-		if( original_name != real_name )
-			name = name + " (died as [src.real_name])"
+	if(!T)	T = pick(latejoin)			//Safety in case we cannot find the body's position
+	loc = T
 
-		if(!safety)
-			corpse = body
-			verbs += /mob/dead/observer/proc/reenter_corpse
-		return
+	if(!name)							//To prevent nameless ghosts
+		name = capitalize(pick(first_names_male)) + " " + capitalize(pick(last_names))
+	real_name = name
+	..()
 
 /mob/dead/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
 	return 1
@@ -44,58 +57,45 @@ Transfer_mind is there to check if mob is being deleted/not going to have a body
 Works together with spawning an observer, noted above.
 */
 
-/mob/proc/ghostize(var/transfer_mind = 0)
+/mob/proc/ghostize(var/can_reenter_corpse = 1)
 	if(key)
-		if(client)
-			client.screen.len = null//Clear the hud, just to be sure.
-		var/mob/dead/observer/ghost = new(src,transfer_mind)//Transfer safety to observer spawning proc.
-		if(transfer_mind)//When a body is destroyed.
-			if(mind)
-				mind.transfer_to(ghost)
-			else//They may not have a mind and be gibbed/destroyed.
-				ghost.key = key
-		else//Else just modify their key and connect them.
-			ghost.key = key
-
-		verbs -= /mob/proc/ghost
-		if (ghost.client)
-			ghost.client.eye = ghost
-
-	else if(transfer_mind)//Body getting destroyed but the person is not present inside.
-		for(var/mob/dead/observer/O in world)
-			if(O.corpse == src&&O.key)//If they have the same corpse and are keyed.
-				if(mind)
-					O.mind = mind//Transfer their mind if they have one.
-				break
-	return
-
-/*
-This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
-*/
-/mob/proc/ghost()
-	set category = "Ghost"
-	set name = "Ghost"
-
-	/*if(stat != 2) //this check causes nothing but troubles. Commented out for Nar-Sie's sake. --rastaf0
-		src << "Only dead people and admins get to ghost, and admins don't use this verb to ghost while alive."
-		return*/
-	if(key)
-		var/mob/dead/observer/ghost = new(src)
+		var/mob/dead/observer/ghost = new(src)	//Transfer safety to observer spawning proc.
+		ghost.can_reenter_corpse = can_reenter_corpse
+		ghost.timeofdeath = timeofdeath //BS12 EDIT
 		ghost.key = key
-		if(timeofdeath)
-			ghost.timeofdeath = timeofdeath
-		verbs -= /mob/proc/ghost
-		if (ghost.client)
-			ghost.client.eye = ghost
-		/*if(issimpleanimal(src))
-			ghost.name = src.name + " ([src.real_name])"
-			ghost.voice_name = src.name + " ([src.real_name])"*/
-	return
+		return ghost
 
 /mob/proc/adminghostize()
 	if(client)
 		client.mob = new/mob/dead/observer(src)
 	return
+
+/mob/dead/observer/verb/follow()
+	set category = "Ghost"
+	set name = "Follow" // "Haunt"
+	set desc = "Follow and haunt a mob."
+
+	if(istype(usr, /mob/dead/observer))
+		var/list/mobs = getmobs()
+		var/input = input("Please, select a mob!", "Haunt", null, null) as null|anything in mobs
+		var/mob/target = mobs[input]
+		if(target && target != usr)
+			following = target
+			spawn(0)
+				var/turf/pos = get_turf(src)
+				while(src.loc == pos)
+
+					var/turf/T = get_turf(target)
+					if(!T)
+						break
+					if(following != target)
+						break
+					if(!client)
+						break
+					src.loc = T
+					pos = src.loc
+					sleep(15)
+				following = null
 
 /mob/dead/observer/Move(NewLoc, direct)
 	if(NewLoc)
@@ -163,8 +163,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(corpse.ajourn)
 		corpse.ajourn=0
 	client.mob = corpse
-	if (corpse.stat==2 || istype(corpse, /mob/living/simple_animal/mouse ))
-		corpse.verbs += /mob/proc/ghost
 	del(src)
 
 /mob/dead/observer/proc/become_mouse()
@@ -200,7 +198,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			client.update_admins(rank)
 
 		//update allowed verbs
-		target_mouse.verbs += /mob/proc/ghost
 		target_mouse.verbs -= /mob/verb/observe
 		target_mouse.verbs -= /client/verb/toggle_ghost_ears
 		target_mouse.verbs -= /client/verb/toggle_ghost_sight

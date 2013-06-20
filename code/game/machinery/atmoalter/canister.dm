@@ -165,6 +165,12 @@
 	return
 
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	if(istype(W, /obj/item/weapon/pen))
+		var/new_name = input(user, "Please enter new name", name, "CO2") as message
+		if (new_name) name = "Canister: \[[new_name]\]"
+		src.add_fingerprint(user)
+		return
+
 	if(!istype(W, /obj/item/weapon/wrench) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer) && !istype(W, /obj/item/device/pda))
 		for(var/mob/V in viewers(src, null))
 			V.show_message(text("\red [user] hits the [src] with a [W]!"))

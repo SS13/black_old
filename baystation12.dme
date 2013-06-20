@@ -143,7 +143,6 @@
 #include "code\defines\turf.dm"
 #include "code\defines\world.dm"
 #include "code\defines\area\Space Station 13 areas.dm"
-#include "code\defines\mob\dead\observer.dm"
 #include "code\defines\mob\living\living.dm"
 #include "code\defines\mob\living\carbon\alien.dm"
 #include "code\defines\mob\living\carbon\alien_humanoid.dm"
