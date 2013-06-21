@@ -1,11 +1,11 @@
-//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:04
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 // The communications computer
 /obj/machinery/computer/communications
 	name = "Communications Console"
 	desc = "This can be used for various important functions. Still under developement."
 	icon_state = "comm"
-	req_access = list(ACCESS_HEADS)
+	req_access = list(access_heads)
 	circuit = "/obj/item/weapon/circuitboard/communications"
 	var/prints_intercept = 1
 	var/authenticated = 0
@@ -33,18 +33,24 @@
 	var/stat_msg1
 	var/stat_msg2
 
+	var/shuttle_availability_crew = 1
+	var/shuttle_availability_emergen = 1
+
 
 
 /obj/machinery/computer/communications/process()
-	..()
-	if(state != STATE_STATUSDISPLAY)
-		src.updateDialog()
+	if(..())
+		if(state != STATE_STATUSDISPLAY)
+			src.updateDialog()
 
 
 /obj/machinery/computer/communications/Topic(href, href_list)
 	if(..())
 		return
-	usr.machine = src
+	if (src.z > 1)
+		usr << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+		return
+	usr.set_machine(src)
 
 	if(!href_list["operation"])
 		return
@@ -54,26 +60,26 @@
 			src.state = STATE_DEFAULT
 		if("login")
 			var/mob/M = usr
-			var/obj/item/weapon/card/id/I = M.equipped()
+			var/obj/item/weapon/card/id/I = M.get_active_hand()
 			if (istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
 			if (I && istype(I))
 				if(src.check_access(I))
 					authenticated = 1
-				if((ACCESS_HOP in I.access) || (ACCESS_CAPTAIN in I.access))
+				if(20 in I.access)
 					authenticated = 2
 		if("logout")
 			authenticated = 0
 
 		if("swipeidseclevel")
 			var/mob/M = usr
-			var/obj/item/weapon/card/id/I = M.equipped()
+			var/obj/item/weapon/card/id/I = M.get_active_hand()
 			if (istype(I, /obj/item/device/pda))
 				var/obj/item/device/pda/pda = I
 				I = pda.id
 			if (I && istype(I))
-				if((ACCESS_HOP in I.access) || (ACCESS_CAPTAIN in I.access))
+				if(access_captain in I.access)
 					var/old_level = security_level
 					if(!tmp_alertlevel) tmp_alertlevel = SEC_LEVEL_GREEN
 					if(tmp_alertlevel < SEC_LEVEL_GREEN) tmp_alertlevel = SEC_LEVEL_GREEN
@@ -82,8 +88,8 @@
 					if(security_level != old_level)
 						//Only notify the admins if an actual change happened
 						log_game("[key_name(usr)] has changed the security level to [get_security_level()].")
-						message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].", 1)
-						switch(get_security_level())
+						message_admins("[key_name_admin(usr)] has changed the security level to [get_security_level()].")
+						switch(security_level)
 							if(SEC_LEVEL_GREEN)
 								feedback_inc("alert_comms_green",1)
 							if(SEC_LEVEL_BLUE)
@@ -99,7 +105,7 @@
 		if("announce")
 			if(src.authenticated==2)
 				if(message_cooldown)	return
-				var/input = copytext(input(usr, "Please choose a message to announce to the station crew.", "What?", ""),1,MAX_MESSAGE_LEN)
+				var/input = stripped_input(usr, "Please choose a message to announce to the station crew.", "What?")
 				if(!input || !(usr in view(1,src)))
 					return
 				captain_announce(input)//This should really tell who is, IE HoP, CE, HoS, RD, Captain
@@ -128,7 +134,6 @@
 				init_shift_change(usr) //key difference here
 				if(emergency_shuttle.online)
 					post_status("shuttle")
-			src.state = STATE_DEFAULT
 		if("cancelshuttle")
 			src.state = STATE_DEFAULT
 			if(src.authenticated)
@@ -188,15 +193,15 @@
 				if(centcomm_message_cooldown)
 					usr << "Arrays recycling.  Please stand by."
 					return
-				var/input = copytext(sanitize(input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", "")),1,MAX_MESSAGE_LEN)
+				var/input = sanitize_uni(stripped_input(usr, "Please choose a message to transmit to Centcomm via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination.  Transmission does not guarantee a response.", "To abort, send an empty message.", ""))
 				if(!input || !(usr in view(1,src)))
 					return
 				Centcomm_announce(input, usr)
 				usr << "Message transmitted."
-				log_say("[key_name(usr)] has sent Centcomm a message: [input]")
+				log_say("[key_name(usr)] has made a Centcomm announcement: [input]")
 				centcomm_message_cooldown = 1
-				spawn(600)//One minute cooldown
-					message_cooldown = 0
+				spawn(6000)//10 minute cooldown
+					centcomm_message_cooldown = 0
 
 
 		// OMG SYNDICATE ...LETTERHEAD
@@ -205,15 +210,15 @@
 				if(centcomm_message_cooldown)
 					usr << "Arrays recycling.  Please stand by."
 					return
-				var/input = copytext(sanitize(input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", "")),1,MAX_MESSAGE_LEN)
+				var/input = sanitize_uni(stripped_input(usr, "Please choose a message to transmit to \[ABNORMAL ROUTING CORDINATES\] via quantum entanglement.  Please be aware that this process is very expensive, and abuse will lead to... termination. Transmission does not guarantee a response.", "To abort, send an empty message.", ""))
 				if(!input || !(usr in view(1,src)))
 					return
 				Syndicate_announce(input, usr)
 				usr << "Message transmitted."
-				log_say("[key_name(usr)] has sent the Syndicate a message: [input]")
+				log_say("[key_name(usr)] has made a Syndicate announcement: [input]")
 				centcomm_message_cooldown = 1
-				spawn(600)//One minute cooldown
-					message_cooldown = 0
+				spawn(6000)//10 minute cooldown
+					centcomm_message_cooldown = 0
 
 		if("RestoreBackup")
 			usr << "Backup routing data restored!"
@@ -285,8 +290,11 @@
 /obj/machinery/computer/communications/attack_hand(var/mob/user as mob)
 	if(..())
 		return
+	if (src.z > 6)
+		user << "\red <b>Unable to establish a connection</b>: \black You're too far away from the station!"
+		return
 
-	user.machine = src
+	user.set_machine(src)
 	var/dat = "<head><title>Communications Console</title></head><body>"
 	if (emergency_shuttle.online && emergency_shuttle.location==0)
 		var/timeleft = emergency_shuttle.timeleft()
@@ -426,36 +434,12 @@
 	dat += "<BR>\[ [(src.aistate != STATE_DEFAULT) ? "<A HREF='?src=\ref[src];operation=ai-main'>Main Menu</A> | " : ""]<A HREF='?src=\ref[user];mach_close=communications'>Close</A> \]"
 	return dat
 
-/mob/living/silicon/ai/proc/ai_call_shuttle()
-	set category = "AI Commands"
-	set name = "Call Emergency Shuttle"
-	if(usr.stat == 2)
-		usr << "You can't call the shuttle because you are dead!"
-		return
-
-	var/confirm = alert("Are you sure you want to call the shuttle?", "Confirm Shuttle Call", "Yes", "No")
-
-	if(confirm == "Yes")
-		call_shuttle_proc(src)
-
-	// hack to display shuttle timer
-	if(emergency_shuttle.online)
-		var/obj/machinery/computer/communications/C = locate() in world
-		if(C)
-			C.post_status("shuttle")
-
-	return
-
 /proc/enable_prison_shuttle(var/mob/user)
 	for(var/obj/machinery/computer/prison_shuttle/PS in world)
 		PS.allowedtocall = !(PS.allowedtocall)
 
 /proc/call_shuttle_proc(var/mob/user)
 	if ((!( ticker ) || emergency_shuttle.location))
-		return
-
-	if(emergency_shuttle.deny_shuttle)
-		user << "Centcom does not currently have a shuttle available in your sector. Please try again later."
 		return
 
 	if(sent_strike_team == 1)
@@ -474,20 +458,15 @@
 		user << "The emergency shuttle is already on its way."
 		return
 
-	if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || ticker.mode.name == "sandbox")
-		//New version pretends to call the shuttle but cause the shuttle to return after a random duration.
-		emergency_shuttle.fake_recall = rand(300,500)
-
-	if(ticker.mode.name == "blob" || ticker.mode.name == "epidemic")
+	if(ticker.mode.name == "blob")
 		user << "Under directive 7-10, [station_name()] is quarantined until further notice."
 		return
 
-	emergency_shuttle.shuttlealert(0)
 	emergency_shuttle.incall()
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.", 1)
 	captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
-	world << sound('shuttlecalled.ogg')
+	world << sound('sound/AI/shuttlecalled.ogg')
 
 	return
 
@@ -533,7 +512,6 @@
 
 	return
 
-
 /proc/cancel_call_proc(var/mob/user)
 	if ((!( ticker ) || emergency_shuttle.location || emergency_shuttle.direction == 0 || emergency_shuttle.timeleft() < 300))
 		return
@@ -561,6 +539,8 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
+			log_admin("STATUS: [src.fingerprintslast] set status screen message with [src]: [data1] [data2]")
+			//message_admins("STATUS: [user] set status screen with [PDA]. Message: [data1] [data2]")
 		if("alert")
 			status_signal.data["picture_state"] = data1
 
@@ -577,7 +557,7 @@
 		if(istype(commboard.loc,/turf) || istype(commboard.loc,/obj/item/weapon/storage))
 			return ..()
 
-	for(var/mob/living/silicon/ai/shuttlecaller in world)
+	for(var/mob/living/silicon/ai/shuttlecaller in player_list)
 		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
 			return ..()
 
@@ -588,7 +568,7 @@
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
 	captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
-	world << sound('shuttlecalled.ogg')
+	world << sound('sound/AI/shuttlecalled.ogg')
 
 	..()
 
@@ -602,7 +582,7 @@
 		if((istype(commboard.loc,/turf) || istype(commboard.loc,/obj/item/weapon/storage)) && commboard != src)
 			return ..()
 
-	for(var/mob/living/silicon/ai/shuttlecaller in world)
+	for(var/mob/living/silicon/ai/shuttlecaller in player_list)
 		if(!shuttlecaller.stat && shuttlecaller.client && istype(shuttlecaller.loc,/turf))
 			return ..()
 
@@ -613,6 +593,6 @@
 	log_game("All the AIs, comm consoles and boards are destroyed. Shuttle called.")
 	message_admins("All the AIs, comm consoles and boards are destroyed. Shuttle called.", 1)
 	captain_announce("The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.")
-	world << sound('shuttlecalled.ogg')
+	world << sound('sound/AI/shuttlecalled.ogg')
 
 	..()

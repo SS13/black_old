@@ -1,26 +1,17 @@
 var/list/forbidden_varedit_object_types = list(
-										/obj/admins,						//Admins editing their own admin-power object? Yup, sounds like a good idea.
+										/datum/admins,						//Admins editing their own admin-power object? Yup, sounds like a good idea.
 										/obj/machinery/blackbox_recorder,	//Prevents people messing with feedback gathering
 										/datum/feedback_variable			//Prevents people messing with feedback gathering
 									)
 
+/*
 /client/proc/cmd_modify_object_variables(obj/O as obj|mob|turf|area in world)
 	set category = "Debug"
 	set name = "Edit Variables"
 	set desc="(target) Edit a target item's variables"
 	src.modify_variables(O)
-	//feedback_add_details("admin_verb","EDITV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-/client/proc/cmd_modify_ref_variables(var/target as text)
-	set category = "Debug"
-	set name = "Edit Variables (Reference)"
-	set desc="(target) Edit a target item's variables"
-	var/obj/I = locate(target)
-	if(!I)
-		usr << "ERROR: Object could not be located!"
-		return
-	src.modify_variables(I)
-	//feedback_add_details("admin_verb","EDITV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	feedback_add_details("admin_verb","EDITV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+*/
 
 /client/proc/cmd_modify_ticker_variables()
 	set category = "Debug"
@@ -30,7 +21,7 @@ var/list/forbidden_varedit_object_types = list(
 		src << "Game hasn't started yet."
 	else
 		src.modify_variables(ticker)
-	//	feedback_add_details("admin_verb","ETV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+		feedback_add_details("admin_verb","ETV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/mod_list_add_ass() //haha
 
@@ -62,24 +53,10 @@ var/list/forbidden_varedit_object_types = list(
 			var_value = input("Enter type:","Type") as null|anything in typesof(/obj,/mob,/area,/turf)
 
 		if("reference")
-			switch(alert("Would you like to enter a specific object, or search for it from the world?","Choose!","Specifc UID (Hexadecimal number)", "Search"))
-				if("Specifc UID (Hexadecimal number)")
-					var/UID = input("Type in UID, without the leading 0x","Type in UID") as text|null
-					if(!UID) return
-					var/temp_variable = locate("\[0x[UID]\]")
-					if(!temp_variable)
-						usr << "ERROR.  Could not locate referenced object."
-						return
-					switch(alert("You have chosen [temp_variable], in [get_area(temp_variable)].  Are you sure?","You sure?","Yes","NONOCANCEL!"))
-						if("Yes")
-							var_value = temp_variable
-						if("NONOCANCEL!")
-							return
-				if("Search")
-					var_value = input("Select reference:","Reference") as null|mob|obj|turf|area in world
+			var_value = input("Select reference:","Reference") as null|mob|obj|turf|area in world
 
 		if("mob reference")
-			var_value = input("Select reference:","Reference") as null|mob in get_sorted_mobs()
+			var_value = input("Select reference:","Reference") as null|mob in world
 
 		if("file")
 			var_value = input("Pick file:","File") as null|file
@@ -116,39 +93,25 @@ var/list/forbidden_varedit_object_types = list(
 	switch(class)
 
 		if("text")
-			var_value = input("Enter new text:","Text") as null|text
+			var_value = input("Enter new text:","Text") as text
 
 		if("num")
-			var_value = input("Enter new number:","Num") as null|num
+			var_value = input("Enter new number:","Num") as num
 
 		if("type")
 			var_value = input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
 
 		if("reference")
-			switch(alert("Would you like to enter a specific object, or search for it from the world?","Choose!","Specifc UID (Hexadecimal number)", "Search"))
-				if("Specifc UID (Hexadecimal number)")
-					var/UID = input("Type in UID, without the leading 0x","Type in UID") as text|null
-					if(!UID) return
-					var/temp_variable = locate("\[0x[UID]\]")
-					if(!temp_variable)
-						usr << "ERROR.  Could not locate referenced object."
-						return
-					switch(alert("You have chosen [temp_variable], in [get_area(temp_variable)].  Are you sure?","You sure?","Yes","NONOCANCEL!"))
-						if("Yes")
-							var_value = temp_variable
-						if("NONOCANCEL!")
-							return
-				if("Search")
-					var_value = input("Select reference:","Reference") as null|mob|obj|turf|area in world
+			var_value = input("Select reference:","Reference") as mob|obj|turf|area in world
 
 		if("mob reference")
-			var_value = input("Select reference:","Reference") as null|mob in get_sorted_mobs()
+			var_value = input("Select reference:","Reference") as mob in world
 
 		if("file")
-			var_value = input("Pick file:","File") as null|file
+			var_value = input("Pick file:","File") as file
 
 		if("icon")
-			var_value = input("Pick icon:","Icon") as null|icon
+			var_value = input("Pick icon:","Icon") as icon
 
 		if("marked datum")
 			var_value = holder.marked_datum
@@ -163,10 +126,11 @@ var/list/forbidden_varedit_object_types = list(
 			L += var_value
 
 /client/proc/mod_list(var/list/L)
+	if(!check_rights(R_VAREDIT))	return
+
 	if(!istype(L,/list)) src << "Not a List."
 
 	var/list/locked = list("vars", "key", "ckey", "client", "firemut", "ishulk", "telekinesis", "xray", "virus", "viruses", "cuffed", "ka", "last_eaten", "urine", "poo", "icon", "icon_state")
-
 	var/list/names = sortList(L)
 
 	var/variable = input("Which var?","Var") as null|anything in names + "(ADD VAR)"
@@ -178,17 +142,12 @@ var/list/forbidden_varedit_object_types = list(
 	if(!variable)
 		return
 
-	var/associative
-	if(istext(variable) && !isnull(L[variable]))
-		associative = variable
-		variable = L[variable]
-
 	var/default
 
 	var/dir
 
-	if (locked.Find(variable) && !(src.holder.rank in list("Game Master", "Game Admin")))
-		return
+	if(variable in locked)
+		if(!check_rights(R_DEBUG))	return
 
 	if(isnull(variable))
 		usr << "Unable to determine variable type."
@@ -255,10 +214,10 @@ var/list/forbidden_varedit_object_types = list(
 	var/class = "text"
 	if(src.holder && src.holder.marked_datum)
 		class = input("What kind of variable?","Variable Type",default) as null|anything in list("text",
-			"num","type","reference","mob reference", "icon","file","list","edit referenced object","restore to default","marked datum ([holder.marked_datum.type])")
+			"num","type","reference","mob reference", "icon","file","list","edit referenced object","restore to default","marked datum ([holder.marked_datum.type])", "DELETE FROM LIST")
 	else
 		class = input("What kind of variable?","Variable Type",default) as null|anything in list("text",
-			"num","type","reference","mob reference", "icon","file","list","edit referenced object","restore to default")
+			"num","type","reference","mob reference", "icon","file","list","edit referenced object","restore to default", "DELETE FROM LIST")
 
 	if(!class)
 		return
@@ -266,80 +225,50 @@ var/list/forbidden_varedit_object_types = list(
 	if(holder.marked_datum && class == "marked datum ([holder.marked_datum.type])")
 		class = "marked datum"
 
-	switch(class)
+	switch(class) //Spits a runtime error if you try to modify an entry in the contents list. Dunno how to fix it, yet.
 
 		if("list")
 			mod_list(variable)
 
 		if("restore to default")
-			if(associative)
-				L[associative] = initial(L[associative])
-			else
-				variable = initial(variable)
+			L[L.Find(variable)]=initial(variable)
 
 		if("edit referenced object")
 			modify_variables(variable)
 
-		if("(DELETE FROM LIST)")
-			if(associative)
-				L.Remove(associative)
-				return
-			L.Remove(variable)
+		if("DELETE FROM LIST")
+			L -= variable
 			return
 
 		if("text")
-			variable = input("Enter new text:","Text",\
-				variable) as null|text
+			L[L.Find(variable)] = input("Enter new text:","Text") as text
 
 		if("num")
-			variable = input("Enter new number:","Num",\
-				variable) as null|num
+			L[L.Find(variable)] = input("Enter new number:","Num") as num
 
 		if("type")
-			variable = input("Enter type:","Type",variable) \
-				in typesof(/obj,/mob,/area,/turf)
+			L[L.Find(variable)] = input("Enter type:","Type") in typesof(/obj,/mob,/area,/turf)
 
 		if("reference")
-			switch(alert("Would you like to enter a specific object, or search for it from the world?","Choose!","Specifc UID (Hexadecimal number)", "Search"))
-				if("Specifc UID (Hexadecimal number)")
-					var/UID = input("Type in UID, without the leading 0x","Type in UID") as null|text
-					if(!UID) return
-					var/temp_variable = locate("\[0x[UID]\]")
-					if(!temp_variable)
-						usr << "ERROR.  Could not locate referenced object."
-						return
-					switch(alert("You have chosen [temp_variable], in [get_area(temp_variable)].  Are you sure?","You sure?","Yes","NONOCANCEL!"))
-						if("Yes")
-							variable = temp_variable
-						if("NONOCANCEL!")
-							return
-				if("Search")
-					variable = input("Select reference:","Reference") as null|mob|obj|turf|area in world
+			L[L.Find(variable)] = input("Select reference:","Reference") as mob|obj|turf|area in world
 
 		if("mob reference")
-			variable = input("Select reference:","Reference",\
-				variable) as null|mob in get_sorted_mobs()
+			L[L.Find(variable)] = input("Select reference:","Reference") as mob in world
 
 		if("file")
-			variable = input("Pick file:","File",variable) \
-				as null|file
+			L[L.Find(variable)] = input("Pick file:","File") as file
 
 		if("icon")
-			variable = input("Pick icon:","Icon",variable) \
-				as null|icon
+			L[L.Find(variable)] = input("Pick icon:","Icon") as icon
 
 		if("marked datum")
-			variable = holder.marked_datum
+			L[L.Find(variable)] = holder.marked_datum
 
-	if(associative)
-		L[associative] = variable
 
 /client/proc/modify_variables(var/atom/O, var/param_var_name = null, var/autodetect_class = 0)
-	var/list/locked = list("vars", "key", "ckey", "client", "firemut", "ishulk", "telekinesis", "xray", "virus", "cuffed", "ka", "last_eaten", "urine", "poo", "icon", "icon_state")
+	if(!check_rights(R_VAREDIT))	return
 
-	if(!src.holder)
-		src << "Only administrators may use this command."
-		return
+	var/list/locked = list("vars", "key", "ckey", "client", "firemut", "ishulk", "telekinesis", "xray", "virus", "cuffed", "ka", "last_eaten", "icon", "icon_state", "mutantrace")
 
 	for(var/p in forbidden_varedit_object_types)
 		if( istype(O,p) )
@@ -355,13 +284,8 @@ var/list/forbidden_varedit_object_types = list(
 			src << "A variable with this name ([param_var_name]) doesn't exist in this atom ([O])"
 			return
 
-		if (param_var_name == "holder" && holder.rank != "Game Master")
-			src << "No. Stop being stupid."
-			return
-
-		if (locked.Find(param_var_name) && !(src.holder.rank in list("Game Master", "Game Admin")))
-			src << "Editing this variable requires you to be a game master or game admin."
-			return
+		if(param_var_name == "holder" || (param_var_name in locked))
+			if(!check_rights(R_DEBUG))	return
 
 		variable = param_var_name
 
@@ -415,15 +339,11 @@ var/list/forbidden_varedit_object_types = list(
 		names = sortList(names)
 
 		variable = input("Which var?","Var") as null|anything in names
-		if(!variable)
-			return
+		if(!variable)	return
 		var_value = O.vars[variable]
 
-		if (locked.Find(variable) && !(src.holder.rank in list("Game Master", "Game Admin")))
-			return
-
-		if (variable == "holder" && holder.rank != "Game Master") //Hotfix, a bit ugly but that exploit has been there for ages and now somebody just had to go and tell everyone of it bluh bluh - U
-			return
+		if(variable == "holder" || (variable in locked))
+			if(!check_rights(R_DEBUG))	return
 
 	if(!autodetect_class)
 
@@ -531,7 +451,17 @@ var/list/forbidden_varedit_object_types = list(
 			if(variable=="luminosity")
 				var/var_new = input("Enter new number:","Num",O.vars[variable]) as null|num
 				if(var_new == null) return
-				O.ul_SetLuminosity(var_new)
+				O.SetLuminosity(var_new)
+			else if(variable=="stat")
+				var/var_new = input("Enter new number:","Num",O.vars[variable]) as null|num
+				if(var_new == null) return
+				if((O.vars[variable] == 2) && (var_new < 2))//Bringing the dead back to life
+					dead_mob_list -= O
+					living_mob_list += O
+				if((O.vars[variable] < 2) && (var_new == 2))//Kill he
+					living_mob_list -= O
+					dead_mob_list += O
+				O.vars[variable] = var_new
 			else
 				var/var_new =  input("Enter new number:","Num",O.vars[variable]) as null|num
 				if(var_new==null) return
@@ -543,27 +473,12 @@ var/list/forbidden_varedit_object_types = list(
 			O.vars[variable] = var_new
 
 		if("reference")
-			var/var_new
-			switch(alert("Would you like to enter a specific object, or search for it from the world?","Choose!","Specifc UID (Hexadecimal number)", "Search"))
-				if("Specifc UID (Hexadecimal number)")
-					var/UID = input("Type in UID, without the leading 0x","Type in UID") as text|null
-					if(!UID) return
-					var/temp_variable = locate("\[0x[UID]\]")
-					if(!temp_variable)
-						usr << "ERROR.  Could not locate referenced object."
-						return
-					switch(alert("You have chosen [temp_variable], in [get_area(temp_variable)].  Are you sure?","You sure?","Yes","NONOCANCEL!"))
-						if("Yes")
-							var_new = temp_variable
-						if("NONOCANCEL!")
-							return
-				if("Search")
-					var_new = input("Select reference:","Reference") as null|mob|obj|turf|area in world
+			var/var_new = input("Select reference:","Reference",O.vars[variable]) as null|mob|obj|turf|area in world
 			if(var_new==null) return
 			O.vars[variable] = var_new
 
 		if("mob reference")
-			var/var_new = input("Select reference:","Reference",O.vars[variable]) as null|mob in get_sorted_mobs()
+			var/var_new = input("Select reference:","Reference",O.vars[variable]) as null|mob in world
 			if(var_new==null) return
 			O.vars[variable] = var_new
 
@@ -580,6 +495,7 @@ var/list/forbidden_varedit_object_types = list(
 		if("marked datum")
 			O.vars[variable] = holder.marked_datum
 
+	world.log << "### VarEdit by [src]: [O.type] [variable]=[html_encode("[O.vars[variable]]")]"
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [O.vars[variable]]")
 	message_admins("[key_name_admin(src)] modified [original_name]'s [variable] to [O.vars[variable]]", 1)
 

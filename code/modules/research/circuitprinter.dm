@@ -66,7 +66,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			return
 		if (opened)
 			if(istype(O, /obj/item/weapon/crowbar))
-				playsound(src.loc, 'Crowbar.ogg', 50, 1)
+				playsound(src.loc, 'sound/items/Crowbar.ogg', 50, 1)
 				var/obj/machinery/constructable_frame/machine_frame/M = new /obj/machinery/constructable_frame/machine_frame(src.loc)
 				M.state = 2
 				M.icon_state = "box_1"
@@ -80,10 +80,10 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 					var/obj/item/stack/sheet/glass/G = new /obj/item/stack/sheet/glass(src.loc)
 					G.amount = round(g_amount / 3750)
 				if(gold_amount >= 2000)
-					var/obj/item/stack/sheet/gold/G = new /obj/item/stack/sheet/gold(src.loc)
+					var/obj/item/stack/sheet/mineral/gold/G = new /obj/item/stack/sheet/mineral/gold(src.loc)
 					G.amount = round(gold_amount / 2000)
 				if(diamond_amount >= 2000)
-					var/obj/item/stack/sheet/diamond/G = new /obj/item/stack/sheet/diamond(src.loc)
+					var/obj/item/stack/sheet/mineral/diamond/G = new /obj/item/stack/sheet/mineral/diamond(src.loc)
 					G.amount = round(diamond_amount / 2000)
 				del(src)
 				return 1
@@ -97,7 +97,7 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			return 1
 		if (O.is_open_container())
 			return 1
-		if (!istype(O, /obj/item/stack/sheet/glass) && !istype(O, /obj/item/stack/sheet/gold) && !istype(O, /obj/item/stack/sheet/diamond))
+		if (!istype(O, /obj/item/stack/sheet/glass) && !istype(O, /obj/item/stack/sheet/mineral/gold) && !istype(O, /obj/item/stack/sheet/mineral/diamond))
 			user << "\red You cannot insert this item into the [name]!"
 			return 1
 		if (stat)
@@ -124,9 +124,9 @@ using metal and glass, it uses glass and reagents (usually sulfuric acis).
 			user << "\blue You add [amount] sheets to the [src.name]."
 			if(istype(stack, /obj/item/stack/sheet/glass))
 				g_amount += amount * 3750
-			else if(istype(stack, /obj/item/stack/sheet/gold))
+			else if(istype(stack, /obj/item/stack/sheet/mineral/gold))
 				gold_amount += amount * 2000
-			else if(istype(stack, /obj/item/stack/sheet/diamond))
+			else if(istype(stack, /obj/item/stack/sheet/mineral/diamond))
 				diamond_amount += amount * 2000
 			stack.use(amount)
 			busy = 0

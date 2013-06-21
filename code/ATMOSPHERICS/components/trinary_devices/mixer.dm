@@ -1,11 +1,11 @@
 obj/machinery/atmospherics/trinary/mixer
-	icon = 'mixer.dmi'
+	icon = 'icons/obj/atmospherics/mixer.dmi'
 	icon_state = "intact_off"
 	density = 1
 
 	name = "Gas mixer"
 
-//	req_access = list(ACCESS_ATMOSPHERICS)
+	req_access = list(access_atmospherics)
 
 	var/on = 0
 
@@ -16,13 +16,21 @@ obj/machinery/atmospherics/trinary/mixer
 	//node 3 is the outlet, nodes 1 & 2 are intakes
 
 	update_icon()
-		if(node2 && node3 && node1)
+		if(stat & NOPOWER)
+			icon_state = "intact_off"
+		else if(node2 && node3 && node1)
 			icon_state = "intact_[on?("on"):("off")]"
 		else
 			icon_state = "intact_off"
 			on = 0
 
 		return
+
+	power_change()
+		var/old_stat = stat
+		..()
+		if(old_stat != stat)
+			update_icon()
 
 	New()
 		..()
@@ -51,8 +59,8 @@ obj/machinery/atmospherics/trinary/mixer
 		if(air2.temperature > 0)
 			transfer_moles2 = (node2_concentration*pressure_delta)*air3.volume/(air2.temperature * R_IDEAL_GAS_EQUATION)
 
-		var/air1_moles = air1.total_moles
-		var/air2_moles = air2.total_moles
+		var/air1_moles = air1.total_moles()
+		var/air2_moles = air2.total_moles()
 
 		if((air1_moles < transfer_moles1) || (air2_moles < transfer_moles2))
 			if(!transfer_moles1 || !transfer_moles2) return
@@ -95,7 +103,7 @@ obj/machinery/atmospherics/trinary/mixer
 			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
 			add_fingerprint(user)
 			return 1
-		playsound(src.loc, 'Ratchet.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		user << "\blue You begin to unfasten \the [src]..."
 		if (do_after(user, 40))
 			user.visible_message( \
@@ -112,7 +120,7 @@ obj/machinery/atmospherics/trinary/mixer
 		if(!src.allowed(user))
 			user << "\red Access denied."
 			return
-		usr.machine = src
+		usr.set_machine(src)
 		var/dat = {"<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
 					<b>Desirable output pressure: </b>
 					[target_pressure]kPa | <a href='?src=\ref[src];set_press=1'>Change</a>
@@ -137,6 +145,7 @@ obj/machinery/atmospherics/trinary/mixer
 		return
 
 	Topic(href,href_list)
+		if(..()) return
 		if(href_list["power"])
 			on = !on
 		if(href_list["set_press"])

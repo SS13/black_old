@@ -2,15 +2,19 @@
 	//Frequency stuff only works with 45kbps oggs.
 
 	switch(soundin)
-		if ("shatter") soundin = pick('Glassbr1.ogg','Glassbr2.ogg','Glassbr3.ogg')
-		if ("explosion") soundin = pick('Explosion1.ogg','Explosion2.ogg')
-		if ("sparks") soundin = pick('sparks1.ogg','sparks2.ogg','sparks3.ogg','sparks4.ogg')
-		if ("rustle") soundin = pick('rustle1.ogg','rustle2.ogg','rustle3.ogg','rustle4.ogg','rustle5.ogg')
-		if ("punch") soundin = pick('punch1.ogg','punch2.ogg','punch3.ogg','punch4.ogg')
-		if ("clownstep") soundin = pick('clownstep1.ogg','clownstep2.ogg')
-		if ("swing_hit") soundin = pick('genhit1.ogg', 'genhit2.ogg', 'genhit3.ogg')
-		if ("hiss") soundin = pick('hiss1.ogg','hiss2.ogg','hiss3.ogg','hiss4.ogg')
-		if ("pageturn") soundin = pick('pageturn1.ogg', 'pageturn2.ogg','pageturn3.ogg')
+		if ("shatter") soundin = pick('sound/effects/Glassbr1.ogg','sound/effects/Glassbr2.ogg','sound/effects/Glassbr3.ogg')
+		if ("explosion") soundin = pick('sound/effects/Explosion1.ogg','sound/effects/Explosion2.ogg')
+		if ("sparks") soundin = pick('sound/effects/sparks1.ogg','sound/effects/sparks2.ogg','sound/effects/sparks3.ogg','sound/effects/sparks4.ogg')
+		if ("rustle") soundin = pick('sound/effects/rustle1.ogg','sound/effects/rustle2.ogg','sound/effects/rustle3.ogg','sound/effects/rustle4.ogg','sound/effects/rustle5.ogg')
+		if ("punch") soundin = pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')
+		if ("clownstep") soundin = pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
+		if ("stepshoes") soundin = pick('sound/effects/footsteps/concrete_step1.ogg', 'sound/effects/footsteps/concrete_step2.ogg', 'sound/effects/footsteps/concrete_step3.ogg', 'sound/effects/footsteps/concrete_step4.ogg', 'sound/effects/footsteps/concrete_step5.ogg', 'sound/effects/footsteps/concrete_step6.ogg', 'sound/effects/footsteps/concrete_step7.ogg', 'sound/effects/footsteps/concrete_step8.ogg' )
+		if ("stepshoescarpet") soundin = pick('sound/effects/footsteps/carpet/carpet_step1.ogg', 'sound/effects/footsteps/carpet/carpet_step2.ogg', 'sound/effects/footsteps/carpet/carpet_step3.ogg', 'sound/effects/footsteps/carpet/carpet_step4.ogg', 'sound/effects/footsteps/carpet/carpet_step5.ogg', 'sound/effects/footsteps/carpet/carpet_step6.ogg', 'sound/effects/footsteps/carpet/carpet_step7.ogg', 'sound/effects/footsteps/carpet/carpet_step8.ogg')
+		if ("stepshoeswood") soundin = pick('sound/effects/footsteps/wood/wood_step1.ogg', 'sound/effects/footsteps/wood/wood_step2.ogg', 'sound/effects/footsteps/wood/wood_step3.ogg', 'sound/effects/footsteps/wood/wood_step4.ogg', 'sound/effects/footsteps/wood/wood_step5.ogg', 'sound/effects/footsteps/wood/wood_step6.ogg', 'sound/effects/footsteps/wood/wood_step7.ogg', 'sound/effects/footsteps/wood/wood_step8.ogg')
+		if ("stepshoesand") soundin = pick('sound/effects/footsteps/sand/sand_step1.ogg', 'sound/effects/footsteps/sand/sand_step2.ogg', 'sound/effects/footsteps/sand/sand_step3.ogg', 'sound/effects/footsteps/sand/sand_step4.ogg', 'sound/effects/footsteps/sand/sand_step5.ogg', 'sound/effects/footsteps/sand/sand_step6.ogg', 'sound/effects/footsteps/sand/sand_step7.ogg', 'sound/effects/footsteps/sand/sand_step8.ogg')
+		if ("swing_hit") soundin = pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg')
+		if ("hiss") soundin = pick('sound/voice/hiss1.ogg','sound/voice/hiss2.ogg','sound/voice/hiss3.ogg','sound/voice/hiss4.ogg')
+		if ("pageturn") soundin = pick('sound/effects/pageturn1.ogg', 'sound/effects/pageturn2.ogg','sound/effects/pageturn3.ogg')
 
 	var/sound/S = sound(soundin)
 	S.wait = 0 //No queue
@@ -19,18 +23,31 @@
 
 	if (vary)
 		S.frequency = rand(32000, 55000)
-	for (var/mob/M in range(world.view+extrarange, source))       // Plays for people in range.
-		if (M.client)
-			if(M.ear_deaf <= 0 || !M.ear_deaf)
-				if(isturf(source))
-					var/dx = source.x - M.x
-					S.pan = max(-100, min(100, dx/8.0 * 100))
 
-				M << S
+	for (var/A in range(world.view+extrarange, source))       // Plays for people in range.
 
-	for(var/obj/structure/closet/L in range(world.view+extrarange, source))
-		if(locate(/mob/, L))
-			for(var/mob/M in L)
+		if(ismob(A))
+			var/mob/M = A
+			var/mob/M2 = locate(/mob/, M)
+			if (M2 && M2.client)
+				if(M2.ear_deaf <= 0 || !M.ear_deaf)
+					if(isturf(source))
+						var/dx = source.x - M2.x
+						S.pan = max(-100, min(100, dx/8.0 * 100))
+
+					M2 << S
+
+			if (M.client)
+				if(M.ear_deaf <= 0 || !M.ear_deaf)
+					if(isturf(source))
+						var/dx = source.x - M.x
+						S.pan = max(-100, min(100, dx/8.0 * 100))
+
+					M << S
+
+		if(istype(A, /obj/structure/closet))
+			var/obj/O = A
+			for(var/mob/M in O)
 				if (M.client)
 					if(M.ear_deaf <= 0 || !M.ear_deaf)
 						if(isturf(source))
@@ -38,19 +55,33 @@
 							S.pan = max(-100, min(100, dx/8.0 * 100))
 
 						M << S
+
+	for(var/obj/mecha/mech in range(world.view+extrarange, source))
+		var/mob/M = mech.occupant
+		if (M && M.client)
+			if(M.ear_deaf <= 0 || !M.ear_deaf)
+				if(isturf(source))
+					var/dx = source.x - M.x
+					S.pan = max(-100, min(100, dx/8.0 * 100))
+
+				M << S
 																		// Now plays for people in lockers!  -- Polymorph
 
 /mob/proc/playsound_local(var/atom/source, soundin, vol as num, vary, extrarange as num)
 	if(!src.client || ear_deaf > 0)	return
 	switch(soundin)
-		if ("shatter") soundin = pick('Glassbr1.ogg','Glassbr2.ogg','Glassbr3.ogg')
-		if ("explosion") soundin = pick('Explosion1.ogg','Explosion2.ogg')
-		if ("sparks") soundin = pick('sparks1.ogg','sparks2.ogg','sparks3.ogg','sparks4.ogg')
-		if ("rustle") soundin = pick('rustle1.ogg','rustle2.ogg','rustle3.ogg','rustle4.ogg','rustle5.ogg')
-		if ("punch") soundin = pick('punch1.ogg','punch2.ogg','punch3.ogg','punch4.ogg')
-		if ("clownstep") soundin = pick('clownstep1.ogg','clownstep2.ogg')
-		if ("swing_hit") soundin = pick('genhit1.ogg', 'genhit2.ogg', 'genhit3.ogg')
-		if ("hiss") soundin = pick('hiss1.ogg','hiss2.ogg','hiss3.ogg','hiss4.ogg')
+		if ("shatter") soundin = pick('sound/effects/Glassbr1.ogg','sound/effects/Glassbr2.ogg','sound/effects/Glassbr3.ogg')
+		if ("explosion") soundin = pick('sound/effects/Explosion1.ogg','sound/effects/Explosion2.ogg')
+		if ("sparks") soundin = pick('sound/effects/sparks1.ogg','sound/effects/sparks2.ogg','sound/effects/sparks3.ogg','sound/effects/sparks4.ogg')
+		if ("rustle") soundin = pick('sound/effects/rustle1.ogg','sound/effects/rustle2.ogg','sound/effects/rustle3.ogg','sound/effects/rustle4.ogg','sound/effects/rustle5.ogg')
+		if ("stepshoes") soundin = pick('sound/effects/footsteps/concrete_step1.ogg', 'sound/effects/footsteps/concrete_step2.ogg', 'sound/effects/footsteps/concrete_step3.ogg', 'sound/effects/footsteps/concrete_step4.ogg', 'sound/effects/footsteps/concrete_step5.ogg', 'sound/effects/footsteps/concrete_step6.ogg', 'sound/effects/footsteps/concrete_step7.ogg', 'sound/effects/footsteps/concrete_step8.ogg' )
+		if ("stepshoescarpet") soundin = pick('sound/effects/footsteps/carpet/carpet_step1.ogg', 'sound/effects/footsteps/carpet/carpet_step2.ogg', 'sound/effects/footsteps/carpet/carpet_step3.ogg', 'sound/effects/footsteps/carpet/carpet_step4.ogg', 'sound/effects/footsteps/carpet/carpet_step5.ogg', 'sound/effects/footsteps/carpet/carpet_step6.ogg', 'sound/effects/footsteps/carpet/carpet_step7.ogg', 'sound/effects/footsteps/carpet/carpet_step8.ogg')
+		if ("stepshoeswood") soundin = pick('sound/effects/footsteps/wood/wood_step1.ogg', 'sound/effects/footsteps/wood/wood_step2.ogg', 'sound/effects/footsteps/wood/wood_step3.ogg', 'sound/effects/footsteps/wood/wood_step4.ogg', 'sound/effects/footsteps/wood/wood_step5.ogg', 'sound/effects/footsteps/wood/wood_step6.ogg', 'sound/effects/footsteps/wood/wood_step7.ogg', 'sound/effects/footsteps/wood/wood_step8.ogg')
+		if ("stepshoesand") soundin = pick('sound/effects/footsteps/sand/sand_step1.ogg', 'sound/effects/footsteps/sand/sand_step2.ogg', 'sound/effects/footsteps/sand/sand_step3.ogg', 'sound/effects/footsteps/sand/sand_step4.ogg', 'sound/effects/footsteps/sand/sand_step5.ogg', 'sound/effects/footsteps/sand/sand_step6.ogg', 'sound/effects/footsteps/sand/sand_step7.ogg', 'sound/effects/footsteps/sand/sand_step8.ogg')
+		if ("punch") soundin = pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')
+		if ("clownstep") soundin = pick('sound/effects/clownstep1.ogg','sound/effects/clownstep2.ogg')
+		if ("swing_hit") soundin = pick('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg')
+		if ("hiss") soundin = pick('sound/voice/hiss1.ogg','sound/voice/hiss2.ogg','sound/voice/hiss3.ogg','sound/voice/hiss4.ogg')
 
 	var/sound/S = sound(soundin)
 	S.wait = 0 //No queue
@@ -65,15 +96,7 @@
 
 	src << S
 
-client/verb/Toggle_Soundscape() //All new ambience should be added here so it works with this verb until someone better at things comes up with a fix that isn't awful
-	set category = "Special Verbs"
-	set name = "Toggle Ambience"
-	usr:client:no_ambi = !usr:client:no_ambi
-	if(usr:client:no_ambi)
-		usr << sound(pick('shipambience.ogg','ambigen1.ogg','ambigen3.ogg','ambigen4.ogg','ambigen5.ogg','ambigen6.ogg','ambigen7.ogg','ambigen8.ogg','ambigen9.ogg','ambigen10.ogg','ambigen11.ogg','ambigen12.ogg','ambigen14.ogg','ambicha1.ogg','ambicha2.ogg','ambicha3.ogg','ambicha4.ogg','ambimalf.ogg','ambispace.ogg','ambimine.ogg','title2.ogg'), repeat = 0, wait = 0, volume = 0, channel = 2)
-	else
-		usr << sound(pick('shipambience.ogg','ambigen1.ogg','ambigen3.ogg','ambigen4.ogg','ambigen5.ogg','ambigen6.ogg','ambigen7.ogg','ambigen8.ogg','ambigen9.ogg','ambigen10.ogg','ambigen11.ogg','ambigen12.ogg','ambigen14.ogg','ambicha1.ogg','ambicha2.ogg','ambicha3.ogg','ambicha4.ogg','ambimalf.ogg','ambispace.ogg','ambimine.ogg','title2.ogg'), repeat = 1, wait = 0, volume = 35, channel = 2)
-	usr << "Toggled ambience sound."
-	return
-
-
+/client/proc/playtitlemusic()
+	if(!ticker || !ticker.login_music)	return
+	if(prefs.toggles & SOUND_LOBBY)
+		src << sound(ticker.login_music, repeat = 0, wait = 0, volume = 85, channel = 1) // MAD JAMS

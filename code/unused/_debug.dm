@@ -28,7 +28,7 @@
 			if(!O)
 				O = new /obj/effect/mark(T)
 			else
-				O.overlays = null
+				O.overlays.Cut()
 
 			var/obj/move/OM = locate(/obj/move/, T)
 
@@ -43,13 +43,13 @@ Doing this because FindTurfs() isn't even used
 				for(var/atom/U in OM.FindTurfs() )
 					var/dirn = get_dir(OM, U)
 					if(dirn == 1)
-						O.overlays += image('mark.dmi', OM.airdir==1?"up":"fup")
+						O.overlays += image('icons/misc/mark.dmi', OM.airdir==1?"up":"fup")
 					else if(dirn == 2)
-						O.overlays += image('mark.dmi', OM.airdir==2?"dn":"fdn")
+						O.overlays += image('icons/misc/mark.dmi', OM.airdir==2?"dn":"fdn")
 					else if(dirn == 4)
-						O.overlays += image('mark.dmi', OM.airdir==4?"rt":"frt")
+						O.overlays += image('icons/misc/mark.dmi', OM.airdir==4?"rt":"frt")
 					else if(dirn == 8)
-						O.overlays += image('mark.dmi', OM.airdir==8?"lf":"flf")
+						O.overlays += image('icons/misc/mark.dmi', OM.airdir==8?"lf":"flf")
 */
 			else
 
@@ -59,29 +59,29 @@ Doing this because FindTurfs() isn't even used
 					O.icon_state = "blank"
 
 				if(T.airN)
-					O.overlays += image('mark.dmi', T.airdir==1?"up":"fup")
+					O.overlays += image('icons/misc/mark.dmi', T.airdir==1?"up":"fup")
 
 				if(T.airS)
-					O.overlays += image('mark.dmi', T.airdir==2?"dn":"fdn")
+					O.overlays += image('icons/misc/mark.dmi', T.airdir==2?"dn":"fdn")
 
 				if(T.airW)
-					O.overlays += image('mark.dmi', T.airdir==8?"lf":"flf")
+					O.overlays += image('icons/misc/mark.dmi', T.airdir==8?"lf":"flf")
 
 				if(T.airE)
-					O.overlays += image('mark.dmi', T.airdir==4?"rt":"frt")
+					O.overlays += image('icons/misc/mark.dmi', T.airdir==4?"rt":"frt")
 
 
 				if(T.condN)
-					O.overlays += image('mark.dmi', T.condN == 1?"yup":"rup")
+					O.overlays += image('icons/misc/mark.dmi', T.condN == 1?"yup":"rup")
 
 				if(T.condS)
-					O.overlays += image('mark.dmi', T.condS == 1?"ydn":"rdn")
+					O.overlays += image('icons/misc/mark.dmi', T.condS == 1?"ydn":"rdn")
 
 				if(T.condE)
-					O.overlays += image('mark.dmi', T.condE == 1?"yrt":"rrt")
+					O.overlays += image('icons/misc/mark.dmi', T.condE == 1?"yrt":"rrt")
 
 				if(T.condW)
-					O.overlays += image('mark.dmi', T.condW == 1?"ylf":"rlf")
+					O.overlays += image('icons/misc/mark.dmi', T.condW == 1?"ylf":"rlf")
 	else
 		alert("Debugging off")
 		return
@@ -98,7 +98,7 @@ Doing this because FindTurfs() isn't even used
 
 /proc/numbericon(var/tn as text,var/s = 0)
 	if(Debug)
-		var/image/I = image('mark.dmi', "blank")
+		var/image/I = image('icons/misc/mark.dmi', "blank")
 
 		if(lentext(tn)>8)
 			tn = "*"
@@ -113,7 +113,7 @@ Doing this because FindTurfs() isn't even used
 			if(char == " ")
 				continue
 
-			var/image/ID = image('mark.dmi', char)
+			var/image/ID = image('icons/misc/mark.dmi', char)
 
 			ID.pixel_x = -(d-1)*4
 			ID.pixel_y = s
@@ -137,7 +137,7 @@ Doing this because FindTurfs() isn't even used
 		if(!O)
 			O = new /obj/effect/mark(T)
 		else
-			O.overlays = null
+			O.overlays.Cut()
 
 
 		var/temp = round(T.temp-T0C, 0.1)
@@ -168,7 +168,7 @@ Doing this because FindTurfs() isn't even used
 				if(!O)
 					O = new /obj/effect/mark(T)
 				else
-					O.overlays = null
+					O.overlays.Cut()
 
 				if(istype(M, /obj/machinery/pipes))
 					var/obj/machinery/pipes/P = M
@@ -199,7 +199,7 @@ Doing this because FindTurfs() isn't even used
 			if(!O)
 				O = new /obj/effect/mark(T)
 			else
-				O.overlays = null
+				O.overlays.Cut()
 
 			var/marked = 0
 			for(var/obj/M in T)
@@ -242,7 +242,7 @@ Doing this because FindTurfs() isn't even used
 			if(!O)
 				O = new /obj/effect/mark(T)
 			else
-				O.overlays = null
+				O.overlays.Cut()
 
 
 			var/obj/machinery/power/solar/S
@@ -612,7 +612,7 @@ Doing this because FindTurfs() isn't even used
 	world << "[usr.key] created an explosion"
 	var/obj/item/weapon/tank/plasmatank/pt = new /obj/item/weapon/tank/plasmatank( T )
 	playsound(pt.loc, "explosion", 100, 1,3)
-	playsound(pt.loc, 'explosionfar.ogg', 100, 1,10)
+	playsound(pt.loc, 'sound/effects/explosionfar.ogg', 100, 1,10)
 	pt.gas.temperature = 500+T0C
 	pt.ignite()
 

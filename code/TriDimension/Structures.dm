@@ -1,205 +1,281 @@
-///////////////////////////////////////
-//Contents: Ladders, Hatches, Stairs.//
-///////////////////////////////////////
-
 /obj/multiz
 	icon = 'multiz.dmi'
 	density = 0
 	opacity = 0
 	anchored = 1
-	var/obj/multiz/target
+	var/istop = 1
 
 	CanPass(obj/mover, turf/source, height, airflow)
 		return airflow || !density
+
+/obj/multiz/proc/targetZ()
+	return src.z + (istop ? 1 : -1)
 
 /obj/multiz/ladder
 	icon_state = "ladderdown"
 	name = "ladder"
 	desc = "A Ladder.  You climb up and down it."
 
-	var/top_icon_state = "ladderdown"
-	var/bottom_icon_state = "ladderup"
+/obj/multiz/ladder/New()
+	..()
+	if (!istop)
+		icon_state = "ladderup"
+	else
+		icon_state = "ladderdown"
 
-	New()
-		. = ..()
-		spawn(1) //Allow map to load
-			if(z in levels_3d)
-				if(!target)
-					var/list/adjacent_to_me = global_adjacent_z_levels["[z]"]
-					if("up" in adjacent_to_me)
-						target = locate() in locate(x,y,adjacent_to_me["up"])
-						if(istype(target))
-							icon_state = bottom_icon_state
-						else if("down" in adjacent_to_me)
-							target = locate() in locate(x,y,adjacent_to_me["down"])
-							if(istype(target))
-								icon_state = top_icon_state
-							else
-								del src
-						else
-							del src
-					else if("down" in adjacent_to_me)
-						target = locate() in locate(x,y,adjacent_to_me["down"])
-						if(istype(target))
-							icon_state = bottom_icon_state
-						else
-							del src
-					else
-						del src
-					if(target)
-						target.icon_state = ( icon_state == top_icon_state ? bottom_icon_state : top_icon_state)
-						target.target = src
-			else
-				del src
+/obj/multiz/ladder/attack_paw(var/mob/M)
+	return attack_hand(M)
 
-	Del()
-		spawn(1)
-			if(target)
-				del target
-		return ..()
+/obj/multiz/ladder/attackby(var/W, var/mob/M)
+	return attack_hand(M)
 
-	attack_paw(var/mob/M)
-		return attack_hand(M)
-
-	attackby(var/W, var/mob/M)
-		return attack_hand(M)
-
-	attack_hand(var/mob/M)
-		if(!target || !istype(target.loc, /turf))
-			del src
-		var/list/adjacent_to_me = global_adjacent_z_levels["[z]"]
-		M.visible_message("\blue \The [M] climbs [target.z == adjacent_to_me["up"] ? "up" : "down"] \the [src]!", "You climb [target.z == adjacent_to_me["up"]  ? "up" : "down"] \the [src]!", "You hear some grunting, and clanging of a metal ladder being used.")
-		M.Move(target.loc)
+/obj/multiz/ladder/attack_hand(var/mob/M)
+	M.Move(locate(src.x, src.y, targetZ()))
 
 
-	hatch
+/obj/multiz/ladder/hatch
+	icon_state = "hatchdown"
+	name = "hatch"
+	desc = "A Hatch. You climb down it, and it will automatically seal against pressure loss behind you."
+
+/obj/multiz/ladder/hatch/New()
+	..()
+	if(istop == 1)
 		icon_state = "hatchdown"
-		name = "hatch"
-		desc = "A hatch. You climb down it, and it will automatically seal against pressure loss behind you."
-		top_icon_state = "hatchdown"
-		var/top_icon_state_open = "hatchdown-open"
-		var/top_icon_state_close = "hatchdown-close"
 
-		bottom_icon_state = "ladderup"
+/obj/multiz/ladder/hatch/hatchbottom
+	icon_state = "hatchdown"
 
-		var/image/green_overlay
-		var/image/red_overlay
+/obj/multiz/ladder/hatch/hatchbottom/New()
+	istop = 0
+	..()
 
-		var/active = 0
+/obj/multiz/ladder/hatch/attack_hand(var/mob/M)
+	var/obj/multiz/ladder/hatch/Htop
+	var/obj/multiz/ladder/hatch/Hbottom
+	if(!istop && src.z > 1)
+		Htop = locate(/obj/multiz/ladder/hatch, locate(src.x, src.y, src.z-1))
+		Hbottom = src
+	else
+		Hbottom = locate(/obj/multiz/ladder/hatch, locate(src.x, src.y, src.z + 1))
+		Htop = src
 
-		New()
-			. = ..()
-			red_overlay = image(icon, "red-ladderlight")
-			green_overlay = image(icon, "green-ladderlight")
+	if(!Htop)
+		//world << "Htop == null"
+		return
+	if(!Hbottom)
+		//world << "Hbottom == null"
+		return
 
-		attack_hand(var/mob/M)
-
-			if(!target || !istype(target.loc, /turf))
-				del src
-
-			if(active)
-				M << "That [src] is being used."
-				return // It is a tiny airlock, only one at a time.
-
-			active = 1
-			var/obj/multiz/ladder/hatch/top_hatch = target
-			var/obj/multiz/ladder/hatch/bottom_hatch = src
-			if(icon_state == top_icon_state)
-				top_hatch = src
-				bottom_hatch = target
-
-			flick(top_icon_state_open, top_hatch)
-			bottom_hatch.overlays += green_overlay
-
+	if(Htop.icon_state == "hatchdown")
+		flick("hatchdown-open",Htop)
+		Hbottom.overlays += "green-ladderlight"
+		spawn(7)
+			if(M.z == src.z && get_dist(src,M) <= 1)
+				M.Move(locate(src.x, src.y, targetZ()))
+			flick("hatchdown-close",Htop)
+			Hbottom.overlays -= "green-ladderlight"
+			Hbottom.overlays += "red-ladderlight"
 			spawn(7)
-				if(!target || !istype(target.loc, /turf))
-					del src
-				if(M.z == z && get_dist(src,M) <= 1)
-					var/list/adjacent_to_me = global_adjacent_z_levels["[z]"]
-					M.visible_message("\blue \The [M] scurries [target.z == adjacent_to_me["up"] ? "up" : "down"] \the [src]!", "You scramble [target.z == adjacent_to_me["up"] ? "up" : "down"] \the [src]!", "You hear some grunting, and a hatch sealing.")
-					M.Move(target.loc)
-				flick(top_icon_state_close,top_hatch)
-				bottom_hatch.overlays -= green_overlay
-				bottom_hatch.overlays += red_overlay
+				Htop.icon_state = "hatchdown"
+				Hbottom.overlays -= "red-ladderlight"
 
-				spawn(7)
-					top_hatch.icon_state = top_icon_state
-					bottom_hatch.overlays -= red_overlay
-					active = 0
-
+/*
+/obj/multiz/ladder/blob_act()
+	var/newblob = 1
+	for(var/obj/blob in locate(src.x, src.y, targetZ()))
+		newblob = 0
+	if(newblob)
+		new /obj/blob(locate(src.x, src.y, targetZ()))
+*/
+//Stairs.  var/dir on all four component objects should be the dir you'd walk from top to bottom
+//active = bump to move down
+//active/bottom = bump to move up
+//enter = decorative downwards stairs
+//enter/bottom = decorative upward stairs
 /obj/multiz/stairs
 	name = "Stairs"
 	desc = "Stairs.  You walk up and down them."
 	icon_state = "ramptop"
-	var/top_icon_state = "ramptop"
-	var/bottom_icon_state = "rampbottom"
 
-	active
-		density = 1
+/obj/multiz/stairs/New()
+	icon_state = istop ^ istype(src, /obj/multiz/stairs/active) ? "ramptop" : "rampbottom"
 
+/obj/multiz/stairs/enter/bottom
+	istop = 0
 
-		New()
-			. = ..()
-			spawn(1)
-				if(z in levels_3d)
-					if(!target)
-						var/list/adjacent_to_me = global_adjacent_z_levels["[z]"]
-						if("up" in adjacent_to_me)
-							target = locate() in locate(x,y,adjacent_to_me["up"])
-							if(istype(target))
-								icon_state = bottom_icon_state
-							else if("down" in adjacent_to_me)
-								target = locate() in locate(x,y,adjacent_to_me["down"])
-								if(istype(target))
-									icon_state = top_icon_state
-								else
-									del src
-							else
-								del src
-						else if("down" in adjacent_to_me)
-							target = locate() in locate(x,y,adjacent_to_me["down"])
-							if(istype(target))
-								icon_state = bottom_icon_state
-							else
-								del src
-						else
-							del src
-						if(target)
-							target.icon_state = ( icon_state == top_icon_state ? bottom_icon_state : top_icon_state)
-							target.target = src
-						var/obj/multiz/stairs/lead_in = locate() in get_step(src, reverse_direction(dir))
-						if(lead_in)
-							lead_in.icon_state = ( icon_state == top_icon_state ? bottom_icon_state : top_icon_state)
+/obj/multiz/stairs/active
+	density = 1
+
+/obj/multiz/stairs/active/Bumped(var/atom/movable/M)
+	if(istype(src, /obj/multiz/stairs/active/bottom) && !locate(/obj/multiz/stairs/enter) in M.loc)
+		return //If on bottom, only let them go up stairs if they've moved to the entry tile first.
+	//If it's the top, they can fall down just fine.
+	if(ismob(M) && M:client)
+		M:client.moving = 1
+	M.Move(locate(src.x, src.y, targetZ()))
+	if (ismob(M) && M:client)
+		M:client.moving = 0
+
+/obj/multiz/stairs/active/Click()
+	if(!istype(usr,/mob/dead/observer))
+		return ..()
+	usr.client.moving = 1
+	usr.Move(locate(src.x, src.y, targetZ()))
+	usr.client.moving = 0
+/obj/multiz/stairs/active/bottom
+	istop = 0
+	opacity = 1
+
+/turf/simulated/floor/open
+	name = "open space"
+	intact = 0
+	icon_state = "black"
+	pathweight = 100000 //Seriously, don't try and path over this one numbnuts
+	var/icon/darkoverlays = null
+	var/turf/floorbelow
+	//floorstrength = 1
+	mouse_opacity = 2
+
+	New()
+		..()
+		spawn(1)
+			if(!istype(src, /turf/simulated/floor/open)) //This should not be needed but is.
+				return
+			floorbelow = locate(x, y, z + 1)
+			if(floorbelow)
+				//Fortunately, I've done this before. - Aryn
+				if(istype(floorbelow,/turf/space) || floorbelow.z > 4)
+					new/turf/space(src)
+				else if(!istype(floorbelow,/turf/simulated/floor))
+					new/turf/simulated/floor/plating(src)
 				else
-					del src
+					//if(ticker)
+						//find_zone()
+					update()
+			else
+				new/turf/space(src)
 
+	Del()
+		. = ..()
 
-		Del()
+	Enter(var/atom/movable/AM)
+		if (..()) //TODO make this check if gravity is active (future use) - Sukasa
 			spawn(1)
-				if(target)
-					del target
-			return ..()
+				if(AM)
+					AM.Move(locate(x, y, z + 1))
+					if (istype(AM, /mob/living/carbon/human))
+						var/mob/living/carbon/human/H = AM
+						var/damage = rand(5,15)
+						H.apply_damage(2*damage, BRUTE, "head")
+						H.apply_damage(2*damage, BRUTE, "chest")
+						H.apply_damage(0.5*damage, BRUTE, "l_leg")
+						H.apply_damage(0.5*damage, BRUTE, "r_leg")
+						H.apply_damage(0.5*damage, BRUTE, "l_arm")
+						H.apply_damage(0.5*damage, BRUTE, "r_arm")
 
+/*
+/obj/effect/decal/cleanable/blood
+	name = "Blood"
+	desc = "It's red and disgusting."
+	density = 0
+	anchored = 1
+	layer = 2
+	icon = 'blood.dmi'
+	icon_state = "floor1"
+	random_icon_states = list("floor1", "floor2", "floor3", "floor4", "floor5", "floor6", "floor7")
+	var/list/viruses = list()
+	blood_DNA = list()
+	var/datum/disease2/disease/virus2 = null
+	var/OriginalMob = null
 
-	Bumped(var/atom/movable/M)
-		if(target.z > z && istype(src, /obj/multiz/stairs/active) && !locate(/obj/multiz/stairs) in M.loc)
-			return //If on bottom, only let them go up stairs if they've moved to the entry tile first.
-		//If it's the top, they can fall down just fine.
+	Del()
+		for(var/datum/disease/D in viruses)
+			D.cure(0)
+		..()
+*/
 
-		if(!target || !istype(target.loc, /turf))
-			del src
+	//					var/obj/effect/decal/cleanable/blood/B = new(src.loc)
+	//					var/list/blood_DNA_temp[1]
+	//					blood_DNA_temp[1] = list(H.dna.unique_enzymes, H.dna.b_type)
+	//					B.blood_DNA =  blood_DNA_temp
+	//					B.virus2 = H.virus2
+	//					for(var/datum/disease/D in H.viruses)
+	//						var/datum/disease/newDisease = new D.type
+	//						B.viruses += newDisease
+	//						newDisease.holder = B
 
-		if(ismob(M) && M:client)
-			M:client.moving = 1
-		M.Move(target.loc)
-		if (ismob(M) && M:client)
-			M:client.moving = 0
+						H:weakened = max(H:weakened,2)
+						H:updatehealth()
+		return ..()
 
-	Click()
-		if(!istype(usr,/mob/dead/observer))
-			return ..()
-		if(!target || !istype(target.loc, /turf))
-			del src
-		usr.client.moving = 1
-		usr.Move(target.loc)
-		usr.client.moving = 0
+	attackby()
+		//nothing
+
+	proc/update() //Update the overlayss to make the openspace turf show what's down a level
+		if(!floorbelow) return
+		/*src.clearoverlays()
+		src.addoverlay(floorbelow)
+		for(var/obj/o in floorbelow.contents)
+			src.addoverlay(image(o, dir=o.dir, layer = TURF_LAYER+0.05*o.layer))
+		var/image/I = image('ULIcons.dmi', "[min(max(floorbelow.LightLevelRed - 4, 0), 7)]-[min(max(floorbelow.LightLevelGreen - 4, 0), 7)]-[min(max(floorbelow.LightLevelBlue - 4, 0), 7)]")
+		I.layer = TURF_LAYER + 0.2
+		src.addoverlay(I)
+		I = image('ULIcons.dmi', "1-1-1")
+		I.layer = TURF_LAYER + 0.2
+		src.addoverlay(I)*/
+
+/turf/space/hull
+	name = "Hull Plating"
+	icon = 'floors.dmi'
+	icon_state = "engine"
+/turf/space/hull/New()
+	return
+
+// override for space turfs, since they should never hide anything
+/turf/space/levelupdate()
+	for(var/obj/O in src)
+		if(O.level == 1)
+			O.hide(0)
+/turf/proc/ReplaceWithOpen()
+	if(!icon_old) icon_old = icon_state
+	var/turf/simulated/floor/W
+	var/old_icon = icon_old
+	var/old_dir = dir
+
+	W = new /turf/simulated/floor/open( locate(src.x, src.y, src.z) )
+
+	W.dir = old_dir
+	W.icon_old = old_icon
+	if(old_icon) W.icon_state = old_icon
+	W.opacity = 1
+	W.levelupdate()
+
+	//var/icon/tempicon = icon_state
+	//var/turf/newopen = new /turf/simulated/floor/open( locate(src.x, src.y, src.z) )
+	//newopen.icon_old = tempicon
+/turf/proc/ReplaceWithHull()
+	if(!icon_old) icon_old = icon_state
+	new /turf/space/hull( locate(src.x, src.y, src.z) )
+/turf/proc/ReplaceWithFloor()
+	if(!icon_old) icon_old = icon_state
+	var/turf/simulated/floor/W
+	var/old_icon = icon_old
+	var/old_dir = dir
+
+	W = new /turf/simulated/floor( locate(src.x, src.y, src.z) )
+
+	W.dir = old_dir
+	W.icon_old = old_icon
+	if(old_icon) W.icon_state = old_icon
+	W.opacity = 1
+	W.levelupdate()
+	return W
+
+/turf/proc/ReplaceWithEngineFloor()
+	if(!icon_old) icon_old = icon_state
+	var/old_icon = icon_old
+	var/old_dir = dir
+	var/turf/simulated/floor/engine/E = new /turf/simulated/floor/engine( locate(src.x, src.y, src.z) )
+	E.dir = old_dir
+	E.icon_old = old_icon

@@ -1,6 +1,6 @@
 /obj/machinery/portable_atmospherics/canister
 	name = "canister"
-	icon = 'atmos.dmi'
+	icon = 'icons/obj/atmos.dmi'
 	icon_state = "yellow"
 	density = 1
 	var/health = 100.0
@@ -66,13 +66,13 @@
 		var/tank_pressure = air_contents.return_pressure()
 
 		if (tank_pressure < 10)
-			overlays += image('atmos.dmi', "can-o0")
+			overlays += image('icons/obj/atmos.dmi', "can-o0")
 		else if (tank_pressure < ONE_ATMOSPHERE)
-			overlays += image('atmos.dmi', "can-o1")
+			overlays += image('icons/obj/atmos.dmi', "can-o1")
 		else if (tank_pressure < 15*ONE_ATMOSPHERE)
-			overlays += image('atmos.dmi', "can-o2")
+			overlays += image('icons/obj/atmos.dmi', "can-o2")
 		else
-			overlays += image('atmos.dmi', "can-o3")
+			overlays += image('icons/obj/atmos.dmi', "can-o3")
 	return
 
 /obj/machinery/portable_atmospherics/canister/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
@@ -89,7 +89,7 @@
 		location.assume_air(air_contents)
 
 		src.destroyed = 1
-		playsound(src.loc, 'spray.ogg', 10, 1, -3)
+		playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
 		src.density = 0
 		update_icon()
 
@@ -136,6 +136,9 @@
 	else
 		can_label = 0
 
+	if(air_contents.temperature > PLASMA_FLASHPOINT)
+		air_contents.zburn()
+
 	src.updateDialog()
 	return
 
@@ -159,21 +162,20 @@
 	healthcheck()
 	return
 
+/obj/machinery/portable_atmospherics/canister/bullet_act(var/obj/item/projectile/Proj)
+	if(Proj.damage)
+		src.health -= round(Proj.damage / 2)
+		healthcheck()
+	..()
+
 /obj/machinery/portable_atmospherics/canister/meteorhit(var/obj/O as obj)
 	src.health = 0
 	healthcheck()
 	return
 
 /obj/machinery/portable_atmospherics/canister/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
-	if(istype(W, /obj/item/weapon/pen))
-		var/new_name = input(user, "Please enter new name", name, "CO2") as message
-		if (new_name) name = "Canister: \[[new_name]\]"
-		src.add_fingerprint(user)
-		return
-
 	if(!istype(W, /obj/item/weapon/wrench) && !istype(W, /obj/item/weapon/tank) && !istype(W, /obj/item/device/analyzer) && !istype(W, /obj/item/device/pda))
-		for(var/mob/V in viewers(src, null))
-			V.show_message(text("\red [user] hits the [src] with a [W]!"))
+		visible_message("\red [user] hits the [src] with a [W]!")
 		src.health -= W.force
 		src.add_fingerprint(user)
 		healthcheck()
@@ -200,10 +202,13 @@
 	return src.attack_hand(user)
 
 /obj/machinery/portable_atmospherics/canister/attack_hand(var/mob/user as mob)
+	return src.interact(user)
+
+/obj/machinery/portable_atmospherics/canister/interact(var/mob/user as mob)
 	if (src.destroyed)
 		return
 
-	user.machine = src
+	user.set_machine(src)
 	var/holding_text
 	if(holding)
 		holding_text = {"<BR><B>Tank Pressure</B>: [holding.air_contents.return_pressure()] KPa<BR>
@@ -225,11 +230,15 @@ Release Pressure: <A href='?src=\ref[src];pressure_adj=-1000'>-</A> <A href='?sr
 	return
 
 /obj/machinery/portable_atmospherics/canister/Topic(href, href_list)
-	..()
-	if (usr.stat || usr.restrained())
+
+	//Do not use "if(..()) return" here, canisters will stop working in unpowered areas like space or on the derelict.
+	if(!usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
+		usr << browse(null, "window=canister")
+		onclose(usr, "canister")
 		return
+
 	if (((get_dist(src, usr) <= 1) && istype(src.loc, /turf)))
-		usr.machine = src
+		usr.set_machine(src)
 
 		if(href_list["toggle"])
 			if (valve_open)
@@ -278,16 +287,6 @@ Release Pressure: <A href='?src=\ref[src];pressure_adj=-1000'>-</A> <A href='?sr
 	else
 		usr << browse(null, "window=canister")
 		return
-	return
-
-/obj/machinery/portable_atmospherics/canister/bullet_act(var/obj/item/projectile/Proj)
-	health -= Proj.damage
-	if(Proj.flag == "bullet")
-		src.health = 0
-		spawn( 0 )
-			healthcheck()
-			return
-	..()
 	return
 
 /obj/machinery/portable_atmospherics/canister/toxins/New()

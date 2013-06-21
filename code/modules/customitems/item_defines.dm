@@ -18,7 +18,7 @@
 /obj/item/fluff/sarah_calvera_1 //fniff: Sarah Calvera
 	name = "old photo"
 	desc = "Looks like it was made on a really old, cheap camera. Low quality. The camera shows a young hispanic looking girl with red hair wearing a white dress is standing in front of\
- an old looking wall. On the back there is a note in black marker that reads \"Sara, Siempre pensÃ© que eras tan linda con ese vestido. Tu hermano, Carlos.\""
+ an old looking wall. On the back there is a note in black marker that reads \"Sara, Siempre pensé que eras tan linda con ese vestido. Tu hermano, Carlos.\""
 	icon_state = "sarah_calvera_1"
 
 /obj/item/fluff/angelo_wilkerson_1 //fniff: Angleo Wilkerson
@@ -55,9 +55,30 @@
 	icon_state = "david_fanning_1"
 	item_state = "david_fanning_1"
 
+/obj/item/fluff/john_mckeever_1 //kirbyelder: John McKeever
+	name = "Suspicious Paper"
+	desc = "A piece of paper reading: Smash = 1/3 Leaf Juice, 1/3 Tricker, 1/3 Aajkli Extract"
+	icon_state = "paper"
+	item_state = "paper"
+
+/obj/item/fluff/maurice_bedford_1
+	name = "Monogrammed Handkerchief"
+	desc = "A neatly folded handkerchief embroidered with a 'M'."
+	icon_state = "maurice_bedford_1"
+
+/obj/item/weapon/book/fluff/johnathan_falcian_1
+	name = "sketchbook"
+	desc = "A small, well-used sketchbook."
+	icon = 'custom_items.dmi'
+	icon_state = "johnathan_notebook"
+	dat = "In the notebook there are numerous drawings of various crew-mates, locations, and scenes on the ship. They are of fairly good quality."
+	author = "Johnathan Falcian"
+	title = "Falcian's sketchbook"
+
 //////////////////////////////////
 ////////// Usable Items //////////
 //////////////////////////////////
+
 
 /obj/item/weapon/pen/fluff/multi //spaceman96: Trenna Seber
 	name = "multicolor pen"
@@ -68,6 +89,12 @@
 	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
 	icon = 'custom_items.dmi'
 	icon_state = "fancypen"
+
+/obj/item/weapon/pen/fluff/fountainpen //paththegreat: Eli Stevens
+	name = "Engraved Fountain Pen"
+	desc = "An expensive looking pen with the initials E.S. engraved into the side."
+	icon = 'custom_items.dmi'
+	icon_state = "fountainpen"
 
 /obj/item/fluff/victor_kaminsky_1 //chinsky: Victor Kaminski
 	name = "golden detective's badge"
@@ -115,13 +142,13 @@
 	icon_on = "blackzippoon"
 	icon_off = "blackzippo"
 
-/obj/item/weapon/lighter/zippo/fluff/sniperyeti_1 //sniperyeti: Patrick Harris/Susan Harris
-	name = "red black zippo"
-	desc = "A shiny red zippo lighter that looks like it's in perfect condition."
+/obj/item/weapon/lighter/zippo/fluff/fay_sullivan_1 //furohman: Fay Sullivan
+	name = "Graduation Lighter"
+	desc = "A silver engraved lighter with 41 on one side and Tharsis University on the other. The lid reads Fay Sullivan, Cybernetic Engineering, 2541"
 	icon = 'custom_items.dmi'
-	icon_state = "redzippo"
-	icon_on = "redzippoon"
-	icon_off = "redzippo"
+	icon_state = "gradzippo"
+	icon_on = "gradzippoon"
+	icon_off = "gradzippo"
 
 /obj/item/weapon/lighter/zippo/fluff/executivekill_1 //executivekill: Hunter Duke
 	name = "Gonzo Fist zippo"
@@ -130,6 +157,14 @@
 	icon_state = "gonzozippo"
 	icon_on = "gonzozippoon"
 	icon_off = "gonzozippo"
+
+/obj/item/weapon/lighter/zippo/fluff/naples_1 //naples: Russell Vierson
+	name = "Engraved zippo"
+	desc = "A intricately engraved Zippo lighter."
+	icon = 'custom_items.dmi'
+	icon_state = "engravedzippo"
+	icon_on = "engravedzippoon"
+	icon_off = "engravedzippo"
 
 /obj/item/weapon/fluff/cado_keppel_1 //sparklysheep: Cado Keppel
 	name = "purple comb"
@@ -142,14 +177,27 @@
 	attack_self(mob/user)
 		if(user.r_hand == src || user.l_hand == src)
 			for(var/mob/O in viewers(user, null))
-				O.show_message(text("\red [] uses their [] to comb their hair with incredible style and sophistication. What a guy.", user, src), 1)
+				O.show_message(text("\red [] uses [] to comb their hair with incredible style and sophistication. What a guy.", user, src), 1)
 		return
 
-/obj/item/weapon/camera_test/fluff/orange //chinsky: Summer Springfield
+/obj/item/weapon/fluff/hugo_cinderbacth_1 //thatoneguy: Hugo Cinderbatch
+	name = "Old Cane"
+	desc = "An old brown cane made from wood. It has a a large, itallicized H on it's handle."
+	icon = 'custom_items.dmi'
+	icon_state = "special_cane"
+
+/obj/item/device/camera/fluff/orange //chinsky: Summer Springfield
 	name = "orange camera"
 	icon = 'custom_items.dmi'
 	desc = "A modified detective's camera, painted in bright orange. On the back you see \"Have fun\" written in small accurate letters with something black."
 	icon_state = "orangecamera"
+	pictures_left = 30
+
+/obj/item/device/camera/fluff/oldcamera //magmaram: Maria Crash
+	name = "Old Camera"
+	icon = 'custom_items.dmi'
+	desc = "An old, slightly beat-up digital camera, with a cheap photo printer taped on. It's a nice shade of blue."
+	icon_state = "oldcamera"
 	pictures_left = 30
 
 /obj/item/weapon/card/id/fluff/lifetime	//fastler: Fastler Greay; it seemed like something multiple people would have
@@ -164,6 +212,21 @@
 	icon = 'custom_items.dmi'
 	icon_state = "shinyflask"
 	volume = 50
+
+/obj/item/weapon/reagent_containers/food/drinks/flask/fluff/lithiumflask //mcgulliver: Wox Derax
+	name = "Lithium Flask"
+	desc = "A flask with a Lithium Atom symbol on it."
+	icon = 'custom_items.dmi'
+	icon_state = "lithiumflask"
+	volume = 50
+
+/obj/item/weapon/reagent_containers/glass/beaker/large/fluff/nashida_bishara_1 //rukral:Nashida Bisha'ra
+	name = "Nashida's Etched Beaker"
+	desc = "The message: 'Please do not be removing this beaker from the chemistry lab. If lost, return to Nashida Bisha'ra' can be seen etched into the side of this 100 unit beaker."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "beakerlarge"
+	g_amt = 5000
+	volume = 100
 
 /obj/item/weapon/storage/pill_bottle/fluff/listermedbottle //compactninja: Lister Black
 	name = "Pill bottle (anti-depressants)"
@@ -199,6 +262,14 @@
 	body_parts_covered = null
 	flags = FPRINT|TABLEPASS
 
+/obj/item/weapon/lighter/fluff //Dragor23: Michael Guess
+	name = "engraved lighter"
+	desc = "A golden lighter, engraved with some ornaments and a G.."
+	icon_state = "guessip"
+	item_state = "guessip"
+	icon_on = "guessipon"
+	icon_off = "guessip"
+
 //Strange penlight, Nerezza: Asher Spock
 
 /obj/item/weapon/reagent_containers/hypospray/fluff/asher_spock_1
@@ -230,8 +301,8 @@
 		return
 	if (reagents.total_volume)
 		if (M == user && user.ckey == "nerezza") //Make sure this is being used by the right person, for the right reason (self injection)
-			visible_message("\blue [user] presses [user.get_visible_gender() == MALE ? "his" : user.get_visible_gender() == FEMALE ? "her" : "their"] \
-				penlight against [user.get_visible_gender() == MALE ? "his" : user.get_visible_gender() == FEMALE ? "her" : "their"] skin, quickly clicking the button once.", \
+			visible_message("\blue [user] presses their \
+				penlight against their skin, quickly clicking the button once.", \
 				"\blue You press the disguised autoinjector against your skin and click the button. There's a sharp pain at the injection site that rapidly fades.", \
 				"You hear a rustle as someone moves nearby, then a sharp click.")
 		if (M != user && user.ckey == "nerezza") //Woah now, you better be careful partner
@@ -260,13 +331,6 @@
 	icon = 'custom_items.dmi'
 	icon_state = "odysseus_spec_id"
 
-/obj/item/weapon/card/id/fluff/ian_colmid //Roaper: Ian Colm
-	name = "Technician"
-	desc = "a ID with the name 'Ian Colm' on it"
-	icon = 'card.dmi'
-	icon_state = "id"
-
-
 /obj/item/weapon/clipboard/fluff/mcreary_journal //sirribbot: James McReary
 	name = "McReary's journal"
 	desc = "A journal with a warning sticker on the front cover. The initials \"J.M.\" are written on the back."
@@ -278,23 +342,46 @@
 	name = "old red flashlight"
 	desc = "A very old, childlike flashlight."
 	icon = 'custom_items.dmi'
-	icon_state = "wolfflight0"
-	w_class = 2
+	icon_state = "wolfflight"
 	item_state = "wolfflight"
-	flags = FPRINT | TABLEPASS | CONDUCT
-	slot_flags = SLOT_BELT
-	m_amt = 50
-	g_amt = 20
-	on = 0
-	brightness_on = 4 //luminosity when on
-	icon_on = "wolfflight1"
-	icon_off = "wolfflight0"
+
+/obj/item/weapon/crowbar/fluff/zelda_creedy_1 //daaneesh: Zelda Creedy
+	name = "Zelda's Crowbar"
+	desc = "A pink crow bar that has an engraving that reads, 'To Zelda. Love always, Dawn'"
+	icon = 'custom_items.dmi'
+	icon_state = "zeldacrowbar"
+	item_state = "crowbar"
+
+////// Ripley customisation kit - Butchery Royce - MayeDay
+
+/obj/item/weapon/fluff/butcher_royce_1
+	name = "Ripley customisation kit"
+	desc = "A kit containing all the needed tools and parts to turn an APLU Ripley into a Titan's Fist worker mech."
+	icon = 'custom_items.dmi'
+	icon_state = "royce_kit"
+
+////// Ripley customisation kit - Sven Fjeltson - Mordeth221
+
+/obj/item/weapon/fluff/sven_fjeltson_1
+  name = "Mercenary APLU kit"
+  desc = "A kit containing all the needed tools and parts to turn an APLU Ripley into an old Mercenaries APLU."
+  icon = 'custom_items.dmi'
+  icon_state = "sven_kit"
 
 //////////////////////////////////
 //////////// Clothing ////////////
 //////////////////////////////////
 
 //////////// Gloves ////////////
+
+/obj/item/clothing/gloves/fluff/murad_hassim_1
+	name = "Tajaran Surgical Gloves"
+	desc = "Reinforced sterile gloves custom tailored to comfortably accommodate Tajaran claws."
+	icon_state = "latex"
+	item_state = "lgloves"
+	siemens_coefficient = 0.30
+	permeability_coefficient = 0.01
+	color="white"
 
 /obj/item/clothing/gloves/fluff/walter_brooks_1 //botanistpower: Walter Brooks
 	name = "mittens"
@@ -304,6 +391,18 @@
 	item_state = "bluegloves"
 	color="blue"
 
+/obj/item/clothing/gloves/fluff/chal_appara_1 //furlucis: Chal Appara
+	name = "Left Black Glove"
+	desc = "The left one of a pair of black gloves. Wonder where the other one went..."
+	icon = 'custom_items.dmi'
+	icon_state = "chal_appara_1"
+
+/obj/item/clothing/gloves/fluff/ashley_rifler_1 //Vinceluk: Ashley Rifler
+	name = "Purple Glove"
+	desc = "A single, purple glove. Initials A.R. are written on the inside of it."
+	icon = 'custom_items.dmi'
+	icon_state = "ashley_rifler_1"
+
 //////////// Eye Wear ////////////
 
 /obj/item/clothing/glasses/meson/fluff/book_berner_1 //asanadas: Book Berner
@@ -312,22 +411,26 @@
 	icon = 'custom_items.dmi'
 	icon_state = "book_berner_1"
 
-/obj/item/clothing/glasses/fluff/serithi_artalis_1 //serithi: Serithi Artalis
-	name = "extranet HUD"
-	desc = "A heads-up display with limited connectivity to the NanoTrasen Extranet, capable of displaying information from official NanoTrasen records."
+/obj/item/clothing/glasses/fluff/uzenwa_sissra_1 //sparklysheep: Uzenwa Sissra
+	name = "Scanning Goggles"
+	desc = "A very oddly shaped pair of goggles with bits of wire poking out the sides. A soft humming sound emanates from it."
 	icon = 'custom_items.dmi'
-	icon_state = "serithi_artalis_1"
+	icon_state = "uzenwa_sissra_1"
+
+////// Medical eyepatch - Thysse Ezinwa - Jadepython
+/obj/item/clothing/glasses/eyepatch/fluff/thysse_1
+	name = "medical eyepatch"
+	desc = "On the strap, EZINWA is written in white block letters."
+
+////// Safety Goggles - Arjun Chopra - MindPhyre - APPROVED
+/obj/item/clothing/glasses/fluff/arjun_chopra_1
+	name = "safety goggles"
+	desc = "A used pair of leather safety goggles."
+	icon = 'custom_items.dmi'
+	icon_state = "arjun_chopra"
+	item_state = "arjun_chopra"
 
 //////////// Hats ////////////
-//Removed by request
-/*
-/obj/item/clothing/head/helmet/hardhat/fluff/greg_anderson_1 //deusdactyl: Greg Anderson
-	name = "old hard hat"
-	desc = "An old dented hard hat with the nametag \"Anderson\". It seems to be backwards."
-	icon_state = "hardhat0_dblue" //Already an in-game sprite
-	item_state = "hardhat0_dblue"
-	color = "dblue"
-*/
 
 /obj/item/clothing/head/secsoft/fluff/swatcap //deusdactyl: James Girard
 	name = "\improper SWAT hat"
@@ -335,19 +438,19 @@
 	icon = 'custom_items.dmi'
 	icon_state = "swatcap"
 
-/obj/item/clothing/head/helmet/welding/fluff/alice_mccrea_1 //madmalicemccrea: Alice McCrea
+/obj/item/clothing/head/welding/fluff/alice_mccrea_1 //madmalicemccrea: Alice McCrea
 	name = "flame decal welding helmet"
 	desc = "A welding helmet adorned with flame decals, and several cryptic slogans of varying degrees of legibility. \"Fly the Friendly Skies\" is clearly visible, written above the visor, for some reason."
 	icon = 'custom_items.dmi'
 	icon_state = "alice_mccrea_1"
 
-/obj/item/clothing/head/helmet/welding/fluff/yuki_matsuda_1 //searif: Yuki Matsuda
+/obj/item/clothing/head/welding/fluff/yuki_matsuda_1 //searif: Yuki Matsuda
 	name = "white decal welding helmet"
 	desc = "A white welding helmet with a character written across it."
 	icon = 'custom_items.dmi'
 	icon_state = "yuki_matsuda_1"
 
-/obj/item/clothing/head/helmet/welding/fluff/norah_briggs_1 //bountylord13: Norah Briggs
+/obj/item/clothing/head/welding/fluff/norah_briggs_1 //bountylord13: Norah Briggs
 	name = "blue flame decal welding helmet"
 	desc = "A welding helmet with blue flame decals on it."
 	icon = 'custom_items.dmi'
@@ -359,12 +462,23 @@
 	icon = 'custom_items.dmi'
 	icon_state = "taryn_kifer_1"
 
-/obj/item/clothing/head/fluff/enos_adlai_1 //roaper: Enos Adlai
-	name = "comfy cap"
-	desc = "Because when you're the toughest Mother Hubbard on the station, nobody's criticizing your fashion sense."
+/obj/item/clothing/head/fluff/edvin_telephosphor_1 //foolamancer: Edvin Telephosphor
+	name = "Edvin's Hat"
+	desc = "A hat specially tailored for Skrellian anatomy. It has a yellow badge on the front, with a large red 'T' inscribed on it."
 	icon = 'custom_items.dmi'
-	icon_state = "enos_adlai_1"
+	icon_state = "edvin_telephosphor_1"
 
+/obj/item/clothing/head/hardhat/fluff/neil_patterson_1 //superboredguy: Neil Patterson
+	name = "Engineering Cap"
+	desc = "Much safer than a hard helmet."
+	icon = 'custom_items.dmi'
+	icon_state = "neilpatterson0_hat"
+
+/obj/item/clothing/head/fluff/krinnhat //Shirotyrant: Krinn Seeskale
+	name = "saucepan hat"
+	desc = "This hat is the shiniest shiny Krinn has ever owned."
+	icon = 'custom_items.dmi'
+	icon_state = "krinn_hat"
 //////////// Suits ////////////
 
 /obj/item/clothing/suit/storage/labcoat/fluff/pink //spaceman96: Trenna Seber
@@ -401,6 +515,13 @@
 	icon = 'custom_items.dmi'
 	icon_state = "deus_blueshield"
 	item_state = "deus_blueshield"
+
+/obj/item/clothing/suit/fluff/oldscarf //Writerer2: Sharik Israa
+	name = "old scarf"
+	desc = "An old looking scarf, it seems to be fairly worn."
+	icon_state = "mantle-unathi"
+	item_state = "mantle-unathi"
+	body_parts_covered = UPPER_TORSO
 
 //////////// Uniforms ////////////
 
@@ -443,9 +564,61 @@
 	item_state = "ara_bar_uniform"
 	color = "ara_bar_uniform"
 
+/obj/item/clothing/under/fluff/callum_suit //roaper: Callum Leamus
+	name = "knockoff suit"
+	desc = "A knockoff of a suit commonly worn by the upper class."
+	icon = 'custom_items.dmi'
+	icon_state = "callum_suit"
+	item_state = "callum_suit"
+	color = "callum_suit"
+
+/////// NT-SID Suit //Zuhayr: Jane Doe
+
+/obj/item/clothing/under/fluff/jane_sidsuit
+	name = "NT-SID jumpsuit"
+	desc = "A NanoTrasen Synthetic Intelligence Division jumpsuit, issued to 'volunteers'. On other people it looks fine, but right here a scientist has noted: on you it looks stupid."
+
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "jane_sid_suit"
+	item_state = "jane_sid_suit"
+	color = "jane_sid_suit"
+	has_sensor = 2
+	sensor_mode = 3
+	flags = FPRINT | TABLEPASS
+
+//Suit roll-down toggle.
+/obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
+	set name = "Toggle Jumpsuit Zipper"
+	set category = "Object"
+	set src in usr
+
+	if(!usr.canmove || usr.stat || usr.restrained())
+		return 0
+
+	if(src.icon_state == "jane_sid_suit_down")
+		src.color = "jane_sid_suit"
+		usr << "You zip up the [src]."
+	else
+		src.color = "jane_sid_suit_down"
+		usr << "You unzip and roll down the [src]."
+
+	src.icon_state = "[color]"
+	src.item_state = "[color]"
+	usr.update_inv_w_uniform()
+
+////// Wyatt's Ex-Commander Jumpsuit - RawrTaicho
+/obj/item/clothing/under/fluff/wyatt_1
+
+	name = "ex-commander jumpsuit"
+	desc = "A standard Central Command Engineering Commander jumpsuit tailored to fight the wearer tightly. It has a Medal of Service pinned onto the left side of it."
+	icon = 'custom_items.dmi'
+	icon_state = "wyatt_uniform"
+	item_state = "wyatt_uniform"
+	color = "wyatt_uniform"
+
 //////////// Masks ////////////
 
-/*
+
 /obj/item/clothing/mask/fluff/flagmask //searif: Tsiokeriio Tarbell
 	name = "\improper First Nations facemask"
 	desc = "A simple cloth rag that bears the flag of the first nations."
@@ -455,7 +628,7 @@
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
-*/
+
 
 /obj/item/clothing/mask/mara_kilpatrick_1 //staghorn: Mara Kilpatrick
 	name = "shamrock pendant"
@@ -465,33 +638,58 @@
 	flags = FPRINT|TABLEPASS
 	w_class = 1
 
+////// Small locket - Altair An-Nasaqan - Serithi
+
+/obj/item/clothing/tie/fluff/altair_locket
+	name = "small locket"
+	desc = "A small golden locket attached to an Ii'rka-reed string. Inside the locket is a holo-picture of a female Tajaran, and an inscription writtin in Siik'mas."
+	icon = 'custom_items.dmi'
+	icon_state = "altair_locket"
+	item_state = "altair_locket"
+	color = "altair_locket"
+	slot_flags = 0
+	flags = FPRINT|TABLEPASS
+	w_class = 1
+	slot_flags = SLOT_MASK
+
+//////  Medallion - Nasir Khayyam - Jamini
+
+/obj/item/clothing/tie/fluff/nasir_khayyam_1
+	name = "medallion"
+	desc = "This silvered medallion bears the symbol of the Hadii Clan of the Tajaran."
+	icon = 'custom_items.dmi'
+	icon_state = "nasir_khayyam_1"
+	flags = FPRINT|TABLEPASS
+	w_class = 1
+	slot_flags = SLOT_MASK
+
+////// Emerald necklace - Ty Foster - Nega
+
+/obj/item/clothing/mask/mara_kilpatrick_1
+	name = "emerald necklace"
+	desc = "A brass necklace with a green emerald placed at the end. It has a small inscription on the top of the chain, saying \'Foster\'"
+	icon = 'custom_items.dmi'
+	icon_state = "ty_foster"
+	flags = FPRINT|TABLEPASS
+	w_class = 1
+
 //////////// Shoes ////////////
 
-/obj/item/clothing/shoes/fluff/leatherboots //serithi: Serithi Artalis
-	name = "leather boots"
-	desc = "A pair of leather boots. Well-worn, but still kept in good condition. There is a small \"S\" scratched into the back of each boot."
+/obj/item/clothing/shoes/magboots/fluff/susan_harris_1 //sniperyeti: Susan Harris
+	name = "Susan's Magboots"
+	desc = "A colorful pair of magboots with the name Susan Harris clearly written on the back."
 	icon = 'custom_items.dmi'
-	icon_state = "leatherboots"
-	item_state = "jackboots"
+	icon_state = "atmosmagboots0"
 
 //////////// Sets ////////////
 
-////// CDC //deusdactyl: Roger Wiles
-//Removed by request.
-/*
-/obj/item/clothing/under/rank/virologist/fluff/cdc_jumpsuit
-	name = "\improper CDC jumpsuit"
-	desc = "A modified standard-issue CDC jumpsuit made of a special fiber that gives special protection against biohazards.  It has a biohazard symbol sewn into the back."
-	icon = 'custom_items.dmi'
-	icon_state = "cdc_jumpsuit"
-	color = "cdc_jumpsuit"
 
 /obj/item/clothing/suit/storage/labcoat/fluff/cdc_labcoat
 	name = "\improper CDC labcoat"
 	desc = "A standard-issue CDC labcoat that protects against minor chemical spills.  It has the name \"Wiles\" sewn on to the breast pocket."
 	icon = 'custom_items.dmi'
 	icon_state = "labcoat_cdc_open"
-*/
+
 ////// Short Sleeve Medical Outfit //erthilo: Farah Lants
 
 /obj/item/clothing/under/rank/medical/fluff/short
@@ -529,3 +727,167 @@
 	icon = 'custom_items.dmi'
 	icon_state = "retpoluniform"
 	color = "retpoluniform"
+
+//////////// Weapons ////////////
+
+///// Colt Peacemaker - Ana Ka'Rimah - SueTheCake
+
+//obj/item/weapon/gun/energy/stunrevolver/fluff/ana_peacemaker
+
+	name = "Peacemaker"
+	desc = "A nickel-plated revolver with pearl grips. It has a certain Old West flair!"
+	icon = 'custom_items.dmi'
+	icon_state = "peacemaker"
+
+///// Well-used baton - Oen'g Issek - Donofnyc3
+
+/obj/item/weapon/melee/baton/fluff/oeng_baton
+	name = "well-used stun baton"
+	desc = "A stun baton used for incapacitating targets; there seems to be a bunch of tally marks set into the handle."
+
+///// Animus Station
+
+/obj/item/clothing/suit/armor/ks13suit	// NyanCommissar
+	name = "KC-13 suit"
+	desc = "Looks like outdated field green military jumpsuit. It has red insignias with stars on arms and tabs on collars. On right tab written: KC-13. What is it?"
+	icon_state = "ks13suit"
+	item_state = "ks13suit"
+	color = "ks13suit"
+
+/obj/item/device/Handwatch	// Fiodoss
+	name = "Handwatch"
+	desc = "Watches made from the finest nanotrasen steel. On the reverse side depicts demons of Momsof - evil spirits of babies who are left to die."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "handwatches"
+	item_state = "handwatchess"
+	w_class = 2.0
+	flags = FPRINT | TABLEPASS
+	slot_flags = SLOT_GLOVES
+
+/obj/item/device/Handwatch/verb/Check_Time()
+	set name = "Check time"
+	set category = "IC"
+	if (usr != src && istype(src, /obj/item/device) && istype(usr, /mob/living))
+		for(var/mob/O in viewers(usr, null))
+			if (istype(O, usr))
+				break
+			if (O != src)
+				O.show_message("<i><b>[usr]</b> is watching on his watches.</i>", 1)
+			else
+				O.show_message("<i><b>[usr]</b> is watching on his watches.</i>", 1)
+		usr << "\blue<i>You have a close look at your watches. It's shows you <b>[worldtime2text()]</b></i>"
+
+/obj/item/weapon/gun/energy/uni/ia
+	icon_state = "dred"
+	name = "Internal Affairs Energy Gun"
+	desc = "Elite Energy pistol engraved with HT on its side."
+	icon_state = "legalist"
+	item_state = "legalist"
+	fire_sound = 'sound/weapons/Taser.ogg'
+	force = 10
+	origin_tech = "combat=4;magnets=4"
+	cell_type = "/obj/item/weapon/cell/cartridge/super"
+	charge_cost = 50
+
+	var/mode = 2
+	removable = 0
+	special_check(var/mob/living/carbon/human/M)
+		for(var/obj/item/weapon/implant/loyalty/L in M)
+			if(L && L.implanted)
+				return 1
+
+	attack_self(mob/living/user as mob)
+		switch(mode)
+			if(6)
+				mode = 0
+				charge_cost = 50
+				fire_sound = 'sound/weapons/Taser.ogg'
+				user << "\red [src.name] is now set to stun."
+				projectile_type = "/obj/item/projectile/energy/electrode"
+			if(0)
+				mode = 1
+				charge_cost = 50
+				fire_sound = 'sound/weapons/gunshot_det.ogg'
+				user << "\red [src.name] is now set to kill."
+				projectile_type = "/obj/item/projectile/bullet"
+			if(1)
+				mode = 2
+				charge_cost = 50
+				fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+				user << "\red [src.name] is now set to ACID."
+				projectile_type = "/obj/item/projectile/bullet/cyanideround"
+			if(2)
+				mode = 3
+				charge_cost = 50
+				fire_sound = 'sound/weapons/pulse.ogg'
+				user << "\red [src.name] is now set to DESTROY."
+				projectile_type = "/obj/item/projectile/beam/pulse"
+			if(3)
+				mode = 4
+				charge_cost = 50
+				fire_sound = 'sound/weapons/wave.ogg'
+				user << "\red [src.name] is now set to HURT."
+				projectile_type = "/obj/item/projectile/bullet/gyro"
+			if(4)
+				mode = 5
+				charge_cost = 50
+				fire_sound = 'sound/weapons/lasercannonfire.ogg'
+				user << "\red [src.name] is now set to ION."
+				projectile_type = "/obj/item/projectile/ion"
+			if(5)
+				mode = 6
+				charge_cost = 50
+				fire_sound = 'sound/weapons/wave.ogg'
+				user << "\red [src.name] is now set to NEUROTOXIN."
+				projectile_type = "/obj/item/projectile/energy/neurotoxin"
+		return
+
+	isHandgun()
+		return 0
+
+/obj/item/clothing/suit/armor/lawyerarmor
+	name = "legalist armor"
+	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
+	icon_state = "iamthelaw"
+	w_class = 4
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.02
+	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
+	allowed = list(/obj/item/weapon/tank/emergency_oxygen, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_magazine, /obj/item/ammo_casing, /obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs)
+	slowdown = 1.5
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
+
+/obj/item/clothing/head/helmet/dred
+	name = "armored helmet"
+	desc = "It's a helmet specifically designed to protect against close range attacks."
+	icon_state = "helmlaw"
+	item_state = "helmet"
+	flags = FPRINT|TABLEPASS|HEADCOVERSEYES
+	armor = list(melee = 100, bullet = 35, laser = 45,energy = 35, bomb = 55, bio = 20, rad = 35)
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/space/grim_reaper
+	name = "grim reaper suit"
+	icon_state = "grim_reaper"
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/cell)
+	slowdown = 0
+	armor = list(melee = 20, bullet = 10, laser = 10,energy = 15, bomb = 10, bio = 10, rad = 10)
+
+/obj/item/clothing/head/helmet/space/grim_reaper
+	name = "grim reaper hood"
+	icon_state = "grim_reaper"
+	armor = list(melee = 20, bullet = 10, laser = 10,energy = 15, bomb = 10, bio = 10, rad = 15)
+
+//Chicken Security Rig
+/obj/item/clothing/suit/space/rig/chicken
+	icon_state = "chickensuitsec"
+	name = "Security Chicken Suit"
+	slowdown = 0
+	w_class = 2
+	unacidable = 1
+	armor = list(melee = 30, bullet = 20, laser = 15,energy = 15, bomb = 35, bio = 50, rad = 40)
+

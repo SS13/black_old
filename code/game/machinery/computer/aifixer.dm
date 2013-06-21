@@ -1,19 +1,19 @@
 /obj/machinery/computer/aifixer
 	name = "AI System Integrity Restorer"
-	icon = 'computer.dmi'
+	icon = 'icons/obj/computer.dmi'
 	icon_state = "ai-fixer"
-	req_access = list(ACCESS_CAPTAIN, ACCESS_ROBOTICS, ACCESS_HEADS)
+	req_access = list(access_captain, access_robotics, access_heads)
 	var/mob/living/silicon/ai/occupant = null
 	var/active = 0
 
 /obj/machinery/computer/aifixer/New()
-	src.overlays += image('computer.dmi', "ai-fixer-empty")
+	src.overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")
 
 
 /obj/machinery/computer/aifixer/attackby(I as obj, user as mob)
 /*
 	if(istype(I, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'Screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
 			if (src.stat & BROKEN)
 				user << "\blue The broken glass falls out."
@@ -68,7 +68,7 @@
 				user << "\red <b>ERROR</b>: \black Remote access channel disabled."
 			return
 
-	user.machine = src
+	user.set_machine(src)
 	var/dat = "<h3>AI System Integrity Restorer</h3><br><br>"
 
 	if (src.occupant)
@@ -108,19 +108,16 @@
 	return
 
 /obj/machinery/computer/aifixer/process()
-	if(stat & (NOPOWER|BROKEN))
+	if(..())
+		src.updateDialog()
 		return
-
-
-	src.updateDialog()
-	return
 
 /obj/machinery/computer/aifixer/Topic(href, href_list)
 	if(..())
 		return
 	if (href_list["fix"])
 		src.active = 1
-		src.overlays += image('computer.dmi', "ai-fixer-on")
+		src.overlays += image('icons/obj/computer.dmi', "ai-fixer-on")
 		while (src.occupant.health < 100)
 			src.occupant.adjustOxyLoss(-1)
 			src.occupant.adjustFireLoss(-1)
@@ -129,12 +126,15 @@
 			src.occupant.updatehealth()
 			if (src.occupant.health >= 0 && src.occupant.stat == 2)
 				src.occupant.stat = 0
-				src.overlays -= image('computer.dmi', "ai-fixer-404")
-				src.overlays += image('computer.dmi', "ai-fixer-full")
+				src.occupant.lying = 0
+				dead_mob_list -= src.occupant
+				living_mob_list += src.occupant
+				src.overlays -= image('icons/obj/computer.dmi', "ai-fixer-404")
+				src.overlays += image('icons/obj/computer.dmi', "ai-fixer-full")
 			src.updateUsrDialog()
 			sleep(10)
 		src.active = 0
-		src.overlays -= image('computer.dmi', "ai-fixer-on")
+		src.overlays -= image('icons/obj/computer.dmi', "ai-fixer-on")
 
 
 		src.add_fingerprint(usr)
@@ -142,3 +142,19 @@
 	return
 
 
+/obj/machinery/computer/aifixer/update_icon()
+	..()
+	// Broken / Unpowered
+	if((stat & BROKEN) || (stat & NOPOWER))
+		overlays.Cut()
+
+	// Working / Powered
+	else
+		if (occupant)
+			switch (occupant.stat)
+				if (0)
+					overlays += image('icons/obj/computer.dmi', "ai-fixer-full")
+				if (2)
+					overlays += image('icons/obj/computer.dmi', "ai-fixer-404")
+		else
+			overlays += image('icons/obj/computer.dmi', "ai-fixer-empty")

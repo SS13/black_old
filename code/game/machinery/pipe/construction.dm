@@ -17,9 +17,12 @@ Buildable meters
 #define PIPE_INSULATED_BENT		12
 #define PIPE_GAS_FILTER			13
 #define PIPE_GAS_MIXER			14
-#define PIPE_MTVALVE			15
-#define PIPE_MANIFOLD4W			16
-#define PIPE_CAP				17
+#define PIPE_PASSIVE_GATE       15
+#define PIPE_VOLUME_PUMP        16
+#define PIPE_HEAT_EXCHANGE      17
+#define PIPE_MTVALVE			18
+#define PIPE_MANIFOLD4W			19
+#define PIPE_CAP				20
 
 /obj/item/pipe
 	name = "pipe"
@@ -28,7 +31,7 @@ Buildable meters
 	//var/pipe_dir = 0
 	var/pipename
 	force = 7
-	icon = 'pipe-item.dmi'
+	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "simple"
 	item_state = "buildpipe"
 	flags = TABLEPASS|FPRINT
@@ -69,9 +72,15 @@ Buildable meters
 			src.pipe_type = PIPE_GAS_MIXER
 		else if(istype(make_from, /obj/machinery/atmospherics/unary/vent_scrubber))
 			src.pipe_type = PIPE_SCRUBBER
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/passive_gate))
+			src.pipe_type = PIPE_PASSIVE_GATE
+		else if(istype(make_from, /obj/machinery/atmospherics/binary/volume_pump))
+			src.pipe_type = PIPE_VOLUME_PUMP
+		else if(istype(make_from, /obj/machinery/atmospherics/unary/heat_exchanger))
+			src.pipe_type = PIPE_HEAT_EXCHANGE
 		else if(istype(make_from, /obj/machinery/atmospherics/tvalve))
 			src.pipe_type = PIPE_MTVALVE
-		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold))
+		else if(istype(make_from, /obj/machinery/atmospherics/pipe/manifold4w))
 			src.pipe_type = PIPE_MANIFOLD4W
 		else if(istype(make_from, /obj/machinery/atmospherics/pipe/cap))
 			src.pipe_type = PIPE_CAP
@@ -102,6 +111,9 @@ Buildable meters
 		"bent insulated pipe", \
 		"gas filter", \
 		"gas mixer", \
+		"passive gate", \
+		"volume pump", \
+		"heat exchanger", \
 		"t-valve", \
 		"4-way manifold", \
 		"pipe cap", \
@@ -123,6 +135,9 @@ Buildable meters
 		"insulated", \
 		"filter", \
 		"mixer", \
+		"passivegate", \
+		"volumepump", \
+		"heunary", \
 		"mtvalve", \
 		"manifold4w", \
 		"cap", \
@@ -181,13 +196,17 @@ Buildable meters
 			PIPE_HE_STRAIGHT, \
 			PIPE_JUNCTION ,\
 			PIPE_PUMP ,\
+			PIPE_VOLUME_PUMP ,\
+			PIPE_PASSIVE_GATE ,\
 			PIPE_MVALVE \
 		)
 			return dir|flip
 		if(PIPE_SIMPLE_BENT, PIPE_INSULATED_BENT, PIPE_HE_BENT)
 			return dir //dir|acw
-		if(PIPE_CONNECTOR,PIPE_UVENT,PIPE_SCRUBBER,PIPE_MANIFOLD4W)
+		if(PIPE_CONNECTOR,PIPE_UVENT,PIPE_SCRUBBER,PIPE_HEAT_EXCHANGE)
 			return dir
+		if(PIPE_MANIFOLD4W)
+			return dir|flip|cw|acw
 		if(PIPE_MANIFOLD)
 			return flip|cw|acw
 		if(PIPE_GAS_FILTER, PIPE_GAS_MIXER,PIPE_MTVALVE)
@@ -329,7 +348,7 @@ Buildable meters
 			if (M.node3)
 				M.node3.initialize()
 				M.node3.build_network()
-
+			
 		if(PIPE_MANIFOLD4W)		//4-way manifold
 			var/obj/machinery/atmospherics/pipe/manifold4w/M = new( src.loc )
 			M.dir = dir
@@ -496,7 +515,7 @@ Buildable meters
 			if (P.node2)
 				P.node2.initialize()
 				P.node2.build_network()
-
+				
 		if(PIPE_MTVALVE)		//manual t-valve
 			var/obj/machinery/atmospherics/tvalve/V = new(src.loc)
 			V.dir = dir
@@ -516,7 +535,7 @@ Buildable meters
 			if (V.node3)
 				V.node3.initialize()
 				V.node3.build_network()
-
+				
 		if(PIPE_CAP)
 			var/obj/machinery/atmospherics/pipe/cap/C = new(src.loc)
 			C.dir = dir
@@ -527,7 +546,55 @@ Buildable meters
 				C.node.initialize()
 				C.node.build_network()
 
-	playsound(src.loc, 'Ratchet.ogg', 50, 1)
+		if(PIPE_PASSIVE_GATE)		//passive gate
+			var/obj/machinery/atmospherics/binary/passive_gate/P = new(src.loc)
+			P.dir = dir
+			P.initialize_directions = pipe_dir
+			if (pipename)
+				P.name = pipename
+			var/turf/T = P.loc
+			P.level = T.intact ? 2 : 1
+			P.initialize()
+			P.build_network()
+			if (P.node1)
+				P.node1.initialize()
+				P.node1.build_network()
+			if (P.node2)
+				P.node2.initialize()
+				P.node2.build_network()
+
+		if(PIPE_VOLUME_PUMP)		//volume pump
+			var/obj/machinery/atmospherics/binary/volume_pump/P = new(src.loc)
+			P.dir = dir
+			P.initialize_directions = pipe_dir
+			if (pipename)
+				P.name = pipename
+			var/turf/T = P.loc
+			P.level = T.intact ? 2 : 1
+			P.initialize()
+			P.build_network()
+			if (P.node1)
+				P.node1.initialize()
+				P.node1.build_network()
+			if (P.node2)
+				P.node2.initialize()
+				P.node2.build_network()
+
+		if(PIPE_HEAT_EXCHANGE)		// heat exchanger
+			var/obj/machinery/atmospherics/unary/heat_exchanger/C = new( src.loc )
+			C.dir = dir
+			C.initialize_directions = pipe_dir
+			if (pipename)
+				C.name = pipename
+			var/turf/T = C.loc
+			C.level = T.intact ? 2 : 1
+			C.initialize()
+			C.build_network()
+			if (C.node)
+				C.node.initialize()
+				C.node.build_network()
+
+	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user.visible_message( \
 		"[user] fastens the [src].", \
 		"\blue You have fastened the [src].", \
@@ -544,7 +611,7 @@ Buildable meters
 /obj/item/pipe_meter
 	name = "meter"
 	desc = "A meter that can be laid on pipes"
-	icon = 'pipe-item.dmi'
+	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
 	flags = TABLEPASS|FPRINT
@@ -559,10 +626,10 @@ Buildable meters
 		user << "\red You need to fasten it to a pipe"
 		return 1
 	new/obj/machinery/meter( src.loc )
-	playsound(src.loc, 'Ratchet.ogg', 50, 1)
+	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	user << "\blue You have fastened the meter to the pipe"
 	del(src)
-
+//not sure why these are necessary
 #undef PIPE_SIMPLE_STRAIGHT
 #undef PIPE_SIMPLE_BENT
 #undef PIPE_HE_STRAIGHT
@@ -578,5 +645,8 @@ Buildable meters
 #undef PIPE_INSULATED_BENT
 #undef PIPE_GAS_FILTER
 #undef PIPE_GAS_MIXER
+#undef PIPE_PASSIVE_GATE
+#undef PIPE_VOLUME_PUMP
+#undef PIPE_OUTLET_INJECT
 #undef PIPE_MTVALVE
-#undef PIPE_MANIFOLD4W
+//#undef PIPE_MANIFOLD4W

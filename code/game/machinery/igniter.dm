@@ -1,3 +1,15 @@
+/obj/machinery/igniter
+	name = "igniter"
+	desc = "It's useful for igniting plasma."
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "igniter1"
+	var/id = null
+	var/on = 1.0
+	anchored = 1.0
+	use_power = 1
+	idle_power_usage = 2
+	active_power_usage = 4
+
 /obj/machinery/igniter/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
 
@@ -16,7 +28,7 @@
 	src.icon_state = text("igniter[]", src.on)
 	return
 
-/obj/machinery/igniter/process()
+/obj/machinery/igniter/process()	//ugh why is this even in process()?
 	if (src.on && !(stat & NOPOWER) )
 		var/turf/location = src.loc
 		if (isturf(location))
@@ -38,7 +50,7 @@
 /obj/machinery/sparker
 	name = "Mounted igniter"
 	desc = "A wall-mounted ignition device."
-	icon = 'stationobjs.dmi'
+	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "migniter"
 	var/id = null
 	var/disable = 0
@@ -53,11 +65,11 @@
 	if ( powered() && disable == 0 )
 		stat &= ~NOPOWER
 		icon_state = "[base_state]"
-		ul_SetLuminosity(2,0,0)
+//		src.sd_SetLuminosity(2)
 	else
 		stat |= ~NOPOWER
 		icon_state = "[base_state]-p"
-		ul_SetLuminosity(0)
+//		src.sd_SetLuminosity(0)
 
 /obj/machinery/sparker/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/device/detective_scanner))
@@ -100,6 +112,12 @@
 		location.hotspot_expose(1000,500,1)
 	return 1
 
+/obj/machinery/sparker/emp_act(severity)
+	if(stat & (BROKEN|NOPOWER))
+		..(severity)
+		return
+	ignite()
+	..(severity)
 
 /obj/machinery/ignition_switch/attack_ai(mob/user as mob)
 	return src.attack_hand(user)
@@ -108,9 +126,6 @@
 	return src.attack_hand(user)
 
 /obj/machinery/ignition_switch/attackby(obj/item/weapon/W, mob/user as mob)
-
-	if(istype(W, /obj/item/device/detective_scanner))
-		return
 	return src.attack_hand(user)
 
 /obj/machinery/ignition_switch/attack_hand(mob/user as mob)

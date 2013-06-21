@@ -1,13 +1,11 @@
 obj/machinery/atmospherics/trinary/filter
-	icon = 'filter.dmi'
+	icon = 'icons/obj/atmospherics/filter.dmi'
 	icon_state = "intact_off"
 	density = 1
 
 	name = "Gas filter"
 
-	req_access = list(ACCESS_ATMOSPHERICS)
-
-	var/locked = 1 // If it's not locked, no need for an access check.
+	req_access = list(access_atmospherics)
 
 	var/on = 0
 	var/temp = null // -- TLE
@@ -41,16 +39,21 @@ Filter types:
 		..()
 
 	update_icon()
-		if(node2 && node3 && node1)
+		if(stat & NOPOWER)
+			icon_state = "intact_off"
+		else if(node2 && node3 && node1)
 			icon_state = "intact_[on?("on"):("off")]"
 		else
-			icon_state = "hintact_off"
+			icon_state = "intact_off"
 			on = 0
 
 		return
 
-	New()
+	power_change()
+		var/old_stat = stat
 		..()
+		if(old_stat != stat)
+			update_icon()
 
 	process()
 		..()
@@ -59,7 +62,7 @@ Filter types:
 
 		var/output_starting_pressure = air3.return_pressure()
 
-		if(output_starting_pressure >= target_pressure)
+		if(output_starting_pressure >= target_pressure || air2.return_pressure() >= target_pressure )
 			//No need to mix if target is already full!
 			return 1
 
@@ -86,6 +89,12 @@ Filter types:
 					filtered_out.toxins = removed.toxins
 					removed.toxins = 0
 
+					if(removed.trace_gases.len>0)
+						for(var/datum/gas/trace_gas in removed.trace_gases)
+							if(istype(trace_gas, /datum/gas/oxygen_agent_b))
+								removed.trace_gases -= trace_gas
+								filtered_out.trace_gases += trace_gas
+
 				if(1) //removing O2
 					filtered_out.oxygen = removed.oxygen
 					removed.oxygen = 0
@@ -108,8 +117,7 @@ Filter types:
 				else
 					filtered_out = null
 
-			if(filtered_out)
-				filtered_out.update_values()
+
 			air2.merge(filtered_out)
 			air3.merge(removed)
 
@@ -141,7 +149,7 @@ Filter types:
 			user << "\red You cannot unwrench this [src], it too exerted due to internal pressure."
 			add_fingerprint(user)
 			return 1
-		playsound(src.loc, 'Ratchet.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 		user << "\blue You begin to unfasten \the [src]..."
 		if (do_after(user, 40))
 			user.visible_message( \
@@ -156,7 +164,7 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 	if(..())
 		return
 
-	if(src.locked && !src.allowed(user))
+	if(!src.allowed(user))
 		user << "\red Access denied."
 		return
 
@@ -164,7 +172,7 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 	var/current_filter_type
 	switch(filter_type)
 		if(0)
-			current_filter_type = "Carbon Molecules (e.g. Plasma)"
+			current_filter_type = "Carbon Molecules"
 		if(1)
 			current_filter_type = "Oxygen"
 		if(2)
@@ -182,14 +190,14 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 			<b>Power: </b><a href='?src=\ref[src];power=1'>[on?"On":"Off"]</a><br>
 			<b>Filtering: </b>[current_filter_type]<br><HR>
 			<h4>Set Filter Type:</h4>
-			<A href='?src=\ref[src];filterset=0'>Carbon Molecules (e.g Plasma)</A><BR>
+			<A href='?src=\ref[src];filterset=0'>Carbon Molecules</A><BR>
 			<A href='?src=\ref[src];filterset=1'>Oxygen</A><BR>
 			<A href='?src=\ref[src];filterset=2'>Nitrogen</A><BR>
 			<A href='?src=\ref[src];filterset=3'>Carbon Dioxide</A><BR>
 			<A href='?src=\ref[src];filterset=4'>Nitrous Oxide</A><BR>
 			<A href='?src=\ref[src];filterset=-1'>Nothing</A><BR>
 			<HR><B>Desirable output pressure:</B>
-			[src.target_pressure] | <a href='?src=\ref[src];set_press=1'>Change</a>
+			[src.target_pressure]kPa | <a href='?src=\ref[src];set_press=1'>Change</a>
 			"}
 /*
 		user << browse("<HEAD><TITLE>[src.name] control</TITLE></HEAD>[dat]","window=atmo_filter")
@@ -208,7 +216,7 @@ obj/machinery/atmospherics/trinary/filter/attack_hand(user as mob) // -- TLE
 obj/machinery/atmospherics/trinary/filter/Topic(href, href_list) // -- TLE
 	if(..())
 		return
-	usr.machine = src
+	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["filterset"])
 		src.filter_type = text2num(href_list["filterset"])
@@ -227,3 +235,5 @@ obj/machinery/atmospherics/trinary/filter/Topic(href, href_list) // -- TLE
 			src.attack_hand(M)
 */
 	return
+
+

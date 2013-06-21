@@ -1,15 +1,19 @@
 /obj/item/weapon/grab
 	name = "grab"
-	icon = 'screen1.dmi'
+	icon = 'icons/mob/screen1.dmi'
 	icon_state = "grabbed"
 	var/obj/screen/grab/hud1 = null
 	var/mob/affecting = null
 	var/atom/movable/structure = null // if the grab is not grabbing a mob
 	var/mob/assailant = null
 	var/state = 1.0
-	var/killing = 0.0
+
+	var/killing = 0.0 // 1 = about to kill, 2 = killing
+	var/kill_loc = null
+
 	var/allow_upgrade = 1.0
 	var/last_suffocate = 1.0
+
 	layer = 21
 	abstract = 1.0
 	item_state = "nothing"
@@ -17,15 +21,21 @@
 
 
 /obj/item/weapon/grab/proc/throw()
+
 	if(affecting)
-		var/grabee = affecting
-		spawn(0)
-			del(src)
-		return grabee
+		if(state >= 2)
+			var/grabee = affecting
+			spawn(1)
+				del(src)
+			return grabee
+		else
+			spawn(1)
+				del(src)
+			return null
 
 	else if(structure)
 		var/grabee = structure
-		spawn(0)
+		spawn(1)
 			del(src)
 		return grabee
 
@@ -62,7 +72,7 @@
 		assailant.client.screen -= hud1
 		assailant.client.screen += hud1
 	if (assailant.pulling == affecting || assailant.pulling == structure)
-		assailant.pulling = null
+		assailant.stop_pulling()
 
 	if (structure)
 		structure.loc = assailant.loc
@@ -88,7 +98,6 @@
 			for(var/obj/item/weapon/grab/G in affecting.grabbed_by)
 				if (G.state == 2)
 					allow_upgrade = 0
-				//Foreach goto(341)
 		if (allow_upgrade)
 			hud1.icon_state = "reinforce"
 		else
@@ -96,21 +105,28 @@
 	else
 		if (!( affecting.buckled ))
 			affecting.loc = assailant.loc
-	if ((killing && state == 3))
-		affecting.Stun(5)
-		affecting.Paralyse(3)
+	if ((killing == 2 && state == 3))
+		if(assailant.loc != kill_loc)
+			assailant.visible_message("\red [assailant] lost \his tightened grip on [affecting]'s neck!")
+			killing = 0
+			hud1.icon_state = "disarm/kill"
+			return
+
 		if(ishuman(affecting))
 			var/mob/living/carbon/human/H = affecting
-			affecting.being_strangled = 1
-			var/datum/organ/external/head = H.organs["head"]
-			head.add_wound("Strangulation", 0)
-		else
-			affecting.losebreath = min(affecting.losebreath + 2, 3)
+			var/datum/organ/external/head = H.get_organ("head")
+			head.add_autopsy_data("Strangulation", 0)
+
+		affecting.Weaken(5) // Should keep you down unless you get help.
+		affecting.Stun(5) // It will hamper your voice, being choked and all.
+		affecting.losebreath = min(affecting.losebreath + 2, 3)
 	return
 
 
 /obj/item/weapon/grab/proc/s_click(obj/screen/S as obj)
 	if (!affecting)
+		return
+	if(killing)
 		return
 	if (assailant.next_move > world.time)
 		return
@@ -122,8 +138,7 @@
 		if(1.0)
 			if (state >= 3)
 				if (!( killing ))
-					for(var/mob/O in viewers(assailant, null))
-						O.show_message(text("\red [] has temporarily tightened his grip on []!", assailant, affecting), 1)
+					assailant.visible_message("\red [assailant] has temporarily tightened \his grip on [affecting]!")
 						//Foreach goto(97)
 					assailant.next_move = world.time + 10
 					//affecting.stunned = max(2, affecting.stunned)
@@ -144,12 +159,18 @@
 	if ((!( assailant.canmove ) || assailant.lying))
 		del(src)
 		return
+	if(killing)
+		return
+
 	switch(S.id)
 		if(1.0)
 			if (state < 2)
 				if (!( allow_upgrade ))
 					return
-				if (prob(75))
+				assailant.visible_message("\red [assailant] has grabbed [affecting] aggressively (now hands)!")
+				state = 2
+				icon_state = "grabbed1"
+				/*if (prob(75))
 					for(var/mob/O in viewers(assailant, null))
 						O.show_message(text("\red [] has grabbed [] aggressively (now hands)!", assailant, affecting), 1)
 					state = 2
@@ -158,15 +179,15 @@
 					for(var/mob/O in viewers(assailant, null))
 						O.show_message(text("\red [] has failed to grab [] aggressively!", assailant, affecting), 1)
 					del(src)
-					return
+					return*/
 			else
 				if (state < 3)
-/*					if(istype(affecting, /mob/living/carbon/human))
+					if(istype(affecting, /mob/living/carbon/human))
 						var/mob/living/carbon/human/H = affecting
 						if(FAT in H.mutations)
 							assailant << "\blue You can't strangle [affecting] through all that fat!"
 							return
-*/
+
 						/*Hrm might want to add this back in
 						//we should be able to strangle the Captain if he is wearing a hat
 						for(var/obj/item/clothing/C in list(H.head, H.wear_suit, H.wear_mask, H.w_uniform))
@@ -179,13 +200,11 @@
 							return
 						*/
 
-					if(istype(affecting, /mob/living/carbon/metroid))
+					if(istype(affecting, /mob/living/carbon/slime))
 						assailant << "\blue You squeeze [affecting], but nothing interesting happens."
 						return
 
-					for(var/mob/O in viewers(assailant, null))
-						O.show_message(text("\red [] has reinforced his grip on [] (now neck)!", assailant, affecting), 1)
-
+					assailant.visible_message("\red [assailant] has reinforced \his grip on [affecting] (now neck)!")
 					state = 3
 					icon_state = "grabbed+1"
 					if (!( affecting.buckled ))
@@ -196,30 +215,41 @@
 					hud1.icon_state = "disarm/kill"
 					hud1.name = "disarm/kill"
 				else
-					if (state >= 3)
-						killing = !( killing )
-						if (killing)
-							for(var/mob/O in viewers(assailant, null))
-								O.show_message(text("\red [] has tightened his grip on []'s neck!", assailant, affecting), 1)
+					if (state >= 3 && !killing)
+						assailant.visible_message("\red [assailant] starts to tighten \his grip on [affecting]'s neck!")
+						hud1.icon_state = "disarm/kill1"
+						killing = 1
+						if(do_after(assailant, 40))
+							if(killing == 2)
+								return
+							if(!affecting)
+								del(src)
+								return
+							if ((!( assailant.canmove ) || assailant.lying))
+								del(src)
+								return
+							killing = 2
+							kill_loc = assailant.loc
+							assailant.visible_message("\red [assailant] has tightened \his grip on [affecting]'s neck!")
 							affecting.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been strangled (kill intent) by [assailant.name] ([assailant.ckey])</font>")
 							assailant.attack_log += text("\[[time_stamp()]\] <font color='red'>Strangled (kill intent) [affecting.name] ([affecting.ckey])</font>")
-							log_admin("ATTACK: [assailant] ([assailant.ckey]) strangled [affecting] ([affecting.ckey]).")
-							message_admins("ATTACK: [assailant] ([assailant.ckey]) strangled [affecting] ([affecting.ckey]).")
 							log_attack("<font color='red'>[assailant.name] ([assailant.ckey]) Strangled (kill intent) [affecting.name] ([affecting.ckey])</font>")
 
 							assailant.next_move = world.time + 10
-							affecting.losebreath += 1
-							hud1.icon_state = "disarm/kill1"
+							affecting.losebreath += 5
 						else
+							assailant.visible_message("\red [assailant] was unable to tighten \his grip on [affecting]'s neck!")
+							killing = 0
 							hud1.icon_state = "disarm/kill"
-							for(var/mob/O in viewers(assailant, null))
-								O.show_message(text("\red [] has loosened the grip on []'s neck!", assailant, affecting), 1)
-		else
 	return
 
 
-/obj/item/weapon/grab/New()
+/obj/item/weapon/grab/New(var/location, mob/user as mob, mob/affected as mob)
 	..()
+	src.loc = location
+	src.assailant = user
+	src.affecting = affected
+	// HUD
 	hud1 = new /obj/screen/grab( src )
 	hud1.icon_state = "reinforce"
 	hud1.name = "Reinforce Grab"
@@ -239,16 +269,12 @@
 	if(M == assailant && state >= 2)
 		if( ( ishuman(user) && (FAT in user.mutations) && ismonkey(affecting) ) || ( isalien(user) && iscarbon(affecting) ) )
 			var/mob/living/carbon/attacker = user
-			for(var/mob/N in viewers(user, null))
-				if(N.client)
-					N.show_message(text("\red <B>[user] is attempting to devour [affecting]!</B>"), 1)
+			user.visible_message("\red <B>[user] is attempting to devour [affecting]!</B>")
 			if(istype(user, /mob/living/carbon/alien/humanoid/hunter))
 				if(!do_mob(user, affecting)||!do_after(user, 30)) return
 			else
 				if(!do_mob(user, affecting)||!do_after(user, 100)) return
-			for(var/mob/N in viewers(user, null))
-				if(N.client)
-					N.show_message(text("\red <B>[user] devours [affecting]!</B>"), 1)
+			user.visible_message("\red <B>[user] devours [affecting]!</B>")
 			affecting.loc = user
 			attacker.stomach_contents.Add(affecting)
 			del(src)

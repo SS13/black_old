@@ -3,10 +3,6 @@
 	new /datum/teleport/instant/science(arglist(args))
 	return
 
-/proc/do_teleport_stealth(ateleatom, adestination, aprecision=0, afteleport=1, aeffectin=null, aeffectout=null, asoundin=null, asoundout=null)
-	new /datum/teleport/instant(arglist(args))
-	return
-
 /datum/teleport
 	var/atom/movable/teleatom //atom to teleport
 	var/atom/destination //destination to teleport to
@@ -112,19 +108,12 @@
 
 		playSpecials(curturf,effectin,soundin)
 
-		// Remove any luminosity etc.
-		var/prevlum = teleatom.luminosity
-		teleatom.ul_SetLuminosity(0)
-
 		if(force_teleport)
 			teleatom.forceMove(destturf)
 			playSpecials(destturf,effectout,soundout)
 		else
 			if(teleatom.Move(destturf))
 				playSpecials(destturf,effectout,soundout)
-
-		// Re-Apply lum
-		teleatom.ul_SetLuminosity(prevlum)
 
 		destarea.Entered(teleatom)
 
@@ -172,12 +161,25 @@
 		if(istype(teleatom, /obj/item/weapon/disk/nuclear)) // Don't let nuke disks get teleported --NeoFite
 			teleatom.visible_message("\red <B>The [teleatom] bounces off of the portal!</B>")
 			return 0
-		var/list/temp = teleatom.search_contents_for(/obj/item/weapon/disk/nuclear)
-		if(temp.len)
+
+		if(!isemptylist(teleatom.search_contents_for(/obj/item/weapon/disk/nuclear)))
 			if(istype(teleatom, /mob/living))
 				var/mob/living/MM = teleatom
 				MM.visible_message("\red <B>The [MM] bounces off of the portal!</B>","\red Something you are carrying seems to be unable to pass through the portal. Better drop it if you want to go through.")
 			else
 				teleatom.visible_message("\red <B>The [teleatom] bounces off of the portal!</B>")
+			return 0
+
+		if(destination.z == 2) //centcomm z-level
+			if(istype(teleatom, /obj/mecha))
+				var/obj/mecha/MM = teleatom
+				MM.occupant << "\red <B>The mech would not survive the jump to a location so far away!</B>"
+				return 0
+			if(!isemptylist(teleatom.search_contents_for(/obj/item/weapon/storage/backpack/holding)))
+				teleatom.visible_message("\red <B>The Bag of Holding bounces off of the portal!</B>")
+				return 0
+
+
+		if(destination.z > 7) //Away mission z-levels
 			return 0
 		return 1

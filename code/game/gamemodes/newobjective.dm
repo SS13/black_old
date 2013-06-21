@@ -1012,7 +1012,7 @@ datum
 			*/
 			cyborg
 				steal_target = /obj/item/robot_parts/robot_suit
-				explanation_text = "Steal a completed cyborg shell (no brain)"
+				explanation_text = "Steal a completed robot shell (no brain)"
 				weight = 30
 
 				get_points(var/job)
@@ -1203,7 +1203,7 @@ datum
 
 				check_completion()
 					var/held_credits = 0
-					for(var/obj/item/weapon/money/M in owner.current.get_contents())
+					for(var/obj/item/weapon/spacecash/M in owner.current.get_contents())
 						held_credits += M.worth
 					if(held_credits >= steal_amount)
 						return 1

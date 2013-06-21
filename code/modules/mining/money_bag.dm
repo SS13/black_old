@@ -1,7 +1,7 @@
 /*****************************Money bag********************************/
 
 /obj/item/weapon/moneybag
-	icon = 'storage.dmi'
+	icon = 'icons/obj/storage.dmi'
 	name = "Money bag"
 	icon_state = "moneybag"
 	flags = FPRINT | TABLEPASS| CONDUCT
@@ -73,7 +73,7 @@
 /obj/item/weapon/moneybag/Topic(href, href_list)
 	if(..())
 		return
-	usr.machine = src
+	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["remove"])
 		var/obj/item/weapon/coin/COIN

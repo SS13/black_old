@@ -11,7 +11,7 @@
 
 /obj/item/projectile
 	name = "projectile"
-	icon = 'projectiles.dmi'
+	icon = 'icons/obj/projectiles.dmi'
 	icon_state = "bullet"
 	density = 1
 	unacidable = 1
@@ -26,7 +26,8 @@
 	var/yo = null
 	var/xo = null
 	var/current = null
-	var/turf/original = null // the original turf clicked
+	var/obj/shot_from = null // the object which shot us
+	var/atom/original = null // the original target clicked
 	var/turf/starting = null // the projectile's starting turf
 	var/list/permutated = list() // we've passed through these atoms, don't try to hit them again
 
@@ -36,8 +37,9 @@
 	var/damage = 10
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = 0 //Determines if the projectile will skip any damage inflictions
-	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb
+	var/flag = "bullet" //Defines what armor to use when it hits things.  Must be set to bullet, laser, energy,or bomb	//Cael - bio and rad are also valid
 	var/projectile_type = "/obj/item/projectile"
+	var/kill_count = 50 //This will de-increment every process(). When 0, it will delete the projectile.
 		//Effects
 	var/stun = 0
 	var/weaken = 0
@@ -49,13 +51,12 @@
 
 
 	proc/on_hit(var/atom/target, var/blocked = 0)
-		if(blocked >= 2)	return 0//Full block
+		if(blocked >= 2)		return 0//Full block
 		if(!isliving(target))	return 0
+		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		if(istype(L, /mob/living/simple_animal)) return 0
 		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, blocked)
 		return 1
-
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.
 		if(!istype(target) || !istype(user))
@@ -65,17 +66,16 @@
 		in_chamber.flags = flags //Set the flags...
 		in_chamber.pass_flags = pass_flags //And the pass flags to that of the real projectile...
 		in_chamber.firer = user
-		var/output = in_chamber.fired() //Test it!
+		var/output = in_chamber.process() //Test it!
 		del(in_chamber) //No need for it anymore
 		return output //Send it back to the gun!
 
 	Bump(atom/A as mob|obj|turf|area)
 		if(A == firer)
 			loc = A.loc
-			return //cannot shoot yourself
+			return 0 //cannot shoot yourself
 
-		if(bumped)	return
-
+		if(bumped)	return 0
 		var/forcedodge = 0 // force the projectile to pass
 
 		bumped = 1
@@ -83,57 +83,58 @@
 			var/mob/M = A
 			if(!istype(A, /mob/living))
 				loc = A.loc
-				return // nope.avi
+				return 0// nope.avi
 
-			// check for dodge (i can't place in bullet_act because then things get wonky)
-			if((REFLEXES in M.augmentations) && (!M.stat && !M.lying))
-				if(prob(85))
-					var/message = pick("[M] skillfully dodges the [name]!", "[M] ducks, dodging the [name]!", "[M] effortlessly jumps out of the way of the [name]!", "[M] dodges the [name] in one graceful movement!", "[M] leans back, dodging the [name] narrowly!", "[M] sidesteps, avoiding the [name] narrowly.", "[M] barely weaves out of the way of the [name].")
-					M.visible_message("\red <B>[message]</B>")
-					forcedodge = 1
+			//Lower accurancy/longer range tradeoff. Distance matters a lot here, so at
+			// close distance, actually RAISE the chance to hit.
+			var/distance = get_dist(starting,loc)
+			var/miss_modifier = -30
+			if (istype(shot_from,/obj/item/weapon/gun))	//If you aim at someone beforehead, it'll hit more often.
+				var/obj/item/weapon/gun/daddy = shot_from //Kinda balanced by fact you need like 2 seconds to aim
+				if (daddy.target && original in daddy.target) //As opposed to no-delay pew pew
+					miss_modifier += -30
+			def_zone = get_zone_with_miss_chance(def_zone, M, -30 + 8*distance)
 
-			if(!silenced && !forcedodge)
-				visible_message("\red [A.name] is hit by the [src.name] in the [def_zone]!")//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+			if(!def_zone)
+				visible_message("\blue \The [src] misses [M] narrowly!")
+				forcedodge = -1
 			else
-				if(!forcedodge)
-					M << "\red You've been shot in the [def_zone] by the [src.name]!"
-			if(istype(firer, /mob))
-				M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
-				firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
-				log_admin("ATTACK: [firer] ([firer.ckey]) shot [M] ([M.ckey]) with [src].")
-				message_admins("ATTACK: [firer] ([firer.ckey]) shot [M] ([M.ckey]) with [src].")
-				log_attack("<font color='red'>[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src]</font>")
-
-			else
-				M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
-				log_admin("ATTACK: UNKNOWN (no longer exists) shot [M] ([M.ckey]) with [src].")
-				message_admins("ATTACK: UNKNOWN (no longer exists) shot [M] ([M.ckey]) with [src].")
-				log_attack("<font color='red'>UNKNOWN shot [M] ([M.ckey]) with a [src]</font>")
-
-
+				if(silenced)
+					M << "\red You've been shot in the [parse_zone(def_zone)] by the [src.name]!"
+				else
+					visible_message("\red [A.name] is hit by the [src.name] in the [parse_zone(def_zone)]!")//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+				if(istype(firer, /mob))
+					M.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
+					firer.attack_log += "\[[time_stamp()]\] <b>[firer]/[firer.ckey]</b> shot <b>[M]/[M.ckey]</b> with a <b>[src.type]</b>"
+					log_attack("<font color='red'>[firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src.type]</font>")
+					msg_admin_attack("ATTACK: [firer] ([firer.ckey]) shot [M] ([M.ckey]) with a [src]") //BS12 EDIT ALG
+				else
+					M.attack_log += "\[[time_stamp()]\] <b>UNKNOWN SUBJECT (No longer exists)</b> shot <b>[M]/[M.ckey]</b> with a <b>[src]</b>"
+					log_attack("<font color='red'>UNKNOWN shot [M] ([M.ckey]) with a [src.type]</font>")
+					msg_admin_attack("ATTACK: UNKNOWN shot [M] ([M.ckey]) with a [src]") //BS12 EDIT ALG
 
 		spawn(0)
 			if(A)
-				var/permutation = A.bullet_act(src, def_zone) // searches for return value
-				if(permutation == -1 || forcedodge) // the bullet passes through a dense object!
+				if (!forcedodge)
+					forcedodge = A.bullet_act(src, def_zone) // searches for return value
+				if(forcedodge == -1) // the bullet passes through a dense object!
 					bumped = 0 // reset bumped variable!
 					if(istype(A, /turf))
 						loc = A
 					else
 						loc = A.loc
 					permutated.Add(A)
-					return
+					return 0
 
 				if(istype(A,/turf))
 					for(var/obj/O in A)
 						O.bullet_act(src)
 					for(var/mob/M in A)
 						M.bullet_act(src, def_zone)
-
 				density = 0
 				invisibility = 101
 				del(src)
-		return
+		return 1
 
 
 	CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
@@ -145,7 +146,10 @@
 			return 1
 
 
-	proc/fired()
+	process()
+		if(kill_count < 1)
+			del(src)
+		kill_count--
 		spawn while(src)
 			if((!( current ) || loc == current))
 				current = locate(min(max(x + xo, 1), world.maxx), min(max(y + yo, 1), world.maxy), z)
@@ -154,13 +158,13 @@
 				return
 			step_towards(src, current)
 			sleep(1)
-			if(!bumped)
-				if(loc == original)
-					for(var/mob/living/M in original)
-						if(!(M in permutated))
-							Bump(M)
-							sleep(1)
+			if(!bumped && !isturf(original))
+				if(loc == get_turf(original))
+					if(!(original in permutated))
+						Bump(original)
+						sleep(1)
 		return
+
 
 /obj/item/projectile/test //Used to see if you can hit them.
 	invisibility = 101 //Nope!  Can't see me!
@@ -181,7 +185,7 @@
 		result = 1
 		return
 
-	fired()
+	process()
 		var/turf/curloc = get_turf(src)
 		var/turf/targloc = get_turf(target)
 		if(!curloc || !targloc)

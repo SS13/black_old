@@ -1,13 +1,12 @@
-//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:04
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 /obj/machinery/computer/med_data//TODO:SANITY
 	name = "Medical Records"
 	desc = "This can be used to check medical records."
 	icon_state = "medcomp"
-	req_access = list(ACCESS_MEDICAL)
+	req_one_access = list(access_medical, access_forensics_lockers)
 	circuit = "/obj/item/weapon/circuitboard/med_data"
 	var/obj/item/weapon/card/id/scan = null
-	var/obj/item/weapon/disk/records/disk = null
 	var/authenticated = null
 	var/rank = null
 	var/screen = null
@@ -16,22 +15,6 @@
 	var/a_id = null
 	var/temp = null
 	var/printing = null
-	var/list/Perp
-	var/tempname = null
-
-
-/obj/machinery/computer/med_data/attackby(obj/item/O as obj, user as mob)
-	if(istype(O, /obj/item/weapon/card/id) && !scan)
-		usr.drop_item()
-		O.loc = src
-		scan = O
-		user << "You insert [O]."
-	else if(istype(O, /obj/item/weapon/disk/records) && !disk)
-		usr.drop_item()
-		O.loc = src
-		disk = O
-		user << "You insert [O]."
-	..()
 
 /obj/machinery/computer/med_data/attack_ai(user as mob)
 	return src.attack_hand(user)
@@ -50,117 +33,40 @@
 		if (src.authenticated)
 			switch(src.screen)
 				if(1.0)
-					dat += "<p style='text-align:center;'>"
-					dat += text("<A href='?src=\ref[];search=1'>Search Records</A><BR>", src)
 					dat += {"
-						</p>
-						<table style="text-align:center;" cellspacing="0" width="100%">
-						<tr>
-						<th>Records:</th>
-						</tr>
-						</table>
-						<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-						<tr>
-						<th>Name</th>
-						<th>ID</th>
-						<th>Rank</th>
-						<th>Fingerprints</th>
-						<th>Physical Status</th>
-						<th>Mental Status</th>
-						</tr>"}
-					for(var/datum/data/record/R in data_core.general)
-						var/physstat = R.fields["p_stat"]
-						var/background
-						switch(physstat)
-							if("*Deceased*")
-								background = "'background-color:#CD853F;'"
-							if("*Unconscious*")
-								background = "'background-color:#DC143C;'"
-							if("Physically Unfit")
-								background = "'background-color:#3BB9FF;'"
-							if("Active")
-								background = "'background-color:#00FF7F;'"
-							if("")
-								background = "'background-color:#FFFFFF;'"
-								physstat = "No Record."
-						dat += text("<tr style=[]><td><A href='?src=\ref[];d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
-						dat += text("<td>[]</td>", R.fields["id"])
-						dat += text("<td>[]</td>", R.fields["rank"])
-						dat += text("<td>[]</td>", R.fields["fingerprint"])
-						dat += text("<td>[]</td>", physstat)
-						dat += text("<td>[]</td></tr>", R.fields["m_stat"])
-					dat += "</table><hr width='75%' />"
-					dat += "<A href='?src=\ref[src];screen=5'>Virus Database</A><BR>"
-					dat += "<A href='?src=\ref[src];screen=6'>Medbot Tracking</A><BR>"
-					dat += "<A href='?src=\ref[src];screen=3'>Record Maintenance</A><BR><BR>"
-					dat += "<A href='?src=\ref[src];logout=1'>{Log Out}</A>"
+<A href='?src=\ref[src];search=1'>Search Records</A>
+<BR><A href='?src=\ref[src];screen=2'>List Records</A>
+<BR>
+<BR><A href='?src=\ref[src];screen=5'>Virus Database</A>
+<BR><A href='?src=\ref[src];screen=6'>Medbot Tracking</A>
+<BR>
+<BR><A href='?src=\ref[src];screen=3'>Record Maintenance</A>
+<BR><A href='?src=\ref[src];logout=1'>{Log Out}</A><BR>
+"}
 				if(2.0)
-					if(!Perp.len)
-						dat += text("ERROR.  String could not be located.<br><br><A href='?src=\ref[];screen=1'>Back</A>", src)
-					else
-						dat += {"
-							<table style="text-align:center;" cellspacing="0" width="100%">
-							<tr>					"}
-						dat += text("<th>Search Results for '[]':</th>", tempname)
-						dat += {"
-							</tr>
-							</table>
-							<table style="text-align:center;" border="1" cellspacing="0" width="100%">
-							<tr>
-							<th>Name</th>
-							<th>ID</th>
-							<th>Rank</th>
-							<th>Fingerprints</th>
-							<th>Physical Status</th>
-							<th>Mental Status</th>
-							</tr>					"}
-						for(var/i=1, i<=Perp.len, i += 2)
-							var/datum/data/record/R = Perp[i]
-							var/physstat = R.fields["p_stat"]
-							var/background
-							switch(physstat)
-								if("*Deceased*")
-									background = "'background-color:#CD853F;'"
-								if("*Unconscious*")
-									background = "'background-color:#DC143C;'"
-								if("Physically Unfit")
-									background = "'background-color:#3BB9FF;'"
-								if("Active")
-									background = "'background-color:#00FF7F;'"
-								if("")
-									background = "'background-color:#FFFFFF;'"
-									physstat = "No Record."
-							dat += text("<tr style=[]><td><A href='?src=\ref[];choice=Browse Record;d_rec=\ref[]'>[]</a></td>", background, src, R, R.fields["name"])
-							dat += text("<td>[]</td>", R.fields["id"])
-							dat += text("<td>[]</td>", R.fields["rank"])
-							dat += text("<td>[]</td>", R.fields["fingerprint"])
-							dat += text("<td>[]</td>", physstat)
-							dat += text("<td>[]</td></tr>", R.fields["m_stat"])
-						dat += "</table><hr width='75%' />"
-						dat += text("<br><A href='?src=\ref[];screen=1'>Return to index.</A>", src)
+					dat += "<B>Record List</B>:<HR>"
+					if(!isnull(data_core.general))
+						for(var/datum/data/record/R in sortRecord(data_core.general))
+							dat += text("<A href='?src=\ref[];d_rec=\ref[]'>[]: []<BR>", src, R, R.fields["id"], R.fields["name"])
+							//Foreach goto(132)
+					dat += text("<HR><A href='?src=\ref[];screen=1'>Back</A>", src)
 				if(3.0)
-					dat += "<B>Records Maintenance</B><HR>"
-					if(disk)
-						dat += "<B>Disk Contents:</B><UL style='margin-top:0;margin-bottom:0'>"
-						if(disk.general)
-							dat += "<LI>General</LI>"
-						if(disk.medical)
-							dat += "<LI>Medical</LI>"
-						if(disk.security)
-							dat += "<LI>Security</LI>"
-						dat += "</UL><A href='?src=\ref[src];backup=1'>Backup To Disk</A><BR>"
-						if(disk.general && disk.medical)
-							dat += "<A href='?src=\ref[src];restore=1'>Restore From Disk</A><BR>"
-						else
-							dat += "Disk does not contain medical records.<BR>"
-						dat += "<A href='?src=\ref[src];eject_disk=1'>Eject Disk</A><BR>"
-					else
-						dat += "Please insert a records disk.<BR>"
-					dat += "<BR><A href='?src=\ref[src];del_all=1'>Delete All Records</A><BR><BR><A href='?src=\ref[src];screen=1'>Back</A>"
+					dat += text("<B>Records Maintenance</B><HR>\n<A href='?src=\ref[];back=1'>Backup To Disk</A><BR>\n<A href='?src=\ref[];u_load=1'>Upload From disk</A><BR>\n<A href='?src=\ref[];del_all=1'>Delete All Records</A><BR>\n<BR>\n<A href='?src=\ref[];screen=1'>Back</A>", src, src, src, src)
 				if(4.0)
+					var/icon/front = new(active1.fields["photo"], dir = SOUTH)
+					var/icon/side = new(active1.fields["photo"], dir = WEST)
+					user << browse_rsc(front, "front.png")
+					user << browse_rsc(side, "side.png")
 					dat += "<CENTER><B>Medical Record</B></CENTER><BR>"
 					if ((istype(src.active1, /datum/data/record) && data_core.general.Find(src.active1)))
-						dat += text("Name: [] ID: []<BR>\nSex: <A href='?src=\ref[];field=sex'>[]</A><BR>\nAge: <A href='?src=\ref[];field=age'>[]</A><BR>\nFingerprint: <A href='?src=\ref[];field=fingerprint'>[]</A><BR>\nPhysical Status: <A href='?src=\ref[];field=p_stat'>[]</A><BR>\nMental Status: <A href='?src=\ref[];field=m_stat'>[]</A><BR>", src.active1.fields["name"], src.active1.fields["id"], src, src.active1.fields["sex"], src, src.active1.fields["age"], src, src.active1.fields["fingerprint"], src, src.active1.fields["p_stat"], src, src.active1.fields["m_stat"])
+						dat += "<table><tr><td>Name: [active1.fields["name"]] \
+								ID: [active1.fields["id"]]<BR>\n	\
+								Sex: <A href='?src=\ref[src];field=sex'>[active1.fields["sex"]]</A><BR>\n	\
+								Age: <A href='?src=\ref[src];field=age'>[active1.fields["age"]]</A><BR>\n	\
+								Fingerprint: <A href='?src=\ref[src];field=fingerprint'>[active1.fields["fingerprint"]]</A><BR>\n	\
+								Physical Status: <A href='?src=\ref[src];field=p_stat'>[active1.fields["p_stat"]]</A><BR>\n	\
+								Mental Status: <A href='?src=\ref[src];field=m_stat'>[active1.fields["m_stat"]]</A><BR></td><td align = center valign = top> \
+								Photo:<br><img src=front.png height=64 width=64 border=5><img src=side.png height=64 width=64 border=5></td></tr></table>"
 					else
 						dat += "<B>General Record Lost!</B><BR>"
 					if ((istype(src.active2, /datum/data/record) && data_core.medical.Find(src.active2)))
@@ -174,38 +80,41 @@
 					else
 						dat += "<B>Medical Record Lost!</B><BR>"
 						dat += text("<A href='?src=\ref[src];new=1'>New Record</A><BR><BR>")
-					dat += text("\n<A href='?src=\ref[];print_p=1'>Print Record</A><BR>\n<A href='?src=\ref[];screen=1'>Back</A><BR>", src, src)
+					dat += text("\n<A href='?src=\ref[];print_p=1'>Print Record</A><BR>\n<A href='?src=\ref[];screen=2'>Back</A><BR>", src, src)
 				if(5.0)
-					dat += "<B>Virus Database</B><HR>"
+					dat += "<CENTER><B>Virus Database</B></CENTER>"
 					for(var/Dt in typesof(/datum/disease/))
 						var/datum/disease/Dis = new Dt(0)
+						if(istype(Dis, /datum/disease/advance))
+							continue // TODO (tm): Add advance diseases to the virus database which no one uses.
 						if(!Dis.desc)
 							continue
-						dat += "<a href='?src=\ref[src];vir=[Dt]'>[Dis.name]</a><br>"
+						dat += "<br><a href='?src=\ref[src];vir=[Dt]'>[Dis.name]</a>"
 					dat += "<br><a href='?src=\ref[src];screen=1'>Back</a>"
 				if(6.0)
-					dat += "<b>Medical Robot Monitor</b><hr>"
-					dat += "<b>Medical Robots:</b><br>"
+					dat += "<center><b>Medical Robot Monitor</b></center>"
+					dat += "<a href='?src=\ref[src];screen=1'>Back</a>"
+					dat += "<br><b>Medical Robots:</b>"
 					var/bdat = null
 					for(var/obj/machinery/bot/medbot/M in world)
+
+						if(M.z != src.z)	continue	//only find medibots on the same z-level as the computer
 						var/turf/bl = get_turf(M)
-						bdat += "[M.name] - <b>\[[bl.x],[bl.y]\]</b> - [M.on ? "Online" : "Offline"]<br>"
-						if((!isnull(M.reagent_glass)) && M.use_beaker)
-							bdat += "Reservoir: \[[M.reagent_glass.reagents.total_volume]/[M.reagent_glass.reagents.maximum_volume]\]<br>"
-						else
-							bdat += "Using Internal Synthesizer.<br>"
-
+						if(bl)	//if it can't find a turf for the medibot, then it probably shouldn't be showing up
+							bdat += "[M.name] - <b>\[[bl.x],[bl.y]\]</b> - [M.on ? "Online" : "Offline"]<br>"
+							if((!isnull(M.reagent_glass)) && M.use_beaker)
+								bdat += "Reservoir: \[[M.reagent_glass.reagents.total_volume]/[M.reagent_glass.reagents.maximum_volume]\]<br>"
+							else
+								bdat += "Using Internal Synthesizer.<br>"
 					if(!bdat)
-						dat += "None detected<br><br>"
+						dat += "<br><center>None detected</center>"
 					else
-						dat += "[bdat]<br>"
-
-					dat += "<a href='?src=\ref[src];screen=1'>Back</a>"
+						dat += "<br>[bdat]"
 
 				else
 		else
 			dat += text("<A href='?src=\ref[];login=1'>{Log In}</A>", src)
-	user << browse(text("<HEAD><TITLE>Medical Records</TITLE></HEAD><TT>[]</TT>", dat), "window=med_rec;size=600x400")
+	user << browse(text("<HEAD><TITLE>Medical Records</TITLE></HEAD><TT>[]</TT>", dat), "window=med_rec")
 	onclose(user, "med_rec")
 	return
 
@@ -217,18 +126,15 @@
 	if (!( data_core.medical.Find(src.active2) ))
 		src.active2 = null
 	if ((usr.contents.Find(src) || (in_range(src, usr) && istype(src.loc, /turf))) || (istype(usr, /mob/living/silicon)))
-		usr.machine = src
+		usr.set_machine(src)
 		if (href_list["temp"])
 			src.temp = null
 		if (href_list["scan"])
 			if (src.scan)
-				if(istype(usr,/mob/living/carbon/human) && !usr.get_active_hand())
-					usr.put_in_hand(scan)
-				else
-					scan.loc = get_turf(src)
-				scan = null
+				src.scan.loc = src.loc
+				src.scan = null
 			else
-				var/obj/item/I = usr.equipped()
+				var/obj/item/I = usr.get_active_hand()
 				if (istype(I, /obj/item/weapon/card/id))
 					usr.drop_item()
 					I.loc = src
@@ -360,11 +266,9 @@
 							src.active2.fields["cdi_d"] = t1
 					if("notes")
 						if (istype(src.active2, /datum/data/record))
-							var/t1 = input("Please summarize notes:", "Med. records", src.active2.fields["notes"], null)  as message
+							var/t1 = copytext(sanitize_uni(input("Please summarize notes:", "Med. records", src.active2.fields["notes"], null)  as message),1,MAX_MESSAGE_LEN)
 							if ((!( t1 ) || !( src.authenticated ) || usr.stat || usr.restrained() || (!in_range(src, usr) && (!istype(usr, /mob/living/silicon))) || src.active2 != a2))
 								return
-							t1 = copytext(t1, 1, MAX_PAPER_MESSAGE_LEN)
-							t1 = html_encode(t1)
 							src.active2.fields["notes"] = t1
 					if("p_stat")
 						if (istype(src.active1, /datum/data/record))
@@ -484,40 +388,33 @@
 				var/counter = 1
 				while(src.active2.fields[text("com_[]", counter)])
 					counter++
-				src.active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [], 2556<BR>[]", src.authenticated, src.rank, time2text(world.realtime, "DDD MMM DD hh:mm:ss"), t1)
+				src.active2.fields[text("com_[]", counter)] = text("Made by [] ([]) on [], 2053<BR>[]", src.authenticated, src.rank, time2text(world.realtime, "DDD MMM DD hh:mm:ss"), t1)
 
 			if (href_list["del_c"])
 				if ((istype(src.active2, /datum/data/record) && src.active2.fields[text("com_[]", href_list["del_c"])]))
 					src.active2.fields[text("com_[]", href_list["del_c"])] = "<B>Deleted</B>"
 
 			if (href_list["search"])
-				var/t1 = input("Search String: (Partial Name or ID or Fingerprints or DNA or Rank)", "Med. records", null, null)  as text
+				var/t1 = input("Search String: (Name, DNA, or ID)", "Med. records", null, null)  as text
 				if ((!( t1 ) || usr.stat || !( src.authenticated ) || usr.restrained() || ((!in_range(src, usr)) && (!istype(usr, /mob/living/silicon)))))
 					return
-				Perp = new/list()
+				src.active1 = null
+				src.active2 = null
 				t1 = lowertext(t1)
-				var/list/components = dd_text2list(t1, " ")
-				if(components.len > 5)
-					return //Lets not let them search too greedily.
-				for(var/datum/data/record/R in data_core.general)
-					var/temptext = R.fields["name"] + " " + R.fields["id"] + " " + R.fields["fingerprint"] + " " + R.fields["rank"]
-
-					for(var/datum/data/record/E in data_core.medical)
-						if ((E.fields["name"] == R.fields["name"] || E.fields["id"] == R.fields["id"]))
-							temptext += " " + E.fields["b_dna"]
-
-					for(var/i = 1, i<=components.len, i++)
-						if(findtext(temptext,components[i]))
-							var/prelist = new/list(2)
-							prelist[1] = R
-							Perp += prelist
-				for(var/i = 1, i<=Perp.len, i+=2)
-					for(var/datum/data/record/E in data_core.medical)
-						var/datum/data/record/R = Perp[i]
-						if ((E.fields["name"] == R.fields["name"] && E.fields["id"] == R.fields["id"]))
-							Perp[i+1] = E
-				tempname = t1
-				src.screen = 2
+				for(var/datum/data/record/R in data_core.medical)
+					if ((lowertext(R.fields["name"]) == t1 || t1 == lowertext(R.fields["id"]) || t1 == lowertext(R.fields["b_dna"])))
+						src.active2 = R
+					else
+						//Foreach continue //goto(3229)
+				if (!( src.active2 ))
+					src.temp = text("Could not locate record [].", t1)
+				else
+					for(var/datum/data/record/E in data_core.general)
+						if ((E.fields["name"] == src.active2.fields["name"] || E.fields["id"] == src.active2.fields["id"]))
+							src.active1 = E
+						else
+							//Foreach continue //goto(3334)
+					src.screen = 4
 
 			if (href_list["print_p"])
 				if (!( src.printing ))
@@ -538,33 +435,43 @@
 					else
 						P.info += "<B>Medical Record Lost!</B><BR>"
 					P.info += "</TT>"
-					P.name = "paper - 'Medical Record'"
+					P.name = "paper- 'Medical Record'"
 					src.printing = null
-			if (href_list["eject_disk"])
-				if (!disk)
-					return
-				if(istype(usr,/mob/living/carbon/human) && !usr.get_active_hand())
-					usr.put_in_hand(disk)
-				else
-					disk.loc = get_turf(src)
-				disk = null
-			if (href_list["backup"])
-				if (!disk)
-					return
-				disk.backup(1, 0)
-				temp = "Data backup complete."
-			if (href_list["restore"])
-				if (!disk)
-					return
-				disk.restore(1, 0)
-				temp = "Data restore complete."
 
 	src.add_fingerprint(usr)
 	src.updateUsrDialog()
 	return
 
+/obj/machinery/computer/med_data/emp_act(severity)
+	if(stat & (BROKEN|NOPOWER))
+		..(severity)
+		return
+
+	for(var/datum/data/record/R in data_core.medical)
+		if(prob(10/severity))
+			switch(rand(1,6))
+				if(1)
+					R.fields["name"] = "[pick(pick(first_names_male), pick(first_names_female))] [pick(last_names)]"
+				if(2)
+					R.fields["sex"]	= pick("Male", "Female")
+				if(3)
+					R.fields["age"] = rand(5, 85)
+				if(4)
+					R.fields["b_type"] = pick("A-", "B-", "AB-", "O-", "A+", "B+", "AB+", "O+")
+				if(5)
+					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
+				if(6)
+					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
+			continue
+
+		else if(prob(1))
+			del(R)
+			continue
+
+	..(severity)
+
 
 /obj/machinery/computer/med_data/laptop
 	name = "Medical Laptop"
-	desc = "Cheap NanoTrasen Laptop."
+	desc = "Cheap Nanotrasen Laptop."
 	icon_state = "medlaptop"

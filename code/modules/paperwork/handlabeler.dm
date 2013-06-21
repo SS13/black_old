@@ -1,6 +1,6 @@
 /obj/item/weapon/hand_labeler
-	name = "Hand labeler"
-	icon = 'bureaucracy.dmi'
+	name = "hand labeler"
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "labeler0"
 	item_state = "flight"
 	var/label = null
@@ -10,41 +10,40 @@
 /obj/item/weapon/hand_labeler/afterattack(atom/A, mob/user as mob)
 	if(!mode)	//if it's off, give up.
 		return
-	if(A==loc)		// if placing the labeller into something (e.g. backpack)
+	if(A == loc)	// if placing the labeller into something (e.g. backpack)
 		return		// don't set a label
 
 	if(!labels_left)
-		user << "\blue No labels left."
+		user << "<span class='notice'>No labels left.</span>"
 		return
 	if(!label || !length(label))
-		user << "\blue No text set."
+		user << "<span class='notice'>No text set.</span>"
 		return
 	if(length(A.name) + length(label) > 64)
-		user << "\blue Label too big."
+		user << "<span class='notice'>Label too big.</span>"
 		return
 	if(ishuman(A))
-		user << "\blue You can't label humans."
+		user << "<span class='notice'>You can't label humans.</span>"
 		return
 	if(issilicon(A))
-		user << "\blue You can't label cyborgs."
+		user << "<span class='notice'>You can't label cyborgs.</span>"
 		return
 
-	for(var/mob/M in viewers())
-		if ((M.client && !( M.blinded )))
-			M << "\blue [user] labels [A] as [label]."
+	user.visible_message("<span class='notice'>[user] labels [A] as [label].</span>", \
+						 "<span class='notice'>You label [A] as [label].</span>")
 	A.name = "[A.name] ([label])"
 
-/obj/item/weapon/hand_labeler/attack_self()
+/obj/item/weapon/hand_labeler/attack_self(mob/user as mob)
 	mode = !mode
 	icon_state = "labeler[mode]"
 	if(mode)
-		usr << "\blue You turn on the hand labeler."
+		user << "<span class='notice'>You turn on \the [src].</span>"
 		//Now let them chose the text.
-		var/str = copytext(reject_bad_text(input(usr,"Label text?","Set label","")),1,MAX_NAME_LEN)
+		var/str = copytext(reject_bad_text(input(user,"Label text?","Set label","")),1,MAX_NAME_LEN)
 		if(!str || !length(str))
-			usr << "\red Invalid text."
+			user << "<span class='notice'>Invalid text.</span>"
 			return
-		label = sanitize_uni(str)
-		usr << "\blue You set the text to '[str]'."
+		label = str
+		user << "<span class='notice'>You set the text to '[str]'.</span>"
 	else
-		usr << "\blue You turn off the hand labeler."
+		user << "<span class='notice'>You turn off \the [src].</span>"

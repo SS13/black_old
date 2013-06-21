@@ -3,120 +3,82 @@
 
 
 // ===
-/area/
+/area
 	var/global/global_uid = 0
 	var/uid
 
 /area/New()
-
-	master = src //moved outside the spawn(1) to avoid runtimes in lighting.dm when it references src.loc.loc.master ~Carn
-	src.icon = 'alert.dmi'
+	icon_state = ""
+	layer = 10
+	master = src //moved outside the spawn(1) to avoid runtimes in lighting.dm when it references loc.loc.master ~Carn
 	uid = ++global_uid
-	spawn(1)
-	//world.log << "New: [src] [tag]"
-		var/ul_created = findtext(tag,":UL")
-		ul_Prep()
-		if(ul_created)
-			if(!islist(related))
-				related = list()
-			related += src
-			return
-		related = list(src)
+	related = list(src)
 
-		src.icon = 'alert.dmi'
-		src.layer = 10
-	//	update_lights()
-		if(name == "Space")			// override defaults for space
-			requires_power = 1
-			always_unpowered = 1
-			LightLevels = list("Red" = 2, "Green" = 2, "Blue" = 3)
-			power_light = 0
-			power_equip = 0
-			power_environ = 0
-			//has_gravity = 0    // Space has gravity.  Because.. because.
+	if(type == /area)	// override defaults for space. TODO: make space areas of type /area/space rather than /area
+		requires_power = 1
+		always_unpowered = 1
+		lighting_use_dynamic = 1
+		power_light = 0
+		power_equip = 0
+		power_environ = 0
+//		lighting_state = 4
+		//has_gravity = 0    // Space has gravity.  Because.. because.
 
-		if(!requires_power)
-			power_light = 0//rastaf0
-			power_equip = 0//rastaf0
-			power_environ = 0//rastaf0
-			if(!ul_Lighting)
-				luminosity = 1
-		else
-			luminosity = 0
-			area_lights_luminosity = rand(6,8)
-		if(LightLevels)
-			ul_Light()
+	if(requires_power)
+		luminosity = 0
+	else
+		power_light = 0			//rastaf0
+		power_equip = 0			//rastaf0
+		power_environ = 0		//rastaf0
+		luminosity = 1
+		lighting_use_dynamic = 0
 
-/area/Del()
-	related -= src
-	. = ..()
+	..()
+
+//	spawn(15)
+	power_change()		// all machines set to current power level, also updates lighting icon
+	InitializeLighting()
 
 
-	/*spawn(5)
-		for(var/turf/T in src)		// count the number of turfs (for lighting calc)
-			if(no_air)
-				T.oxygen = 0		// remove air if so specified for this area
-				T.n2 = 0
-				T.res_vars()
-
-	*/
-
-
-	spawn(15)
-		src.power_change()		// all machines set to current power level, also updates lighting icon
-
-/*
-/proc/get_area(area/A)
-	while (A)
-		if (istype(A, /area))
-			return A
-
-		A = A.loc
-	return null
-*/
-/*
-/area/proc/update_lights()
-	var/new_power = 0
-	for(var/obj/machinery/light/L in src.contents)
-		if(L.on)
-			new_power += (L.luminosity * 20)
-	lighting_power_usage = new_power
-	return
-*/
-/area/proc/poweralert(var/state, var/source)
+/area/proc/poweralert(var/state, var/obj/source as obj)
 	if (state != poweralm)
 		poweralm = state
-		var/list/cameras = list()
-		for (var/obj/machinery/camera/C in src)
-			cameras += C
-		for (var/mob/living/silicon/aiPlayer in world)
-			if (state == 1)
-				aiPlayer.cancelAlarm("Power", src, source)
-			else
-				aiPlayer.triggerAlarm("Power", src, cameras, source)
-		for(var/obj/machinery/computer/station_alert/a in world)
-			if(state == 1)
-				a.cancelAlarm("Power", src, source)
-			else
-				a.triggerAlarm("Power", src, source)
+		if(istype(source))	//Only report power alarms on the z-level where the source is located.
+			var/list/cameras = list()
+			for (var/obj/machinery/camera/C in src)
+				cameras += C
+			for (var/mob/living/silicon/aiPlayer in player_list)
+				if(aiPlayer.z == source.z)
+					if (state == 1)
+						aiPlayer.cancelAlarm("Power", src, source)
+					else
+						aiPlayer.triggerAlarm("Power", src, cameras, source)
+			for(var/obj/machinery/computer/station_alert/a in world)
+				if(a.z == source.z)
+					if(state == 1)
+						a.cancelAlarm("Power", src, source)
+					else
+						a.triggerAlarm("Power", src, cameras, source)
 	return
 
 /area/proc/atmosalert(danger_level)
-//	if(src.type==/area) //No atmos alarms in space
+//	if(type==/area) //No atmos alarms in space
 //		return 0 //redudant
 	if(danger_level != atmosalm)
+		//updateicon()
+		//mouse_opacity = 0
 		if (danger_level==2)
 			var/list/cameras = list()
-			for(var/area/RA in src.related)
-				//src.updateicon()
+			for(var/area/RA in related)
+				//updateicon()
 				for(var/obj/machinery/camera/C in RA)
 					cameras += C
-			for(var/mob/living/silicon/aiPlayer in world)
+			for(var/mob/living/silicon/aiPlayer in player_list)
 				aiPlayer.triggerAlarm("Atmosphere", src, cameras, src)
 			for(var/obj/machinery/computer/station_alert/a in world)
 				a.triggerAlarm("Atmosphere", src, cameras, src)
 		else if (atmosalm == 2)
-			for(var/mob/living/silicon/aiPlayer in world)
+			for(var/mob/living/silicon/aiPlayer in player_list)
 				aiPlayer.cancelAlarm("Atmosphere", src, src)
 			for(var/obj/machinery/computer/station_alert/a in world)
 				a.cancelAlarm("Atmosphere", src, src)
@@ -125,74 +87,43 @@
 	return 0
 
 /area/proc/firealert()
-	if(src.name == "Space") //no fire alarms in space
+	if(name == "Space") //no fire alarms in space
 		return
-	if (!fire)
+	if( !fire )
 		fire = 1
 		updateicon()
 		mouse_opacity = 0
-/*		for(var/obj/machinery/door/airlock/E in master.all_doors)
-			if(!E.air_locked)
-				if((!E.arePowerSystemsOn()) || (E.stat & NOPOWER)) continue
-				if(!E.density)
-					spawn(0)
-						E.close()
-						sleep(10)
-						if(E.density)
-							E.air_locked = E.req_access
-							E.req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
-							E.update_icon()
-				if(E.operating)
-					spawn(10)
-						E.close()
-						if(E.density)
-							E.air_locked = E.req_access
-							E.req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
-							E.update_icon()
-				else if(!E:locked) //Don't lock already bolted doors.
-					E.air_locked = E.req_access
-					E.req_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
-					E.update_icon()
-		for(var/obj/machinery/door/firedoor/D in src)
+		for(var/obj/machinery/door/firedoor/D in all_doors)
 			if(!D.blocked)
 				if(D.operating)
 					D.nextstate = CLOSED
 				else if(!D.density)
-					spawn(0)
-					D.close() */
+					spawn()
+						D.close()
 		var/list/cameras = list()
 		for (var/obj/machinery/camera/C in src)
 			cameras += C
-		for (var/mob/living/silicon/ai/aiPlayer in world)
+		for (var/mob/living/silicon/ai/aiPlayer in player_list)
 			aiPlayer.triggerAlarm("Fire", src, cameras, src)
 		for (var/obj/machinery/computer/station_alert/a in world)
 			a.triggerAlarm("Fire", src, cameras, src)
-	return
 
 /area/proc/firereset()
 	if (fire)
 		fire = 0
 		mouse_opacity = 0
 		updateicon()
-/*		for(var/obj/machinery/door/airlock/E in master.all_doors)
-			if((!E.arePowerSystemsOn()) || (E.stat & NOPOWER)) continue
-			if(E.air_locked) //Don't mess with doors locked for other reasons.
-				if(E.density)
-					E.req_access = E.air_locked
-					E.air_locked = null
-					E.update_icon()
-		for(var/obj/machinery/door/firedoor/D in src)
+		for(var/obj/machinery/door/firedoor/D in all_doors)
 			if(!D.blocked)
 				if(D.operating)
 					D.nextstate = OPEN
 				else if(D.density)
 					spawn(0)
-					D.open()*/
-		for (var/mob/living/silicon/ai/aiPlayer in world)
+					D.open()
+		for (var/mob/living/silicon/ai/aiPlayer in player_list)
 			aiPlayer.cancelAlarm("Fire", src, src)
 		for (var/obj/machinery/computer/station_alert/a in world)
 			a.cancelAlarm("Fire", src, src)
-	return
 
 /area/proc/readyalert()
 	if(name == "Space")
@@ -209,19 +140,19 @@
 	return
 
 /area/proc/partyalert()
-	if(src.name == "Space") //no parties in space!!!
+	if(name == "Space") //no parties in space!!!
 		return
-	if (!( src.party ))
-		src.party = 1
-		src.updateicon()
-		src.mouse_opacity = 0
+	if (!( party ))
+		party = 1
+		updateicon()
+		mouse_opacity = 0
 	return
 
 /area/proc/partyreset()
-	if (src.party)
-		src.party = 0
-		src.mouse_opacity = 0
-		src.updateicon()
+	if (party)
+		party = 0
+		mouse_opacity = 0
+		updateicon()
 		for(var/obj/machinery/door/firedoor/D in src)
 			if(!D.blocked)
 				if(D.operating)
@@ -311,60 +242,56 @@
 
 
 /area/Entered(A)
-
-	var/sound = null
 	var/musVolume = 25
-	sound = 'ambigen1.ogg'
+	var/sound = 'sound/ambience/ambigen1.ogg'
 
+	if(!istype(A,/mob/living))	return
 
-	if (ismob(A))
+	var/mob/living/L = A
+	if(!L.ckey)	return
 
-		if (istype(A, /mob/dead/observer)) return
-		if (!A:ckey)
-			return
+	if(!L.lastarea)
+		L.lastarea = get_area(L.loc)
+	var/area/newarea = get_area(L.loc)
+	var/area/oldarea = L.lastarea
+	if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (L.m_intent == "run")) // Being ready when you change areas gives you a chance to avoid falling all together.
+		thunk(L)
 
-		if(istype(A,/mob/living))
-			if(!A:lastarea)
-				A:lastarea = get_area(A:loc)
-			//world << "Entered new area [get_area(A:loc)]"
-			var/area/newarea = get_area(A:loc)
-			var/area/oldarea = A:lastarea
-			if((oldarea.has_gravity == 0) && (newarea.has_gravity == 1) && (A:m_intent == "run")) // Being ready when you change areas gives you a chance to avoid falling all together.
-				thunk(A)
+	L.lastarea = newarea
 
-			A:lastarea = newarea
+	// Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
+	if(!(L && L.client && (L.client.prefs.toggles & SOUND_AMBIENCE)))	return
 
-		//if (A:ear_deaf) return
+	if(!L.client.ambience_playing)
+		L.client.ambience_playing = 1
+		L << sound('sound/ambience/shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)
 
-//		if (A && A:client && !A:client:ambience_playing && !A:client:no_ambi) // Ambience goes down here -- make sure to list each area seperately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
-//			A:client:ambience_playing = 1
-//			A << sound('shipambience.ogg', repeat = 1, wait = 0, volume = 35, channel = 2)
+	if(prob(35))
 
-		switch(src.name)
-			if ("Chapel") sound = pick('ambicha1.ogg','ambicha2.ogg','ambicha3.ogg','ambicha4.ogg')
-			if ("Morgue") sound = pick('ambimo1.ogg','ambimo2.ogg','title2.ogg')
-			if ("Space") sound = pick('ambispace.ogg','title2.ogg',)
-			if ("Engine Control", "Engineering", "Engineering SMES") sound = pick('ambisin1.ogg','ambisin2.ogg','ambisin3.ogg','ambisin4.ogg')
-			if ("AI Satellite Teleporter Room") sound = pick('ambimalf.ogg')
-			if ("AI Upload Foyer") sound = pick('ambimalf.ogg')
-			if ("AI Upload Chamber") sound = pick('ambimalf.ogg')
-			if ("Mine")
-				sound = pick('ambimine.ogg')
-				musVolume = 25
-			else
-				sound = pick('ambigen1.ogg','ambigen3.ogg','ambigen4.ogg','ambigen5.ogg','ambigen6.ogg','ambigen7.ogg','ambigen8.ogg','ambigen9.ogg','ambigen10.ogg','ambigen11.ogg','ambigen12.ogg','ambigen14.ogg')
+		if(istype(src, /area/chapel))
+			sound = pick('sound/ambience/ambicha1.ogg','sound/ambience/ambicha2.ogg','sound/ambience/ambicha3.ogg','sound/ambience/ambicha4.ogg','sound/music/traitor.ogg')
+		else if(istype(src, /area/medical/morgue))
+			sound = pick('sound/ambience/ambimo1.ogg','sound/ambience/ambimo2.ogg','sound/music/main.ogg')
+		else if(type == /area)
+			sound = pick('sound/ambience/ambispace.ogg','sound/music/title2.ogg','sound/music/space.ogg','sound/music/main.ogg','sound/music/traitor.ogg')
+		else if(istype(src, /area/engine))
+			sound = pick('sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg')
+		else if(istype(src, /area/AIsattele) || istype(src, /area/turret_protected/ai) || istype(src, /area/turret_protected/ai_upload) || istype(src, /area/turret_protected/ai_upload_foyer))
+			sound = pick('sound/ambience/ambimalf.ogg')
+		else if(istype(src, /area/mine/explored) || istype(src, /area/mine/unexplored))
+			sound = pick('sound/ambience/ambimine.ogg', 'sound/ambience/song_game.ogg')
+			musVolume = 25
+		else if(istype(src, /area/tcommsat) || istype(src, /area/turret_protected/tcomwest) || istype(src, /area/turret_protected/tcomeast) || istype(src, /area/turret_protected/tcomfoyer) || istype(src, /area/turret_protected/tcomsat))
+			sound = pick('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg')
+		else
+			sound = pick('sound/ambience/ambigen1.ogg','sound/ambience/ambigen3.ogg','sound/ambience/ambigen4.ogg','sound/ambience/ambigen5.ogg','sound/ambience/ambigen6.ogg','sound/ambience/ambigen7.ogg','sound/ambience/ambigen8.ogg','sound/ambience/ambigen9.ogg','sound/ambience/ambigen10.ogg','sound/ambience/ambigen11.ogg','sound/ambience/ambigen12.ogg','sound/ambience/ambigen14.ogg')
 
-		if(findtext(src.name, "Telecommunications"))
-			sound = pick('ambisin2.ogg', 'signal.ogg', 'signal.ogg', 'ambigen10.ogg')
-
-		if (prob(35))
-			if(A && A:client && !A:client:played)
-				A << sound(sound, repeat = 0, wait = 0, volume = musVolume, channel = 1)
-				A:client:played = 1
-				spawn(600)
-					if(A && A:client)
-						A:client:played = 0
-
+		if(!L.client.played)
+			L << sound(sound, repeat = 0, wait = 0, volume = musVolume, channel = 1)
+			L.client.played = 1
+			spawn(600)			//ewww - this is very very bad
+				if(L.&& L.client)
+					L.client.played = 0
 
 /area/proc/gravitychange(var/gravitystate = 0, var/area/A)
 
@@ -395,43 +322,3 @@
 
 	mob << "Gravity!"
 
-/area/proc/absorb(var/area/A)
-	if(!istype(A))
-		return
-	var/oldname = A.name
-	var/list/other_related = A.related
-	var/area/other_master = A.master
-	other_related -= other_master
-	var/list/total_contents = list()
-	for(var/area/RA in other_related)
-//		RA.ul_lighting = 0
-		total_contents |= RA.contents
-		del RA.contents
-		del RA.related
-		RA.master = null
-	other_master.master = null
-	del other_master.related
-	total_contents |= other_master.contents
-	del other_master.contents
-	for(var/area/RA in other_related)
-		del(RA)
-	src += total_contents
-	spawn(5)
-		power_change()
-		set_area_machinery_title(oldname)
-
-
-/area/proc/set_area_machinery_title(var/oldtitle)
-	if(!oldtitle)
-		return
-	for(var/area/RA in related)
-		for(var/obj/machinery/alarm/M in RA)
-			M.name = dd_replacetext(M.name,oldtitle,name)
-		for(var/obj/machinery/power/apc/M in RA)
-			M.name = dd_replacetext(M.name,oldtitle,name)
-		for(var/obj/machinery/atmospherics/unary/vent_scrubber/M in RA)
-			M.name = dd_replacetext(M.name,oldtitle,name)
-		for(var/obj/machinery/atmospherics/unary/vent_pump/M in RA)
-			M.name = dd_replacetext(M.name,oldtitle,name)
-		for(var/obj/machinery/door/M in RA)
-			M.name = dd_replacetext(M.name,oldtitle,name)

@@ -1,11 +1,9 @@
 
 
-/client/proc/rightandwrong()
-	set category = "Spells"
-	set desc = "Summon Guns"
-	set name = "Wizards: No sense of right and wrong!"
-
-	for(var/mob/living/carbon/human/H in world)
+/mob/proc/rightandwrong()
+	usr << "<B>You summoned guns!</B>"
+	message_admins("[key_name_admin(usr, 1)] summoned guns!")
+	for(var/mob/living/carbon/human/H in player_list)
 		if(H.stat == 2 || !(H.client)) continue
 		if(is_special_character(H)) continue
 		if(prob(25))
@@ -19,7 +17,7 @@
 			for(var/datum/objective/OBJ in H.mind.objectives)
 				H << "<B>Objective #[obj_count]</B>: [OBJ.explanation_text]"
 				obj_count++
-		var/randomize = pick("taser","egun","laser","revolver","smg","nuclear","deagle","gyrojet","pulse","silenced","cannon","shotgun","mateba","uzi","crossbow")
+		var/randomize = pick("taser","egun","laser","revolver","detective","smg","nuclear","deagle","gyrojet","pulse","silenced","cannon","doublebarrel","shotgun","combatshotgun","mateba","smg","uzi","crossbow","saw")
 		switch (randomize)
 			if("taser")
 				new /obj/item/weapon/gun/energy/taser(get_turf(H))
@@ -29,6 +27,8 @@
 				new /obj/item/weapon/gun/energy/laser(get_turf(H))
 			if("revolver")
 				new /obj/item/weapon/gun/projectile(get_turf(H))
+			if("detective")
+				new /obj/item/weapon/gun/projectile/detective(get_turf(H))
 			if("smg")
 				new /obj/item/weapon/gun/projectile/automatic/c20r(get_turf(H))
 			if("nuclear")
@@ -40,15 +40,23 @@
 			if("pulse")
 				new /obj/item/weapon/gun/energy/pulse_rifle(get_turf(H))
 			if("silenced")
-				new /obj/item/weapon/gun/projectile/silenced(get_turf(H))
+				new /obj/item/weapon/gun/projectile/pistol(get_turf(H))
+				new /obj/item/weapon/silencer(get_turf(H))
 			if("cannon")
 				new /obj/item/weapon/gun/energy/lasercannon(get_turf(H))
+			if("doublebarrel")
+				new /obj/item/weapon/gun/projectile/shotgun/pump/(get_turf(H))
 			if("shotgun")
+				new /obj/item/weapon/gun/projectile/shotgun/pump/(get_turf(H))
+			if("combatshotgun")
 				new /obj/item/weapon/gun/projectile/shotgun/pump/combat(get_turf(H))
 			if("mateba")
 				new /obj/item/weapon/gun/projectile/mateba(get_turf(H))
+			if("smg")
+				new /obj/item/weapon/gun/projectile/automatic(get_turf(H))
 			if("uzi")
 				new /obj/item/weapon/gun/projectile/automatic/mini_uzi(get_turf(H))
 			if("crossbow")
 				new /obj/item/weapon/gun/energy/crossbow(get_turf(H))
-	usr.verbs -= /client/proc/rightandwrong
+			if("saw")
+				new /obj/item/weapon/gun/projectile/automatic/l6_saw(get_turf(H))

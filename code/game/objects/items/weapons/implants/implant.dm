@@ -1,12 +1,15 @@
+#define MALFUNCTION_TEMPORARY 1
+#define MALFUNCTION_PERMANENT 2
 /obj/item/weapon/implant
 	name = "implant"
-	desc = "An implant. Not usually seen outside a body."
-	icon = 'items.dmi'
+	icon = 'device.dmi'
 	icon_state = "implant"
 	var/implanted = null
 	var/mob/imp_in = null
+	var/datum/organ/external/part = null
 	color = "b"
 	var/allow_reagents = 0
+	var/malfunction = 0
 
 	proc/trigger(emote, source as mob)
 		return
@@ -14,78 +17,41 @@
 	proc/activate()
 		return
 
-	proc/implanted(source as mob)
-		return
+	// What does the implant do upon injection?
+	// return 0 if the implant fails (ex. Revhead and loyalty implant.)
+	// return 1 if the implant succeeds (ex. Nonrevhead and loyalty implant.)
+	proc/implanted(var/mob/source)
+		return 1
 
 	proc/get_data()
-		return
+		return "No information available"
 
 	proc/hear(message, source as mob)
 		return
 
+	proc/islegal()
+		return 0
 
-	trigger(emote, source as mob)
-		return
+	proc/meltdown()	//breaks it down, making implant unrecongizible
+		imp_in << "\red You feel something melting inside [part ? "your [part.display_name]" : "you"]!"
+		if (part)
+			part.take_damage(burn = 15, used_weapon = "Electronics meltdown")
+		else
+			var/mob/living/M = imp_in
+			M.apply_damage(15,BURN)
+		name = "melted implant"
+		desc = "Charred circuit in melted plastic case. Wonder what that used to be..."
+		icon_state = "implant_melted"
+		malfunction = MALFUNCTION_PERMANENT
 
-
-	activate()
-		return
-
-	attackby(obj/item/weapon/I as obj, mob/user as mob)
+	Del()
+		if(part)
+			part.implants.Remove(src)
 		..()
-		if (istype(I, /obj/item/weapon/implanter))
-			if (I:imp)
-				return
-			else
-				src.loc = I
-				I:imp = src
-//				del(src)
-			I:update()
-		return
-
-	implanted(source as mob)
-		return
-
-
-	get_data()
-		return "No information available"
-
-	hear(message, source as mob)
-		return
-
-
-
-/obj/item/weapon/implant/uplink
-	name = "uplink implant"
-	desc = "A micro-telecrystal implant which allows for instant transportation of equipment."
-	var/activation_emote = "chuckle"
-	var/obj/item/device/uplink/radio/uplink = null
-
-
-	New()
-		activation_emote = pick("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
-		uplink = new /obj/item/device/uplink/radio/implanted(src)
-		..()
-		return
-
-
-	implanted(mob/source as mob)
-		activation_emote = input("Choose activation emote:") in list("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
-		source.mind.store_memory("Uplink implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", 0, 0)
-		source << "The implanted uplink implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate."
-		return
-
-
-	trigger(emote, mob/source as mob)
-		if(emote == activation_emote)
-			uplink.attack_self(source)
-		return
-
-
 
 /obj/item/weapon/implant/tracking
-	name = "tracking implant"
-	desc = "An implant which relays information to the appropriate tracking computer."
+	name = "tracking"
+	desc = "Track with this."
 	var/id = 1.0
 
 
@@ -106,16 +72,27 @@ circuitry. As a result neurotoxins can cause massive damage.<HR>
 Implant Specifics:<BR>"}
 		return dat
 
+	emp_act(severity)
+		if (malfunction)	//no, dawg, you can't malfunction while you are malfunctioning
+			return
+		malfunction = MALFUNCTION_TEMPORARY
 
-//Nuke Agent Explosive
+		var/delay = 20
+		switch(severity)
+			if(1)
+				if(prob(60))
+					meltdown()
+			if(2)
+				delay = rand(5*60*10,15*60*10)	//from 5 to 15 minutes of free time
+
+		spawn(delay)
+			malfunction--
+
+
 /obj/item/weapon/implant/dexplosive
-	name = "explosive implant"
-	desc = "A military grade micro bio-explosive. Highly dangerous."
-	var/activation_emote = "deathgasp"
-	var/coded = 0
-
-	New()
-		verbs += /obj/item/weapon/implant/dexplosive/proc/set_emote
+	name = "explosive"
+	desc = "And boom goes the weasel."
+	icon_state = "implant_evil"
 
 	get_data()
 		var/dat = {"
@@ -132,7 +109,7 @@ Implant Specifics:<BR>"}
 
 
 	trigger(emote, source as mob)
-		if(emote == activation_emote)
+		if(emote == "deathgasp")
 			src.activate("death")
 		return
 
@@ -143,25 +120,102 @@ Implant Specifics:<BR>"}
 		if(src.imp_in)
 			src.imp_in.gib()
 
-	proc/set_emote()
-		set name = "Set Emote"
-		set category = "Object"
-		set src in usr
-		if(coded != 0)
-			usr << "You've already set up your implant!"
-			return
-		activation_emote = input("Choose activation emote:") in list("deathgasp","blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
-		usr.mind.store_memory("Explosive implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", 0, 0)
-		usr << "The implanted explosive implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate."
-		coded = 1
-		verbs -= /obj/item/weapon/implant/dexplosive/proc/set_emote
+	islegal()
+		return 0
+
+//BS12 Explosive
+/obj/item/weapon/implant/explosive
+	name = "explosive implant"
+	desc = "A military grade micro bio-explosive. Highly dangerous."
+	var/phrase = "supercalifragilisticexpialidocious"
+	icon_state = "implant_evil"
+
+	get_data()
+		var/dat = {"
+<b>Implant Specifications:</b><BR>
+<b>Name:</b> Robust Corp RX-78 Intimidation Class Implant<BR>
+<b>Life:</b> Activates upon codephrase.<BR>
+<b>Important Notes:</b> Explodes<BR>
+<HR>
+<b>Implant Details:</b><BR>
+<b>Function:</b> Contains a compact, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death.<BR>
+<b>Special Features:</b> Explodes<BR>
+<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
+		return dat
+
+	hear_talk(mob/M as mob, msg)
+		hear(msg)
 		return
 
+	hear(var/msg)
+		var/list/replacechars = list("'" = "","\"" = "",">" = "","<" = "","(" = "",")" = "")
+		msg = sanitize_simple(msg, replacechars)
+		if(findtext(msg,phrase))
+			activate()
+			del(src)
 
+	activate()
+		if (malfunction == MALFUNCTION_PERMANENT)
+			return
+		if(istype(imp_in, /mob/))
+			var/mob/T = imp_in
+			T.gib()
+		explosion(get_turf(imp_in), 1, 3, 4, 6, 3)
+		var/turf/t = get_turf(imp_in)
+		if(t)
+			t.hotspot_expose(3500,125)
+
+	implanted(mob/source as mob)
+		phrase = input("Choose activation phrase:") as text
+		var/list/replacechars = list("'" = "","\"" = "",">" = "","<" = "","(" = "",")" = "")
+		phrase = sanitize_simple(phrase, replacechars)
+		usr.mind.store_memory("Explosive implant in [source] can be activated by saying something containing the phrase ''[src.phrase]'', <B>say [src.phrase]</B> to attempt to activate.", 0, 0)
+		usr << "The implanted explosive implant in [source] can be activated by saying something containing the phrase ''[src.phrase]'', <B>say [src.phrase]</B> to attempt to activate."
+		return 1
+
+	emp_act(severity)
+		if (malfunction)
+			return
+		malfunction = MALFUNCTION_TEMPORARY
+		switch (severity)
+			if (2.0)	//Weak EMP will make implant tear limbs off.
+				if (prob(50))
+					small_boom()
+			if (1.0)	//strong EMP will melt implant either making it go off, or disarming it
+				if (prob(70))
+					if (prob(50))
+						small_boom()
+					else
+						if (prob(50))
+							activate()		//50% chance of bye bye
+						else
+							meltdown()		//50% chance of implant disarming
+		spawn (20)
+			malfunction--
+
+	islegal()
+		return 0
+
+	proc/small_boom()
+		if (ishuman(imp_in) && part)
+			imp_in.visible_message("\red Something beeps inside [imp_in][part ? "'s [part.display_name]" : ""]!")
+			playsound(loc, 'sound/items/countdown.ogg', 75, 1, -3)
+			spawn(25)
+				if (ishuman(imp_in) && part)
+					//No tearing off these parts since it's pretty much killing
+					//and you can't replace groins
+					if (istype(part,/datum/organ/external/chest) ||	\
+						istype(part,/datum/organ/external/groin) ||	\
+						istype(part,/datum/organ/external/head))
+						part.createwound(BRUISE, 60)	//mangle them instead
+					else
+						part.droplimb(1)
+				explosion(get_turf(imp_in), -1, -1, 2, 3, 3)
+				del(src)
 
 /obj/item/weapon/implant/chem
-	name = "chemical implant"
-	desc = "A micro-injector that can be triggered remotely."
+	name = "chem"
+	desc = "Injects things."
 	allow_reagents = 1
 
 	get_data()
@@ -176,7 +230,7 @@ will suffer from an increased appetite.</B><BR>
 <b>Function:</b> Contains a small capsule that can contain various chemicals. Upon receiving a specially encoded signal<BR>
 the implant releases the chemicals directly into the blood stream.<BR>
 <b>Special Features:</b>
-<i>Micro-Capsule</i>- Can be loaded with any sort of chemical agent via the common syringe and can hold 15 units.<BR>
+<i>Micro-Capsule</i>- Can be loaded with any sort of chemical agent via the common syringe and can hold 50 units.<BR>
 Can only be loaded while still in its original case.<BR>
 <b>Integrity:</b> Implant will last so long as the subject is alive. However, if the subject suffers from malnutrition,<BR>
 the implant may become unstable and either pre-maturely inject the subject or simply break."}
@@ -185,14 +239,14 @@ the implant may become unstable and either pre-maturely inject the subject or si
 
 	New()
 		..()
-		var/datum/reagents/R = new/datum/reagents(10)
+		var/datum/reagents/R = new/datum/reagents(50)
 		reagents = R
 		R.my_atom = src
 
 
 	trigger(emote, source as mob)
 		if(emote == "deathgasp")
-			src.activate(10)
+			src.activate(src.reagents.total_volume)
 		return
 
 
@@ -207,36 +261,50 @@ the implant may become unstable and either pre-maturely inject the subject or si
 				del(src)
 		return
 
+	emp_act(severity)
+		if (malfunction)
+			return
+		malfunction = MALFUNCTION_TEMPORARY
 
+		switch(severity)
+			if(1)
+				if(prob(60))
+					activate(20)
+			if(2)
+				if(prob(30))
+					activate(5)
+
+		spawn(20)
+			malfunction--
 
 /obj/item/weapon/implant/loyalty
-	name = "loyalty implant"
-	desc = "An implant which contains a small pod of nanobots which manipulate host mental functions to induce loyalty."
+	name = "loyalty"
+	desc = "Makes you loyal or such."
 
 	get_data()
 		var/dat = {"
 <b>Implant Specifications:</b><BR>
-<b>Name:</b> NanoTrasen Employee Management Implant<BR>
+<b>Name:</b> Nanotrasen Employee Management Implant<BR>
 <b>Life:</b> Ten years.<BR>
 <b>Important Notes:</b> Personnel injected with this device tend to be much more loyal to the company.<BR>
 <HR>
 <b>Implant Details:</b><BR>
 <b>Function:</b> Contains a small pod of nanobots that manipulate the host's mental functions.<BR>
 <b>Special Features:</b> Will prevent and cure most forms of brainwashing.<BR>
-<b>Integrity:</b> Degradation can occur within nanobots, re-application may be necessary to ensure full cooperation."}
+<b>Integrity:</b> Implant will last so long as the nanobots are inside the bloodstream."}
 		return dat
 
 
-	implanted(M as mob)
-		if(!istype(M, /mob/living/carbon/human))	return
+	implanted(mob/M)
+		if(!istype(M, /mob/living/carbon/human))	return 0
 		var/mob/living/carbon/human/H = M
 		if(H.mind in ticker.mode.head_revolutionaries)
-			H.visible_message("[H] seems to resist the implant!", "You feel the corporate tendrils of NanoTrasen try to invade your mind!")
-			return
+			H.visible_message("[H] seems to resist the implant!", "You feel the corporate tendrils of Nanotrasen try to invade your mind!")
+			return 0
 		else if(H.mind in ticker.mode:revolutionaries)
 			ticker.mode:remove_revolutionary(H.mind)
-		H << "\blue You feel a surge of loyalty towards NanoTrasen."
-		return
+		H << "\blue You feel a surge of loyalty towards Nanotrasen."
+		return 1
 
 
 /obj/item/weapon/implant/adrenalin
@@ -270,55 +338,11 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		return
 
 
-	implanted(mob/source as mob)
+	implanted(mob/source)
 		source.mind.store_memory("A implant can be activated by using the pale emote, <B>say *pale</B> to attempt to activate.", 0, 0)
 		source << "The implanted freedom implant can be activated by using the pale emote, <B>say *pale</B> to attempt to activate."
-		return
+		return 1
 
-
-//BS12 Explosive
-/obj/item/weapon/implant/explosive
-	name = "explosive implant"
-	desc = "A military grade micro bio-explosive. Highly dangerous."
-	var/phrase = "supercalifragilisticexpialidocious"
-
-
-	get_data()
-		var/dat = {"
-<b>Implant Specifications:</b><BR>
-<b>Name:</b> Robust Corp RX-78 Intimidation Class Implant<BR>
-<b>Life:</b> Activates upon codephrase.<BR>
-<b>Important Notes:</b> Explodes<BR>
-<HR>
-<b>Implant Details:</b><BR>
-<b>Function:</b> Contains a compact, electrically detonated explosive that detonates upon receiving a specially encoded signal or upon host death.<BR>
-<b>Special Features:</b> Explodes<BR>
-<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
-		return dat
-
-	hear_talk(mob/M as mob, msg)
-		hear(msg)
-		return
-
-	hear(var/msg)
-		var/list/replacechars = list("'" = "","\"" = "",">" = "","<" = "","(" = "",")" = "")
-		msg = sanitize_simple(msg, replacechars)
-		if(findtext(msg,phrase))
-			if(istype(imp_in, /mob/))
-				var/mob/T = imp_in
-				T.gib()
-			explosion(get_turf(imp_in), 1, 3, 4, 6, 3)
-			var/turf/t = get_turf(imp_in)
-			if(t)
-				t.hotspot_expose(3500,125)
-			del(src)
-
-	implanted(mob/source as mob)
-		phrase = input("Choose activation phrase:") as text
-		var/list/replacechars = list("'" = "","\"" = "",">" = "","<" = "","(" = "",")" = "")
-		phrase = sanitize_simple(phrase, replacechars)
-		usr.mind.store_memory("Explosive implant in [source] can be activated by saying something containing the phrase ''[src.phrase]'', <B>say [src.phrase]</B> to attempt to activate.", 0, 0)
-		usr << "The implanted explosive implant in [source] can be activated by saying something containing the phrase ''[src.phrase]'', <B>say [src.phrase]</B> to attempt to activate."
 
 /obj/item/weapon/implant/death_alarm
 	name = "death alarm implant"
@@ -339,33 +363,63 @@ the implant may become unstable and either pre-maturely inject the subject or si
 		return dat
 
 	process()
+		if (!implanted) return
 		var/mob/M = imp_in
 
-		var/area/t = get_area(M)
-
 		if(isnull(M)) // If the mob got gibbed
-			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
-			a.autosay("states, \"[mobname] has died-zzzzt in-in-in...\"", "[mobname]'s Death Alarm")
-			del(a)
-			processing_objects.Remove(src)
+			activate()
 		else if(M.stat == 2)
-			var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
-			if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
-				//give the syndies a bit of stealth
-				a.autosay("states, \"[mobname] has died in Space!\"", "[mobname]'s Death Alarm")
+			activate("death")
+
+	activate(var/cause)
+		var/mob/M = imp_in
+		var/area/t = get_area(M)
+		switch (cause)
+			if("death")
+				var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+				if(istype(t, /area/syndicate_station) || istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) )
+					//give the syndies a bit of stealth
+					a.autosay("[mobname] has died in Space!", "[mobname]'s Death Alarm")
+				else
+					a.autosay("[mobname] has died in [t.name]!", "[mobname]'s Death Alarm")
+				del(a)
+				processing_objects.Remove(src)
+			if ("emp")
+				var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+				var/name = prob(50) ? t.name : pick(teleportlocs)
+				a.autosay("[mobname] has died in [name]!", "[mobname]'s Death Alarm")
+				del(a)
 			else
-				a.autosay("states, \"[mobname] has died in [t.name]!\"", "[mobname]'s Death Alarm")
-			del(a)
+				var/obj/item/device/radio/headset/a = new /obj/item/device/radio/headset(null)
+				a.autosay("[mobname] has died-zzzzt in-in-in...", "[mobname]'s Death Alarm")
+				del(a)
+				processing_objects.Remove(src)
+
+	emp_act(severity)			//for some reason alarms stop going off in case they are emp'd, even without this
+		if (malfunction)		//so I'm just going to add a meltdown chance here
+			return
+		malfunction = MALFUNCTION_TEMPORARY
+
+		activate("emp")	//let's shout that this dude is dead
+		if(severity == 1)
+			if(prob(40))	//small chance of obvious meltdown
+				meltdown()
+			else if (prob(60))	//but more likely it will just quietly die
+				malfunction = MALFUNCTION_PERMANENT
 			processing_objects.Remove(src)
 
+		spawn(20)
+			malfunction--
 
 	implanted(mob/source as mob)
 		mobname = source.real_name
 		processing_objects.Add(src)
+		return 1
 
 /obj/item/weapon/implant/compressed
 	name = "compressed matter implant"
 	desc = "Based on compressed matter technology, can store a single item."
+	icon_state = "implant_evil"
 	var/activation_emote = "sigh"
 	var/obj/item/scanned = null
 
@@ -388,117 +442,22 @@ the implant may become unstable and either pre-maturely inject the subject or si
 
 		if (emote == src.activation_emote)
 			source << "The air glows as \the [src.scanned.name] uncompresses."
-			var/turf/t = get_turf(source)
-			src.scanned.loc = t
-			del src
+			activate()
+
+	activate()
+		var/turf/t = get_turf(src)
+		if (imp_in)
+			imp_in.put_in_hands(scanned)
+		else
+			scanned.loc = t
+		del src
 
 	implanted(mob/source as mob)
 		src.activation_emote = input("Choose activation emote:") in list("blink", "blink_r", "eyebrow", "chuckle", "twitch_s", "frown", "nod", "blush", "giggle", "grin", "groan", "shrug", "smile", "pale", "sniff", "whimper", "wink")
-		source.mind.store_memory("Freedom implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", 0, 0)
+		if (source.mind)
+			source.mind.store_memory("Freedom implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate.", 0, 0)
 		source << "The implanted freedom implant can be activated by using the [src.activation_emote] emote, <B>say *[src.activation_emote]</B> to attempt to activate."
+		return 1
 
-/*// --------------------LASERS WORK FROM HERE, AUGMENTATIONS SHIZZLE----------------------
-/obj/item/weapon/implant/augmentation/thermalscanner
-	name = "Thermal Scanner Augmentation"
-	desc = "Makes you see humans through walls"
-
-	get_data()
-		var/dat = {"
-<b>Implant Specifications:</b><BR>
-<b>Name:</b> NanoTrasen Thermal Implant<BR>
-<b>Life:</b> Ten years.<BR>
-<b>Important Notes:</b> Personnel injected with this device tend to be able to see lifeforms through life using thermal.<BR>
-<HR>
-<b>Implant Details:</b><BR>
-<b>Function:</b> Contains a small pod of nanobots that manipulate the host's eye functions.<BR>
-<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
-		return dat
-
-
-	implanted(M as mob)
-		if(istype(M, /mob/living/carbon/human))
-			vision_flags = SEE_MOBS
-			invisa_view = 2
-			usr << "You suddenly start seeing body temperatures of whoever is around you."
-		else
-			usr << "This implant is not compatible!"
-		return
-
-/obj/item/weapon/implant/augmentation/mesonscanner
-	name = "Meson Scanner Augmentation"
-	desc = "Makes you see floor and wall layouts through walls."
-
-	get_data()
-		var/dat = {"
-<b>Implant Specifications:</b><BR>
-<b>Name:</b> NanoTrasen Meson Implant<BR>
-<b>Life:</b> Ten years.<BR>
-<b>Important Notes:</b> Personnel injected with this device tend to be able to see floor and wall layouts through walls.<BR>
-<HR>
-<b>Implant Details:</b><BR>
-<b>Function:</b> Contains a small pod of nanobots that manipulate the host's eye functions.<BR>
-<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
-		return dat
-
-
-	implanted(M as mob)
-		if(istype(M, /mob/living/carbon/human))
-			vision_flags = SEE_TURFS
-			usr << "You suddenly start seeing body temperatures of whoever is around you."
-		else
-			usr << "This implant is not compatible!"
-		return
-
-/obj/item/weapon/implant/augmentation/medicalhud
-	name = "Medical HUD Augmentation"
-	desc = "Makes you see the medical condition of a person."
-
-	get_data()
-		var/dat = {"
-<b>Implant Specifications:</b><BR>
-<b>Name:</b> NanoTrasen Med HUD Implant<BR>
-<b>Life:</b> Ten years.<BR>
-<b>Important Notes:</b> Personnel injected with this device tend to be able to see the medical condition of a person.<BR>
-<HR>
-<b>Implant Details:</b><BR>
-<b>Function:</b> Contains a small pod of nanobots that manipulate the host's eye functions.<BR>
-<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
-		return dat
-
-
-	implanted(M as mob)
-		if(istype(M, /mob/living/carbon/human))
-
-			src.hud = new/obj/item/clothing/glasses/hud/health(src)
-			usr << "You suddenly start seeing body temperatures of whoever is around you."
-		else
-			usr << "This implant is not compatible!"
-		return
-
-/obj/item/weapon/implant/augmentation/securityhud
-	name = "Security HUD Augmentation"
-	desc = "Makes you see the Security standings of a person."
-
-	get_data()
-		var/dat = {"
-<b>Implant Specifications:</b><BR>
-<b>Name:</b> NanoTrasen Sec HUD Implant<BR>
-<b>Life:</b> Ten years.<BR>
-<b>Important Notes:</b> Personnel injected with this device tend to be able to see the security standings of a person.<BR>
-<HR>
-<b>Implant Details:</b><BR>
-<b>Function:</b> Contains a small pod of nanobots that manipulate the host's eye functions.<BR>
-<b>Integrity:</b> Implant will occasionally be degraded by the body's immune system and thus will occasionally malfunction."}
-		return dat
-
-
-	implanted(M as mob)
-		if(istype(M, /mob/living/carbon/human))
-			var/obj/item/clothing/glasses/hud/security/hud = null
-
-			src.hud = new/obj/item/clothing/glasses/hud/security(src)
-
-			usr << "You suddenly start seeing body temperatures of whoever is around you."
-		else
-			usr << "This implant is not compatible!"
-		return*/
+	islegal()
+		return 0

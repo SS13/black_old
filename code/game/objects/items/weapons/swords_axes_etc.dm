@@ -1,23 +1,27 @@
+/* Weapons
+ * Contains:
+ *		Banhammer
+ *		Sword
+ *		Classic Baton
+ *		Energy Blade
+ *		Energy Axe
+ *		Energy Shield
+ */
+
 /*
-CONTAINS:
-SWORD
-BLADE
-AXE
-CLASSIC BATON
-ENERGY SHIELD (where else should i even put this)
-*/
+ * Banhammer
+ */
+/obj/item/weapon/banhammer/attack(mob/M as mob, mob/user as mob)
+	M << "<font color='red'><b> You have been banned FOR NO REISIN by [user]<b></font>"
+	user << "<font color='red'> You have <b>BANNED</b> [M]</font>"
 
-
-
-
-// SWORD
+/*
+ * Sword
+ */
 /obj/item/weapon/melee/energy/sword/IsShield()
 	if(active)
 		return 1
 	return 0
-
-/obj/item/weapon/melee/energy/sword/attack(target as mob, mob/user as mob)
-	..()
 
 /obj/item/weapon/melee/energy/sword/New()
 	color = pick("red","blue","green","purple")
@@ -34,7 +38,7 @@ ENERGY SHIELD (where else should i even put this)
 		else
 			icon_state = "sword[color]"
 		w_class = 4
-		playsound(user, 'saberon.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		user << "\blue [src] is now active."
 	else
 		force = 3
@@ -43,11 +47,136 @@ ENERGY SHIELD (where else should i even put this)
 		else
 			icon_state = "sword0"
 		w_class = 2
-		playsound(user, 'saberoff.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 		user << "\blue [src] can now be concealed."
 	add_fingerprint(user)
-	user.update_clothing()
 	return
+
+/*
+ * Classic Baton
+ */
+/obj/item/weapon/melee/classic_baton
+	name = "police baton"
+	desc = "A wooden truncheon for beating criminal scum."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "baton"
+	item_state = "classic_baton"
+	flags = FPRINT | TABLEPASS
+	slot_flags = SLOT_BELT
+	force = 10
+
+/obj/item/weapon/melee/classic_baton/attack(mob/M as mob, mob/living/user as mob)
+	if ((CLUMSY in user.mutations) && prob(50))
+		user << "\red You club yourself over the head."
+		user.Weaken(3 * force)
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(2*force, BRUTE, "head")
+		else
+			user.take_organ_damage(2*force)
+		return
+/*this is already called in ..()
+	src.add_fingerprint(user)
+	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
+	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
+
+	log_attack("<font color='red'>[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
+*/
+	if (user.a_intent == "hurt")
+		if(!..()) return
+		playsound(src.loc, "swing_hit", 50, 1, -1)
+		if (M.stuttering < 8 && (!(HULK in M.mutations))  /*&& (!istype(H:wear_suit, /obj/item/clothing/suit/judgerobe))*/)
+			M.stuttering = 8
+		M.Stun(8)
+		M.Weaken(8)
+		for(var/mob/O in viewers(M))
+			if (O.client)	O.show_message("\red <B>[M] has been beaten with \the [src] by [user]!</B>", 1, "\red You hear someone fall", 2)
+	else
+		playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1, -1)
+		M.Stun(5)
+		M.Weaken(5)
+		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
+		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
+		log_attack("<font color='red'>[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
+		src.add_fingerprint(user)
+
+		for(var/mob/O in viewers(M))
+			if (O.client)	O.show_message("\red <B>[M] has been stunned with \the [src] by [user]!</B>", 1, "\red You hear someone fall", 2)
+
+//Telescopic baton
+/obj/item/weapon/melee/telebaton
+	name = "telescopic baton"
+	desc = "A compact yet robust personal defense weapon. Can be concealed when folded."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "telebaton_0"
+	item_state = "telebaton_0"
+	flags = FPRINT | TABLEPASS
+	slot_flags = SLOT_BELT
+	w_class = 2
+	force = 3
+	var/on = 0
+
+
+/obj/item/weapon/melee/telebaton/attack_self(mob/user as mob)
+	on = !on
+	if(on)
+		user.visible_message("\red With a flick of their wrist, [user] extends their telescopic baton.",\
+		"\red You extend the baton.",\
+		"You hear an ominous click.")
+		icon_state = "telebaton_1"
+		item_state = "telebaton_1"
+		w_class = 4
+		force = 15//quite robust
+		attack_verb = list("smacked", "struck", "slapped")
+	else
+		user.visible_message("\blue [user] collapses their telescopic baton.",\
+		"\blue You collapse the baton.",\
+		"You hear a click.")
+		icon_state = "telebaton_0"
+		item_state = "telebaton_0"
+		w_class = 2
+		force = 3//not so robust now
+		attack_verb = list("hit", "punched")
+	playsound(src.loc, 'sound/weapons/empty.ogg', 50, 1)
+	add_fingerprint(user)
+
+	if(blood_overlay && (blood_DNA.len >= 1))							//updates blood overlay, if any
+		overlays.Cut()//this might delete other item overlays as well but eeeeeeeh
+
+		var/icon/I = new /icon(src.icon, src.icon_state)
+		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)),ICON_ADD)
+		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY)
+		blood_overlay = I
+
+		overlays += blood_overlay
+
+	return
+
+/obj/item/weapon/melee/telebaton/attack(mob/target as mob, mob/living/user as mob)
+	if(on)
+		if ((CLUMSY in user.mutations) && prob(50))
+			user << "\red You club yourself over the head."
+			user.Weaken(3 * force)
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				H.apply_damage(2*force, BRUTE, "head")
+			else
+				user.take_organ_damage(2*force)
+			return
+
+		if(!..()) return
+		playsound(src.loc, "swing_hit", 50, 1, -1)
+		//target.Stun(4)	//naaah
+		target.Weaken(4)
+		return
+	else
+		return ..()
+
+
+/*
+ *Energy Blade
+ */
+//Most of the other special functions are handled in their own files.
 
 /obj/item/weapon/melee/energy/sword/green
 	New()
@@ -56,10 +185,6 @@ ENERGY SHIELD (where else should i even put this)
 /obj/item/weapon/melee/energy/sword/red
 	New()
 		color = "red"
-
-
-// BLADE
-//Most of the other special functions are handled in their own files.
 
 /obj/item/weapon/melee/energy/blade/New()
 	spark_system = new /datum/effect/effect/system/spark_spread()
@@ -75,8 +200,9 @@ ENERGY SHIELD (where else should i even put this)
 	del(src)
 	return
 
-// AXE
-
+/*
+ * Energy Axe
+ */
 /obj/item/weapon/melee/energy/axe/attack(target as mob, mob/user as mob)
 	..()
 
@@ -95,42 +221,10 @@ ENERGY SHIELD (where else should i even put this)
 	src.add_fingerprint(user)
 	return
 
-/obj/item/weapon/melee/classic_baton/attack(mob/M as mob, mob/living/user as mob)
-	if ((CLUMSY in user.mutations) && prob(50))
-		user << "\red You club yourself over the head."
-		user.Weaken(3 * force)
-		if(ishuman(user))
-			var/mob/living/carbon/human/H = user
-			H.apply_damage(2*force, BRUTE, "head")
-		else
-			user.take_organ_damage(2*force)
-		return
-	src.add_fingerprint(user)
 
-	M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
-	user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
-
-	log_admin("ATTACK: [user] ([user.ckey]) attacked [M] ([M.ckey]) with [src].")
-	message_admins("ATTACK: [user] ([user.ckey]) attacked [M] ([M.ckey]) with [src].")
-	log_attack("<font color='red'>[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
-
-
-	if (user.a_intent == "hurt")
-		if(!..()) return
-		playsound(src.loc, "swing_hit", 50, 1, -1)
-		if (M.stuttering < 8 && (!(HULK in M.mutations))  /*&& (!istype(H:wear_suit, /obj/item/clothing/suit/judgerobe))*/)
-			M.stuttering = 8
-		M.Stun(8)
-		M.Weaken(8)
-		for(var/mob/O in viewers(M))
-			if (O.client)	O.show_message("\red <B>[M] has been beaten with the police baton by [user]!</B>", 1, "\red You hear someone fall", 2)
-	else
-		playsound(src.loc, 'Genhit.ogg', 50, 1, -1)
-		M.Stun(5)
-		M.Weaken(5)
-		for(var/mob/O in viewers(M))
-			if (O.client)	O.show_message("\red <B>[M] has been stunned with the police baton by [user]!</B>", 1, "\red You hear someone fall", 2)
-
+/*
+ * Energy Shield
+ */
 /obj/item/weapon/shield/energy/IsShield()
 	if(active)
 		return 1
@@ -146,13 +240,13 @@ ENERGY SHIELD (where else should i even put this)
 		force = 10
 		icon_state = "eshield[active]"
 		w_class = 4
-		playsound(user, 'saberon.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		user << "\blue [src] is now active."
 	else
 		force = 3
 		icon_state = "eshield[active]"
 		w_class = 1
-		playsound(user, 'saberoff.ogg', 50, 1)
+		playsound(user, 'sound/weapons/saberoff.ogg', 50, 1)
 		user << "\blue [src] can now be concealed."
 	add_fingerprint(user)
 	return

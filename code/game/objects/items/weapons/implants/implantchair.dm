@@ -1,9 +1,9 @@
-//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:05
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
 /obj/machinery/implantchair
 	name = "Loyalty Implanter"
 	desc = "Used to implant occupants with loyalty implants."
-	icon = 'implantchair.dmi'
+	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
 	density = 1
 	opacity = 0
@@ -32,7 +32,7 @@
 
 
 	attack_hand(mob/user as mob)
-		user.machine = src
+		user.set_machine(src)
 		var/health_text = ""
 		if(src.occupant)
 			if(src.occupant.health <= -100)
@@ -48,7 +48,7 @@
 		dat += "<B>Implants:</B> [src.implant_list.len ? "[implant_list.len]" : "<A href='?src=\ref[src];replenish=1'>Replenish</A>"]<BR>"
 		if(src.occupant)
 			dat += "[src.ready ? "<A href='?src=\ref[src];implant=1'>Implant</A>" : "Recharging"]<BR>"
-		user.machine = src
+		user.set_machine(src)
 		user << browse(dat, "window=implant")
 		onclose(user, "implant")
 
@@ -78,9 +78,9 @@
 		if(istype(G, /obj/item/weapon/grab))
 			if(!ismob(G:affecting))
 				return
-			for(var/mob/living/carbon/metroid/M in range(1,G:affecting))
+			for(var/mob/living/carbon/slime/M in range(1,G:affecting))
 				if(M.Victim == G:affecting)
-					usr << "[G:affecting:name] will not fit into the [src.name] because they have a Metroid latched onto their head."
+					usr << "[G:affecting:name] will not fit into the [src.name] because they have a slime latched onto their head."
 					return
 			var/mob/M = G:affecting
 			if(put_mob(M))
@@ -116,7 +116,7 @@
 		if(M.client)
 			M.client.perspective = EYE_PERSPECTIVE
 			M.client.eye = src
-		M.pulling = null
+		M.stop_pulling()
 		M.loc = src
 		src.occupant = M
 		src.add_fingerprint(usr)
@@ -133,10 +133,11 @@
 			if(istype(imp, /obj/item/weapon/implant/loyalty))
 				for (var/mob/O in viewers(M, null))
 					O.show_message("\red [M] has been implanted by the [src.name].", 1)
-				imp.loc = M
-				imp.imp_in = M
-				imp.implanted = 1
-				imp.implanted(M)
+
+				if(imp.implanted(M))
+					imp.loc = M
+					imp.imp_in = M
+					imp.implanted = 1
 				implant_list -= imp
 				break
 		return

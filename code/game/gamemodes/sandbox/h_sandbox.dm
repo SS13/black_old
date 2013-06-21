@@ -1,4 +1,4 @@
-//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:04
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
 
 var/hsboxspawn = 1
 var/list
@@ -83,7 +83,7 @@ datum/hSB
 						P.back.loc = P.loc
 						P.back.layer = initial(P.back.layer)
 						P.back = null
-					P.back = new/obj/item/weapon/tank/jetpack/oxygen(P)
+					P.back = new/obj/item/weapon/tank/jetpack(P)
 					P.back.layer = 20
 					P.internal = P.back
 				if("hsbmetal")
@@ -136,15 +136,13 @@ datum/hSB
 							continue
 						if(istype(O, /obj/item/assembly))
 							continue
-						if(istype(O, /obj/item/weapon/camera))
+						if(istype(O, /obj/item/device/camera))
 							continue
 						if(istype(O, /obj/item/weapon/cloaking_device))
 							continue
 						if(istype(O, /obj/item/weapon/dummy))
 							continue
 						if(istype(O, /obj/item/weapon/melee/energy/sword))
-							continue
-						if(istype(O, /obj/effect/critter))
 							continue
 						if(istype(O, /obj/structure))
 							continue

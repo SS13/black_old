@@ -3,7 +3,7 @@
 /obj/machinery/mineral/purifier
 	name = "Ore Purifier"
 	desc = "A machine which makes building material out of ores"
-	icon = 'computer.dmi'
+	icon = 'icons/obj/computer.dmi'
 	icon_state = "aiupload"
 	var/obj/machinery/mineral/input = null
 	var/obj/machinery/mineral/output = null
@@ -51,19 +51,19 @@
 					new /obj/item/stack/sheet/metal(output.loc)
 					del(O)
 				if (istype(O,/obj/item/weapon/ore/diamond))
-					new /obj/item/stack/sheet/diamond(output.loc)
+					new /obj/item/stack/sheet/mineral/diamond(output.loc)
 					del(O)
 				if (istype(O,/obj/item/weapon/ore/plasma))
-					new /obj/item/stack/sheet/plasma(output.loc)
+					new /obj/item/stack/sheet/mineral/plasma(output.loc)
 					del(O)
 				if (istype(O,/obj/item/weapon/ore/gold))
-					new /obj/item/stack/sheet/gold(output.loc)
+					new /obj/item/stack/sheet/mineral/gold(output.loc)
 					del(O)
 				if (istype(O,/obj/item/weapon/ore/silver))
-					new /obj/item/stack/sheet/silver(output.loc)
+					new /obj/item/stack/sheet/mineral/silver(output.loc)
 					del(O)
 				if (istype(O,/obj/item/weapon/ore/uranium))
-					new /obj/item/weapon/ore/uranium(output.loc)
+					new /obj/item/weapon/ore/mineral/uranium(output.loc)
 					del(O)
 				/*if (istype(O,/obj/item/weapon/ore/adamantine))
 					new /obj/item/weapon/ore/adamantine(output.loc)

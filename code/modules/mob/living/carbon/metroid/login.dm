@@ -1,10 +1,4 @@
-/mob/living/carbon/metroid/Login()
+/mob/living/carbon/slime/Login()
 	..()
-
-	rebuild_appearance()
-
-	if (!isturf(src.loc))
-		src.client.eye = src.loc
-		src.client.perspective = EYE_PERSPECTIVE
-
+	update_hud()
 	return

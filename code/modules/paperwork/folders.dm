@@ -1,7 +1,7 @@
 /obj/item/weapon/folder
 	name = "folder"
 	desc = "A folder."
-	icon = 'bureaucracy.dmi'
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "folder"
 	w_class = 2
 	pressure_resistance = 2
@@ -23,7 +23,7 @@
 	icon_state = "folder_white"
 
 /obj/item/weapon/folder/update_icon()
-	overlays = null
+	overlays.Cut()
 	if(contents.len)
 		overlays += "folder_paper"
 	return
@@ -32,11 +32,11 @@
 	if(istype(W, /obj/item/weapon/paper) || istype(W, /obj/item/weapon/photo))
 		user.drop_item()
 		W.loc = src
-		user << "\blue You put the [W] into the folder."
+		user << "<span class='notice'>You put the [W] into \the [src].</span>"
 		update_icon()
 	else if(istype(W, /obj/item/weapon/pen))
-		var/n_name = copytext(sanitize(input(usr, "What would you like to label the folder?", "Folder Labelling", null)  as text),1,MAX_NAME_LEN)
-		if ((loc == usr && usr.stat == 0))
+		var/n_name = copytext(sanitize(input(usr, "What would you like to label the folder?", "Folder Labelling", null)  as text), 1, MAX_NAME_LEN)
+		if((loc == usr && usr.stat == 0))
 			name = "folder[(n_name ? text("- '[n_name]'") : null)]"
 	return
 
@@ -46,7 +46,7 @@
 	for(var/obj/item/weapon/paper/P in src)
 		dat += "<A href='?src=\ref[src];remove=\ref[P]'>Remove</A> - <A href='?src=\ref[src];read=\ref[P]'>[P.name]</A><BR>"
 	for(var/obj/item/weapon/photo/Ph in src)
-		dat += "<A href='?src=\ref[src];remove=\ref[Ph]'>Remove</A> - [Ph.name]<BR>"
+		dat += "<A href='?src=\ref[src];remove=\ref[Ph]'>Remove</A> - <A href='?src=\ref[src];look=\ref[Ph]'>[Ph.name]</A><BR>"
 	user << browse(dat, "window=folder")
 	onclose(user, "folder")
 	add_fingerprint(usr)
@@ -54,20 +54,16 @@
 
 /obj/item/weapon/folder/Topic(href, href_list)
 	..()
-	if ((usr.stat || usr.restrained()))
+	if((usr.stat || usr.restrained()))
 		return
 
-	if (usr.contents.Find(src))
+	if(usr.contents.Find(src))
 
 		if(href_list["remove"])
 			var/obj/item/P = locate(href_list["remove"])
 			if(P)
 				P.loc = usr.loc
-				if(ishuman(usr))
-					if(!usr.get_active_hand())
-						usr.put_in_hand(P)
-				else
-					P.loc = get_turf(usr)
+				usr.put_in_hands(P)
 
 		if(href_list["read"])
 			var/obj/item/weapon/paper/P = locate(href_list["read"])
@@ -78,6 +74,10 @@
 				else
 					usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY>[P.info][P.stamps]</BODY></HTML>", "window=[P.name]")
 					onclose(usr, "[P.name]")
+		if(href_list["look"])
+			var/obj/item/weapon/photo/P = locate(href_list["look"])
+			if(P)
+				P.show(usr)
 
 		//Update everything
 		attack_self(usr)

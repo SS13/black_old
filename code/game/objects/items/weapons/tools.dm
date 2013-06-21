@@ -1,19 +1,23 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
+/* Tools!
+ * Note: Multitools are /obj/item/device
+ *
+ * Contains:
+ * 		Wrench
+ * 		Screwdriver
+ * 		Wirecutters
+ * 		Welding Tool
+ * 		Crowbar
+ */
+
 /*
-CONTAINS:
-
-WRENCH
-SCREWDRIVER
-WELDINGTOOOL
-*/
-
-
-// WRENCH
+ * Wrench
+ */
 /obj/item/weapon/wrench
 	name = "wrench"
 	desc = "A wrench with common uses. Can be found in your hand."
-	icon = 'items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "wrench"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
@@ -22,10 +26,33 @@ WELDINGTOOOL
 	w_class = 2.0
 	m_amt = 150
 	origin_tech = "materials=1;engineering=1"
+	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
 
 
+/*
+ * Screwdriver
+ */
+/obj/item/weapon/screwdriver
+	name = "screwdriver"
+	desc = "You can be totally screwwy with this."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "screwdriver"
+	flags = FPRINT | TABLEPASS| CONDUCT
+	slot_flags = SLOT_BELT
+	force = 5.0
+	w_class = 1.0
+	throwforce = 5.0
+	throw_speed = 3
+	throw_range = 5
+	g_amt = 0
+	m_amt = 75
+	attack_verb = list("stabbed")
 
-// SCREWDRIVER
+	suicide_act(mob/user)
+		viewers(user) << pick("\red <b>[user] is stabbing the [src.name] into \his temple! It looks like \he's trying to commit suicide.</b>", \
+							"\red <b>[user] is stabbing the [src.name] into \his heart! It looks like \he's trying to commit suicide.</b>")
+		return(BRUTELOSS)
+
 /obj/item/weapon/screwdriver/New()
 	switch(pick("red","blue","purple","brown","green","cyan","yellow"))
 		if ("red")
@@ -62,12 +89,46 @@ WELDINGTOOOL
 		M = user
 	return eyestab(M,user)
 
+/*
+ * Wirecutters
+ */
+/obj/item/weapon/wirecutters
+	name = "wirecutters"
+	desc = "This cuts wires."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "cutters"
+	flags = FPRINT | TABLEPASS| CONDUCT
+	slot_flags = SLOT_BELT
+	force = 6.0
+	throw_speed = 2
+	throw_range = 9
+	w_class = 2.0
+	m_amt = 80
+	origin_tech = "materials=1;engineering=1"
+	attack_verb = list("pinched", "nipped")
 
+/obj/item/weapon/wirecutters/New()
+	if(prob(50))
+		icon_state = "cutters-y"
+		item_state = "cutters_yellow"
 
-// WELDING TOOL
+/obj/item/weapon/wirecutters/attack(mob/living/carbon/C as mob, mob/user as mob)
+	if((C.handcuffed) && (istype(C.handcuffed, /obj/item/weapon/handcuffs/cable)))
+		usr.visible_message("\The [usr] cuts \the [C]'s restraints with \the [src]!",\
+		"You cut \the [C]'s restraints with \the [src]!",\
+		"You hear cable being cut.")
+		C.handcuffed = null
+		C.update_inv_handcuffed()
+		return
+	else
+		..()
+
+/*
+ * Welding Tool
+ */
 /obj/item/weapon/weldingtool
-	name = "Welding Tool"
-	icon = 'items.dmi'
+	name = "welding tool"
+	icon = 'icons/obj/items.dmi'
 	icon_state = "welder"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
@@ -186,15 +247,14 @@ WELDINGTOOOL
 	if (istype(O, /obj/structure/reagent_dispensers/fueltank) && get_dist(src,O) <= 1 && !src.welding)
 		O.reagents.trans_to(src, max_fuel)
 		user << "\blue Welder refueled"
-		playsound(src.loc, 'refill.ogg', 50, 1, -6)
+		playsound(src.loc, 'sound/effects/refill.ogg', 50, 1, -6)
 		return
 	else if (istype(O, /obj/structure/reagent_dispensers/fueltank) && get_dist(src,O) <= 1 && src.welding)
 		message_admins("[key_name_admin(user)] triggered a fueltank explosion.")
 		log_game("[key_name(user)] triggered a fueltank explosion.")
 		user << "\red That was stupid of you."
-		explosion(O.loc,-1,0,2)
-		if(O)
-			del(O)
+		var/obj/structure/reagent_dispensers/fueltank/tank = O
+		tank.explode()
 		return
 	if (src.welding)
 		remove_fuel(1)
@@ -206,7 +266,6 @@ WELDINGTOOOL
 
 /obj/item/weapon/weldingtool/attack_self(mob/user as mob)
 	toggle()
-	user.update_clothing()
 	return
 
 //Returns the amount of fuel in the welder
@@ -288,7 +347,6 @@ WELDINGTOOOL
 		src.damtype = "brute"
 		src.icon_state = "welder"
 		src.welding = 0
-	return
 
 //Decides whether or not to damage a player's eyes based on what they're wearing as protection
 //Note: This should probably be moved to mob
@@ -314,35 +372,16 @@ WELDINGTOOOL
 		user << "\red Your eyes are really starting to hurt. This can't be good for you!"
 	if (prob(user.eye_stat - 25 + 1))
 		user << "\red You go blind!"
-		user.disabilities |= 128
+		user.sdisabilities |= BLIND
 	else if (prob(user.eye_stat - 15 + 1))
 		user << "\red You go blind!"
 		user.eye_blind = 5
 		user.eye_blurry = 5
-		user.disabilities |= 1
-//		spawn(100)
-//			user.disabilities &= ~1 //Simpler to just leave them short sighted.
+		user.disabilities |= NEARSIGHTED
+		spawn(100)
+			user.disabilities &= ~NEARSIGHTED
 	return
 
-/obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
-	if(hasorgans(M))
-		var/datum/organ/external/S = M:organs[user.zone_sel.selecting]
-		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help")
-			return ..()
-		if(S.brute_dam)
-			S.heal_damage(15,0,0,1)
-			if(user != M)
-				user.visible_message("\red You patch some dents on \the [M]'s [S.display_name]",\
-				"\red \The [user] patches some dents on \the [M]'s [S.display_name] with \the [src]",\
-				"You hear a welder.")
-			else
-				user.visible_message("\red You patch some dents on your [S.display_name]",\
-				"\red \The [user] patches some dents on their [S.display_name] with \the [src]",\
-				"You hear a welder.")
-		else
-			user << "Nothing to fix!"
-	else
-		return ..()
 
 /obj/item/weapon/weldingtool/largetank
 	name = "Industrial Welding Tool"
@@ -376,32 +415,48 @@ WELDINGTOOOL
 	reagents += (gen_amount)
 	if(reagents > max_fuel)
 		reagents = max_fuel
-/obj/item/weapon/wirecutters
-	name = "wirecutters"
-	desc = "This cuts wires."
-	icon = 'items.dmi'
-	icon_state = "cutters"
+
+/*
+ * Crowbar
+ */
+
+/obj/item/weapon/crowbar
+	name = "crowbar"
+	desc = "Used to hit floors"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "crowbar"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
-	force = 6.0
-	throw_speed = 2
-	throw_range = 9
+	force = 5.0
+	throwforce = 7.0
+	item_state = "crowbar"
 	w_class = 2.0
-	m_amt = 80
-	origin_tech = "materials=1;engineering=1"
+	m_amt = 50
+	origin_tech = "engineering=1"
+	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
 
-/obj/item/weapon/wirecutters/New()
-	if(prob(50))
-		icon_state = "cutters-y"
-		item_state = "cutters_yellow"
+/obj/item/weapon/crowbar/red
+	icon = 'icons/obj/items.dmi'
+	icon_state = "red_crowbar"
+	item_state = "crowbar_red"
 
-/obj/item/weapon/wirecutters/attack(mob/M as mob, mob/user as mob)
-	if((M.handcuffed) && (istype(M:handcuffed, /obj/item/weapon/handcuffs/cable)))
-		usr.visible_message("\The [usr] cuts \the [M]'s restraints with \the [src]!",\
-		"You cut \the [M]'s restraints with \the [src]!",\
-		"You hear cable being cut.")
-		M.handcuffed = null
-		M.update_clothing()
-		return
+/obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
+	if(hasorgans(M))
+		var/datum/organ/external/S = M:organs_by_name[user.zone_sel.selecting]
+		if (!S) return
+		if(!(S.status & ORGAN_ROBOT) || user.a_intent != "help")
+			return ..()
+		if(S.brute_dam)
+			S.heal_damage(15,0,0,1)
+			if(user != M)
+				user.visible_message("\red \The [user] patches some dents on \the [M]'s [S.display_name] with \the [src]",\
+				"\red You patch some dents on \the [M]'s [S.display_name]",\
+				"You hear a welder.")
+			else
+				user.visible_message("\red \The [user] patches some dents on their [S.display_name] with \the [src]",\
+				"\red You patch some dents on your [S.display_name]",\
+				"You hear a welder.")
+		else
+			user << "Nothing to fix!"
 	else
-		..()
+		return ..()

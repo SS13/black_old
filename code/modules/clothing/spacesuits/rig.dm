@@ -1,58 +1,161 @@
+//Regular rig suits
 /obj/item/clothing/head/helmet/space/rig
-	name = "engineer hardsuit helmet"
+	name = "engineering hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low-pressure environment. Has radiation shielding."
 	icon_state = "rig0-engineering"
-	item_state = "rig0_engineering"
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 60)
+	item_state = "eng_helm"
+	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 80)
 	allowed = list(/obj/item/device/flashlight)
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
 	color = "engineering" //Determines used sprites: rig[on]-[color] and rig[on]-[color]2 (lying down sprite)
+	icon_action_button = "action_hardhat"
+	heat_protection = HEAD
+	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE
 
-/obj/item/clothing/head/helmet/space/rig/mining
-	name = "mining hardsuit helmet"
-	icon_state = "rig0-mining"
-	item_state = "rig0-mining"
-	color = "mining"
+	attack_self(mob/user)
+		if(!isturf(user.loc))
+			user << "You cannot turn the light on while in this [user.loc]" //To prevent some lighting anomalities.
+			return
+		on = !on
+		icon_state = "rig[on]-[color]"
+//		item_state = "rig[on]-[color]"
 
+		if(on)	user.SetLuminosity(user.luminosity + brightness_on)
+		else	user.SetLuminosity(user.luminosity - brightness_on)
 
-/obj/item/clothing/head/helmet/space/rig/elite
-	name = "advanced hardsuit helmet"
-	icon_state = "rig0-white"
-	item_state = "rig0-white"
-	color = "white"
+	pickup(mob/user)
+		if(on)
+			user.SetLuminosity(user.luminosity + brightness_on)
+//			user.UpdateLuminosity()
+			SetLuminosity(0)
 
-/obj/item/clothing/head/helmet/space/rig/security
-	name = "security hardsuit helmet"
-	icon_state = "rig0-security"
-	color = "security"
-	armor = list(melee = 60, bullet = 10, laser = 30, energy = 5, bomb = 45, bio = 100, rad = 10)
+	dropped(mob/user)
+		if(on)
+			user.SetLuminosity(user.luminosity - brightness_on)
+//			user.UpdateLuminosity()
+			SetLuminosity(brightness_on)
 
 /obj/item/clothing/suit/space/rig
-	name = "engineer hardsuit"
+	name = "engineering hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
 	icon_state = "rig-engineering"
-	item_state = "rig_suit"
-	protective_temperature = 5000 //For not dieing near a fire, but still not being great in a full inferno
-	slowdown = 2
-	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 60)
-	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/satchel,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
+	item_state = "eng_hardsuit"
+	slowdown = 1
+	armor = list(melee = 40, bullet = 5, laser = 20,energy = 5, bomb = 35, bio = 100, rad = 80)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/bag/ore,/obj/item/device/t_scanner,/obj/item/weapon/pickaxe, /obj/item/weapon/rcd)
+	heat_protection = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE
 
-/obj/item/clothing/suit/space/rig/mining
-	icon_state = "rig-mining"
-	name = "mining hardsuit"
+//Chief Engineer's rig
+/obj/item/clothing/head/helmet/space/rig/elite
+	name = "advanced hardsuit helmet"
+	desc = "A special suit that protects against hazardous, low pressure environments. Shines with a high polish."
+	icon_state = "rig0-white"
+	item_state = "ce_helm"
+	color = "white"
 
 /obj/item/clothing/suit/space/rig/elite
 	icon_state = "rig-white"
 	name = "advanced hardsuit"
-	protective_temperature = 10000
+	item_state = "ce_hardsuit"
+
+
+//Mining rig
+/obj/item/clothing/head/helmet/space/rig/mining
+	name = "mining hardsuit helmet"
+	icon_state = "rig0-mining"
+	item_state = "mining_helm"
+	color = "mining"
+
+/obj/item/clothing/suit/space/rig/mining
+	icon_state = "rig-mining"
+	name = "mining hardsuit"
+	item_state = "mining_hardsuit"
+
+
+
+//Syndicate rig
+/obj/item/clothing/head/helmet/space/rig/syndi
+	name = "blood-red hardsuit helmet"
+	icon_state = "rig0-syndi"
+	item_state = "syndie_helm"
+	color = "syndi"
+	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 60)
+
+
+/obj/item/clothing/suit/space/rig/syndi
+	icon_state = "rig-syndi"
+	name = "blood-red hardsuit"
+	item_state = "syndie_hardsuit"
+	slowdown = 1
+	w_class = 3
+	armor = list(melee = 60, bullet = 50, laser = 30, energy = 15, bomb = 35, bio = 100, rad = 60)
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/melee/energy/sword,/obj/item/weapon/handcuffs)
+
+
+//Wizard Rig
+/obj/item/clothing/head/helmet/space/rig/wizard
+	name = "gem-encrusted hardsuit helmet"
+	icon_state = "rig0-wiz"
+	item_state = "wiz_helm"
+	color = "wiz"
+	unacidable = 1 //No longer shall our kind be foiled by lone chemists with spray bottles!
+	armor = list(melee = 40, bullet = 20, laser = 20,energy = 20, bomb = 35, bio = 100, rad = 60)
+
+/obj/item/clothing/suit/space/rig/wizard
+	icon_state = "rig-wiz"
+	name = "gem-encrusted hardsuit"
+	item_state = "wiz_hardsuit"
+	slowdown = 1
+	w_class = 3
+	unacidable = 1
+	armor = list(melee = 40, bullet = 20, laser = 20,energy = 20, bomb = 35, bio = 100, rad = 60)
+
+//Medical Rig
+/obj/item/clothing/head/helmet/space/rig/medical
+	name = "medical hardsuit helmet"
+	icon_state = "rig0-medical"
+	item_state = "medical_helm"
+	color = "medical"
+
+/obj/item/clothing/suit/space/rig/medical
+	icon_state = "rig-medical"
+	name = "medical hardsuit"
+	item_state = "medical_hardsuit"
+	allowed = list(/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/storage/firstaid,/obj/item/device/healthanalyzer,/obj/item/stack/medical)
+
+
+	//Security
+/obj/item/clothing/head/helmet/space/rig/security
+	name = "security hardsuit helmet"
+	icon_state = "rig0-sec"
+	item_state = "sec_helm"
+	color = "sec"
+	armor = list(melee = 60, bullet = 10, laser = 30, energy = 5, bomb = 45, bio = 100, rad = 10)
 
 /obj/item/clothing/suit/space/rig/security
+	icon_state = "rig-sec"
 	name = "security hardsuit"
-	desc = "A suit specially designed for security to offer minor protection from environmental hazards, and greater protection from human hazards"
-	icon_state = "rig-security"
-	item_state = "rig-security"
-	protective_temperature = 3000
-	slowdown = 1
+	item_state = "sec_hardsuit"
 	armor = list(melee = 60, bullet = 10, laser = 30, energy = 5, bomb = 45, bio = 100, rad = 10)
-	allowed = list(/obj/item/weapon/gun/energy/laser, /obj/item/weapon/gun/energy/pulse_rifle, /obj/item/device/flashlight, /obj/item/weapon/tank/emergency_oxygen, /obj/item/weapon/gun/energy/taser, /obj/item/weapon/melee/baton)
+	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
+
+
+//Atmospherics Rig (BS12)
+/obj/item/clothing/head/helmet/space/rig/atmos
+	desc = "A special helmet designed for work in a hazardou, low pressure environments. Has reduced radiation shielding and protective plating to allow for greater mobility."
+	name = "atmospherics hardsuit helmet"
+	icon_state = "rig0-atmos"
+	item_state = "atmos_helm"
+	color = "atmos"
+	armor = list(melee = 40, bullet = 0, laser = 0, energy = 0, bomb = 25, bio = 100, rad = 0)
+	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE
+
+/obj/item/clothing/suit/space/rig/atmos
+	desc = "A special suit that protects against hazardous, low pressure environments. Has reduced radiation shielding to allow for greater mobility."
+	icon_state = "rig-atmos"
+	name = "atmos hardsuit"
+	item_state = "atmos_hardsuit"
+	armor = list(melee = 40, bullet = 0, laser = 0, energy = 0, bomb = 25, bio = 100, rad = 0)
+	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECITON_TEMPERATURE

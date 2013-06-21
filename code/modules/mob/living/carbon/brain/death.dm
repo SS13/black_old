@@ -9,7 +9,7 @@
 	if(blind)	blind.layer = 0
 	sight |= SEE_TURFS|SEE_MOBS|SEE_OBJS
 	see_in_dark = 8
-	see_invisible = 2
+	see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
 	tod = worldtime2text() //weasellos time of death patch
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)	//mind. ?
@@ -29,9 +29,10 @@
 	animation.icon = 'icons/mob/mob.dmi'
 	animation.master = src
 
+//	flick("gibbed-m", animation)
 	gibs(loc, viruses, dna)
 
-//	dead_mob_list -= src
+	dead_mob_list -= src
 	if(container && istype(container, /obj/item/device/mmi))
 		del(container)//Gets rid of the MMI if there is one
 	if(loc)

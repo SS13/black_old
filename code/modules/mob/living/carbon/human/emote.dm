@@ -1,28 +1,26 @@
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null)
 	var/param = null
 
-	if(!emote_allowed && usr == src)
+	if(weakened)
 		usr << "You are unable to emote."
 		return
 
-	if (findtext(act, " ", 1, null))
-		var/t1 = findtext(act, " ", 1, null)
+	if (findtext(act, "-", 1, null))
+		var/t1 = findtext(act, "-", 1, null)
 		param = copytext(act, t1 + 1, length(act) + 1)
 		act = copytext(act, 1, t1)
+
+	if(findtext(act,"s",-1) && !findtext(act,"_",-2))//Removes ending s's unless they are prefixed with a '_'
+		act = copytext(act,1,length(act))
 
 	var/muzzled = istype(src.wear_mask, /obj/item/clothing/mask/muzzle)
 	//var/m_type = 1
 
-	for(var/named in organs)
-		var/datum/organ/external/F = organs[named]
-		for (var/obj/item/weapon/implant/I in F.implant)
-			if (I.implanted)
-				I.trigger(act, src)
+	for (var/obj/item/weapon/implant/I in src)
+		if (I.implanted)
+			I.trigger(act, src)
 
 	if(src.stat == 2.0 && (act != "deathgasp"))
-		return
-	if(src.stat != 2.0 && act == "deathgasp" && !src.mind.special_role == "Syndicate")
-		src << "You are not dead.  No."
 		return
 	switch(act)
 		if ("airguitar")
@@ -56,52 +54,55 @@
 			m_type = 1
 
 		if ("custom")
-			m_type = 0
-			if(copytext(param,1,2) == "v")
-				m_type = 1
-			else if(copytext(param,1,2) == "h")
-				m_type = 2
+			var/input = copytext(sanitize(input("Choose an emote to display.") as text|null),1,MAX_MESSAGE_LEN)
+			if (!input)
+				return
+			if(copytext(input,1,5) == "says")
+				src << "\red Invalid emote."
+				return
+			else if(copytext(input,1,9) == "exclaims")
+				src << "\red Invalid emote."
+				return
+			else if(copytext(input,1,5) == "asks")
+				src << "\red Invalid emote."
+				return
 			else
 				var/input2 = input("Is this a visible or hearable emote?") in list("Visible","Hearable")
 				if (input2 == "Visible")
 					m_type = 1
 				else if (input2 == "Hearable")
+					if (src.miming)
+						return
 					m_type = 2
 				else
 					alert("Unable to use this emote, must be either hearable or visible.")
 					return
-			if(m_type)
-				param = trim(copytext(param,2))
-			else
-				param = trim(param)
-			var/input
-			if(!param)
-				input = copytext(sanitize(input("Choose an emote to display.") as text|null),1,MAX_MESSAGE_LEN)
-			else
-				input = param
-			if(input)
 				message = "<B>[src]</B> [input]"
-			else
-				return
+
 		if ("me")
 			if(silent)
 				return
-			if (src.client && (client.muted || client.muted_complete))
-				src << "You are muted."
-				return
+			if (src.client)
+				if (client.prefs.muted & MUTE_IC)
+					src << "\red You cannot send IC messages (muted)."
+					return
+				if (src.client.handle_spam_prevention(message,MUTE_IC))
+					return
 			if (stat)
 				return
 			if(!(message))
 				return
+			if(copytext(message,1,5) == "says")
+				src << "\red Invalid emote."
+				return
+			else if(copytext(message,1,9) == "exclaims")
+				src << "\red Invalid emote."
+				return
+			else if(copytext(message,1,5) == "asks")
+				src << "\red Invalid emote."
+				return
 			else
-				if(cmptext(copytext(message, 1, 3), "v "))
-					message = "<B>[src]</B> [copytext(message, 3)]"
-					m_type = 1
-				else if(cmptext(copytext(message, 1, 3), "h "))
-					message = "<B>[src]</B> [copytext(message, 3)]"
-					m_type = 2
-				else
-					message = "<B>[src]</B> [message]"
+				message = "<B>[src]</B> [message]"
 
 		if ("salute")
 			if (!src.buckled)
@@ -121,26 +122,36 @@
 			m_type = 1
 
 		if ("choke")
-			if (!muzzled)
-				message = "<B>[src]</B> chokes!"
-				m_type = 2
+			if(miming)
+				message = "<B>[src]</B> clutches his throat desperately!"
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a strong noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> chokes!"
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a strong noise."
+					m_type = 2
 
 		if ("clap")
 			if (!src.restrained())
 				message = "<B>[src]</B> claps."
 				m_type = 2
+				if(miming)
+					m_type = 1
 		if ("flap")
 			if (!src.restrained())
 				message = "<B>[src]</B> flaps his wings."
 				m_type = 2
+				if(miming)
+					m_type = 1
 
 		if ("aflap")
 			if (!src.restrained())
 				message = "<B>[src]</B> flaps his wings ANGRILY!"
 				m_type = 2
+				if(miming)
+					m_type = 1
 
 		if ("drool")
 			message = "<B>[src]</B> drools."
@@ -151,12 +162,16 @@
 			m_type = 1
 
 		if ("chuckle")
-			if (!muzzled)
-				message = "<B>[src]</B> chuckles."
-				m_type = 2
+			if(miming)
+				message = "<B>[src]</B> appears to chuckle."
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> chuckles."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a noise."
+					m_type = 2
 
 		if ("twitch")
 			message = "<B>[src]</B> twitches violently."
@@ -174,12 +189,16 @@
 			m_type = 1
 
 		if ("cough")
-			if (!muzzled)
-				message = "<B>[src]</B> coughs!"
-				m_type = 2
+			if(miming)
+				message = "<B>[src]</B> appears to cough!"
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a strong noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> coughs!"
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a strong noise."
+					m_type = 2
 
 		if ("frown")
 			message = "<B>[src]</B> frowns."
@@ -198,38 +217,32 @@
 			m_type = 1
 
 		if ("gasp")
-			if (!muzzled)
-				message = "<B>[src]</B> gasps!"
-				m_type = 2
+			if(miming)
+				message = "<B>[src]</B> appears to be gasping!"
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a weak noise."
-				m_type = 2
-
-		if ("breathe")
-			message = "<B>[src]</B> breathes."
-			m_type = 1
-			holdbreath = 0
-
-		if ("stopbreath")
-			message = "<B>[src]</B> stops breathing..."
-			m_type = 1
-
-		if ("holdbreath")
-			message = "<B>[src]</B> stops breathing..."
-			m_type = 1
-			holdbreath = 1
+				if (!muzzled)
+					message = "<B>[src]</B> gasps!"
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a weak noise."
+					m_type = 2
 
 		if ("deathgasp")
 			message = "<B>[src]</B> seizes up and falls limp, \his eyes dead and lifeless..."
 			m_type = 1
 
 		if ("giggle")
-			if (!muzzled)
-				message = "<B>[src]</B> giggles."
-				m_type = 2
+			if(miming)
+				message = "<B>[src]</B> giggles silently!"
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> giggles."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a noise."
+					m_type = 2
 
 		if ("glare")
 			var/M = null
@@ -283,52 +296,77 @@
 			m_type = 1
 
 		if ("cry")
-			if (!muzzled)
+			if(miming)
 				message = "<B>[src]</B> cries."
-				m_type = 2
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a weak noise. \He frowns."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> cries."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a weak noise. \He frowns."
+					m_type = 2
 
 		if ("sigh")
-			if (!muzzled)
+			if(miming)
 				message = "<B>[src]</B> sighs."
-				m_type = 2
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a weak noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> sighs."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a weak noise."
+					m_type = 2
 
 		if ("laugh")
-			if (!muzzled)
-				message = "<B>[src]</B> laughs."
-				m_type = 2
+			if(miming)
+				message = "<B>[src]</B> acts out a laugh."
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> laughs."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a noise."
+					m_type = 2
 
 		if ("mumble")
-			message = "<B>[src]</B> mumbles."
+			message = "<B>[src]</B> mumbles!"
 			m_type = 2
+			if(miming)
+				m_type = 1
 
 		if ("grumble")
+			if(miming)
+				message = "<B>[src]</B> grumbles!"
+				m_type = 1
 			if (!muzzled)
-				message = "<B>[src]</B> grumbles."
+				message = "<B>[src]</B> grumbles!"
 				m_type = 2
 			else
 				message = "<B>[src]</B> makes a noise."
 				m_type = 2
 
 		if ("groan")
-			if (!muzzled)
-				message = "<B>[src]</B> groans!"
-				m_type = 2
+			if(miming)
+				message = "<B>[src]</B> appears to groan!"
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a loud noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> groans!"
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a loud noise."
+					m_type = 2
 
 		if ("moan")
-			message = "<B>[src]</B> moans!"
-			m_type = 2
+			if(miming)
+				message = "<B>[src]</B> appears to moan!"
+				m_type = 1
+			else
+				message = "<B>[src]</B> moans!"
+				m_type = 2
 
 		if ("johnny")
 			var/M
@@ -337,8 +375,12 @@
 			if (!M)
 				param = null
 			else
-				message = "<B>[src]</B> says, \"[M], please. He had a family.\" [src.name] takes a drag from a cigarette and blows his name out in smoke."
-				m_type = 2
+				if(miming)
+					message = "<B>[src]</B> takes a drag from a cigarette and blows \"[M]\" out in smoke."
+					m_type = 1
+				else
+					message = "<B>[src]</B> says, \"[M], please. He had a family.\" [src.name] takes a drag from a cigarette and blows his name out in smoke."
+					m_type = 2
 
 		if ("point")
 			if (!src.restrained())
@@ -375,7 +417,7 @@
 		if ("signal")
 			if (!src.restrained())
 				var/t1 = round(text2num(param))
-				if (isnum(t1))
+				if (isnum(t1) && t1 >= 1)
 					if (t1 <= 5 && (!src.r_hand || !src.l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
 					else if (t1 <= 10 && (!src.r_hand && !src.l_hand))
@@ -389,6 +431,8 @@
 		if ("shiver")
 			message = "<B>[src]</B> shivers."
 			m_type = 2
+			if(miming)
+				m_type = 1
 
 		if ("pale")
 			message = "<B>[src]</B> goes pale for a second."
@@ -399,32 +443,46 @@
 			m_type = 1
 
 		if ("sneeze")
-			if (!muzzled)
+			if (miming)
 				message = "<B>[src]</B> sneezes."
-				m_type = 2
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a strange noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> sneezes."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a strange noise."
+					m_type = 2
 
 		if ("sniff")
 			message = "<B>[src]</B> sniffs."
 			m_type = 2
+			if(miming)
+				m_type = 1
 
 		if ("snore")
-			if (!muzzled)
-				message = "<B>[src]</B> snores."
-				m_type = 2
+			if (miming)
+				message = "<B>[src]</B> sleeps soundly."
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> snores."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a noise."
+					m_type = 2
 
 		if ("whimper")
-			if (!muzzled)
-				message = "<B>[src]</B> whimpers."
-				m_type = 2
+			if (miming)
+				message = "<B>[src]</B> appears hurt."
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a weak noise."
-				m_type = 2
+				if (!muzzled)
+					message = "<B>[src]</B> whimpers."
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a weak noise."
+					m_type = 2
 
 		if ("wink")
 			message = "<B>[src]</B> winks."
@@ -434,11 +492,15 @@
 			if (!muzzled)
 				message = "<B>[src]</B> yawns."
 				m_type = 2
+				if(miming)
+					m_type = 1
 
 		if ("collapse")
 			Paralyse(2)
 			message = "<B>[src]</B> collapses!"
 			m_type = 2
+			if(miming)
+				m_type = 1
 
 		if("hug")
 			m_type = 1
@@ -475,7 +537,7 @@
 					else
 						message = "<B>[src]</B> holds out \his hand to [M]."
 
-		if("daps")
+		if("dap")
 			m_type = 1
 			if (!src.restrained())
 				var/M = null
@@ -490,24 +552,16 @@
 					message = "<B>[src]</B> sadly can't find anybody to give daps to, and daps \himself. Shameful."
 
 		if ("scream")
-			if (!muzzled)
-				message = "<B>[src]</B> screams!"
-				m_type = 2
+			if (miming)
+				message = "<B>[src]</B> acts out a scream!"
+				m_type = 1
 			else
-				message = "<B>[src]</B> makes a very loud noise."
-				m_type = 2
-
-		if ("hungry")
-			if(prob(1))
-				message = "<B>Blue Elf</B> needs food Badly."
-			else
-				message = "<B>[src]'s</B> stomach growls."
-
-		if ("thirsty")
-			if(prob(1))
-				message = "<B>[src]</B> cancels destory station: Drinking."
-			else
-				message = "<B>[src]</B> looks thirsty."
+				if (!muzzled)
+					message = "<B>[src]</B> screams!"
+					m_type = 2
+				else
+					message = "<B>[src]</B> makes a very loud noise."
+					m_type = 2
 
 		if ("help")
 			src << "blink, blink_r, blush, bow-(none)/mob, burp, choke, chuckle, clap, collapse, cough,\ncry, custom, deathgasp, drool, eyebrow, frown, gasp, giggle, groan, grumble, handshake, hug-(none)/mob, glare-(none)/mob,\ngrin, laugh, look-(none)/mob, moan, mumble, nod, pale, point-atom, raise, salute, shake, shiver, shrug,\nsigh, signal-#1-10, smile, sneeze, sniff, snore, stare-(none)/mob, tremble, twitch, twitch_s, whimper,\nwink, yawn"
@@ -525,26 +579,35 @@
  //Hearing gasp and such every five seconds is not good emotes were not global for a reason.
  // Maybe some people are okay with that.
 
-		for(var/mob/M in world)
-			if (!M.client)
-				continue //skip monkeys and leavers
-			if (istype(M, /mob/new_player))
-				continue
-			if(findtext(message," snores.")) //Because we have so many sleeping people.
-				continue
-			if(M.stat == 2 && M.client.ghost_sight && !(M in viewers(src,null)))
+		for(var/mob/M in dead_mob_list)
+			if(!M.client || istype(M, /mob/new_player))
+				continue //skip monkeys, leavers and new players
+			if(M.stat == DEAD && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
 				M.show_message(message)
 
 
 		if (m_type & 1)
-			for (var/mob/O in viewers(src, null))
-				if(istype(O,/mob/living/carbon/human))
-					for(var/mob/living/parasite/P in O:parasites)
-						P.show_message(message, m_type)
+			for (var/mob/O in get_mobs_in_view(world.view,src))
 				O.show_message(message, m_type)
 		else if (m_type & 2)
-			for (var/mob/O in hearers(src.loc, null))
-				if(istype(O,/mob/living/carbon/human))
-					for(var/mob/living/parasite/P in O:parasites)
-						P.show_message(message, m_type)
+			for (var/mob/O in (hearers(src.loc, null) | get_mobs_in_view(world.view,src)))
 				O.show_message(message, m_type)
+
+
+/mob/living/carbon/human/verb/pose()
+	set name = "Set Pose"
+	set desc = "Sets a description which will be shown when someone examines you."
+	set category = "IC"
+
+	pose =  copytext(sanitize_uni(input(usr, "This is [src]. \He is...", "Pose", null)  as text), 1, MAX_MESSAGE_LEN)
+
+/* Fuck this shit. I type this shitty code for idiots who cant say anything in chat. */
+
+/mob/living/carbon/human/proc/call_sound_emote(var/E)
+	switch(E)
+		if("scream")
+			for(var/mob/M in viewers(usr, null))
+				if (src.gender == "male")
+					M << sound(pick('Screams_Male_1.ogg','Screams_Male_2.ogg','Screams_Male_3.ogg'))
+				else
+					M << sound(pick('Screams_Woman_1.ogg','Screams_Woman_2.ogg','Screams_Woman_3.ogg'))

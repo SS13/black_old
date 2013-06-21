@@ -1,5 +1,6 @@
 //CONTAINS: Detective's Scanner
 
+
 /obj/item/device/detective_scanner
 	name = "Scanner"
 	desc = "Used to scan objects for DNA and fingerprints."
@@ -84,7 +85,7 @@
 
 		//General
 		if ((!A.fingerprints || !A.fingerprints.len) && !A.suit_fibers && !A.blood_DNA)
-			user.visible_message("\The [user] scans \the [A] with \a [src], the air around [user.get_visible_gender() == MALE ? "him" : user.get_visible_gender() == FEMALE ? "her" : "them"] humming[prob(70) ? " gently." : "."]" ,\
+			user.visible_message("\The [user] scans \the [A] with \a [src], the air around [user.gender == MALE ? "him" : "her"] humming[prob(70) ? " gently." : "."]" ,\
 			"\blue Unable to locate any fingerprints, materials, fibers, or blood on [A]!",\
 			"You hear a faint hum of electrical equipment.")
 			return 0
@@ -123,19 +124,19 @@
 				for(var/blood in A.blood_DNA)
 					user << "Blood type: \red [A.blood_DNA[blood]] \t \black DNA: \red [blood]"
 		if(prob(80) || !A.fingerprints)
-			user.visible_message("\The [user] scans \the [A] with \a [src], the air around [user.get_visible_gender() == MALE ? "him" : user.get_visible_gender() == FEMALE ? "her" : "them"] humming[prob(70) ? " gently." : "."]" ,\
+			user.visible_message("\The [user] scans \the [A] with \a [src], the air around [user.gender == MALE ? "him" : "her"] humming[prob(70) ? " gently." : "."]" ,\
 			"You finish scanning \the [A].",\
 			"You hear a faint hum of electrical equipment.")
 			return 0
 		else
-			user.visible_message("\The [user] scans \the [A] with \a [src], the air around [user.get_visible_gender() == MALE ? "him" : user.get_visible_gender() == FEMALE ? "her" : "them"] humming[prob(70) ? " gently." : "."]\n[user.get_visible_gender() == MALE ? "He" : user.get_visible_gender() == FEMALE ? "She" : "They"] seems to perk up slightly at the readout." ,\
+			user.visible_message("\The [user] scans \the [A] with \a [src], the air around [user.gender == MALE ? "him" : "her"] humming[prob(70) ? " gently." : "."]\n[user.gender == MALE ? "He" : "She"] seems to perk up slightly at the readout." ,\
 			"The results of the scan pique your interest.",\
 			"You hear a faint hum of electrical equipment, and someone making a thoughtful noise.")
 			return 0
 		return
 
 	proc/add_data(atom/A as mob|obj|turf|area)
-		//I love hashtables.
+		//I love associative lists.
 		var/list/data_entry = stored["\ref [A]"]
 		if(islist(data_entry)) //Yay, it was already stored!
 			//Merge the fingerprints.

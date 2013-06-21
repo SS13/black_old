@@ -13,12 +13,12 @@
 
 	var/universal_translate = 0 // set to 1 if it can translate nonhuman speech
 
-	req_access = list(ACCESS_TCOMSAT)
+	req_access = list(access_tcomsat)
 
 	attack_hand(mob/user as mob)
 		if(stat & (BROKEN|NOPOWER))
 			return
-		user.machine = src
+		user.set_machine(src)
 		var/dat = "<TITLE>Telecommunication Server Monitor</TITLE><center><b>Telecommunications Server Monitor</b></center>"
 
 		switch(screen)
@@ -82,8 +82,8 @@
 						else if(issilicon(M) || C.parameters["job"] == "AI") // sometimes M gets deleted prematurely for AIs... just check the job
 							race = "Artificial Life"
 
-						else if(ismetroid(M)) // NT knows a lot about metroids, but not aliens. Can identify metroids
-							race = "Metroid"
+						else if(isslime(M)) // NT knows a lot about slimes, but not aliens. Can identify slimes
+							race = "slime"
 							language = race
 
 						else if(isanimal(M))
@@ -139,7 +139,7 @@
 
 
 		add_fingerprint(usr)
-		usr.machine = src
+		usr.set_machine(src)
 
 		if(href_list["viewserver"])
 			screen = 1
@@ -212,7 +212,7 @@
 
 	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob)
 		if(istype(D, /obj/item/weapon/screwdriver))
-			playsound(src.loc, 'Screwdriver.ogg', 50, 1)
+			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(do_after(user, 20))
 				if (src.stat & BROKEN)
 					user << "\blue The broken glass falls out."
@@ -238,7 +238,7 @@
 					A.anchored = 1
 					del(src)
 		else if(istype(D, /obj/item/weapon/card/emag) && !emagged)
-			playsound(src.loc, 'sparks4.ogg', 75, 1)
+			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 			emagged = 1
 			user << "\blue You you disable the security protocols"
 		src.updateUsrDialog()

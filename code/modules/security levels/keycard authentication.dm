@@ -1,7 +1,7 @@
 /obj/machinery/keycard_auth
 	name = "Keycard Authentication Device"
 	desc = "This device is used to trigger station functions, which require more than one ID card to authenticate."
-	icon = 'monitors.dmi'
+	icon = 'icons/obj/monitors.dmi'
 	icon_state = "auth_off"
 	var/active = 0 //This gets set to 1 on all devices except the one where the initial request was made.
 	var/event = ""
@@ -21,11 +21,11 @@
 	power_channel = ENVIRON
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
-	user << "The station AI is not to interact with these devices"
+	user << "The station AI is not to interact with these devices."
 	return
 
 /obj/machinery/keycard_auth/attack_paw(mob/user as mob)
-	user << "You are too primitive to use this device"
+	user << "You are too primitive to use this device."
 	return
 
 /obj/machinery/keycard_auth/attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -34,7 +34,7 @@
 		return
 	if(istype(W,/obj/item/weapon/card/id))
 		var/obj/item/weapon/card/id/ID = W
-		if(ACCESS_KEYCARD_AUTH in ID.access)
+		if(access_keycard_auth in ID.access)
 			if(active == 1)
 				//This is not the device that made the initial request. It is the device confirming the request.
 				if(event_source)
@@ -55,23 +55,24 @@
 	if(user.stat || stat & (NOPOWER|BROKEN))
 		user << "This device is not powered."
 		return
-	if (busy)
-		user << "This device is busy"
+	if(busy)
+		user << "This device is busy."
 		return
 
-	user.machine = src
+	user.set_machine(src)
 
 	var/dat = "<h1>Keycard Authentication Device</h1>"
 
-	dat += "This device is used to trigger some high security events. It requires the simultaneous swipe of two high-level ID cards"
+	dat += "This device is used to trigger some high security events. It requires the simultaneous swipe of two high-level ID cards."
 	dat += "<br><hr><br>"
 
-	if ( screen == 1 )
+	if(screen == 1)
 		dat += "Select an event to trigger:<ul>"
 		dat += "<li><A href='?src=\ref[src];triggerevent=Red alert'>Red alert</A></li>"
+		dat += "<li><A href='?src=\ref[src];triggerevent=Emergency Maintenance Access'>Emergency Maintenance Access</A></li>"
 		dat += "</ul>"
 		user << browse(dat, "window=keycard_auth;size=500x250")
-	if ( screen == 2 )
+	if(screen == 2)
 		dat += "Please swipe your card to authorize the following event: <b>[event]</b>"
 		dat += "<p><A href='?src=\ref[src];reset=1'>Back</A>"
 		user << browse(dat, "window=keycard_auth;size=500x250")
@@ -80,20 +81,20 @@
 
 /obj/machinery/keycard_auth/Topic(href, href_list)
 	..()
-	if (busy)
-		usr << "This device is busy"
+	if(busy)
+		usr << "This device is busy."
 		return
-	if (usr.stat || stat & (BROKEN|NOPOWER))
-		usr << "This device is without power"
+	if(usr.stat || stat & (BROKEN|NOPOWER))
+		usr << "This device is without power."
 		return
-	if (href_list["triggerevent"])
+	if(href_list["triggerevent"])
 		event = href_list["triggerevent"]
 		screen = 2
-	if (href_list["reset"])
+	if(href_list["reset"])
 		reset()
 
-	src.updateUsrDialog()
-	src.add_fingerprint(usr)
+	updateUsrDialog()
+	add_fingerprint(usr)
 	return
 
 /obj/machinery/keycard_auth/proc/reset()
@@ -142,3 +143,14 @@
 		if("Red alert")
 			set_security_level(SEC_LEVEL_RED)
 			feedback_inc("alert_keycard_auth_red",1)
+		if("Emergency Maintenance Access")
+			make_maint_all_access()
+			feedback_inc("alert_keycard_auth_maint",1)
+
+/proc/make_maint_all_access()
+	for(var/obj/machinery/door/airlock/A in world)
+		if(A.z == 1)
+			A.req_access.Remove(access_maint_tunnels)
+
+	world << "<font size=4 color='red'>Attention!</font>"
+	world << "<font color='red'>The maintenance access requirement has been revoked on all airlocks. All crew members are now permitted access to emergency maintenance areas.</font>"

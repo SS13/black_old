@@ -47,8 +47,8 @@
 
 			if(length(viewingcode))
 				// This piece of code is very important - it escapes quotation marks so string aren't cut off by the input element
-				var/showcode = dd_replacetext(storedcode, "\\\"", "\\\\\"")
-				showcode = dd_replacetext(storedcode, "\"", "\\\"")
+				var/showcode = replacetext(storedcode, "\\\"", "\\\\\"")
+				showcode = replacetext(storedcode, "\"", "\\\"")
 
 				for(var/mob/M in viewingcode)
 
@@ -68,12 +68,12 @@
 
 
 
-	req_access = list(ACCESS_TCOMSAT)
+	req_access = list(access_tcomsat)
 
 	attack_hand(mob/user as mob)
 		if(stat & (BROKEN|NOPOWER))
 			return
-		user.machine = src
+		user.set_machine(src)
 		var/dat = "<TITLE>Telecommunication Traffic Control</TITLE><center><b>Telecommunications Traffic Control</b></center>"
 
 		switch(screen)
@@ -123,7 +123,7 @@
 
 
 		add_fingerprint(usr)
-		usr.machine = src
+		usr.set_machine(src)
 		if(!src.allowed(usr) && !emagged)
 			usr << "\red ACCESS DENIED."
 			return
@@ -171,8 +171,8 @@
 						winshow(editingcode, "Telecomms IDE", 1) // show the IDE
 						winset(editingcode, "tcscode", "is-disabled=false")
 						winset(editingcode, "tcscode", "text=\"\"")
-						var/showcode = dd_replacetext(storedcode, "\\\"", "\\\\\"")
-						showcode = dd_replacetext(storedcode, "\"", "\\\"")
+						var/showcode = replacetext(storedcode, "\\\"", "\\\\\"")
+						showcode = replacetext(storedcode, "\"", "\\\"")
 						winset(editingcode, "tcscode", "text=\"[showcode]\"")
 						spawn()
 							update_ide()
@@ -182,7 +182,7 @@
 						winshow(usr, "Telecomms IDE", 1) // show the IDE
 						winset(usr, "tcscode", "is-disabled=true")
 						winset(editingcode, "tcscode", "text=\"\"")
-						var/showcode = dd_replacetext(storedcode, "\"", "\\\"")
+						var/showcode = replacetext(storedcode, "\"", "\\\"")
 						winset(usr, "tcscode", "text=\"[showcode]\"")
 
 				if("togglerun")
@@ -208,7 +208,7 @@
 
 	attackby(var/obj/item/weapon/D as obj, var/mob/user as mob)
 		if(istype(D, /obj/item/weapon/screwdriver))
-			playsound(src.loc, 'Screwdriver.ogg', 50, 1)
+			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			if(do_after(user, 20))
 				if (src.stat & BROKEN)
 					user << "\blue The broken glass falls out."
@@ -234,7 +234,7 @@
 					A.anchored = 1
 					del(src)
 		else if(istype(D, /obj/item/weapon/card/emag) && !emagged)
-			playsound(src.loc, 'sparks4.ogg', 75, 1)
+			playsound(src.loc, 'sound/effects/sparks4.ogg', 75, 1)
 			emagged = 1
 			user << "\blue You you disable the security protocols"
 		src.updateUsrDialog()

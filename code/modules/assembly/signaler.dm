@@ -1,7 +1,5 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
-
 /obj/item/device/assembly/signaler
-	name = "Remote Signaling Device"
+	name = "remote signaling device"
 	desc = "Used to remotely activate devices."
 	icon_state = "signaller"
 	item_state = "signaler"
@@ -12,8 +10,6 @@
 	wires = WIRE_RECEIVE | WIRE_PULSE | WIRE_RADIO_PULSE | WIRE_RADIO_RECEIVE
 
 	secured = 1
-	small_icon_state_left = "signaller_left"
-	small_icon_state_right = "signaller_right"
 
 	var/code = 30
 	var/frequency = 1457
@@ -21,10 +17,6 @@
 	var/airlock_wire = null
 	var/datum/radio_frequency/radio_connection
 	var/deadman = 0
-
-	proc
-		signal()
-
 
 	New()
 		..()
@@ -42,6 +34,10 @@
 		signal()
 		return 1
 
+	update_icon()
+		if(holder)
+			holder.update_icon()
+		return
 
 	interact(mob/user as mob, flag1)
 		var/t1 = "-------"
@@ -104,7 +100,9 @@
 		return
 
 
-	signal()
+	proc/signal()
+		if(!radio_connection) return
+
 		var/datum/signal/signal = new
 		signal.source = src
 		signal.encryption = code
@@ -128,7 +126,7 @@
 		else if(holder)
 			holder.process_activation(src, 1, 0)
 		else
-			..()
+			..(radio)
 		return 1
 
 
@@ -138,8 +136,9 @@
 		if(!(src.wires & WIRE_RADIO_RECEIVE))	return 0
 		pulse(1)
 
-		for(var/mob/O in hearers(1, src.loc))
-			O.show_message(text("\icon[] *beep* *beep*", src), 3, "*beep* *beep*", 2)
+		if(!holder)
+			for(var/mob/O in hearers(1, src.loc))
+				O.show_message(text("\icon[] *beep* *beep*", src), 3, "*beep* *beep*", 2)
 		return
 
 

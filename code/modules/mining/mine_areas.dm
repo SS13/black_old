@@ -2,16 +2,15 @@
 
 /area/mine
 	icon_state = "mining"
+	music = 'sound/ambience/song_game.ogg'
 
 /area/mine/explored
 	name = "Mine"
 	icon_state = "explored"
-	music = null
 
 /area/mine/unexplored
 	name = "Mine"
 	icon_state = "unexplored"
-	music = null
 
 /area/mine/lobby
 	name = "Mining station"
@@ -20,22 +19,22 @@
 	name = "Mining station Storage"
 
 /area/mine/production
-	name = "Mining station Production Area"
+	name = "Mining Station Starboard Wing"
 	icon_state = "mining_production"
 
 /area/mine/abandoned
 	name = "Abandoned Mining Station"
 
 /area/mine/living_quarters
-	name = "Mining Station Living Quarters"
+	name = "Mining Station Port Wing"
 	icon_state = "mining_living"
 
 /area/mine/eva
-	name = "Mining station EVA"
+	name = "Mining Station EVA"
 	icon_state = "mining_eva"
 
 /area/mine/maintenance
-	name = "Mining station Maintenance"
+	name = "Mining Station Communications"
 
 /area/mine/cafeteria
 	name = "Mining station Cafeteria"

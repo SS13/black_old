@@ -1,7 +1,7 @@
 /obj/machinery/portable_atmospherics/pump
 	name = "Portable Air Pump"
 
-	icon = 'atmos.dmi'
+	icon = 'icons/obj/atmos.dmi'
 	icon_state = "psiphon:0"
 	density = 1
 
@@ -9,7 +9,7 @@
 	var/direction_out = 0 //0 = siphoning, 1 = releasing
 	var/target_pressure = 100
 
-	volume = 2500
+	volume = 1000
 
 /obj/machinery/portable_atmospherics/pump/update_icon()
 	src.overlays = 0
@@ -26,6 +26,22 @@
 		overlays += "siphon-connector"
 
 	return
+
+/obj/machinery/portable_atmospherics/pump/emp_act(severity)
+	if(stat & (BROKEN|NOPOWER))
+		..(severity)
+		return
+
+	if(prob(50/severity))
+		on = !on
+
+	if(prob(100/severity))
+		direction_out = !direction_out
+
+	target_pressure = rand(0,1300)
+	update_icon()
+
+	..(severity)
 
 /obj/machinery/portable_atmospherics/pump/process()
 	..()
@@ -82,7 +98,7 @@
 
 /obj/machinery/portable_atmospherics/pump/attack_hand(var/mob/user as mob)
 
-	user.machine = src
+	user.set_machine(src)
 	var/holding_text
 
 	if(holding)
@@ -112,7 +128,7 @@ Target Pressure: <A href='?src=\ref[src];pressure_adj=-1000'>-</A> <A href='?src
 		return
 
 	if (((get_dist(src, usr) <= 1) && istype(src.loc, /turf)))
-		usr.machine = src
+		usr.set_machine(src)
 
 		if(href_list["power"])
 			on = !on

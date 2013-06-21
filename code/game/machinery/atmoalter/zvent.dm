@@ -1,7 +1,7 @@
 /obj/machinery/zvent
 	name = "Interfloor Air Transfer System"
 
-	icon = 'pipes.dmi'
+	icon = 'icons/obj/pipes.dmi'
 	icon_state = "vent-db"
 	density = 0
 	anchored=1
@@ -20,7 +20,7 @@
 				if (istype(zvent_conn))
 					//both floors have simulated turfs, share()
 					var/turf/simulated/myturf = loc
-					var/datum/gas_mixture/conn_air = zturf_conn.air //TODO: pop culture reference
+					var/datum/gas_mixture/conn_air = zturf_conn.zone.air //TODO: pop culture reference
 					var/datum/gas_mixture/my_air = myturf.air
 					if (istype(conn_air) && istype(my_air))
 //						if (!my_air.compare(conn_air))

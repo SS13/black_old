@@ -4,7 +4,8 @@
 
 
 	Bumped(atom/AM)
-		if(src.locked)	return
+		if(src.locked)
+			return
 		..()
 		return
 
@@ -18,7 +19,7 @@
 
 
 /obj/machinery/door/unpowered/shuttle
-	icon = 'shuttle.dmi'
+	icon = 'icons/turf/shuttle.dmi'
 	name = "door"
 	icon_state = "door1"
 	opacity = 1

@@ -1,4 +1,4 @@
-//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:06
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:33
 
 /obj/machinery/shipcore
 	icon = 'craft.dmi'
@@ -118,7 +118,7 @@
 			var/turf/Newloc = locate(_x, _y, _z)
 			//new T(Newloc)
 			new T.type(Newloc)
-			T.ReplaceWithSpace()
+			T.ChangeTurf(/turf/space)
 
 			if(Newloc)
 				Newloc.assume_air(T.return_air())

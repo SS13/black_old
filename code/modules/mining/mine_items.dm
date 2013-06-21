@@ -2,7 +2,7 @@
 
 //this item is intended to give the effect of entering the mine, so that light gradually fades
 /obj/effect/light_emitter
-	name = "Light-emitter"
+	name = "Light-emtter"
 	anchored = 1
 	unacidable = 1
 	luminosity = 8
@@ -10,21 +10,32 @@
 /**********************Miner Lockers**************************/
 
 /obj/structure/closet/secure_closet/miner
-	name = "Miner's Equipment"
+	name = "miner's equipment"
 	icon_state = "miningsec1"
 	icon_closed = "miningsec"
 	icon_locked = "miningsec1"
 	icon_opened = "miningsecopen"
 	icon_broken = "miningsecbroken"
 	icon_off = "miningsecoff"
-	req_access = list(ACCESS_MINING)
+	req_access = list(access_mining)
 
 /obj/structure/closet/secure_closet/miner/New()
 	..()
 	sleep(2)
-	new /obj/item/wardrobe/mining(src)
-	new /obj/item/wardrobe/mining(src)
-	new /obj/item/wardrobe/mining(src)
+	if(prob(50))
+		new /obj/item/weapon/storage/backpack/industrial(src)
+	else
+		new /obj/item/weapon/storage/backpack/satchel_eng(src)
+	new /obj/item/device/radio/headset/headset_cargo(src)
+	new /obj/item/clothing/under/rank/miner(src)
+	new /obj/item/clothing/gloves/black(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/device/analyzer(src)
+	new /obj/item/weapon/storage/bag/ore(src)
+	new /obj/item/device/flashlight/lantern(src)
+	new /obj/item/weapon/shovel(src)
+	new /obj/item/weapon/pickaxe(src)
+	new /obj/item/clothing/glasses/meson(src)
 
 
 /**********************Shuttle Computer**************************/
@@ -42,10 +53,10 @@ proc/move_mining_shuttle()
 		if (mining_shuttle_location == 1)
 			fromArea = locate(/area/shuttle/mining/outpost)
 			toArea = locate(/area/shuttle/mining/station)
+
 		else
 			fromArea = locate(/area/shuttle/mining/station)
 			toArea = locate(/area/shuttle/mining/outpost)
-
 
 		var/list/dstturfs = list()
 		var/throwy = world.maxy
@@ -80,19 +91,33 @@ proc/move_mining_shuttle()
 			mining_shuttle_location = 0
 		else
 			mining_shuttle_location = 1
+
+		for(var/mob/M in toArea)
+			if(M.client)
+				spawn(0)
+					if(M.buckled)
+						shake_camera(M, 3, 1) // buckled, not a lot of shaking
+					else
+						shake_camera(M, 10, 1) // unbuckled, HOLY SHIT SHAKE THE ROOM
+			if(istype(M, /mob/living/carbon))
+				if(!M.buckled)
+					M.Weaken(3)
+
 		mining_shuttle_moving = 0
 	return
 
 /obj/machinery/computer/mining_shuttle
-	name = "Mining Shuttle Console"
-	icon = 'computer.dmi'
+	name = "mining shuttle console"
+	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
-	req_access = list(ACCESS_MINING)
+	req_access = list(access_mining)
 	circuit = "/obj/item/weapon/circuitboard/mining_shuttle"
 	var/hacked = 0
 	var/location = 0 //0 = station, 1 = mining base
 
 /obj/machinery/computer/mining_shuttle/attack_hand(user as mob)
+	if(..(user))
+		return
 	src.add_fingerprint(usr)
 	var/dat
 	dat = text("<center>Mining shuttle:<br> <b><A href='?src=\ref[src];move=[1]'>Send</A></b></center>")
@@ -101,7 +126,7 @@ proc/move_mining_shuttle()
 /obj/machinery/computer/mining_shuttle/Topic(href, href_list)
 	if(..())
 		return
-	usr.machine = src
+	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["move"])
 		if(ticker.mode.name == "blob")
@@ -118,17 +143,12 @@ proc/move_mining_shuttle()
 /obj/machinery/computer/mining_shuttle/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if (istype(W, /obj/item/weapon/card/emag))
-		var/obj/item/weapon/card/emag/E = W
-		if(E.uses)
-			E.uses--
-		else
-			return
 		src.req_access = list()
 		hacked = 1
 		usr << "You fried the consoles ID checking system. It's now available to everyone!"
 
 	else if(istype(W, /obj/item/weapon/screwdriver))
-		playsound(src.loc, 'Screwdriver.ogg', 50, 1)
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 		if(do_after(user, 20))
 			var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 			var/obj/item/weapon/circuitboard/mining_shuttle/M = new /obj/item/weapon/circuitboard/mining_shuttle( A )
@@ -152,30 +172,16 @@ proc/move_mining_shuttle()
 /******************************Lantern*******************************/
 
 /obj/item/device/flashlight/lantern
-	name = "Mining Lantern"
-	icon_state = "lantern-off"
-	desc = "A miner's lantern"
-	anchored = 0
-	icon_on = "lantern-on"
-	icon_off = "lantern-off"
-	var/brightness = 12			// luminosity when on
-
-/obj/item/device/flashlight/lantern/New()
-	luminosity = 0
-	on = 0
-	return
-
-/obj/item/device/flashlight/lantern/attack_self(mob/user)
-	src.add_fingerprint(user)
-	on = !on
-	update_brightness(user)
-	return
+	name = "lantern"
+	icon_state = "lantern"
+	desc = "A mining lantern."
+	brightness_on = 6			// luminosity when on
 
 /*****************************Pickaxe********************************/
 
 /obj/item/weapon/pickaxe
-	name = "Miner's pickaxe"
-	icon = 'items.dmi'
+	name = "pickaxe"
+	icon = 'icons/obj/items.dmi'
 	icon_state = "pickaxe"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
@@ -186,14 +192,19 @@ proc/move_mining_shuttle()
 	m_amt = 3750 //one sheet, but where can you make them?
 	var/digspeed = 40 //moving the delay to an item var so R&D can make improved picks. --NEO
 	origin_tech = "materials=1;engineering=1"
+	attack_verb = list("hit", "pierced", "sliced", "attacked")
+	var/drill_sound = 'sound/weapons/Genhit.ogg'
+	var/drill_verb = "picking"
+
+	var/excavation_amount = 100
 
 	hammer
-		name = "Mining Sledge Hammer"
+		name = "sledgehammer"
 		//icon_state = "sledgehammer" Waiting on sprite
 		desc = "A mining hammer made of reinforced metal. You feel like smashing your boss in the face with this."
 
 	silver
-		name = "Silver Pickaxe"
+		name = "silver pickaxe"
 		icon_state = "spickaxe"
 		item_state = "spickaxe"
 		digspeed = 30
@@ -201,7 +212,7 @@ proc/move_mining_shuttle()
 		desc = "This makes no metallurgic sense."
 
 	drill
-		name = "Mining Drill" // Can dig sand as well!
+		name = "mining drill" // Can dig sand as well!
 		icon_state = "handdrill"
 		item_state = "jackhammer"
 		digspeed = 30
@@ -209,7 +220,7 @@ proc/move_mining_shuttle()
 		desc = "Yours is the drill that will pierce through the rock walls."
 
 	jackhammer
-		name = "Sonic Jackhammer"
+		name = "sonic jackhammer"
 		icon_state = "jackhammer"
 		item_state = "jackhammer"
 		digspeed = 20 //faster than drill, but cannot dig
@@ -217,7 +228,7 @@ proc/move_mining_shuttle()
 		desc = "Cracks rocks with sonic blasts, perfect for killing cave lizards."
 
 	gold
-		name = "Golden Pickaxe"
+		name = "golden pickaxe"
 		icon_state = "gpickaxe"
 		item_state = "gpickaxe"
 		digspeed = 20
@@ -225,7 +236,7 @@ proc/move_mining_shuttle()
 		desc = "This makes no metallurgic sense."
 
 	plasmacutter
-		name = "Plasma Cutter"
+		name = "plasma cutter"
 		icon_state = "plasmacutter"
 		item_state = "gun"
 		w_class = 3.0 //it is smaller than the pickaxe
@@ -235,23 +246,23 @@ proc/move_mining_shuttle()
 		desc = "A rock cutter that uses bursts of hot plasma. You could use it to cut limbs off of xenos! Or, you know, mine stuff."
 
 	diamond
-		name = "Diamond Pickaxe"
+		name = "diamond pickaxe"
 		icon_state = "dpickaxe"
 		item_state = "dpickaxe"
 		digspeed = 10
 		origin_tech = "materials=6;engineering=4"
-		desc = "A pickaxe with a diamond pick head."
+		desc = "A pickaxe with a diamond pick head, this is just like minecraft."
 
 	diamonddrill //When people ask about the badass leader of the mining tools, they are talking about ME!
-		name = "Diamond Mining Drill"
+		name = "diamond mining drill"
 		icon_state = "diamonddrill"
 		item_state = "jackhammer"
-		digspeed = 0 //Digs through walls, girders, and can dig up sand
+		digspeed = 5 //Digs through walls, girders, and can dig up sand
 		origin_tech = "materials=6;powerstorage=4;engineering=5"
 		desc = "Yours is the drill that will pierce the heavens!"
 
 	borgdrill
-		name = "Cyborg Mining Drill"
+		name = "cyborg mining drill"
 		icon_state = "diamonddrill"
 		item_state = "jackhammer"
 		digspeed = 15
@@ -262,7 +273,7 @@ proc/move_mining_shuttle()
 /obj/item/weapon/shovel
 	name = "shovel"
 	desc = "A large tool for digging and moving dirt."
-	icon = 'items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "shovel"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	slot_flags = SLOT_BELT
@@ -272,6 +283,7 @@ proc/move_mining_shuttle()
 	w_class = 3.0
 	m_amt = 50
 	origin_tech = "materials=1;engineering=1"
+	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 
 /obj/item/weapon/shovel/spade
 	name = "spade"
@@ -288,12 +300,9 @@ proc/move_mining_shuttle()
 /obj/structure/closet/crate/miningcar
 	desc = "A mining car. This one doesn't work on rails, but has to be dragged."
 	name = "Mining car (not for rails)"
-	icon = 'storage.dmi'
+	icon = 'icons/obj/storage.dmi'
 	icon_state = "miningcar"
 	density = 1
 	icon_opened = "miningcaropen"
 	icon_closed = "miningcar"
-
-
-
 

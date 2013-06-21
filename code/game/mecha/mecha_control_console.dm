@@ -1,8 +1,8 @@
 /obj/machinery/computer/mecha
 	name = "Exosuit Control"
-	icon = 'computer.dmi'
+	icon = 'icons/obj/computer.dmi'
 	icon_state = "mecha"
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(access_robotics)
 	circuit = "/obj/item/weapon/circuitboard/mecha_control"
 	var/list/located = list()
 	var/screen = 0
@@ -17,7 +17,7 @@
 	attack_hand(var/mob/user as mob)
 		if(..())
 			return
-		user.machine = src
+		user.set_machine(src)
 		var/dat = "<html><head><title>[src.name]</title><style>h3 {margin: 0px; padding: 0px;}</style></head><body>"
 		if(screen == 0)
 			dat += "<h3>Tracking beacons data</h3>"
@@ -68,7 +68,7 @@
 /obj/item/mecha_parts/mecha_tracking
 	name = "Exosuit tracking beacon"
 	desc = "Device used to transmit exosuit data."
-	icon = 'device.dmi'
+	icon = 'icons/obj/device.dmi'
 	icon_state = "motion2"
 	origin_tech = "programming=2;magnets=2"
 	construction_time = 50
@@ -118,15 +118,14 @@
 		return M.get_log_html()
 
 
-/obj/item/weapon/storage/mechatrackingbox
-
+/obj/item/weapon/storage/box/mechabeacons
+	name = "Exosuit Tracking Beacons"
 	New()
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
-		new /obj/item/mecha_parts/mecha_tracking(src)
 		..()
-		return
+		new /obj/item/mecha_parts/mecha_tracking(src)
+		new /obj/item/mecha_parts/mecha_tracking(src)
+		new /obj/item/mecha_parts/mecha_tracking(src)
+		new /obj/item/mecha_parts/mecha_tracking(src)
+		new /obj/item/mecha_parts/mecha_tracking(src)
+		new /obj/item/mecha_parts/mecha_tracking(src)
+		new /obj/item/mecha_parts/mecha_tracking(src)

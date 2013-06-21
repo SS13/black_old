@@ -1,6 +1,6 @@
 /obj/machinery/pipedispenser
 	name = "Pipe Dispenser"
-	icon = 'stationobjs.dmi'
+	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "pipe_d"
 	density = 1
 	anchored = 1
@@ -16,16 +16,18 @@
 	var/dat = {"
 <b>Regular pipes:</b><BR>
 <A href='?src=\ref[src];make=0;dir=1'>Pipe</A><BR>
-<A href='?src=\ref[src];make=17;dir=1'>Pipe Cap</A><BR>``
 <A href='?src=\ref[src];make=1;dir=5'>Bent Pipe</A><BR>
 <A href='?src=\ref[src];make=5;dir=1'>Manifold</A><BR>
-<A href='?src=\ref[src];make=16;dir=1'>4-Way Manifold</A><BR>
 <A href='?src=\ref[src];make=8;dir=1'>Manual Valve</A><BR>
-<A href='?src=\ref[src];make=15;dir=1'>Manual T-Valve</A><BR>
+<A href='?src=\ref[src];make=20;dir=1'>Pipe Cap</A><BR>
+<A href='?src=\ref[src];make=19;dir=1'>4-Way Manifold</A><BR>
+<A href='?src=\ref[src];make=18;dir=1'>Manual T-Valve</A><BR>
 <b>Devices:</b><BR>
 <A href='?src=\ref[src];make=4;dir=1'>Connector</A><BR>
 <A href='?src=\ref[src];make=7;dir=1'>Unary Vent</A><BR>
 <A href='?src=\ref[src];make=9;dir=1'>Gas Pump</A><BR>
+<A href='?src=\ref[src];make=15;dir=1'>Passive Gate</A><BR>
+<A href='?src=\ref[src];make=16;dir=1'>Volume Pump</A><BR>
 <A href='?src=\ref[src];make=10;dir=1'>Scrubber</A><BR>
 <A href='?src=\ref[src];makemeter=1'>Meter</A><BR>
 <A href='?src=\ref[src];make=13;dir=1'>Gas Filter</A><BR>
@@ -34,8 +36,13 @@
 <A href='?src=\ref[src];make=2;dir=1'>Pipe</A><BR>
 <A href='?src=\ref[src];make=3;dir=5'>Bent Pipe</A><BR>
 <A href='?src=\ref[src];make=6;dir=1'>Junction</A><BR>
-"}
+<A href='?src=\ref[src];make=17;dir=1'>Heat Exchanger</A><BR>
+<b>Insulated pipes:</b><BR>
+<A href='?src=\ref[src];make=11;dir=1'>Pipe</A><BR>
+<A href='?src=\ref[src];make=12;dir=5'>Bent Pipe</A><BR>
 
+"}
+//What number the make points to is in the define # at the top of construction.dm in same folder
 
 	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
 	onclose(user, "pipedispenser")
@@ -47,7 +54,7 @@
 	if(unwrenched || !usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
 		usr << browse(null, "window=pipedispenser")
 		return
-	usr.machine = src
+	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["make"])
 		if(!wait)
@@ -55,6 +62,7 @@
 			var/p_dir = text2num(href_list["dir"])
 			var/obj/item/pipe/P = new (/*usr.loc*/ src.loc, pipe_type=p_type, dir=p_dir)
 			P.update()
+			P.add_fingerprint(usr)
 			wait = 1
 			spawn(10)
 				wait = 0
@@ -67,13 +75,15 @@
 	return
 
 /obj/machinery/pipedispenser/attackby(var/obj/item/W as obj, var/mob/user as mob)
+	src.add_fingerprint(usr)
 	if (istype(W, /obj/item/pipe) || istype(W, /obj/item/pipe_meter))
 		usr << "\blue You put [W] back to [src]."
+		user.drop_item()
 		del(W)
 		return
 	else if (istype(W, /obj/item/weapon/wrench))
 		if (unwrenched==0)
-			playsound(src.loc, 'Ratchet.ogg', 50, 1)
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "\blue You begin to unfasten \the [src] from the floor..."
 			if (do_after(user, 40))
 				user.visible_message( \
@@ -86,7 +96,7 @@
 				if (usr.machine==src)
 					usr << browse(null, "window=pipedispenser")
 		else /*if (unwrenched==1)*/
-			playsound(src.loc, 'Ratchet.ogg', 50, 1)
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "\blue You begin to fasten \the [src] to the floor..."
 			if (do_after(user, 20))
 				user.visible_message( \
@@ -103,7 +113,7 @@
 
 /obj/machinery/pipedispenser/disposal
 	name = "Disposal Pipe Dispenser"
-	icon = 'stationobjs.dmi'
+	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "pipe_d"
 	density = 1
 	anchored = 1.0
@@ -143,8 +153,6 @@ Nah
 <A href='?src=\ref[src];dmake=5'>Bin</A><BR>
 <A href='?src=\ref[src];dmake=6'>Outlet</A><BR>
 <A href='?src=\ref[src];dmake=7'>Chute</A><BR>
-<A href='?src=\ref[src];dmake=8'>Sort Junction 1</A><BR>
-<A href='?src=\ref[src];dmake=9'>Sort Junction 2</A><BR>
 "}
 
 	user << browse("<HEAD><TITLE>[src]</TITLE></HEAD><TT>[dat]</TT>", "window=pipedispenser")
@@ -156,7 +164,7 @@ Nah
 /obj/machinery/pipedispenser/disposal/Topic(href, href_list)
 	if(..())
 		return
-	usr.machine = src
+	usr.set_machine(src)
 	src.add_fingerprint(usr)
 	if(href_list["dmake"])
 		if(unwrenched || !usr.canmove || usr.stat || usr.restrained() || !in_range(loc, usr))
@@ -185,11 +193,7 @@ Nah
 				if(7)
 					C.ptype = 8
 					C.density = 1
-				if(8)
-					C.ptype = 8
-				if(9)
-					C.ptype = 9
-
+			C.add_fingerprint(usr)
 			C.update()
 			wait = 1
 			spawn(15)

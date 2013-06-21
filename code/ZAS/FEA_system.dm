@@ -106,6 +106,7 @@ datum
 			var/current_cycle = 0
 			var/update_delay = 5 //How long between check should it try to process atmos again.
 			var/failed_ticks = 0 //How many ticks have runtimed?
+
 			var/tick_progress = 0
 
 
@@ -268,6 +269,11 @@ datum
 
 			proc/ConsiderRebuild(var/turf/simulated/T, var/turf/NT)
 
+				if(!istype(T)) return
+				//zones should naturally spread to these tiles eventually
+				if(!T.zone || !NT.zone)
+					return
+
 				if(istype(NT, /turf/simulated) && NT.zone != T.zone)
 					T.zone.RemoveTurf(NT)
 					if(NT.zone)
@@ -332,7 +338,7 @@ datum
 						if(current == NT)
 							return //We made it, yaaay~
 						stepped_back = 0
-						zone.rebuild = 1
+					zone.rebuild = 1
 
 				else if ( current.air_check_directions&test_dir )
 						//Try to connect to the left hand side.

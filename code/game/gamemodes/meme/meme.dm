@@ -1,12 +1,11 @@
-//This file was auto-corrected by findeclaration.exe on 29/05/2012 15:03:04
-
-/datum/game_mode/var/list/memes = list()
+/datum/game_mode/var/list/datum/mind/memes = list()
 
 /datum/game_mode/meme
 	name = "Memetic Anomaly"
 	config_tag = "meme"
-	required_players = 6
 	restricted_jobs = list("AI", "Cyborg")
+	required_players = 3
+	required_players_secret = 10
 	recommended_enemies = 2 // need at least a meme and a host
 	votable = 0 // temporarily disable this mode for voting
 
@@ -114,15 +113,7 @@
 	meme.objectives += attune_objective
 
 	// generate some random objectives, use standard traitor objectives
-	var/job = first_host.assigned_role
-
-	for(var/datum/objective/o in SelectObjectives(job, meme))
-		o.owner = meme
-		meme.objectives += o
-
-	greet_meme(meme)
-
-	return
+	return (ticker.mode.forge_traitor_objectives(meme))
 
 /datum/game_mode/proc/greet_meme(var/datum/mind/meme, var/you_are=1)
 	if (you_are)

@@ -20,7 +20,7 @@ var/global/const/MAXIMUM_MEME_POINTS = 750
 mob/living/carbon/var/list/parasites = list()
 
 mob/living/parasite
-	var/mob/living/carbon/host // the host that this parasite occupies
+	var/mob/living/carbon/human/host // the host that this parasite occupies
 
 	Login()
 		..()
@@ -28,6 +28,7 @@ mob/living/parasite
 		// make the client see through the host instead
 		client.eye = host
 		client.perspective = EYE_PERSPECTIVE
+		sleeping = 0
 
 
 mob/living/parasite/proc/enter_host(mob/living/carbon/host)
@@ -35,9 +36,11 @@ mob/living/parasite/proc/enter_host(mob/living/carbon/host)
 	if(host.parasites.len > 0)
 		return 0
 
+	var/mob/living/carbon/human/old_host = src.host
 	src.host = host
 	src.loc = host
 	host.parasites.Add(src)
+	old_host.parasites.Remove(src)
 
 	if(client) client.eye = host
 
@@ -53,13 +56,35 @@ mob/living/parasite/proc/exit_host()
 
 // === MEME ===
 // ============
+mob/living/parasite/meme/
 
 // Memes use points for many actions
-mob/living/parasite/meme/var/meme_points = 100
-mob/living/parasite/meme/var/dormant = 0
+	var/meme_points = 100
+	var/dormant = 0
 
 // Memes have a list of indoctrinated hosts
-mob/living/parasite/meme/var/list/indoctrinated = list()
+	var/list/indoctrinated = list()
+
+mob/living/parasite/meme/New()
+	..()
+
+	var/list/allowed_mob = list()
+
+	for (var/mob/living/carbon/human/H as mob in world)
+		if(H.client && istype(H) && !H.parasites.len)
+			allowed_mob += H
+
+	if(!allowed_mob.len)
+		message_admins("Failed to find host for meme [src.key]. Aborting.")
+		del(src)
+		return
+
+	var/newhost = pick(allowed_mob)
+	src.enter_host(newhost)
+	message_admins("[newhost] has become [src.key]'s host")
+
+	ticker.mode.memes += src
+
 
 mob/living/parasite/meme/Life()
 	..()
@@ -98,6 +123,7 @@ mob/living/parasite/meme/Life()
 mob/living/parasite/meme/death()
 	// make sure the mob is on the actual map before gibbing
 	if(host) src.loc = host.loc
+	host.parasites -= src
 	src.stat = 2
 	..()
 	del src
@@ -111,7 +137,7 @@ mob/living/parasite/meme/say(message as text)
 		usr << "\red You can't speak without host!"
 		return
 
-	return host.say(message)
+	return host.say(message, 1)
 
 // Same as speak, just with whisper
 mob/living/parasite/meme/whisper(message as text)
@@ -127,8 +153,6 @@ mob/living/parasite/meme/whisper(message as text)
 // Make the host do things
 mob/living/parasite/meme/me_verb(message as text)
 	set name = "Me"
-
-
 	if(dormant)
 		usr << "\red You're dormant!"
 		return
@@ -136,8 +160,8 @@ mob/living/parasite/meme/me_verb(message as text)
 	if(!host)
 		usr << "\red You can't emote without host!"
 		return
-
-	return host.me_verb(message)
+	message = sanitize_uni(message)
+	return host.emote("me", 1, message)
 
 // A meme understands everything their host understands
 mob/living/parasite/meme/say_understands(mob/other)
@@ -215,15 +239,16 @@ mob/living/parasite/meme/verb/Thought()
 
 	var/message = input("What would you like to say?", "Message") as null
 	if(!message) return
+	message = sanitize_uni(message)
 
 	// Use the points at the end rather than the beginning, because the user might cancel
 	if(!use_points(50)) return
 
 	message = say_quote(message)
-	var/rendered = "<span class='game say'><span class='name'>[speaker]</span> <span class='message'>[sanitize(html_decode(message))]</span></span>"
+	var/rendered = "<span class='game say'><span class='name'>[speaker]</span> <span class='message'>[message]</span></span>"
 	target.show_message(rendered)
 
-	usr << "<i>You make [target] hear:</i> [sanitize(html_decode(rendered))]"
+	usr << "<i>You make [target] hear:</i> [rendered]"
 
 // Mutes the host
 mob/living/parasite/meme/verb/Mute()
@@ -232,23 +257,25 @@ mob/living/parasite/meme/verb/Mute()
 	set desc     = "Prevents your host from talking for a while."
 
 	if(!src.host) return
-	if(!host.speech_allowed)
+//	if(!host.speech_allowed)
+	if(host.silent)
 		usr << "\red Your host already can't speak.."
 		return
 	if(!use_points(250)) return
 
 	spawn
 		// backup the host incase we switch hosts after using the verb
-		var/mob/host = src.host
+		var/mob/living/carbon/human/host = src.host
 
 		host << "\red Your tongue feels numb.. You lose your ability to speak."
 		usr << "\red Your host can't speak anymore."
 
-		host.speech_allowed = 0
+		host.silent = 1200
+//		host.speech_allowed = 0
 
 		sleep(1200)
 
-		host.speech_allowed = 1
+		host.silent = 0
 		host << "\red Your tongue has feeling again.."
 		usr << "\red [host] can speak again."
 
@@ -259,27 +286,21 @@ mob/living/parasite/meme/verb/Paralyze()
 	set desc     = "Prevents your host from using emote for a while."
 
 	if(!src.host) return
-	if(!host.emote_allowed)
-		usr << "\red Your host already can't use body language.."
+	if(host.weakened)
+		usr << "\red Your host already paralyzed.."
 		return
 	if(!use_points(250)) return
 
-	spawn
-		// backup the host incase we switch hosts after using the verb
-		var/mob/host = src.host
+	host << "\red Your body feels numb.. You lose your ability to use body language."
+	usr << "\red Your host can't use body language anymore."
 
-		host << "\red Your body feels numb.. You lose your ability to use body language."
-		usr << "\red Your host can't use body language anymore."
+	host.weakened = 1200
 
-		host.emote_allowed = 0
+	sleep(1200)
 
-		sleep(1200)
-
-		host.emote_allowed = 1
-		host << "\red Your body has feeling again.."
-		usr << "\red [host] can use body language again."
-
-
+	host.weakened = 0
+	host << "\red Your body has feeling again.."
+	usr << "\red [host] can use body language again."
 
 // Cause great agony with the host, used for conditioning the host
 mob/living/parasite/meme/verb/Agony()
@@ -351,12 +372,12 @@ mob/living/parasite/meme/verb/Hallucinate()
 	if(!target) return
 	if(!use_points(300)) return
 
-	target.hallucination += 100
+	target:hallucination += 100
 
 	usr << "<b>You make [target] hallucinate.</b>"
 
 // Jump to a closeby target through a whisper
-mob/living/parasite/meme/verb/SubtleJump(mob/living/carbon/human/target as mob in world)
+mob/living/parasite/meme/verb/SubtleJump(mob/living/carbon/human/target as mob in view(1,host) - usr - usr:host)
 	set category = "Meme"
 	set name	 = "Subtle Jump(350)"
 	set desc     = "Move to a closeby human through a whisper."
@@ -391,11 +412,11 @@ mob/living/parasite/meme/verb/SubtleJump(mob/living/carbon/human/target as mob i
 	src.enter_host(target)
 
 	usr << "<b>You successfully jumped to [target]."
-	log_admin("[src.key] has jumped to [target]")
-	message_admins("[src.key] has jumped to [target]")
+	log_admin("[src.key] has jumped (meme) to [target]")
+	message_admins("[src.key] has jumped (meme) to [target]")
 
 // Jump to a distant target through a shout
-mob/living/parasite/meme/verb/ObviousJump(mob/living/carbon/human/target as mob in world)
+mob/living/parasite/meme/verb/ObviousJump(mob/living/carbon/human/target as mob in view(host) - usr - usr:host)
 	set category = "Meme"
 	set name	 = "Obvious Jump(750)"
 	set desc     = "Move to any mob in view through a shout."
@@ -430,11 +451,11 @@ mob/living/parasite/meme/verb/ObviousJump(mob/living/carbon/human/target as mob 
 	src.enter_host(target)
 
 	usr << "<b>You successfully jumped to [target]."
-	log_admin("[src.key] has jumped to [target]")
-	message_admins("[src.key] has jumped to [target]")
+	log_admin("[src.key] has jumped (meme) to [target]")
+	message_admins("[src.key] has jumped (meme) to [target]")
 
 // Jump to an attuned mob for free
-mob/living/parasite/meme/verb/AttunedJump(mob/living/carbon/human/target as mob in world)
+mob/living/parasite/meme/verb/AttunedJump(mob/living/carbon/human/target as mob in view(host) - usr - usr:host)
 	set category = "Meme"
 	set name	 = "Attuned Jump(0)"
 	set desc     = "Move to a mob in sight that you have already attuned."
@@ -454,8 +475,8 @@ mob/living/parasite/meme/verb/AttunedJump(mob/living/carbon/human/target as mob 
 
 	usr << "<b>You successfully jumped to [target]."
 
-	log_admin("[src.key] has jumped to [target]")
-	message_admins("[src.key] has jumped to [target]")
+	log_admin("[src.key] has jumped (meme) to [target]")
+	message_admins("[src.key] has jumped (meme) to [target]")
 
 // ATTUNE a mob, adding it to the indoctrinated list
 mob/living/parasite/meme/verb/Attune()
@@ -527,7 +548,7 @@ mob/living/parasite/meme/verb/Possession()
 		host_mind.transfer_to(dummy)
 		meme_mind.transfer_to(host)
 		host_mind.current.clearHUD()
-		host.update_clothing()
+		host.update_body()
 
 		dummy << "\blue You feel very drowsy.. Your eyelids become heavy..."
 
@@ -542,7 +563,7 @@ mob/living/parasite/meme/verb/Possession()
 		meme_mind.transfer_to(src)
 		host_mind.transfer_to(host)
 		meme_mind.current.clearHUD()
-		host.update_clothing()
+		host.update_body()
 		src << "\red You lose control.."
 
 		del dummy
@@ -589,8 +610,3 @@ mob/living/parasite/check_contents_for(t)
 	if(!host) return 0
 
 	return host.check_contents_for(t)
-
-mob/living/parasite/check_contents_for_reagent(t)
-	if(!host) return 0
-
-	return host.check_contents_for_reagent(t)

@@ -10,7 +10,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	name = "Requests Console"
 	desc = "A console intended to send requests to diferent departments on the station."
 	anchored = 1
-	icon = 'terminals.dmi'
+	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/messages = list() //List of all messages
@@ -56,6 +56,18 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 	var/priority = -1 ; //Priority of the message being sent
 	luminosity = 0
 
+/obj/machinery/requests_console/power_change()
+	..()
+	update_icon()
+
+/obj/machinery/requests_console/update_icon()
+	if(stat & NOPOWER)
+		if(icon_state != "req_comp_off")
+			icon_state = "req_comp_off"
+	else
+		if(icon_state == "req_comp_off")
+			icon_state = "req_comp0"
+
 /obj/machinery/requests_console/New()
 	name = "[department] Requests Console"
 	allConsoles += src
@@ -95,6 +107,8 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 
 /obj/machinery/requests_console/attack_hand(user as mob)
+	if(..(user))
+		return
 	var/dat
 	dat = text("<HEAD><TITLE>Requests Console</TITLE></HEAD><H3>[department] Requests Console</H3>")
 	if(!open)
@@ -191,19 +205,19 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				else
 					dat += text("Speaker <A href='?src=\ref[src];setSilent=1'>ON</A>")
 
-		user << browse("[dat]", "")
+		user << browse("[dat]", "window=request_console")
 		onclose(user, "req_console")
 	return
 
 /obj/machinery/requests_console/Topic(href, href_list)
 	if(..())	return
-	usr.machine = src
+	usr.set_machine(src)
 	add_fingerprint(usr)
 
 	if(reject_bad_text(href_list["write"]))
 		dpt = ckey(href_list["write"]) //write contains the string of the receiving department's name
 
-		var/new_message = copytext(reject_bad_text(input(usr, "Write your message:", "Awaiting Input", "")),1,MAX_MESSAGE_LEN)
+		var/new_message = sanitize(input(usr, "Write your message:", "Awaiting Input", ""))
 		if(new_message)
 			message = new_message
 			screen = 9
@@ -218,7 +232,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			priority = -1
 
 	if(href_list["writeAnnouncement"])
-		var/new_message = copytext(reject_bad_text(input(usr, "Write your message:", "Awaiting Input", "")),1,MAX_MESSAGE_LEN)
+		var/new_message = sanitize(input(usr, "Write your message:", "Awaiting Input", ""))
 		if(new_message)
 			message = new_message
 			switch(href_list["priority"])
@@ -231,7 +245,9 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)	return
-		world << "<b><font size = 3><font color = red>[department] announcement:</font color> [message]</font size></b>"
+		for(var/mob/M in player_list)
+			if(!istype(M,/mob/new_player))
+				M << "<b><font size = 3><font color = red>[department] announcement:</font color> [message]</font size></b>"
 		announceAuth = 0
 		message = ""
 		screen = 0
@@ -248,46 +264,55 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			sending += "<br>"
 		screen = 7 //if it's successful, this will get overrwritten (7 = unsufccessfull, 6 = successfull)
 		if (sending)
+			var/pass = 0
 			for (var/obj/machinery/message_server/MS in world)
+				if(!MS.active) continue
 				MS.send_rc_message(href_list["department"],department,log_msg,msgStamped,msgVerified,priority)
+				pass = 1
 
-			for (var/obj/machinery/requests_console/Console in allConsoles)
-				if (ckey(Console.department) == ckey(href_list["department"]))
+			if(pass)
 
-					switch(priority)
-						if("2")		//High priority
-							if(Console.newmessagepriority < 2)
-								Console.newmessagepriority = 2
-								Console.icon_state = "req_comp2"
-							if(!Console.silent)
-								playsound(Console.loc, 'twobeep.ogg', 50, 1)
-								for (var/mob/O in hearers(5, Console.loc))
-									O.show_message(text("\icon[Console] *The Requests Console beeps: 'PRIORITY Alert in [department]'"))
-							Console.messages += "<B><FONT color='red'>High Priority message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[sending]"
+				for (var/obj/machinery/requests_console/Console in allConsoles)
+					if (ckey(Console.department) == ckey(href_list["department"]))
 
-	//					if("3")		//Not implemanted, but will be 		//Removed as it doesn't look like anybody intends on implimenting it ~Carn
-	//						if(Console.newmessagepriority < 3)
-	//							Console.newmessagepriority = 3
-	//							Console.icon_state = "req_comp3"
-	//						if(!Console.silent)
-	//							playsound(Console.loc, 'twobeep.ogg', 50, 1)
-	//							for (var/mob/O in hearers(7, Console.loc))
-	//								O.show_message(text("\icon[Console] *The Requests Console yells: 'EXTREME PRIORITY alert in [department]'"))
-	//						Console.messages += "<B><FONT color='red'>Extreme Priority message from [ckey(department)]</FONT></B><BR>[message]"
+						switch(priority)
+							if("2")		//High priority
+								if(Console.newmessagepriority < 2)
+									Console.newmessagepriority = 2
+									Console.icon_state = "req_comp2"
+								if(!Console.silent)
+									playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
+									for (var/mob/O in hearers(5, Console.loc))
+										O.show_message(text("\icon[Console] *The Requests Console beeps: 'PRIORITY Alert in [department]'"))
+								Console.messages += "<B><FONT color='red'>High Priority message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[sending]"
 
-						else		// Normal priority
-							if(Console.newmessagepriority < 1)
-								Console.newmessagepriority = 1
-								Console.icon_state = "req_comp1"
-							if(!Console.silent)
-								playsound(Console.loc, 'twobeep.ogg', 50, 1)
-								for (var/mob/O in hearers(4, Console.loc))
-									O.show_message(text("\icon[Console] *The Requests Console beeps: 'Message from [department]'"))
-							Console.messages += "<B>Message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[message]"
+		//					if("3")		//Not implemanted, but will be 		//Removed as it doesn't look like anybody intends on implimenting it ~Carn
+		//						if(Console.newmessagepriority < 3)
+		//							Console.newmessagepriority = 3
+		//							Console.icon_state = "req_comp3"
+		//						if(!Console.silent)
+		//							playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
+		//							for (var/mob/O in hearers(7, Console.loc))
+		//								O.show_message(text("\icon[Console] *The Requests Console yells: 'EXTREME PRIORITY alert in [department]'"))
+		//						Console.messages += "<B><FONT color='red'>Extreme Priority message from [ckey(department)]</FONT></B><BR>[message]"
 
-					screen = 6
-					Console.luminosity = 2
-			messages += "<B>Message sent to [dpt]</B><BR>[message]"
+							else		// Normal priority
+								if(Console.newmessagepriority < 1)
+									Console.newmessagepriority = 1
+									Console.icon_state = "req_comp1"
+								if(!Console.silent)
+									playsound(Console.loc, 'sound/machines/twobeep.ogg', 50, 1)
+									for (var/mob/O in hearers(4, Console.loc))
+										O.show_message(text("\icon[Console] *The Requests Console beeps: 'Message from [department]'"))
+								Console.messages += "<B>Message from <A href='?src=\ref[Console];write=[ckey(department)]'>[department]</A></FONT></B><BR>[message]"
+
+						screen = 6
+						Console.luminosity = 2
+				messages += "<B>Message sent to [dpt]</B><BR>[message]"
+			else
+				for (var/mob/O in hearers(4, src.loc))
+					O.show_message(text("\icon[src] *The Requests Console beeps: 'NOTICE: No server detected!'"))
+
 
 	//Handle screen switching
 	switch(text2num(href_list["setScreen"]))
@@ -361,7 +386,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 			updateUsrDialog()
 		if(screen == 10)
 			var/obj/item/weapon/card/id/ID = O
-			if (ACCESS_RC_ANNOUNCE in ID.access)
+			if (access_RC_announce in ID.GetAccess())
 				announceAuth = 1
 			else
 				announceAuth = 0

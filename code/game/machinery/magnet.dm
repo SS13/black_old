@@ -6,7 +6,7 @@
 
 /obj/machinery/magnetic_module
 
-	icon = 'objects.dmi'
+	icon = 'icons/obj/objects.dmi'
 	icon_state = "floor_magnet-f"
 	name = "Electromagnetic Generator"
 	desc = "A device that uses station power to create points of magnetic energy."
@@ -195,7 +195,7 @@
 
 /obj/machinery/magnetic_controller
 	name = "Magnetic Control Console"
-	icon = 'airlock_machines.dmi' // uses an airlock machine icon, THINK GREEN HELP THE ENVIRONMENT - RECYCLING!
+	icon = 'icons/obj/airlock_machines.dmi' // uses an airlock machine icon, THINK GREEN HELP THE ENVIRONMENT - RECYCLING!
 	icon_state = "airlock_control_standby"
 	density = 1
 	anchored = 1.0
@@ -249,7 +249,7 @@
 	attack_hand(mob/user as mob)
 		if(stat & (BROKEN|NOPOWER))
 			return
-		user.machine = src
+		user.set_machine(src)
 		var/dat = "<B>Magnetic Control Console</B><BR><BR>"
 		if(!autolink)
 			dat += {"
@@ -277,7 +277,7 @@
 	Topic(href, href_list)
 		if(stat & (BROKEN|NOPOWER))
 			return
-		usr.machine = src
+		usr.set_machine(src)
 		src.add_fingerprint(usr)
 
 		if(href_list["radio-op"])

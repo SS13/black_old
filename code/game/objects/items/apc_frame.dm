@@ -1,5 +1,12 @@
 // APC HULL
 
+/obj/item/apc_frame
+	name = "APC frame"
+	desc = "Used for repairing or building APCs"
+	icon = 'icons/obj/apc_repair.dmi'
+	icon_state = "apc_frame"
+	flags = FPRINT | TABLEPASS| CONDUCT
+
 /obj/item/apc_frame/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	..()
 	if (istype(W, /obj/item/weapon/wrench))
@@ -30,7 +37,7 @@
 		else
 			var/obj/item/weapon/cable_coil/C = new /obj/item/weapon/cable_coil(loc)
 			C.amount = 10
-			usr << "You cut cables and disassemble the unused power terminal."
+			usr << "You cut the cables and disassemble the unused power terminal."
 			del(T)
 	new /obj/machinery/power/apc(loc, ndir, 1)
 	del(src)
