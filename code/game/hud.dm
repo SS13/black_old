@@ -5,7 +5,7 @@
 #define ui_action_slot4 "4:12,14:26"
 #define ui_action_slot5 "5:14,14:26"
 
-//Lower left, persistant menu
+
 #define ui_inventory "1:6,1:5"
 
 //Lower center, persistant menu
