@@ -79,7 +79,8 @@
 
 #define ui_glasses "1:6,3:9"
 #define ui_mask "2:8,3:9"
-#define ui_ears "3:10,3:9"
+#define ui_lear "3:10,3:9"
+#define ui_rear "3:10,4:11"
 
 #define ui_head "2:8,4:11"
 
@@ -214,7 +215,8 @@ datum/hud/New(mob/owner)
 		if(inventory_shown && hud_shown)
 			if(H.shoes)		H.shoes.screen_loc = ui_shoes
 			if(H.gloves)	H.gloves.screen_loc = ui_gloves
-			if(H.ears)		H.ears.screen_loc = ui_ears
+			if(H.ears)		H.ears.screen_loc = ui_rear
+			if(H.ears)		H.ears.screen_loc = ui_lear
 			if(H.glasses)	H.glasses.screen_loc = ui_glasses
 			if(H.w_uniform)	H.w_uniform.screen_loc = ui_iclothing
 			if(H.wear_suit)	H.wear_suit.screen_loc = ui_oclothing
