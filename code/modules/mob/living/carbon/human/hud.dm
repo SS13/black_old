@@ -64,7 +64,7 @@
 	src.adding += using
 	hurt_intent = using
 
-//end intent small hud objects
+
 
 	using = new /obj/screen()
 	using.name = "mov_intent"
