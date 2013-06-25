@@ -249,13 +249,20 @@
 	src.other += inv_box
 
 	inv_box = new /obj/screen/inventory()
-	inv_box.name = "ears"
-	inv_box.icon = ui_style
-	inv_box.icon_state = "ears"
-	inv_box.screen_loc = ui_ears
-	inv_box.slot_id = slot_ears
-	inv_box.layer = 19
-	src.other += inv_box
+	using.name = "l_ear"
+	using.icon = ui_style
+	using.icon_state = "ears"
+	using.screen_loc = ui_lear
+	using.layer = 19
+	src.other += using
+
+	inv_box = new /obj/screen/inventory()
+	using.name = "r_ear"
+	using.icon = ui_style
+	using.icon_state = "ears"
+	using.screen_loc = ui_rear
+	using.layer = 19
+	src.other += using
 
 	inv_box = new /obj/screen/inventory()
 	inv_box.name = "head"
