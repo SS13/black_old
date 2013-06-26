@@ -719,7 +719,8 @@ datum/mind
 						current << "<B><font color='red'>You are a meme now!</font></B>"
 						log_admin("[key_name_admin(usr)] has meme'ed [current].")
 						message_admins("[key_name_admin(usr)] has meme'ed [current].")
-						current.change_mob_type( /mob/living/parasite/meme , null, null, 1)
+						if(!istype(src, /mob/living/parasite/meme))
+							current.change_mob_type( /mob/living/parasite/meme , null, null, 1)
 
 				if("autoobjectives")
 					ticker.mode.forge_meme_objectives(src)
