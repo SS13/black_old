@@ -916,7 +916,7 @@ datum/preferences
 						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Intensity: 1-220 for humans or 20-70 for other species.)", "Character Preference")  as num|null
 						if(new_s_tone)
 							if(species != "Human")
-								s_tone = 35 - max(min(round(new_s_tone), 70), 20)
+								s_tone = 35 - max(min( round(new_s_tone), 70), 20)
 							else s_tone = 35 - max(min( round(new_s_tone), 220),1)
 
 					if("ooccolor")
@@ -1013,8 +1013,9 @@ datum/preferences
 							gender = FEMALE
 						else
 							gender = MALE
-						if("disabilities")        //please note: current code only allows nearsightedness as a disability
-							disabilities = !disabilities//if you want to add actual disabilities, code that selects them should be here
+
+					if("disabilities")        //please note: current code only allows nearsightedness as a disability
+						disabilities = !disabilities//if you want to add actual disabilities, code that selects them should be here
 
 					if("hear_adminhelps")
 						toggles ^= SOUND_ADMINHELP
