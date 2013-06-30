@@ -408,13 +408,21 @@
 	icon_state = "ewelder"
 	var/last_gen = 0
 
-
+/obj/item/weapon/weldingtool/experimental/process()
+	fuel_gen()
+	..()
 
 /obj/item/weapon/weldingtool/experimental/proc/fuel_gen()//Proc to make the experimental welder generate fuel, optimized as fuck -Sieve
-	var/gen_amount = ((world.time-last_gen)/25)
-	reagents += (gen_amount)
-	if(reagents > max_fuel)
-		reagents = max_fuel
+	var/gen_amount = (world.time-last_gen)/25
+	var/free_space = max_fuel - get_fuel()
+	if (free_space <= 0)
+		return
+	if (free_space > gen_amount)
+		reagents.add_reagent("fuel",gen_amount)
+	else
+		reagents.add_reagent("fuel",free_space)
+	last_gen = world.time
+	return
 
 /*
  * Crowbar
