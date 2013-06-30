@@ -3,6 +3,7 @@
 	icon = 'icons/mob/animal.dmi'
 	health = 20
 	maxHealth = 20
+	use_me = 0
 
 	var/icon_living = ""
 	var/icon_dead = ""

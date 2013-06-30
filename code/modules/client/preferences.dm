@@ -15,7 +15,7 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"cultist" = IS_MODE_COMPILED("cult"),                // 8
 	"infested monkey" = IS_MODE_COMPILED("monkey"),      // 9
 	"space ninja" = "true",								 // 10
-	"meme" = IS_MODE_COMPILED("meme"),
+	"meme" = IS_MODE_COMPILED("meme"),					 // 11
 )
 
 var/const/MAX_SAVE_SLOTS = 10
@@ -253,7 +253,7 @@ datum/preferences
 		dat += "Blood Type: <a href='byond://?src=\ref[user];preference=b_type;task=input'>[b_type]</a><br>"
 		dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220<br></a>"
 		//dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
-		dat += "Needs Glasses: <a href='?_src_=prefs;preference=disabilities'><b>[disabilities == 0 ? "No" : "Yes"]</b></a><br>"
+		//dat += "Needs Glasses: <a href='?_src_=prefs;preference=disabilities'><b>[disabilities == 0 ? "No" : "Yes"]</b></a><br>"
 		dat += "Disabilities: <a href=\"byond://?src=\ref[user];preference=disabilities;task=input;disabilities=-1\">Setup</a><br>"
 		dat += "Limbs: <a href='byond://?src=\ref[user];preference=limbs;task=input'>Adjust</a><br>"
 
@@ -915,10 +915,9 @@ datum/preferences
 //						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
 						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Intensity: 1-220 for humans or 20-70 for other species.)", "Character Preference")  as num|null
 						if(new_s_tone)
-//							s_tone = 35 - max(min( round(new_s_tone), 220),1)
 							if(species != "Human")
-								s_tone = max(min(round(new_s_tone), 70), 20)
-							else s_tone = max(min(round(new_s_tone), 220), 1)
+								s_tone = 35 - max(min( round(new_s_tone), 70), 20)
+							else s_tone = 35 - max(min( round(new_s_tone), 220),1)
 
 					if("ooccolor")
 						var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference") as color|null
@@ -1014,8 +1013,9 @@ datum/preferences
 							gender = FEMALE
 						else
 							gender = MALE
-						if("disabilities")        //please note: current code only allows nearsightedness as a disability
-							disabilities = !disabilities//if you want to add actual disabilities, code that selects them should be here
+
+					if("disabilities")        //please note: current code only allows nearsightedness as a disability
+						disabilities = !disabilities//if you want to add actual disabilities, code that selects them should be here
 
 					if("hear_adminhelps")
 						toggles ^= SOUND_ADMINHELP
