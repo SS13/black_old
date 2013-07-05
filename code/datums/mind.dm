@@ -707,10 +707,10 @@ datum/mind
 						ticker.mode.memes -= src
 						special_role = null
 						current:exit_host()
-						current.ghostize()
 						current << "<FONT color='red' size = 3><B>You grow weak and lose your powers! You are no longer a meme!</B></FONT>"
 						log_admin("[key_name_admin(usr)] has de-meme'ed [current].")
 						message_admins("[key_name_admin(usr)] has de-meme'ed [current].")
+						current.ghostize()
 
 				if("meme")
 					if(!(src in ticker.mode.memes))
@@ -719,7 +719,7 @@ datum/mind
 						current << "<B><font color='red'>You are a meme now!</font></B>"
 						log_admin("[key_name_admin(usr)] has meme'ed [current].")
 						message_admins("[key_name_admin(usr)] has meme'ed [current].")
-						if(!istype(src, /mob/living/parasite/meme))
+						if(!istype(current, /mob/living/parasite/meme))
 							current.change_mob_type( /mob/living/parasite/meme , null, null, 1)
 
 				if("autoobjectives")
