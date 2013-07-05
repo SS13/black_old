@@ -2020,6 +2020,7 @@
 			if (ok)
 				world << text("<B>A secret has been activated by []!</B>", usr.key)
 
+
 	else if(href_list["secretsadmin"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -2057,7 +2058,7 @@
 			if("showgm")
 				if(!ticker)
 					alert("The game hasn't started yet!")
-				else if (ticker.mode)
+				else if (ticker.mode)à
 					alert("The game mode is [ticker.mode.name]")
 				else alert("For some reason there's a ticker, but not a game mode")
 			if("manifest")
