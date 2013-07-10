@@ -85,6 +85,11 @@ mob/living/parasite/meme/New()
 
 	ticker.mode.memes += src
 
+mob/living/parasite/meme/Del()
+	..()
+
+	if(host)
+		exit_host()
 
 mob/living/parasite/meme/Life()
 	..()
@@ -394,6 +399,7 @@ mob/living/parasite/meme/verb/SubtleJump(mob/living/carbon/human/target as mob i
 		src << "<b>Your host can't speak..</b>"
 		return
 
+	if(host.parasites.len) return
 	if(!use_points(350)) return
 
 	for(var/mob/M in view(1, host))
@@ -433,6 +439,7 @@ mob/living/parasite/meme/verb/ObviousJump(mob/living/carbon/human/target as mob 
 		src << "<b>Your host can't speak..</b>"
 		return
 
+	if(host.parasites.len) return
 	if(!use_points(750)) return
 
 	for(var/mob/M in view(host)+src)
@@ -470,6 +477,7 @@ mob/living/parasite/meme/verb/AttunedJump(mob/living/carbon/human/target as mob 
 		src << "<b>You need to attune the target first.</b>"
 		return
 
+	if(host.parasites.len) return
 	src.exit_host()
 	src.enter_host(target)
 
