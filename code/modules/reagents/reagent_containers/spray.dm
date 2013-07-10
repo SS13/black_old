@@ -46,7 +46,7 @@
 
 	D.name = "chemicals"
 	D.icon = 'icons/obj/chempuff.dmi'
-	D.pass_flags = PASSTABLE
+	D.pass_flags |= PASSTABLE
 
 	D.icon += mix_color_from_reagents(D.reagents.reagent_list)
 
