@@ -57,7 +57,7 @@
 			var/datum/objective/mutiny/rp/rev_obj = new
 			rev_obj.owner = rev_mind
 			rev_obj.target = head_mind
-			rev_obj.explanation_text = "Assassinate or capture [head_mind.name], the [head_mind.assigned_role]."
+			rev_obj.explanation_text = "Assassinate, convert or capture [head_mind.name], the [head_mind.assigned_role]."
 			rev_mind.objectives += rev_obj
 
 		update_rev_icons_added(rev_mind)
@@ -183,7 +183,7 @@
 				active_revs++
 
 		if(active_revs == 0)
-			log_admin("There are zero active head revolutionists, trying to add some..")
+			log_debug("There are zero active heads of revolution, trying to add some..")
 			message_admins("There are zero active head revolutionists, trying to add some..")
 			var/added_heads = 0
 			for(var/mob/living/carbon/human/H in world) if(H.client && H.mind && H.client.inactivity <= 10*60*20 && H.mind in revolutionaries)

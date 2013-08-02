@@ -49,7 +49,6 @@ datum/controller/game_controller/New()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
 	if(!emergency_shuttle)			emergency_shuttle = new /datum/shuttle_controller/emergency_shuttle()
 
-
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
@@ -62,8 +61,6 @@ datum/controller/game_controller/proc/setup()
 	if(!ticker)
 		ticker = new /datum/controller/gameticker()
 
-
-
 	setup_objects()
 	setupgenetics()
 	setupfactions()
@@ -75,6 +72,7 @@ datum/controller/game_controller/proc/setup()
 	spawn(0)
 		if(ticker)
 			ticker.pregame()
+
 	lighting_controller.Initialize()
 
 
@@ -86,12 +84,12 @@ datum/controller/game_controller/proc/setup_objects()
 
 	world << "\red \b Initializing pipe networks"
 	sleep(-1)
-	for(var/obj/machinery/atmospherics/machine in world)
+	for(var/obj/machinery/atmospherics/machine in machines)
 		machine.build_network()
 
 	world << "\red \b Initializing atmos machinery."
 	sleep(-1)
-	for(var/obj/machinery/atmospherics/unary/U in world)
+	for(var/obj/machinery/atmospherics/unary/U in machines)
 		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
 			var/obj/machinery/atmospherics/unary/vent_pump/T = U
 			T.broadcast_status()

@@ -416,24 +416,24 @@
 
 	if(ismuton(NOBREATHBLOCK,M))
 		if(probinj(45,inj) || (MNOBREATH in old_mutations))
-			M << "\blue You feel no need to breathe."
 			M.mutations.Add(MNOBREATH)
+			M << "\blue You feel no need to breathe."
 	if(ismuton(REMOTEVIEWBLOCK,M))
 		if(probinj(45,inj) || (MREMOTEVIEW in old_mutations))
-			M << "\blue Your mind expands"
 			M.mutations.Add(MREMOTEVIEW)
+			M << "\blue Your mind expands"
 	if(ismuton(REGENERATEBLOCK,M))
 		if(probinj(45,inj) || (MREGENERATE in old_mutations))
-			M << "\blue You feel strange"
 			M.mutations.Add(MREGENERATE)
+			M << "\blue You feel strange"
 	if(ismuton(INCREASERUNBLOCK,M))
 		if(probinj(45,inj) || (MRUN in old_mutations))
-			M << "\blue You feel quick"
 			M.mutations.Add(MRUN)
+			M << "\blue You feel quick"
 	if(ismuton(REMOTETALKBLOCK,M))
 		if(probinj(45,inj) || (MREMOTETALK in old_mutations))
-			M << "\blue You expand your mind outwards"
 			M.mutations.Add(MREMOTETALK)
+			M << "\blue You expand your mind outwards"
 	if(ismuton(MORPHBLOCK,M))
 		if(probinj(45,inj) || (MMORPH in old_mutations))
 			M.mutations.Add(MMORPH)
@@ -456,8 +456,8 @@
 			M << "\blue You feel strange"
 	if(ismuton(SMALLSIZEBLOCK,M))
 		if(probinj(45,inj) || (MSMALLSIZE in old_mutations))
-			M << "\blue Your skin feels rubbery"
 			M.mutations.Add(MSMALLSIZE)
+			M << "\blue Your skin feels rubbery"
 
 
 

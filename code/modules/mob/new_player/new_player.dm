@@ -112,7 +112,7 @@
 
 				var/S = client.prefs.species
 				if(S == "Unathi") S = "Soghun"
-				if(!is_alien_whitelisted(src, S))
+				if(!is_alien_whitelisted(src, S) && config.usealienwhitelist)
 					src << alert("You are currently not whitelisted to play [client.prefs.species].")
 					return 0
 
@@ -152,6 +152,14 @@
 
 
 	proc/AttemptLateSpawn(rank)
+		if (src != usr)
+			return 0
+		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+			usr << "\red The round is either not ready, or has already finished..."
+			return 0
+		if(!enter_allowed)
+			usr << "\blue There is an administrative lock on entering the game!"
+			return 0
 		if(!IsJobAvailable(rank))
 			src << alert("[rank] is not available. Please try another.")
 			return 0
@@ -178,6 +186,8 @@
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
 		if (ticker.current_state == GAME_STATE_PLAYING)
 			var/obj/item/device/radio/intercom/a = new /obj/item/device/radio/intercom(null)// BS12 EDIT Arrivals Announcement Computer, rather than the AI.
+			if(character.mind.role_alt_title)
+				rank = character.mind.role_alt_title
 			a.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] has arrived on the station.", "Arrivals Announcement Computer")
 			del(a)
 
@@ -228,6 +238,20 @@
 			if(is_alien_whitelisted(src, "Skrell") || !config.usealienwhitelist)
 				new_character.dna.mutantrace = "skrell"
 				new_character.skrell_talk_understand = 1
+		if(client.prefs.species == "Vox")
+			if(is_alien_whitelisted(src, "Vox"|| !config.usealienwhitelist))
+				new_character.dna.mutantrace = "vox"
+				new_character.vox_talk_understand = 1
+		if(client.prefs.language == "Tajaran")
+			if(is_alien_whitelisted(src, "Language_Tajaran") || !config.usealienwhitelist)
+				new_character.tajaran_talk_understand = 1
+		if(client.prefs.language == "Unathi")
+			if(is_alien_whitelisted(src, "Language_Soghun") || !config.usealienwhitelist)
+				new_character.soghun_talk_understand = 1
+		if(client.prefs.language == "Skrell")
+			if(is_alien_whitelisted(src, "Language_Skrell") || !config.usealienwhitelist)
+				new_character.skrell_talk_understand = 1
+
 
 		if(ticker.random_players)
 			new_character.gender = pick(MALE, FEMALE)
@@ -263,7 +287,7 @@
 		dat += "<h4>Crew Manifest</h4>"
 		dat += data_core.get_manifest()
 
-		src << browse(dat, "window=manifest;size=300x420;can_close=1")
+		src << browse(dat, "window=manifest;size=370x420;can_close=1")
 
 	Move()
 		return 0

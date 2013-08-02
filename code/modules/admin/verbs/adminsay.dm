@@ -5,10 +5,9 @@
 	if(!check_rights(R_ADMIN))	return
 
 	msg = copytext(sanitize(html_decode(msg)), 1, MAX_MESSAGE_LEN)
-	log_admin("[key_name(src)] : [msg]")
-
 	if(!msg)	return
 
+	log_admin("[key_name(src)] : [msg]")
 
 	if(check_rights(R_ADMIN,0))
 		msg = "<span class='admin'><span class='prefix'>ADMIN:</span> <EM>[key_name(usr, 1)]</EM> (<a href='?_src_=holder;adminplayerobservejump=\ref[mob]'>JMP</A>): <span class='message'>[msg]</span></span>"

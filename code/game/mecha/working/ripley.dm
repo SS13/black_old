@@ -108,6 +108,3 @@
 		step_rand(A)
 	..()
 	return
-
-
-

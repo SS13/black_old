@@ -3,9 +3,8 @@ world/IsBanned(key,address,computer_id)
 	if(ckey(key) in admins)
 		return ..()
 
-
 	//Guest Checking
-	if( !guests_allowed && IsGuestKey(key) )
+	if(!guests_allowed && IsGuestKey(key))
 		log_access("Failed Login: [key] - Guests not allowed")
 		message_admins("\blue Failed Login: [key] - Guests not allowed")
 		return list("reason"="guest", "desc"="\nReason: Guests not allowed. Please sign in with a byond account.")
@@ -15,7 +14,7 @@ world/IsBanned(key,address,computer_id)
 		return list("reason"="not in whitelist", "desc"="\nYou are not in whitelist.\nGo to forum: http://forum.ss13.ru/index.php?showforum=48")
 
 	//check if the IP address is a known TOR node
-	if( config && config.ToRban && ToRban_isbanned(address) )
+	if(config && config.ToRban && ToRban_isbanned(address))
 		log_access("Failed Login: [src] - Banned: ToR")
 		message_admins("\blue Failed Login: [src] - Banned: ToR")
 		//ban their computer_id and ckey for posterity

@@ -1,7 +1,7 @@
 // All mobs should have custom emote, really..
 mob/proc/custom_emote(var/m_type=1,var/message = null)
 
-	if(!emote_allowed && usr == src)
+	if(!use_me && usr == src)
 		usr << "You are unable to emote."
 		return
 
@@ -32,7 +32,7 @@ mob/proc/custom_emote(var/m_type=1,var/message = null)
 				continue
 			if(findtext(message," snores.")) //Because we have so many sleeping people.
 				break
-			if(M.stat == 2 && M.client.ghost_sight && !(M in viewers(src,null)))
+			if(M.stat == 2 && (M.client.prefs.toggles & CHAT_GHOSTSIGHT) && !(M in viewers(src,null)))
 				M.show_message(message)
 
 

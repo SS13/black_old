@@ -110,7 +110,7 @@ var/global/floorIsLava = 0
 				body += "<A href='?src=\ref[src];makeai=\ref[M]'>Make AI</A> | "
 				body += "<A href='?src=\ref[src];makerobot=\ref[M]'>Make Robot</A> | "
 				body += "<A href='?src=\ref[src];makealien=\ref[M]'>Make Alien</A> | "
-				body += "<A href='?src=\ref[src];makeslime=\ref[M]'>Make slime</A> | "
+				body += "<A href='?src=\ref[src];makeslime=\ref[M]'>Make slime</A> "
 
 			//Simple Animals
 			if(isanimal(M))
@@ -212,7 +212,7 @@ var/global/floorIsLava = 0
 		for(var/index = 1, index <= number_pages, index++)
 			if(index == page)
 				dat += "<b>"
-			dat += "<a href='?src=\ref[src];notes=list;index='[index]'>[index]</a> "
+			dat += "<a href='?src=\ref[src];notes=list;index=[index]'>[index]</a> "
 			if(index == page)
 				dat += "</b>"
 

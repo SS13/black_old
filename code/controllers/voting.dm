@@ -165,7 +165,7 @@ datum/controller/vote
 
 	proc/initiate_vote(var/vote_type, var/initiator_key)
 		if(!mode)
-			if(started_time != null)
+			if(started_time != null && !check_rights(R_ADMIN))
 				var/next_allowed_time = (started_time + config.vote_delay)
 				if(next_allowed_time > world.time)
 					return 0
@@ -197,6 +197,7 @@ datum/controller/vote
 			var/text = "[capitalize(mode)] vote started by [initiator]."
 			if(mode == "custom")
 				text += "\n[question]"
+
 			log_vote(text)
 			world << "<font color='purple'><b>[text]</b>\nType vote to place your votes.\nYou have [config.vote_period/10] seconds to vote.</font>"
 			if(mode == "gamemode" && going)

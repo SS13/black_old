@@ -1,4 +1,7 @@
 datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0)
+
+	if(!check_rights(R_BAN))	return
+
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		return
@@ -44,7 +47,6 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 		a_computerid = src.owner:computer_id
 		a_ip = src.owner:address
 
-//	var/list/client/clients = get_all_clients()
 	var/who
 	for(var/client/C in clients)
 		if(!who)
@@ -69,6 +71,9 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 
 
 datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
+
+	if(!check_rights(R_BAN))	return
+
 	var/bantype_str
 	if(bantype)
 		var/bantype_pass = 0
@@ -131,6 +136,9 @@ datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 
 
 datum/admins/proc/DB_ban_unban_by_id(var/id)
+
+	if(!check_rights(R_BAN))	return
+
 	var/sql = "SELECT id FROM erro_ban WHERE id = [id]"
 
 	establish_db_connection()

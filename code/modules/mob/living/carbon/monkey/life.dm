@@ -150,7 +150,6 @@
 						emote("gasp")
 					updatehealth()
 
-
 	proc/handle_virus_updates()//copypaste from mob/carbon/human/life.dm
 		if(bodytemperature > 406)
 			for(var/datum/disease/D in viruses)

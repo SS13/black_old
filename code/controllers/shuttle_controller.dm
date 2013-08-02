@@ -130,7 +130,7 @@ datum/shuttle_controller
 
 							start_location.move_contents_to(end_location, null, NORTH)
 
-							for(var/obj/machinery/door/unpowered/D in world)
+							for(var/obj/machinery/door/unpowered/D in machines)
 								if( get_area(D) == end_location )
 									spawn(0)
 										D.locked = 0
@@ -152,7 +152,7 @@ datum/shuttle_controller
 							end_location = locate(/area/shuttle/escape_pod1/centcom)
 							start_location.move_contents_to(end_location, null, NORTH)
 
-							for(var/obj/machinery/door/D in world)
+							for(var/obj/machinery/door/D in machines)
 								if( get_area(D) == end_location )
 									spawn(0)
 										D.open()
@@ -172,7 +172,7 @@ datum/shuttle_controller
 							end_location = locate(/area/shuttle/escape_pod2/centcom)
 							start_location.move_contents_to(end_location, null, NORTH)
 
-							for(var/obj/machinery/door/D in world)
+							for(var/obj/machinery/door/D in machines)
 								if( get_area(D) == end_location )
 									spawn(0)
 										D.open()
@@ -192,7 +192,7 @@ datum/shuttle_controller
 							end_location = locate(/area/shuttle/escape_pod3/centcom)
 							start_location.move_contents_to(end_location, null, NORTH)
 
-							for(var/obj/machinery/door/D in world)
+							for(var/obj/machinery/door/D in machines)
 								if( get_area(D) == end_location )
 									spawn(0)
 										D.open()
@@ -212,7 +212,7 @@ datum/shuttle_controller
 							end_location = locate(/area/shuttle/escape_pod5/centcom)
 							start_location.move_contents_to(end_location, null, EAST)
 
-							for(var/obj/machinery/door/D in world)
+							for(var/obj/machinery/door/D in machines)
 								if( get_area(D) == end_location )
 									spawn(0)
 										D.open()
@@ -278,6 +278,9 @@ datum/shuttle_controller
 
 						for(var/mob/living/carbon/bug in end_location) // If someone somehow is still in the shuttle's docking area...
 							bug.gib()
+
+						for(var/mob/living/simple_animal/pest in end_location) // And for the other kind of bug...
+							pest.gib()
 
 						start_location.move_contents_to(end_location)
 						settimeleft(SHUTTLELEAVETIME)

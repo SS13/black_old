@@ -1,6 +1,6 @@
 /obj/item/weapon/circuitboard/atmoscontrol
 	name = "\improper Central Atmospherics Computer Circuitboard"
-	build_path = "/obj/machinery/computer/security/atmoscontrol"
+	build_path = /obj/machinery/computer/atmoscontrol
 
 /obj/machinery/computer/atmoscontrol
 	name = "\improper Central Atmospherics Computer"
@@ -13,9 +13,19 @@
 	var/overridden = 0 //not set yet, can't think of a good way to do it
 	req_access = list(access_ce)
 
+
+/obj/machinery/computer/atmoscontrol/attack_ai(var/mob/user as mob)
+	return interact(user)
+
+/obj/machinery/computer/atmoscontrol/attack_paw(var/mob/user as mob)
+	return interact(user)
+
 /obj/machinery/computer/atmoscontrol/attack_hand(mob/user)
 	if(..())
 		return
+	return interact(user)
+
+/obj/machinery/computer/atmoscontrol/interact(mob/user)
 	user.set_machine(src)
 	if(allowed(user))
 		overridden = 1
@@ -25,13 +35,13 @@
 	if(current)
 		dat += specific()
 	else
-		for(var/obj/machinery/alarm/alarm in world)
+		for(var/obj/machinery/alarm/alarm in machines)
 			dat += "<a href='?src=\ref[src]&alarm=\ref[alarm]'>"
 			switch(max(alarm.danger_level, alarm.alarm_area.atmosalm))
 				if (0)
-					dat += "<font color=blue>"
+					dat += "<font color=green>"
 				if (1)
-					dat += "<font color=yellow>"
+					dat += "<font color=blue>"
 				if (2)
 					dat += "<font color=red>"
 			dat += "[alarm]</font></a><br/>"
@@ -52,7 +62,7 @@
 		return ""
 	var/dat = "<h3>[current.name]</h3><hr>"
 	dat += current.return_status()
-	if(current.remote_control || overridden)
+	if(/*current.remote_control ||*/ overridden)
 		dat += "<hr>[return_controls()]"
 	return dat
 
@@ -139,12 +149,12 @@
 				src.updateUsrDialog()
 			return
 
-		if(href_list["atmos_unlock"])
+/*		if(href_list["atmos_unlock"])
 			switch(href_list["atmos_unlock"])
 				if("0")
 					current.air_doors_close(1)
 				if("1")
-					current.air_doors_open(1)
+					current.air_doors_open(1)*/
 
 		if(href_list["atmos_alarm"])
 			if (current.alarm_area.atmosalert(2))
@@ -185,7 +195,7 @@
 			output += {"
 <a href='?src=\ref[src];alarm=\ref[current];screen=[AALARM_SCREEN_SCRUB]'>Scrubbers Control</a><br>
 <a href='?src=\ref[src];alarm=\ref[current];screen=[AALARM_SCREEN_VENT]'>Vents Control</a><br>
-<a href='?src=\ref[src];alarm=\ref[current];screen=[AALARM_SCREEN_MODE]'>Set envirenomentals mode</a><br>
+<a href='?src=\ref[src];alarm=\ref[current];screen=[AALARM_SCREEN_MODE]'>Set environmental mode</a><br>
 <a href='?src=\ref[src];alarm=\ref[current];screen=[AALARM_SCREEN_SENSORS]'>Sensor Control</a><br>
 <HR>
 "}

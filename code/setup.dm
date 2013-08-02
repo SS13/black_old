@@ -175,8 +175,7 @@ var/MAX_EXPLOSION_RANGE = 14
 
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE 1	//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere
-//To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
-
+                                //To successfully stop you taking all pressure damage you must have both a suit and head item with this flag.
 #define TABLEPASS 2			// can pass by a table or rack
 
 #define MASKINTERNALS	8	// mask allows internals
@@ -205,7 +204,8 @@ var/MAX_EXPLOSION_RANGE = 14
 
 #define	NOREACT		16384 			//Reagents dont' react inside this container.
 
-#define BLOCKHAIR	32768			// temporarily removes the user's hair icon
+#define BLOCKHEADHAIR 4             // temporarily removes the user's hair overlay. Leaves facial hair.
+#define BLOCKHAIR	32768			// temporarily removes the user's hair, facial and otherwise.
 
 //flags for pass_flags
 #define PASSTABLE	1
@@ -304,14 +304,15 @@ var/MAX_EXPLOSION_RANGE = 14
 // mob/var/list/mutations
 
 #define STRUCDNASIZE 27
+#define UNIDNASIZE 13
 
 	// Generic mutations:
-#define	TK				1
-#define COLD_RESISTANCE	2
+#define	TK			1
+#define COLD_RESISTANCE		2
 #define XRAY			3
 #define HULK			4
 #define CLUMSY			5
-#define FAT				6
+#define FAT			6
 #define HUSK			7
 #define NOCLONE			8
 
@@ -322,9 +323,9 @@ var/MAX_EXPLOSION_RANGE = 14
 #define SHADOW			11 	// shadow teleportation (create in/out portals anywhere) (25%)
 #define SCREAM			12 	// supersonic screaming (25%)
 #define EXPLOSIVE		13 	// exploding on-demand (15%)
-#define REGENERATION	14 	// superhuman regeneration (30%)
+#define REGENERATION		14 	// superhuman regeneration (30%)
 #define REPROCESSOR		15 	// eat anything (50%)
-#define SHAPESHIFTING	16 	// take on the appearance of anything (40%)
+#define SHAPESHIFTING		16 	// take on the appearance of anything (40%)
 #define PHASING			17 	// ability to phase through walls (40%)
 #define SHIELD			18 	// shielding from all projectile attacks (30%)
 #define SHOCKWAVE		19 	// attack a nearby tile and cause a massive shockwave, knocking most people on their asses (25%)
@@ -342,8 +343,8 @@ var/MAX_EXPLOSION_RANGE = 14
 #define MREMOTETALK		104 	// remote talking
 #define MMORPH			105 	// changing appearance
 #define MBLEND			106 	// nothing (seriously nothing)
-#define MHALLUCINATION	107 	// hallucinations
-#define MFINGERPRINTS	108 	// no fingerprints
+#define MHALLUCINATION		107 	// hallucinations
+#define MFINGERPRINTS		108 	// no fingerprints
 #define MSHOCK			109 	// insulated hands
 #define MSMALLSIZE		110 	// table climbing
 
@@ -426,6 +427,7 @@ var/list/global_mutations = list() // list of hidden mutation things
 #define WEAKEN		"weaken"
 #define PARALYZE	"paralize"
 #define IRRADIATE	"irradiate"
+#define AGONY		"agony" // Added in PAIN!
 #define STUTTER		"stutter"
 #define EYE_BLUR	"eye_blur"
 #define DROWSY		"drowsy"
@@ -582,6 +584,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define ORGAN_SPLINTED 256
 #define SALVED 512
 #define ORGAN_DEAD 1024
+#define ORGAN_MUTATED 2048
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
@@ -596,38 +599,39 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_SERVER		16
 #define R_DEBUG			32
 #define R_POSSESS		64
-#define R_PERMISSIONS	128
+#define R_PERMISSIONS		128
 #define R_STEALTH		256
-#define R_REJUVINATE	512
+#define R_REJUVINATE		512
 #define R_VAREDIT		1024
 #define R_SOUNDS		2048
 #define R_SPAWN			4096
 #define R_EVENTS		8192
 #define R_MOD			16384
 
-#define R_MAXPERMISSION 65536 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 	65536 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			65535
 
 //Preference toggles
-#define SOUND_ADMINHELP	1
+#define SOUND_ADMINHELP		1
 #define SOUND_MIDI		2
-#define SOUND_AMBIENCE	4
+#define SOUND_AMBIENCE		4
 #define SOUND_LOBBY		8
 #define CHAT_OOC		16
 #define CHAT_DEAD		32
-#define CHAT_GHOSTEARS	64
-#define CHAT_GHOSTSIGHT	128
+#define CHAT_GHOSTEARS		64
+#define CHAT_GHOSTSIGHT		128
 #define CHAT_PRAYER		256
 #define CHAT_RADIO		512
-#define CHAT_ATTACKLOGS	1024
-#define CHAT_PDA 		2048
+#define CHAT_ATTACKLOGS		1024
+#define CHAT_DEBUGLOGS		2048
+#define CHAT_LOOC		4096
 
-#define TOGGLES_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS)
+#define TOGGLES_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
-#define BE_OPERATIVE	2
-#define BE_CHANGELING	4
+#define BE_OPERATIVE		2
+#define BE_CHANGELING		4
 #define BE_WIZARD		8
 #define BE_MALF			16
 #define BE_REV			32
@@ -668,3 +672,12 @@ var/list/be_special_flags = list(
 
 #define LEFT 1
 #define RIGHT 2
+
+// for secHUDs and medHUDs and variants. The number is the location of the image on the list hud_list of humans.
+#define HEALTH_HUD		1 // dead, alive, sick, health status
+#define STATUS_HUD		2 // a simple line rounding the mob's number health
+#define ID_HUD			3 // the job asigned to your ID
+#define WANTED_HUD		4 // wanted, released, parroled, security status
+#define IMPLOYAL_HUD		5 // loyality implant
+#define IMPCHEM_HUD		6 // chemical implant
+#define IMPTRACK_HUD		7 // tracking implant

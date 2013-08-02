@@ -424,8 +424,6 @@ commented out in r5061, I left it because of the shroom thingies
 			//extract pesky minerals while we're excavating
 			while(excavation_minerals.len && src.excavation_level > excavation_minerals[excavation_minerals.len])
 				drop_mineral()
-				//have a 50% chance to extract bonus minerals this way
-				//if(prob(50))
 				pop(excavation_minerals)
 				mineralAmt--
 
@@ -455,13 +453,6 @@ commented out in r5061, I left it because of the shroom thingies
 		O = new /obj/item/weapon/ore/plasma(src)
 	if (src.mineralName == "Diamond")
 		O = new /obj/item/weapon/ore/diamond(src)
-	/*if (src.mineralName == "Archaeo")
-		//new /obj/item/weapon/archaeological_find(src)
-		//if(prob(10) || delicate)
-		if(prob(50)) //Don't have delicate tools (hand pick/excavation tool) yet, temporarily change to 50% instead of 10% -Mij
-			O = new /obj/item/weapon/ore/strangerock(src)
-		else
-			destroyed = 1*/
 	if (src.mineralName == "Clown")
 		O = new /obj/item/weapon/ore/clown(src)
 	if(O)
@@ -477,9 +468,6 @@ commented out in r5061, I left it because of the shroom thingies
 		for (var/i=0;i<mineralAmt;i++)
 			drop_mineral()
 
-	/*if (prob(src.artifactChance))
-		//spawn a rare artifact here
-		new /obj/machinery/artifact(src)*/
 	var/turf/simulated/floor/plating/airless/asteroid/N = ChangeTurf(/turf/simulated/floor/plating/airless/asteroid)
 	N.fullUpdateMineralOverlays()
 
@@ -528,7 +516,7 @@ commented out in r5061, I left it because of the shroom thingies
 		var/obj/effect/suspension_field/S = locate() in src
 		if(!S || S.field_type != get_responsive_reagent(F.find_type))
 			if(X)
-				src.visible_message("\red<b>[pick("[display_name] crumbles away into dust","[display_name] breaks apart","[display_name] collapses onto itself")].</b>")
+				src.visible_message("\red<b>[pick("[display_name] crumbles away into dust","[display_name] breaks apart")].</b>")
 				del(X)
 
 	src.finds.Remove(F)

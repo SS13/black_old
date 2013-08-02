@@ -313,15 +313,6 @@
 			destroy()
 		return
 
-	if (user.intent == "help")
-		if(prob(80))
-			src.loc = usr.loc
-			user << "/blueYou climb on the table."
-		else
-			src.loc = usr.loc
-			user << "You try to climb on the table."
-		return
-
 	if(isrobot(user))
 		return
 
@@ -448,7 +439,6 @@
 		return
 	if(isrobot(user))
 		return
-
 	user.drop_item()
 	if(W && W.loc)	W.loc = src.loc
 	return

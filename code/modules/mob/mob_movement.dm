@@ -256,7 +256,6 @@
 
 	if(!mob.canmove)	return
 
-
 	//if(istype(mob.loc, /turf/space) || (mob.flags & NOGRAV))
 	//	if(!mob.Process_Spacemove(0))	return 0
 
@@ -281,7 +280,6 @@
 
 		move_delay = world.time//set move delay
 		mob.last_move_intent = world.time + 10
-
 		switch(mob.m_intent)
 			if("run")
 				if(mob.drowsyness > 0)

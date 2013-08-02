@@ -145,3 +145,31 @@
 	if (bot.connected_ai == ai)
 		return 1
 	return 0
+	
+	
+// this function shows the health of the pAI in the Status panel
+/mob/living/silicon/proc/show_system_integrity()
+	if(!src.stat)
+		stat(null, text("System integrity: [(src.health+100)/2]%"))
+	else
+		stat(null, text("Systems nonfunctional"))
+	
+// this function displays the station time in the status panel
+/mob/living/silicon/proc/show_station_time()
+	stat(null, "Station Time: [worldtime2text()]")
+	
+	
+// this function displays the shuttles ETA in the status panel if the shuttle has been called
+/mob/living/silicon/proc/show_emergency_shuttle_eta()
+	if(emergency_shuttle.online && emergency_shuttle.location < 2)
+		var/timeleft = emergency_shuttle.timeleft()
+		if (timeleft)
+			stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+// This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
+/mob/living/silicon/Stat()
+	..()
+	statpanel("Status")
+	if (src.client.statpanel == "Status")
+		show_station_time()
+		show_emergency_shuttle_eta()
+		show_system_integrity()

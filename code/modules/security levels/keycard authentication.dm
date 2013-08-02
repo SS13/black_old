@@ -148,7 +148,7 @@
 			feedback_inc("alert_keycard_auth_maint",1)
 
 /proc/make_maint_all_access()
-	for(var/obj/machinery/door/airlock/A in world)
+	for(var/obj/machinery/door/airlock/A in machines)
 		if(A.z == 1)
 			A.req_access.Remove(access_maint_tunnels)
 

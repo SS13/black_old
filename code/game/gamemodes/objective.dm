@@ -293,7 +293,7 @@ datum/objective/hijack
 		var/area/shuttle = locate(/area/shuttle/escape/centcom)
 		var/list/protected_mobs = list(/mob/living/silicon/ai, /mob/living/silicon/pai)
 		for(var/mob/living/player in player_list)
-			if((player.type in protected_mobs) && !(player == owner.current:host))	continue
+			if((player.type in protected_mobs) || (player == owner.current:host))	continue
 			if (player.mind && (player.mind != owner))
 				if(player.stat != DEAD)			//they're not dead!
 					if(get_turf(player) in shuttle)
@@ -585,6 +585,10 @@ datum/objective/steal
 					for(var/mob/living/silicon/ai/M in C)
 						if(istype(M, /mob/living/silicon/ai) && M.stat != 2) //See if any AI's are alive inside that card.
 							return 1
+
+				for(var/obj/item/clothing/suit/space/space_ninja/S in all_items) //Let an AI downloaded into a space ninja suit count
+					if(S.AI && S.AI.stat != 2)
+						return 1
 				for(var/mob/living/silicon/ai/ai in world)
 					if(istype(ai.loc, /turf))
 						var/area/check_area = get_area(ai)

@@ -597,16 +597,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /*
-/client/proc/cmd_admin_white_floor()
-	set name = "Contrast Turfs"
-	set caregory = "Fun"
-	if(!check_rights(R_HOST))	return
-	if(alert(src, "You sure?", "Confirm", "Yes", "No") == "Yes")
-		for(var/turf/simulated/floor/T in world)
-			T.icon_state = "ideal_white"
-		for(var/turf/simulated/wall/T in world)
-			T.icon_state = "ideal_black"
-
 /client/proc/cmd_manual_ban()
 	set name = "Manual Ban"
 	set category = "Special Verbs"

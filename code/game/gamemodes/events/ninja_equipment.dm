@@ -243,7 +243,7 @@ ________________________________________________________________________________
 	var/mob/living/silicon/ai/A = AI
 	var/display_to = s_control ? U : A//Who do we want to display certain messages to?
 
-	var/dat = "<html><head><title>SpiderOS</title></head><body bgcolor=\"#3D5B43\" text=\"#DB2929\"><style>a, a:link, a:visited, a:active, a:hover { color: #DB2929; }img {border-style:none;}</style>"
+	var/dat = "<html><head><title>SpiderOS</title></head><body bgcolor=\"#3D5B43\" text=\"#B65B5B\"><style>a, a:link, a:visited, a:active, a:hover { color: #B65B5B; }img {border-style:none;}</style>"
 	dat += "<a href='byond://?src=\ref[src];choice=Refresh'><img src=sos_7.png> Refresh</a>"
 	if(spideros)
 		dat += " | <a href='byond://?src=\ref[src];choice=Return'><img src=sos_1.png> Return</a>"
@@ -869,25 +869,27 @@ ________________________________________________________________________________
 	if(s_active)
 		cancel_stealth()
 	else
-		spawn(0)
-			anim(U.loc,U,'icons/mob/mob.dmi',,"cloak",,U.dir)
+		anim(U.loc,U,'icons/mob/mob.dmi',,"cloak",,U.dir)
 		s_active=!s_active
-		U.update_icons()	//update their icons
+		icon_state = U.gender==FEMALE ? "s-ninjasf" : "s-ninjas"
+		U.regenerate_icons()	//update their icons
 		U << "\blue You are now invisible to normal detection."
 		for(var/mob/O in oviewers(U))
 			O.show_message("[U.name] vanishes into thin air!",1)
+		U.invisibility = INVISIBILITY_OBSERVER
 	return
 
 /obj/item/clothing/suit/space/space_ninja/proc/cancel_stealth()
 	var/mob/living/carbon/human/U = affecting
 	if(s_active)
-		spawn(0)
-			anim(U.loc,U,'icons/mob/mob.dmi',,"uncloak",,U.dir)
+		anim(U.loc,U,'icons/mob/mob.dmi',,"uncloak",,U.dir)
 		s_active=!s_active
-		U.update_icons()	//update their icons
 		U << "\blue You are now visible."
+		U.invisibility = 0
 		for(var/mob/O in oviewers(U))
 			O.show_message("[U.name] appears from thin air!",1)
+		icon_state = U.gender==FEMALE ? "s-ninjanf" : "s-ninjan"
+		U.regenerate_icons()	//update their icons
 		return 1
 	return 0
 

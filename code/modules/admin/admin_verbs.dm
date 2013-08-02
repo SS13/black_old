@@ -317,18 +317,6 @@ var/list/admin_verbs_events = list(
 	if(!check_rights(R_EVENTS))	return
 
 
-
-/*/client/proc/job_control()
-	set category = "Events"
-	set name = "Jobs control panel"
-
-	if(!holder || !check_rights(R_EVENTS))
-		return
-
-	var/dat = "<html><head><title>Jobs control panel</title></head>"
-	dat += "<body><table border=1 cellspacing=5><B><tr><th>Job</th><th>Slots ammount</th><th>Access</th></tr></B>"
-*/
-
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
 	set category = "Admin"
@@ -680,7 +668,7 @@ var/list/admin_verbs_events = list(
 	if(!istype(M, /mob/living/carbon/human))
 		usr << "\red You can only do this to humans!"
 		return
-	switch(alert("Are you sure you wish to edit this mob's appearance? Skrell, Unathi and Tajaran can result in unintended consequences.",,"Yes","No"))
+	switch(alert("Are you sure you wish to edit this mob's appearance? Skrell, Unathi, Vox and Tajaran can result in unintended consequences.",,"Yes","No"))
 		if("No")
 			return
 	var/new_facial = input("Please select facial hair color.", "Character Generation") as color

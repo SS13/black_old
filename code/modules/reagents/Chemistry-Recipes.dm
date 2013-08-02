@@ -1928,15 +1928,15 @@ datum
 
 		milkshake
 			name = "Milkshake"
-			id = "rewriter"
-			result = "rewriter"
+			id = "milkshake"
+			result = "milkshake"
 			required_reagents = list("cream" = 1, "ice" = 2, "milk" = 2)
 			result_amount = 5
 
 		rewriter
 			name = "Rewriter"
-			id = "milkshake"
-			result = "milkshake"
+			id = "rewriter"
+			result = "rewriter"
 			required_reagents = list("spacemountainwind" = 1, "coffee" = 1)
 			result_amount = 2
 

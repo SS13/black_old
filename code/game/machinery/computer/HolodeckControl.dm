@@ -417,6 +417,11 @@
 	if(isrobot(user))
 		return
 
+/obj/structure/table/holotable/wood
+	name = "table"
+	desc = "A square piece of wood standing on four wooden legs. It can not move."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "wood_table"
 
 
 /obj/item/clothing/gloves/boxing/hologlove

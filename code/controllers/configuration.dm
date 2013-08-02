@@ -6,6 +6,7 @@
 	var/log_access = 0					// log login/logout
 	var/log_say = 1						// log client say
 	var/log_admin = 1					// log admin actions
+	var/log_debug = 1					// log debug output
 	var/log_game = 1					// log game events
 	var/log_vote = 0					// log voting
 	var/log_whisper = 1					// log client whisper
@@ -59,8 +60,8 @@
 
 	var/server
 	var/banappeals
-	var/wikiurl
-	var/forumurl
+	var/wikiurl = "http://wiki.ss13.ru"
+	var/forumurl = "http://forum.ss13.ru"
 
 	//Alert level description
 	var/alert_desc_green = "All threats to the station have passed. Security may not have weapons visible, privacy laws are once again fully enforced."
@@ -71,7 +72,6 @@
 	var/alert_desc_delta = "The station's self-destruct mechanism has been engaged. All crew are instructed to obey all instructions given by heads of staff. Any violations of these orders can be punished by death. This is not a drill."
 
 	var/forbid_singulo_possession = 0
-	var/useircbot = 0
 
 	//game_options.txt configs
 
@@ -182,6 +182,9 @@
 				if ("log_admin")
 					config.log_admin = 1
 
+				if ("log_debug")
+					config.log_debug = text2num(value)
+
 				if ("log_game")
 					config.log_game = 1
 
@@ -234,10 +237,10 @@
 					config.vote_no_default = 1
 
 				if ("vote_delay")
-					config.vote_delay = 6000
+					config.vote_delay = text2num(value)
 
 				if ("vote_period")
-					config.vote_period = 600
+					config.vote_period = text2num(value)
 
 				if ("allow_ai")
 					config.allow_ai = 1
@@ -261,13 +264,13 @@
 					config.server = value
 
 				if ("banappeals")
-					config.banappeals = "http://forum.animus13.ru/index.php?showforum=24"
+					config.banappeals = value
 
 				if ("wikiurl")
-					config.wikiurl = "http://baystation12.net/wiki/index.php?title=Main_Page"
+					config.wikiurl = value
 
 				if ("forumurl")
-					config.forumurl = "http://forum.animus13.ru/"
+					config.forumurl = value
 
 				if ("guest_jobban")
 					config.guest_jobban = 1
@@ -340,9 +343,6 @@
 
 				if("allow_holidays")
 					Holiday = 1
-
-				if("useircbot")
-					useircbot = 1
 
 				if("ticklag")
 					Ticklag = text2num(value)

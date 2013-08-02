@@ -5,6 +5,7 @@ var/global/list/datum/money_account/department_accounts = list()
 var/global/next_account_number = 0
 var/global/obj/machinery/account_database/centcomm_account_db
 var/global/datum/money_account/vendor_account
+var/global/list/all_money_accounts = list()
 
 /proc/create_station_account()
 	if(!station_account)
@@ -27,8 +28,7 @@ var/global/datum/money_account/vendor_account
 
 		//add the account
 		station_account.transaction_log.Add(T)
-		for(var/obj/machinery/account_database/A in world)
-			A.accounts.Add(station_account)
+		all_money_accounts.Add(station_account)
 
 /proc/create_department_account(department)
 	next_account_number = rand(111111, 999999)
@@ -50,8 +50,7 @@ var/global/datum/money_account/vendor_account
 
 	//add the account
 	department_account.transaction_log.Add(T)
-	for(var/obj/machinery/account_database/A in world)
-		A.accounts.Add(department_account)
+	all_money_accounts.Add(department_account)
 
 	department_accounts[department] = department_account
 

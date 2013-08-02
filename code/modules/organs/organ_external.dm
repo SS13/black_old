@@ -35,6 +35,7 @@
 	var/open = 0
 	var/stage = 0
 	var/cavity = 0
+	var/sabotaged = 0 //If a prosthetic limb is emagged, it will detonate when it fails.
 
 	var/obj/item/hidden = null
 	var/list/implants = list()
@@ -307,6 +308,10 @@
 
 //Updating wounds. Handles wound natural healing, internal bleedings and infections
 /datum/organ/external/proc/update_wounds()
+
+	if((status & ORGAN_ROBOT)) //Robotic limbs don't heal or get worse.
+		return
+
 	for(var/datum/wound/W in wounds)
 		// wounds can disappear after 10 minutes at the earliest
 		if(W.damage == 0 && W.created + 10 * 10 * 60 <= world.time)
@@ -332,8 +337,6 @@
 		if(W.germ_level > 0 && W.salved && prob(2))
 			W.germ_level = 0
 			W.disinfected = 1
-
-
 
 	// sync the organ's damage with its wounds
 	src.update_damages()
@@ -564,32 +567,32 @@
 	name = "chest"
 	icon_name = "chest"
 	display_name = "chest"
-	max_damage = 150
-	min_broken_damage = 75
+	max_damage = 75
+	min_broken_damage = 40
 	body_part = UPPER_TORSO
 
 /datum/organ/external/groin
 	name = "groin"
 	icon_name = "diaper"
 	display_name = "groin"
-	max_damage = 115
-	min_broken_damage = 70
+	max_damage = 50
+	min_broken_damage = 30
 	body_part = LOWER_TORSO
 
 /datum/organ/external/l_arm
 	name = "l_arm"
 	display_name = "left arm"
 	icon_name = "l_arm"
-	max_damage = 75
-	min_broken_damage = 30
+	max_damage = 50
+	min_broken_damage = 20
 	body_part = ARM_LEFT
 
 /datum/organ/external/l_leg
 	name = "l_leg"
 	display_name = "left leg"
 	icon_name = "l_leg"
-	max_damage = 75
-	min_broken_damage = 30
+	max_damage = 50
+	min_broken_damage = 20
 	body_part = LEG_LEFT
 	icon_position = LEFT
 
@@ -597,16 +600,16 @@
 	name = "r_arm"
 	display_name = "right arm"
 	icon_name = "r_arm"
-	max_damage = 75
-	min_broken_damage = 30
+	max_damage = 50
+	min_broken_damage = 20
 	body_part = ARM_RIGHT
 
 /datum/organ/external/r_leg
 	name = "r_leg"
 	display_name = "right leg"
 	icon_name = "r_leg"
-	max_damage = 75
-	min_broken_damage = 30
+	max_damage = 50
+	min_broken_damage = 20
 	body_part = LEG_RIGHT
 	icon_position = RIGHT
 
@@ -614,7 +617,7 @@
 	name = "l_foot"
 	display_name = "left foot"
 	icon_name = "l_foot"
-	max_damage = 40
+	max_damage = 30
 	min_broken_damage = 15
 	body_part = FOOT_LEFT
 	icon_position = LEFT
@@ -623,7 +626,7 @@
 	name = "r_foot"
 	display_name = "right foot"
 	icon_name = "r_foot"
-	max_damage = 40
+	max_damage = 30
 	min_broken_damage = 15
 	body_part = FOOT_RIGHT
 	icon_position = RIGHT
@@ -632,7 +635,7 @@
 	name = "r_hand"
 	display_name = "right hand"
 	icon_name = "r_hand"
-	max_damage = 40
+	max_damage = 30
 	min_broken_damage = 15
 	body_part = HAND_RIGHT
 
@@ -640,7 +643,7 @@
 	name = "l_hand"
 	display_name = "left hand"
 	icon_name = "l_hand"
-	max_damage = 40
+	max_damage = 30
 	min_broken_damage = 15
 	body_part = HAND_LEFT
 
@@ -653,27 +656,28 @@
 	body_part = HEAD
 	var/disfigured = 0
 
-	take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list())
-		..(brute, burn, sharp, used_weapon, forbidden_limbs)
-		if (!disfigured)
-			if (brute_dam > 40)
-				if (prob(50))
-					disfigure("brute")
-			if (burn_dam > 40)
-				disfigure("burn")
 
-	proc/disfigure(var/type = "brute")
-		if (disfigured)
-			return
-		if(type == "brute")
-			owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s face.",	\
-			"\red <b>Your face becomes unrecognizible mangled mess!</b>",	\
-			"\red You hear a sickening crack.")
-		else
-			owner.visible_message("\red [owner]'s face melts away, turning into mangled mess!",	\
-			"\red <b>Your face melts off!</b>",	\
-			"\red You hear a sickening sizzle.")
-		disfigured = 1
+/datum/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list())
+	..(brute, burn, sharp, used_weapon, forbidden_limbs)
+	if (!disfigured)
+		if (brute_dam > 40)
+			if (prob(50))
+				disfigure("brute")
+		if (burn_dam > 40)
+			disfigure("burn")
+
+/datum/organ/external/head/proc/disfigure(var/type = "brute")
+	if (disfigured)
+		return
+	if(type == "brute")
+		owner.visible_message("\red You hear a sickening cracking sound coming from \the [owner]'s face.",	\
+		"\red <b>Your face becomes unrecognizible mangled mess!</b>",	\
+		"\red You hear a sickening crack.")
+	else
+		owner.visible_message("\red [owner]'s face melts away, turning into mangled mess!",	\
+		"\red <b>Your face melts off!</b>",	\
+		"\red You hear a sickening sizzle.")
+	disfigured = 1
 
 /****************************************************
 			   EXTERNAL ORGAN ITEMS
@@ -703,6 +707,10 @@ obj/item/weapon/organ/New(loc, mob/living/carbon/human/H)
 				base = new('icons/mob/human_races/r_lizard.dmi')
 			if("skrell")
 				base = new('icons/mob/human_races/r_skrell.dmi')
+
+			if("vox")
+				base = new('icons/mob/human_races/r_vox.dmi')
+
 			else
 				base = new('icons/mob/human_races/r_human.dmi')
 		if(base)

@@ -14,6 +14,12 @@
 	var/message
 
 	switch(act)
+		if ("me")
+			return custom_emote(m_type, desc)
+
+		if ("custom")
+			return custom_emote(m_type, desc)
+
 		if("sign")
 			if (!src.restrained())
 				message = text("<B>The monkey</B> signs[].", (text2num(param) ? text(" the number []", text2num(param)) : null))

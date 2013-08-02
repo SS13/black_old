@@ -151,7 +151,6 @@
 	desc = "Cures green skin."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = HULKBLOCK
@@ -181,7 +180,6 @@
 	desc = "Gives you fire."
 	dnatype = "se"
 	dna = "FED"
-	//block = 10
 	New()
 		..()
 		block = FIREBLOCK
@@ -191,7 +189,6 @@
 	desc = "Cures fire."
 	dnatype = "se"
 	dna = "708"
-	//block = 10
 	New()
 		..()
 		block = FIREBLOCK
@@ -201,7 +198,6 @@
 	desc = "Super brain man!"
 	dnatype = "se"
 	dna = "FED"
-	//block = 12
 	New()
 		..()
 		block = TELEBLOCK
@@ -211,7 +207,6 @@
 	desc = "Will make you not able to control your mind."
 	dnatype = "se"
 	dna = "708"
-	//block = 12
 	New()
 		..()
 		block = TELEBLOCK
@@ -223,7 +218,6 @@
 	desc = "This will make you no need to breath."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = NOBREATHBLOCK
@@ -233,7 +227,6 @@
 	desc = "Cures green skin."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = NOBREATHBLOCK
@@ -243,7 +236,6 @@
 	desc = "Enable Remote View."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = REMOTEVIEWBLOCK
@@ -253,7 +245,6 @@
 	desc = "Disable Remote View."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = REMOTEVIEWBLOCK
@@ -263,7 +254,6 @@
 	desc = "Enable Regeneration."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = REGENERATEBLOCK
@@ -273,7 +263,6 @@
 	desc = "Disable Regeneration."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = REGENERATEBLOCK
@@ -283,7 +272,6 @@
 	desc = "Make you quick."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = INCREASERUNBLOCK
@@ -293,7 +281,6 @@
 	desc = "Make you not as quick as can."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = INCREASERUNBLOCK
@@ -303,7 +290,6 @@
 	desc = "Allow you send psimessage."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = REMOTETALKBLOCK
@@ -313,7 +299,6 @@
 	desc = "Block your psimessage acount."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = REMOTETALKBLOCK
@@ -323,7 +308,6 @@
 	desc = "Allow you send psimessage."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = MORPHBLOCK
@@ -333,7 +317,6 @@
 	desc = "Block your psimessage acount."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = MORPHBLOCK
@@ -343,7 +326,6 @@
 	desc = "Hide your fingerprints."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = NOPRINTSBLOCK
@@ -353,7 +335,6 @@
 	desc = "Show your fingerprints."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = NOPRINTSBLOCK
@@ -363,7 +344,6 @@
 	desc = "Give you Shock immunity."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = SHOCKIMMUNITYBLOCK
@@ -373,7 +353,6 @@
 	desc = "Remowe your Shock immunity."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = SHOCKIMMUNITYBLOCK
@@ -383,7 +362,6 @@
 	desc = "Grant monkey size to you."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = SMALLSIZEBLOCK
@@ -393,7 +371,6 @@
 	desc = "Grant human size to you."
 	dnatype = "se"
 	dna = "708"
-	//block = 2
 	New()
 		..()
 		block = SMALLSIZEBLOCK
@@ -459,7 +436,6 @@
 	desc = "Makes clumsy minions."
 	dnatype = "se"
 	dna = "FA0"
-	//block = 6
 	New()
 		..()
 		block = CLUMSYBLOCK
@@ -469,7 +445,6 @@
 	desc = "Cleans up confusion."
 	dnatype = "se"
 	dna = "708"
-	//block = 6
 	New()
 		..()
 		block = CLUMSYBLOCK
@@ -515,7 +490,6 @@
 	desc = "Makes you not see anything."
 	dnatype = "se"
 	dna = "FA0"
-	//block = 11
 	New()
 		..()
 		block = BLINDBLOCK
@@ -525,7 +499,6 @@
 	desc = "ITS A MIRACLE!!!"
 	dnatype = "se"
 	dna = "708"
-	//block = 11
 	New()
 		..()
 		block = BLINDBLOCK
@@ -535,7 +508,6 @@
 	desc = "Sorry, what did you say?"
 	dnatype = "se"
 	dna = "FA0"
-	//block = 13
 	New()
 		..()
 		block = DEAFBLOCK
@@ -545,7 +517,6 @@
 	desc = "Will make you hear once more."
 	dnatype = "se"
 	dna = "708"
-	//block = 13
 	New()
 		..()
 		block = DEAFBLOCK
@@ -555,7 +526,6 @@
 	desc = "Make your head ill"
 	dnatype = "se"
 	dna = "FA0"
-	//block = 13
 	New()
 		..()
 		block = HEADACHEBLOCK
@@ -565,7 +535,6 @@
 	desc = "Heal your head."
 	dnatype = "se"
 	dna = "708"
-	//block = 13
 	New()
 		..()
 		block = HEADACHEBLOCK
@@ -575,7 +544,6 @@
 	desc = "Say 'hallo' to all your new friends"
 	dnatype = "se"
 	dna = "FA0"
-	//block = 13
 	New()
 		..()
 		block = HALLUCINATIONBLOCK
@@ -585,7 +553,6 @@
 	desc = "Don't forget to say 'bay-bay' to your friends."
 	dnatype = "se"
 	dna = "708"
-	//block = 13
 	New()
 		..()
 		block = HALLUCINATIONBLOCK

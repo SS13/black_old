@@ -1,4 +1,4 @@
-//updated by cael_aislinn on 5/3/2013 to be rotateable, moveable and generally more flexible
+
 /obj/machinery/power/generator
 	name = "thermoelectric generator"
 	desc = "It's a high efficiency thermoelectric generator."
@@ -56,34 +56,20 @@
 		if(lastgenlev != 0)
 			overlays += image('icons/obj/power.dmi', "teg-op[lastgenlev]")
 
-
-
 /obj/machinery/power/generator/process()
-
-	//world << "Generator process ran"
-
 	if(!circ1 || !circ2 || !anchored || stat & (BROKEN|NOPOWER))
 		return
 
-	//world << "circ1 and circ2 pass"
+	updateDialog()
 
 	var/datum/gas_mixture/air1 = circ1.return_transfer_air()
 	var/datum/gas_mixture/air2 = circ2.return_transfer_air()
-
 	lastgen = 0
 
-	//world << "hot_air = [hot_air]; cold_air = [cold_air];"
-
 	if(air1 && air2)
-
-		//world << "hot_air = [hot_air] temperature = [air2.temperature]; cold_air = [cold_air] temperature = [air2.temperature];"
-
-		//world << "coldair and hotair pass"
 		var/air1_heat_capacity = air1.heat_capacity()
 		var/air2_heat_capacity = air2.heat_capacity()
 		var/delta_temperature = abs(air2.temperature - air1.temperature)
-
-		//world << "delta_temperature = [delta_temperature]; air1_heat_capacity = [air1_heat_capacity]; air2_heat_capacity = [air2_heat_capacity]"
 
 		if(delta_temperature > 0 && air1_heat_capacity > 0 && air2_heat_capacity > 0)
 			var/efficiency = 0.65

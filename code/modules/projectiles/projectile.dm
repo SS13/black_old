@@ -114,6 +114,7 @@
 					msg_admin_attack("ATTACK: UNKNOWN shot [M] ([M.ckey]) with a [src]") //BS12 EDIT ALG
 
 		spawn(0)
+
 			if(A)
 				if (!forcedodge)
 					forcedodge = A.bullet_act(src, def_zone) // searches for return value
@@ -125,7 +126,6 @@
 						loc = A.loc
 					permutated.Add(A)
 					return 0
-
 				if(istype(A,/turf))
 					for(var/obj/O in A)
 						O.bullet_act(src)
@@ -164,7 +164,6 @@
 						Bump(original)
 						sleep(1)
 		return
-
 
 /obj/item/projectile/test //Used to see if you can hit them.
 	invisibility = 101 //Nope!  Can't see me!

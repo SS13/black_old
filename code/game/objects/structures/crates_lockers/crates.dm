@@ -25,7 +25,6 @@
 	req_access = null
 	opened = 0
 	flags = FPRINT
-	//  mouse_drag_pointer = MOUSE_ACTIVE_POINTER  //???
 	var/rigged = 0
 
 /obj/structure/closet/crate/internals

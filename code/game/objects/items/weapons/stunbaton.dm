@@ -78,7 +78,9 @@
 		user << "<span class='notice'>\The [src] is now [status ? "on" : "off"].</span>"
 		playsound(src.loc, "sparks", 75, 1, -1)
 		update_icon()
-
+	else
+		status = 0
+		user << "<span class='warning'>\The [src] is out of charge.</span>"
 	add_fingerprint(user)
 
 /obj/item/weapon/melee/baton/attack(mob/M as mob, mob/user as mob)

@@ -19,7 +19,7 @@
 	vision_flags = SEE_TURFS
 
 /obj/item/clothing/glasses/meson/prescription
-	name = "Prescription mesons"
+	name = "prescription mesons"
 	desc = "Optical Meson Scanner with prescription lenses."
 	prescription = 1
 
@@ -119,11 +119,10 @@
 
 /obj/item/clothing/glasses/welding/superior
 	name = "superior welding goggles"
-	desc = "Welding goggles made from more expensive materials."
+	desc = "Welding goggles made from more expensive materials, strangely smells like potatoes."
 	icon_state = "rwelding-g"
 	item_state = "rwelding-g"
 	icon_action_button = "action_welding_g"
-
 
 /obj/item/clothing/glasses/sunglasses/blindfold
 	name = "blindfold"
@@ -133,7 +132,7 @@
 	vision_flags = BLIND
 
 /obj/item/clothing/glasses/sunglasses/prescription
-	name = "Prescription sunglasses"
+	name = "prescription sunglasses"
 	prescription = 1
 
 /obj/item/clothing/glasses/sunglasses/big
