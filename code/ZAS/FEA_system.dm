@@ -64,50 +64,46 @@ atom/proc/CanPass(atom/movable/mover, turf/target, height=1.5, air_group = 0)
 
 	return (!density || !height || air_group)
 
-turf
-	CanPass(atom/movable/mover, turf/target, height=1.5,air_group=0)
-		if(!target) return 0
+/turf/CanPass(atom/movable/mover, turf/target, height=1.5,air_group=0)
+	if(!target) return 0
 
-		if(istype(mover)) // turf/Enter(...) will perform more advanced checks
-			return !density
+	if(istype(mover)) // turf/Enter(...) will perform more advanced checks
+		return !density
 
-		else // Now, doing more detailed checks for air movement and air group formation
-			if(target.blocks_air||blocks_air)
+	else // Now, doing more detailed checks for air movement and air group formation
+		if(target.blocks_air||blocks_air)
+			return 0
+
+		for(var/obj/obstacle in src)
+			if(!obstacle.CanPass(mover, target, height, air_group))
 				return 0
-
-			for(var/obj/obstacle in src)
-				if(!obstacle.CanPass(mover, target, height, air_group))
+		if(target != src)
+			for(var/obj/obstacle in target)
+				if(!obstacle.CanPass(mover, src, height, air_group))
 					return 0
-			if(target != src)
-				for(var/obj/obstacle in target)
-					if(!obstacle.CanPass(mover, src, height, air_group))
-						return 0
 
-			return 1
+		return 1
 
 
-var/global/datum/controller/air_system/air_master
+var/datum/controller/air_system/air_master
 
-datum
-	controller
-		air_system
-			//Geoemetry lists
-			var/list/turfs_with_connections = list()
-			var/list/active_hotspots = list()
+/datum/controller/air_system/
+	//Geoemetry lists
+	var/list/turfs_with_connections = list()
+	var/list/active_hotspots = list()
 
-			//Special functions lists
-			var/list/tiles_to_reconsider_zones = list()
+	//Special functions lists
+	var/list/tiles_to_reconsider_zones = list()
 
-			//Geometry updates lists
-			var/list/tiles_to_update = list()
-			var/list/connections_to_check = list()
-			var/list/rebuilds_to_consider = list()
+	//Geometry updates lists
+	var/list/tiles_to_update = list()
+	var/list/connections_to_check = list()
 
-			var/current_cycle = 0
-			var/update_delay = 5 //How long between check should it try to process atmos again.
-			var/failed_ticks = 0 //How many ticks have runtimed?
+	var/current_cycle = 0
+	var/update_delay = 5 //How long between check should it try to process atmos again.
+	var/failed_ticks = 0 //How many ticks have runtimed?
 
-			var/tick_progress = 0
+	var/tick_progress = 0
 
 
 /*				process()
@@ -123,248 +119,103 @@ datum
 					*/
 
 
-			proc/setup()
-				//Purpose: Call this at the start to setup air groups geometry
-				//    (Warning: Very processor intensive but only must be done once per round)
-				//Called by: Gameticker/Master controller
-				//Inputs: None.
-				//Outputs: None.
+/datum/controller/air_system/proc/setup()
+	//Purpose: Call this at the start to setup air groups geometry
+	//    (Warning: Very processor intensive but only must be done once per round)
+	//Called by: Gameticker/Master controller
+	//Inputs: None.
+	//Outputs: None.
 
-				set background = 1
-				world << "\red \b Processing Geometry..."
-				sleep(-1)
+	set background = 1
+	world << "\red \b Processing Geometry..."
+	sleep(-1)
 
-				var/start_time = world.timeofday
+	var/start_time = world.timeofday
 
-				for(var/turf/simulated/S in world)
-					if(!S.zone && !S.blocks_air)
-						if(S.CanPass(null, S, 0, 0))
-							new/zone(S)
+	var/simulated_turf_count = 0
 
-				for(var/turf/simulated/S in world)
-					S.update_air_properties()
+	for(var/turf/simulated/S in world)
+		simulated_turf_count++
+		if(!S.zone && !S.blocks_air)
+			if(S.CanPass(null, S, 0, 0))
+				new/zone(S)
 
-				world << "\red \b Geometry processed in [time2text(world.timeofday-start_time, "mm:ss")] minutes!"
-//				spawn start()
+	for(var/turf/simulated/S in world)
+		S.update_air_properties()
 
-			proc/start()
-				//Purpose: This is kicked off by the master controller, and controls the processing of all atmosphere.
-				//Called by: Master controller
-				//Inputs: None.
-				//Outputs: None.
+	world << {"<font color='red'><b>Geometry initialized in [round(0.1*(world.timeofday-start_time),0.1)] seconds.</b>
+Total Simulated Turfs: [simulated_turf_count]
+Total Zones: [zones.len]
+Total Unsimulated Turfs: [world.maxx*world.maxy*world.maxz - simulated_turf_count]</font>"}
+	/*
+	spawn start()
 
-				/*
-				set background = 1
+/datum/controller/air_system/proc/start()
+	//Purpose: This is kicked off by the master controller, and controls the processing of all atmosphere.
+	//Called by: Master controller
+	//Inputs: None.
+	//Outputs: None.
 
-				while(1)
-					if(!kill_air)
-						current_cycle++
-						var/success = tick() //Changed so that a runtime does not crash the ticker.
-						if(!success) //Runtimed.
-							failed_ticks++
-							if(failed_ticks > 20)
-								world << "<font color='red'><b>ERROR IN ATMOS TICKER.  Killing air simulation!</font></b>"
-								kill_air = 1
-					sleep(max(5,update_delay*tick_multiplier))
-				*/
 
-			proc/tick()
-				. = 1 //Set the default return value, for runtime detection.
+	set background = 1
 
-				tick_progress = "update_air_properties"
-				if(tiles_to_update.len) //If there are tiles to update, do so.
-					for(var/turf/simulated/T in tiles_to_update)
-						var/output = T.update_air_properties()
-						if(. && T && !output)
-							. = 0 //If a runtime occured, make sure we can sense it.
-							//message_admins("ZASALERT: Unable run turf/simualted/update_air_properties()")
-					tiles_to_update = list()
+	while(1)
+		if(!kill_air)
+			current_cycle++
+			var/success = tick() //Changed so that a runtime does not crash the ticker.
+			if(!success) //Runtimed.
+				failed_ticks++
+				if(failed_ticks > 20)
+					world << "<font color='red'><b>ERROR IN ATMOS TICKER.  Killing air simulation!</font></b>"
+					kill_air = 1
+		sleep(max(5,update_delay*tick_multiplier))
+	*/
 
-				tick_progress = "reconsider_zones"
-				if(rebuilds_to_consider.len)
-					for(var/turf/T in rebuilds_to_consider)
-						if(istype(T, /turf/simulated) && T.zone && !T.zone.rebuild)
-							var/turf/simulated/other_turf = rebuilds_to_consider[T]
-							if(istype(other_turf))
-								ConsiderRebuild(T,other_turf)
-							else if(istype(other_turf, /list))
-								var/list/temp_turfs = other_turf
-								for(var/turf/NT in temp_turfs)
-									ConsiderRebuild(T,NT)
-						else if (istype(T))
-							var/turf/simulated/other_turf = rebuilds_to_consider[T]
-							if(istype(other_turf))
-								ConsiderRebuild(other_turf,T)
-							else if(istype(other_turf, /list))
-								var/list/temp_turfs = other_turf
-								for(var/turf/simulated/NT in temp_turfs)
-									ConsiderRebuild(NT,T)
-					rebuilds_to_consider = list()
+/datum/controller/air_system/proc/tick()
+	. = 1 //Set the default return value, for runtime detection.
 
-				tick_progress = "connections_to_check"
-				if(connections_to_check.len)
-					for(var/connection/C in connections_to_check)
-						C.CheckPassSanity()
-					connections_to_check = list()
+	tick_progress = "update_air_properties"
+	if(tiles_to_update.len) //If there are tiles to update, do so.
+		for(var/turf/simulated/T in tiles_to_update)
+			if(. && T && !T.update_air_properties())
+				. = 0 //If a runtime occured, make sure we can sense it.
+				//message_admins("ZASALERT: Unable run turf/simualted/update_air_properties()")
+		if(.)
+			tiles_to_update = list()
 
-				tick_progress = "tiles_to_reconsider_zones"
-				if(tiles_to_reconsider_zones.len)
-					for(var/turf/simulated/T in tiles_to_reconsider_zones)
-						if(!T.zone)
-							new /zone(T)
+	//Check sanity on connection objects.
+	if(.)
+		tick_progress = "connections_to_check"
+	if(connections_to_check.len)
+		for(var/connection/C in connections_to_check)
+			C.CheckPassSanity()
+		connections_to_check = list()
 
-				tick_progress = "zone/process()"
-				for(var/zone/Z in zones)
-					if(Z.last_update < current_cycle)
-						var/output = Z.process()
-						if(Z)
-							Z.last_update = current_cycle
-						if(. && Z && !output)
-							. = 0
-							log_admin("ZASALERT: unable run zone/process(), [Z.progress]")
-							message_admins("ZASALERT. ZASALERT: unable run zone/proc/process(), [Z.progress], tell someone about this!")
+	//Ensure tiles still have zones.
+	if(.)
+		tick_progress = "tiles_to_reconsider_zones"
+	if(tiles_to_reconsider_zones.len)
+		for(var/turf/simulated/T in tiles_to_reconsider_zones)
+			if(!T.zone)
+				new /zone(T)
+		tiles_to_reconsider_zones = list()
 
-				tick_progress = "active_hotspots (fire)"
-				for(var/obj/fire/F in active_hotspots)
-					var/output = F.process()
-					if(. && F && !output)
-						. = 0
-						//message_admins("ZASALERT: Unable run obj/fire/process()")
+	//Process zones.
+	if(.)
+		tick_progress = "zone/process()"
+	for(var/zone/Z in zones)
+		if(Z.last_update < current_cycle)
+			var/output = Z.process()
+			if(Z)
+				Z.last_update = current_cycle
+			if(. && Z && !output)
+				. = 0
+	//Process fires.
+	if(.)
+		tick_progress = "active_hotspots (fire)"
+	for(var/obj/fire/F in active_hotspots)
+		if(. && F && !F.process())
+			. = 0
 
-				tick_progress = "success"
-
-			proc/AddToConsiderRebuild(var/turf/simulated/T, var/turf/NT)
-				var/turf/existing_test = rebuilds_to_consider[T]
-				var/turf/existing_test_alternate = rebuilds_to_consider[NT]
-
-				if(existing_test)
-					if(NT == existing_test)
-						return
-					else if(islist(existing_test) && existing_test[NT])
-						return
-
-				else if(existing_test_alternate)
-					if(T == existing_test_alternate)
-						return
-					else if(islist(existing_test_alternate) && existing_test_alternate[T])
-						return
-
-				if(istype(T))
-					if(istype(existing_test))
-						var/list/temp_list = list(NT = 1, existing_test = 1)
-						rebuilds_to_consider[T] = temp_list
-					else if(istype(existing_test, /list))
-						existing_test[NT] = 1
-					else
-						rebuilds_to_consider[T] = NT
-
-				else if(istype(NT, /turf/simulated))
-					if(istype(existing_test_alternate))
-						var/list/temp_list = list(T = 1, existing_test_alternate = 1)
-						rebuilds_to_consider[NT] = temp_list
-					else if(istype(existing_test_alternate, /list))
-						existing_test_alternate[T] = 1
-					else
-						rebuilds_to_consider[NT] = T
-
-			proc/ConsiderRebuild(var/turf/simulated/T, var/turf/NT)
-
-				if(!istype(T)) return
-				//zones should naturally spread to these tiles eventually
-				if(!T.zone || !NT.zone)
-					return
-
-				if(istype(NT, /turf/simulated) && NT.zone != T.zone)
-					T.zone.RemoveTurf(NT)
-					if(NT.zone)
-						NT.zone.RemoveTurf(T)
-					return
-				if(T.zone.rebuild)
-					return
-
-				var/zone/zone = T.zone
-
-				var/target_dir = get_dir(T, NT)
-				if(target_dir in list(NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
-					T.zone.rebuild = 1
-					return
-				var/test_dir = turn(target_dir, 90)
-
-				var/turf/simulated/current = T
-				var/turf/simulated/next
-				var/stepped_back = 0
-
-				if( !(T.air_check_directions&test_dir || T.air_check_directions&turn(target_dir, 270)) )
-						//Step back, then try to connect.
-					if(!(T.air_check_directions&get_dir(NT, T)))
-						zone.rebuild = 1
-						return
-					current = get_step(T, get_dir(NT, T))
-					if(!istype(current) || !(current.air_check_directions&test_dir || current.air_check_directions&turn(target_dir, 270)) )
-						zone.rebuild = 1
-						return
-					stepped_back = 1
-
-				if ( !(current.air_check_directions&test_dir) && current.air_check_directions&turn(target_dir, 270) )
-						//Try to connect to the right hand side.
-					var/flipped = 0
-					test_dir = turn(target_dir, 270)
-
-					for(var/i = 1, i <= 10, i++)
-						if(get_dir(current, NT) in cardinal)
-							target_dir = get_dir(current, NT)
-
-						if(!istype(current) || !(current.air_check_directions&target_dir || current.air_check_directions&test_dir))
-							if(flipped)
-								zone.rebuild = 1
-								return
-							current = T
-							test_dir = turn(target_dir, 180)
-							i = 0
-							target_dir = get_dir(current, NT)
-							flipped = 1
-							continue
-
-						if(current.air_check_directions&target_dir && !stepped_back)
-							next = get_step(current, target_dir)
-							if(!next.HasDoor())
-								current = next
-
-						if(current.air_check_directions&test_dir && current != next)
-							next = get_step(current, test_dir)
-							if(!next.HasDoor())
-								current = next
-
-						if(current == NT)
-							return //We made it, yaaay~
-						stepped_back = 0
-					zone.rebuild = 1
-
-				else if ( current.air_check_directions&test_dir )
-						//Try to connect to the left hand side.
-					for(var/i = 1, i <= 10, i++)
-						if(get_dir(current, NT) in cardinal)
-							target_dir = get_dir(current, NT)
-
-						if(!istype(current) || !(current.air_check_directions&target_dir || current.air_check_directions&test_dir))
-							zone.rebuild = 1
-							return
-
-						if(current.air_check_directions&target_dir && !stepped_back)
-							next = get_step(current, target_dir)
-							if(!next.HasDoor())
-								current = next
-
-						if(current.air_check_directions&test_dir && current != next)
-							next = get_step(current, test_dir)
-							if(!next.HasDoor())
-								current = next
-
-						if(current == NT)
-							return //We made it, yaaay~
-						stepped_back = 0
-					zone.rebuild = 1
-
-				else
-					//FUCK IT
-					zone.rebuild = 1
+	if(.)
+		tick_progress = "success"
