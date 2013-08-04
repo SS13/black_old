@@ -106,8 +106,6 @@
 		if(prob(50))
 			amount_grown = 1
 
-
-
 /obj/effect/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
 		src.loc = user.loc
@@ -181,6 +179,7 @@
 				entry_vent = v
 				walk_to(src, entry_vent, 5)
 				break
+
 	if(prob(1))
 		src.visible_message("\blue \the [src] chitters.")
 	if(isturf(loc) && amount_grown > 0)
@@ -189,6 +188,12 @@
 			var/spawn_type = pick(typesof(/mob/living/simple_animal/hostile/giant_spider))
 			new spawn_type(src.loc)
 			del(src)
+
+/obj/effect/decal/cleanable/spiderling_remains
+	name = "spiderling remains"
+	desc = "Green squishy mess."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "greenshatter"
 
 /obj/effect/spider/cocoon
 	name = "cocoon"

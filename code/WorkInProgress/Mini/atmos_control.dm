@@ -62,7 +62,7 @@
 		return ""
 	var/dat = "<h3>[current.name]</h3><hr>"
 	dat += current.return_status()
-	if(/*current.remote_control ||*/ overridden)
+	if(current.remote_control || overridden)
 		dat += "<hr>[return_controls()]"
 	return dat
 
@@ -72,7 +72,6 @@
 		return
 	if(href_list["reset"])
 		current = null
-		src.updateUsrDialog()
 	if(href_list["alarm"])
 		current = locate(href_list["alarm"])
 		if(href_list["command"])
@@ -139,6 +138,14 @@
 							selected[2] = selected[4]
 						if(selected[3] > selected[4])
 							selected[3] = selected[4]
+
+					//Sets the temperature the built-in heater/cooler tries to maintain.
+					if(env == "temperature")
+						if(current.target_temperature < selected[2])
+							current.target_temperature = selected[2]
+						if(current.target_temperature > selected[3])
+							current.target_temperature = selected[3]
+
 					spawn(1)
 						updateUsrDialog()
 			return
@@ -149,12 +156,12 @@
 				src.updateUsrDialog()
 			return
 
-/*		if(href_list["atmos_unlock"])
+		if(href_list["atmos_unlock"])
 			switch(href_list["atmos_unlock"])
 				if("0")
 					current.air_doors_close(1)
 				if("1")
-					current.air_doors_open(1)*/
+					current.air_doors_open(1)
 
 		if(href_list["atmos_alarm"])
 			if (current.alarm_area.atmosalert(2))
@@ -177,7 +184,7 @@
 			spawn(5)
 				src.updateUsrDialog()
 			return
-		src.updateUsrDialog()
+	updateUsrDialog()
 
 //copypasta from alarm code, changed to work with this without derping hard
 //---START COPYPASTA----
@@ -293,13 +300,12 @@ Nitrous Oxide
 			output += {"
 <a href='?src=\ref[src];alarm=\ref[current];screen=[AALARM_SCREEN_MAIN]'>Main menu</a><br>
 <b>Air machinery mode for the area:</b><ul>"}
-			var/list/modes = list(
-					AALARM_MODE_SCRUBBING   = "Filtering",
-					AALARM_MODE_REPLACEMENT = "<font color='red'>REPLACE AIR</font>",
-					AALARM_MODE_PANIC       = "<font color='red'>PANIC</font>",
-					AALARM_MODE_CYCLE		= "<font color='red'>CYCLE</font>",
-					AALARM_MODE_FILL = "<font color='red'>FILL</font>",
-			)
+			var/list/modes = list(AALARM_MODE_SCRUBBING   = "Filtering - Scrubs out contaminants",\
+					AALARM_MODE_REPLACEMENT = "<font color='blue'>Replace Air - Siphons out air while replacing</font>",\
+					AALARM_MODE_PANIC       = "<font color='red'>Panic - Siphons air out of the room</font>",\
+					AALARM_MODE_CYCLE       = "<font color='red'>Cycle - Siphons air before replacing</font>",\
+					AALARM_MODE_FILL        = "<font color='green'>Fill - Shuts off scrubbers and opens vents</font>",\
+					AALARM_MODE_OFF         = "<font color='blue'>Off - Shuts off vents and scrubbers</font>",)
 			for (var/m=1,m<=modes.len,m++)
 				if (current.mode==m)
 					output += {"<li><A href='?src=\ref[src];alarm=\ref[current];mode=[m]'><b>[modes[m]]</b></A> (selected)</li>"}

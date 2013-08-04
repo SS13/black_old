@@ -22,6 +22,7 @@
 
 	var/bees_in_hive = 0
 	var/list/owned_bee_swarms = list()
+	var/hydrotray_type = /obj/machinery/hydroponics
 
 //overwrite this after it's created if the apiary needs a custom machinery sprite
 /obj/machinery/apiary/New()

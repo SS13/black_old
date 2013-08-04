@@ -145,11 +145,18 @@
 			src.active1 = null
 			src.active2 = null
 		else if (href_list["login"])
-			if (istype(usr, /mob/living/silicon))
+			if (istype(usr, /mob/living/silicon/ai))
 				src.active1 = null
 				src.active2 = null
-				src.authenticated = 1
+				src.authenticated = usr.name
 				src.rank = "AI"
+				src.screen = 1
+			else if (istype(usr, /mob/living/silicon/robot))
+				src.active1 = null
+				src.active2 = null
+				src.authenticated = usr.name
+				var/mob/living/silicon/robot/R = usr
+				src.rank = R.braintype
 				src.screen = 1
 			else if (istype(src.scan, /obj/item/weapon/card/id))
 				src.active1 = null

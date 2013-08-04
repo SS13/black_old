@@ -245,12 +245,19 @@ What a mess.*/
 				active2 = null
 
 			if("Log In")
-				if (istype(usr, /mob/living/silicon))
-					active1 = null
-					active2 = null
-					authenticated = 1
-					rank = "AI"
-					screen = 1
+				if (istype(usr, /mob/living/silicon/ai))
+					src.active1 = null
+					src.active2 = null
+					src.authenticated = usr.name
+					src.rank = "AI"
+					src.screen = 1
+				else if (istype(usr, /mob/living/silicon/robot))
+					src.active1 = null
+					src.active2 = null
+					src.authenticated = usr.name
+					var/mob/living/silicon/robot/R = usr
+					src.rank = R.braintype
+					src.screen = 1
 				else if (istype(scan, /obj/item/weapon/card/id))
 					active1 = null
 					active2 = null
