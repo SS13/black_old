@@ -43,7 +43,7 @@
 	var/germ_level = 0
 
 	// how often wounds should be updated, a higher number means less often
-	var/wound_update_accuracy = 20 // update every 20 ticks(roughly every minute)
+	var/wound_update_accuracy = 1
 
 /datum/organ/external/New(var/datum/organ/external/P)
 	if(P)
@@ -96,7 +96,7 @@
 	if(status & ORGAN_BROKEN && prob(40) && brute)
 		owner.emote("scream")	//getting hit on broken hand hurts
 	if(used_weapon)
-		add_autopsy_data(used_weapon, brute + burn)
+		add_autopsy_data("[used_weapon]", brute + burn)
 
 	var/can_cut = (prob(brute*2) || sharp) && !(status & ORGAN_ROBOT)
 	// If the limbs can break, make sure we don't exceed the maximum damage a limb can take before breaking
@@ -306,7 +306,7 @@
 						parent.germ_level += round(GERM_TRANSFER_AMOUNT)
 */
 
-//Updating wounds. Handles wound natural healing, internal bleedings and infections
+//Updating wounds. Handles wound natural I had some free spachealing, internal bleedings and infections
 /datum/organ/external/proc/update_wounds()
 
 	if((status & ORGAN_ROBOT)) //Robotic limbs don't heal or get worse.
@@ -325,13 +325,23 @@
 			if(prob(1 * wound_update_accuracy))
 				owner.custom_pain("You feel a stabbing pain in your [display_name]!",1)
 
-		if(W.bandaged || W.salved)
-			// slow healing
-			var/amount = 0.2
-			if(W.is_treated())
-				amount += 10
-			// amount of healing is spread over all the wounds
-			W.heal_damage((wound_update_accuracy * amount * W.amount * config.organ_regeneration_multiplier) / (20*owner.number_wounds+1))
+		// slow healing
+		var/heal_amt = 0.2
+		if (W.damage > 20)	//this thing's edges are not in day's travel of each other, what healing?
+			heal_amt = 0
+
+		if(W.is_treated())
+			heal_amt += 0.3
+
+		//we only update wounds once in [wound_update_accuracy] ticks so have to emulate realtime
+		heal_amt = heal_amt * wound_update_accuracy
+		//configurable regen speed woo, no-regen hardcore or instaheal hugbox, choose your destiny
+		heal_amt = heal_amt * config.organ_regeneration_multiplier
+		// amount of healing is spread over all the wounds
+		heal_amt = heal_amt / (wounds.len + 1)
+		// making it look prettier on scanners
+		heal_amt = round(heal_amt,0.1)
+		W.heal_damage(heal_amt)
 
 		// Salving also helps against infection
 		if(W.germ_level > 0 && W.salved && prob(2))
@@ -355,6 +365,7 @@
 			burn_dam += W.damage
 
 		if(!(status & ORGAN_ROBOT) && W.bleeding())
+			W.bleed_timer--
 			status |= ORGAN_BLEEDING
 
 		clamped |= W.clamped
@@ -477,8 +488,8 @@
 				owner.u_equip(owner.shoes)
 		if(organ)
 			destspawn = 1
-			//Robotic limbs explode until specified otherwise
-			if(status & ORGAN_ROBOT && !no_explode)
+			//Robotic limbs explode if sabotaged.
+			if(status & ORGAN_ROBOT && !no_explode && sabotaged)
 				owner.visible_message("\red \The [owner]'s [display_name] explodes violently!",\
 				"\red <b>Your [display_name] explodes!</b>",\
 				"You hear an explosion followed by a scream!")
@@ -489,10 +500,10 @@
 				spark_system.start()
 				spawn(10)
 					del(spark_system)
-			else
-				owner.visible_message("\red [owner.name]'s [display_name] flies off in an arc.",\
-				"<span class='moderate'><b>Your [display_name] goes flying off!</b></span>",\
-				"You hear a terrible sound of ripping tendons and flesh.")
+
+			owner.visible_message("\red [owner.name]'s [display_name] flies off in an arc.",\
+			"<span class='moderate'><b>Your [display_name] goes flying off!</b></span>",\
+			"You hear a terrible sound of ripping tendons and flesh.")
 
 			//Throw organs around
 			var/lol = pick(cardinal)
@@ -550,6 +561,14 @@
 		if(T)
 			T.robotize()
 
+/datum/organ/external/proc/mutate()
+	src.status |= ORGAN_MUTATED
+	owner.update_body()
+
+/datum/organ/external/proc/unmutate()
+	src.status &= ~ORGAN_MUTATED
+	owner.update_body()
+
 /datum/organ/external/proc/get_damage()	//returns total damage
 	return max(brute_dam + burn_dam - perma_injury, perma_injury)	//could use health?
 
@@ -559,21 +578,32 @@
 			return 1
 	return 0
 
+/datum/organ/external/get_icon(gender="")
+	if (status & ORGAN_MUTATED)
+		return new /icon(owner.deform_icon, "[icon_name][gender ? "_[gender]" : ""]")
+	else
+		return new /icon(owner.race_icon, "[icon_name][gender ? "_[gender]" : ""]")
+
+
+/datum/organ/external/proc/is_usable()
+	return !(status & (ORGAN_DESTROYED|ORGAN_MUTATED|ORGAN_DEAD))
+
 /****************************************************
 			   ORGAN DEFINES
 ****************************************************/
 
 /datum/organ/external/chest
 	name = "chest"
-	icon_name = "chest"
+	icon_name = "torso"
 	display_name = "chest"
 	max_damage = 75
 	min_broken_damage = 40
 	body_part = UPPER_TORSO
 
+
 /datum/organ/external/groin
 	name = "groin"
-	icon_name = "diaper"
+	icon_name = "groin"
 	display_name = "groin"
 	max_damage = 50
 	min_broken_damage = 30
@@ -656,6 +686,15 @@
 	body_part = HEAD
 	var/disfigured = 0
 
+/datum/organ/external/head/get_icon()
+	if (!owner)
+	 return ..()
+	var/g = "m"
+	if(owner.gender == FEMALE)	g = "f"
+	if (status & ORGAN_MUTATED)
+		. = new /icon(owner.deform_icon, "[icon_name]_[g]")
+	else
+		. = new /icon(owner.race_icon, "[icon_name]_[g]")
 
 /datum/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list())
 	..(brute, burn, sharp, used_weapon, forbidden_limbs)

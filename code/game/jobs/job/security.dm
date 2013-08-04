@@ -36,7 +36,7 @@
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_store)
-			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_r_store)
 		else
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
@@ -78,7 +78,7 @@
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_hand)
-			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_r_store)
 		else
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_in_backpack)
@@ -127,7 +127,7 @@
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/evidence(H), slot_l_hand)
 			H.equip_to_slot_or_del(new /obj/item/device/detective_scanner(H), slot_r_store)
-			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_l_store)
 		else
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/evidence(H), slot_in_backpack)
@@ -164,7 +164,7 @@
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_hand)
-			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_r_store)
 		else
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
 			H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_in_backpack)

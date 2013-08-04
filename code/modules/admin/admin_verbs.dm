@@ -64,7 +64,12 @@ var/list/admin_verbs_admin = list(
 	/client/proc/cmd_admin_change_custom_event,
 	/client/proc/cmd_admin_rejuvenate,
 	/client/proc/toggleattacklogs,
-	/datum/admins/proc/show_skills
+	/client/proc/toggledebuglogs,
+	/datum/admins/proc/show_skills,
+	/client/proc/check_customitem_activity,
+	/client/proc/man_up,
+	/client/proc/global_man_up,
+	/client/proc/response_team // Response Teams admin verb
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -115,10 +120,10 @@ var/list/admin_verbs_server = list(
 	/datum/admins/proc/adjump,
 	/datum/admins/proc/toggle_aliens,
 	/datum/admins/proc/toggle_space_ninja,
-	/client/proc/toggle_random_events
+	/client/proc/toggle_random_events,
+	/client/proc/check_customitem_activity
 	)
 var/list/admin_verbs_debug = list(
-	/client/proc/restart_controller,
 	/client/proc/cmd_admin_list_open_jobs,
 	/client/proc/Debug2,
 	/client/proc/kill_air,
@@ -132,7 +137,9 @@ var/list/admin_verbs_debug = list(
 	/client/proc/air_report,
 	/client/proc/reload_admins,
 	/client/proc/restart_controller,
-	/client/proc/enable_debug_verbs
+	/client/proc/enable_debug_verbs,
+	/client/proc/callproc,
+	/client/proc/toggledebuglogs
 	)
 var/list/admin_verbs_possess = list(
 	/proc/possess,
@@ -220,6 +227,7 @@ var/list/admin_verbs_mod = list(
 	/client/proc/cmd_admin_pm_context,	/*right-click adminPM interface*/
 	/client/proc/cmd_admin_pm_panel,	/*admin-pm list*/
 	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game.*/
+	/client/proc/toggledebuglogs,
 	/datum/admins/proc/PlayerNotes,
 	/client/proc/admin_ghost,			/*allows us to ghost/reenter body at will*/
 	/client/proc/cmd_mod_say,
@@ -747,3 +755,38 @@ var/list/admin_verbs_events = list(
 		usr << "You now will get attack log messages"
 	else
 		usr << "You now won't get attack log messages"
+
+
+/client/proc/toggledebuglogs()
+	set name = "Toggle Debug Log Messages"
+	set category = "Preferences"
+
+	prefs.toggles ^= CHAT_DEBUGLOGS
+	if (prefs.toggles & CHAT_DEBUGLOGS)
+		usr << "You now will get debug log messages"
+	else
+		usr << "You now won't get debug log messages"
+
+
+/client/proc/man_up(mob/T as mob in mob_list)
+	set category = "Fun"
+	set name = "Man Up"
+	set desc = "Tells mob to man up and deal with it."
+
+	T << "<span class='notice'><b><font size=3>Man up and deal with it.</font></b></span>"
+	T << "<span class='notice'>Move on.</span>"
+
+	log_admin("[key_name(usr)] told [key_name(T)] to man up and deal with it.")
+	message_admins("\blue [key_name_admin(usr)] told [key_name(T)] to man up and deal with it.", 1)
+
+/client/proc/global_man_up()
+	set category = "Fun"
+	set name = "Man Up Global"
+	set desc = "Tells everyone to man up and deal with it."
+
+	for (var/mob/T as mob in mob_list)
+		T << "<br><center><span class='notice'><b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.</span></center><br>"
+		T << 'sound/voice/ManUp1.ogg'
+
+	log_admin("[key_name(usr)] told everyone to man up and deal with it.")
+	message_admins("\blue [key_name_admin(usr)] told everyone to man up and deal with it.", 1)

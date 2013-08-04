@@ -45,7 +45,7 @@
 	return 0
 
 
-/obj/item/weapon/gun/projectile/attackby(var/obj/item/A as obj, mob/living/user as mob)
+/obj/item/weapon/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob)
 
 	var/num_loaded = 0
 	if(istype(A, /obj/item/ammo_magazine))

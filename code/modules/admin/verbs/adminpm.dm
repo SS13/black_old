@@ -68,9 +68,9 @@
 
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
-		msg = copytext(msg,1,MAX_MESSAGE_LEN)
+		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 		if(!msg)	return
-	msg = sanitize(msg)
+
 	var/recieve_color = "purple"
 	var/send_pm_type = " "
 	var/recieve_pm_type = "Player"

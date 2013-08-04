@@ -1,7 +1,42 @@
 //STRIKE TEAMS
+//Thanks to Kilakk for the admin-button portion of this code.
 
 var/list/response_team_members = list()
-var/send_emergency_team = 0
+var/global/send_emergency_team = 0 // Used for automagic response teams
+// 'admin_emergency_team' for admin-spawned response teams
+
+
+/client/proc/response_team()
+	set name = "Dispatch Emergency Response Team"
+	set category = "Special Verbs"
+	set desc = "Send an emergency response team to the station"
+
+	if(!holder)
+		usr << "\red Only administrators may use this command."
+		return
+	if(!ticker)
+		usr << "\red The game hasn't started yet!"
+		return
+	if(ticker.current_state == 1)
+		usr << "\red The round hasn't started yet!"
+		return
+	if(send_emergency_team)
+		usr << "\red Central Command has already dispatched an emergency response team!"
+		return
+	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
+		return
+	if(get_security_level() != "red") // Allow admins to reconsider if the alert level isn't Red
+		switch(alert("The station has not entered code red recently. Do you still want to dispatch a response team?",,"Yes","No"))
+			if("No")
+				return
+	if(send_emergency_team)
+		usr << "\red Looks like somebody beat you to it!"
+		return
+
+	message_admins("[key_name_admin(usr)] is dispatching an Emergency Response Team.", 1)
+	log_admin("[key_name(usr)] used Dispatch Response Team.")
+	trigger_armed_response_team(1)
+
 
 client/verb/JoinResponseTeam()
 	set category = "IC"
@@ -19,7 +54,7 @@ client/verb/JoinResponseTeam()
 		var/leader_selected = (response_team_members.len == 0)
 
 
-		for (var/obj/effect/landmark/L in world) if (L.name == "Commando")
+		for (var/obj/effect/landmark/L in landmarks_list) if (L.name == "Commando")
 
 			var/new_name = input(usr, "Pick a name","Name") as null|text
 			if(!new_name) return
@@ -43,9 +78,10 @@ client/verb/JoinResponseTeam()
 proc/percentage_dead()
 	var/total = 0
 	var/deadcount = 0
-	for(var/mob/living/carbon/human/H in world) if(H.mind) // I *think* monkeys gone human don't have a mind
-		if(H.stat == 2) deadcount++
-		total++
+	for(var/mob/living/carbon/human/H in mob_list)
+		if(H.client) // Monkeys and mice don't have a client, amirite?
+			if(H.stat == 2) deadcount++
+			total++
 
 	if(total == 0) return 0
 	else return round(100 * deadcount / total)
@@ -54,7 +90,7 @@ proc/percentage_dead()
 proc/percentage_antagonists()
 	var/total = 0
 	var/antagonists = 0
-	for(var/mob/living/carbon/human/H in world)
+	for(var/mob/living/carbon/human/H in mob_list)
 		if(is_special_character(H) >= 1)
 			antagonists++
 		total++
@@ -67,7 +103,7 @@ proc/trigger_armed_response_team(var/force = 0)
 	if(send_emergency_team)
 		return
 
-	var/send_team_chance = 20 // base chance that a team will be sent
+	var/send_team_chance = 50 // base chance that a team will be sent
 	send_team_chance += 2*percentage_dead() // the more people are dead, the higher the chance
 	send_team_chance += percentage_antagonists() // the more antagonists, the higher the chance
 	send_team_chance = min(send_team_chance, 100)
@@ -77,34 +113,18 @@ proc/trigger_armed_response_team(var/force = 0)
 	// there's only a certain chance a team will be sent
 	if(!prob(send_team_chance)) return
 
-	command_alert("According to our sensors, [station_name()] has entered code red. We will prepare and dispatch an emergency response team to deal with the situation.", "Command Report")
+	command_alert("Sensors indicate that [station_name()] has entered Code Red and is in need of assistance. We will prepare and dispatch an emergency response team to deal with the situation.", "Central Command")
 
 	send_emergency_team = 1
 
-	var/area/security/nuke_storage/nukeloc = locate()//To find the nuke in the vault
-	var/obj/machinery/nuclearbomb/nuke = locate() in nukeloc
-	if(!nuke)
-		nuke = locate() in world
-	var/obj/item/weapon/paper/P = new
-	P.info = "Your orders, Commander, are to use all means necessary to return the station to a survivable condition.<br>To this end, you have been provided with the best tools we can give in the three areas of Medicine, Engineering, and Security. The nuclear authorization code is: <b>[ nuke ? nuke.r_code : "AHH, THE NUKE IS GONE!"]</b>. Be warned, if you detonate this without good reason, we will hold you to account for damages. Memorise this code, and then burn this message."
-	P.name = "Emergency Nuclear Code, and ERT Orders"
-	for (var/obj/effect/landmark/A in world)
-		if (A.name == "nukecode")
-			P.loc = A.loc
-			del(A)
-			continue
-
 /client/proc/create_response_team(obj/spawn_location, leader_selected = 0, commando_name)
-
-	usr << "\red ERT has been temporarily disabled. Talk to a coder."
-	return
 
 	var/mob/living/carbon/human/M = new(null)
 	response_team_members |= M
 
 	//todo: god damn this.
 	//make it a panel, like in character creation
-	/*var/new_facial = input("Please select facial hair color.", "Character Generation") as color
+	var/new_facial = input("Please select facial hair color.", "Character Generation") as color
 	if(new_facial)
 		M.r_facial = hex2num(copytext(new_facial, 2, 4))
 		M.g_facial = hex2num(copytext(new_facial, 4, 6))
@@ -139,16 +159,24 @@ proc/trigger_armed_response_team(var/force = 0)
 		hairs.Add(H.name) // add hair name to hairs
 		del(H) // delete the hair after it's all done
 
-	var/new_style = input("Please select hair style", "Character Generation")  as null|anything in hairs
+//hair
+	var/new_hstyle = input(usr, "Select a hair style", "Grooming")  as null|anything in hair_styles_list
+	if(new_hstyle)
+		M.h_style = new_hstyle
+
+	// facial hair
+	var/new_fstyle = input(usr, "Select a facial hair style", "Grooming")  as null|anything in facial_hair_styles_list
+	if(new_fstyle)
+		M.f_style = new_fstyle
 
 	// if new style selected (not cancel)
-	if (new_style)
+/*	if (new_style)
 		M.h_style = new_style
 
 		for(var/x in all_hairs) // loop through all_hairs again. Might be slightly CPU expensive, but not significantly.
 			var/datum/sprite_accessory/hair/H = new x // create new hair datum
 			if(H.name == new_style)
-				M.hair_style = H // assign the hair_style variable a new hair datum
+				M.h_style = H // assign the hair_style variable a new hair datum
 				break
 			else
 				del(H) // if hair H not used, delete. BYOND can garbage collect, but better safe than sorry
@@ -169,19 +197,21 @@ proc/trigger_armed_response_team(var/force = 0)
 		for(var/x in all_fhairs)
 			var/datum/sprite_accessory/facial_hair/H = new x
 			if(H.name == new_style)
-				M.facial_hair_style = H
+				M.f_style = H
 				break
 			else
 				del(H)
-
+*/
 	var/new_gender = alert(usr, "Please select gender.", "Character Generation", "Male", "Female")
 	if (new_gender)
 		if(new_gender == "Male")
 			M.gender = MALE
 		else
 			M.gender = FEMALE
-	M.rebuild_appearance()
-	M.update_body()*/
+	//M.rebuild_appearance()
+	M.update_hair()
+	M.update_body()
+	M.check_dna(M)
 
 	M.real_name = commando_name
 	M.name = commando_name
@@ -212,6 +242,17 @@ proc/trigger_armed_response_team(var/force = 0)
 	camera.network = "CREED"
 	camera.c_tag = real_name
 
+
+	//Replaced with new ERT uniform
+	equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
+	equip_to_slot_or_del(new /obj/item/clothing/shoes/swat(src), slot_shoes)
+	equip_to_slot_or_del(new /obj/item/clothing/gloves/swat(src), slot_gloves)
+	equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_ears)
+	equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(src), slot_glasses)
+	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel(src), slot_back)
+/*
+
+	//Old ERT Uniform
 	//Basic Uniform
 	equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/tacticool(src), slot_w_uniform)
 	equip_to_slot_or_del(new /obj/item/device/flashlight(src), slot_l_store)
@@ -233,21 +274,28 @@ proc/trigger_armed_response_team(var/force = 0)
 	//Backpack
 	equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/security(src), slot_back)
 	equip_to_slot_or_del(new /obj/item/weapon/storage/box/engineer(src), slot_in_backpack)
-	equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/adv(src), slot_in_backpack)
-
+	equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/regular(src), slot_in_backpack)
+*/
 	var/obj/item/weapon/card/id/W = new(src)
 	W.name = "[real_name]'s ID Card (Emergency Response Team)"
 	W.icon_state = "centcom"
 	if(leader_selected)
 		W.name = "[real_name]'s ID Card (Emergency Response Team Leader)"
-		W.access = get_access("Captain")
-		W.access += list(access_cent_teleporter)
+		W.access = get_all_accesses()
+		W.access += get_all_centcom_access()
 		W.assignment = "Emergency Response Team Leader"
 	else
-		W.access = get_access("Head of Personnel")
+		W.access = get_all_accesses()
+		W.access += get_all_centcom_access()
 		W.assignment = "Emergency Response Team"
 	W.access += list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage)//Let's add their alloted CentCom access.
 	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)
 
 	return 1
+
+//debug verb (That is horribly coded, LEAVE THIS OFF UNLESS PRIVATELY TESTING. Seriously.
+/*client/verb/ResponseTeam()
+	set category = "Admin"
+	if(!send_emergency_team)
+		send_emergency_team = 1*/

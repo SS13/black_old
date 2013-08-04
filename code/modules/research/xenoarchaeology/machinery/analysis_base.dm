@@ -23,7 +23,7 @@
 
 	var/obj/item/weapon/reagent_containers/glass/held_container
 	var/obj/item/weapon/tank/fuel_container
-	var/target_scan_ticks = 60
+	var/target_scan_ticks = 30
 	var/report_num = 0
 	var/scan_process = 0
 	var/temperature = 273	//measured in kelvin, if this exceeds 1200, the machine is damaged and requires repairs

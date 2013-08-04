@@ -575,7 +575,7 @@ It can still be worn/put on as normal.
 				if (target.internals)
 					target.internals.icon_state = "internal0"
 			else
-				if (!( istype(target.wear_mask, /obj/item/clothing/mask) && target.wear_mask.can_breath ))
+				if (!( istype(target.wear_mask, /obj/item/clothing/mask) || ! (target.wear_mask.can_breath) ))
 					return
 				else
 					if (istype(target.back, /obj/item/weapon/tank))

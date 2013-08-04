@@ -9,9 +9,8 @@ var/const/OFFICER			=(1<<4)
 var/const/CHIEF				=(1<<5)
 var/const/ENGINEER			=(1<<6)
 var/const/ATMOSTECH			=(1<<7)
-var/const/ROBOTICIST		=(1<<8)
-var/const/AI				=(1<<9)
-var/const/CYBORG			=(1<<10)
+var/const/AI				=(1<<8)
+var/const/CYBORG			=(1<<9)
 
 
 var/const/MEDSCI			=(1<<1)
@@ -24,6 +23,8 @@ var/const/DOCTOR			=(1<<4)
 var/const/GENETICIST		=(1<<5)
 var/const/VIROLOGIST		=(1<<6)
 var/const/PSYCHIATRIST		=(1<<7)
+var/const/ROBOTICIST		=(1<<8)
+var/const/XENOBIOLOGIST		=(1<<9)
 
 
 var/const/CIVILIAN			=(1<<2)
@@ -45,12 +46,6 @@ var/const/ASSISTANT			=(1<<13)
 
 
 var/list/assistant_occupations = list(
-	"Assistant",
-	"Atmospheric Technician",
-	"Cargo Technician",
-	"Chaplain",
-	"Lawyer",
-	"Librarian"
 )
 
 
@@ -86,7 +81,8 @@ var/list/science_positions = list(
 	"Research Director",
 	"Scientist",
 	"Geneticist",	//Part of both medical and science
-	"Roboticist"	//Part of both engineering and science
+	"Roboticist",
+	"Xenobiologist"
 )
 
 //BS12 EDIT
@@ -123,3 +119,26 @@ var/list/nonhuman_positions = list(
 
 /proc/guest_jobbans(var/job)
 	return ((job in command_positions) || (job in nonhuman_positions) || (job in security_positions))
+
+/proc/get_job_datums()
+	var/list/occupations = list()
+	var/list/all_jobs = typesof(/datum/job)
+
+	for(var/A in all_jobs)
+		var/datum/job/job = new A()
+		if(!job)	continue
+		occupations += job
+
+	return occupations
+
+/proc/get_alternate_titles(var/job)
+	var/list/jobs = get_job_datums()
+	var/list/titles = list()
+
+	for(var/datum/job/J in jobs)
+		if(!J)	continue
+		if(J.title == job)
+			titles = J.alt_titles
+
+	return titles
+

@@ -143,14 +143,11 @@ Please contact me on #coderbus IRC. ~Carn x
 			overlays += I
 	else
 		var/stealth = 0
-		if(istype(wear_suit, /obj/item/clothing/suit/space/space_ninja) && wear_suit:s_active)
-			stealth = 1
-		else
-			//cloaking devices. //TODO: get rid of this :<
-			for(var/obj/item/weapon/cloaking_device/S in list(l_hand,r_hand,belt,l_store,r_store))
-				if(S.active)
-					stealth = 1
-					break
+		//cloaking devices. //TODO: get rid of this :<
+		for(var/obj/item/weapon/cloaking_device/S in list(l_hand,r_hand,belt,l_store,r_store))
+			if(S.active)
+				stealth = 1
+				break
 		if(stealth)
 			icon = 'icons/mob/human.dmi'
 			icon_state = "body_cloaked"
@@ -235,8 +232,9 @@ proc/get_damage_icon_part(damage_state, body_part)
 	var/g = "m"
 	if(gender == FEMALE)	g = "f"
 
+	var/datum/organ/external/chest = get_organ("chest")
+	stand_icon = chest.get_icon(g)
 	if(!skeleton)
-		stand_icon = new /icon(race_icon, "torso_[g][fat?"_fat":""]")
 		if(husk)
 			stand_icon.ColorTone(husk_color_mod)
 		else if(hulk)
@@ -244,8 +242,6 @@ proc/get_damage_icon_part(damage_state, body_part)
 			stand_icon.MapColors(rgb(TONE[1],0,0),rgb(0,TONE[2],0),rgb(0,0,TONE[3]))
 		else if(plant)
 			stand_icon.ColorTone(plant_color_mod)
-	else
-		stand_icon = new /icon(race_icon, "torso")
 
 	var/datum/organ/external/head = get_organ("head")
 	var/has_head = 0
@@ -255,18 +251,11 @@ proc/get_damage_icon_part(damage_state, body_part)
 	for(var/datum/organ/external/part in organs)
 		if(!istype(part, /datum/organ/external/chest) && !(part.status & ORGAN_DESTROYED))
 			var/icon/temp
-			if(istype(part, /datum/organ/external/groin))
-				if(skeleton)
-					temp = new /icon(race_icon, "groin")
-				else
-					temp = new /icon(race_icon, "groin_[g]")
-			else if(istype(part, /datum/organ/external/head))
-				if(skeleton)
-					temp = new /icon(race_icon, "head")
-				else
-					temp = new /icon(race_icon, "head_[g]")
+			if (istype(part, /datum/organ/external/groin) || istype(part, /datum/organ/external/head))
+				temp = part.get_icon(g)
 			else
-				temp = new /icon(race_icon, "[part.icon_name][g]")
+				temp = part.get_icon()
+
 			if(part.status & ORGAN_ROBOT)
 				temp.GrayScale()
 
@@ -646,7 +635,6 @@ proc/get_damage_icon_part(damage_state, body_part)
 				overlays_standing[GLOVES_LAYER]	= null
 		if(update_icons)   update_icons()
 
-
 /mob/living/carbon/human/update_inv_glasses(var/update_icons=1)
 	if(gender == MALE)
 		if(glasses)
@@ -773,7 +761,6 @@ proc/get_damage_icon_part(damage_state, body_part)
 			overlays_standing[BELT_LAYER]	= null
 		if(update_icons)   update_icons()
 
-
 /mob/living/carbon/human/update_inv_wear_suit(var/update_icons=1)
 	if(gender == MALE)
 		if( wear_suit && istype(wear_suit, /obj/item/clothing/suit) )	//TODO check this
@@ -840,7 +827,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 
 /mob/living/carbon/human/update_inv_wear_mask(var/update_icons=1)
-	if( wear_mask && istype(wear_mask, /obj/item/clothing/mask) )
+	if( wear_mask && ( istype(wear_mask, /obj/item/clothing/mask) || istype(wear_mask, /obj/item/clothing/tie) ) )
 		wear_mask.screen_loc = ui_mask	//TODO
 		var/image/lying		= image("icon" = 'icons/mob/mask.dmi', "icon_state" = "[wear_mask.icon_state]2")
 		var/image/standing	= image("icon" = 'icons/mob/mask.dmi', "icon_state" = "[wear_mask.icon_state]")
@@ -875,7 +862,6 @@ proc/get_damage_icon_part(damage_state, body_part)
 			overlays_lying[BACK_LAYER]		= null
 			overlays_standing[BACK_LAYER]	= null
 		if(update_icons)   update_icons()
-
 
 /mob/living/carbon/human/update_hud()	//TODO: do away with this if possible
 	if(client)

@@ -27,6 +27,7 @@
 	var/required_players_secret = 0 //Minimum number of players for that game mode to be chose in Secret
 	var/required_enemies = 0
 	var/recommended_enemies = 0
+	var/newscaster_announcements = null
 	var/uplink_welcome = "Syndicate Uplink Console:"
 	var/uplink_uses = 10
 	var/uplink_items = {"Highly Visible and Dangerous Weapons;
@@ -201,29 +202,45 @@ Implants;
 
 /datum/game_mode/proc/send_intercept()
 	var/intercepttext = "<FONT size = 3><B>Cent. Com. Update</B> Requested status information:</FONT><HR>"
-	intercepttext += "<B> Cent. Com has recently been contacted by the following syndicate affiliated organisations in your area, please investigate any information you may have:</B>"
+	intercepttext += "<B> In case you have misplaced your copy, attached is a list of personnel whom reliable sources&trade; suspect may be affiliated with the Syndicate:</B><br>"
 
-	var/list/possible_modes = list()
-	possible_modes.Add("revolution", "wizard", "nuke", "traitor", "malf", "changeling", "cult")
-	//possible_modes -= "[ticker.mode]"
-	var/number = pick(2, 3)
-	var/i = 0
-	for(i = 0, i < number, i++)
-		possible_modes.Remove(pick(possible_modes))
+	var/list/suspects = list()
+	for(var/mob/living/carbon/human/man in player_list) if(man.client && man.mind)
+		// NT relation option
+		var/special_role = man.mind.special_role
+		if (special_role == "Wizard" || special_role == "Ninja" || special_role == "Syndicate")
+			continue	//NT intelligence ruled out possiblity that those are too classy to pretend to be a crew.
+		if(man.client.prefs.nanotrasen_relation == "Opposed" && prob(50) || \
+		   man.client.prefs.nanotrasen_relation == "Skeptical" && prob(20))
+			suspects += man
+		// Antags
+		else if(special_role == "traitor" && prob(40) || \
+		   special_role == "Changeling" && prob(50) || \
+		   special_role == "Cultist" && prob(30) || \
+		   special_role == "Head Revolutionary" && prob(30))
+			suspects += man
 
-	if(!intercept_hacked)
-		possible_modes.Insert(rand(possible_modes.len), "[ticker.mode]")
+			// If they're a traitor or likewise, give them extra TC in exchange.
+			var/obj/item/device/uplink/hidden/suplink = man.mind.find_syndicate_uplink()
+			if(suplink)
+				var/extra = 4
+				suplink.uses += extra
+				man << "\red We have received notice that enemy intelligence suspects you to be linked with us. We have thus invested significant resources to increase your uplink's capacity."
+			else
+				// Give them a warning!
+				man << "\red They are on to you!"
 
-	shuffle(possible_modes)
+		// Some poor people who were just in the wrong place at the wrong time..
+		else if(prob(10))
+			suspects += man
+	for(var/mob/M in suspects)
+		switch(rand(1, 100))
+			if(1 to 50)
+				intercepttext += "Someone with the job of <b>[M.mind.assigned_role]</b> <br>"
+			else
+				intercepttext += "<b>[M.name]</b>, the <b>[M.mind.assigned_role]</b> <br>"
 
-	var/datum/intercept_text/i_text = new /datum/intercept_text
-	for(var/A in possible_modes)
-		if(modePlayer.len == 0)
-			intercepttext += i_text.build(A)
-		else
-			intercepttext += i_text.build(A, pick(modePlayer))
-
-	for (var/obj/machinery/computer/communications/comm in world)
+	for (var/obj/machinery/computer/communications/comm in machines)
 		if (!(comm.stat & (BROKEN | NOPOWER)) && comm.prints_intercept)
 			var/obj/item/weapon/paper/intercept = new /obj/item/weapon/paper( comm.loc )
 			intercept.name = "paper- 'Cent. Com. Status Summary'"
@@ -241,11 +258,9 @@ Implants;
 		set_security_level(SEC_LEVEL_BLUE)*/
 
 
-/datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=1)
+/datum/game_mode/proc/get_players_for_role(var/role, override_jobbans=0)
 	var/list/players = list()
 	var/list/candidates = list()
-	var/list/drafted = list()
-	var/datum/mind/applicant = null
 
 	var/roletext
 	switch(role)
@@ -255,87 +270,50 @@ Implants;
 		if(BE_WIZARD)		roletext="wizard"
 		if(BE_REV)			roletext="revolutionary"
 		if(BE_CULTIST)		roletext="cultist"
+		if(BE_NINJA)		roletext="ninja"
 		if(BE_MEME)			roletext="meme"
 
-
-	// Ultimate randomizing code right here
+	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in player_list)
-		if(player.client && player.ready)
-			players += player
+		if( player.client && player.ready )
+			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
+				players += player
 
-	// Shuffling, the players list is now ping-independent!!!
-	// Goodbye antag dante
+	// Shuffle the players list so that it becomes ping-independent.
 	players = shuffle(players)
 
+	// Get a list of all the people who want to be the antagonist for this round
 	for(var/mob/new_player/player in players)
-		if(player.client && player.ready)
-			if(player.client.prefs.be_special & role)
-				if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-					candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
+		if(player.client.prefs.be_special & role)
+			log_debug("[player.key] had [roletext] enabled, so we are drafting them.")
+			candidates += player.mind
+			players -= player
 
+	// If we don't have enough antags, draft people who voted for the round.
+	if(candidates.len < recommended_enemies)
+		for(var/key in round_voters)
+			for(var/mob/new_player/player in players)
+				if(player.ckey == key)
+					log_debug("[player.key] voted for this round, so we are drafting them.")
+					candidates += player.mind
+					players -= player
+					break
+
+	// Remove candidates who want to be antagonist but have a job that precludes it
 	if(restricted_jobs)
 		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)					// Remove people who want to be antagonist but have a job already that precludes it
+			for(var/job in restricted_jobs)
 				if(player.assigned_role == job)
 					candidates -= player
 
-	if(candidates.len < recommended_enemies)
-		for(var/mob/new_player/player in players)
-			if(player.client && player.ready)
-				if(!(player.client.prefs.be_special & role)) // We don't have enough people who want to be antagonist, make a seperate list of people who don't want to be one
-					if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-						drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				drafted.Remove(applicant)
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-
-	if(candidates.len < recommended_enemies && override_jobbans) //If we still don't have enough people, we're going to start drafting banned people.
-		for(var/mob/new_player/player in players)
-			if (player.client && player.ready)
-				if(jobban_isbanned(player, "Syndicate") || jobban_isbanned(player, roletext)) //Nodrak/Carn: Antag Job-bans
-					drafted += player.mind
-
-	if(restricted_jobs)
-		for(var/datum/mind/player in drafted)				// Remove people who can't be an antagonist
-			for(var/job in restricted_jobs)
-				if(player.assigned_role == job)
-					drafted -= player
-
-	drafted = shuffle(drafted) // Will hopefully increase randomness, Donkie
-
-	while(candidates.len < recommended_enemies)				// Pick randomlly just the number of people we need and add them to our list of candidates
-		if(drafted.len > 0)
-			applicant = pick(drafted)
-			if(applicant)
-				candidates += applicant
-				drafted.Remove(applicant)
-				message_admins("[applicant.key] drafted into antagonist role against their preferences.")
-
-		else												// Not enough scrubs, ABORT ABORT ABORT
-			break
-
 	return candidates		// Returns: The number of people who had the antagonist role set to yes, regardless of recomended_enemies, if that number is greater than recommended_enemies
-							//			recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
-							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
+					//	recommended_enemies if the number of people with that role set to yes is less than recomended_enemies,
+					//	Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
-/*
+
 /datum/game_mode/proc/latespawn(var/mob)
 
+/*
 /datum/game_mode/proc/check_player_role_pref(var/role, var/mob/new_player/player)
 	if(player.preferences.be_special & role)
 		return 1
@@ -369,6 +347,9 @@ Implants;
 		if(player.mind && (player.mind.assigned_role in command_positions))
 			heads += player.mind
 	return heads
+
+/datum/game_mode/New()
+	newscaster_announcements = pick(newscaster_standard_feeds)
 
 //////////////////////////
 //Reports player logouts//

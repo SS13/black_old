@@ -782,7 +782,7 @@ proc/anim(turf/location as turf,target as mob|obj,a_icon,a_icon_state as text,fl
 		return 0
 
 	var/delayfraction = round(delay/numticks)
-	var/turf/T = user.loc
+	var/turf/T = get_turf(user)
 	var/holding = user.get_active_hand()
 
 	for(var/i = 0, i<numticks, i++)
@@ -1329,6 +1329,7 @@ proc/is_hot(obj/item/W as obj)
 
 //Is this even used for anything besides balloons? Yes I took out the W:lit stuff because : really shouldnt be used.
 /proc/is_sharp(obj/item/W as obj)		// For the record, WHAT THE HELL IS THIS METHOD OF DOING IT?
+	if(W.sharp) return 1
 	return ( \
 		W.sharp													  || \
 		istype(W, /obj/item/weapon/screwdriver)                   || \

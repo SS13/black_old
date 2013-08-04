@@ -22,7 +22,6 @@
 	var/recoil = 0
 	var/ejectshell = 1
 	var/clumsy_check = 1
-
 	var/tmp/list/mob/living/target //List of who yer targeting.
 	var/tmp/lock_time = -100
 	var/tmp/mouthshoot = 0 ///To stop people from suiciding twice... >.>
@@ -37,7 +36,6 @@
 
 	proc/special_check(var/mob/M) //Placeholder for any special checks, like detective's revolver.
 		return 1
-
 
 	emp_act(severity)
 		for(var/obj/O in contents)
@@ -177,8 +175,10 @@
 			in_chamber.on_hit(M)
 			if (!in_chamber.nodamage)
 				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]")
+				user.death()
 			else
 				user << "<span class = 'notice'>Ow...</span>"
+				user.apply_effect(110,AGONY,0)
 			del(in_chamber)
 			mouthshoot = 0
 			return

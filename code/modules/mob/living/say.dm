@@ -434,7 +434,7 @@ var/list/department_radio_keys = list(
 		if (italics)
 			message_b = "<i>[message_b]</i>"
 
-		rendered = "<span class='game say'><span class='name'>[voice_name]</span> <span class='message'>[message_b]</span></span>"
+		rendered = "<span class='game say'><span class='name'>[name]</span>[alt_name] <span class='message'>[message_b]</span></span>" //Voice_name isn't too useful. You'd be able to tell who was talking presumably.
 
 
 		for (var/M in heard_b)

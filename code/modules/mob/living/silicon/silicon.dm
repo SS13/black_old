@@ -153,6 +153,12 @@
 		stat(null, text("System integrity: [(src.health+100)/2]%"))
 	else
 		stat(null, text("Systems nonfunctional"))
+
+	
+// This is a pure virtual function, it should be overwritten by all subclasses
+/mob/living/silicon/proc/show_malf_ai()
+	return 0
+
 	
 // this function displays the station time in the status panel
 /mob/living/silicon/proc/show_station_time()
@@ -165,6 +171,8 @@
 		var/timeleft = emergency_shuttle.timeleft()
 		if (timeleft)
 			stat(null, "ETA-[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]")
+				
+				
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
 /mob/living/silicon/Stat()
 	..()
@@ -173,3 +181,14 @@
 		show_station_time()
 		show_emergency_shuttle_eta()
 		show_system_integrity()
+		show_malf_ai()
+		
+// this function displays the stations manifest in a separate window
+/mob/living/silicon/proc/show_station_manifest()
+	var/dat
+	dat += "<h4>Crew Manifest</h4>"
+	if(data_core)
+		dat += data_core.get_manifest(0) // make it monochrome
+	dat += "<br>"
+	src << browse(dat, "window=airoster")
+	onclose(src, "airoster")

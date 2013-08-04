@@ -188,7 +188,7 @@ var/global/floorIsLava = 0
 		dat += "No notes found."
 	else
 		dat += "<table>"
-		sortList(note_keys)
+		note_keys = sortList(note_keys)
 
 		// Display the notes on the current page
 		var/number_pages = note_keys.len / PLAYER_NOTES_ENTRIES_PER_PAGE

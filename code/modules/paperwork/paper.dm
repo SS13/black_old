@@ -49,8 +49,12 @@
 
 /obj/item/weapon/paper/examine()
 	set src in oview(1)
+
+//	..()	//We don't want them to see the dumb "this is a paper" thing every time.
+// I didn't like the idea that people can read tiny pieces of paper from across the room.
+// Now you need to be next to the paper in order to read it.
 	if(in_range(usr, src))
-		if( !(ishuman(usr) || isobserver(usr) || issilicon(usr)) )
+		if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)))
 			usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", "window=[name]")
 			onclose(usr, "[name]")
 		else
@@ -226,12 +230,12 @@
 
 /obj/item/weapon/paper/Topic(href, href_list)
 	..()
-	if(usr.stat || usr.restrained())
+	if(!usr || (usr.stat || usr.restrained()))
 		return
 
 	if(href_list["write"])
 		var/id = href_list["write"]
-		var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null, null)  as message, MAX_MESSAGE_LEN)
+		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
 		var/obj/item/i = usr.get_active_hand()	//Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 		var/iscrayon = 0
 		if(!istype(i, /obj/item/weapon/pen))
@@ -239,9 +243,21 @@
 				return
 			iscrayon = 1
 
-		if(!in_range(src, usr) && loc != usr && !istype(loc, /obj/item/weapon/clipboard) && loc.loc != usr && usr.get_active_hand() != i)	//Some check to see if he's allowed to write
+
+		if((!in_range(src, usr) && loc != usr && !( istype(loc, /obj/item/weapon/clipboard) ) && loc.loc != usr && usr.get_active_hand() != i)) // Some check to see if he's allowed to write
 			return
 
+		t = checkhtml(t)
+
+		// check for exploits
+		for(var/bad in paper_blacklist)
+			if(findtext(t,bad))
+				usr << "\blue You think to yourself, \"Hm.. this is only paper...\""
+				log_admin("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
+				message_admins("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
+				return
+
+		t = replacetext(t, "\n", "<BR>")
 		t = parsepencode(t, i, usr, iscrayon) // Encode everything from pencode to html
 
 		if(id!="end")
@@ -262,11 +278,14 @@
 		clown = 1
 
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]")
+		if ( istype(P, /obj/item/weapon/pen/robopen) && P:mode == 2 )
+			P:RenamePaper(user,src)
+		else
+			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]")
+		//openhelp(user)
 		return
-
 	else if(istype(P, /obj/item/weapon/stamp))
-		if(!in_range(src, usr) && loc != user && !istype(loc, /obj/item/weapon/clipboard) && loc.loc != user && user.get_active_hand() != P)
+		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/weapon/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
 			return
 
 		stamps += (stamps=="" ? "<HR>" : "<BR>") + "<i>This paper has been stamped with the [P.name].</i>"

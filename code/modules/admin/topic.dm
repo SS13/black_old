@@ -2020,7 +2020,6 @@
 			if (ok)
 				world << text("<B>A secret has been activated by []!</B>", usr.key)
 
-
 	else if(href_list["secretsadmin"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -2354,7 +2353,6 @@
 			if(href_list["vsc"] == "default")
 				vsc.SetDefault(usr)
 
-
 	// player info stuff
 
 	if(href_list["add_player_info"])
@@ -2382,4 +2380,6 @@
 		switch(href_list["notes"])
 			if("show")
 				show_player_info(ckey)
+			if("list")
+				PlayerNotesPage(text2num(href_list["index"]))
 		return

@@ -48,6 +48,7 @@
 	var/stutter = 0
 	var/eyeblur = 0
 	var/drowsy = 0
+	var/agony = 0
 
 
 	proc/on_hit(var/atom/target, var/blocked = 0)
@@ -55,7 +56,7 @@
 		if(!isliving(target))	return 0
 		if(isanimal(target))	return 0
 		var/mob/living/L = target
-		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, blocked)
+		L.apply_effects(stun, weaken, paralyze, irradiate, stutter, eyeblur, drowsy, agony, blocked) // add in AGONY!
 		return 1
 
 	proc/check_fire(var/mob/living/target as mob, var/mob/living/user as mob)  //Checks if you can hit them or not.

@@ -1,10 +1,6 @@
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null)
 	var/param = null
 
-	if(weakened)
-		usr << "You are unable to emote."
-		return
-
 	if (findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
 		param = copytext(act, t1 + 1, length(act) + 1)
@@ -397,7 +393,7 @@
 		if ("signal")
 			if (!src.restrained())
 				var/t1 = round(text2num(param))
-				if (isnum(t1) && t1 >= 1)
+				if (isnum(t1))
 					if (t1 <= 5 && (!src.r_hand || !src.l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
 					else if (t1 <= 10 && (!src.r_hand && !src.l_hand))
@@ -587,12 +583,3 @@
 	set category = "IC"
 
 	flavor_text =  copytext(sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text), 1)
-
-/mob/living/carbon/human/proc/call_sound_emote(var/E)
-	switch(E)
-		if("scream")
-			for(var/mob/M in viewers(usr, null))
-				if (src.gender == "male")
-					M << sound(pick('Screams_Male_1.ogg','Screams_Male_2.ogg','Screams_Male_3.ogg'))
-				else
-					M << sound(pick('Screams_Woman_1.ogg','Screams_Woman_2.ogg','Screams_Woman_3.ogg'))
