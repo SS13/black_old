@@ -157,6 +157,7 @@
 
 
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
+	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
 	spawn(1)
 	synd_mind.current.real_name = "[syndicate_name()] [leader_title]"
 	if (nuke_code)

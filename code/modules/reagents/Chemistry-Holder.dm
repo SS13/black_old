@@ -104,6 +104,10 @@ datum
 				for (var/datum/reagent/current_reagent in src.reagent_list)
 					if (!current_reagent)
 						continue
+					if (current_reagent.id == "blood" && ishuman(target))
+						var/mob/living/carbon/human/H = target
+						H.inject_blood(my_atom, amount)
+						continue
 					var/current_reagent_transfer = current_reagent.volume * part
 					if(preserve_data)
 						trans_data = current_reagent.data
@@ -514,6 +518,12 @@ datum
 					if(D.id == reagent_id)
 						//world << "reagent data set ([reagent_id])"
 						D.data = new_data
+
+			delete()
+				for(var/datum/reagent/R in reagent_list)
+					R.holder = null
+				if(my_atom)
+					my_atom.reagents = null
 
 
 ///////////////////////////////////////////////////////////////////////////////////

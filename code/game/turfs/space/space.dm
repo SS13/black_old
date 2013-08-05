@@ -5,7 +5,6 @@
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-	heat_capacity = 700000
 
 /turf/space/New()
 	if(!istype(src, /turf/space/transit))

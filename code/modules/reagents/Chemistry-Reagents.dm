@@ -512,7 +512,7 @@ datum
 				if(!M) M = holder.my_atom
 				M.druggy = max(M.druggy, 15)
 				if(isturf(M.loc) && !istype(M.loc, /turf/space))
-					if(M.canmove)
+					if(M.canmove && !M.restrained())
 						if(prob(10)) step(M, pick(cardinal))
 				if(prob(7)) M.emote(pick("twitch","drool","moan","giggle"))
 				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
@@ -642,7 +642,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				if(M.canmove && istype(M.loc, /turf/space))
+				if(M.canmove && !M.restrained() && istype(M.loc, /turf/space))
 					step(M, pick(cardinal))
 				if(prob(5)) M.emote(pick("twitch","drool","moan"))
 				..()
@@ -728,7 +728,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				if(M.canmove && istype(M.loc, /turf/space))
+				if(M.canmove && !M.restrained() && istype(M.loc, /turf/space))
 					step(M, pick(cardinal))
 				if(prob(5)) M.emote(pick("twitch","drool","moan"))
 				..()
@@ -927,6 +927,13 @@ datum
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.apply_effect(2*REM,IRRADIATE,0)
+				// radium may increase your chances to cure a disease
+				if(istype(M,/mob/living/carbon)) // make sure to only use it on carbon mobs
+					if(M:virus2 && prob(5))
+						if(prob(50))
+							M.radiation += 50 // curing it that way may kill you instead
+							M.adjustToxLoss(100)
+						M:antibodies |= M:virus2.antigen
 				..()
 				return
 
@@ -1136,26 +1143,15 @@ datum
 			reagent_state = LIQUID
 			color = "#660000" // rgb: 102, 0, 0
 
-//Commenting this out as it's horribly broken. It's a neat effect though, so it might be worth making a new reagent (that is less common) with similar effects.	-Pete
-/*
+
 			reaction_obj(var/obj/O, var/volume)
-				src = null
 				var/turf/the_turf = get_turf(O)
 				if(!the_turf)
 					return //No sense trying to start a fire if you don't have a turf to set on fire. --NEO
-				var/datum/gas_mixture/napalm = new
-				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = 15
-				napalm.trace_gases += fuel
-				the_turf.assume_air(napalm)
+				new /obj/effect/decal/cleanable/liquid_fuel(the_turf, volume)
 			reaction_turf(var/turf/T, var/volume)
-				src = null
-				var/datum/gas_mixture/napalm = new
-				var/datum/gas/volatile_fuel/fuel = new
-				fuel.moles = 15
-				napalm.trace_gases += fuel
-				T.assume_air(napalm)
-				return*/
+				new /obj/effect/decal/cleanable/liquid_fuel(T, volume)
+				return
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
 				M.adjustToxLoss(1)
@@ -1224,6 +1220,17 @@ datum
 				M.adjustToxLoss(1.0)
 				..()
 				return
+
+			// Clear off wallrot fungi
+			reaction_turf(var/turf/T, var/volume)
+				if(istype(T, /turf/simulated/wall))
+					var/turf/simulated/wall/W = T
+					if(W.rotting)
+						W.rotting = 0
+						for(var/obj/effect/E in W) if(E.name == "Wallrot") del E
+
+						for(var/mob/O in viewers(W, null))
+							O.show_message(text("\blue The fungi are completely dissolved by the solution!"), 1)
 
 			reaction_obj(var/obj/O, var/volume)
 				if(istype(O,/obj/effect/alien/weeds/))
@@ -2661,7 +2668,6 @@ datum
 					color = "#878F00" // rgb: 135, 40, 0
 					adj_temp = -8
 
-
 				lemonade
 					name = "Lemonade"
 					description = "Oh the nostalgia..."
@@ -2710,6 +2716,7 @@ datum
 						data++
 						holder.remove_reagent(src.id, FOOD_METABOLISM)
 						..()
+						return
 
 				rewriter
 					name = "Rewriter"
@@ -2781,7 +2788,7 @@ datum
 
 				// make all the beverages work together
 				for(var/datum/reagent/ethanol/A in holder.reagent_list)
-					if(A.data) d += A.data
+					if(isnum(A.data)) d += A.data
 
 				M.dizziness +=dizzy_adj.
 				if(d >= slur_start && d < pass_out)
@@ -3442,14 +3449,14 @@ datum
 				nutriment_factor = 1 * FOOD_METABOLISM
 				color = "#2E6671" // rgb: 46, 102, 113
 
-			on_mob_life(var/mob/living/M as mob)
-				if(!data) data = 1
-				data++
-				M.dizziness +=10
-				if(data >= 55 && data <115)
-					if (!M.stuttering) M.stuttering = 1
-					M.stuttering += 10
-				else if(data >= 115 && prob(33))
-					M.confused = max(M.confused+15,15)
-				..()
-				return
+				on_mob_life(var/mob/living/M as mob)
+					if(!data) data = 1
+					data++
+					M.dizziness +=10
+					if(data >= 55 && data <115)
+						if (!M.stuttering) M.stuttering = 1
+						M.stuttering += 10
+					else if(data >= 115 && prob(33))
+						M.confused = max(M.confused+15,15)
+					..()
+					return

@@ -39,6 +39,11 @@
 		return 0
 	if(istype(M, /mob/living/carbon))
 		if(M == user)								//If you're eating it yourself.
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form eating [src]"
+				return 0
+
 			var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 			if (fullness <= 50)
 				M << "\red You hungrily chew out a piece of [src] and gobble it!"
@@ -53,24 +58,29 @@
 				return 0
 		else
 			if(!istype(M, /mob/living/carbon/slime))		//If you're feeding it to someone else.
-				var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
-				if (fullness <= (550 * (1 + M.overeatduration / 1000)))
+
+				if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+					user << "\red [M.wear_mask] prevents you form force [M.name] to eat [src]"
+					return 0
+
+					var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
+					if (fullness <= (550 * (1 + M.overeatduration / 1000)))
+						for(var/mob/O in viewers(world.view, user))
+							O.show_message("\red [user] attempts to feed [M] [src].", 1)
+					else
+						for(var/mob/O in viewers(world.view, user))
+							O.show_message("\red [user] cannot force anymore of [src] down [M]'s throat.", 1)
+							return 0
+
+					if(!do_mob(user, M)) return
+
+					M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
+					user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
+
+					log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
+
 					for(var/mob/O in viewers(world.view, user))
-						O.show_message("\red [user] attempts to feed [M] [src].", 1)
-				else
-					for(var/mob/O in viewers(world.view, user))
-						O.show_message("\red [user] cannot force anymore of [src] down [M]'s throat.", 1)
-						return 0
-
-				if(!do_mob(user, M)) return
-
-				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
-				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-
-				log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
-
-				for(var/mob/O in viewers(world.view, user))
-					O.show_message("\red [user] feeds [M] [src].", 1)
+						O.show_message("\red [user] feeds [M] [src].", 1)
 
 			else
 				user << "This creature does not seem to have a mouth!"

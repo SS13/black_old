@@ -141,7 +141,6 @@
 	desc = "This will make you big and strong, but give you a bad skin condition."
 	dnatype = "se"
 	dna = "FED"
-	//block = 2
 	New()
 		..()
 		block = HULKBLOCK
@@ -160,7 +159,6 @@
 	desc = "Finally you can see what the Captain does."
 	dnatype = "se"
 	dna = "FED"
-	//block = 8
 	New()
 		..()
 		block = XRAYBLOCK
@@ -170,7 +168,6 @@
 	desc = "It will make you see harder."
 	dnatype = "se"
 	dna = "708"
-	//block = 8
 	New()
 		..()
 		block = XRAYBLOCK

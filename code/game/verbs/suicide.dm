@@ -11,6 +11,19 @@
 		src << "You can't commit suicide before the game starts!"
 		return
 
+
+	var/permitted = 0
+	var/list/allowed = list("Syndicate","traitor","Wizard","Head Revolutionary","Cultist","Changeling")
+	for(var/T in allowed)
+		if(mind.special_role == T)
+			permitted = 1
+			break
+
+	if(!permitted)
+		message_admins("[ckey] has tried to suicide, but they were not permitted due to not being antagonist as human.", 1)
+		src << "No. Adminhelp if there is a legitimate reason."
+		return
+
 	if (suiciding)
 		src << "You're already committing suicide! Be patient!"
 		return
@@ -85,9 +98,6 @@
 
 	if (suiciding)
 		src << "You're already committing suicide! Be patient!"
-		return
-	if(!is_special_character(src))
-		src << "You still want to be alive."
 		return
 
 	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
