@@ -74,11 +74,11 @@
 	name = "egg cluster"
 	desc = "They seem to pulse slightly with an inner life"
 	icon_state = "eggs"
-	var/amount_grown = 0
+	var/amount_grown = -1
 	New()
 		pixel_x = rand(3,-3)
 		pixel_y = rand(3,-3)
-		processing_objects.Add(src)
+		amount_grown = 1
 
 /obj/effect/spider/eggcluster/process()
 	amount_grown += rand(0,2)
@@ -114,8 +114,7 @@
 
 /obj/effect/spider/spiderling/proc/die()
 	visible_message("<span class='alert'>[src] dies!</span>")
-	new /obj/effect/decal/cleanable/spiderling_remains(src.loc)
-	del(src)
+	icon_state = "greenshatter"
 
 /obj/effect/spider/spiderling/healthcheck()
 	if(health <= 0)

@@ -13,12 +13,6 @@
 	icon_state = "bed"
 	var/mob/living/buckled_mob
 
-/obj/structure/stool/psychbed
-	name = "psych bed"
-	desc = "For prime comfort during psychiatric evaluations."
-	icon_state = "psychbed"
-	var/mob/living/buckled_mob
-
 /obj/structure/stool/bed/alien
 	name = "resting contraption"
 	desc = "This looks similar to contraptions from earth. Could aliens be stealing our technology?"
@@ -31,6 +25,12 @@
 
 /obj/structure/stool/bed/attack_paw(mob/user as mob)
 	return src.attack_hand(user)
+
+/*/obj/structure/stool/bed/attack_animal(mob/living/simple_animal/user as mob)
+	if (!istype(user))
+		return
+	if(buckled_mob == src)
+		return src.manual_unbuckle(user)*/
 
 /obj/structure/stool/bed/attack_hand(mob/user as mob)
 	manual_unbuckle(user)

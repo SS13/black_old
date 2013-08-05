@@ -99,6 +99,9 @@
 	if (suiciding)
 		src << "You're already committing suicide! Be patient!"
 		return
+	if(!is_special_character(src))
+		src << "You still want to be alive."
+		return
 
 	var/confirm = alert("Are you sure you want to commit suicide?", "Confirm Suicide", "Yes", "No")
 
