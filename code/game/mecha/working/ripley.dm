@@ -2,6 +2,7 @@
 	desc = "Autonomous Power Loader Unit. The workhorse of the exosuit world."
 	name = "APLU \"Ripley\""
 	icon_state = "ripley"
+	initial_icon = "ripley"
 	step_in = 6
 	max_temperature = 20000
 	health = 200
@@ -19,6 +20,7 @@
 	desc = "Standart APLU chassis was refitted with additional thermal protection and cistern."
 	name = "APLU \"Firefighter\""
 	icon_state = "firefighter"
+	initial_icon = "firefighter"
 	max_temperature = 65000
 	health = 250
 	lights_power = 8
