@@ -331,7 +331,7 @@
 	if(!M)	return
 	var/num
 	var/newdna
-	num = rand(1,UNIDNASIZE)
+	num = rand(1,STRUCDNASIZE-1)
 	M.dna.check_integrity()
 	newdna = setblock(M.dna.uni_identity,num,add_zero2(num2hex(rand(1,4095),1),3),3)
 	M.dna.uni_identity = newdna
@@ -548,17 +548,7 @@
 			sleep(48)
 			del(animation)
 
-
-		var/mob/living/carbon/monkey/O = null
-		switch(M.dna.mutantrace)
-			if("tajaran")
-				O = new /mob/living/carbon/monkey/tajara(src)
-			if("lizard")
-				O = new /mob/living/carbon/monkey/unathi(src)
-			if("skrell")
-				O = new /mob/living/carbon/monkey/skrell(src)
-			else
-				O = new /mob/living/carbon/monkey(src)
+		var/mob/living/carbon/monkey/O = new(src)
 
 		if(M)
 			if (M.dna)

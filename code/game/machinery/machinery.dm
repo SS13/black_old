@@ -132,7 +132,7 @@ Class Procs:
 		pulse2.dir = pick(cardinal)
 
 		spawn(10)
-			pulse2.delete()
+			del(pulse2)
 	..()
 
 /obj/machinery/ex_act(severity)

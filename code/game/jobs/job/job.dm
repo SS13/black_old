@@ -46,12 +46,12 @@
 
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
-		return src.minimal_access.Copy()
+		return src.minimal_access
 
 	if(config.jobs_have_minimal_access)
-		return src.minimal_access.Copy()
+		return src.minimal_access
 	else
-		return src.access.Copy()
+		return src.access
 
 //If the configuration option is set to require players to be logged as old enough to play certain jobs, then this proc checks that they are, otherwise it just returns 1
 /datum/job/proc/player_old_enough(client/C)

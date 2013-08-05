@@ -24,12 +24,12 @@ datum/event/wallrot/start()
 
 		if(center)
 			// Make sure at least one piece of wall rots!
-			center:rot()
+//			center:rot()
 
 			// Have a chance to rot lots of other walls.
 			var/rotcount = 0
 			for(var/turf/simulated/wall/W in range(5, center)) if(prob(50))
-				W:rot()
+//				W:rot()
 				rotcount++
 
 				// Only rot up to severity walls
