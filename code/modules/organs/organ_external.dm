@@ -580,9 +580,9 @@
 
 /datum/organ/external/get_icon(gender="")
 	if (status & ORGAN_MUTATED)
-		return new /icon(owner.deform_icon, "[icon_name][gender ? "_[gender]" : ""]")
+		return new /icon(owner.deform_icon, "[icon_name][gender ? "[gender]" : ""]")
 	else
-		return new /icon(owner.race_icon, "[icon_name][gender ? "_[gender]" : ""]")
+		return new /icon(owner.race_icon, "[icon_name][gender ? "[gender]" : ""]")
 
 
 /datum/organ/external/proc/is_usable()
