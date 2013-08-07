@@ -86,12 +86,10 @@
 	removeVerb(/atom/movable/verb/pull)
 	log_message("[src.name] created.")
 	loc.Entered(src)
-	mechas_list += src //global mech list
 	return
 
 /obj/mecha/Del()
 	src.go_out()
-	mechas_list -= src //global mech list
 	..()
 	return
 
@@ -758,34 +756,6 @@
 		W.forceMove(src)
 		user.visible_message("[user] attaches [W] to [src].", "You attach [W] to [src]")
 		return
-
-	else if(istype(W, /obj/item/weapon/paintkit))
-
-		if(occupant)
-			user << "You can't customize a mech while someone is piloting it - that would be unsafe!"
-			return
-
-		var/obj/item/weapon/paintkit/P = W
-		var/found = null
-
-		for(var/type in P.allowed_types)
-			if(type==src.initial_icon)
-				found = 1
-				break
-
-		if(!found)
-			user << "That kit isn't meant for use on this class of exosuit."
-			return
-
-		user.visible_message("[user] opens [P] and spends some quality time customising [src].")
-
-		src.name = P.new_name
-		src.desc = P.new_desc
-		src.initial_icon = P.new_icon
-		src.reset_icon()
-
-		user.drop_item()
-		del(P)
 
 	else
 		call((proc_res["dynattackby"]||src), "dynattackby")(W,user)
@@ -1574,9 +1544,6 @@
 		return
 	if(href_list["dna_lock"])
 		if(usr != src.occupant)	return
-		if(istype(src, /obj/item/device/mmi))
-			occupant_message("You are a brain. No.")
-			return
 		if(src.occupant)
 			src.dna = src.occupant.dna.unique_enzymes
 			src.occupant_message("You feel a prick as the needle takes your DNA sample.")
