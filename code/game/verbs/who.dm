@@ -1,20 +1,3 @@
-proc/get_all_clients()
-	var/list/client/clients = list()
-
-	for (var/mob/M in player_list)
-
-		clients += M.client
-
-	return clients
-
-proc/get_all_admin_clients()
-	var/list/client/clients = list()
-
-	for (var/client/C in admins)
-
-		clients += C
-
-	return clients
 
 /client/verb/who()
 	set name = "Who"
@@ -63,11 +46,12 @@ proc/get_all_admin_clients()
 	set category = "Admin"
 	set name = "Adminwho"
 
-	var/msg = "<b>Current Admins:</b>\n"
+	var/msg = ""
+	var/num_mods_online = 0
 	var/num_admins_online = 0
 	if(holder)
 		for(var/client/C in admins)
-			if(C.holder.rank != "Moderator")
+			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
 				msg += "\t[C] is a [C.holder.rank]"
 
 				if(C.holder.fakekey)
@@ -83,26 +67,35 @@ proc/get_all_admin_clients()
 				if(C.is_afk())
 					msg += " (AFK)"
 				msg += "\n"
+
 				num_admins_online++
+			else
+				num_mods_online++
 	else
 		for(var/client/C in admins)
-			if(C.holder.rank != "Moderator")
+			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
 				if(!C.holder.fakekey)
 					msg += "\t[C] is a [C.holder.rank]\n"
 					num_admins_online++
+			else
+				num_mods_online++
 
-	msg += "<b>There are [num_admins_online] administrators online</b>\n"
+	msg = "<b>Current Admins ([num_admins_online]):</b>\n" + msg
+	msg += "<b>There are also [num_mods_online] moderators online.</b> To view online moderators, type 'modwho'\n"
 	src << msg
 
 /client/verb/modwho()
 	set category = "Admin"
 	set name = "Modwho"
 
-	var/msg = "<b>Current Moderators:</b>\n"
+	var/msg = ""
+	var/num_admins_online = 0
 	var/num_mods_online = 0
 	if(holder)
 		for(var/client/C in admins)
-			if(C.holder.rank == "Moderator")
+			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
+				num_admins_online++
+			else
 				msg += "\t[C] is a [C.holder.rank]"
 
 				if(isobserver(C.mob))
@@ -118,9 +111,11 @@ proc/get_all_admin_clients()
 				num_mods_online++
 	else
 		for(var/client/C in admins)
-			if(C.holder.rank == "Moderator")
+			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
+				num_admins_online++
+			else
 				msg += "\t[C] is a [C.holder.rank]\n"
-				num_mods_online++
 
-	msg += "<b>There are [num_mods_online] moderators online</b>\n"
+	msg = "<b>Current Moderators ([num_mods_online]):</b>\n" + msg
+	msg += "<b>There are also [num_admins_online] admins online.</b> To view online admins, type 'adminwho'\n"
 	src << msg
