@@ -580,9 +580,9 @@
 
 /datum/organ/external/get_icon(gender="")
 	if (status & ORGAN_MUTATED)
-		return new /icon(owner.deform_icon, "[icon_name][gender ? "[gender]" : ""]")
+		return new /icon(owner.deform_icon, "[icon_name]_[gender]")
 	else
-		return new /icon(owner.race_icon, "[icon_name][gender ? "[gender]" : ""]")
+		return new /icon(owner.race_icon, "[icon_name]_[gender]")
 
 
 /datum/organ/external/proc/is_usable()
@@ -685,16 +685,6 @@
 	min_broken_damage = 40
 	body_part = HEAD
 	var/disfigured = 0
-
-/datum/organ/external/head/get_icon()
-	if (!owner)
-	 return ..()
-	var/g = "m"
-	if(owner.gender == FEMALE)	g = "f"
-	if (status & ORGAN_MUTATED)
-		. = new /icon(owner.deform_icon, "[icon_name]_[g]")
-	else
-		. = new /icon(owner.race_icon, "[icon_name]_[g]")
 
 /datum/organ/external/head/take_damage(brute, burn, sharp, used_weapon = null, list/forbidden_limbs = list())
 	..(brute, burn, sharp, used_weapon, forbidden_limbs)

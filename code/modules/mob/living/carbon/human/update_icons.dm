@@ -250,11 +250,7 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 	for(var/datum/organ/external/part in organs)
 		if(!istype(part, /datum/organ/external/chest) && !(part.status & ORGAN_DESTROYED))
-			var/icon/temp
-			if (istype(part, /datum/organ/external/groin) || istype(part, /datum/organ/external/head))
-				temp = part.get_icon(g)
-			else
-				temp = part.get_icon()
+			var/icon/temp = part.get_icon(g)
 
 			if(part.status & ORGAN_ROBOT)
 				temp.GrayScale()
