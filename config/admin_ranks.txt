@@ -29,12 +29,15 @@
 
 Admin Observer
 Moderator		+MOD
-Admin Candidate		+ADMIN +SPAWN
-Trial Admin		+@ +REJUV +VAREDIT +BAN
-Badmin			+@ +STEALTH +POSSESS +BUILDMODE +SERVER +FUN +EVENTS +SOUND
-Game Admin		+@ +SOUNDS +DEBUG
+Admin Candidate		+ADMIN
+Trial Admin		+@ +SPAWN +REJUV +VAREDIT +BAN
+Badmin			+@ +STEALTH +POSSESS +BUILDMODE +SERVER +FUN +EVENTS +SOUNDS
+Game Admin		+@ +DEBUG +PERMISSIONS
 Game Master		+EVERYTHING
+Head Admin		+EVERYTHING
+Retired Admin		+ADMIN +STEALTH
 
 Host			+EVERYTHING
 
-Coder			+DEBUG +VAREDIT +SERVER +SPAWN
+Developer		+DEBUG +VAREDIT +SERVER +SPAWN +REJUV +POSSESS +BUILDMODE
+Dev Mod			+@ +MOD

@@ -38,7 +38,6 @@
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear")
 
-
 /obj/item/weapon/storage/bag/trash/update_icon()
 	if(contents.len == 0)
 		icon_state = "trashbag0"
@@ -47,22 +46,6 @@
 	else if(contents.len < 21)
 		icon_state = "trashbag2"
 	else icon_state = "trashbag3"
-
-// -----------------------------
-//        Mining Satchel
-// -----------------------------
-
-/obj/item/weapon/storage/bag/ore
-	name = "Mining Satchel"
-	desc = "This little bugger can be used to store and transport ores."
-	icon = 'icons/obj/mining.dmi'
-	icon_state = "satchel"
-	slot_flags = SLOT_BELT | SLOT_POCKET
-	w_class = 3
-	storage_slots = 50
-	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
-	max_w_class = 3
-	can_hold = list("/obj/item/weapon/ore")
 
 
 // -----------------------------
@@ -81,6 +64,23 @@
 	storage_slots = 21
 	can_hold = list() // any
 	cant_hold = list("/obj/item/weapon/disk/nuclear")
+
+// -----------------------------
+//        Mining Satchel
+// -----------------------------
+
+/obj/item/weapon/storage/bag/ore
+	name = "Mining Satchel"
+	desc = "This little bugger can be used to store and transport ores."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "satchel"
+	slot_flags = SLOT_BELT | SLOT_POCKET
+	w_class = 3
+	storage_slots = 50
+	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * ore.w_class
+	max_w_class = 3
+	can_hold = list("/obj/item/weapon/ore")
+
 
 // -----------------------------
 //          Plant bag

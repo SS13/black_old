@@ -23,7 +23,7 @@
 										"diamond"=0,
 										"plasma"=0,
 										"uranium"=0,
-										"bananium"=0
+										//"bananium"=0 No need to state what it can no longer hold
 										)
 	var/res_max_amount = 200000
 	var/datum/research/files
@@ -37,14 +37,20 @@
 	var/opened = 0
 	var/temp
 	var/list/part_sets = list( //set names must be unique
-	"Cyborg"=list(
+	"Robot"=list(
 						/obj/item/robot_parts/robot_suit,
 						/obj/item/robot_parts/chest,
 						/obj/item/robot_parts/head,
 						/obj/item/robot_parts/l_arm,
 						/obj/item/robot_parts/r_arm,
 						/obj/item/robot_parts/l_leg,
-						/obj/item/robot_parts/r_leg
+						/obj/item/robot_parts/r_leg,
+						/obj/item/robot_parts/robot_component/binary_communication_device,
+						/obj/item/robot_parts/robot_component/radio,
+						/obj/item/robot_parts/robot_component/actuator,
+						/obj/item/robot_parts/robot_component/diagnosis_unit,
+						/obj/item/robot_parts/robot_component/camera,
+						/obj/item/robot_parts/robot_component/armour
 					),
 	"Ripley"=list(
 						/obj/item/mecha_parts/chassis/ripley,
@@ -84,7 +90,7 @@
 						/obj/item/mecha_parts/part/durand_right_leg,
 						/obj/item/mecha_parts/part/durand_armour
 					),
-	"H.O.N.K"=list(
+	/*"H.O.N.K"=list(
 						/obj/item/mecha_parts/chassis/honker,
 						/obj/item/mecha_parts/part/honker_torso,
 						/obj/item/mecha_parts/part/honker_head,
@@ -92,7 +98,7 @@
 						/obj/item/mecha_parts/part/honker_right_arm,
 						/obj/item/mecha_parts/part/honker_left_leg,
 						/obj/item/mecha_parts/part/honker_right_leg
-						),
+						), No need for HONK stuff*/
 	"Exosuit Equipment"=list(
 						/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp,
 						/obj/item/mecha_parts/mecha_equipment/tool/drill,
@@ -106,12 +112,12 @@
 						///obj/item/mecha_parts/mecha_equipment/jetpack, //TODO MECHA JETPACK SPRITE MISSING
 						/obj/item/mecha_parts/mecha_equipment/weapon/energy/taser,
 						/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/lmg,
-						/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar,
-						/obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar,
-						/obj/item/mecha_parts/mecha_equipment/weapon/honker
+						///obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/mousetrap_mortar, HONK-related mech part
+						///obj/item/mecha_parts/mecha_equipment/weapon/ballistic/missile_rack/banana_mortar, Also HONK-related
+						///obj/item/mecha_parts/mecha_equipment/weapon/honker Thirdly HONK-related
 						),
 
-	"Cyborg Upgrade Modules" = list(
+	"Robotic Upgrade Modules" = list(
 						/obj/item/borg/upgrade/reset,
 						/obj/item/borg/upgrade/rename,
 						/obj/item/borg/upgrade/restart,
@@ -368,7 +374,7 @@
 	src.desc = initial(src.desc)
 	if(being_built)
 		src.being_built.Move(get_step(src,SOUTH))
-		src.visible_message("\icon[src] <b>[src]</b> beeps, \"The [src.being_built] is complete\".")
+		src.visible_message("\icon[src] <b>[src]</b> beeps, \"The following has been completed: [src.being_built] is built\".")
 		src.being_built = null
 	src.updateUsrDialog()
 	return 1
@@ -550,7 +556,7 @@
 		switch(screen)
 			if("main")
 				left_part = output_available_resources()+"<hr>"
-				left_part += "<a href='?src=\ref[src];sync=1'>Sync with R&D servers</a> | <a href='?src=\ref[src];auto_sync=1'>[sync?"Dis":"En"]able auto sync</a><hr>"
+				left_part += "<a href='?src=\ref[src];sync=1'>Sync with R&D servers</a><hr>"
 				for(var/part_set in part_sets)
 					left_part += "<a href='?src=\ref[src];part_set=[part_set]'>[part_set]</a> - \[<a href='?src=\ref[src];partset_to_queue=[part_set]'>Add all parts to queue\]<br>"
 			if("parts")
@@ -646,9 +652,6 @@
 		queue = list()
 		src.sync()
 		return update_queue_on_page()
-	if(href_list["auto_sync"])
-		src.sync = !src.sync
-		//pr_auto_sync.toggle()
 	if(href_list["part_desc"])
 		var/obj/part = filter.getObj("part_desc")
 		if(part)
@@ -659,14 +662,6 @@
 	if(href_list["remove_mat"] && href_list["material"])
 		temp = "Ejected [remove_material(href_list["material"],text2num(href_list["remove_mat"]))] of [href_list["material"]]<br><a href='?src=\ref[src];clear_temp=1'>Return</a>"
 	src.updateUsrDialog()
-	return
-
-/obj/machinery/mecha_part_fabricator/process()
-	if (stat & (NOPOWER|BROKEN))
-		return
-	if(sync)
-		spawn(-1)
-			sync(1)
 	return
 
 /obj/machinery/mecha_part_fabricator/proc/remove_material(var/mat_string, var/amount)
@@ -686,8 +681,8 @@
 			type = /obj/item/stack/sheet/mineral/plasma
 		if("uranium")
 			type = /obj/item/stack/sheet/mineral/uranium
-		if("bananium")
-			type = /obj/item/stack/sheet/mineral/clown
+		/*if("bananium")
+			type = /obj/item/stack/sheet/mineral/clown Sorry, but no more clown mechs, even if you do manage to get to the clown planet.*/
 		else
 			return 0
 	var/result = 0
@@ -745,9 +740,9 @@
 			if(src.resources["diamond"] >= 2000)
 				var/obj/item/stack/sheet/mineral/diamond/G = new /obj/item/stack/sheet/mineral/diamond(src.loc)
 				G.amount = round(src.resources["diamond"] / G.perunit)
-			if(src.resources["bananium"] >= 2000)
+			/*if(src.resources["bananium"] >= 2000)
 				var/obj/item/stack/sheet/mineral/clown/G = new /obj/item/stack/sheet/mineral/clown(src.loc)
-				G.amount = round(src.resources["bananium"] / G.perunit)
+				G.amount = round(src.resources["bananium"] / G.perunit) Sorry, but no bananium allowed*/
 			del(src)
 			return 1
 		else
@@ -771,8 +766,8 @@
 			material = "metal"
 		if(/obj/item/stack/sheet/glass)
 			material = "glass"
-		if(/obj/item/stack/sheet/mineral/clown)
-			material = "bananium"
+		/*if(/obj/item/stack/sheet/mineral/clown)
+			material = "bananium"*/
 		if(/obj/item/stack/sheet/mineral/uranium)
 			material = "uranium"
 		else

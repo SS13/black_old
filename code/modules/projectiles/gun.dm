@@ -22,7 +22,6 @@
 	var/recoil = 0
 	var/ejectshell = 1
 	var/clumsy_check = 1
-
 	var/tmp/list/mob/living/target //List of who yer targeting.
 	var/tmp/lock_time = -100
 	var/tmp/mouthshoot = 0 ///To stop people from suiciding twice... >.>
@@ -37,7 +36,6 @@
 
 	proc/special_check(var/mob/M) //Placeholder for any special checks, like detective's revolver.
 		return 1
-
 
 	emp_act(severity)
 		for(var/obj/O in contents)
@@ -145,13 +143,19 @@
 	else
 		user.update_inv_r_hand()
 
+/obj/item/weapon/gun/proc/can_fire()
+	return load_into_chamber()
+
+/obj/item/weapon/gun/proc/can_hit(var/mob/living/target as mob, var/mob/living/user as mob)
+	return in_chamber.check_fire(target,user)
+
 /obj/item/weapon/gun/proc/click_empty(mob/user = null)
 	if (user)
 		user.visible_message("*click click*", "\red <b>*click*</b>")
-		playsound(user, 'sound/weapons/Dry_Fire.ogg', 100, 1)
+		playsound(user, 'sound/weapons/empty.ogg', 100, 1)
 	else
 		src.visible_message("*click click*")
-		playsound(src.loc, 'sound/weapons/Dry_Fire.ogg', 100, 1)
+		playsound(src.loc, 'sound/weapons/empty.ogg', 100, 1)
 
 /obj/item/weapon/gun/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
 	//Suicide handling.
@@ -163,7 +167,7 @@
 			mouthshoot = 0
 			return
 		if (load_into_chamber())
-			user.visible_message("<span class = 'warning'>[user] pulls the trigger. Ow.</span>")
+			user.visible_message("<span class = 'warning'>[user] pulls the trigger.</span>")
 			if(silenced)
 				playsound(user, fire_sound, 10, 1)
 			else
@@ -171,8 +175,10 @@
 			in_chamber.on_hit(M)
 			if (!in_chamber.nodamage)
 				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]")
+				user.death()
 			else
-				user << "<span class = 'notice'>You feel dumb for trying this...</span>"
+				user << "<span class = 'notice'>Ow...</span>"
+				user.apply_effect(110,AGONY,0)
 			del(in_chamber)
 			mouthshoot = 0
 			return

@@ -1,15 +1,3 @@
-var/list/posibrain_candidate()
-
-/mob/dead/observer/proc/ask_posibrain()
-	spawn(0)
-	if(!src)	return
-	var/response = alert(src, "Someone is requesting a personality for a positronic brain. Would you like to play as one?", "Positronic brain request", "Yes", "No", "Never for this round")
-	if(!src)	return
-	if(response == "Yes")
-		posibrain_candidate += src
-	else if (response == "Never for this round")
-		src.client.prefs.be_special ^= BE_PAI
-
 /obj/item/device/mmi/posibrain
 	name = "positronic brain"
 	desc = "A cube of shining metal, four inches to a side and covered in shallow grooves."
@@ -27,35 +15,8 @@ var/list/posibrain_candidate()
 	locked = 0
 	mecha = null//This does not appear to be used outside of reference in mecha.dm.
 
+
 	attack_self(mob/user as mob)
-		src.clear_candidate()
-		if(!posibrain_candidate)
-			var/turf/T = get_turf_or_move(src.loc)
-			for (var/mob/M in viewers(T))
-				M.show_message("\blue You carefully locate the manual activation switch and start the positronic brain's boot process.")
-			searching = 1
-			icon_state = "posibrain-searching"
-
-			for (var/mob/dead/observer/O in world)
-				if (jobban_isbanned(O, "cyborg"))
-					continue
-				O.ask_posibrain()
-
-			spawn (600)
-			src.searching = 0
-			icon_state = "posibrain"
-			for (var/mob/M in viewers(T))
-				M.show_message("\blue The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?")
-		else
-			transfer_personality(pick(posibrain_candidate))
-
-	proc/clear_candidate()
-		for (var/mob/dead/observer/O in posibrain_candidate)
-			if(!istype(O) || !O.client || jobban_isbanned(O, "cyborg"))
-				posibrain_candidate -= O
-
-
-/*	attack_self(mob/user as mob)
 		if(brainmob && !brainmob.key && searching == 0)
 			//Start the process of searching for a new user.
 			user << "\blue You carefully locate the manual activation switch and start the positronic brain's boot process."
@@ -76,32 +37,19 @@ var/list/posibrain_candidate()
 		spawn(0)
 			if(!C)	return
 			var/response = alert(C, "Someone is requesting a personality for a positronic brain. Would you like to play as one?", "Positronic brain request", "Yes", "No", "Never for this round")
-			if(!C || brainmob.key)	return		//handle logouts that happen whilst the alert is waiting for a response, and responses issued after a brain has been located.
+			if(!C || brainmob.key || 0 == searching)	return		//handle logouts that happen whilst the alert is waiting for a response, and responses issued after a brain has been located.
 			if(response == "Yes")
 				transfer_personality(C.mob)
 			else if (response == "Never for this round")
 				C.prefs.be_special ^= BE_PAI
 
-	proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
-
-		if(src.brainmob && src.brainmob.key) return
-
-		src.searching = 0
-		icon_state = "posibrain"
-
-		var/turf/T = get_turf_or_move(src.loc)
-		for (var/mob/M in viewers(T))
-			M.show_message("\blue The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?")
-*/
-
 
 
 	proc/transfer_personality(var/mob/candidate)
 
-		posibrain_candidate -= candidate
 		src.searching = 0
 		src.brainmob.mind = candidate.mind
-		src.brainmob.key = candidate.key
+		//src.brainmob.key = candidate.key
 		src.brainmob.ckey = candidate.ckey
 		src.name = "positronic brain ([src.brainmob.name])"
 
@@ -115,6 +63,17 @@ var/list/posibrain_candidate()
 		for (var/mob/M in viewers(T))
 			M.show_message("\blue The positronic brain chimes quietly.")
 		icon_state = "posibrain-occupied"
+
+	proc/reset_search() //We give the players sixty seconds to decide, then reset the timer.
+
+		if(src.brainmob && src.brainmob.key) return
+
+		src.searching = 0
+		icon_state = "posibrain"
+
+		var/turf/T = get_turf_or_move(src.loc)
+		for (var/mob/M in viewers(T))
+			M.show_message("\blue The positronic brain buzzes quietly, and the golden lights fade away. Perhaps you could try again?")
 
 /obj/item/device/mmi/posibrain/examine()
 

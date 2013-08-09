@@ -1,5 +1,5 @@
 #define SAVEFILE_VERSION_MIN	8
-#define SAVEFILE_VERSION_MAX	8
+#define SAVEFILE_VERSION_MAX	10
 
 //handles converting savefiles to new formats
 //MAKE SURE YOU KEEP THIS UP TO DATE!
@@ -79,7 +79,6 @@
 	S["UI_style"]			<< UI_style
 	S["be_special"]			<< be_special
 	S["default_slot"]		<< default_slot
-	S["disabilities"]    	<< disabilities
 	S["toggles"]			<< toggles
 
 	return 1
@@ -104,6 +103,7 @@
 	S["gender"]				>> gender
 	S["age"]				>> age
 	S["species"]			>> species
+	S["language"]			>> language
 
 	//colors to be consolidated into hex strings (requires some work with dna code)
 	S["hair_red"]			>> r_hair
@@ -123,7 +123,7 @@
 	S["b_type"]				>> b_type
 
 	//Jobs
-	S["userandomjob"]		>> userandomjob
+	S["alternate_option"]	>> alternate_option
 	S["job_civilian_high"]	>> job_civilian_high
 	S["job_civilian_med"]	>> job_civilian_med
 	S["job_civilian_low"]	>> job_civilian_low
@@ -153,6 +153,7 @@
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name)
 	if(isnull(species)) species = "Human"
+	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(!real_name) real_name = random_name()
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
@@ -174,7 +175,7 @@
 	backbag			= sanitize_integer(backbag, 1, backbaglist.len, initial(backbag))
 	b_type			= sanitize_text(b_type, initial(b_type))
 
-	userandomjob	= sanitize_integer(userandomjob, 0, 1, initial(userandomjob))
+	alternate_option = sanitize_integer(alternate_option, 0, 2, initial(alternate_option))
 	job_civilian_high = sanitize_integer(job_civilian_high, 0, 65535, initial(job_civilian_high))
 	job_civilian_med = sanitize_integer(job_civilian_med, 0, 65535, initial(job_civilian_med))
 	job_civilian_low = sanitize_integer(job_civilian_low, 0, 65535, initial(job_civilian_low))
@@ -207,6 +208,7 @@
 	S["gender"]				<< gender
 	S["age"]				<< age
 	S["species"]			<< species
+	S["language"]			<< language
 	S["hair_red"]			<< r_hair
 	S["hair_green"]			<< g_hair
 	S["hair_blue"]			<< b_hair
@@ -224,7 +226,7 @@
 	S["b_type"]				<< b_type
 
 	//Jobs
-	S["userandomjob"]		<< userandomjob
+	S["alternate_option"]	<< alternate_option
 	S["job_civilian_high"]	<< job_civilian_high
 	S["job_civilian_med"]	<< job_civilian_med
 	S["job_civilian_low"]	<< job_civilian_low
@@ -241,6 +243,7 @@
 	S["sec_record"]			<< sec_record
 	S["player_alt_titles"]		<< player_alt_titles
 	S["be_special"]			<< be_special
+	S["disabilities"]		<< disabilities
 	S["used_skillpoints"]	<< used_skillpoints
 	S["skills"]				<< skills
 	S["skill_specialization"] << skill_specialization

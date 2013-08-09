@@ -51,7 +51,7 @@
 	//This list tracks characters spawned in the world and cannot be modified in-game. Currently referenced by respawn_character().
 	var/locked[] = list()
 
-	proc/get_manifest(monochrome)
+	proc/get_manifest(monochrome, OOC)
 		var/list/heads = new()
 		var/list/sec = new()
 		var/list/eng = new()
@@ -70,7 +70,7 @@
 			.manifest td:first-child {text-align:right}
 			.manifest tr.alt td {[monochrome?"border-top-width: 2px":"background-color: #DEF"]}
 		</style></head>
-		<table class="manifest">
+		<table class="manifest" width='350px'>
 		<tr class='head'><th>Name</th><th>Rank</th><th>Activity</th></tr>
 		"}
 		var/even = 0
@@ -80,42 +80,43 @@
 			var/name = t.fields["name"]
 			var/rank = t.fields["rank"]
 			var/real_rank = t.fields["real_rank"]
-
-			var/active = 0
-			for(var/mob/M in player_list) if(M.name == name)
-				// For dead ones, have a chance to get their status wrong
-				if(M.stat == 2)
-					active = M.x % 2 // Should be good enough, avoids their status flipping constantly
-					break
-				else if(M.client && M.client.inactivity <= 10 * 60 * 10)
-					active = 1
-					break
-			isactive[name] = active ? "Active" : "SSD"
+			if(OOC)
+				var/active = 0
+				for(var/mob/M in player_list)
+					if(M.real_name == name && M.client && M.client.inactivity <= 10 * 60 * 10)
+						active = 1
+						break
+				isactive[name] = active ? "Active" : "Inactive"
+			else
+				isactive[name] = t.fields["p_stat"]
 
 			//world << "[name]: [rank]"
 
+			//cael - to prevent multiple appearances of a player/job combination, add a continue after each line
+			var/department = 0
 			if(real_rank in command_positions)
 				heads[name] = rank
+				department = 1
 			if(real_rank in security_positions)
 				sec[name] = rank
-				continue
+				department = 1
 			if(real_rank in engineering_positions)
 				eng[name] = rank
-				continue
+				department = 1
 			if(real_rank in medical_positions)
 				med[name] = rank
-				continue
+				department = 1
 			if(real_rank in science_positions)
 				sci[name] = rank
-				continue
+				department = 1
 			if(real_rank in civilian_positions)
 				civ[name] = rank
-				continue
+				department = 1
 			if(real_rank in nonhuman_positions)
 				bot[name] = rank
-				continue
+				department = 1
 
-			if(!(name in heads))
+			if(!department && !(name in heads))
 				misc[name] = rank
 
 		if(heads.len > 0)

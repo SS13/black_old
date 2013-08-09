@@ -63,7 +63,6 @@
 	src.stat = DEAD
 	src.icon_dead = "mouse_[color]_splat"
 	src.icon_state = "mouse_[color]_splat"
-	src.use_me = 0
 	if(client)
 		client.time_died_as_mouse = world.time
 

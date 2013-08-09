@@ -144,13 +144,15 @@ datum/preferences
 				icobase = 'icons/mob/human_races/r_lizard.dmi'
 			if("Skrell")
 				icobase = 'icons/mob/human_races/r_skrell.dmi'
+			if("Vox")
+				icobase = 'icons/mob/human_races/r_vox.dmi'
 			else
 				icobase = 'icons/mob/human_races/r_human.dmi'
 		preview_icon = new /icon(icobase, "torso_[g]")
 		preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
 		preview_icon.Blend(new /icon(icobase, "head_[g]"), ICON_OVERLAY)
 
-		for(var/name in list("l_arm[g]","r_arm[g]","l_leg[g]","r_leg[g]","l_foot[g]","r_foot[g]","l_hand[g]","r_hand[g]"))
+		for(var/name in list("l_arm_[g]","r_arm_[g]","l_leg_[g]","r_leg_[g]","l_foot_[g]","r_foot_[g]","l_hand_[g]","r_hand_[g]"))
 			// make sure the organ is added to the list so it's drawn
 			if(organ_data[name] == null)
 				organ_data[name] = null
@@ -172,6 +174,9 @@ datum/preferences
 				preview_icon.Blend(rgb(-s_tone,  -s_tone,  -s_tone), ICON_SUBTRACT)
 
 		var/icon/eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "eyes_s")
+		if(species=="Vox")
+			eyes_s = new/icon("icon" = 'icons/mob/human_face.dmi', "icon_state" = "vox_eyes_s")
+
 		eyes_s.Blend(rgb(r_eyes, g_eyes, b_eyes), ICON_ADD)
 
 		var/datum/sprite_accessory/hair_style = hair_styles_list[h_style]
@@ -423,6 +428,19 @@ datum/preferences
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-vir"), ICON_OVERLAY)
 						if(4)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
+				if(ROBOTICIST)
+					clothes_s = new /icon('icons/mob/uniform.dmi', "robotics_s")
+					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
+					clothes_s.Blend(new /icon('icons/mob/hands.dmi', "bgloves"), ICON_UNDERLAY)
+					clothes_s.Blend(new /icon('icons/mob/items_righthand.dmi', "toolbox_blue"), ICON_OVERLAY)
+					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
+					switch(backbag)
+						if(2)
+							clothes_s.Blend(new /icon('icons/mob/back.dmi', "backpack"), ICON_OVERLAY)
+						if(3)
+							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-norm"), ICON_OVERLAY)
+						if(4)
+							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
 		else if(job_engsec_high)
 			switch(job_engsec_high)
@@ -530,19 +548,7 @@ datum/preferences
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-norm"), ICON_OVERLAY)
 						if(4)
 							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
-				if(ROBOTICIST)
-					clothes_s = new /icon('icons/mob/uniform.dmi', "robotics_s")
-					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
-					clothes_s.Blend(new /icon('icons/mob/hands.dmi', "bgloves"), ICON_UNDERLAY)
-					clothes_s.Blend(new /icon('icons/mob/items_righthand.dmi', "toolbox_blue"), ICON_OVERLAY)
-					clothes_s.Blend(new /icon('icons/mob/suit.dmi', "labcoat_open"), ICON_OVERLAY)
-					switch(backbag)
-						if(2)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "backpack"), ICON_OVERLAY)
-						if(3)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel-norm"), ICON_OVERLAY)
-						if(4)
-							clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
+
 				if(AI)//Gives AI and borgs assistant-wear, so they can still customize their character
 					clothes_s = new /icon('icons/mob/uniform.dmi', "grey_s")
 					clothes_s.Blend(new /icon('icons/mob/feet.dmi', "black"), ICON_UNDERLAY)
@@ -559,7 +565,7 @@ datum/preferences
 						clothes_s.Blend(new /icon('icons/mob/back.dmi', "satchel"), ICON_OVERLAY)
 
 		if(disabilities & NEARSIGHTED)
-			clothes_s.Blend(new /icon('icons/mob/eyes.dmi', "glasses"), ICON_OVERLAY)
+			preview_icon.Blend(new /icon('icons/mob/eyes.dmi', "glasses"), ICON_OVERLAY)
 
 		preview_icon.Blend(eyes_s, ICON_OVERLAY)
 		if(clothes_s)

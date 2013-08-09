@@ -1,8 +1,6 @@
 /*
  * Paper
  * also scraps of paper
- *
- * lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
  */
 
 /obj/item/weapon/paper
@@ -32,6 +30,7 @@
 	var/const/signfont = "Times New Roman"
 	var/const/crayonfont = "Comic Sans MS"
 
+//lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
 
 /obj/item/weapon/paper/New()
 	..()
@@ -40,7 +39,7 @@
 	spawn(2)
 		update_icon()
 		updateinfolinks()
-
+		return
 
 /obj/item/weapon/paper/update_icon()
 	if(info)
@@ -48,11 +47,14 @@
 		return
 	icon_state = "paper"
 
-
 /obj/item/weapon/paper/examine()
 	set src in oview(1)
+
+//	..()	//We don't want them to see the dumb "this is a paper" thing every time.
+// I didn't like the idea that people can read tiny pieces of paper from across the room.
+// Now you need to be next to the paper in order to read it.
 	if(in_range(usr, src))
-		if( !(ishuman(usr) || isobserver(usr) || issilicon(usr)) )
+		if(!(istype(usr, /mob/living/carbon/human) || istype(usr, /mob/dead/observer) || istype(usr, /mob/living/silicon)))
 			usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[stars(info)][stamps]</BODY></HTML>", "window=[name]")
 			onclose(usr, "[name]")
 		else
@@ -60,21 +62,21 @@
 			onclose(usr, "[name]")
 	else
 		usr << "<span class='notice'>It is too far away.</span>"
-
+	return
 
 /obj/item/weapon/paper/verb/rename()
 	set name = "Rename paper"
 	set category = "Object"
 	set src in usr
 
-	if((CLUMSY in usr.mutations) && prob(25))
-		usr << "<span class='warning'>You cut yourself on the paper! Ahhhh! Ahhhhh!</span>"
-		usr.damageoverlaytemp = 9001
+	if((CLUMSY in usr.mutations) && prob(50))
+		usr << "<span class='warning'>You cut yourself on the paper.</span>"
 		return
 	var/n_name = copytext(sanitize(input(usr, "What would you like to label the paper?", "Paper Labelling", null)  as text), 1, MAX_NAME_LEN)
 	if((loc == usr && usr.stat == 0))
 		name = "paper[(n_name ? text("- '[n_name]'") : null)]"
 	add_fingerprint(usr)
+	return
 
 /obj/item/weapon/paper/attack_self(mob/living/user as mob)
 	examine()
@@ -86,8 +88,7 @@
 				spam_flag = 0
 	return
 
-
-/obj/item/weapon/paper/attack_ai(mob/living/silicon/ai/user)
+/obj/item/weapon/paper/attack_ai(var/mob/living/silicon/ai/user as mob)
 	var/dist
 	if(istype(user) && user.current) //is AI
 		dist = get_dist(src, user.current)
@@ -101,8 +102,7 @@
 		onclose(usr, "[name]")
 	return
 
-
-/obj/item/weapon/paper/proc/addtofield(id, text, links = 0)
+/obj/item/weapon/paper/proc/addtofield(var/id, var/text, var/links = 0)
 	var/locid = 0
 	var/laststart = 1
 	var/textindex = 1
@@ -113,8 +113,8 @@
 		else
 			istart = findtext(info, "<span class=\"paper_field\">", laststart)
 
-		if(istart == 0)
-			return	//No field found with matching id
+		if(istart==0)
+			return // No field found with matching id
 
 		laststart = istart+1
 		locid++
@@ -139,7 +139,6 @@
 		info = before + text + after
 		updateinfolinks()
 
-
 /obj/item/weapon/paper/proc/updateinfolinks()
 	info_links = info
 	var/i = 0
@@ -157,7 +156,7 @@
 	update_icon()
 
 
-/obj/item/weapon/paper/proc/parsepencode(t, obj/item/weapon/pen/P, mob/user, iscrayon = 0)
+/obj/item/weapon/paper/proc/parsepencode(var/t, var/obj/item/weapon/pen/P, mob/user as mob, var/iscrayon = 0)
 //	t = copytext(sanitize(t),1,MAX_MESSAGE_LEN)
 
 	t = replacetext(t, "\[center\]", "<center>")
@@ -199,7 +198,7 @@
 	var/laststart = 1
 	while(1)
 		var/i = findtext(t, "<span class=\"paper_field\">", laststart)
-		if(i == 0)
+		if(i==0)
 			break
 		laststart = i+1
 		fields++
@@ -207,7 +206,7 @@
 	return t
 
 
-/obj/item/weapon/paper/proc/openhelp(mob/user)
+/obj/item/weapon/paper/proc/openhelp(mob/user as mob)
 	user << browse({"<HTML><HEAD><TITLE>Pen Help</TITLE></HEAD>
 	<BODY>
 		<b><center>Crayon&Pen commands</center></b><br>
@@ -231,12 +230,12 @@
 
 /obj/item/weapon/paper/Topic(href, href_list)
 	..()
-	if(usr.stat || usr.restrained())
+	if(!usr || (usr.stat || usr.restrained()))
 		return
 
 	if(href_list["write"])
 		var/id = href_list["write"]
-		var/t =  strip_html_simple(input("Enter what you want to write:", "Write", null, null)  as message, MAX_MESSAGE_LEN)
+		var/t =  input("Enter what you want to write:", "Write", null, null)  as message
 		var/obj/item/i = usr.get_active_hand()	//Check to see if he still got that darn pen, also check if he's using a crayon or pen.
 		var/iscrayon = 0
 		if(!istype(i, /obj/item/weapon/pen))
@@ -244,9 +243,21 @@
 				return
 			iscrayon = 1
 
-		if(!in_range(src, usr) && loc != usr && !istype(loc, /obj/item/weapon/clipboard) && loc.loc != usr && usr.get_active_hand() != i)	//Some check to see if he's allowed to write
+
+		if((!in_range(src, usr) && loc != usr && !( istype(loc, /obj/item/weapon/clipboard) ) && loc.loc != usr && usr.get_active_hand() != i)) // Some check to see if he's allowed to write
 			return
 
+		t = checkhtml(t)
+
+		// check for exploits
+		for(var/bad in paper_blacklist)
+			if(findtext(t,bad))
+				usr << "\blue You think to yourself, \"Hm.. this is only paper...\""
+				log_admin("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
+				message_admins("PAPER: [usr] ([usr.ckey]) tried to use forbidden word in [src]: [bad].")
+				return
+
+		t = replacetext(t, "\n", "<BR>")
 		t = parsepencode(t, i, usr, iscrayon) // Encode everything from pencode to html
 
 		if(id!="end")
@@ -256,24 +267,28 @@
 			updateinfolinks()
 
 		usr << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]") // Update the window
+
 		update_icon()
 
 
-/obj/item/weapon/paper/attackby(obj/item/weapon/P, mob/user)
+/obj/item/weapon/paper/attackby(obj/item/weapon/P as obj, mob/user as mob)
 	..()
 	var/clown = 0
 	if(user.mind && (user.mind.assigned_role == "Clown"))
 		clown = 1
 
 	if(istype(P, /obj/item/weapon/pen) || istype(P, /obj/item/toy/crayon))
-		user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]")
+		if ( istype(P, /obj/item/weapon/pen/robopen) && P:mode == 2 )
+			P:RenamePaper(user,src)
+		else
+			user << browse("<HTML><HEAD><TITLE>[name]</TITLE></HEAD><BODY>[info_links][stamps]</BODY></HTML>", "window=[name]")
+		//openhelp(user)
 		return
-
 	else if(istype(P, /obj/item/weapon/stamp))
-		if(!in_range(src, usr) && loc != user && !istype(loc, /obj/item/weapon/clipboard) && loc.loc != user && user.get_active_hand() != P)
+		if((!in_range(src, usr) && loc != user && !( istype(loc, /obj/item/weapon/clipboard) ) && loc.loc != user && user.get_active_hand() != P))
 			return
 
-		stamps += (stamps == "" ? "<HR>" : "<BR>") + "<i>This paper has been stamped with the [P.name].</i>"
+		stamps += (stamps=="" ? "<HR>" : "<BR>") + "<i>This paper has been stamped with the [P.name].</i>"
 
 		var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
 		stampoverlay.pixel_x = rand(-2, 2)
@@ -296,11 +311,9 @@
 	add_fingerprint(user)
 	return
 
-
 /*
  * Premade paper
  */
-
 /obj/item/weapon/paper/Court
 	name = "paper- 'Judgement'"
 	info = "For crimes against the station, the offender is sentenced to:<BR>\n<BR>\n"
@@ -335,10 +348,10 @@
 	icon_state = "photo"
 	var/photo_id = 0.0
 	item_state = "paper"
+
 /obj/item/weapon/paper/sop
 	name = "paper- 'Standard Operating Procedure'"
 	info = "Alert Levels:<BR>\nBlue- Emergency<BR>\n\t1. Caused by fire<BR>\n\t2. Caused by manual interaction<BR>\n\tAction:<BR>\n\t\tClose all fire doors. These can only be opened by reseting the alarm<BR>\nRed- Ejection/Self Destruct<BR>\n\t1. Caused by module operating computer.<BR>\n\tAction:<BR>\n\t\tAfter the specified time the module will eject completely.<BR>\n<BR>\nEngine Maintenance Instructions:<BR>\n\tShut off ignition systems:<BR>\n\tActivate internal power<BR>\n\tActivate orbital balance matrix<BR>\n\tRemove volatile liquids from area<BR>\n\tWear a fire suit<BR>\n<BR>\n\tAfter<BR>\n\t\tDecontaminate<BR>\n\t\tVisit medical examiner<BR>\n<BR>\nToxin Laboratory Procedure:<BR>\n\tWear a gas mask regardless<BR>\n\tGet an oxygen tank.<BR>\n\tActivate internal atmosphere<BR>\n<BR>\n\tAfter<BR>\n\t\tDecontaminate<BR>\n\t\tVisit medical examiner<BR>\n<BR>\nDisaster Procedure:<BR>\n\tFire:<BR>\n\t\tActivate sector fire alarm.<BR>\n\t\tMove to a safe area.<BR>\n\t\tGet a fire suit<BR>\n\t\tAfter:<BR>\n\t\t\tAssess Damage<BR>\n\t\t\tRepair damages<BR>\n\t\t\tIf needed, Evacuate<BR>\n\tMeteor Shower:<BR>\n\t\tActivate fire alarm<BR>\n\t\tMove to the back of ship<BR>\n\t\tAfter<BR>\n\t\t\tRepair damage<BR>\n\t\t\tIf needed, Evacuate<BR>\n\tAccidental Reentry:<BR>\n\t\tActivate fire alrms in front of ship.<BR>\n\t\tMove volatile matter to a fire proof area!<BR>\n\t\tGet a fire suit.<BR>\n\t\tStay secure until an emergency ship arrives.<BR>\n<BR>\n\t\tIf ship does not arrive-<BR>\n\t\t\tEvacuate to a nearby safe area!"
-
 
 /obj/item/weapon/paper/crumpled
 	name = "paper scrap"
@@ -346,7 +359,6 @@
 
 /obj/item/weapon/paper/crumpled/update_icon()
 	return
-
 
 /obj/item/weapon/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"

@@ -1,12 +1,11 @@
 /obj/item/weapon/gun/projectile/detective
-	desc = "Large, singleshot handgun. This is a one-of-a-kind firearm, obviously made with love and skill. Uses .38-Special rounds."
-	name = "M1911"
-	icon_state = "detgun02"
+	desc = "A cheap Martian knock-off of a Smith & Wesson Model 10. Uses .38-Special rounds."
+	name = "revolver"
+	icon_state = "detective"
 	max_shells = 6
 	caliber = "38"
 	origin_tech = "combat=2;materials=2"
 	ammo_type = "/obj/item/ammo_casing/c38"
-	fire_sound = 'sound/weapons/gunshot_det.ogg'
 
 
 	special_check(var/mob/living/carbon/human/M)

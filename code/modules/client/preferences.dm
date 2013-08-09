@@ -14,12 +14,16 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"pAI candidate" = 1, // -- TLE                       // 7
 	"cultist" = IS_MODE_COMPILED("cult"),                // 8
 	"infested monkey" = IS_MODE_COMPILED("monkey"),      // 9
-	"space ninja" = "true",								 // 10
+	"ninja" = "true",									 // 10
 	"meme" = IS_MODE_COMPILED("meme"),					 // 11
 )
 
 var/const/MAX_SAVE_SLOTS = 10
 
+//used for alternate_option
+#define GET_RANDOM_JOB 0
+#define BE_ASSISTANT 1
+#define RETURN_TO_LOBBY 2
 
 datum/preferences
 	//doohickeys for savefiles
@@ -32,7 +36,6 @@ datum/preferences
 	var/muted = 0
 	var/last_ip
 	var/last_id
-
 
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
@@ -62,6 +65,7 @@ datum/preferences
 	var/g_eyes = 0						//Eye color
 	var/b_eyes = 0						//Eye color
 	var/species = "Human"
+	var/language = "None"				//Secondary language
 
 		//Mob preview
 	var/icon/preview_icon_front = null
@@ -80,9 +84,8 @@ datum/preferences
 	var/job_engsec_med = 0
 	var/job_engsec_low = 0
 
-		// Want randomjob if preferences already filled - Donkie
-	var/userandomjob = 1 //defaults to 1 for fewer assistants
-
+	//Keeps track of preferrence for not getting any wanted jobs
+	var/alternate_option = 0
 
 	var/used_skillpoints = 0
 	var/skill_specialization = null
@@ -250,11 +253,11 @@ datum/preferences
 		dat += "(<a href='?_src_=prefs;preference=all;task=random'>&reg;</A>)"
 		dat += "<br>"
 		dat += "Species: <a href='byond://?src=\ref[user];preference=species;task=input'>[species]</a><br>"
+		dat += "Secondary Language:<br><a href='byond://?src=\ref[user];preference=language;task=input'>[language]</a><br>"
 		dat += "Blood Type: <a href='byond://?src=\ref[user];preference=b_type;task=input'>[b_type]</a><br>"
 		dat += "Skin Tone: <a href='?_src_=prefs;preference=s_tone;task=input'>[-s_tone + 35]/220<br></a>"
 		//dat += "Skin pattern: <a href='byond://?src=\ref[user];preference=skin_style;task=input'>Adjust</a><br>"
 		dat += "Needs Glasses: <a href='?_src_=prefs;preference=disabilities'><b>[disabilities == 0 ? "No" : "Yes"]</b></a><br>"
-		//dat += "Disabilities: <a href=\"byond://?src=\ref[user];preference=disabilities;task=input;disabilities=-1\">Setup</a><br>"
 		dat += "Limbs: <a href='byond://?src=\ref[user];preference=limbs;task=input'>Adjust</a><br>"
 
 		//display limbs below
@@ -327,15 +330,15 @@ datum/preferences
 		dat += "<br>"
 
 		dat += "<br><b>Hair</b><br>"
-		dat += "<a href='byond://?src=\ref[user];preference=hair;task=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]\"><table style='display:inline;' bgcolor=\"#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]\"><tr><td>__</td></tr></table></font><br>"
-		dat += "Style: <a href='byond://?src=\ref[user];preference=h_style;task=input'>[h_style]</a><br>"
+		dat += "<a href='?_src_=prefs;preference=hair;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair, 2)]'><table style='display:inline;' bgcolor='#[num2hex(r_hair, 2)][num2hex(g_hair, 2)][num2hex(b_hair)]'><tr><td>__</td></tr></table></font> "
+		dat += " Style: <a href='?_src_=prefs;preference=h_style;task=input'>[h_style]</a><br>"
 
 		dat += "<br><b>Facial</b><br>"
-		dat += "<a href='byond://?src=\ref[user];preference=facial;task=input'> Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial, 2)]\"><table  style='display:inline;' bgcolor=\"#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial)]\"><tr><td>__</td></tr></table></font><br>"
-		dat += "Style: <a href='byond://?src=\ref[user];preference=f_style;task=input'>[f_style]</a><br>"
+		dat += "<a href='?_src_=prefs;preference=facial;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_facial, 2)][num2hex(g_facial, 2)][num2hex(b_facial)]'><tr><td>__</td></tr></table></font> "
+		dat += " Style: <a href='?_src_=prefs;preference=f_style;task=input'>[f_style]</a><br>"
 
 		dat += "<br><b>Eyes</b><br>"
-		dat += "<a href='byond://?src=\ref[user];preference=eyes;task=input'>Change Color</a> <font face=\"fixedsys\" size=\"3\" color=\"#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]\"><table  style='display:inline;' bgcolor=\"#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]\"><tr><td>__</td></tr></table></font>"
+		dat += "<a href='?_src_=prefs;preference=eyes;task=input'>Change Color</a> <font face='fixedsys' size='3' color='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes, 2)]'><table  style='display:inline;' bgcolor='#[num2hex(r_eyes, 2)][num2hex(g_eyes, 2)][num2hex(b_eyes)]'><tr><td>__</td></tr></table></font>"
 
 		dat += "<br><br>"
 		if(jobban_isbanned(user, "Syndicate"))
@@ -364,7 +367,7 @@ datum/preferences
 
 		user << browse(dat, "window=preferences;size=560x580")
 
-	proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Chief Engineer"), width = 550, height = 550)
+	proc/SetChoices(mob/user, limit = 16, list/splitJobs = list("Chief Medical Officer"), width = 550, height = 550)
 		if(!job_master)
 			return
 
@@ -436,14 +439,21 @@ datum/preferences
 			else
 				HTML += " <font color=red>\[NEVER]</font>"
 			if(job.alt_titles)
-				HTML += "</a><br> <a href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></td></tr>"
+				HTML += "</a></td></tr><tr bgcolor='[lastJob.selection_color]'><td width='60%' align='center'><a>&nbsp</a></td><td><a href=\"byond://?src=\ref[user];preference=job;task=alt_title;job=\ref[job]\">\[[GetPlayerAltTitle(job)]\]</a></td></tr>"
 			HTML += "</a></td></tr>"
 
 		HTML += "</td'></tr></table>"
 
 		HTML += "</center></table>"
 
-		HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=[userandomjob ? "green>Get random job if preferences unavailable" : "red>Be assistant if preference unavailable"]</font></a></u></center><br>"
+		switch(alternate_option)
+			if(GET_RANDOM_JOB)
+				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=green>Get random job if preferences unavailable</font></a></u></center><br>"
+			if(BE_ASSISTANT)
+				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=red>Be assistant if preference unavailable</font></a></u></center><br>"
+			if(RETURN_TO_LOBBY)
+				HTML += "<center><br><u><a href='?_src_=prefs;preference=job;task=random'><font color=purple>Return to lobby if preference unavailable</font></a></u></center><br>"
+
 		HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>\[Reset\]</a></center>"
 		HTML += "</tt>"
 
@@ -456,15 +466,15 @@ datum/preferences
 		HTML += "<tt><center>"
 		HTML += "<b>Choose disabilities</b><br>"
 
-		HTML += "Need Glasses? <a href=\"byond://?src=\ref[user];disabilities=0\">[disabilities & (1<<0) ? "Yes" : "No"]</a><br>"
-		HTML += "Seizures? <a href=\"byond://?src=\ref[user];disabilities=1\">[disabilities & (1<<1) ? "Yes" : "No"]</a><br>"
-		HTML += "Coughing? <a href=\"byond://?src=\ref[user];disabilities=2\">[disabilities & (1<<2) ? "Yes" : "No"]</a><br>"
-		HTML += "Tourettes/Twitching? <a href=\"byond://?src=\ref[user];disabilities=3\">[disabilities & (1<<3) ? "Yes" : "No"]</a><br>"
-		HTML += "Nervousness? <a href=\"byond://?src=\ref[user];disabilities=4\">[disabilities & (1<<4) ? "Yes" : "No"]</a><br>"
-		HTML += "Deafness? <a href=\"byond://?src=\ref[user];disabilities=5\">[disabilities & (1<<5) ? "Yes" : "No"]</a><br>"
+		HTML += "Need Glasses? <a href=\"byond://?src=\ref[user];preferences=1;disabilities=0\">[disabilities & (1<<0) ? "Yes" : "No"]</a><br>"
+		HTML += "Seizures? <a href=\"byond://?src=\ref[user];preferences=1;disabilities=1\">[disabilities & (1<<1) ? "Yes" : "No"]</a><br>"
+		HTML += "Coughing? <a href=\"byond://?src=\ref[user];preferences=1;disabilities=2\">[disabilities & (1<<2) ? "Yes" : "No"]</a><br>"
+		HTML += "Tourettes/Twitching? <a href=\"byond://?src=\ref[user];preferences=1;disabilities=3\">[disabilities & (1<<3) ? "Yes" : "No"]</a><br>"
+		HTML += "Nervousness? <a href=\"byond://?src=\ref[user];preferences=1;disabilities=4\">[disabilities & (1<<4) ? "Yes" : "No"]</a><br>"
+		HTML += "Deafness? <a href=\"byond://?src=\ref[user];preferences=1;disabilities=5\">[disabilities & (1<<5) ? "Yes" : "No"]</a><br>"
 
 		HTML += "<br>"
-		HTML += "<a href=\"byond://?src=\ref[user];disabilities=-2\">\[Done\]</a>"
+		HTML += "<a href=\"byond://?src=\ref[user];preferences=1;disabilities=-2\">\[Done\]</a>"
 		HTML += "</center></tt>"
 
 		user << browse(null, "window=preferences")
@@ -643,7 +653,12 @@ datum/preferences
 					ResetJobs()
 					SetChoices(user)
 				if("random")
-					userandomjob = !userandomjob
+					if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
+						alternate_option += 1
+					else if(alternate_option == RETURN_TO_LOBBY)
+						alternate_option = 0
+					else
+						return 0
 					SetChoices(user)
 				if ("alt_title")
 					var/datum/job/job = locate(href_list["job"])
@@ -780,6 +795,10 @@ datum/preferences
 							if(is_alien_whitelisted(user, "Skrell")) //Check for Skrell and admins
 								new_species += "Skrell"
 								whitelisted = 1
+							if(is_alien_whitelisted(user, "Vox")) //Check for Skrell and admins
+								new_species += "Vox"
+								whitelisted = 1
+
 
 							if(!whitelisted)
 								alert(user, "You cannot change your species as you need to be whitelisted. If you wish to be whitelisted contact an admin in-game, on the forums, or on IRC.")
@@ -787,6 +806,7 @@ datum/preferences
 							new_species += "Tajaran"
 							new_species += "Unathi"
 							new_species += "Skrell"
+							new_species += "Vox"
 						species = input("Please select a species", "Character Generation", null) in new_species
 
 						if(prev_species != species)
@@ -834,6 +854,32 @@ datum/preferences
 
 							s_tone = 0
 
+					if("language")
+						var/list/new_language = list("None")
+						var/language_whitelisted = 0
+						if(config.usealienwhitelist)
+							if(is_alien_whitelisted(user, "Language_Soghun"))
+								new_language += "Unathi"
+								language_whitelisted = 1
+							if(is_alien_whitelisted(user, "Language_Tajaran"))
+								new_language += "Tajaran"
+								language_whitelisted = 1
+							if(is_alien_whitelisted(user, "Language_Skrell"))
+								new_language += "Skrell"
+								language_whitelisted = 1
+							if(is_alien_whitelisted(user, "Language_Kidan"))
+								new_language += "Kidan"
+								language_whitelisted = 1
+
+							if(!language_whitelisted)
+								alert(user, "You cannot select a secondary language as you need to be whitelisted.  If you wish to enable a language, post in the Alien Whitelist forums.")
+
+						else
+							new_language += "Unathi"
+							new_language += "Tajaran"
+							new_language += "Skrell"
+							new_language += "Kidan"
+						language = input("Please select a secondary language", "Character Generation", null) in new_language
 
 					if("metadata")
 						var/new_metadata = input(user, "Enter any information you'd like others to see, such as Roleplay-preferences:", "Game Preference" , metadata)  as message|null
@@ -846,12 +892,12 @@ datum/preferences
 							b_type = new_b_type
 
 					if("hair")
-//						if(species == "Human" || species == "Unathi")
-						var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
-						if(new_hair)
-							r_hair = hex2num(copytext(new_hair, 2, 4))
-							g_hair = hex2num(copytext(new_hair, 4, 6))
-							b_hair = hex2num(copytext(new_hair, 6, 8))
+						if(species == "Human" || species == "Unathi")
+							var/new_hair = input(user, "Choose your character's hair colour:", "Character Preference") as color|null
+							if(new_hair)
+								r_hair = hex2num(copytext(new_hair, 2, 4))
+								g_hair = hex2num(copytext(new_hair, 4, 6))
+								b_hair = hex2num(copytext(new_hair, 6, 8))
 
 					if("h_style")
 						var/list/valid_hairstyles = list()
@@ -910,14 +956,11 @@ datum/preferences
 							b_eyes = hex2num(copytext(new_eyes, 6, 8))
 
 					if("s_tone")
-//						if(species != "Human")
-//							return
-//						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
-						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Intensity: 1-220 for humans or 20-70 for other species.)", "Character Preference")  as num|null
+						if(species != "Human")
+							return
+						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
 						if(new_s_tone)
-							if(species != "Human")
-								s_tone = 35 - max(min( round(new_s_tone), 70), 20)
-							else s_tone = 35 - max(min( round(new_s_tone), 220),1)
+							s_tone = 35 - max(min( round(new_s_tone), 220),1)
 
 					if("ooccolor")
 						var/new_ooccolor = input(user, "Choose your OOC colour:", "Game Preference") as color|null
@@ -1014,7 +1057,7 @@ datum/preferences
 						else
 							gender = MALE
 
-					if("disabilities")        //please note: current code only allows nearsightedness as a disability
+					if("disabilities")				//please note: current code only allows nearsightedness as a disability
 						disabilities = !disabilities//if you want to add actual disabilities, code that selects them should be here
 
 					if("hear_adminhelps")

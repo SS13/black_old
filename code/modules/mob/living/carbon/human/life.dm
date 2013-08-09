@@ -1,25 +1,25 @@
 //This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
 
 //NOTE: Breathing happens once per FOUR TICKS, unless the last breath fails. In which case it happens once per ONE TICK! So oxyloss healing is done once per 4 ticks while oxyloss damage is applied once per tick!
-#define HUMAN_MAX_OXYLOSS 2 //Defines how much oxyloss humans can get per tick. A tile with no air at all (such as space) applies this value, otherwise it's a percentage of it.
+#define HUMAN_MAX_OXYLOSS 1 //Defines how much oxyloss humans can get per tick. A tile with no air at all (such as space) applies this value, otherwise it's a percentage of it.
 #define HUMAN_CRIT_MAX_OXYLOSS ( (last_tick_duration) /5) //The amount of damage you'll get when in critical condition. We want this to be a 5 minute deal = 300s. There are 100HP to get through, so (1/3)*last_tick_duration per second. Breaths however only happen every 4 ticks.
 
-#define HEAT_DAMAGE_LEVEL_1 8 //Amount of damage applied when your body temperature just passes the 360.15k safety point
-#define HEAT_DAMAGE_LEVEL_2 16 //Amount of damage applied when your body temperature passes the 400K point
-#define HEAT_DAMAGE_LEVEL_3 24 //Amount of damage applied when your body temperature passes the 1000K point
+#define HEAT_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 360.15k safety point
+#define HEAT_DAMAGE_LEVEL_2 4 //Amount of damage applied when your body temperature passes the 400K point
+#define HEAT_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 1000K point
 
-#define COLD_DAMAGE_LEVEL_1 2 //Amount of damage applied when your body temperature just passes the 260.15k safety point
-#define COLD_DAMAGE_LEVEL_2 4 //Amount of damage applied when your body temperature passes the 200K point
-#define COLD_DAMAGE_LEVEL_3 8 //Amount of damage applied when your body temperature passes the 120K point
+#define COLD_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when your body temperature just passes the 260.15k safety point
+#define COLD_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when your body temperature passes the 200K point
+#define COLD_DAMAGE_LEVEL_3 3 //Amount of damage applied when your body temperature passes the 120K point
 
 //Note that gas heat damage is only applied once every FOUR ticks.
-#define HEAT_GAS_DAMAGE_LEVEL_1 8 //Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
-#define HEAT_GAS_DAMAGE_LEVEL_2 16 //Amount of damage applied when the current breath's temperature passes the 400K point
-#define HEAT_GAS_DAMAGE_LEVEL_3 24 //Amount of damage applied when the current breath's temperature passes the 1000K point
+#define HEAT_GAS_DAMAGE_LEVEL_1 2 //Amount of damage applied when the current breath's temperature just passes the 360.15k safety point
+#define HEAT_GAS_DAMAGE_LEVEL_2 4 //Amount of damage applied when the current breath's temperature passes the 400K point
+#define HEAT_GAS_DAMAGE_LEVEL_3 8 //Amount of damage applied when the current breath's temperature passes the 1000K point
 
-#define COLD_GAS_DAMAGE_LEVEL_1 2 //Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
-#define COLD_GAS_DAMAGE_LEVEL_2 4 //Amount of damage applied when the current breath's temperature passes the 200K point
-#define COLD_GAS_DAMAGE_LEVEL_3 8 //Amount of damage applied when the current breath's temperature passes the 120K point
+#define COLD_GAS_DAMAGE_LEVEL_1 0.5 //Amount of damage applied when the current breath's temperature just passes the 260.15k safety point
+#define COLD_GAS_DAMAGE_LEVEL_2 1.5 //Amount of damage applied when the current breath's temperature passes the 200K point
+#define COLD_GAS_DAMAGE_LEVEL_3 3 //Amount of damage applied when the current breath's temperature passes the 120K point
 
 /mob/living/carbon/human
 	var/oxygen_alert = 0
@@ -28,6 +28,7 @@
 	var/pressure_alert = 0
 	var/prev_gender = null // Debug for plural genders
 	var/temperature_alert = 0
+	var/in_stasis = 0
 
 
 /mob/living/carbon/human/Life()
@@ -59,8 +60,11 @@
 	life_tick++
 	var/datum/gas_mixture/environment = loc.return_air()
 
+	in_stasis = istype(loc, /obj/structure/closet/body_bag/cryobag) && loc:opened == 0
+	if(in_stasis) loc:used++
+
 	//No need to update all of these procs if the guy is dead.
-	if(stat != DEAD)
+	if(stat != DEAD && !in_stasis)
 		if(air_master.current_cycle%4==2 || failed_last_breath) 	//First, resolve location and get a breath
 			breathe() 				//Only try to take a breath every 4 ticks, unless suffocating
 
@@ -86,17 +90,19 @@
 
 		handle_virus_updates()
 
+		//stuff in the stomach
+		handle_stomach()
+
+		handle_shock()
+
+		handle_pain()
+
+		handle_medical_side_effects()
+
+	handle_stasis_bag()
+
 	//Handle temperature/pressure differences between body and environment
 	handle_environment(environment)
-
-	//stuff in the stomach
-	handle_stomach()
-
-	handle_shock()
-
-	handle_pain()
-
-	handle_medical_side_effects()
 
 	//Status updates, death etc.
 	handle_regular_status_updates()		//TODO: optimise ~Carn
@@ -131,7 +137,6 @@
 /mob/living/carbon/human
 
 	proc/handle_disabilities()
-
 		if (disabilities & EPILEPSY)
 			if ((prob(1) && paralysis < 1))
 				src << "\red You have a seizure!"
@@ -196,6 +201,16 @@
 				if(10 <= rn && rn <= 12) if(!lying)
 					src << "\red Your legs won't respond properly, you fall down."
 					lying = 1
+
+	proc/handle_stasis_bag()
+		// Handle side effects from stasis bag
+		if(in_stasis)
+			// First off, there's no oxygen supply, so the mob will slowly take brain damage
+			adjustBrainLoss(0.1)
+
+			// Next, the method to induce stasis has some adverse side-effects, manifesting
+			// as cloneloss
+			adjustCloneLoss(0.1)
 
 	proc/handle_mutations_and_radiation()
 		if(getFireLoss())
@@ -416,7 +431,9 @@
 		var/SA_para_min = 1
 		var/SA_sleep_min = 5
 		var/oxygen_used = 0
+		var/nitrogen_used = 0
 		var/breath_pressure = (breath.total_moles()*R_IDEAL_GAS_EQUATION*breath.temperature)/BREATH_VOLUME
+		var/vox_oxygen_max = 1 // For vox.
 
 		//Partial pressure of the O2 in our breath
 		var/O2_pp = (breath.oxygen/breath.total_moles())*breath_pressure
@@ -425,8 +442,10 @@
 		// And CO2, lets say a PP of more than 10 will be bad (It's a little less really, but eh, being passed out all round aint no fun)
 		var/CO2_pp = (breath.carbon_dioxide/breath.total_moles())*breath_pressure // Tweaking to fit the hacky bullshit I've done with atmo -- TLE
 		//var/CO2_pp = (breath.carbon_dioxide/breath.total_moles())*0.5 // The default pressure value
+		// Nitrogen, for Vox.
+		var/Nitrogen_pp = (breath.nitrogen/breath.total_moles())*breath_pressure
 
-		if(O2_pp < safe_oxygen_min)	// Too little oxygen
+		if(O2_pp < safe_oxygen_min && src.dna.mutantrace!="vox") 	// Too little oxygen
 			if(prob(20))
 				spawn(0) emote("gasp")
 			if(O2_pp > 0)
@@ -444,6 +463,20 @@
 			oxyloss += 5*ratio
 			oxygen_used = breath.oxygen*ratio/6
 			oxygen_alert = max(oxygen_alert, 1)*/
+		else if(Nitrogen_pp < safe_oxygen_min && src.dna.mutantrace=="vox")  //Vox breathe nitrogen, not oxygen.
+
+			if(prob(20))
+				spawn(0) emote("gasp")
+			if(Nitrogen_pp > 0)
+				var/ratio = safe_oxygen_min/Nitrogen_pp
+				adjustOxyLoss(min(5*ratio, HUMAN_MAX_OXYLOSS))
+				failed_last_breath = 1
+				nitrogen_used = breath.nitrogen*ratio/6
+			else
+				adjustOxyLoss(HUMAN_MAX_OXYLOSS)
+				failed_last_breath = 1
+			oxygen_alert = max(oxygen_alert, 1)
+
 		else								// We're in safe limits
 			failed_last_breath = 0
 			adjustOxyLoss(-5)
@@ -451,6 +484,7 @@
 			oxygen_alert = 0
 
 		breath.oxygen -= oxygen_used
+		breath.nitrogen -= nitrogen_used
 		breath.carbon_dioxide += oxygen_used
 
 		//CO2 does not affect failed_last_breath. So if there was enough oxygen in the air but too much co2, this will hurt you, but only once per 4 ticks, instead of once per tick.
@@ -474,6 +508,10 @@
 			if(reagents)
 				reagents.add_reagent("plasma", Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
 			toxins_alert = max(toxins_alert, 1)
+		else if(O2_pp > vox_oxygen_max && src.dna.mutantrace=="vox") //Oxygen is toxic to vox.
+			var/ratio = (breath.oxygen/vox_oxygen_max) * 1000
+			adjustToxLoss(Clamp(ratio, MIN_PLASMA_DAMAGE, MAX_PLASMA_DAMAGE))
+			toxins_alert = max(toxins_alert, 1)
 		else
 			toxins_alert = 0
 
@@ -490,8 +528,8 @@
 				SA.moles = 0
 
 		if( (abs(310.15 - breath.temperature) > 50) && !(COLD_RESISTANCE in mutations)) // Hot air hurts :(
-			if(status_flags & GODMODE)  return 1  //godmode
-			if(breath.temperature < 260.15)
+			if(status_flags & GODMODE)	return 1	//godmode
+			if(breath.temperature < 260.15 && dna.mutantrace != "vox") //Vox are resistant to cold.
 				if(prob(20))
 					src << "\red You feel your face freezing and an icicle forming in your lungs!"
 			else if(breath.temperature > 360.15)
@@ -502,10 +540,10 @@
 				if(-INFINITY to 120)
 					apply_damage(COLD_GAS_DAMAGE_LEVEL_3, BURN, "head", used_weapon = "Excessive Cold")
 					fire_alert = max(fire_alert, 1)
-				if(120 to 200)
+				if(120 to 200 && dna.mutantrace != "vox")  //Vox are resistant to cold.
 					apply_damage(COLD_GAS_DAMAGE_LEVEL_2, BURN, "head", used_weapon = "Excessive Cold")
 					fire_alert = max(fire_alert, 1)
-				if(200 to 260)
+				if(200 to 260 && dna.mutantrace != "vox")  //Vox are resistant to cold.
 					apply_damage(COLD_GAS_DAMAGE_LEVEL_1, BURN, "head", used_weapon = "Excessive Cold")
 					fire_alert = max(fire_alert, 1)
 				if(360 to 400)
@@ -559,7 +597,7 @@
 		if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
 			//Body temperature is too hot.
 			fire_alert = max(fire_alert, 1)
-			if(status_flags & GODMODE)  return 1  //godmode
+			if(status_flags & GODMODE)	return 1	//godmode
 			switch(bodytemperature)
 				if(360 to 400)
 					apply_damage(HEAT_DAMAGE_LEVEL_1, BURN, used_weapon = "High Body Temperature")
@@ -573,20 +611,16 @@
 
 		else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT)
 			fire_alert = max(fire_alert, 1)
-			if(status_flags & GODMODE)  return 1  //godmode
+			if(status_flags & GODMODE)	return 1	//godmode
 			if(!istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 				switch(bodytemperature)
 					if(200 to 260)
 						apply_damage(COLD_DAMAGE_LEVEL_1, BURN, used_weapon = "Low Body Temperature")
 						fire_alert = max(fire_alert, 1)
 					if(120 to 200)
-						if(prob(2))
-							freezemob(src)
 						apply_damage(COLD_DAMAGE_LEVEL_2, BURN, used_weapon = "Low Body Temperature")
 						fire_alert = max(fire_alert, 1)
 					if(-INFINITY to 120)
-						if(prob(10))
-							freezemob(src)
 						apply_damage(COLD_DAMAGE_LEVEL_3, BURN, used_weapon = "Low Body Temperature")
 						fire_alert = max(fire_alert, 1)
 
@@ -595,33 +629,35 @@
 
 		var/pressure = environment.return_pressure()
 		var/adjusted_pressure = calculate_affecting_pressure(pressure) //Returns how much pressure actually affects the mob.
-		if(status_flags & GODMODE)  return 1  //godmode
-		if(!freezed)
-			switch(adjusted_pressure)
-				if(HAZARD_HIGH_PRESSURE to INFINITY)
-					adjustBruteLoss( min( ( (adjusted_pressure / HAZARD_HIGH_PRESSURE) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) )
-					pressure_alert = 2
-					if(prob(10))
-						if(!istype(wear_mask,/obj/item/clothing/mask/gas) && !istype(head,/obj/item/clothing/head/helmet/space) && !istype(glasses,/obj/item/clothing/glasses/science))
-							sdisabilities |= BLIND
-							src << "You feel like your eyes start to break itself into your skull. you feel terrible pain and will never be able to see again..."
-				if(WARNING_HIGH_PRESSURE to HAZARD_HIGH_PRESSURE)
-					pressure_alert = 1
-					if(prob(2))
-						if(!istype(wear_mask,/obj/item/clothing/mask/gas) && !istype(head,/obj/item/clothing/head/helmet/space) && !istype(glasses,/obj/item/clothing/glasses/science))
-							sdisabilities |= BLIND
-							src << "You feel like your eyes start to break itself into your skull. you feel terrible pain and will never be able to see again..."
+		if(status_flags & GODMODE)	return 1	//godmode
+		switch(adjusted_pressure)
+			if(HAZARD_HIGH_PRESSURE to INFINITY)
+				adjustBruteLoss( min( ( (adjusted_pressure / HAZARD_HIGH_PRESSURE) -1 )*PRESSURE_DAMAGE_COEFFICIENT , MAX_HIGH_PRESSURE_DAMAGE) )
+				pressure_alert = 2
+				if(prob(10))
+					if(!istype(wear_mask,/obj/item/clothing/mask/gas) && !istype(head,/obj/item/clothing/head/helmet/space) && !istype(glasses,/obj/item/clothing/glasses/science))
+						sdisabilities |= BLIND
+						src << "You feel like your eyes start to break itself into your skull. you feel terrible pain and will never be able to see again..."
+			if(WARNING_HIGH_PRESSURE to HAZARD_HIGH_PRESSURE)
+				pressure_alert = 1
+				if(prob(2))
+					if(!istype(wear_mask,/obj/item/clothing/mask/gas) && !istype(head,/obj/item/clothing/head/helmet/space) && !istype(glasses,/obj/item/clothing/glasses/science))
+						sdisabilities |= BLIND
+						src << "You feel like your eyes start to break itself into your skull. you feel terrible pain and will never be able to see again..."
 
-				if(WARNING_LOW_PRESSURE to WARNING_HIGH_PRESSURE)
-					pressure_alert = 0
-				if(HAZARD_LOW_PRESSURE to WARNING_LOW_PRESSURE)
-					pressure_alert = -1
+			if(WARNING_LOW_PRESSURE to WARNING_HIGH_PRESSURE)
+				pressure_alert = 0
+			if(HAZARD_LOW_PRESSURE to WARNING_LOW_PRESSURE)
+				pressure_alert = -1
+			else
+				if( !(COLD_RESISTANCE in mutations) && src.dna.mutantrace!="vox") //Vox are resistant to pressure loss.
+					adjustBruteLoss( LOW_PRESSURE_DAMAGE )
+					pressure_alert = -2
 				else
-					if( !(COLD_RESISTANCE in mutations) )
-						adjustBruteLoss( LOW_PRESSURE_DAMAGE )
-						pressure_alert = -2
-					else
-						pressure_alert = -1
+					pressure_alert = -1
+
+		if(environment.toxins > MOLES_PLASMA_VISIBLE)
+			pl_effects()
 		return
 
 	/*
@@ -839,8 +875,7 @@
 		for(var/obj/item/I in src)
 			if(I.contaminated)
 				total_plasmaloss += vsc.plc.CONTAMINATION_LOSS
-
-		if(status_flags & GODMODE)  return 0  //godmode
+		if(status_flags & GODMODE)	return 0	//godmode
 		adjustToxLoss(total_plasmaloss)
 
 //		if(dna && dna.mutantrace == "plant") //couldn't think of a better place to place it, since it handles nutrition -- Urist
@@ -938,8 +973,10 @@
 			silent = 0
 		else				//ALIVE. LIGHTS ARE ON
 			updatehealth()	//TODO
-			handle_organs()
-			handle_blood()
+			if(!in_stasis)
+				handle_organs()
+				handle_blood()
+
 			if(health <= config.health_threshold_dead || brain_op_stage == 4.0)
 				death()
 				blinded = 1
@@ -978,30 +1015,37 @@
 					del a
 
 				if(halloss > 100)
-					src << "<span class='notice'>You're too tired to keep going...</span>"
+					src << "<span class='notice'>You're in too much pain to keep going...</span>"
 					for(var/mob/O in oviewers(src, null))
-						O.show_message("<B>[src]</B> slumps to the ground panting, too weak to continue fighting.", 1)
-					Paralyse(3)
+						O.show_message("<B>[src]</B> slumps to the ground, too weak to continue fighting.", 1)
+					Paralyse(10)
 					setHalLoss(99)
 
 			if(paralysis)
 				AdjustParalysis(-1)
 				blinded = 1
 				stat = UNCONSCIOUS
+				if(halloss > 0)
+					adjustHalLoss(-3)
 			else if(sleeping)
 				handle_dreams()
-				adjustHalLoss(-5)
+				adjustHalLoss(-3)
 				if (mind)
 					if((mind.active && client != null) || immune_to_ssd) //This also checks whether a client is connected, if not, sleep is not reduced.
 						sleeping = max(sleeping-1, 0)
 				blinded = 1
 				stat = UNCONSCIOUS
-				if( prob(10) && health && !hal_crit )
+				if( prob(2) && health && !hal_crit )
 					spawn(0)
 						emote("snore")
+			else if(resting)
+				if(halloss > 0)
+					adjustHalLoss(-3)
 			//CONSCIOUS
 			else
 				stat = CONSCIOUS
+				if(halloss > 0)
+					adjustHalLoss(-1)
 
 			//Eyes
 			if(sdisabilities & BLIND)	//disabled-blind, doesn't get better on its own
@@ -1056,7 +1100,7 @@
 
 		for(var/image/hud in client.images)
 			if(copytext(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
-				del(hud)
+				client.images.Remove(hud)
 
 		client.screen.Remove(global_hud.blurry, global_hud.druggy, global_hud.vimpaired, global_hud.darkMask)
 
@@ -1155,7 +1199,7 @@
 				see_in_dark = 8
 				if(!druggy)		see_invisible = SEE_INVISIBLE_LEVEL_TWO
 
-			if(seer)
+			if(seer==1)
 				var/obj/effect/rune/R = locate() in loc
 				if(R && R.word1 == cultwords["see"] && R.word2 == cultwords["hell"] && R.word3 == cultwords["join"])
 					see_invisible = SEE_INVISIBLE_OBSERVER
@@ -1219,7 +1263,7 @@
 						see_invisible = SEE_INVISIBLE_LIVING
 				else
 					see_invisible = SEE_INVISIBLE_LIVING
-			else
+			else if(!seer)
 				see_invisible = SEE_INVISIBLE_LIVING
 
 			if(healths)
@@ -1279,7 +1323,6 @@
 				if(blinded)		blind.layer = 18
 				else			blind.layer = 0
 
-
 			if(disabilities & NEARSIGHTED)	//this looks meh but saves a lot of memory by not requiring to add var/prescription
 				if(glasses)					//to every /obj/item
 					var/obj/item/clothing/glasses/G = glasses
@@ -1333,11 +1376,11 @@
 				playsound_local(src,pick(scarySounds),50, 1, -1)
 
 	proc/handle_virus_updates()
-		if(status_flags & GODMODE)  return 0  //godmode
+		if(status_flags & GODMODE)	return 0	//godmode
 		if(bodytemperature > 406)
 			for(var/datum/disease/D in viruses)
 				D.cure()
-			if(virus2)  virus2.cure(src)
+			if(virus2)	virus2.cure(src)
 		if(!virus2)
 			for(var/obj/effect/decal/cleanable/blood/B in view(1,src))
 				if(B.virus2 && get_infection_chance())
@@ -1383,8 +1426,7 @@
 
 	handle_shock()
 		..()
-
-		if(status_flags & GODMODE)  return 0  //godmode
+		if(status_flags & GODMODE)	return 0	//godmode
 		if(analgesic) return // analgesic avoids all traumatic shock temporarily
 
 		if(health < 0)// health 0 makes you immediately collapse

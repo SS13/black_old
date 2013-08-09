@@ -23,7 +23,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	//Secondary variables
 	var/scanmode = 0 //1 is medical scanner, 2 is forensics, 3 is reagent scanner.
 	var/fon = 0 //Is the flashlight function on?
-	var/f_lum = 4 //Luminosity for the flashlight function
+	var/f_lum = 2 //Luminosity for the flashlight function
 	var/silent = 0 //To beep or not to beep, that is the question
 	var/toff = 0 //If 1, messenger disabled
 	var/tnote = null //Current Texts
@@ -117,7 +117,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/captain
 	default_cartridge = /obj/item/weapon/cartridge/captain
 	icon_state = "pda-c"
-	toff = 1
+	detonate = 0
+	//toff = 1
 
 /obj/item/device/pda/cargo
 	default_cartridge = /obj/item/weapon/cartridge/quartermaster
@@ -144,7 +145,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 /obj/item/device/pda/lawyer
 	default_cartridge = /obj/item/weapon/cartridge/lawyer
 	icon_state = "pda-lawyer"
-	ttone = "objection"
+	ttone = "..."
 
 /obj/item/device/pda/botanist
 	//default_cartridge = /obj/item/weapon/cartridge/botanist
@@ -182,11 +183,69 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	default_cartridge = /obj/item/weapon/cartridge/medical
 	icon_state = "pda-gene"
 
+
 // Special AI/pAI PDAs that cannot explode.
 /obj/item/device/pda/ai
 	icon_state = "NONE"
 	ttone = "data"
 	detonate = 0
+
+
+/obj/item/device/pda/ai/proc/set_name_and_job(newname as text, newjob as text)
+	owner = newname
+	ownjob = newjob
+	name = newname + " (" + ownjob + ")"
+
+
+//AI verb and proc for sending PDA messages.
+/obj/item/device/pda/ai/verb/cmd_send_pdamesg()
+	set category = "AI IM"
+	set name = "Send Message"
+	set src in usr
+	if(usr.stat == 2)
+		usr << "You can't send PDA messages because you are dead!"
+		return
+	var/list/plist = available_pdas()
+	if (plist)
+		var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
+		if (!c) // if the user hasn't selected a PDA file we can't send a message
+			return
+		var/selected = plist[c]
+		create_message(usr, selected)
+
+
+/obj/item/device/pda/ai/verb/cmd_toggle_pda_receiver()
+	set category = "AI IM"
+	set name = "Toggle Sender/Receiver"
+	set src in usr
+	if(usr.stat == 2)
+		usr << "You can't do that because you are dead!"
+		return
+	toff = !toff
+	usr << "<span class='notice'>PDA sender/receiver toggled [(toff ? "Off" : "On")]!</span>"
+
+
+/obj/item/device/pda/ai/verb/cmd_toggle_pda_silent()
+	set category = "AI IM"
+	set name = "Toggle Ringer"
+	set src in usr
+	if(usr.stat == 2)
+		usr << "You can't do that because you are dead!"
+		return
+	silent=!silent
+	usr << "<span class='notice'>PDA ringer toggled [(silent ? "Off" : "On")]!</span>"
+
+
+/obj/item/device/pda/ai/verb/cmd_show_message_log()
+	set category = "AI IM"
+	set name = "Show Message Log"
+	set src in usr
+	if(usr.stat == 2)
+		usr << "You can't do that because you are dead!"
+		return
+	var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>[tnote]</body></html>"
+	usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
+
 
 /obj/item/device/pda/ai/can_use()
 	return 1
@@ -242,8 +301,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	return id
 
 /obj/item/device/pda/MouseDrop(obj/over_object as obj, src_location, over_location)
-	var/mob/living/carbon/M = usr
-	if((!istype(over_object, /obj/screen)) && !M.restrained() && !M.stat && can_use() && !M.handcuffed)
+	var/mob/M = usr
+	if((!istype(over_object, /obj/screen)) && !M.restrained() && !M.stat && can_use())
 		return attack_self(M)
 	return
 
@@ -286,13 +345,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 				dat += "<ul>"
 				dat += "<li><a href='byond://?src=\ref[src];choice=1'><img src=pda_notes.png> Notekeeper</a></li>"
 				dat += "<li><a href='byond://?src=\ref[src];choice=2'><img src=pda_mail.png> Messenger</a></li>"
+				dat += "<li><a href='byond://?src=\ref[src];choice=41'><img src=pda_notes.png> View Crew Manifest</a></li>"
 				//dat += "<li><a href='byond://?src=\red[src];choice=chatroom'><img src=pda_chatroom.png> Nanotrasen Relay Chat</a></li>"
 
 				if (cartridge)
 					if (cartridge.access_clown)
 						dat += "<li><a href='byond://?src=\ref[src];choice=Honk'><img src=pda_honk.png> Honk Synthesizer</a></li>"
-					if (cartridge.access_manifest)
-						dat += "<li><a href='byond://?src=\ref[src];choice=41'><img src=pda_notes.png> View Crew Manifest</a></li>"
 					if(cartridge.access_status_display)
 						dat += "<li><a href='byond://?src=\ref[src];choice=42'><img src=pda_status.png> Set Status Display</a></li>"
 					dat += "</ul>"
@@ -437,7 +495,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 						dat += " <img src=pda_locked.png>"
 					dat += "</li>"
 
-
+			if (41) //crew manifest
+				dat += "<h4><img src=pda_notes.png> Crew Manifest</h4>"
+				dat += "Entries cannot be modified from this terminal.<br><br>"
+				if(data_core)
+					dat += data_core.get_manifest(1) // make it monochrome
+				dat += "<br>"
 
 			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.
 				dat += cart
@@ -509,6 +572,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 					mode = 0
 				if("chatroom") // chatroom hub
 					mode = 5
+				if("41") //Manifest
+					mode = 41
 
 
 //MAIN FUNCTIONS===================================
@@ -638,7 +703,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 									difficulty += P.cartridge.access_engine
 									difficulty += P.cartridge.access_clown
 									difficulty += P.cartridge.access_janitor
-									difficulty += P.cartridge.access_manifest * 2
 								else
 									difficulty += 2
 
@@ -792,7 +856,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		P.overlays.Cut()
 		P.overlays += image('icons/obj/pda.dmi', "pda-r")
 	else
-		U << "<span class='notice'>ERROR: Server isn't responding.</span>"
+		U << "<span class='notice'>ERROR: Messaging server is not responding.</span>"
 
 
 /obj/item/device/pda/verb/verb_remove_id()
@@ -1074,21 +1138,12 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		M.Stun(8)
 		M.Weaken(5)
 
-
-//AI verb and proc for sending PDA messages.
-
-/mob/living/silicon/ai/verb/cmd_send_pdamesg()
-	set category = "AI Commands"
-	set name = "PDA - Send Message"
+/obj/item/device/pda/proc/available_pdas()
 	var/list/names = list()
 	var/list/plist = list()
 	var/list/namecounts = list()
 
-	if(usr.stat == 2)
-		usr << "You can't send PDA messages because you are dead!"
-		return
-
-	if(src.aiPDA.toff)
+	if (toff)
 		usr << "Turn on your receiver in order to send messages."
 		return
 
@@ -1101,8 +1156,6 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			continue
 		else if (P.toff)
 			continue
-		else if (P == src.aiPDA)
-			continue
 
 		var/name = P.owner
 		if (name in names)
@@ -1113,52 +1166,8 @@ var/global/list/obj/item/device/pda/PDAs = list()
 			namecounts[name] = 1
 
 		plist[text("[name]")] = P
+	return plist
 
-	var/c = input(usr, "Please select a PDA") as null|anything in sortList(plist)
-
-	if (!c)
-		return
-
-	var/selected = plist[c]
-	src.aiPDA.create_message(src, selected)
-
-
-/mob/living/silicon/ai/verb/cmd_toggle_pda_receiver()
-	set category = "AI Commands"
-	set name = "PDA - Toggle Sender/Receiver"
-	if(usr.stat == 2)
-		usr << "You can't do that because you are dead!"
-		return
-	if(!isnull(aiPDA))
-		aiPDA.toff = !aiPDA.toff
-		usr << "<span class='notice'>PDA sender/receiver toggled [(aiPDA.toff ? "Off" : "On")]!</span>"
-	else
-		usr << "You do not have a PDA. You should make an issue report about this."
-
-/mob/living/silicon/ai/verb/cmd_toggle_pda_silent()
-	set category = "AI Commands"
-	set name = "PDA - Toggle Ringer"
-	if(usr.stat == 2)
-		usr << "You can't do that because you are dead!"
-		return
-	if(!isnull(aiPDA))
-		//0
-		aiPDA.silent = !aiPDA.silent
-		usr << "<span class='notice'>PDA ringer toggled [(aiPDA.silent ? "Off" : "On")]!</span>"
-	else
-		usr << "You do not have a PDA. You should make an issue report about this."
-
-/mob/living/silicon/ai/verb/cmd_show_message_log()
-	set category = "AI Commands"
-	set name = "PDA - Show Message Log"
-	if(usr.stat == 2)
-		usr << "You can't do that because you are dead!"
-		return
-	if(!isnull(aiPDA))
-		var/HTML = "<html><head><title>AI PDA Message Log</title></head><body>[aiPDA.tnote]</body></html>"
-		usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
-	else
-		usr << "You do not have a PDA. You should make an issue report about this."
 
 //Some spare PDAs in a box
 /obj/item/weapon/storage/box/PDAs

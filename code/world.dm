@@ -28,6 +28,7 @@
 	load_mode()
 	load_motd()
 	load_admins()
+	load_mods()
 	LoadBansjob()
 	if(config.usewhitelist)
 		load_whitelist()
@@ -198,6 +199,25 @@
 	config.loadsql("config/dbconfig.txt")
 	// apply some settings from config..
 	abandon_allowed = config.respawn
+
+/world/proc/load_mods()
+	if(config.admin_legacy_system)
+		var/text = file2text("config/moderators.txt")
+		if (!text)
+			diary << "Failed to load config/mods.txt\n"
+		else
+			var/list/lines = text2list(text, "\n")
+			for(var/line in lines)
+				if (!line)
+					continue
+
+				if (copytext(line, 1, 2) == ";")
+					continue
+
+				var/rights = admin_ranks["Moderator"]
+				var/ckey = copytext(line, 1, length(line)+1)
+				var/datum/admins/D = new /datum/admins("Moderator", rights, ckey)
+				D.associate(directory[ckey])
 
 /world/proc/update_status()
 	var/s = ""

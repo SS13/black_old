@@ -21,7 +21,7 @@
 
 
 	check_eye(var/mob/user as mob)
-		if ((get_dist(user, src) > 1 /*|| !( user.canmove )*/ || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
+		if ((get_dist(user, src) > 1 || user.blinded || !( current ) || !( current.status )) && (!istype(user, /mob/living/silicon)))
 			return null
 		user.reset_view(current)
 		return 1

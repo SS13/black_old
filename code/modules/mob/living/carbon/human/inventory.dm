@@ -88,7 +88,7 @@
 		update_inv_glasses()
 	else if (W == head)
 		head = null
-		if(W.flags & BLOCKHAIR)
+		if((W.flags & BLOCKHAIR) || (W.flags & BLOCKHEADHAIR))
 			update_hair(0)	//rebuild hair
 		success = 1
 		update_inv_head()
@@ -107,7 +107,7 @@
 	else if (W == wear_mask)
 		wear_mask = null
 		success = 1
-		if(W.flags & BLOCKHAIR)
+		if((W.flags & BLOCKHAIR) || (W.flags & BLOCKHEADHAIR))
 			update_hair(0)	//rebuild hair
 		if(internal)
 			if(internals)
@@ -188,7 +188,7 @@
 			update_inv_back(redraw_mob)
 		if(slot_wear_mask)
 			src.wear_mask = W
-			if(wear_mask.flags & BLOCKHAIR)
+			if((wear_mask.flags & BLOCKHAIR) || (wear_mask.flags & BLOCKHEADHAIR))
 				update_hair(redraw_mob)	//rebuild hair
 			W.equipped(src, slot)
 			update_inv_wear_mask(redraw_mob)
@@ -229,7 +229,7 @@
 			update_inv_gloves(redraw_mob)
 		if(slot_head)
 			src.head = W
-			if(head.flags & BLOCKHAIR)
+			if((head.flags & BLOCKHAIR) || (head.flags & BLOCKHEADHAIR))
 				update_hair(redraw_mob)	//rebuild hair
 			if(istype(W,/obj/item/clothing/head/kitty))
 				W.update_icon(src)
@@ -341,7 +341,7 @@
 				if ((!( target.wear_id ) || !( target.w_uniform )))
 					del(src)
 			if("internal")
-				if ((!( (istype(target.wear_mask, /obj/item/clothing/mask) && (istype(target.back, /obj/item/weapon/tank)||istype(target.l_hand, /obj/item/weapon/tank)||istype(target.r_hand, /obj/item/weapon/tank)) && !( target.internal )) ) && !( target.internal )))
+				if (!(istype(target.wear_mask, /obj/item/clothing/mask) && (istype(target.back, /obj/item/weapon/tank)||istype(target.l_hand, /obj/item/weapon/tank)||istype(target.r_hand, /obj/item/weapon/tank)||istype(target.belt, /obj/item/weapon/tank))) || target.internal)
 					del(src)
 
 	var/list/L = list( "syringe", "pill", "drink", "dnainjector", "fuel")
@@ -575,7 +575,7 @@ It can still be worn/put on as normal.
 				if (target.internals)
 					target.internals.icon_state = "internal0"
 			else
-				if (!( istype(target.wear_mask, /obj/item/clothing/mask) && target.wear_mask.can_breath ))
+				if (!( istype(target.wear_mask, /obj/item/clothing/mask) || ! (target.wear_mask.can_breath) ))
 					return
 				else
 					if (istype(target.back, /obj/item/weapon/tank))

@@ -23,7 +23,6 @@ obj/item/weapon/gun/energy/laser/retro
 
 /obj/item/weapon/gun/energy/laser/captain
 	icon_state = "caplaser"
-	item_state = "capgun"
 	desc = "This is an antique laser gun. All craftsmanship is of the highest quality. It is decorated with assistant leather and chrome. The object menaces with spikes of energy. On the item is an image of Space Station 13. The station is exploding."
 	force = 10
 	origin_tech = null
@@ -74,6 +73,17 @@ obj/item/weapon/gun/energy/laser/retro
 
 	isHandgun()
 		return 0
+
+/obj/item/weapon/gun/energy/lasercannon/cyborg/load_into_chamber()
+	if(in_chamber)
+		return 1
+	if(isrobot(src.loc))
+		var/mob/living/silicon/robot/R = src.loc
+		if(R && R.cell)
+			R.cell.use(250)
+			in_chamber = new/obj/item/projectile/beam(src)
+			return 1
+	return 0
 
 /obj/item/weapon/gun/energy/xray
 	name = "xray laser gun"

@@ -15,10 +15,13 @@ proc/empulse(turf/epicenter, heavy_range, light_range, log=0)
 		pulse.name = "emp pulse"
 		pulse.anchored = 1
 		spawn(20)
-			del(pulse)
+			pulse.delete()
 
 	if(heavy_range > light_range)
 		light_range = heavy_range
+
+	for(var/mob/M in range(heavy_range, epicenter))
+		M << 'sound/effects/EMPulse.ogg'
 
 	for(var/atom/T in range(light_range, epicenter))
 		var/distance = get_dist(epicenter, T)

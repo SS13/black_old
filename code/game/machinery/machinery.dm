@@ -114,6 +114,7 @@ Class Procs:
 	machines += src
 
 /obj/machinery/Del()
+	machines -= src
 	..()
 
 /obj/machinery/process()//If you dont use process or power why are you here
@@ -131,7 +132,7 @@ Class Procs:
 		pulse2.dir = pick(cardinal)
 
 		spawn(10)
-			del(pulse2)
+			pulse2.delete()
 	..()
 
 /obj/machinery/ex_act(severity)

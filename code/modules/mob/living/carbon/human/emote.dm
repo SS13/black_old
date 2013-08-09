@@ -1,10 +1,6 @@
 /mob/living/carbon/human/emote(var/act,var/m_type=1,var/message = null)
 	var/param = null
 
-	if(weakened)
-		usr << "You are unable to emote."
-		return
-
 	if (findtext(act, "-", 1, null))
 		var/t1 = findtext(act, "-", 1, null)
 		param = copytext(act, t1 + 1, length(act) + 1)
@@ -57,27 +53,17 @@
 			var/input = copytext(sanitize(input("Choose an emote to display.") as text|null),1,MAX_MESSAGE_LEN)
 			if (!input)
 				return
-			if(copytext(input,1,5) == "says")
-				src << "\red Invalid emote."
-				return
-			else if(copytext(input,1,9) == "exclaims")
-				src << "\red Invalid emote."
-				return
-			else if(copytext(input,1,5) == "asks")
-				src << "\red Invalid emote."
-				return
-			else
-				var/input2 = input("Is this a visible or hearable emote?") in list("Visible","Hearable")
-				if (input2 == "Visible")
-					m_type = 1
-				else if (input2 == "Hearable")
-					if (src.miming)
-						return
-					m_type = 2
-				else
-					alert("Unable to use this emote, must be either hearable or visible.")
+			var/input2 = input("Is this a visible or hearable emote?") in list("Visible","Hearable")
+			if (input2 == "Visible")
+				m_type = 1
+			else if (input2 == "Hearable")
+				if (src.miming)
 					return
-				message = "<B>[src]</B> [input]"
+				m_type = 2
+			else
+				alert("Unable to use this emote, must be either hearable or visible.")
+				return
+			message = "<B>[src]</B> [input]"
 
 		if ("me")
 			if(silent)
@@ -92,17 +78,7 @@
 				return
 			if(!(message))
 				return
-			if(copytext(message,1,5) == "says")
-				src << "\red Invalid emote."
-				return
-			else if(copytext(message,1,9) == "exclaims")
-				src << "\red Invalid emote."
-				return
-			else if(copytext(message,1,5) == "asks")
-				src << "\red Invalid emote."
-				return
-			else
-				message = "<B>[src]</B> [message]"
+			message = "<B>[src]</B> [message]"
 
 		if ("salute")
 			if (!src.buckled)
@@ -417,7 +393,7 @@
 		if ("signal")
 			if (!src.restrained())
 				var/t1 = round(text2num(param))
-				if (isnum(t1) && t1 >= 1)
+				if (isnum(t1))
 					if (t1 <= 5 && (!src.r_hand || !src.l_hand))
 						message = "<B>[src]</B> raises [t1] finger\s."
 					else if (t1 <= 10 && (!src.r_hand && !src.l_hand))
@@ -601,13 +577,9 @@
 
 	pose =  copytext(sanitize_uni(input(usr, "This is [src]. \He is...", "Pose", null)  as text), 1, MAX_MESSAGE_LEN)
 
-/* Fuck this shit. I type this shitty code for idiots who cant say anything in chat. */
+/mob/living/carbon/human/verb/set_flavor()
+	set name = "Set Flavour Text"
+	set desc = "Sets an extended description of your character's features."
+	set category = "IC"
 
-/mob/living/carbon/human/proc/call_sound_emote(var/E)
-	switch(E)
-		if("scream")
-			for(var/mob/M in viewers(usr, null))
-				if (src.gender == "male")
-					M << sound(pick('Screams_Male_1.ogg','Screams_Male_2.ogg','Screams_Male_3.ogg'))
-				else
-					M << sound(pick('Screams_Woman_1.ogg','Screams_Woman_2.ogg','Screams_Woman_3.ogg'))
+	flavor_text =  copytext(sanitize(input(usr, "Please enter your new flavour text.", "Flavour text", null)  as text), 1)

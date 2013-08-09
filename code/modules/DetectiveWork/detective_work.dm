@@ -151,7 +151,10 @@ obj/machinery/computer/forensic_scanning
 				var/obj/item/I = M.get_active_hand()
 				if(I && istype(I))
 					if(istype(I, /obj/item/weapon/evidencebag))
-						usr << "Items in the Bag Rejected."
+						scanning = I.contents[1]
+						scanning.loc = src
+						I.overlays -= scanning
+						I.icon_state = "evidenceobj"
 					else
 						scanning = I
 						M.drop_item()

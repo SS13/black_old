@@ -71,8 +71,6 @@ BLIND     // can't see anything
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
-	var/can_toggle = 0
-	var/state = 0
 
 //Mask
 /obj/item/clothing/mask
@@ -90,6 +88,7 @@ BLIND     // can't see anything
 	desc = "Comfortable-looking shoes."
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	var/chained = 0
+	siemens_coefficient = 0.9
 	var/footstep = 1
 
 	body_parts_covered = FEET
@@ -108,6 +107,7 @@ BLIND     // can't see anything
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	slot_flags = SLOT_OCLOTHING
 	var/blood_overlay_type = "suit"
+	siemens_coefficient = 0.9
 
 //Spacesuit
 //Note: Everything in modules/clothing/spacesuits should have the entire suit grouped together.
@@ -123,6 +123,7 @@ BLIND     // can't see anything
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECITON_TEMPERATURE
+	siemens_coefficient = 0.9
 
 /obj/item/clothing/suit/space
 	name = "Space suit"
@@ -140,6 +141,7 @@ BLIND     // can't see anything
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
+	siemens_coefficient = 0.9
 
 
 //Under clothing
@@ -159,6 +161,7 @@ BLIND     // can't see anything
 		3 = Report location
 		*/
 	var/obj/item/clothing/tie/hastie = null
+	var/displays_id = 1
 
 /obj/item/clothing/under/attackby(obj/item/I, mob/user)
 	if(!hastie && istype(I, /obj/item/clothing/tie))
@@ -166,8 +169,12 @@ BLIND     // can't see anything
 		hastie = I
 		I.loc = src
 		user << "<span class='notice'>You attach [I] to [src].</span>"
+
 		if (istype(hastie,/obj/item/clothing/tie/holster))
 			verbs += /obj/item/clothing/under/proc/holster
+
+		if (istype(hastie,/obj/item/clothing/tie/storage))
+			verbs += /obj/item/clothing/under/proc/storage
 
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = loc
@@ -229,8 +236,15 @@ BLIND     // can't see anything
 	if(hastie)
 		usr.put_in_hands(hastie)
 		hastie = null
+
 		if (istype(hastie,/obj/item/clothing/tie/holster))
 			verbs -= /obj/item/clothing/under/proc/holster
+
+		if (istype(hastie,/obj/item/clothing/tie/storage))
+			verbs -= /obj/item/clothing/under/proc/storage
+			var/obj/item/clothing/tie/storage/W = hastie
+			if (W.hold)
+				W.hold.loc = hastie
 
 		if(istype(loc, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = loc
@@ -276,3 +290,23 @@ BLIND     // can't see anything
 				"\blue You draw \the [H.holstered], pointing it at the ground.")
 			usr.put_in_hands(H.holstered)
 			H.holstered = null
+
+/obj/item/clothing/under/proc/storage()
+	set name = "Look in storage"
+	set category = "Object"
+	set src in usr
+	if(!istype(usr, /mob/living)) return
+	if(usr.stat) return
+
+	if (!hastie || !istype(hastie,/obj/item/clothing/tie/storage))
+		usr << "\red You need something to store items in for that!"
+		return
+	var/obj/item/clothing/tie/storage/W = hastie
+
+	if (!istype(W.hold))
+		return
+
+	W.hold.loc = usr
+	W.hold.attack_hand(usr)
+
+

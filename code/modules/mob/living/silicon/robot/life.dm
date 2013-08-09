@@ -5,7 +5,6 @@
 	if (src.monkeyizing)
 		return
 
-
 	src.blinded = null
 
 	//Status updates, death etc.
@@ -21,9 +20,6 @@
 		process_locks()
 	update_canmove()
 
-
-
-
 /mob/living/silicon/robot/proc/clamp_values()
 
 //	SetStunned(min(stunned, 30))
@@ -37,23 +33,25 @@
 
 /mob/living/silicon/robot/proc/use_power()
 
-	if (src.cell)
+	if (is_component_functioning("power cell") && cell)
 		if(src.cell.charge <= 0)
 			uneq_all()
 			src.stat = 1
-		else if (src.cell.charge <= 100)
-			uneq_all()
-			src.sight_mode = 0
-			src.cell.use(1)
 		else
 			if(src.module_state_1)
-				src.cell.use(5)
+				src.cell.use(3)
 			if(src.module_state_2)
-				src.cell.use(5)
+				src.cell.use(3)
 			if(src.module_state_3)
-				src.cell.use(5)
-			src.cell.use(1)
-			src.blinded = 0
+				src.cell.use(3)
+
+			for(var/V in components)
+				var/datum/robot_component/C = components[V]
+				C.consume_power()
+
+			if(!is_component_functioning("actuator"))
+				Paralyse(3)
+
 			src.stat = 0
 	else
 		uneq_all()
@@ -68,9 +66,7 @@
 		else
 			src.camera.status = 1
 
-	health = 200 - (getOxyLoss() + getFireLoss() + getBruteLoss())
-
-	if(getOxyLoss() > 50) Paralyse(3)
+	updatehealth()
 
 	if(src.sleeping)
 		Paralyse(3)
@@ -128,6 +124,17 @@
 		src.druggy--
 		src.druggy = max(0, src.druggy)
 
+	if(!is_component_functioning("radio"))
+		radio.on = 0
+	else
+		radio.on = 1
+
+	if(is_component_functioning("camera"))
+		src.blinded = 0
+	else
+		src.blinded = 1
+
+
 	return 1
 
 /mob/living/silicon/robot/proc/handle_regular_hud_updates()
@@ -160,7 +167,7 @@
 
 	for(var/image/hud in client.images)  //COPIED FROM the human handle_regular_hud_updates() proc
 		if(copytext(hud.icon_state,1,4) == "hud") //ugly, but icon comparison is worse, I believe
-			del(hud)
+			client.images.Remove(hud)
 
 	var/obj/item/borg/sight/hud/hud = (locate(/obj/item/borg/sight/hud) in src)
 	if(hud && hud.hud)	hud.hud.process_hud(src)
@@ -273,7 +280,7 @@
 		src.module_state_2:screen_loc = ui_inv2
 	if(src.module_state_3)
 		src.module_state_3:screen_loc = ui_inv3
-
+	updateicon()
 
 /mob/living/silicon/robot/proc/process_killswitch()
 	if(killswitch)

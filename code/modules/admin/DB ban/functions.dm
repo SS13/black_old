@@ -1,4 +1,8 @@
+
 datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = -1, var/reason, var/job = "", var/rounds = 0)
+
+	if(!check_rights(R_BAN))	return
+
 	establish_db_connection()
 	if(!dbcon.IsConnected())
 		return
@@ -44,7 +48,6 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 		a_computerid = src.owner:computer_id
 		a_ip = src.owner:address
 
-//	var/list/client/clients = get_all_clients()
 	var/who
 	for(var/client/C in clients)
 		if(!who)
@@ -52,9 +55,8 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 		else
 			who += ", [C]"
 
-	var/list/client/admin_clients = get_all_admin_clients()
 	var/adminwho
-	for(var/client/C in admin_clients)
+	for(var/client/C in admins)
 		if(!adminwho)
 			adminwho = "[C]"
 		else
@@ -62,13 +64,18 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 
 	reason = sql_sanitize_text(reason)
 
-	var/sql = "INSERT INTO erro_ban VALUES (null, Now(), '[serverip]', '[bantype_str]', '[reason]', '[job]', [(duration)?"[duration]":"0"], [(rounds)?"[rounds]":"0"], Now() + INTERVAL [(duration>0) ? duration : 0] MINUTE, '[ckey]', '[computerid]', '[ip]', '[a_ckey]', '[a_computerid]', '[a_ip]', '[who]', '[adminwho]', '', null, null, null, null, null)"
+	var/sql = "INSERT INTO erro_ban (`id`,`bantime`,`serverip`,`bantype`,`reason`,`job`,`duration`,`rounds`,`expiration_time`,`ckey`,`computerid`,`ip`,`a_ckey`,`a_computerid`,`a_ip`,`who`,`adminwho`,`edits`,`unbanned`,`unbanned_datetime`,`unbanned_ckey`,`unbanned_computerid`,`unbanned_ip`) VALUES (null, Now(), '[serverip]', '[bantype_str]', '[reason]', '[job]', [(duration)?"[duration]":"0"], [(rounds)?"[rounds]":"0"], Now() + INTERVAL [(duration>0) ? duration : 0] MINUTE, '[ckey]', '[computerid]', '[ip]', '[a_ckey]', '[a_computerid]', '[a_ip]', '[who]', '[adminwho]', '', null, null, null, null, null)"
 	var/DBQuery/query_insert = dbcon.NewQuery(sql)
 	query_insert.Execute()
+	usr << "\blue Ban saved to database."
+	message_admins("[key_name_admin(usr)] has added a [bantype_str] for [ckey] [(job)?"([job])":""] [(duration > 0)?"([duration] minutes)":""] with the reason: \"[reason]\" to the ban database.",1)
 
 
 
 datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
+
+	if(!check_rights(R_BAN))	return
+
 	var/bantype_str
 	if(bantype)
 		var/bantype_pass = 0
@@ -131,6 +138,9 @@ datum/admins/proc/DB_ban_unban(var/ckey, var/bantype, var/job = "")
 
 
 datum/admins/proc/DB_ban_unban_by_id(var/id)
+
+	if(!check_rights(R_BAN))	return
+
 	var/sql = "SELECT id FROM erro_ban WHERE id = [id]"
 
 	establish_db_connection()
@@ -139,9 +149,11 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 
 	var/ban_number = 0 //failsafe
 
+	var/pckey
 	var/DBQuery/query = dbcon.NewQuery(sql)
 	query.Execute()
 	while(query.NextRow())
+		pckey = query.item[1]
 		ban_number++;
 
 	if(ban_number == 0)
@@ -160,7 +172,7 @@ datum/admins/proc/DB_ban_unban_by_id(var/id)
 	var/unban_ip = src.owner:address
 
 	var/sql_update = "UPDATE erro_ban SET unbanned = 1, unbanned_datetime = Now(), unbanned_ckey = '[unban_ckey]', unbanned_computerid = '[unban_computerid]', unbanned_ip = '[unban_ip]' WHERE id = [id]"
-
+	message_admins("[key_name_admin(usr)] has lifted [pckey]'s ban.",1)
 
 	var/DBQuery/query_update = dbcon.NewQuery(sql_update)
 	query_update.Execute()

@@ -385,8 +385,10 @@ datum
 				for(var/turf/simulated/floor/target_tile in range(0,location))
 
 					var/datum/gas_mixture/napalm = new
+					var/datum/gas/volatile_fuel/fuel = new
+					fuel.moles = created_volume
+					napalm.trace_gases += fuel
 
-					napalm.toxins = created_volume*10
 					napalm.temperature = 400+T0C
 					napalm.update_values()
 
@@ -1028,6 +1030,9 @@ datum
 					/mob/living/simple_animal/hostile/syndicate/ranged,
 					/mob/living/simple_animal/hostile/syndicate/ranged/space,
 					/mob/living/simple_animal/hostile/alien/queen/large,
+					/mob/living/simple_animal/hostile/faithless,
+					/mob/living/simple_animal/hostile/panther,
+					/mob/living/simple_animal/hostile/snake,
 					/mob/living/simple_animal/hostile/retaliate,
 					/mob/living/simple_animal/hostile/retaliate/clown
 					)//exclusion list for things you don't want the reaction to create.
@@ -1928,16 +1933,17 @@ datum
 
 		milkshake
 			name = "Milkshake"
-			id = "rewriter"
-			result = "rewriter"
+			id = "milkshake"
+			result = "milkshake"
 			required_reagents = list("cream" = 1, "ice" = 2, "milk" = 2)
 			result_amount = 5
 
 		rewriter
 			name = "Rewriter"
-			id = "milkshake"
-			result = "milkshake"
+			id = "rewriter"
+			result = "rewriter"
 			required_reagents = list("spacemountainwind" = 1, "coffee" = 1)
 			result_amount = 2
+
 
 

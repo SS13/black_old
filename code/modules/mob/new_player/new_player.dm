@@ -45,6 +45,10 @@
 	Stat()
 		..()
 
+		statpanel("Status")
+		if (client.statpanel == "Status" && ticker)
+			if (ticker.current_state != GAME_STATE_PREGAME)
+				stat(null, "Station Time: [worldtime2text()]")
 		statpanel("Lobby")
 		if(client.statpanel=="Lobby" && ticker)
 			if(ticker.hide_mode)
@@ -112,7 +116,7 @@
 
 				var/S = client.prefs.species
 				if(S == "Unathi") S = "Soghun"
-				if(!is_alien_whitelisted(src, S))
+				if(!is_alien_whitelisted(src, S) && config.usealienwhitelist)
 					src << alert("You are currently not whitelisted to play [client.prefs.species].")
 					return 0
 
@@ -152,6 +156,14 @@
 
 
 	proc/AttemptLateSpawn(rank)
+		if (src != usr)
+			return 0
+		if(!ticker || ticker.current_state != GAME_STATE_PLAYING)
+			usr << "\red The round is either not ready, or has already finished..."
+			return 0
+		if(!enter_allowed)
+			usr << "\blue There is an administrative lock on entering the game!"
+			return 0
 		if(!IsJobAvailable(rank))
 			src << alert("[rank] is not available. Please try another.")
 			return 0
@@ -163,6 +175,8 @@
 		EquipCustomItems(character)
 		character.loc = pick(latejoin)
 		character.lastarea = get_area(loc)
+
+		ticker.mode.latespawn(character)
 
 		//ticker.mode.latespawn(character)
 
@@ -178,6 +192,8 @@
 	proc/AnnounceArrival(var/mob/living/carbon/human/character, var/rank)
 		if (ticker.current_state == GAME_STATE_PLAYING)
 			var/obj/item/device/radio/intercom/a = new /obj/item/device/radio/intercom(null)// BS12 EDIT Arrivals Announcement Computer, rather than the AI.
+			if(character.mind.role_alt_title)
+				rank = character.mind.role_alt_title
 			a.autosay("[character.real_name],[rank ? " [rank]," : " visitor," ] has arrived on the station.", "Arrivals Announcement Computer")
 			del(a)
 
@@ -193,8 +209,10 @@
 		if(emergency_shuttle) //In case Nanotrasen decides reposess CentComm's shuttles.
 			if(emergency_shuttle.direction == 2) //Shuttle is going to centcomm, not recalled
 				dat += "<font color='red'><b>The station has been evacuated.</b></font><br>"
-			if(emergency_shuttle.direction == 1 && emergency_shuttle.timeleft() < 300) //Shuttle is past the point of no recall
+			if(emergency_shuttle.direction == 1 && emergency_shuttle.timeleft() < 300 && emergency_shuttle.alert == 0) // Emergency shuttle is past the point of no recall
 				dat += "<font color='red'>The station is currently undergoing evacuation procedures.</font><br>"
+			if(emergency_shuttle.direction == 1 && emergency_shuttle.alert == 1) // Crew transfer initiated
+				dat += "<font color='red'>The station is currently undergoing crew transfer procedures.</font><br>"
 
 		dat += "Choose from the following open positions:<br>"
 		for(var/datum/job/job in job_master.occupations)
@@ -228,6 +246,21 @@
 			if(is_alien_whitelisted(src, "Skrell") || !config.usealienwhitelist)
 				new_character.dna.mutantrace = "skrell"
 				new_character.skrell_talk_understand = 1
+		if(client.prefs.species == "Vox")
+			if(is_alien_whitelisted(src, "Vox"|| !config.usealienwhitelist))
+				new_character.dna.mutantrace = "vox"
+				new_character.vox_talk_understand = 1
+
+		if(client.prefs.language == "Tajaran")
+			if(is_alien_whitelisted(src, "Language_Tajaran") || !config.usealienwhitelist)
+				new_character.tajaran_talk_understand = 1
+		if(client.prefs.language == "Unathi")
+			if(is_alien_whitelisted(src, "Language_Soghun") || !config.usealienwhitelist)
+				new_character.soghun_talk_understand = 1
+		if(client.prefs.language == "Skrell")
+			if(is_alien_whitelisted(src, "Language_Skrell") || !config.usealienwhitelist)
+				new_character.skrell_talk_understand = 1
+
 
 		if(ticker.random_players)
 			new_character.gender = pick(MALE, FEMALE)
@@ -261,9 +294,9 @@
 	proc/ViewManifest()
 		var/dat = "<html><body>"
 		dat += "<h4>Crew Manifest</h4>"
-		dat += data_core.get_manifest()
+		dat += data_core.get_manifest(OOC = 1)
 
-		src << browse(dat, "window=manifest;size=300x420;can_close=1")
+		src << browse(dat, "window=manifest;size=370x420;can_close=1")
 
 	Move()
 		return 0

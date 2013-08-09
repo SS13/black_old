@@ -27,6 +27,12 @@ var/global/list/global_map = null
 
 
 	//////////////
+var/list/paper_tag_whitelist = list("center","p","div","span","h1","h2","h3","h4","h5","h6","hr","pre",	\
+	"big","small","font","i","u","b","s","sub","sup","tt","br","hr","ol","ul","li","caption","col",	\
+	"table","td","th","tr")
+var/list/paper_blacklist = list("java","onblur","onchange","onclick","ondblclick","onfocus","onkeydown",	\
+	"onkeypress","onkeyup","onload","onmousedown","onmousemove","onmouseout","onmouseover",	\
+	"onmouseup","onreset","onselect","onsubmit","onunload")
 
 var/HULKBLOCK = 0
 var/XRAYBLOCK = 0
@@ -104,8 +110,6 @@ var/list/shuttles = list(  )
 var/list/reg_dna = list(  )
 //	list/traitobj = list(  )
 
-
-
 var/CELLRATE = 0.002  // multiplier for watts per tick <> cell storage (eg: .002 means if there is a load of 1000 watts, 20 units will be taken from a cell per second)
 var/CHARGELEVEL = 0.001 // Cap for how fast cells charge, as a percentage-per-tick (.001 means cellcharge is capped to 1% per second)
 
@@ -128,6 +132,7 @@ var/list/tdomeadmin = list()
 var/list/prisonsecuritywarp = list()	//prison security goes to these
 var/list/prisonwarped = list()	//list of players already warped
 var/list/blobstart = list()
+var/list/ninjastart = list()
 //	list/traitors = list()	//traitor list
 var/list/cardinal = list( NORTH, SOUTH, EAST, WEST )
 var/list/alldirs = list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)

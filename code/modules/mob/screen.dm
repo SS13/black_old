@@ -7,7 +7,6 @@
 	var/obj/master
 	var/gun_click_time = -100 //I'm lazy.
 
-
 /obj/screen/text
 	icon = null
 	icon_state = null
@@ -63,9 +62,11 @@
 	name = "storage"
 	master = null
 
-/obj/screen/storage/attackby(W, mob/user as mob)
-	src.master.attackby(W, user)
-	return
+/obj/screen/storage/attack_hand(mob/user)
+	if(master)
+		var/obj/item/I = user.get_active_hand()
+		if(I)
+			master.attackby(I, user)
 
 /obj/screen/zone_sel
 	name = "Damage Zone"

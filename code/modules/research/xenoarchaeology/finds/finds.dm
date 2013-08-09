@@ -51,7 +51,7 @@
 		if(w.isOn())
 			if(w.get_fuel() >= 4 && !src.method)
 				if(inside)
-					inside.loc = src.loc
+					inside.loc = get_turf(src)
 					for(var/mob/M in viewers(world.view, user))
 						M.show_message("<span class='info'>[src] burns away revealing [inside].</span>",1)
 				else
@@ -143,7 +143,7 @@
 			icon_state = "statuette"
 			additional_desc = "It depicts a [pick("small","ferocious","wild","pleasing","hulking")] \
 			[pick("alien figure","rodent-like creature","reptilian alien","primate","unidentifiable object")] \
-			[pick("performing unspeakable acts","posing heroically","in a feotal position","cheering","sobbing","making a plaintive gesture","making a rude gesture")]."
+			[pick("performing unspeakable acts","posing heroically","in a fetal position","cheering","sobbing","making a plaintive gesture","making a rude gesture")]."
 		if(5)
 			item_type = "instrument"
 			icon_state = "instrument"
@@ -520,7 +520,7 @@
 		new_item.name = name
 		new_item.desc = src.desc
 
-		if(talkative)
+		if(talkative && istype(new_item,/obj/item/weapon))
 			new_item.listening_to_players = 1
 			if(prob(25))
 				new_item.speaking_to_players = 1

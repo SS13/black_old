@@ -22,6 +22,7 @@
 
 	var/bees_in_hive = 0
 	var/list/owned_bee_swarms = list()
+	var/hydrotray_type = /obj/machinery/hydroponics
 
 //overwrite this after it's created if the apiary needs a custom machinery sprite
 /obj/machinery/apiary/New()
@@ -69,7 +70,7 @@
 		else
 			user << "\blue You begin to dislodge the dead apiary from the tray."
 		if(do_after(user, 50))
-			new /obj/machinery/hydroponics(src.loc)
+			new hydrotray_type(src.loc)
 			new /obj/item/apiary(src.loc)
 			user << "\red You dislodge the apiary from the tray."
 			del(src)
@@ -86,7 +87,7 @@
 		if(harvestable_honey > 0)
 			if(health > 0)
 				user << "\red You begin to harvest the honey. The bees don't seem to like it."
-				angry_swarm()
+				angry_swarm(user)
 			else
 				user << "\blue You begin to harvest the honey."
 			if(do_after(user,50))
@@ -96,7 +97,7 @@
 		else
 			user << "\blue There is no honey left to harvest."
 	else
-		angry_swarm()
+		angry_swarm(user)
 		..()
 
 /obj/machinery/apiary/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)
@@ -112,11 +113,11 @@
 	if(swarming > 0)
 		swarming -= 1
 		if(swarming <= 0)
-			for(var/obj/effect/bee/B in src.loc)
+			for(var/mob/living/simple_animal/bee/B in src.loc)
 				bees_in_hive += B.strength
 				del(B)
 	else if(bees_in_hive < 10)
-		for(var/obj/effect/bee/B in src.loc)
+		for(var/mob/living/simple_animal/bee/B in src.loc)
 			bees_in_hive += B.strength
 			del(B)
 
@@ -144,7 +145,7 @@
 			health += max(nutrilevel - 1, round(-health / 2))
 			bees_in_hive += max(nutrilevel - 1, round(-bees_in_hive / 2))
 			if(owned_bee_swarms.len)
-				var/obj/effect/bee/B = pick(owned_bee_swarms)
+				var/mob/living/simple_animal/bee/B = pick(owned_bee_swarms)
 				B.target_turf = get_turf(src)
 
 		//clear out some toxins
@@ -161,7 +162,7 @@
 
 		//make some new bees
 		if(bees_in_hive >= 10 && prob(bees_in_hive * 10))
-			var/obj/effect/bee/B = new(get_turf(src), src)
+			var/mob/living/simple_animal/bee/B = new(get_turf(src), src)
 			owned_bee_swarms.Add(B)
 			B.mut = mut
 			B.toxic = toxic
@@ -170,16 +171,14 @@
 		//find some plants, harvest
 		for(var/obj/machinery/hydroponics/H in view(7, src))
 			if(H.planted && !H.dead && H.myseed && prob(owned_bee_swarms.len * 10))
+				src.nutrilevel++
+				H.nutrilevel++
 				if(mut < H.mutmod - 1)
 					mut = H.mutmod - 1
 				else if(mut > H.mutmod - 1)
 					H.mutmod = mut
 
 				//flowers give us pollen (nutrients)
-				if(H.myseed.type == /obj/item/seeds/harebell || H.myseed.type == /obj/item/seeds/sunflowerseed)
-					src.nutrilevel++
-					H.nutrilevel++
-
 				//have a few beneficial effects on nearby plants
 				if(prob(10))
 					H.lastcycle -= 5
@@ -193,7 +192,7 @@
 
 /obj/machinery/apiary/proc/die()
 	if(owned_bee_swarms.len)
-		var/obj/effect/bee/B = pick(owned_bee_swarms)
+		var/mob/living/simple_animal/bee/B = pick(owned_bee_swarms)
 		B.target_turf = get_turf(src)
 		B.strength -= 1
 		if(B.strength <= 0)
@@ -204,8 +203,8 @@
 	health = 0
 
 /obj/machinery/apiary/proc/angry_swarm(var/mob/M)
-	for(var/obj/effect/bee/B in owned_bee_swarms)
-		B.feral = 50
+	for(var/mob/living/simple_animal/bee/B in owned_bee_swarms)
+		B.feral = 25
 		B.target_mob = M
 
 	swarming = 25
@@ -215,10 +214,10 @@
 		if(bees_in_hive >= 5)
 			spawn_strength = 6
 
-		var/obj/effect/bee/B = new(get_turf(src), src)
+		var/mob/living/simple_animal/bee/B = new(get_turf(src), src)
 		B.target_mob = M
 		B.strength = spawn_strength
-		B.feral = 5
+		B.feral = 25
 		B.mut = mut
 		B.toxic = toxic
 		bees_in_hive -= spawn_strength

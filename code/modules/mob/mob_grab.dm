@@ -236,7 +236,7 @@
 							log_attack("<font color='red'>[assailant.name] ([assailant.ckey]) Strangled (kill intent) [affecting.name] ([affecting.ckey])</font>")
 
 							assailant.next_move = world.time + 10
-							affecting.losebreath += 5
+							affecting.losebreath += 1
 						else
 							assailant.visible_message("\red [assailant] was unable to tighten \his grip on [affecting]'s neck!")
 							killing = 0

@@ -12,6 +12,13 @@
 	color = "blue_pyjamas"
 	item_state = "w_suit"
 
+/obj/item/clothing/under/captain_fly
+	name = "rogue captains uniform"
+	desc = "For the man who doesn't care because he's still free."
+	icon_state = "captain_fly"
+	item_state = "captain_fly"
+	color = "captain_fly"
+
 /obj/item/clothing/under/scratch
 	name = "white suit"
 	desc = "A white suit, suitable for an excellent host"
@@ -96,6 +103,7 @@
 	armor = list(melee = 100, bullet = 100, laser = 100,energy = 100, bomb = 100, bio = 100, rad = 100)
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
+	siemens_coefficient = 0
 
 /obj/item/clothing/under/owl
 	name = "owl uniform"
@@ -122,6 +130,13 @@
 	desc = "cloud"
 	icon_state = "cloud"
 	color = "cloud"
+
+/obj/item/clothing/under/psysuit
+	name = "dark undersuit"
+	desc = "A thick, layered grey undersuit lined with power cables. Feels a little like wearing an electrical storm."
+	icon_state = "psysuit"
+	item_state = "psysuit"
+	color = "psysuit"
 
 /obj/item/clothing/under/gimmick/rank/captain/suit
 	name = "captain's suit"
@@ -288,6 +303,12 @@
 	icon_state = "dress_hop"
 	color = "dress_hop"
 
+/obj/item/clothing/under/dress/dress_hr
+	name = "human resources director uniform"
+	desc = "Superior class for the nosy H.R. Director."
+	icon_state = "huresource"
+	color = "huresource"
+
 /obj/item/clothing/under/dress/plaid_blue
 	name = "blue plaid skirt"
 	desc = "A preppy blue skirt with a white blouse."
@@ -307,6 +328,7 @@
 	color = "plaid_purple"
 
 //wedding stuff
+
 /obj/item/clothing/under/wedding/bride_orange
 	name = "orange wedding dress"
 	desc = "A big and puffy orange dress."

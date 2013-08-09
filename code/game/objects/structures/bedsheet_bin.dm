@@ -32,15 +32,6 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-/obj/item/weapon/bedsheet/attackby(obj/item/I as obj, mob/user as mob)
-	if(istype(I,/obj/item/weapon/wirecutters))
-		if(color == "white")
-			if(istype(src.loc, /mob))
-				user << "You need more place for this"
-			else if(istype(src.loc,/turf))
-				new /obj/item/clothing/head/kkk(src.loc)
-				del(src)
-
 /obj/item/weapon/bedsheet/blue
 	icon_state = "sheetblue"
 	color = "blue"

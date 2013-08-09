@@ -1,8 +1,9 @@
 /datum/admins/Topic(href, href_list)
 	..()
-	if (usr.client != src.owner)
-		world << "\blue [usr.key] has attempted to override the admin panel!"
+
+	if(usr.client != src.owner || !check_rights(0))
 		log_admin("[key_name(usr)] tried to use the admin panel without authorization.")
+		message_admins("[usr.key] has attempted to override the admin panel!")
 		return
 
 	if(href_list["makeAntag"])
@@ -10,31 +11,31 @@
 			if("1")
 				log_admin("[key_name(usr)] has spawned a traitor.")
 				if(!src.makeTraitors())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "\red Unfortunately there weren't enough candidates available."
 			if("2")
 				log_admin("[key_name(usr)] has spawned a changeling.")
 				if(!src.makeChanglings())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "\red Unfortunately there weren't enough candidates available."
 			if("3")
 				log_admin("[key_name(usr)] has spawned revolutionaries.")
 				if(!src.makeRevs())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "\red Unfortunately there weren't enough candidates available."
 			if("4")
 				log_admin("[key_name(usr)] has spawned a cultists.")
 				if(!src.makeCult())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "\red Unfortunately there weren't enough candidates available."
 			if("5")
 				log_admin("[key_name(usr)] has spawned a malf AI.")
 				if(!src.makeMalfAImode())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "\red Unfortunately there weren't enough candidates available."
 			if("6")
 				log_admin("[key_name(usr)] has spawned a wizard.")
 				if(!src.makeWizard())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "\red Unfortunately there weren't enough candidates available."
 			if("7")
 				log_admin("[key_name(usr)] has spawned a nuke team.")
 				if(!src.makeNukeTeam())
-					usr << "\red Unfortunatly there were no candidates available"
+					usr << "\red Unfortunately there weren't enough candidates available."
 			if("8")
 				log_admin("[key_name(usr)] has spawned a ninja.")
 				src.makeSpaceNinja()
@@ -45,9 +46,13 @@
 				log_admin("[key_name(usr)] has spawned a death squad.")
 				if(!src.makeDeathsquad())
 					usr << "\red Unfortunatly there were no candidates available"
+			if("11")
+				log_admin("[key_name(usr)] has spawned vox raiders.")
+				if(!src.makeVoxRaiders())
+					usr << "\red Unfortunately there weren't enough candidates available."
 		return
 
-	if(href_list["editrights"])
+	else if(href_list["editrights"])
 		if(!check_rights(R_PERMISSIONS))
 			message_admins("[key_name_admin(usr)] attempted to edit the admin permissions without sufficient rights.")
 			log_admin("[key_name(usr)] attempted to edit the admin permissions without sufficient rights.")
@@ -141,7 +146,7 @@
 
 		edit_admin_permissions()
 
-	if(href_list["call_shuttle"])
+	else if(href_list["call_shuttle"])
 		if(!check_rights(R_ADMIN))	return
 
 		if( ticker.mode.name == "blob" )
@@ -190,8 +195,8 @@
 		message_admins("\blue [key_name(usr)] [ticker.delay_end ? "delayed the round end" : "has made the round end normally"].", 1)
 		href_list["secretsadmin"] = "check_antagonist"
 
-	if(href_list["simplemake"])
-
+	else if(href_list["simplemake"])
+		if(!check_rights(R_SPAWN))	return
 		if(!href_list["mob"])
 			usr << "Invalid mob"
 			return
@@ -201,16 +206,10 @@
 			usr << "This can only be used on instances of type /mob"
 			return
 
-		if(!M || !ismob(M))
-			usr << "Cannot find mob"
-			return
-
 		var/delmob = 0
-		var/option = alert("Delete old mob?","Message","Yes","No","Cancel")
-		if(option == "Cancel")
-			return
-		if(option == "Yes")
-			delmob = 1
+		switch(alert("Delete old mob?","Message","Yes","No","Cancel"))
+			if("Cancel")	return
+			if("Yes")		delmob = 1
 
 		log_admin("[key_name(usr)] has used rudimentary transformation on [key_name(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]")
 		message_admins("\blue [key_name_admin(usr)] has used rudimentary transformation on [key_name_admin(M)]. Transforming to [href_list["simplemake"]]; deletemob=[delmob]", 1)
@@ -223,7 +222,7 @@
 			if("sentinel")			M.change_mob_type( /mob/living/carbon/alien/humanoid/sentinel , null, null, delmob )
 			if("larva")				M.change_mob_type( /mob/living/carbon/alien/larva , null, null, delmob )
 			if("human")				M.change_mob_type( /mob/living/carbon/human , null, null, delmob )
-			if("slime")				M.change_mob_type( /mob/living/carbon/slime , null, null, delmob )
+			if("slime")			M.change_mob_type( /mob/living/carbon/slime , null, null, delmob )
 			if("adultslime")		M.change_mob_type( /mob/living/carbon/slime/adult , null, null, delmob )
 			if("monkey")			M.change_mob_type( /mob/living/carbon/monkey , null, null, delmob )
 			if("robot")				M.change_mob_type( /mob/living/silicon/robot , null, null, delmob )
@@ -261,6 +260,7 @@
 
 	else if(href_list["unbane"])
 		if(!check_rights(R_BAN))	return
+
 		UpdateTime()
 		var/reason
 
@@ -309,7 +309,7 @@
 
 	/////////////////////////////////////new ban stuff
 
-	if(href_list["jobban2"])
+	else if(href_list["jobban2"])
 //		if(!check_rights(R_BAN))	return
 
 		var/mob/M = locate(href_list["jobban2"])
@@ -684,7 +684,7 @@
 			return 1
 		return 0 //we didn't do anything!
 
-	if(href_list["boot2"])
+	else if(href_list["boot2"])
 		var/mob/M = locate(href_list["boot2"])
 		if (ismob(M))
 			if(!check_if_greater_rights_than(M.client))
@@ -2020,7 +2020,6 @@
 			if (ok)
 				world << text("<B>A secret has been activated by []!</B>", usr.key)
 
-
 	else if(href_list["secretsadmin"])
 		if(!check_rights(R_ADMIN))	return
 
@@ -2354,7 +2353,6 @@
 			if(href_list["vsc"] == "default")
 				vsc.SetDefault(usr)
 
-
 	// player info stuff
 
 	if(href_list["add_player_info"])
@@ -2382,4 +2380,6 @@
 		switch(href_list["notes"])
 			if("show")
 				show_player_info(ckey)
+			if("list")
+				PlayerNotesPage(text2num(href_list["index"]))
 		return

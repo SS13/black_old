@@ -39,6 +39,11 @@
 		return 0
 	if(istype(M, /mob/living/carbon))
 		if(M == user)								//If you're eating it yourself.
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form eating [src]"
+				return 0
+
 			var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 			if (fullness <= 50)
 				M << "\red You hungrily chew out a piece of [src] and gobble it!"
@@ -53,6 +58,11 @@
 				return 0
 		else
 			if(!istype(M, /mob/living/carbon/slime))		//If you're feeding it to someone else.
+
+				if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+					user << "\red [M.wear_mask] prevents you form force [M.name] to eat [src]"
+					return 0
+
 				var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
 				if (fullness <= (550 * (1 + M.overeatduration / 1000)))
 					for(var/mob/O in viewers(world.view, user))
@@ -1366,6 +1376,126 @@
 	desc = "Still wrapped in some paper."
 	icon_state = "monkeycubewrap"
 	wrapped = 1
+
+/obj/item/weapon/reagent_containers/food/snacks/farwacube
+	name = "farwa cube"
+	desc = "Just add water!"
+	icon_state = "monkeycube"
+	bitesize = 12
+	var/wrapped = 0
+
+	New()
+		..()
+		reagents.add_reagent("nutriment",10)
+
+	afterattack(obj/O as obj, mob/user as mob)
+		if(istype(O,/obj/structure/sink) && !wrapped)
+			user << "You place [name] under a stream of water..."
+			loc = get_turf(O)
+			return Expand()
+		..()
+
+	attack_self(mob/user as mob)
+		if(wrapped)
+			Unwrap(user)
+
+	proc/Expand()
+		for(var/mob/M in viewers(src,7))
+			M << "\red The farwa cube expands!"
+		new /mob/living/carbon/monkey/tajara(get_turf(src))
+		del(src)
+
+	proc/Unwrap(mob/user as mob)
+		icon_state = "monkeycube"
+		desc = "Just add water!"
+		user << "You unwrap the cube."
+		wrapped = 0
+		return
+
+/obj/item/weapon/reagent_containers/food/snacks/stokcube
+	name = "stok cube"
+	desc = "Just add water!"
+	icon_state = "monkeycube"
+	bitesize = 12
+	var/wrapped = 0
+
+	New()
+		..()
+		reagents.add_reagent("nutriment",10)
+
+	afterattack(obj/O as obj, mob/user as mob)
+		if(istype(O,/obj/structure/sink) && !wrapped)
+			user << "You place [name] under a stream of water..."
+			loc = get_turf(O)
+			return Expand()
+		..()
+
+	attack_self(mob/user as mob)
+		if(wrapped)
+			Unwrap(user)
+
+	proc/Expand()
+		for(var/mob/M in viewers(src,7))
+			M << "\red The stok cube expands!"
+		new /mob/living/carbon/monkey/unathi(get_turf(src))
+		del(src)
+
+	proc/Unwrap(mob/user as mob)
+		icon_state = "monkeycube"
+		desc = "Just add water!"
+		user << "You unwrap the cube."
+		wrapped = 0
+		return
+/obj/item/weapon/reagent_containers/food/snacks/neaeracube
+	name = "neaera cube"
+	desc = "Just add water!"
+	icon_state = "monkeycube"
+	bitesize = 12
+	var/wrapped = 0
+
+	New()
+		..()
+		reagents.add_reagent("nutriment",10)
+
+	afterattack(obj/O as obj, mob/user as mob)
+		if(istype(O,/obj/structure/sink) && !wrapped)
+			user << "You place [name] under a stream of water..."
+			loc = get_turf(O)
+			return Expand()
+		..()
+
+	attack_self(mob/user as mob)
+		if(wrapped)
+			Unwrap(user)
+
+	proc/Expand()
+		for(var/mob/M in viewers(src,7))
+			M << "\red The neaera cube expands!"
+		new /mob/living/carbon/monkey/skrell(get_turf(src))
+		del(src)
+
+	proc/Unwrap(mob/user as mob)
+		icon_state = "monkeycube"
+		desc = "Just add water!"
+		user << "You unwrap the cube."
+		wrapped = 0
+		return
+
+/obj/item/weapon/reagent_containers/food/snacks/neaeracube/wrapped
+	desc = "Still wrapped in some paper."
+	icon_state = "monkeycubewrap"
+	wrapped = 1
+/obj/item/weapon/reagent_containers/food/snacks/stokcube/wrapped
+	desc = "Still wrapped in some paper."
+	icon_state = "monkeycubewrap"
+	wrapped = 1
+
+
+/obj/item/weapon/reagent_containers/food/snacks/farwacube/wrapped
+	desc = "Still wrapped in some paper."
+	icon_state = "monkeycubewrap"
+	wrapped = 1
+
 
 
 /obj/item/weapon/reagent_containers/food/snacks/spellburger

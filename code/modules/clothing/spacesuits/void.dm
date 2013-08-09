@@ -12,4 +12,3 @@
 	item_state = "void"
 	desc = "A high tech, NASA Centcom branch designed, dark red Space suit. Used for AI satellite maintenance."
 	slowdown = 1
-	allowed = list(/obj/item/weapon/tank/)

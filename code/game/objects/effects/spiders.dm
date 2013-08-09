@@ -74,11 +74,11 @@
 	name = "egg cluster"
 	desc = "They seem to pulse slightly with an inner life"
 	icon_state = "eggs"
-	var/amount_grown = -1
+	var/amount_grown = 0
 	New()
 		pixel_x = rand(3,-3)
 		pixel_y = rand(3,-3)
-		amount_grown = 1
+		processing_objects.Add(src)
 
 /obj/effect/spider/eggcluster/process()
 	amount_grown += rand(0,2)
@@ -106,8 +106,6 @@
 		if(prob(50))
 			amount_grown = 1
 
-
-
 /obj/effect/spider/spiderling/Bump(atom/user)
 	if(istype(user, /obj/structure/table))
 		src.loc = user.loc
@@ -116,7 +114,8 @@
 
 /obj/effect/spider/spiderling/proc/die()
 	visible_message("<span class='alert'>[src] dies!</span>")
-	icon_state = "greenshatter"
+	new /obj/effect/decal/cleanable/spiderling_remains(src.loc)
+	del(src)
 
 /obj/effect/spider/spiderling/healthcheck()
 	if(health <= 0)
@@ -181,6 +180,7 @@
 				entry_vent = v
 				walk_to(src, entry_vent, 5)
 				break
+
 	if(prob(1))
 		src.visible_message("\blue \the [src] chitters.")
 	if(isturf(loc) && amount_grown > 0)
@@ -189,6 +189,12 @@
 			var/spawn_type = pick(typesof(/mob/living/simple_animal/hostile/giant_spider))
 			new spawn_type(src.loc)
 			del(src)
+
+/obj/effect/decal/cleanable/spiderling_remains
+	name = "spiderling remains"
+	desc = "Green squishy mess."
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "greenshatter"
 
 /obj/effect/spider/cocoon
 	name = "cocoon"

@@ -81,8 +81,10 @@ var/bomb_set
 	set src in oview(1)
 
 	if (src.deployable)
+		usr << "\red You close several panels to make [src] undeployable."
 		src.deployable = 0
 	else
+		usr << "\red You adjust some panels to make [src] deployable."
 		src.deployable = 1
 
 /obj/machinery/nuclearbomb/Topic(href, href_list)

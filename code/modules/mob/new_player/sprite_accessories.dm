@@ -115,6 +115,7 @@
 	ponytail2
 		name = "Ponytail 2"
 		icon_state = "hair_pa"
+		gender = FEMALE
 
 	ponytail3
 		name = "Ponytail 3"
@@ -327,7 +328,7 @@
 		name = "Shaved"
 		icon_state = "bald"
 		gender = NEUTER
-		species_allowed = list("Human","Unathi","Tajaran","Skrell")
+		species_allowed = list("Human","Unathi","Tajaran","Skrell","Vox")
 
 	watson
 		name = "Watson Mustache"
@@ -505,7 +506,7 @@
 		species_allowed = list("Tajaran")
 
 	taj_ears_spiky
-		name = "Tajaran Spiky"
+		name = "Tajara Spiky"
 		icon_state = "hair_tajspiky"
 		species_allowed = list("Tajaran")
 
@@ -513,6 +514,11 @@
 		name = "Tajara Messy"
 		icon_state = "hair_messy"
 		species_allowed = list("Tajaran")
+
+	vox_quills_short
+		name = "Short Vox Quills"
+		icon_state = "vox_shortquills"
+		species_allowed = list("Vox")
 
 /datum/sprite_accessory/facial_hair
 
@@ -545,6 +551,7 @@
 		name = "Tajara Smallsatche"
 		icon_state = "facial_smallstache"
 		species_allowed = list("Tajaran")
+
 //skin styles - WIP
 //going to have to re-integrate this with surgery
 //let the icon_state hold an icon preview for now
@@ -567,8 +574,8 @@
 		icon = 'icons/mob/human_races/r_tajaran.dmi'
 		species_allowed = list("Tajaran")
 
-	soghun
-		name = "Default soghun skin"
+	unathi
+		name = "Default Unathi skin"
 		icon_state = "default"
 		icon = 'icons/mob/human_races/r_lizard.dmi'
 		species_allowed = list("Unathi")

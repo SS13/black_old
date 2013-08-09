@@ -13,9 +13,8 @@ var/global/pipe_processing_killed = 0
 
 datum/controller/game_controller
 	var/processing = 0
-	var/breather_ticks = 3		//a somewhat crude attempt to iron over the 'bumps' caused by high-cpu use by letting the MC have a breather for this many ticks after every loop
-	var/minimum_ticks  = 20	//The minimum length of time between MC ticks
-	var/debug          = 0
+	var/breather_ticks = 2		//a somewhat crude attempt to iron over the 'bumps' caused by high-cpu use by letting the MC have a breather for this many ticks after every loop
+	var/minimum_ticks = 20		//The minimum length of time between MC ticks
 
 	var/air_cost 		= 0
 	var/sun_cost		= 0
@@ -49,11 +48,11 @@ datum/controller/game_controller/New()
 	if(!syndicate_code_response)	syndicate_code_response	= generate_code_phrase()
 	if(!emergency_shuttle)			emergency_shuttle = new /datum/shuttle_controller/emergency_shuttle()
 
-
 datum/controller/game_controller/proc/setup()
 	world.tick_lag = config.Ticklag
 
-	createRandomZlevel()
+	spawn(20)
+		createRandomZlevel()
 
 	if(!air_master)
 		air_master = new /datum/controller/air_system()
@@ -61,8 +60,6 @@ datum/controller/game_controller/proc/setup()
 
 	if(!ticker)
 		ticker = new /datum/controller/gameticker()
-
-
 
 	setup_objects()
 	setupgenetics()
@@ -75,6 +72,7 @@ datum/controller/game_controller/proc/setup()
 	spawn(0)
 		if(ticker)
 			ticker.pregame()
+
 	lighting_controller.Initialize()
 
 
@@ -86,12 +84,12 @@ datum/controller/game_controller/proc/setup_objects()
 
 	world << "\red \b Initializing pipe networks"
 	sleep(-1)
-	for(var/obj/machinery/atmospherics/machine in world)
+	for(var/obj/machinery/atmospherics/machine in machines)
 		machine.build_network()
 
 	world << "\red \b Initializing atmos machinery."
 	sleep(-1)
-	for(var/obj/machinery/atmospherics/unary/U in world)
+	for(var/obj/machinery/atmospherics/unary/U in machines)
 		if(istype(U, /obj/machinery/atmospherics/unary/vent_pump))
 			var/obj/machinery/atmospherics/unary/vent_pump/T = U
 			T.broadcast_status()
@@ -115,14 +113,12 @@ datum/controller/game_controller/proc/process()
 			last_tick_timeofday = currenttime
 
 			if(processing)
-				if(debug)
-					world << "Processing. Current Time: [currenttime] Current Iteration: [controller_iteration]"
-
 				var/timer
 				var/start_time = world.timeofday
 				controller_iteration++
 
 				vote.process()
+				process_newscaster()
 
 				//AIR
 
@@ -136,13 +132,14 @@ datum/controller/game_controller/proc/process()
 					//src.set_debug_state("Air Master")
 
 					air_master.current_cycle++
-					var/success = air_master.tick() //Changed so that a runtime does not crash the ticker.
-					if(!success) //Runtimed.
-						log_adminwarn("ZASALERT: air_system/tick() failed: [air_master.tick_progress]")
+					if(!air_master.tick()) //Runtimed.
 						air_master.failed_ticks++
 						if(air_master.failed_ticks > 5)
 							world << "<font color='red'><b>RUNTIMES IN ATMOS TICKER.  Killing air simulation!</font></b>"
-							kill_air = 1
+							world.log << "### ZAS SHUTDOWN"
+							message_admins("ZASALERT: unable to run [air_master.tick_progress], shutting down!")
+							log_admin("ZASALERT: unable run zone/process() -- [air_master.tick_progress]")
+							air_processing_killed = 1
 							air_master.failed_ticks = 0
 				air_cost = (world.timeofday - timer) / 10
 

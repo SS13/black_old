@@ -14,9 +14,3 @@
 	attack_sound = 'sound/weapons/bite.ogg'
 	faction = "creature"
 	speed = 4
-
-/mob/living/simple_animal/hostile/creature/fleshslime
-	name = "Flesh Slime"
-	icon = 'biocraps.dmi'
-	icon_state = "livingflesh"
-	desc = "A creature that appears to be made out of living tissue strewn together haphazardly. Some kind of liquid bubbles from its maw."

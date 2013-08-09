@@ -345,6 +345,10 @@ var/message_delay = 0 // To make sure restarting the recentmessages list is kept
 //				freq_text = "Mining"
 			if(1347)
 				freq_text = "Supply"
+			if(1441)
+				freq_text = "Death Squad"
+			if(1443)
+				freq_text = "Response Team"
 		//There's probably a way to use the list var of channels in code\game\communications.dm to make the dept channels non-hardcoded, but I wasn't in an experimentive mood. --NEO
 
 

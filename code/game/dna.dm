@@ -331,7 +331,7 @@
 	if(!M)	return
 	var/num
 	var/newdna
-	num = rand(1,STRUCDNASIZE-1)
+	num = rand(1,UNIDNASIZE)
 	M.dna.check_integrity()
 	newdna = setblock(M.dna.uni_identity,num,add_zero2(num2hex(rand(1,4095),1),3),3)
 	M.dna.uni_identity = newdna
@@ -416,24 +416,24 @@
 
 	if(ismuton(NOBREATHBLOCK,M))
 		if(probinj(45,inj) || (MNOBREATH in old_mutations))
-			M << "\blue You feel no need to breathe."
 			M.mutations.Add(MNOBREATH)
+			M << "\blue You feel no need to breathe."
 	if(ismuton(REMOTEVIEWBLOCK,M))
 		if(probinj(45,inj) || (MREMOTEVIEW in old_mutations))
-			M << "\blue Your mind expands"
 			M.mutations.Add(MREMOTEVIEW)
+			M << "\blue Your mind expands"
 	if(ismuton(REGENERATEBLOCK,M))
 		if(probinj(45,inj) || (MREGENERATE in old_mutations))
-			M << "\blue You feel strange"
 			M.mutations.Add(MREGENERATE)
+			M << "\blue You feel strange"
 	if(ismuton(INCREASERUNBLOCK,M))
 		if(probinj(45,inj) || (MRUN in old_mutations))
-			M << "\blue You feel quick"
 			M.mutations.Add(MRUN)
+			M << "\blue You feel quick"
 	if(ismuton(REMOTETALKBLOCK,M))
 		if(probinj(45,inj) || (MREMOTETALK in old_mutations))
-			M << "\blue You expand your mind outwards"
 			M.mutations.Add(MREMOTETALK)
+			M << "\blue You expand your mind outwards"
 	if(ismuton(MORPHBLOCK,M))
 		if(probinj(45,inj) || (MMORPH in old_mutations))
 			M.mutations.Add(MMORPH)
@@ -456,8 +456,8 @@
 			M << "\blue You feel strange"
 	if(ismuton(SMALLSIZEBLOCK,M))
 		if(probinj(45,inj) || (MSMALLSIZE in old_mutations))
-			M << "\blue Your skin feels rubbery"
 			M.mutations.Add(MSMALLSIZE)
+			M << "\blue Your skin feels rubbery"
 
 
 
@@ -548,7 +548,17 @@
 			sleep(48)
 			del(animation)
 
-		var/mob/living/carbon/monkey/O = new(src)
+
+		var/mob/living/carbon/monkey/O = null
+		switch(M.dna.mutantrace)
+			if("tajaran")
+				O = new /mob/living/carbon/monkey/tajara(src)
+			if("lizard")
+				O = new /mob/living/carbon/monkey/unathi(src)
+			if("skrell")
+				O = new /mob/living/carbon/monkey/skrell(src)
+			else
+				O = new /mob/living/carbon/monkey(src)
 
 		if(M)
 			if (M.dna)
