@@ -144,17 +144,15 @@ datum/preferences
 				icobase = 'icons/mob/human_races/r_lizard.dmi'
 			if("Skrell")
 				icobase = 'icons/mob/human_races/r_skrell.dmi'
-
 			if("Vox")
 				icobase = 'icons/mob/human_races/r_vox.dmi'
-
 			else
 				icobase = 'icons/mob/human_races/r_human.dmi'
 		preview_icon = new /icon(icobase, "torso_[g]")
 		preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
 		preview_icon.Blend(new /icon(icobase, "head_[g]"), ICON_OVERLAY)
 
-		for(var/name in list("l_arm[g]","r_arm[g]","l_leg[g]","r_leg[g]","l_foot[g]","r_foot[g]","l_hand[g]","r_hand[g]"))
+		for(var/name in list("l_arm_[g]","r_arm_[g]","l_leg_[g]","r_leg_[g]","l_foot_[g]","r_foot_[g]","l_hand_[g]","r_hand_[g]"))
 			// make sure the organ is added to the list so it's drawn
 			if(organ_data[name] == null)
 				organ_data[name] = null
