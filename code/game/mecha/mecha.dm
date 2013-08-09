@@ -86,10 +86,12 @@
 	removeVerb(/atom/movable/verb/pull)
 	log_message("[src.name] created.")
 	loc.Entered(src)
+	mechas_list += src //global mech list
 	return
 
 /obj/mecha/Del()
 	src.go_out()
+	mechas_list -= src //global mech list
 	..()
 	return
 
@@ -1544,6 +1546,9 @@
 		return
 	if(href_list["dna_lock"])
 		if(usr != src.occupant)	return
+		if(istype(src, /obj/item/device/mmi))
+			occupant_message("You are a brain. No.")
+			return
 		if(src.occupant)
 			src.dna = src.occupant.dna.unique_enzymes
 			src.occupant_message("You feel a prick as the needle takes your DNA sample.")
