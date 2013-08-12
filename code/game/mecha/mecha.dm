@@ -953,6 +953,10 @@
 		usr << "\blue <B>The [src.name] is already occupied!</B>"
 		src.log_append_to_last("Permission denied.")
 		return
+	if (usr:handcuffed)
+		usr << "\red You can`t do it when handcuffed!"
+		return
+
 /*
 	if (usr.abiotic())
 		usr << "\blue <B>Subject cannot have abiotic items on.</B>"
