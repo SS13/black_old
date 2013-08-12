@@ -1126,6 +1126,7 @@
 #include "code\modules\projectiles\projectile\bullets.dm"
 #include "code\modules\projectiles\projectile\change.dm"
 #include "code\modules\projectiles\projectile\energy.dm"
+#include "code\modules\projectiles\projectile\force.dm"
 #include "code\modules\projectiles\projectile\freezeball.dm"
 #include "code\modules\projectiles\projectile\special.dm"
 #include "code\modules\reagents\Chemistry-Colours.dm"
