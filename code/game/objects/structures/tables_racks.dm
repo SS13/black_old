@@ -463,8 +463,9 @@
 			usr.loc = src.loc
 		else
 			sleep(10)
-			visible_message("<span class='notice'>[user] tries climbs on the [src].</span>")*/
-
+			visible_message("<span class='notice'>[user] tries climbs on the [src].</span>")
+			usr.weakened += 3
+*/
 /obj/structure/rack/attack_paw(mob/user)
 	if(HULK in user.mutations)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
