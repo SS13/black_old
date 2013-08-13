@@ -47,9 +47,10 @@ mob/living/parasite/proc/enter_host(mob/living/carbon/host)
 	return 1
 
 mob/living/parasite/proc/exit_host()
+	if (!src.host) return 0
 	src.host.parasites.Remove(src)
+	src.loc = src.host.loc
 	src.host = null
-	src.loc = null
 
 	return 1
 
@@ -127,8 +128,7 @@ mob/living/parasite/meme/Life()
 
 mob/living/parasite/meme/death()
 	// make sure the mob is on the actual map before gibbing
-	if(host) src.loc = host.loc
-	host.parasites -= src
+	if (host) src.exit_host()
 	src.stat = 2
 	..()
 	del src
@@ -262,7 +262,6 @@ mob/living/parasite/meme/verb/Mute()
 	set desc     = "Prevents your host from talking for a while."
 
 	if(!src.host) return
-//	if(!host.speech_allowed)
 	if(host.silent)
 		usr << "\red Your host already can't speak.."
 		return
@@ -276,7 +275,6 @@ mob/living/parasite/meme/verb/Mute()
 		usr << "\red Your host can't speak anymore."
 
 		host.silent = 1200
-//		host.speech_allowed = 0
 
 		sleep(1200)
 
@@ -399,9 +397,6 @@ mob/living/parasite/meme/verb/SubtleJump(mob/living/carbon/human/target as mob i
 		src << "<b>Your host can't speak..</b>"
 		return
 
-	if(host.parasites.len) return
-	if(!use_points(350)) return
-
 	for(var/mob/M in view(1, host))
 		M.show_message("<B>[host]</B> whispers something incoherent.",2) // 2 stands for hearable message
 
@@ -410,9 +405,11 @@ mob/living/parasite/meme/verb/SubtleJump(mob/living/carbon/human/target as mob i
 		src << "<b>Your target doesn't seem to hear you..</b>"
 		return
 
-	if(target.parasites.len > 0)
+	if(target.parasites.len)
 		src << "<b>Your target already is possessed by something..</b>"
 		return
+
+	if(!use_points(350)) return
 
 	src.exit_host()
 	src.enter_host(target)
@@ -439,9 +436,6 @@ mob/living/parasite/meme/verb/ObviousJump(mob/living/carbon/human/target as mob 
 		src << "<b>Your host can't speak..</b>"
 		return
 
-	if(host.parasites.len) return
-	if(!use_points(750)) return
-
 	for(var/mob/M in view(host)+src)
 		M.show_message("<B>[host]</B> screams something incoherent!",2) // 2 stands for hearable message
 
@@ -453,6 +447,8 @@ mob/living/parasite/meme/verb/ObviousJump(mob/living/carbon/human/target as mob 
 	if(target.parasites.len > 0)
 		src << "<b>Your target already is possessed by something..</b>"
 		return
+
+	if(!use_points(750)) return
 
 	src.exit_host()
 	src.enter_host(target)
@@ -470,14 +466,20 @@ mob/living/parasite/meme/verb/AttunedJump(mob/living/carbon/human/target as mob 
 	if(!istype(target, /mob/living/carbon/human) || !target.mind)
 		src << "<b>You can't jump to this creature..</b>"
 		return
+
 	if(!(target in view(host)))
 		src << "<b>You need to make eye-contact with the target.</b>"
 		return
+
 	if(!(target in indoctrinated))
 		src << "<b>You need to attune the target first.</b>"
 		return
 
-	if(host.parasites.len) return
+	if(target.parasites.len > 0)
+		src << "<b>Your target already is possessed by something..</b>"
+		return
+
+
 	src.exit_host()
 	src.enter_host(target)
 
