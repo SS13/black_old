@@ -293,6 +293,11 @@
 		icon_state = "hair_ombre"
 		gender = FEMALE
 
+	unitfringe
+		name = "Test Fringe"
+		icon_state = "test4"
+		gender = FEMALE
+
 	updo
 		name = "Updo"
 		icon_state = "hair_updo"

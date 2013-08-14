@@ -226,7 +226,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				A.loc = T
 			else
 				A << "This mob is not located in the game world."
-/*
+
 /mob/dead/observer/verb/boo()
 	set category = "Ghost"
 	set name = "Boo!"
@@ -240,7 +240,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 	//Maybe in the future we can add more <i>spooky</i> code here!
 	return
-*/
+
 
 /mob/dead/observer/memory()
 	set hidden = 1
@@ -286,3 +286,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(host)
 		host.ckey = src.ckey
 		host << "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>"
+
+/mob/dead/observer/verb/hat()
+	set name = "Hats"
+	set category = "Ghost"
+
+	var/list/hats = list("beret", "wizard", "witch", "redwizard", "marisa", "wizard-fake", "deathsquad", "riot", "bio", "nursehat", "santahat", "detective", "paper", "hoscap", "pirate", "security", "viking", "headslime", "metroid", "petehat", "kitty", "bunny", "xenom", "xenos", "sombrero", "wardenberet", "officerberet", "hosberet", "hardhat0_pumpkin", "xmashat", "cardborg_h", "chickenhead", "helmlaw", "Bald")
+	var h = input("Choose a hat", "Choice") in hats
+
+	usr.overlays = null
+	usr.overlays += image('icons/mob/head.dmi',icon_state = h)
+
+
