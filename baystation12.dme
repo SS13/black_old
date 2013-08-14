@@ -1350,5 +1350,4 @@
 #include "maps\RandomZLevels\stationCollision.dm"
 #include "maps\RandomZLevels\arcticwaste.dmm"
 #include "maps\RandomZLevels\blackmarketpackers.dmm"
-#include "maps\RandomZLevels\listeningpost.dmm"
 // END_INCLUDE
