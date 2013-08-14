@@ -303,8 +303,8 @@ var/MAX_EXPLOSION_RANGE = 14
 
 // mob/var/list/mutations
 
-#define STRUCDNASIZE 		27
-#define UNIDNASIZE 		13
+#define STRUCDNASIZE 27
+#define UNIDNASIZE 13
 
 	// Generic mutations:
 #define	TK			1
@@ -574,17 +574,17 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 
 ///////////////////ORGAN DEFINES///////////////////
 
-#define ORGAN_CUT_AWAY		1
-#define ORGAN_GAUZED 		2
-#define ORGAN_ATTACHABLE	4
-#define ORGAN_BLEEDING 		8
-#define ORGAN_BROKEN 		32
-#define ORGAN_DESTROYED 	64
-#define ORGAN_ROBOT 		128
-#define ORGAN_SPLINTED 		256
-#define SALVED 			512
-#define ORGAN_DEAD 		1024
-#define ORGAN_MUTATED 		2048
+#define ORGAN_CUT_AWAY 1
+#define ORGAN_GAUZED 2
+#define ORGAN_ATTACHABLE 4
+#define ORGAN_BLEEDING 8
+#define ORGAN_BROKEN 32
+#define ORGAN_DESTROYED 64
+#define ORGAN_ROBOT 128
+#define ORGAN_SPLINTED 256
+#define SALVED 512
+#define ORGAN_DEAD 1024
+#define ORGAN_MUTATED 2048
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 

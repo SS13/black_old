@@ -45,9 +45,17 @@
 		else		adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
 
+	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
+		//send a warning to admins, but have a delay popup for mods
+		if(holder.rights & R_ADMIN)
+			src << "\red <b>Simultaneous PMs warning:</b> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]"
+		else
+			if(alert("That player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]","Simultaneous PMs warning","Continue","Cancel") == "Cancel")
+				return*/
+
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = sanitize(input(src,"Message:", "Private message to [C.key]") as text|null)
+		msg = input(src,"Message:", "Private message to [C.key]") as text|null
 
 		if(!msg)	return
 		if(!C)
@@ -60,7 +68,7 @@
 
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0))
-		msg = copytext(msg,1,MAX_MESSAGE_LEN)
+		msg = sanitize(copytext(msg,1,MAX_MESSAGE_LEN))
 		if(!msg)	return
 
 	var/recieve_color = "purple"

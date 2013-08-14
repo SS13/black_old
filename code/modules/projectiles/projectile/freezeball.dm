@@ -47,7 +47,7 @@ obj/item/weapon/gun/energy/freezegun
 
 /obj/structure/freezedmob
 	name = "Pile of ice"
-	icon = 'icons/obj/device.dmi'
+	icon = 'device.dmi'
 	icon_state = "singlebath-bottom"
 	desc = "Big pile of ice. Some aborigens at waterless planets can kill for ot"
 	density = 1

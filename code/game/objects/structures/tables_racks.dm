@@ -249,7 +249,6 @@
 
 /obj/structure/table/attack_alien(mob/user)
 	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
-	destroy()
 
 /obj/structure/table/attack_animal(mob/living/simple_animal/user)
 	if(user.wall_smash)
@@ -456,7 +455,7 @@
 		density = 0
 		del(src)
 
-/*	if(usr.a_intent == "disarm")
+	if(usr.a_intent == "disarm")
 		if(prob(60))
 			visible_message("<span class='notice'>[user] climbs on the [src].</span>")
 			sleep(10)
@@ -464,8 +463,7 @@
 		else
 			sleep(10)
 			visible_message("<span class='notice'>[user] tries climbs on the [src].</span>")
-			usr.weakened += 3
-*/
+
 /obj/structure/rack/attack_paw(mob/user)
 	if(HULK in user.mutations)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))

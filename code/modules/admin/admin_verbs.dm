@@ -484,7 +484,7 @@ var/list/admin_verbs_events = list(
 #define AUTOBANTIME 25
 
 /client/proc/warn(warned_ckey)
-	if(!check_rights(R_MOD))	return
+	if(!check_rights(R_ADMIN))	return
 
 	if(!warned_ckey || !istext(warned_ckey))	return
 	if(warned_ckey in admin_datums)

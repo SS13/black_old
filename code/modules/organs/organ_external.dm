@@ -789,7 +789,7 @@ obj/item/weapon/organ/r_leg
 	icon_state = "r_leg"
 obj/item/weapon/organ/head
 	name = "head"
-	icon_state = "head"
+	icon_state = "head_m"
 	var/mob/living/carbon/brain/brainmob
 	var/brain_op_stage = 0
 
@@ -799,6 +799,8 @@ obj/item/weapon/organ/head/New(loc, mob/living/carbon/human/H)
 	if(brainmob && brainmob.client)
 		brainmob.client.screen.len = null //clear the hud
 	if(ishuman(H))
+		if(H.gender == FEMALE)
+			H.icon_state = "head_f"
 		H.overlays += H.generate_head_icon()
 	transfer_identity(H)
 	pixel_x = -10
