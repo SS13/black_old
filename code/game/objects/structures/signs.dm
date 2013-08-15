@@ -19,7 +19,6 @@
 		else
 	return
 
-
 /obj/structure/sign/blob_act()
 	del(src)
 	return
