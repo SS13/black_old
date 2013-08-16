@@ -6,5 +6,6 @@
 ######################################################################
 
 # not_a_user - Admin
+testunit - Host
 lethalghost - Host
 barka - Host

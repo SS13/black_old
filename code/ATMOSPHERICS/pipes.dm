@@ -527,7 +527,7 @@ obj/machinery/atmospherics/pipe
 		var/build_killswitch = 1
 
 		var/obj/machinery/atmospherics/node1
-		New()		
+		New()
 			initialize_directions = dir
 			..()
 
@@ -722,7 +722,7 @@ obj/machinery/atmospherics/pipe
 
 				icon_state = "manifold_[connected]_[unconnected]"
 
-				if(!connected) 
+				if(!connected)
 					del(src)
 
 			return
@@ -922,6 +922,7 @@ obj/machinery/atmospherics/pipe
 			..()
 
 		update_icon()
+			overlays.Cut()
 			if(node1&&node2&&node3&&node4)
 				var/C = ""
 				switch(color)
@@ -951,7 +952,7 @@ obj/machinery/atmospherics/pipe
 			return
 
 		initialize()
-			
+
 			for(var/obj/machinery/atmospherics/target in get_step(src,1))
 				if(target.initialize_directions & 2)
 					node1 = target
@@ -1028,7 +1029,7 @@ obj/machinery/atmospherics/pipe
 	manifold4w/general/hidden
 		level = 1
 		icon_state = "manifold4w-f"
-		
+
 	cap
 		name = "pipe endcap"
 		desc = "An endcap for pipes"
@@ -1138,7 +1139,7 @@ obj/machinery/atmospherics/pipe/attackby(var/obj/item/weapon/W as obj, var/mob/u
 		user << "\red You paint the pipe yellow."
 		update_icon()
 		return 1
-    
+
 	if (!istype(W, /obj/item/weapon/wrench))
 		return ..()
 	var/turf/T = src.loc
