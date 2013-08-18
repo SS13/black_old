@@ -14,8 +14,8 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"pAI candidate" = 1, // -- TLE                       // 7
 	"cultist" = IS_MODE_COMPILED("cult"),                // 8
 	"infested monkey" = IS_MODE_COMPILED("monkey"),      // 9
-	"ninja" = "true",									 // 10
-	"meme" = IS_MODE_COMPILED("meme"),					 // 11
+	"ninja" = "true",					// 10
+	"meme" = IS_MODE_COMPILED("meme"),			// 11
 )
 
 var/const/MAX_SAVE_SLOTS = 10
@@ -796,7 +796,7 @@ datum/preferences
 								new_species += "Skrell"
 								whitelisted = 1
 							if(is_alien_whitelisted(user, "Vox")) //Check for Skrell and admins
-								new_species += "Vox"
+							//	new_species += "Vox"
 								whitelisted = 1
 
 
@@ -806,7 +806,7 @@ datum/preferences
 							new_species += "Tajaran"
 							new_species += "Unathi"
 							new_species += "Skrell"
-							new_species += "Vox"
+						//	new_species += "Vox"
 						species = input("Please select a species", "Character Generation", null) in new_species
 
 						if(prev_species != species)
