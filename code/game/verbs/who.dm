@@ -111,7 +111,7 @@
 				num_mods_online++
 	else
 		for(var/client/C in admins)
-			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights))
+			if(R_ADMIN & C.holder.rights || !(R_MOD & C.holder.rights) && !C.holder.fakekey)
 				num_admins_online++
 			else
 				msg += "\t[C] is a [C.holder.rank]\n"
