@@ -26,6 +26,9 @@
 			lit = 0
 		update_icon()
 
+	new()
+		anchored = 1
+
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"
 	desc = "Small wall-mounted holographic projector. This one reads SURGERY."
