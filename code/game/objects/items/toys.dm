@@ -113,6 +113,9 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
 
+/* 
+ * Toy gun: Why isnt this an /obj/item/weapon/gun? 
+ */
 /obj/item/toy/gun
 	name = "cap gun"
 	desc = "There are 0 caps left. Looks almost like the real thing! Ages 8 and up. Please recycle in an autolathe when you're out of caps!"
@@ -127,12 +130,12 @@
 	attack_verb = list("struck", "pistol whipped", "hit", "bashed")
 	var/bullets = 7.0
 	var/false_desc = "Looks almost like the real thing! Ages 8 and up."
-	var/false_bullets = "caps\s"
+	var/false_bullets = "caps"
 
 	examine()
 		set src in usr
 
-		src.desc = text("There are [src.bullets] [false_bullets] left. [false_desc]", src.bullets)
+		src.desc = text("There are [src.bullets] [false_bullets] left. [false_desc]")
 		..()
 		return
 
