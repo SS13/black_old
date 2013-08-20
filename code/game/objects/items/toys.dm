@@ -113,9 +113,6 @@
 	icon = 'icons/obj/singularity.dmi'
 	icon_state = "singularity_s1"
 
-/*
- * Toy gun: Why isnt this an /obj/item/weapon/gun?
- */
 /obj/item/toy/gun
 	name = "cap gun"
 	desc = "There are 0 caps left. Looks almost like the real thing! Ages 8 and up. Please recycle in an autolathe when you're out of caps!"
@@ -129,11 +126,13 @@
 	m_amt = 10
 	attack_verb = list("struck", "pistol whipped", "hit", "bashed")
 	var/bullets = 7.0
+	var/false_desc = "Looks almost like the real thing! Ages 8 and up."
+	var/false_bullets = "caps\s"
 
 	examine()
 		set src in usr
 
-		src.desc = text("There are [] caps\s left. Looks almost like the real thing! Ages 8 and up.", src.bullets)
+		src.desc = text("There are [src.bullets] [false_bullets] left. [false_desc]", src.bullets)
 		..()
 		return
 
@@ -144,14 +143,14 @@
 				user << "\blue It's already fully loaded!"
 				return 1
 			if (A.amount_left <= 0)
-				user << "\red There is no more caps!"
+				user << "\red There is no more [false_bullets]!"
 				return 1
 			if (A.amount_left < (7 - src.bullets))
 				src.bullets += A.amount_left
-				user << text("\red You reload [] caps\s!", A.amount_left)
+				user << text("\red You reload [A.amount_left] [false_bullets]!")
 				A.amount_left = 0
 			else
-				user << text("\red You reload [] caps\s!", 7 - src.bullets)
+				user << text("\red You reload [7 - src.bullets] [false_bullets]!")
 				A.amount_left -= 7 - src.bullets
 				src.bullets = 7
 			A.update_icon()
@@ -172,7 +171,7 @@
 		playsound(user, 'sound/weapons/Gunshot.ogg', 100, 1)
 		src.bullets--
 		for(var/mob/O in viewers(user, null))
-			O.show_message(text("\red <B>[] fires a cap gun at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
+			O.show_message(text("\red <B>[user] fires a [name] at [target]!</B>"), 1, "\red You hear a gunshot", 2)
 
 /obj/item/toy/ammo/gun
 	name = "ammo-caps"
