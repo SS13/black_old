@@ -26,8 +26,9 @@
 			lit = 0
 		update_icon()
 
-	new()
+	new(var/location)
 		anchored = 1
+		..(location)
 
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"
