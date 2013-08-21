@@ -5,6 +5,7 @@
 	icon = 'holosign.dmi'
 	icon_state = "sign_off"
 	layer = 4
+	anchored = 1
 	var/lit = 0
 	var/id = null
 	var/on_icon = "sign_on"
@@ -25,10 +26,6 @@
 		if (stat & NOPOWER)
 			lit = 0
 		update_icon()
-
-	new(var/location)
-		anchored = 1
-		..(location)
 
 /obj/machinery/holosign/surgery
 	name = "surgery holosign"
