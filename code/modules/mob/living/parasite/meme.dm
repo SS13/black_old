@@ -475,6 +475,10 @@ mob/living/parasite/meme/verb/AttunedJump(mob/living/carbon/human/target as mob 
 		src << "<b>You need to attune the target first.</b>"
 		return
 
+	if(target.parasites.len > 0)
+		src << "<b>Your target already is possessed by something..</b>"
+		return
+
 	src.exit_host()
 	src.enter_host(target)
 

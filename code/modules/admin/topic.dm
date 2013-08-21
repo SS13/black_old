@@ -197,9 +197,6 @@
 
 	else if(href_list["simplemake"])
 		if(!check_rights(R_SPAWN))	return
-		if(!href_list["mob"])
-			usr << "Invalid mob"
-			return
 
 		var/mob/M = locate(href_list["mob"])
 		if(!ismob(M))
@@ -540,21 +537,21 @@
 
 /*		//Malfunctioning AI	//Removed Malf-bans because they're a pain to impliment
 		if(jobban_isbanned(M, "malf AI") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'><font color=red>[dd_replacetext("Malf AI", " ", "&nbsp")]</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'><font color=red>[replacetext("Malf AI", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'>[dd_replacetext("Malf AI", " ", "&nbsp")]</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'>[replacetext("Malf AI", " ", "&nbsp")]</a></td>"
 
 		//Alien
 		if(jobban_isbanned(M, "alien candidate") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien candidate;jobban4=\ref[M]'><font color=red>[dd_replacetext("Alien", " ", "&nbsp")]</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien candidate;jobban4=\ref[M]'><font color=red>[replacetext("Alien", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien candidate;jobban4=\ref[M]'>[dd_replacetext("Alien", " ", "&nbsp")]</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=alien candidate;jobban4=\ref[M]'>[replacetext("Alien", " ", "&nbsp")]</a></td>"
 
 		//Infested Monkey
 		if(jobban_isbanned(M, "infested monkey") || isbanned_dept)
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=infested monkey;jobban4=\ref[M]'><font color=red>[dd_replacetext("Infested Monkey", " ", "&nbsp")]</font></a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=infested monkey;jobban4=\ref[M]'><font color=red>[replacetext("Infested Monkey", " ", "&nbsp")]</font></a></td>"
 		else
-			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=infested monkey;jobban4=\ref[M]'>[dd_replacetext("Infested Monkey", " ", "&nbsp")]</a></td>"
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=infested monkey;jobban4=\ref[M]'>[replacetext("Infested Monkey", " ", "&nbsp")]</a></td>"
 */
 		jobs += "</tr></table>"
 
@@ -638,25 +635,56 @@
 
 		//Banning comes first
 		if(notbannedlist.len) //at least 1 unbanned job exists in joblist so we have stuff to ban.
-			var/reason = input(usr,"Reason?","Please State Reason","") as text|null
-			if(reason)
-				var/msg
-				for(var/job in notbannedlist)
-					ban_unban_log_save("[key_name(usr)] jobbanned [key_name(M)] from [job]. reason: [reason]")
-					log_admin("[key_name(usr)] banned [key_name(M)] from [job]")
-					feedback_inc("ban_job",1)
-					DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
-					feedback_add_details("ban_job","- [job]")
-					jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
-					if(!msg)	msg = job
-					else		msg += ", [job]"
-				notes_add(M.ckey, "Banned  from [msg] - [reason]")
-				message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
-				M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
-				M << "\red <B>The reason is: [reason]</B>"
-				M << "\red Jobban can be lifted only upon request."
-				href_list["jobban2"] = 1 // lets it fall through and refresh
-				return 1
+			switch(alert("Temporary Ban?",,"Yes","No", "Cancel"))
+				if("Yes")
+					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num|null
+					if(!mins)
+						return
+					var/reason = input(usr,"Reason?","Please State Reason","") as text|null
+					if(!reason)
+						return
+
+					var/msg
+					for(var/job in notbannedlist)
+						ban_unban_log_save("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes. reason: [reason]")
+						log_admin("[key_name(usr)] temp-jobbanned [key_name(M)] from [job] for [mins] minutes")
+						feedback_inc("ban_job_tmp",1)
+						DB_ban_record(BANTYPE_JOB_TEMP, M, mins, reason, job)
+						feedback_add_details("ban_job_tmp","- [job]")
+						jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]") //Legacy banning does not support temporary jobbans.
+						if(!msg)
+							msg = job
+						else
+							msg += ", [job]"
+					notes_add(M.ckey, "Banned  from [msg] - [reason]")
+					message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg] for [mins] minutes", 1)
+					M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
+					M << "\red <B>The reason is: [reason]</B>"
+					M << "\red This jobban will be lifted in [mins] minutes."
+					href_list["jobban2"] = 1 // lets it fall through and refresh
+					return 1
+				if("No")
+					var/reason = input(usr,"Reason?","Please State Reason","") as text|null
+					if(reason)
+						var/msg
+						for(var/job in notbannedlist)
+							ban_unban_log_save("[key_name(usr)] perma-jobbanned [key_name(M)] from [job]. reason: [reason]")
+							log_admin("[key_name(usr)] perma-banned [key_name(M)] from [job]")
+							feedback_inc("ban_job",1)
+							DB_ban_record(BANTYPE_JOB_PERMA, M, -1, reason, job)
+							feedback_add_details("ban_job","- [job]")
+							jobban_fullban(M, job, "[reason]; By [usr.ckey] on [time2text(world.realtime)]")
+							if(!msg)	msg = job
+							else		msg += ", [job]"
+						notes_add(M.ckey, "Banned  from [msg] - [reason]")
+						message_admins("\blue [key_name_admin(usr)] banned [key_name_admin(M)] from [msg]", 1)
+						M << "\red<BIG><B>You have been jobbanned by [usr.client.ckey] from: [msg].</B></BIG>"
+						M << "\red <B>The reason is: [reason]</B>"
+						M << "\red Jobban can be lifted only upon request."
+						href_list["jobban2"] = 1 // lets it fall through and refresh
+						return 1
+				if("Cancel")
+					return
 
 		//Unbanning joblist
 		//all jobs in joblist are banned already OR we didn't give a reason (implying they shouldn't be banned)
@@ -1943,17 +1971,13 @@
 			if("virus")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","V")
-				var/answer = alert("Do you want this to be a random disease or do you have something in mind?",,"Make Your Own","Random","Choose")
-				if(answer=="Random")
-					viral_outbreak()
-					message_admins("[key_name_admin(usr)] has triggered a virus outbreak", 1)
-				else if(answer == "Choose")
-					var/list/viruses = list("fake gbs","gbs","magnitis","wizarditis",/*"beesease",*/"brain rot","cold","retrovirus","flu","pierrot's throat","rhumba beat")
-					var/V = input("Choose the virus to spread", "BIOHAZARD") in viruses
-					viral_outbreak(V)
-					message_admins("[key_name_admin(usr)] has triggered a virus outbreak of [V]", 1)
+				var/answer = alert("Do you want this to be a greater disease or a lesser one?",,"Greater","Lesser")
+				if(answer=="Lesser")
+					virus2_lesser_infection()
+					message_admins("[key_name_admin(usr)] has triggered a lesser virus outbreak.", 1)
 				else
-					AdminCreateVirus(usr)
+					virus2_greater_infection()
+					message_admins("[key_name_admin(usr)] has triggered a greater virus outbreak.", 1)
 			if("retardify")
 				feedback_inc("admin_secrets_fun_used",1)
 				feedback_add_details("admin_secrets_fun_used","RET")

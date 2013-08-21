@@ -66,9 +66,9 @@
 		name = "Shoulder-length Hair Alt"
 		icon_state = "hair_longfringe"
 
-	longish
+	/*longish
 		name = "Longer Hair"
-		icon_state = "hair_b2"
+		icon_state = "hair_b2"*/
 
 	longer
 		name = "Long Hair"
@@ -139,17 +139,14 @@
 	bedhead
 		name = "Bedhead"
 		icon_state = "hair_bedhead"
-		species_allowed = list("Human","Unathi")
 
 	bedhead2
 		name = "Bedhead 2"
 		icon_state = "hair_bedheadv2"
-		species_allowed = list("Human","Unathi")
 
 	bedhead3
 		name = "Bedhead 3"
 		icon_state = "hair_bedheadv3"
-		species_allowed = list("Human","Unathi")
 
 	beehive
 		name = "Beehive"
