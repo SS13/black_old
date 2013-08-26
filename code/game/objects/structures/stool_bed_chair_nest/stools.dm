@@ -35,9 +35,9 @@
 	return
 
 /obj/structure/stool/MouseDrop(atom/over_object)
-	if (istype(over_object, /mob/living/carbon/human))
+	if (istype(over_object, /mob/living/carbon/human) && (usr == over_object) && get_dist(over_object, src) <= 1)
 		var/mob/living/carbon/human/H = over_object
-		if (!H.restrained() && !H.stat && in_range(src, over_object) && get_dist(H, src) <= 1)
+		if (!H.restrained() && !H.stat)
 			var/obj/item/weapon/stool/S = new/obj/item/weapon/stool()
 			S.origin = src
 			src.loc = S

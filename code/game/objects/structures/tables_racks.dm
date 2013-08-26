@@ -417,8 +417,13 @@
 	if(air_group || (height==0)) return 1
 	if(src.density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
-	if(istype(mover) && mover.checkpass(PASSTABLE))
-		return 1
+	if(istype(mover))
+		if (mover.checkpass(PASSTABLE))
+			return 1
+		else
+			for (var/obj/structure/table/T in mover.loc)
+				if istype(T) return 1
+			return 0
 	else
 		return 0
 
@@ -460,10 +465,11 @@
 		if(prob(60))
 			visible_message("<span class='notice'>[user] climbs on the [src].</span>")
 			sleep(10)
+			if src.loc.enter()
 			usr.loc = src.loc
 		else
 			sleep(10)
-			visible_message("<span class='notice'>[user] tries climbs on the [src].</span>")
+			visible_message("<span class='warning'>[user] slipped off the edge of the [src].</span>")
 			usr.weakened += 3
 
 /obj/structure/rack/attack_paw(mob/user)
