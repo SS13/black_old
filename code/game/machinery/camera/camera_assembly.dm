@@ -87,9 +87,6 @@
 					usr << "No network found please hang up and try your call again."
 					return
 
-				var/temptag = "[get_area(src)] ([rand(1, 999)])"
-				input = strip_html(input(usr, "How would you like to name the camera?", "Set Camera Name", temptag))
-
 				state = 4
 				var/obj/machinery/camera/C = new(src.loc)
 				src.loc = C
@@ -97,12 +94,9 @@
 
 				C.auto_turn()
 
-				C.network = uniquelist(tempnetwork)
-				tempnetwork = difflist(C.network,RESTRICTED_CAMERA_NETWORKS)
-				if(!tempnetwork.len)//Camera isn't on any open network - remove its chunk from AI visibility.
-					cameranet.removeCamera(C)
+				C.network = tempnetwork
 
-				C.c_tag = input
+				C.c_tag = "[get_area_name(src)] ([rand(1, 999)]"
 
 				for(var/i = 5; i >= 0; i -= 1)
 					var/direct = input(user, "Direction?", "Assembling Camera", null) in list("LEAVE IT", "NORTH", "EAST", "SOUTH", "WEST" )

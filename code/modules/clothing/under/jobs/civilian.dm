@@ -76,6 +76,14 @@
 	item_state = "hopwhimsy"
 	color = "hopwhimsy"
 	flags = FPRINT | TABLEPASS
+	
+/obj/item/clothing/under/rank/head_of_personnel_blue
+	desc = "It's a jumpsuit worn by someone who works in the position of \"Head of Personnel\"."
+	name = "blue head of personnel's jumpsuit"
+	icon_state = "hopblue"
+	item_state = "b_suit"
+	color = "hopblue"
+	flags = FPRINT | TABLEPASS
 
 
 /obj/item/clothing/under/rank/hydroponics
@@ -87,7 +95,6 @@
 	permeability_coefficient = 0.50
 	flags = FPRINT | TABLEPASS
 
-
 /obj/item/clothing/under/rank/internalaffairs
 	desc = "The plain, professional attire of an Internal Affairs Agent. The collar is <i>immaculately</i> starched."
 	name = "Internal Affairs uniform"
@@ -95,7 +102,6 @@
 	item_state = "internalaffairs"
 	color = "internalaffairs"
 	flags = FPRINT | TABLEPASS
-
 
 /obj/item/clothing/under/rank/janitor
 	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."
@@ -156,7 +162,6 @@
 	icon_state = "oldman"
 	item_state = "oldman"
 	color = "oldman"
-
 
 /obj/item/clothing/under/librarian
 	name = "sensible suit"

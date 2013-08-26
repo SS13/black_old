@@ -16,7 +16,8 @@
 /client/proc/admin_memo_write()
 	var/savefile/F = new(MEMOFILE)
 	if(F)
-		var/memo = sanitize_uni(input(src,"Type your memo\n(Leaving it blank will delete your current memo):","Write Memo",null) as null|message)
+		var/memo = input(src,"Type your memo\n(Leaving it blank will delete your current memo):","Write Memo",null) as null|message
+		memo = sanitize_uni(memo)
 		switch(memo)
 			if(null)
 				return

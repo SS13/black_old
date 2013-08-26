@@ -124,3 +124,29 @@
 		new /obj/item/taperoll/engineering(src)
 		new /obj/item/taperoll/engineering(src)
 		return
+		
+// Atmos Secure Locker
+
+/obj/structure/closet/secure_closet/atmosia_personal
+	name = "Atmospheric's Locker"
+	req_access = list(access_atmospherics)
+	icon_state = "secureatm1"
+	icon_closed = "secureatm"
+	icon_locked = "secureatm1"
+	icon_opened = "secureatmopen"
+	icon_broken = "secureatmbroken"
+	icon_off = "secureatmoff"
+
+
+	New()
+		..()
+		sleep(2)
+		new /obj/item/device/analyzer(src) // Analyzer
+		new /obj/item/weapon/weldingtool/largetank(src) // Industrial Welder (ONLY)
+		new /obj/item/clothing/head/welding(src) // Welding Mask
+		new /obj/item/clothing/mask/gas(src) // Gas Mask
+		new /obj/item/clothing/under/rank/atmospheric_technician(src) // Uniform
+		new /obj/item/clothing/shoes/black(src) // Shoes
+		new /obj/item/device/radio/headset/headset_eng(src) // Headset
+		new /obj/item/taperoll/engineering(src) // Tape
+		return

@@ -1,3 +1,5 @@
+#define POWER_FOR_STUN 50
+
 /obj/item/weapon/melee/baton
 	name = "stun baton"
 	desc = "A stun baton for incapacitating people with."
@@ -8,9 +10,11 @@
 	force = 10
 	throwforce = 7
 	w_class = 3
-	var/charges = 10
+	var/cell_type = "/obj/item/weapon/cell/cartridge/classic"
+	var/obj/item/weapon/cell/cartridge/power_supply = null
 	var/status = 0
 	var/mob/foundmob = "" //Used in throwing proc.
+	var/removable = 1
 
 	origin_tech = "combat=2"
 
@@ -18,22 +22,58 @@
 		viewers(user) << "\red <b>[user] is putting the live [src.name] in \his mouth! It looks like \he's trying to commit suicide.</b>"
 		return (FIRELOSS)
 
+	New()
+		..()
+		if(cell_type)
+			power_supply = new cell_type(src)
+		update_icon()
+
+/obj/item/weapon/melee/baton/attackby(var/obj/item/weapon/W as obj, var/mob/user as mob)
+	if(istype(W, /obj/item/weapon/cell/cartridge))
+		if(!power_supply)
+			user.drop_item()
+			W.loc = src
+			power_supply = W
+		else
+			usr << "You can't insert this [W.name]. [src.name] is full!"
+	else
+		..()
+	return
+
 /obj/item/weapon/melee/baton/update_icon()
-	if(status)
+	if(status && power_supply)
 		icon_state = "stunbaton_active"
 	else
 		icon_state = "stunbaton"
 
+/obj/item/weapon/melee/baton/verb/Take_Cartrige()
+	set src in range(1)
+	set category = "objects"
+	if(!removable || !istype(usr, /mob/living/carbon/human))
+		usr << "You can't remove cartridge from [src.name]."
+		return
+	if(!src.power_supply)
+		usr << "[src.name] is empty."
+		return
+	usr.put_in_hands(power_supply)
+	src.power_supply = null
+	status = 0
+	update_icon()
+	src << "You empty [src.name]."
+
 /obj/item/weapon/melee/baton/attack_self(mob/user as mob)
-	if(status && (CLUMSY in user.mutations) && prob(50))
+	if(!power_supply)
+		status = 0
+		user << "<span class='warning'>\The [src] is out of charge.</span>"
+	else if(status && (CLUMSY in user.mutations) && prob(50))
 		user << "\red You grab the [src] on the wrong side."
 		user.Weaken(30)
-		charges--
-		if(charges < 1)
+		power_supply.charge -= POWER_FOR_STUN
+		if(power_supply.charge < 1)
 			status = 0
 			update_icon()
 		return
-	if(charges > 0)
+	else if(power_supply.charge > 0)
 		status = !status
 		user << "<span class='notice'>\The [src] is now [status ? "on" : "off"].</span>"
 		playsound(src.loc, "sparks", 75, 1, -1)
@@ -47,8 +87,8 @@
 	if(status && (CLUMSY in user.mutations) && prob(50))
 		user << "<span class='danger'>You accidentally hit yourself with the [src]!</span>"
 		user.Weaken(30)
-		charges--
-		if(charges < 1)
+		power_supply.charge -= POWER_FOR_STUN
+		if(power_supply.charge < 1)
 			status = 0
 			update_icon()
 		return
@@ -78,14 +118,14 @@
 			if(R && R.cell)
 				R.cell.use(50)
 		else
-			charges--
+			power_supply.charge -= POWER_FOR_STUN
 		H.visible_message("<span class='danger'>[M] has been stunned with the [src] by [user]!</span>")
 		user.attack_log += "\[[time_stamp()]\]<font color='red'> Stunned [H.name] ([H.ckey]) with [src.name]</font>"
 		H.attack_log += "\[[time_stamp()]\]<font color='orange'> Stunned by [user.name] ([user.ckey]) with [src.name]</font>"
 		log_attack("<font color='red'>[user.name] ([user.ckey]) stunned [H.name] ([H.ckey]) with [src.name]</font>" )
 
 		playsound(src.loc, 'sound/weapons/Egloves.ogg', 50, 1, -1)
-		if(charges < 1)
+		if(power_supply.charge < 1)
 			status = 0
 			update_icon()
 
@@ -99,7 +139,7 @@
 				H.apply_effect(10, STUN, 0)
 				H.apply_effect(10, WEAKEN, 0)
 				H.apply_effect(10, STUTTER, 0)
-				charges--
+				power_supply.charge -= POWER_FOR_STUN
 
 				for(var/mob/M in player_list) if(M.key == src.fingerprintslast)
 					foundmob = M
@@ -116,9 +156,9 @@
 /obj/item/weapon/melee/baton/emp_act(severity)
 	switch(severity)
 		if(1)
-			charges = 0
+			power_supply.charge = 0
 		if(2)
-			charges = max(0, charges - 5)
-	if(charges < 1)
+			power_supply.charge = max(0,power_supply.charge -(POWER_FOR_STUN * 5))
+	if(power_supply.charge < 1)
 		status = 0
 		update_icon()

@@ -7,7 +7,7 @@
 	fire_sound = 'sound/weapons/Taser.ogg'
 	charge_cost = 100
 	projectile_type = "/obj/item/projectile/energy/electrode"
-	cell_type = "/obj/item/weapon/cell/crap"
+	cell_type = "/obj/item/weapon/cell/cartridge/classic"
 
 /obj/item/weapon/gun/energy/taser/cyborg
 	name = "taser gun"
@@ -19,6 +19,7 @@
 	cell_type = "/obj/item/weapon/cell/secborg"
 	var/charge_tick = 0
 	var/recharge_time = 10 //Time it takes for shots to recharge (in ticks)
+	removable = 0
 
 	New()
 		..()
@@ -53,7 +54,7 @@
 	origin_tech = "combat=3;materials=3;powerstorage=2"
 	charge_cost = 125
 	projectile_type = "/obj/item/projectile/energy/electrode"
-	cell_type = "/obj/item/weapon/cell"
+	cell_type = "/obj/item/weapon/cell/cartridge/classic"
 
 
 
@@ -68,9 +69,9 @@
 	silenced = 1
 	fire_sound = 'sound/weapons/Genhit.ogg'
 	projectile_type = "/obj/item/projectile/energy/bolt"
-	cell_type = "/obj/item/weapon/cell/crap"
+	cell_type = "/obj/item/weapon/cell/cartridge/crap"
 	var/charge_tick = 0
-
+	removable = 0
 
 	New()
 		..()

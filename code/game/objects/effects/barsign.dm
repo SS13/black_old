@@ -1,4 +1,4 @@
-/obj/effect/sign/double/barsign
+/obj/effect/sign/barsign
 	icon = 'barsigns.dmi'
 	icon_state = "empty"
 	anchored = 1

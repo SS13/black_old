@@ -73,8 +73,8 @@
 				A.randomize_appearance_for(new_mob)
 
 				var/mob/living/carbon/human/H = new_mob
-				var/newspecies = pick(all_species)
-				H.set_species(newspecies)
+				if(H.dna)
+					H.dna.mutantrace = pick("lizard","tajaran","skrell","golem","slime","plant","vox",4;"")
 			else
 				return
 

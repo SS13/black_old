@@ -179,11 +179,6 @@
 					H.mutmod = mut
 
 				//flowers give us pollen (nutrients)
-/* - All plants should be giving nutrients to the hive.
-				if(H.myseed.type == /obj/item/seeds/harebell || H.myseed.type == /obj/item/seeds/sunflowerseed)
-					src.nutrilevel++
-					H.nutrilevel++
-*/
 				//have a few beneficial effects on nearby plants
 				if(prob(10))
 					H.lastcycle -= 5

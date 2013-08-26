@@ -18,6 +18,7 @@
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	status_flags = 0
 	universal_speak = 1
+	vox_talk_understand = 1
 
 	var/armour = null
 	var/amp = null
@@ -69,7 +70,7 @@
 
 	var/obj/item/weapon/arrow/quill/Q = new(loc)
 	Q.fingerprintslast = src.ckey
-	Q.throw_at(target,10,30)
+	Q.throw_at(target,10,20)
 	quills--
 
 	spawn(100)
@@ -101,7 +102,7 @@
 	M << "\blue Like lead slabs crashing into the ocean, alien thoughts drop into your mind: [text]"
 	if(istype(M,/mob/living/carbon/human))
 		var/mob/living/carbon/human/H = M
-		if(H.species.name == "Vox")
+		if(H.dna.mutantrace == "vox")
 			return
 		H << "\red Your nose begins to bleed..."
 		H.drip(1)

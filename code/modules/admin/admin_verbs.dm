@@ -6,8 +6,8 @@ var/list/admin_verbs_default = list(
 	/client/proc/hide_verbs,			/*hides all our adminverbs*/
 	/client/proc/hide_most_verbs,		/*hides all our hideable adminverbs*/
 	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
-	/client/proc/check_antagonists		/*shows all antags*/
-//	/client/proc/deadchat				/*toggles deadchat on/off*/
+	/client/proc/check_antagonists,		/*shows all antags*/
+	/client/proc/deadchat				/*toggles deadchat on/off*/
 	)
 var/list/admin_verbs_admin = list(
 	/client/proc/player_panel,			/*shows an interface for all players, with links to various panels (old style)*/
@@ -156,7 +156,7 @@ var/list/admin_verbs_rejuv = list(
 var/list/admin_verbs_hideable = list(
 	/client/proc/set_ooc,
 	/client/proc/deadmin_self,
-//	/client/proc/deadchat,
+	/client/proc/deadchat,
 	/client/proc/toggleprayers,
 	/client/proc/toggle_hear_radio,
 	/datum/admins/proc/show_traitor_panel,
@@ -356,10 +356,6 @@ var/list/admin_verbs_events = list(
 
 	src << "<span class='interface'>All of your adminverbs are now visible.</span>"
 	feedback_add_details("admin_verb","TAVVS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-
-
 
 /client/proc/admin_ghost()
 	set category = "Admin"
@@ -584,8 +580,8 @@ var/list/admin_verbs_events = list(
 			return
 		for (var/mob/V in hearers(O))
 			V.show_message(sanitize_uni(html_decode(message)), 2)
-		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z]. make a sound")
-		message_admins("\blue [key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z]. make a sound", 1)
+		log_admin("[key_name(usr)] made [O] at [O.x], [O.y], [O.z] make a sound.")
+		message_admins("\blue [key_name_admin(usr)] made [O] at [O.x], [O.y], [O.z] make a sound.", 1)
 		feedback_add_details("admin_verb","MS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 

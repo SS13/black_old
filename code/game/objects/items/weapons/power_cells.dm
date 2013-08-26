@@ -112,3 +112,59 @@
 	maxcharge = 10000
 	m_amt = 0
 	g_amt = 0
+
+/obj/item/weapon/cell/cartridge
+	name = "Power Cartridge"
+	desc = "This is power cartridge, used for charge your guns."
+	icon_state = "cart-p"
+	item_state = "cartridge-p"
+	var/creator = ""
+	maxcharge = 500
+	w_class = 2.0
+	New()
+		creator = pick("NanoTrasen Inc.","SyndiCo.", "Waffle Inc.","Deep Mining Corp.","Producing & Manufacturing Co", "Big Daddy Factories")
+
+/obj/item/weapon/cell/cartridge/classic
+	name = "Power Cartridge"
+	desc = "This is power cartridge, used for charge your guns."
+	icon_state = "cart-p"
+	item_state = "cartridge-p"
+
+/obj/item/weapon/cell/cartridge/crap
+	name = "Power Cartridge (Crap)"
+	desc = "This is power cartridge, used for charge your guns."
+	icon_state = "cart-p"
+	item_state = "cartridge-p"
+	origin_tech = "powerstorage=0"
+	g_amt = 40
+
+/obj/item/weapon/cell/cartridge/infinity
+	name = "Infinity Power Cartridge"
+	desc = "This is power cartridge, used for charge your guns."
+	icon_state = "cart-p"
+	item_state = "cartridge-p"
+	origin_tech =  null
+	maxcharge = INFINITY
+	g_amt = 80
+	use()
+		return 1
+
+/obj/item/weapon/cell/cartridge/super
+	name = "Super Power Cartridge"
+	desc = "This is power cartridge, used for charge your guns."
+	icon_state = "cart-p"
+	item_state = "cartridge-p"
+	maxcharge = 10000
+	g_amt = 70
+	construction_cost = list("metal"=750,"glass"=100)
+
+/obj/item/weapon/cell/cartridge/potato
+	name = "Power Cartridge (Potato)"
+	desc = "This is power cartridge, used for charge your guns."
+	icon_state = "cart-p"
+	item_state = "cartridge-p"
+	charge = 100
+	maxcharge = 300
+	m_amt = 0
+	g_amt = 0
+	minor_fault = 1

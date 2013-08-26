@@ -10,25 +10,6 @@
 ////////// Fluff Items ///////////
 //////////////////////////////////
 
-/obj/item/weapon/paper/fluff/sue_donem // aikasan: Sue Donem
-	name = "cyborgification waiver"
-	desc = "It's some kind of official-looking contract."
-
-/obj/item/weapon/paper/fluff/sue_donem/New()
-	..()
-
-	info = "<B>Organic Carrier AIA and Standard Cyborgification Agreement</B><BR>\n<BR>\nUnder the authority of Nanotrasen Synthetic Intelligence Division, this document hereby authorizes an accredited Roboticist of the NSS Exodus or a deputized authority to perform a regulation lobotomisation upon the person of one '<I>Sue Donem</I>' (hereafter referred to as the Subject) with intent to enact a live Artificial Intelligence Assimilation (AIA) or live Cyborgification proceedure.<BR>\n<BR>\nNo further station authorization is required, and the Subject waives all rights as a human under Nanotrasen internal and external legal protocol. This document is subject to amendment under Nanotrasen internal protocol \[REDACTED\].<BR>\n<BR>\nSigned: <I>Sue Donem</I><BR>\n"
-
-	stamps = (stamps=="" ? "<HR>" : "<BR>") + "<i>This paper has been stamped with the NanoTrasen Synthetic Intelligence Division rubber stamp.</i>"
-
-	var/image/stampoverlay = image('icons/obj/bureaucracy.dmi')
-	stampoverlay.pixel_x = rand(-2, 2)
-	stampoverlay.pixel_y = rand(-3, 2)
-	stampoverlay.icon_state = "paper_stamp-rd"
-	overlays += stampoverlay
-
-	update_icon()
-
 /obj/item/fluff/wes_solari_1 //tzefa: Wes Solari
 	name = "family photograph"
 	desc = "A family photograph of a couple and a young child, Written on the back it says \"See you soon Dad -Roy\"."
@@ -37,7 +18,7 @@
 /obj/item/fluff/sarah_calvera_1 //fniff: Sarah Calvera
 	name = "old photo"
 	desc = "Looks like it was made on a really old, cheap camera. Low quality. The camera shows a young hispanic looking girl with red hair wearing a white dress is standing in front of\
- an old looking wall. On the back there is a note in black marker that reads \"Sara, Siempre pensÃ© que eras tan linda con ese vestido. Tu hermano, Carlos.\""
+ an old looking wall. On the back there is a note in black marker that reads \"Sara, Siempre pensé que eras tan linda con ese vestido. Tu hermano, Carlos.\""
 	icon_state = "sarah_calvera_1"
 
 /obj/item/fluff/angelo_wilkerson_1 //fniff: Angleo Wilkerson
@@ -98,11 +79,6 @@
 ////////// Usable Items //////////
 //////////////////////////////////
 
-/obj/item/weapon/folder/blue/fluff/matthew_riebhardt //Matthew Riebhardt - ZekeSulastin
-	name = "academic journal"
-	desc = "An academic journal, seemingly pertaining to medical genetics. This issue is for the second quarter of 2557. Paper flags demarcate some articles the owner finds interesting."
-	icon = 'custom_items.dmi'
-	icon_state = "matthewriebhardt"
 
 /obj/item/weapon/pen/fluff/multi //spaceman96: Trenna Seber
 	name = "multicolor pen"
@@ -113,12 +89,6 @@
 	desc = "A fancy metal pen. It uses blue ink. An inscription on one side reads,\"L.L. - L.R.\""
 	icon = 'custom_items.dmi'
 	icon_state = "fancypen"
-
-/obj/item/weapon/pen/fluff/eugene_bissegger_1 //metamorp: eugene bisseger
-	name = "Gilded Pen"
-	desc = "A golden pen that is gilded with a meager amount of gold material. The word 'NanoTrasen' is etched on the clip of the pen."
-	icon = 'custom_items.dmi'
-	icon_state = "eugene_pen"
 
 /obj/item/weapon/pen/fluff/fountainpen //paththegreat: Eli Stevens
 	name = "Engraved Fountain Pen"
@@ -136,28 +106,6 @@
 		O.show_message(text("[] shows you: \icon[] [].", user, src, src.name), 1)
 	src.add_fingerprint(user)
 
-/obj/item/fluff/ana_issek_2 //suethecake: Ana Issek
-	name = "Faded Badge"
-	desc = "A faded badge, backed with leather, that reads 'NT Security Force' across the front. It bears the emblem of the Forensic division."
-	icon_state = "ana_badge"
-	item_state = "ana_badge"
-	color = "ana_badge"
-
-/obj/item/fluff/ana_issek_2/attack_self(mob/user as mob)
-	if(isliving(user))
-		user.visible_message("\red [user] flashes their golden security badge.\nIt reads: Ana Issek, NT Security.","\red You display the faded bage.\nIt reads: Ana Issek, NT Security.")
-
-/obj/item/fluff/ana_issek_2/attack(mob/living/carbon/human/M, mob/living/user)
-	if(isliving(user))
-		user.visible_message("\red [user] invades [M]'s personal space, thrusting [src] into their face insistently.","\red You invade [M]'s personal space, thrusting [src] into their face insistently. You are the law.")
-
-/obj/item/weapon/soap/fluff/azare_siraj_1 //mister fox: Azare Siraj
-	name = "S'randarr's Tongue Leaf"
-	desc = "A waxy, scentless leaf."
-	icon = 'custom_items.dmi'
-	icon_state = "siraj_tongueleaf"
-	item_state = "siraj_tongueleaf"
-
 /obj/item/weapon/clipboard/fluff/smallnote //lexusjjss: Lexus Langg, Zachary Tomlinson
 	name = "small notebook"
 	desc = "A generic small spiral notebook that flips upwards."
@@ -170,18 +118,6 @@
 	desc = "A pristine stainless steel lunch box. The initials M.D. are engraved on the inside of the lid."
 	icon = 'custom_items.dmi'
 	icon_state = "maye_daye_1"
-
-/obj/item/weapon/reagent_containers/food/drinks/flask/fluff/william_hackett
-	name = "handmade flask"
-	desc = "A wooden flask with a silver lid and bottom. It has a matte, dark blue paint on it with the initials \"W.H.\" etched in black."
-	icon = 'custom_items.dmi'
-	icon_state = "williamhackett"
-
-/obj/item/weapon/storage/firstaid/fluff/asus_rose //Kerbal22 - Asus Rose
-	name = "rugged medkit"
-	desc = "A dinged up medkit, it seems to have seen quite a bit of use."
-	icon = 'custom_items.dmi'
-	icon_state = "asusrose"
 
 /obj/item/weapon/reagent_containers/food/drinks/flask/fluff/johann_erzatz_1 //leonheart11:  Johann Erzatz
 	name = "vintage thermos"
@@ -197,14 +133,6 @@
 	icon_state = "bluezippo"
 	icon_on = "bluezippoon"
 	icon_off = "bluezippo"
-
-/obj/item/weapon/lighter/zippo/fluff/michael_guess_1 //Dragor23: Michael Guess
-	name = "engraved lighter"
-	desc = "A golden lighter, engraved with some ornaments and a G."
-	icon = 'custom_items.dmi'
-	icon_state = "guessip"
-	icon_on = "guessipon"
-	icon_off = "guessip"
 
 /obj/item/weapon/lighter/zippo/fluff/riley_rohtin_1 //rawrtaicho: Riley Rohtin
 	name = "Riley's black zippo"
@@ -263,8 +191,6 @@
 	icon = 'custom_items.dmi'
 	desc = "A modified detective's camera, painted in bright orange. On the back you see \"Have fun\" written in small accurate letters with something black."
 	icon_state = "orangecamera"
-	icon_on = "orangecamera"
-	icon_off = "camera_off"
 	pictures_left = 30
 
 /obj/item/device/camera/fluff/oldcamera //magmaram: Maria Crash
@@ -272,16 +198,7 @@
 	icon = 'custom_items.dmi'
 	desc = "An old, slightly beat-up digital camera, with a cheap photo printer taped on. It's a nice shade of blue."
 	icon_state = "oldcamera"
-	icon_on = "oldcamera"
-	icon_off = "oldcamera_off"
 	pictures_left = 30
-
-/obj/item/weapon/id_wallet/fluff/reese_mackenzie  //Reese MacKenzie - ThoseDernSquirrels
-
-	name = "ID wallet"
-	desc = "A wallet made of black leather, holding an ID and a gold badge that reads 'NT.' The ID has a small picture of a man, with the caption Reese James MacKenzie, with other pieces of information to the right of the picture."
-	icon = 'custom_items.dmi'
-	icon_state = "reesemackenzie"
 
 /obj/item/weapon/card/id/fluff/lifetime	//fastler: Fastler Greay; it seemed like something multiple people would have
 	name = "Lifetime ID Card"
@@ -310,17 +227,6 @@
 	icon_state = "beakerlarge"
 	g_amt = 5000
 	volume = 100
-
-/obj/item/weapon/reagent_containers/glass/beaker/fluff/eleanor_stone //Rkf45: Eleanor Stone
-	name = "teapot"
-	desc = "An elegant teapot. The engraving on the bottom reads 'ENS'"
-	icon = 'custom_items.dmi'
-	icon_state = "eleanorstone"
-	item_state = "eleanorstone"
-
-	volume = 150
-	amount_per_transfer_from_this = 10
-	possible_transfer_amounts = list(5,10,15,25,30,50,150)
 
 /obj/item/weapon/storage/pill_bottle/fluff/listermedbottle //compactninja: Lister Black
 	name = "Pill bottle (anti-depressants)"
@@ -355,6 +261,14 @@
 	w_class = 1
 	body_parts_covered = null
 	flags = FPRINT|TABLEPASS
+
+/obj/item/weapon/lighter/fluff //Dragor23: Michael Guess
+	name = "engraved lighter"
+	desc = "A golden lighter, engraved with some ornaments and a G.."
+	icon_state = "guessip"
+	item_state = "guessip"
+	icon_on = "guessipon"
+	icon_off = "guessip"
 
 //Strange penlight, Nerezza: Asher Spock
 
@@ -440,29 +354,19 @@
 
 ////// Ripley customisation kit - Butchery Royce - MayeDay
 
-/obj/item/weapon/paintkit/fluff/butcher_royce_1
+/obj/item/weapon/fluff/butcher_royce_1
 	name = "Ripley customisation kit"
 	desc = "A kit containing all the needed tools and parts to turn an APLU Ripley into a Titan's Fist worker mech."
 	icon = 'custom_items.dmi'
 	icon_state = "royce_kit"
 
-	new_name = "APLU \"Titan's Fist\""
-	new_desc = "This ordinary mining Ripley has been customized to look like a unit of the Titans Fist."
-	new_icon = "titan"
-	allowed_types = list("ripley","firefighter")
-
 ////// Ripley customisation kit - Sven Fjeltson - Mordeth221
 
-/obj/item/weapon/paintkit/fluff/sven_fjeltson_1
-	name = "Mercenary APLU kit"
-	desc = "A kit containing all the needed tools and parts to turn an APLU Ripley into an old Mercenaries APLU."
-	icon = 'custom_items.dmi'
-	icon_state = "sven_kit"
-
-	new_name = "APLU \"Strike the Earth!\""
-	new_desc = "Looks like an over worked, under maintained Ripley with some horrific damage."
-	new_icon = "earth"
-	allowed_types = list("ripley","firefighter")
+/obj/item/weapon/fluff/sven_fjeltson_1
+  name = "Mercenary APLU kit"
+  desc = "A kit containing all the needed tools and parts to turn an APLU Ripley into an old Mercenaries APLU."
+  icon = 'custom_items.dmi'
+  icon_state = "sven_kit"
 
 //////////////////////////////////
 //////////// Clothing ////////////
@@ -564,25 +468,18 @@
 	icon = 'custom_items.dmi'
 	icon_state = "edvin_telephosphor_1"
 
+/obj/item/clothing/head/hardhat/fluff/neil_patterson_1 //superboredguy: Neil Patterson
+	name = "Engineering Cap"
+	desc = "Much safer than a hard helmet."
+	icon = 'custom_items.dmi'
+	icon_state = "neilpatterson0_hat"
+
 /obj/item/clothing/head/fluff/krinnhat //Shirotyrant: Krinn Seeskale
 	name = "saucepan hat"
 	desc = "This hat is the shiniest shiny Krinn has ever owned."
 	icon = 'custom_items.dmi'
 	icon_state = "krinn_hat"
-
-/obj/item/clothing/head/fluff/bruce_hachert //Stup1dg33kz: Bruce Hachert
-	name = "worn hat"
-	desc = "A worn-looking hat. It is slightly faded in color."
-	icon = 'custom_items.dmi'
-	icon_state = "brucehachert"
-
 //////////// Suits ////////////
-
-/obj/item/clothing/suit/storage/labcoat/fluff/aeneas_rinil //Robotics Labcoat - Aeneas Rinil [APPR]
-	name = "Robotics labcoat"
-	desc = "A labcoat with a few markings denoting it as the labcoat of roboticist."
-	icon = 'custom_items.dmi'
-	icon_state = "aeneasrinil_open"
 
 /obj/item/clothing/suit/storage/labcoat/fluff/pink //spaceman96: Trenna Seber
 	name = "pink labcoat"
@@ -606,6 +503,12 @@
 	item_state = "leatherjack"
 	color = "leatherjack"
 
+/obj/item/clothing/suit/storage/labcoat/fluff/burnt //Jamini: Edwin Atweeke
+	name = "burnt labcoat"
+	desc = "This lab coat has clearly seen better, less burnt, days."
+	icon = 'custom_items.dmi'
+	icon_state = "labcoat_burnt_open"
+
 /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield //deusdactyl
 	name = "blue shield security armor"
 	desc = "An armored vest with the badge of a Blue Shield Security lieutenant."
@@ -613,23 +516,14 @@
 	icon_state = "deus_blueshield"
 	item_state = "deus_blueshield"
 
-/obj/item/clothing/suit/fluff/oldscarf //Writerer2: Javaria Zara
+/obj/item/clothing/suit/fluff/oldscarf //Writerer2: Sharik Israa
 	name = "old scarf"
 	desc = "An old looking scarf, it seems to be fairly worn."
-	icon = 'clothing/suits.dmi'
 	icon_state = "mantle-unathi"
 	item_state = "mantle-unathi"
 	body_parts_covered = UPPER_TORSO
 
 //////////// Uniforms ////////////
-
-/obj/item/clothing/under/fluff/milo_hachert //Field Dress Uniform - Milo Hachert - Commissar_Drew
-	name = "field dress uniform"
-	desc = "A uniform jacket, its buttons polished to a shine, coupled with a dark pair of trousers. 'Hachert' is embroidered upon the jacket’s shoulder bar."
-	icon = 'custom_items.dmi'
-	icon_state = "milohachert"
-	item_state = "milohachert"
-	color = "milohachert"
 
 /obj/item/clothing/under/fluff/jumpsuitdown //searif: Yuki Matsuda
 	name = "rolled down jumpsuit"
@@ -638,22 +532,6 @@
 	icon_state = "jumpsuitdown"
 	item_state = "jumpsuitdown"
 	color = "jumpsuitdown"
-
-/obj/item/clothing/under/fluff/lilith_vinous_1 //slyhidden: Lilith Vinous
-	name = "casual security uniform"
-	desc = "A less formal version of the traditional dark red Security uniform. It has the top button undone, rolled up sleeves and different belt."
-	icon = 'custom_items.dmi'
-	icon_state = "lilith_uniform"
-	item_state = "lilith_uniform"
-	color = "lilith_uniform"
-
-/obj/item/clothing/under/fluff/ana_issek_1 //suethecake: Ana Issek
-	name = "retired uniform"
-	desc = "A silken blouse paired with dark-colored slacks. It has the words 'Chief Investigator' embroidered into the shoulder bar."
-	icon = 'custom_items.dmi'
-	icon_state = "ana_uniform"
-	item_state = "ana_uniform"
-	color = "ana_uniform"
 
 /obj/item/clothing/under/fluff/olddressuniform //desiderium: Momiji Inubashiri
 	name = "retired dress uniform"
@@ -693,14 +571,6 @@
 	icon_state = "callum_suit"
 	item_state = "callum_suit"
 	color = "callum_suit"
-
-/obj/item/clothing/under/fluff/solara_light_1 //bluefishie: Solara Born-In-Light
-	name = "Elaborate Purple Dress"
-	desc = "An expertly tailored dress, made out of fine fabrics. The interwoven necklace appears to be made out of gold, with three complicated symbols engraved in the front."
-	icon = 'custom_items.dmi'
-	icon_state = "solara_dress"
-	item_state = "solara_dress"
-	color = "solara_dress"
 
 /////// NT-SID Suit //Zuhayr: Jane Doe
 
@@ -748,7 +618,7 @@
 
 //////////// Masks ////////////
 
-/*
+
 /obj/item/clothing/mask/fluff/flagmask //searif: Tsiokeriio Tarbell
 	name = "\improper First Nations facemask"
 	desc = "A simple cloth rag that bears the flag of the first nations."
@@ -758,7 +628,7 @@
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	w_class = 2
 	gas_transfer_coefficient = 0.90
-*/
+
 
 /obj/item/clothing/mask/mara_kilpatrick_1 //staghorn: Mara Kilpatrick
 	name = "shamrock pendant"
@@ -781,39 +651,6 @@
 	flags = FPRINT|TABLEPASS
 	w_class = 1
 	slot_flags = SLOT_MASK
-
-////// Silver locket - Konaa Hirano - Konaa_Hirano
-
-/obj/item/clothing/tie/fluff/konaa_hirano
-	name = "silver locket"
-	desc = "This oval shaped, argentium sterling silver locket hangs on an incredibly fine, refractive string, almost thin as hair and microweaved from links to a deceptive strength, of similar material. The edges are engraved very delicately with an elegant curving design, but overall the main is unmarked and smooth to the touch, leaving room for either remaining as a stolid piece or future alterations. There is an obvious internal place for a picture or lock of some sort, but even behind that is a very thin compartment unhinged with the pinch of a thumb and forefinger."
-	icon = 'custom_items.dmi'
-	icon_state = "konaahirano"
-	item_state = "konaahirano"
-	color = "konaahirano"
-	slot_flags = 0
-	flags = FPRINT|TABLEPASS
-	w_class = 1
-	slot_flags = SLOT_MASK
-	var/obj/item/held //Item inside locket.
-
-/obj/item/clothing/tie/fluff/konaa_hirano/attack_self(mob/user as mob)
-	if(held)
-		user << "You open [src] and [held] falls out."
-		held.loc = get_turf(user)
-		src.held = null
-
-/obj/item/clothing/tie/fluff/konaa_hirano/attackby(var/obj/item/O as obj, mob/user as mob)
-	if(istype(O,/obj/item/weapon/paper))
-		if(held)
-			usr << "[src] already has something inside it."
-		else
-			usr << "You slip [O] into [src]."
-			user.drop_item()
-			O.loc = src
-			src.held = O
-		return
-	..()
 
 //////  Medallion - Nasir Khayyam - Jamini
 
@@ -846,13 +683,13 @@
 
 //////////// Sets ////////////
 
-/*
+
 /obj/item/clothing/suit/storage/labcoat/fluff/cdc_labcoat
 	name = "\improper CDC labcoat"
 	desc = "A standard-issue CDC labcoat that protects against minor chemical spills.  It has the name \"Wiles\" sewn on to the breast pocket."
 	icon = 'custom_items.dmi'
 	icon_state = "labcoat_cdc_open"
-*/
+
 ////// Short Sleeve Medical Outfit //erthilo: Farah Lants
 
 /obj/item/clothing/under/rank/medical/fluff/short
@@ -893,29 +730,164 @@
 
 //////////// Weapons ////////////
 
+///// Colt Peacemaker - Ana Ka'Rimah - SueTheCake
+
+//obj/item/weapon/gun/energy/stunrevolver/fluff/ana_peacemaker
+
+	name = "Peacemaker"
+	desc = "A nickel-plated revolver with pearl grips. It has a certain Old West flair!"
+	icon = 'custom_items.dmi'
+	icon_state = "peacemaker"
+
 ///// Well-used baton - Oen'g Issek - Donofnyc3
 
 /obj/item/weapon/melee/baton/fluff/oeng_baton
 	name = "well-used stun baton"
 	desc = "A stun baton used for incapacitating targets; there seems to be a bunch of tally marks set into the handle."
 
-///// Deckard .44 - Callum Leamas - Roaper
-/obj/item/weapon/gun/projectile/detective/fluff/callum_leamas
-	name = "Deckard .44"
-	desc = "A custom built revolver, based off the semi-popular Detective Special model."
-	icon = 'custom_items.dmi'
-	icon_state = "leamas-empty"
+///// Animus Station
 
-/obj/item/weapon/gun/projectile/detective/fluff/callum_leamas/update_icon()
+/obj/item/clothing/suit/armor/ks13suit	// NyanCommissar
+	name = "KC-13 suit"
+	desc = "Looks like outdated field green military jumpsuit. It has red insignias with stars on arms and tabs on collars. On right tab written: KC-13. What is it?"
+	icon_state = "ks13suit"
+	item_state = "ks13suit"
+	color = "ks13suit"
 
-	..()
-	if(loaded.len)
-		icon_state = "leamas-loaded"
-	else
-		icon_state = "leamas-empty"
+/obj/item/device/Handwatch	// Fiodoss
+	name = "Handwatch"
+	desc = "Watches made from the finest nanotrasen steel. On the reverse side depicts demons of Momsof - evil spirits of babies who are left to die."
+	icon = 'icons/obj/custom_items.dmi'
+	icon_state = "handwatches"
+	item_state = "handwatchess"
+	w_class = 2.0
+	flags = FPRINT | TABLEPASS
+	slot_flags = SLOT_GLOVES
 
-/obj/item/weapon/gun/projectile/attackby(var/obj/item/A as obj, mob/user as mob)
+/obj/item/device/Handwatch/verb/Check_Time()
+	set name = "Check time"
+	set category = "IC"
+	if (usr != src && istype(src, /obj/item/device) && istype(usr, /mob/living))
+		for(var/mob/O in viewers(usr, null))
+			if (istype(O, usr))
+				break
+			if (O != src)
+				O.show_message("<i><b>[usr]</b> is watching on his watches.</i>", 1)
+			else
+				O.show_message("<i><b>[usr]</b> is watching on his watches.</i>", 1)
+		usr << "\blue<i>You have a close look at your watches. It's shows you <b>[worldtime2text()]</b></i>"
 
-	if(istype(A, /obj/item/ammo_magazine))
-		flick("leamas-reloading",src)
-	..()
+/obj/item/weapon/gun/energy/uni/ia
+	icon_state = "dred"
+	name = "Internal Affairs Energy Gun"
+	desc = "Elite Energy pistol engraved with HT on its side."
+	icon_state = "legalist"
+	item_state = "legalist"
+	fire_sound = 'sound/weapons/Taser.ogg'
+	force = 10
+	origin_tech = "combat=4;magnets=4"
+	cell_type = "/obj/item/weapon/cell/cartridge/super"
+	charge_cost = 50
+
+	var/mode = 2
+	removable = 0
+	special_check(var/mob/living/carbon/human/M)
+		for(var/obj/item/weapon/implant/loyalty/L in M)
+			if(L && L.implanted)
+				return 1
+
+	attack_self(mob/living/user as mob)
+		switch(mode)
+			if(6)
+				mode = 0
+				charge_cost = 50
+				fire_sound = 'sound/weapons/Taser.ogg'
+				user << "\red [src.name] is now set to stun."
+				projectile_type = "/obj/item/projectile/energy/electrode"
+			if(0)
+				mode = 1
+				charge_cost = 50
+				fire_sound = 'sound/weapons/gunshot_det.ogg'
+				user << "\red [src.name] is now set to kill."
+				projectile_type = "/obj/item/projectile/bullet"
+			if(1)
+				mode = 2
+				charge_cost = 50
+				fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+				user << "\red [src.name] is now set to ACID."
+				projectile_type = "/obj/item/projectile/bullet/cyanideround"
+			if(2)
+				mode = 3
+				charge_cost = 50
+				fire_sound = 'sound/weapons/pulse.ogg'
+				user << "\red [src.name] is now set to DESTROY."
+				projectile_type = "/obj/item/projectile/beam/pulse"
+			if(3)
+				mode = 4
+				charge_cost = 50
+				fire_sound = 'sound/weapons/wave.ogg'
+				user << "\red [src.name] is now set to HURT."
+				projectile_type = "/obj/item/projectile/bullet/gyro"
+			if(4)
+				mode = 5
+				charge_cost = 50
+				fire_sound = 'sound/weapons/lasercannonfire.ogg'
+				user << "\red [src.name] is now set to ION."
+				projectile_type = "/obj/item/projectile/ion"
+			if(5)
+				mode = 6
+				charge_cost = 50
+				fire_sound = 'sound/weapons/wave.ogg'
+				user << "\red [src.name] is now set to NEUROTOXIN."
+				projectile_type = "/obj/item/projectile/energy/neurotoxin"
+		return
+
+	isHandgun()
+		return 0
+
+/obj/item/clothing/suit/armor/lawyerarmor
+	name = "legalist armor"
+	desc = "A bulky, heavy-duty piece of exclusive Nanotrasen armor. YOU are in charge!"
+	icon_state = "iamthelaw"
+	w_class = 4
+	gas_transfer_coefficient = 0.01
+	permeability_coefficient = 0.02
+	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS
+	allowed = list(/obj/item/weapon/tank/emergency_oxygen, /obj/item/device/flashlight,/obj/item/weapon/gun/energy, /obj/item/weapon/gun/projectile, /obj/item/ammo_magazine, /obj/item/ammo_casing, /obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs)
+	slowdown = 1.5
+	armor = list(melee = 65, bullet = 50, laser = 50, energy = 25, bomb = 50, bio = 100, rad = 50)
+	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
+	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
+	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
+
+/obj/item/clothing/head/helmet/dred
+	name = "armored helmet"
+	desc = "It's a helmet specifically designed to protect against close range attacks."
+	icon_state = "helmlaw"
+	item_state = "helmet"
+	flags = FPRINT|TABLEPASS|HEADCOVERSEYES
+	armor = list(melee = 100, bullet = 35, laser = 45,energy = 35, bomb = 55, bio = 20, rad = 35)
+	flags_inv = HIDEEARS
+
+/obj/item/clothing/suit/space/grim_reaper
+	name = "grim reaper suit"
+	icon_state = "grim_reaper"
+	allowed = list(/obj/item/weapon/gun,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs,/obj/item/weapon/tank/emergency_oxygen,/obj/item/weapon/cell)
+	slowdown = 0
+	armor = list(melee = 20, bullet = 10, laser = 10,energy = 15, bomb = 10, bio = 10, rad = 10)
+
+/obj/item/clothing/head/helmet/space/grim_reaper
+	name = "grim reaper hood"
+	icon_state = "grim_reaper"
+	armor = list(melee = 20, bullet = 10, laser = 10,energy = 15, bomb = 10, bio = 10, rad = 15)
+
+//Chicken Security Rig
+/obj/item/clothing/suit/space/rig/chicken
+	icon_state = "chickensuitsec"
+	name = "Security Chicken Suit"
+	slowdown = 0
+	w_class = 2
+	unacidable = 1
+	armor = list(melee = 30, bullet = 20, laser = 15,energy = 15, bomb = 35, bio = 50, rad = 40)
+

@@ -34,6 +34,7 @@
 			H.h_style = new_style
 
 		H.update_hair()
+		H.update_flavor_text()
 
 
 /obj/structure/mirror/proc/shatter()

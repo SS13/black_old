@@ -53,6 +53,12 @@
 						else if(M.ckey == "roaper" && M.real_name == "Ian Colm") //This is a Technician ID
 							I.name = "[M.real_name]'s Technician ID ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
 
+							// Added
+
+						else if(M.ckey == "testunit" && M.real_name == "Faith Leech")
+							I.name = "[M.real_name]'s Odysseus Specialist ID Card ([M.mind.role_alt_title ? M.mind.role_alt_title : M.mind.assigned_role])"
+							I.access += list(access_robotics) //Station-based mecha pilots need this to access the recharge bay.
+
 						//replace old ID
 						del(C)
 						ok = M.equip_if_possible(I, slot_wear_id, 0)	//if 1, last argument deletes on fail

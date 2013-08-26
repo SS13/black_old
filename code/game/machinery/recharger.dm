@@ -13,7 +13,7 @@ obj/machinery/recharger
 obj/machinery/recharger/attackby(obj/item/weapon/G as obj, mob/user as mob)
 	if(istype(user,/mob/living/silicon))
 		return
-	if(istype(G, /obj/item/weapon/gun/energy) || istype(G, /obj/item/weapon/melee/baton))
+	if(istype(G, /obj/item/weapon/cell/cartridge/) || istype(G, /obj/item/weapon/melee/baton))
 		if(charging)
 			return
 
@@ -62,7 +62,7 @@ obj/machinery/recharger/process()
 		return
 
 	if(charging)
-		if(istype(charging, /obj/item/weapon/gun/energy))
+		if(istype(charging, /obj/item/weapon/cell/cartridge))
 			var/obj/item/weapon/gun/energy/E = charging
 			if(E.power_supply.charge < E.power_supply.maxcharge)
 				E.power_supply.give(100)
@@ -73,8 +73,8 @@ obj/machinery/recharger/process()
 			return
 		if(istype(charging, /obj/item/weapon/melee/baton))
 			var/obj/item/weapon/melee/baton/B = charging
-			if(B.charges < initial(B.charges))
-				B.charges++
+			if(B.power_supply.charge < initial(B.power_supply.charge))
+//				B.power_supply.charge += POWER_FOR_STUN
 				icon_state = "recharger1"
 				use_power(150)
 			else
@@ -92,7 +92,7 @@ obj/machinery/recharger/emp_act(severity)
 
 	else if(istype(charging, /obj/item/weapon/melee/baton))
 		var/obj/item/weapon/melee/baton/B = charging
-		B.charges = 0
+		B.power_supply.charge = 0
 	..(severity)
 
 obj/machinery/recharger/update_icon()	//we have an update_icon() in addition to the stuff in process to make it feel a tiny bit snappier.

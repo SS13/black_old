@@ -4,7 +4,7 @@
 
 /datum/game_mode/traitor/autotraitor
 	name = "AutoTraitor"
-	config_tag = "extend-a-traitormongous"
+	config_tag = "Extend-A-Traitormongous"
 
 	var/list/possible_traitors
 	var/num_players = 0
@@ -140,8 +140,6 @@
 			//message_admins("Number of Traitors is at maximum.  Not making a new Traitor.")
 
 		traitorcheckloop()
-
-
 
 /datum/game_mode/traitor/autotraitor/latespawn(mob/living/carbon/human/character)
 	..()

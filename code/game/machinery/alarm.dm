@@ -63,7 +63,7 @@
 
 /obj/machinery/alarm
 	name = "alarm"
-	icon = 'monitors.dmi'
+	icon = 'icons/obj/monitors.dmi'
 	icon_state = "alarm0"
 	anchored = 1
 	use_power = 1
@@ -1479,7 +1479,8 @@ FIRE ALARM
 	A = A.loc
 	if (!( istype(A, /area) ))
 		return
-	A.firereset()
+	for(var/area/RA in A.related)
+		RA.firereset()
 	update_icon()
 	return
 
@@ -1490,7 +1491,8 @@ FIRE ALARM
 	A = A.loc
 	if (!( istype(A, /area) ))
 		return
-	A.firealert()
+	for(var/area/RA in A.related)
+		RA.firealert()
 	update_icon()
 	//playsound(src.loc, 'sound/ambience/signal.ogg', 75, 0)
 	return

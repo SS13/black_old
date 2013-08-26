@@ -89,6 +89,7 @@
 		comment = "Tail!"
 	user.visible_message("<span class='notice'>[user] has flip [src]. Catch it in the air. [comment]</span>")
 
+
 /obj/item/weapon/coin/New()
 	pixel_x = rand(0,16)-8
 	pixel_y = rand(0,8)-8

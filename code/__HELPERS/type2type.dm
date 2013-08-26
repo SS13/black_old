@@ -98,6 +98,47 @@
 	return newText
 
 
+//tg_text2list is faster then dd_text2list
+//not case sensitive version
+proc/tg_text2list(string, separator=",")
+	if(!string)
+		return
+	var/list/output = new
+	var/seplength = length(separator)
+	var/strlength = length(string)
+	var/prev = 1
+	var/index
+	do
+		index = findtext(string, separator, prev, 0)
+		output += copytext(string, prev, index)
+		if(!index)
+			break
+		prev = index+seplength
+		if(prev>strlength)
+			break
+	while(index)
+	return output
+
+//case sensitive version
+proc/tg_text2list_case(string, separator=",")
+	if(!string)
+		return
+	var/list/output = new
+	var/seplength = length(separator)
+	var/strlength = length(string)
+	var/prev = 1
+	var/index
+	do
+		index = findtextEx(string, separator, prev, 0)
+		output += copytext(string, prev, index)
+		if(!index)
+			break
+		prev = index+seplength
+		if(prev>strlength)
+			break
+	while(index)
+	return output
+
 //slower then dd_list2text, but correctly processes associative lists.
 proc/tg_list2text(list/list, glue=",")
 	if(!istype(list) || !list.len)

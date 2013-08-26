@@ -9,8 +9,6 @@
 	ammo_type = "/obj/item/ammo_casing/c9mm"
 	automatic = 1
 
-	fire_delay = 0
-
 	isHandgun()
 		return 0
 

@@ -281,7 +281,7 @@ var/list/solars_list = list()
 	var/trackrate = 60		// Measured in tenths of degree per minute (i.e. defaults to 6.0 deg/min)
 	var/trackdir = 1		// -1=CCW, 1=CW
 	var/nexttime = 0		// Next clock time that manual tracking will move the array
-
+	var/disconnected_monitor = 0			// 0= монитор подключен 1= монитор отключен
 
 /obj/machinery/power/solar_control/New()
 	..()
@@ -302,6 +302,16 @@ var/list/solars_list = list()
 	..()
 	if(!powernet) return
 	set_panels(cdir)
+	if(disconnected_monitor == 1) //проверка подключенности монитора
+		var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
+		var/obj/item/weapon/circuitboard/solar_control/M = new /obj/item/weapon/circuitboard/solar_control( A )
+		for (var/obj/C in src)
+			C.loc = src.loc
+		A.circuit = M
+		A.state = 4
+		A.icon_state = "4"
+		A.anchored = 1
+		del(src)
 
 /obj/machinery/power/solar_control/update_icon()
 	if(stat & BROKEN)

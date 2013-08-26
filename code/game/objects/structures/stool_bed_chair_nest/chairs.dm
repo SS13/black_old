@@ -94,6 +94,11 @@
 	name = "comfy chair"
 	desc = "It looks comfy."
 
+/obj/structure/stool/bed/chair/shuttle
+	name = "Shuttle chair"
+	desc = "Looks safety."
+	icon_state = "schair"
+
 /obj/structure/stool/bed/chair/comfy/brown
 	icon_state = "comfychair_brown"
 
@@ -121,3 +126,18 @@
 
 /obj/structure/stool/bed/chair/office/dark
 	icon_state = "officechair_dark"
+
+/obj/structure/stool/bed/chair/wait/gray
+	icon_state = "waitchairgrey"
+
+/obj/structure/stool/bed/chair/wait/green
+	icon_state = "waitchairgreen"
+
+/obj/structure/stool/bed/chair/wait/blue
+	icon_state = "waitchairblue"
+
+/obj/structure/stool/bed/chair/wait/yellow
+	icon_state = "waitchairyellow"
+
+/obj/structure/stool/bed/chair/wait/red
+	icon_state = "waitchairred"

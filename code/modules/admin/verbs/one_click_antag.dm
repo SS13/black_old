@@ -444,15 +444,16 @@ client/proc/one_click_antag()
 	//Generates a list of candidates from active ghosts.
 	for(var/mob/dead/observer/G in player_list)
 		spawn(0)
-			switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
-				if("Yes")
-					if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+			if(is_alien_whitelisted(G, "Vox") || !config.usealienwhitelist)
+				switch(alert(G,"Do you wish to be considered for a vox raiding party arriving on the station?","Please answer in 30 seconds!","Yes","No"))
+					if("Yes")
+						if((world.time-time_passed)>300)//If more than 30 game seconds passed.
+							return
+						candidates += G
+					if("No")
 						return
-					candidates += G
-				if("No")
-					return
-				else
-					return
+					else
+						return
 
 	sleep(300) //Debug.
 
@@ -465,7 +466,7 @@ client/proc/one_click_antag()
 		var/raiders = max_raiders
 		//Spawns vox raiders and equips them.
 		for (var/obj/effect/landmark/L in world)
-			if(L.name == "voxstart")
+			if(L.name == "Response Team")
 				if(raiders<=0)
 					break
 
@@ -506,14 +507,13 @@ client/proc/one_click_antag()
 		i++
 		newname += pick(list("ti","hi","ki","ya","ta","ha","ka","ya","chi","cha","kah"))
 
+	new_vox.vox_talk_understand = 1
 	new_vox.real_name = capitalize(newname)
 	new_vox.name = new_vox.real_name
 	new_vox.age = rand(12,20)
 
 	new_vox.dna.ready_dna(new_vox) // Creates DNA.
-	new_vox.dna.mutantrace = "vox"
-	new_vox.set_species("Vox") // Actually makes the vox! How about that.
-	new_vox.add_language("Vox-pidgin")
+	new_vox.dna.mutantrace = "vox" // Actually makes the vox! How about that.
 	new_vox.mind_initialize()
 	new_vox.mind.assigned_role = "MODE"
 	new_vox.mind.special_role = "Vox Raider"

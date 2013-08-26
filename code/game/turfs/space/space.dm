@@ -5,7 +5,6 @@
 
 	temperature = TCMB
 	thermal_conductivity = OPEN_HEAT_TRANSFER_COEFFICIENT
-//	heat_capacity = 700000 No.
 
 /turf/space/New()
 	if(!istype(src, /turf/space/transit))
@@ -17,7 +16,7 @@
 /turf/space/attack_hand(mob/user as mob)
 	if ((user.restrained() || !( user.pulling )))
 		return
-	if (user.pulling.anchored || !isturf(user.pulling.loc))
+	if (user.pulling.anchored)
 		return
 	if ((user.pulling.loc != user.loc && get_dist(user, user.pulling) > 1))
 		return

@@ -37,18 +37,13 @@
 	usr << "You will [(prefs.toggles & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive."
 	feedback_add_details("admin_verb","AHS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
-/client/verb/deadchat() // Deadchat toggle is usable by anyone.
+/client/proc/deadchat()
 	set name = "Show/Hide Deadchat"
 	set category = "Preferences"
 	set desc ="Toggles seeing deadchat"
 	prefs.toggles ^= CHAT_DEAD
 	prefs.save_preferences()
-
-	if(src.holder)
-		src << "You will [(prefs.toggles & CHAT_DEAD) ? "now" : "no longer"] see deadchat."
-	else
-		src << "As a ghost, you will [(prefs.toggles & CHAT_DEAD) ? "now" : "no longer"] see deadchat."
-
+	src << "You will [(prefs.toggles & CHAT_DEAD) ? "now" : "no longer"] see deadchat."
 	feedback_add_details("admin_verb","TDV") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggleprayers()

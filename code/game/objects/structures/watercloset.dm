@@ -354,7 +354,7 @@
 
 	else if (istype(O, /obj/item/weapon/melee/baton))
 		var/obj/item/weapon/melee/baton/B = O
-		if (B.charges > 0 && B.status == 1)
+		if (B.power_supply.charge > 0 && B.status == 1)
 			flick("baton_active", src)
 			user.Stun(10)
 			user.stuttering = 10
@@ -363,7 +363,7 @@
 				var/mob/living/silicon/robot/R = user
 				R.cell.charge -= 20
 			else
-				B.charges--
+				B.power_supply.charge--
 			user.visible_message( \
 				"[user] was stunned by his wet [O].", \
 				"\red You have wet \the [O], it shocks you!")

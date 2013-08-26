@@ -116,7 +116,7 @@
 //Clonepod
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(var/ckey, var/clonename, var/ui, var/se, var/mindref, var/datum/species/mrace)
+/obj/machinery/clonepod/proc/growclone(var/ckey, var/clonename, var/ui, var/se, var/mindref, var/mrace)
 	if(mess || attempting)
 		return 0
 	var/datum/mind/clonemind = locate(mindref)
@@ -191,11 +191,13 @@
 		randmutb(H) //Sometimes the clones come out wrong.
 
 	H.f_style = "Shaved"
-	if(mrace.name == "Human") //no more xenos losing ears/tentacles
+	if(mrace == "none") //no more xenos losing ears/tentacles
 		H.h_style = pick("Bedhead", "Bedhead 2", "Bedhead 3")
 
-	H.species = mrace
-	H.update_mutantrace()
+	if(H.dna)
+		H.dna.mutantrace = mrace
+		H.update_mutantrace()
+		H.update_mutantrace_languages()
 	H.suiciding = 0
 	src.attempting = 0
 	return 1

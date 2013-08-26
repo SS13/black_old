@@ -89,7 +89,8 @@
 /obj/item/weapon/reagent_containers/spray/examine()
 	set src in usr
 	..()
-	usr << "[round(src.reagents.total_volume)] units left."
+	for(var/datum/reagent/R in reagents.reagent_list)
+		usr << "[round(R.volume)] units of [R.name] left."
 	return
 
 /obj/item/weapon/reagent_containers/spray/verb/empty()

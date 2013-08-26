@@ -87,7 +87,6 @@
 	flags = FPRINT|TABLEPASS
 	flags_inv = 0
 
-
 /obj/item/clothing/head/greenbandana
 	name = "green bandana"
 	desc = "It's a green bandana with some fine nanotech lining."

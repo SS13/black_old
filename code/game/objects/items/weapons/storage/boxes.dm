@@ -222,21 +222,6 @@
 		new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass(src)
 		new /obj/item/weapon/reagent_containers/food/drinks/drinkingglass(src)
 
-/obj/item/weapon/storage/box/cdeathalarm_kit
-	name = "Death Alarm Kit"
-	desc = "Box of stuff used to implant death alarms."
-	icon_state = "implant"
-	item_state = "syringe_kit"
-
-	New()
-		..()
-		new /obj/item/weapon/implanter(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
-		new /obj/item/weapon/implantcase/death_alarm(src)
 
 /obj/item/weapon/storage/box/condimentbottles
 	name = "box of condiment bottles"
@@ -439,14 +424,6 @@
 		W.update_icon()
 		return
 
-/obj/item/weapon/storage/box/autoinjectors
-	name = "box of injectors"
-	desc = "Contains autoinjectors."
-	icon_state = "syringe"
-	New()
-		..()
-		for (var/i; i < storage_slots; i++)
-			new /obj/item/weapon/reagent_containers/hypospray/autoinjector(src)
 
 /obj/item/weapon/storage/box/lights
 	name = "replacement bulbs"

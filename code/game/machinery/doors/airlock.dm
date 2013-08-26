@@ -141,6 +141,12 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	opacity = 1
 	assembly_type = /obj/structure/door_assembly/door_assembly_highsecurity //Until somebody makes better sprites.
 
+/obj/machinery/door/airlock/glass_large
+	name = "Glass Airlock"
+	icon = 'icons/obj/doors/Door2x1glassfull.dmi'
+	opacity = 0
+	glass = 1
+
 /obj/machinery/door/airlock/freezer
 	name = "Freezer Airlock"
 	icon = 'icons/obj/doors/Doorfreezer.dmi'
@@ -320,6 +326,11 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	icon = 'icons/obj/doors/hightechsecurity.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_highsecurity
 
+/obj/machinery/door/airlock/glass_security_weapon
+	name = "Maintenance Hatch"
+	icon = 'icons/obj/doors/Doorweapglass.dmi'
+	opacity = 0
+	glass = 1
 /*
 About the new airlock wires panel:
 *	An airlock wire dialog can be accessed by the normal way or by using wirecutters or a multitool on the door while the wire-panel is open. This would show the following wires, which you can either wirecut/mend or send a multitool pulse through. There are 9 wires.

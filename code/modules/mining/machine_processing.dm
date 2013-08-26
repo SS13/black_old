@@ -18,15 +18,7 @@
 		else
 			del(src)
 
-/obj/machinery/mineral/processing_unit_console/process()
-	updateDialog()
-
-/obj/machinery/mineral/processing_unit_console/attack_hand(mob/user)
-	add_fingerprint(user)
-	interact(user)
-
-/obj/machinery/mineral/processing_unit_console/interact(mob/user)
-	user.set_machine(src)
+/obj/machinery/mineral/processing_unit_console/attack_hand(user as mob)
 
 	var/dat = "<b>Smelter control console</b><br><br>"
 	//iron
@@ -122,7 +114,7 @@
 
 
 	user << browse("[dat]", "window=console_processing_unit")
-	onclose(user, "console_processing_unit")
+
 
 
 /obj/machinery/mineral/processing_unit_console/Topic(href, href_list)

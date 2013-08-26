@@ -144,6 +144,31 @@
 	else
 		icon_state = "pistol"
 
+/obj/item/weapon/gun/projectile/pistol/glock
+	name = "Glock"
+	desc = "A small, easily concealable gun. Uses 9mm rounds."
+	icon_state = "Glock"
+	w_class = 2
+	max_shells = 17
+	caliber = "9mm"
+
+/obj/item/weapon/gun/projectile/pistol/beretta
+	name = "Beretta"
+	desc = "A small, easily concealable gun. Uses 9mm rounds."
+	icon_state = "Beretta"
+	w_class = 2
+	max_shells = 15
+	caliber = "9mm"
+
+/obj/item/weapon/gun/projectile/pistol/sw
+	name = "S&W"
+	desc = "A small, easily concealable gun. Uses 9mm rounds."
+	icon_state = "S&W"
+	w_class = 2
+	max_shells = 6
+	caliber = "357"
+	ammo_type = "/obj/item/ammo_casing/c9mm"
+
 /obj/item/weapon/silencer
 	name = "silencer"
 	desc = "a silencer"

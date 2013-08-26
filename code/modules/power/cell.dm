@@ -60,6 +60,18 @@
 	if(crit_fail)
 		usr << "\red This power cell seems to be faulty."
 
+
+/obj/item/weapon/cell/cartridge/examine()
+	set src in view(1)
+	if(usr /*&& !usr.stat*/)
+		if(maxcharge <= 2500)
+			usr << "[desc]\nThe manufacturer's label states this cell was produced by <b>[creator]</b> and has a power rating of [maxcharge], and that you should not swallow it.\nThe charge meter reads [round(src.percent() )]%."
+		else
+			usr << "This power cell produced by <b>[creator]</b> has an exciting chrome finish, as it is an uber-capacity cell type! It has a power rating of [maxcharge]!\nThe charge meter reads [round(src.percent() )]%."
+	if(crit_fail)
+		usr << "\red This power cell seems to be faulty."
+
+
 /obj/item/weapon/cell/attack_self(mob/user as mob)
 	src.add_fingerprint(user)
 	if(ishuman(user))

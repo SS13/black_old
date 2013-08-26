@@ -34,7 +34,6 @@
 		layer = 2.7 //Under all objects if opened. 2.7 due to tables being at 2.6
 		explosion_resistance = 0
 
-
 	if(width > 1)
 		if(dir in list(EAST, WEST))
 			bound_width = width * world.icon_size

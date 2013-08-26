@@ -138,7 +138,6 @@
 	S["flavor_text"]		>> flavor_text
 	S["med_record"]			>> med_record
 	S["sec_record"]			>> sec_record
-	S["gen_record"]			>> gen_record
 	S["be_special"]			>> be_special
 	S["disabilities"]		>> disabilities
 	S["player_alt_titles"]		>> player_alt_titles
@@ -156,7 +155,7 @@
 	if(isnull(species)) species = "Human"
 	if(isnull(language)) language = "None"
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
-	if(!real_name) real_name = random_name(gender)
+	if(!real_name) real_name = random_name()
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	gender			= sanitize_gender(gender)
 	age				= sanitize_integer(age, AGE_MIN, AGE_MAX, initial(age))
@@ -242,7 +241,6 @@
 	S["flavor_text"]		<< flavor_text
 	S["med_record"]			<< med_record
 	S["sec_record"]			<< sec_record
-	S["gen_record"]			<< gen_record
 	S["player_alt_titles"]		<< player_alt_titles
 	S["be_special"]			<< be_special
 	S["disabilities"]		<< disabilities

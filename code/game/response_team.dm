@@ -3,9 +3,8 @@
 
 var/list/response_team_members = list()
 var/global/send_emergency_team = 0 // Used for automagic response teams
-                                   // 'admin_emergency_team' for admin-spawned response teams
-var/ert_base_chance = 10 // Default base chance. Will be incremented by increment ERT chance.
-var/can_call_ert
+// 'admin_emergency_team' for admin-spawned response teams
+
 
 /client/proc/response_team()
 	set name = "Dispatch Emergency Response Team"
@@ -27,7 +26,7 @@ var/can_call_ert
 	if(alert("Do you want to dispatch an Emergency Response Team?",,"Yes","No") != "Yes")
 		return
 	if(get_security_level() != "red") // Allow admins to reconsider if the alert level isn't Red
-		switch(alert("The station is not in red alert. Do you still want to dispatch a response team?",,"Yes","No"))
+		switch(alert("The station has not entered code red recently. Do you still want to dispatch a response team?",,"Yes","No"))
 			if("No")
 				return
 	if(send_emergency_team)
@@ -46,25 +45,21 @@ client/verb/JoinResponseTeam()
 		if(!send_emergency_team)
 			usr << "No emergency response team is currently being sent."
 			return
-	/*	if(admin_emergency_team)
-			usr << "An emergency response team has already been sent."
-			return */
 		if(jobban_isbanned(usr, "Syndicate") || jobban_isbanned(usr, "Emergency Response Team") || jobban_isbanned(usr, "Security Officer"))
 			usr << "<font color=red><b>You are jobbanned from the emergency reponse team!"
 			return
 
 		if(response_team_members.len > 5) usr << "The emergency response team is already full!"
 
+		var/leader_selected = (response_team_members.len == 0)
+
 
 		for (var/obj/effect/landmark/L in landmarks_list) if (L.name == "Commando")
-			L.name = null//Reserving the place.
+
 			var/new_name = input(usr, "Pick a name","Name") as null|text
-			if(!new_name)//Somebody changed his mind, place is available again.
-				L.name = "Commando"
-				return
-			var/leader_selected = isemptylist(response_team_members)
-			var/mob/living/carbon/human/new_commando = create_response_team(L.loc, leader_selected, new_name)
-			del(L)
+			if(!new_name) return
+			var/mob/living/carbon/human/new_commando = create_response_team(L, leader_selected, new_name)
+
 			new_commando.mind.key = usr.key
 			new_commando.key = usr.key
 
@@ -74,7 +69,7 @@ client/verb/JoinResponseTeam()
 				new_commando << "<b>As member of the Emergency Response Team, you answer only to your leader and CentComm officials.</b>"
 			else
 				new_commando << "<b>As leader of the Emergency Response Team, you answer only to CentComm, and have authority to override the Captain where it is necessary to achieve your mission goals. It is recommended that you attempt to cooperate with the captain where possible, however."
-			return
+			del(L)
 
 	else
 		usr << "You need to be an observer or new player to use this."
@@ -103,28 +98,12 @@ proc/percentage_antagonists()
 	if(total == 0) return 0
 	else return round(100 * antagonists / total)
 
-// Increments the ERT chance automatically, so that the later it is in the round,
-// the more likely an ERT is to be able to be called.
-proc/increment_ert_chance()
-	while(send_emergency_team == 0) // There is no ERT at the time.
-		if(get_security_level() == "green")
-			ert_base_chance += 1
-		if(get_security_level() == "blue")
-			ert_base_chance += 2
-		if(get_security_level() == "red")
-			ert_base_chance += 3
-		if(get_security_level() == "delta")
-			ert_base_chance += 10           // Need those big guns
-		sleep(600 * 3) // Minute * Number of Minutes
-
 
 proc/trigger_armed_response_team(var/force = 0)
-	if(!can_call_ert && !force)
-		return
 	if(send_emergency_team)
 		return
 
-	var/send_team_chance = ert_base_chance // Is incremented by increment_ert_chance.
+	var/send_team_chance = 50 // base chance that a team will be sent
 	send_team_chance += 2*percentage_dead() // the more people are dead, the higher the chance
 	send_team_chance += percentage_antagonists() // the more antagonists, the higher the chance
 	send_team_chance = min(send_team_chance, 100)
@@ -132,37 +111,13 @@ proc/trigger_armed_response_team(var/force = 0)
 	if(force) send_team_chance = 100
 
 	// there's only a certain chance a team will be sent
-	if(!prob(send_team_chance))
-		command_alert("It would appear that an emergency response team was requested for [station_name()]. Unfortunately, we were unable to send one at this time.", "Central Command")
-		can_call_ert = 0 // Only one call per round, ladies.
-		return
+	if(!prob(send_team_chance)) return
 
-	command_alert("It would appear that an emergency response team was requested for [station_name()]. We will prepare and send one as soon as possible.", "Central Command")
+	command_alert("Sensors indicate that [station_name()] has entered Code Red and is in need of assistance. We will prepare and dispatch an emergency response team to deal with the situation.", "Central Command")
 
-	can_call_ert = 0 // Only one call per round, gentleman.
 	send_emergency_team = 1
 
-	sleep(600 * 5)
-	send_emergency_team = 0 // Can no longer join the ERT.
-
-/*	var/area/security/nuke_storage/nukeloc = locate()//To find the nuke in the vault
-	var/obj/machinery/nuclearbomb/nuke = locate() in nukeloc
-	if(!nuke)
-		nuke = locate() in world
-	var/obj/item/weapon/paper/P = new
-	P.info = "Your orders, Commander, are to use all means necessary to return the station to a survivable condition.<br>To this end, you have been provided with the best tools we can give in the three areas of Medicine, Engineering, and Security. The nuclear authorization code is: <b>[ nuke ? nuke.r_code : "AHH, THE NUKE IS GONE!"]</b>. Be warned, if you detonate this without good reason, we will hold you to account for damages. Memorise this code, and then burn this message."
-	P.name = "Emergency Nuclear Code, and ERT Orders"
-	for (var/obj/effect/landmark/A in world)
-		if (A.name == "nukecode")
-			P.loc = A.loc
-			del(A)
-			continue
-*/
-
 /client/proc/create_response_team(obj/spawn_location, leader_selected = 0, commando_name)
-
-	//usr << "\red ERT has been temporarily disabled. Talk to a coder."
-	//return
 
 	var/mob/living/carbon/human/M = new(null)
 	response_team_members |= M
@@ -204,7 +159,6 @@ proc/trigger_armed_response_team(var/force = 0)
 		hairs.Add(H.name) // add hair name to hairs
 		del(H) // delete the hair after it's all done
 
-//	var/new_style = input("Please select hair style", "Character Generation")  as null|anything in hairs
 //hair
 	var/new_hstyle = input(usr, "Select a hair style", "Grooming")  as null|anything in hair_styles_list
 	if(new_hstyle)
@@ -273,14 +227,21 @@ proc/trigger_armed_response_team(var/force = 0)
 	M.mind.special_role = "Response Team"
 	if(!(M.mind in ticker.minds))
 		ticker.minds += M.mind//Adds them to regular mind list.
-	M.loc = spawn_location
+	M.loc = spawn_location.loc
 	M.equip_strike_team(leader_selected)
+	del(spawn_location)
 	return M
 
 /mob/living/carbon/human/proc/equip_strike_team(leader_selected = 0)
 
 	//Special radio setup
 	equip_to_slot_or_del(new /obj/item/device/radio/headset/ert(src), slot_ears)
+
+	//Adding Camera Network
+	var/obj/machinery/camera/camera = new /obj/machinery/camera(src) //Gives all the commandos internals cameras.
+	camera.network = "CREED"
+	camera.c_tag = real_name
+
 
 	//Replaced with new ERT uniform
 	equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
@@ -316,12 +277,19 @@ proc/trigger_armed_response_team(var/force = 0)
 	equip_to_slot_or_del(new /obj/item/weapon/storage/firstaid/regular(src), slot_in_backpack)
 */
 	var/obj/item/weapon/card/id/W = new(src)
-	W.assignment = "Emergency Response Team[leader_selected ? " Leader" : ""]"
-	W.registered_name = real_name
-	W.name = "[real_name]'s ID Card ([W.assignment])"
+	W.name = "[real_name]'s ID Card (Emergency Response Team)"
 	W.icon_state = "centcom"
-	W.access = get_all_accesses()
-	W.access += get_all_centcom_access()
+	if(leader_selected)
+		W.name = "[real_name]'s ID Card (Emergency Response Team Leader)"
+		W.access = get_all_accesses()
+		W.access += get_all_centcom_access()
+		W.assignment = "Emergency Response Team Leader"
+	else
+		W.access = get_all_accesses()
+		W.access += get_all_centcom_access()
+		W.assignment = "Emergency Response Team"
+	W.access += list(access_cent_general, access_cent_specops, access_cent_living, access_cent_storage)//Let's add their alloted CentCom access.
+	W.registered_name = real_name
 	equip_to_slot_or_del(W, slot_wear_id)
 
 	return 1
