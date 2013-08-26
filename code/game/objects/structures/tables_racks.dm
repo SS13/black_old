@@ -456,7 +456,7 @@
 		density = 0
 		del(src)
 
-	if(usr.a_intent == "disarm" && get_dist(usr, src) <= 1)
+	if(usr.a_intent == "disarm" && get_dist(usr, src) <= 1 && !usr.buckled)
 		if(prob(60))
 			visible_message("<span class='notice'>[user] climbs on the [src].</span>")
 			sleep(10)
