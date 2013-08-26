@@ -28,10 +28,10 @@
 	//Amount of air needed before pass out/suffocation commences
 
 // Pressure limits.
-#define HAZARD_HIGH_PRESSURE 550	//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
-#define WARNING_HIGH_PRESSURE 325 	//This determins when the orange pressure icon is displayed (it is 0.7 * HAZARD_HIGH_PRESSURE)
-#define WARNING_LOW_PRESSURE 50 	//This is when the gray low pressure icon is displayed. (it is 2.5 * HAZARD_LOW_PRESSURE)
-#define HAZARD_LOW_PRESSURE 20		//This is when the black ultra-low pressure icon is displayed. (This one is set as a constant)
+#define HAZARD_HIGH_PRESSURE	550	//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
+#define WARNING_HIGH_PRESSURE	325	//This determins when the orange pressure icon is displayed (it is 0.7 * HAZARD_HIGH_PRESSURE)
+#define WARNING_LOW_PRESSURE	50	//This is when the gray low pressure icon is displayed. (it is 2.5 * HAZARD_LOW_PRESSURE)
+#define HAZARD_LOW_PRESSURE		20	//This is when the black ultra-low pressure icon is displayed. (This one is set as a constant)
 
 #define TEMPERATURE_DAMAGE_COEFFICIENT 1.5	//This is used in handle_temperature_damage() for humans, and in reagents that affect body temperature. Temperature damage is multiplied by this amount.
 #define BODYTEMP_AUTORECOVERY_DIVISOR 12 //This is the divisor which handles how much of the temperature difference between the current body temperature and 310.15K (optimal temperature) humans auto-regenerate each tick. The higher the number, the slower the recovery. This is applied each tick, so long as the mob is alive.
@@ -158,19 +158,19 @@ var/MAX_EXPLOSION_RANGE = 14
 
 
 //ITEM INVENTORY SLOT BITMASKS
-#define SLOT_OCLOTHING 1
-#define SLOT_ICLOTHING 2
-#define SLOT_GLOVES 4
-#define SLOT_EYES 8
-#define SLOT_EARS 16
-#define SLOT_MASK 32
-#define SLOT_HEAD 64
-#define SLOT_FEET 128
-#define SLOT_ID 256
-#define SLOT_BELT 512
-#define SLOT_BACK 1024
-#define SLOT_POCKET 2048		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-#define SLOT_DENYPOCKET 4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
+#define SLOT_OCLOTHING	1
+#define SLOT_ICLOTHING	2
+#define SLOT_GLOVES		4
+#define SLOT_EYES		8
+#define SLOT_EARS		16
+#define SLOT_MASK		32
+#define SLOT_HEAD		64
+#define SLOT_FEET		128
+#define SLOT_ID			256
+#define SLOT_BELT		512
+#define SLOT_BACK		1024
+#define SLOT_POCKET		2048		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
+#define SLOT_DENYPOCKET	4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
 
 
 //FLAGS BITMASK
@@ -228,45 +228,45 @@ var/MAX_EXPLOSION_RANGE = 14
 #define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
 //slots
-#define slot_back 1
-#define slot_wear_mask 2
-#define slot_handcuffed 3
-#define slot_l_hand 4
-#define slot_r_hand 5
-#define slot_belt 6
-#define slot_wear_id 7
-#define slot_ears 8
-#define slot_glasses 9
-#define slot_gloves 10
-#define slot_head 11
-#define slot_shoes 12
-#define slot_wear_suit 13
-#define slot_w_uniform 14
-#define slot_l_store 15
-#define slot_r_store 16
-#define slot_s_store 17
-#define slot_in_backpack 18
-#define slot_legcuffed 19
+#define slot_back			1
+#define slot_wear_mask		2
+#define slot_handcuffed		3
+#define slot_l_hand			4
+#define slot_r_hand			5
+#define slot_belt			6
+#define slot_wear_id		7
+#define slot_ears			8
+#define slot_glasses		9
+#define slot_gloves			10
+#define slot_head			11
+#define slot_shoes			12
+#define slot_wear_suit		13
+#define slot_w_uniform		14
+#define slot_l_store		15
+#define slot_r_store		16
+#define slot_s_store		17
+#define slot_in_backpack	18
+#define slot_legcuffed		19
 
 //Cant seem to find a mob bitflags area other than the powers one
 
 // bitflags for clothing parts
-#define HEAD			1
-#define UPPER_TORSO		2
-#define LOWER_TORSO		4
-#define LEG_LEFT		8
-#define LEG_RIGHT		16
-#define LEGS			24
-#define FOOT_LEFT		32
-#define FOOT_RIGHT		64
-#define FEET			96
-#define ARM_LEFT		128
-#define ARM_RIGHT		256
-#define ARMS			384
-#define HAND_LEFT		512
-#define HAND_RIGHT		1024
-#define HANDS			1536
-#define FULL_BODY		2047
+#define HEAD		1
+#define UPPER_TORSO	2
+#define LOWER_TORSO	4
+#define LEG_LEFT	8
+#define LEG_RIGHT	16
+#define LEGS		24
+#define FOOT_LEFT	32
+#define FOOT_RIGHT	64
+#define FEET		96
+#define ARM_LEFT	128
+#define ARM_RIGHT	256
+#define ARMS		384
+#define HAND_LEFT	512
+#define HAND_RIGHT	1024
+#define HANDS		1536
+#define FULL_BODY	2047
 
 // bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
@@ -307,12 +307,12 @@ var/MAX_EXPLOSION_RANGE = 14
 #define UNIDNASIZE 13
 
 	// Generic mutations:
-#define	TK			1
-#define COLD_RESISTANCE		2
+#define	TK				1
+#define COLD_RESISTANCE	2
 #define XRAY			3
 #define HULK			4
 #define CLUMSY			5
-#define FAT			6
+#define FAT				6
 #define HUSK			7
 #define NOCLONE			8
 
@@ -323,17 +323,17 @@ var/MAX_EXPLOSION_RANGE = 14
 #define SHADOW			11 	// shadow teleportation (create in/out portals anywhere) (25%)
 #define SCREAM			12 	// supersonic screaming (25%)
 #define EXPLOSIVE		13 	// exploding on-demand (15%)
-#define REGENERATION		14 	// superhuman regeneration (30%)
+#define REGENERATION	14 	// superhuman regeneration (30%)
 #define REPROCESSOR		15 	// eat anything (50%)
-#define SHAPESHIFTING		16 	// take on the appearance of anything (40%)
+#define SHAPESHIFTING	16 	// take on the appearance of anything (40%)
 #define PHASING			17 	// ability to phase through walls (40%)
 #define SHIELD			18 	// shielding from all projectile attacks (30%)
 #define SHOCKWAVE		19 	// attack a nearby tile and cause a massive shockwave, knocking most people on their asses (25%)
 #define ELECTRICITY		20 	// ability to shoot electric attacks (15%)
 
 	//2spooky
-#define SKELETON 29
-#define PLANT 30
+#define SKELETON		29
+#define PLANT			30
 
 // Other Mutations:
 #define MNOBREATH		100 	// no need to breathe
@@ -343,8 +343,8 @@ var/MAX_EXPLOSION_RANGE = 14
 #define MREMOTETALK		104 	// remote talking
 #define MMORPH			105 	// changing appearance
 #define MBLEND			106 	// nothing (seriously nothing)
-#define MHALLUCINATION		107 	// hallucinations
-#define MFINGERPRINTS		108 	// no fingerprints
+#define MHALLUCINATION	107 	// hallucinations
+#define MFINGERPRINTS	108 	// no fingerprints
 #define MSHOCK			109 	// insulated hands
 #define MSMALLSIZE		110 	// table climbing
 
@@ -574,17 +574,17 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 
 ///////////////////ORGAN DEFINES///////////////////
 
-#define ORGAN_CUT_AWAY 1
-#define ORGAN_GAUZED 2
-#define ORGAN_ATTACHABLE 4
-#define ORGAN_BLEEDING 8
-#define ORGAN_BROKEN 32
-#define ORGAN_DESTROYED 64
-#define ORGAN_ROBOT 128
-#define ORGAN_SPLINTED 256
-#define SALVED 512
-#define ORGAN_DEAD 1024
-#define ORGAN_MUTATED 2048
+#define ORGAN_CUT_AWAY		1
+#define ORGAN_GAUZED		2
+#define ORGAN_ATTACHABLE	4
+#define ORGAN_BLEEDING		8
+#define ORGAN_BROKEN		32
+#define ORGAN_DESTROYED		64
+#define ORGAN_ROBOT			128
+#define ORGAN_SPLINTED		256
+#define SALVED				512
+#define ORGAN_DEAD			1024
+#define ORGAN_MUTATED		2048
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
@@ -599,9 +599,9 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_SERVER		16
 #define R_DEBUG			32
 #define R_POSSESS		64
-#define R_PERMISSIONS		128
+#define R_PERMISSIONS	128
 #define R_STEALTH		256
-#define R_REJUVINATE		512
+#define R_REJUVINATE	512
 #define R_VAREDIT		1024
 #define R_SOUNDS		2048
 #define R_SPAWN			4096
@@ -613,25 +613,25 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_HOST			65535
 
 //Preference toggles
-#define SOUND_ADMINHELP		1
+#define SOUND_ADMINHELP	1
 #define SOUND_MIDI		2
-#define SOUND_AMBIENCE		4
+#define SOUND_AMBIENCE	4
 #define SOUND_LOBBY		8
 #define CHAT_OOC		16
 #define CHAT_DEAD		32
-#define CHAT_GHOSTEARS		64
-#define CHAT_GHOSTSIGHT		128
+#define CHAT_GHOSTEARS	64
+#define CHAT_GHOSTSIGHT	128
 #define CHAT_PRAYER		256
 #define CHAT_RADIO		512
-#define CHAT_ATTACKLOGS		1024
-#define CHAT_DEBUGLOGS		2048
+#define CHAT_ATTACKLOGS	1024
+#define CHAT_DEBUGLOGS	2048
 #define CHAT_LOOC		4096
 
 #define TOGGLES_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
 
 #define BE_TRAITOR		1
-#define BE_OPERATIVE		2
-#define BE_CHANGELING		4
+#define BE_OPERATIVE	2
+#define BE_CHANGELING	4
 #define BE_WIZARD		8
 #define BE_MALF			16
 #define BE_REV			32
@@ -682,9 +682,9 @@ var/list/be_special_flags = list(
 #define STATUS_HUD		2 // a simple line rounding the mob's number health
 #define ID_HUD			3 // the job asigned to your ID
 #define WANTED_HUD		4 // wanted, released, parroled, security status
-#define IMPLOYAL_HUD		5 // loyality implant
+#define IMPLOYAL_HUD	5 // loyality implant
 #define IMPCHEM_HUD		6 // chemical implant
-#define IMPTRACK_HUD		7 // tracking implant
+#define IMPTRACK_HUD	7 // tracking implant
 
 //Pulse levels, very simplified
 #define PULSE_NONE		0	//so !M.pulse checks would be possible
@@ -708,19 +708,19 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 	)
 
 //Species flags.
-#define NO_EAT 1
-#define NO_BREATHE 2
-#define NO_SLEEP 4
-#define NO_SHOCK 8
-#define NO_SCAN 16
-#define NON_GENDERED 32
-#define REQUIRE_LIGHT 64
-#define WHITELISTED 128
-#define HAS_SKIN_TONE 256
-#define HAS_LIPS 512
-#define HAS_UNDERWEAR 1024
-#define HAS_TAIL 2048
-#define IS_PLANT 4096
+#define NO_EAT			1
+#define NO_BREATHE		2
+#define NO_SLEEP		4
+#define NO_SHOCK		8
+#define NO_SCAN			16
+#define NON_GENDERED	32
+#define REQUIRE_LIGHT	64
+#define WHITELISTED		128
+#define HAS_SKIN_TONE	256
+#define HAS_LIPS		512
+#define HAS_UNDERWEAR	1024
+#define HAS_TAIL		2048
+#define IS_PLANT		4096
 
 //Language flags.
 #define WHITELISTED 1  // Language is available if the speaker is whitelisted.

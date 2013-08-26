@@ -163,15 +163,6 @@ var/list/department_radio_keys = list(
 
 	// :downs:
 	if (getBrainLoss() >= 60)
-		message = replacetext(message, " am ", " ")
-		message = replacetext(message, " is ", " ")
-		message = replacetext(message, " are ", " ")
-		message = replacetext(message, "you", "u")
-		message = replacetext(message, "help", "halp")
-		message = replacetext(message, "grief", "grife")
-		message = replacetext(message, "space", "spess")
-		message = replacetext(message, "carp", "crap")
-		message = replacetext(message, "reason", "raisin")
 		if(prob(50))
 			message = uppertext(message)
 			message += "[stutter(pick("!", "!!", "!!!"))]"
@@ -342,22 +333,6 @@ var/list/department_radio_keys = list(
 			spawn (0)
 				if(O && !istype(O.loc, /obj/item/weapon/storage))
 					O.hear_talk(src, message)
-
-
-/*			Commented out as replaced by code above from BS12
-	for (var/obj/O in ((V | contents)-used_radios)) //radio in pocket could work, radio in backpack wouldn't --rastaf0
-		spawn (0)
-			if (O)
-				O.hear_talk(src, message)
-*/
-
-/*	if(isbrain(src))//For brains to properly talk if they are in an MMI..or in a brain. Could be extended to other mobs I guess.
-		for(var/obj/O in loc)//Kinda ugly but whatever.
-			if(O)
-				spawn(0)
-					O.hear_talk(src, message)
-*/
-
 
 	var/list/heard_a = list() // understood us
 	var/list/heard_b = list() // didn't understand us

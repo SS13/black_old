@@ -237,7 +237,7 @@
 			W.loc = src
 
 	else if(istype(used_weapon,/obj/item/projectile)) //We don't want to use the actual projectile item, so we spawn some shrapnel.
-		if(prob(75) && damagetype == BRUTE)
+		if(damagetype == BRUTE && prob(75))
 			var/obj/item/projectile/P = used_weapon
 			var/obj/item/weapon/shard/shrapnel/S = new()
 			S.name = "[P.name] shrapnel"
