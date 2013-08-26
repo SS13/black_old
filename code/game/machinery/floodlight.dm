@@ -93,10 +93,3 @@
 				cell = W
 				user << "You insert the power cell."
 	updateicon()
-
-/obj/machinery/floodlight/New()
-	src.cell = new/obj/item/weapon/cell(src)
-	cell.maxcharge = 1000
-	cell.charge = 1000
-	..()
-

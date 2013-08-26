@@ -34,9 +34,11 @@
 /obj/effect/rust_particle_catcher/proc/UpdateSize()
 	if(parent.size >= mysize)
 		density = 1
+		//invisibility = 0
 		name = "collector [mysize] ON"
 	else
 		density = 0
+		//invisibility = 101
 		name = "collector [mysize] OFF"
 
 /obj/effect/rust_particle_catcher/bullet_act(var/obj/item/projectile/Proj)
