@@ -174,6 +174,9 @@
 	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
 	siemens_coefficient = 0.7
 
+/obj/item/clothing/suit/space/rig/security/samurai
+	name "samurai hardsuit"
+	icon_state = "rig_samurai"
 
 //Atmospherics Rig (BS12)
 /obj/item/clothing/head/helmet/space/rig/atmos
