@@ -27,7 +27,7 @@
 
 
 /obj/item/weapon/spacecash
-	name = "1 credit"
+	name = "1 credit chip"
 	desc = "It's worth 1 credit."
 	gender = PLURAL
 	icon = 'icons/obj/items.dmi'
@@ -44,82 +44,50 @@
 	access = access_crate_cash
 	var/worth = 1
 
-/obj/item/weapon/spacecash/proc/update_cash()
-		name = "[src.worth] credit"
-		desc = "It's worth [src.worth] credits."
-		if (src.worth<20) src.icon_state = "spacecash10"
-		else if (src.worth<50) src.icon_state = "spacecash20"
-		else if (src.worth<100) src.icon_state = "spacecash50"
-		else if (src.worth<200) src.icon_state = "spacecash100"
-		else if (src.worth<500) src.icon_state = "spacecash200"
-		else if (src.worth<1000) src.icon_state = "spacecash500"
-		else src.icon_state = "spacecash1000"
-
-/obj/item/weapon/spacecash/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weapon/spacecash))
-		src.worth+=W:worth
-		user.drop_item()
-		del(W)
-		src.update_cash()
-
-/obj/item/weapon/spacecash/attack_self(mob/user as mob)
-	var/cash = input(usr,"How many cash we gonna take?","Take part of cash",100) as num|null
-	if (cash > src.worth || cash < 1)
-		return
-	src.worth -= cash
-	src.update_cash()
-	var/obj/item/weapon/spacecash/S = new
-	S.worth = cash
-	S.update_cash()
-	if((user.hand && !user.r_hand)||(!user.hand && !user.l_hand))
-		return user.put_in_inactive_hand(S)
-	else
-		S.loc = user.loc
-
 /obj/item/weapon/spacecash/c10
-	name = "10 credit"
+	name = "10 credit chip"
 	icon_state = "spacecash10"
 	access = access_crate_cash
 	desc = "It's worth 10 credits."
 	worth = 10
 
 /obj/item/weapon/spacecash/c20
-	name = "20 credit"
+	name = "20 credit chip"
 	icon_state = "spacecash20"
 	access = access_crate_cash
 	desc = "It's worth 20 credits."
 	worth = 20
 
 /obj/item/weapon/spacecash/c50
-	name = "50 credit"
+	name = "50 credit chip"
 	icon_state = "spacecash50"
 	access = access_crate_cash
 	desc = "It's worth 50 credits."
 	worth = 50
 
 /obj/item/weapon/spacecash/c100
-	name = "100 credit"
+	name = "100 credit chip"
 	icon_state = "spacecash100"
 	access = access_crate_cash
 	desc = "It's worth 100 credits."
 	worth = 100
 
 /obj/item/weapon/spacecash/c200
-	name = "200 credit"
+	name = "200 credit chip"
 	icon_state = "spacecash200"
 	access = access_crate_cash
 	desc = "It's worth 200 credits."
 	worth = 200
 
 /obj/item/weapon/spacecash/c500
-	name = "500 credit"
+	name = "500 credit chip"
 	icon_state = "spacecash500"
 	access = access_crate_cash
 	desc = "It's worth 500 credits."
 	worth = 500
 
 /obj/item/weapon/spacecash/c1000
-	name = "1000 credit"
+	name = "1000 credit chip"
 	icon_state = "spacecash1000"
 	access = access_crate_cash
 	desc = "It's worth 1000 credits."
@@ -585,6 +553,13 @@
 /obj/item/weapon/hatchet/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
+
+/obj/item/weapon/hatchet/unathiknife
+	name = "duelling knife"
+	desc = "A length of leather-bound wood studded with razor-sharp teeth. How crude."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "unathiknife"
+	attack_verb = list("ripped", "torn", "cut")
 
 /obj/item/weapon/scythe
 	icon_state = "scythe0"

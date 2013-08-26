@@ -238,7 +238,7 @@
 		H.equip_to_slot_or_del(new /obj/item/toy/waterflower(H), slot_in_backpack)
 		H.mutations.Add(CLUMSY)
 		return 1
-*/
+
 
 
 /datum/job/mime
@@ -281,7 +281,7 @@
 		H.mind.special_verbs += /client/proc/mimewall
 		H.miming = 1
 		return 1
-
+*/
 
 
 /datum/job/janitor

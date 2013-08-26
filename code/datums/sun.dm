@@ -2,6 +2,7 @@
 	var/angle
 	var/dx
 	var/dy
+//	var/counter = 50		// to make the vars update during 1st call
 	var/rate
 	var/list/solars			// for debugging purposes, references solars_list at the constructor
 	var/nexttime = 3600		// Replacement for var/counter to force the sun to move every X IC minutes
@@ -17,7 +18,12 @@
 
 /datum/sun/proc/calc_position()
 
-	angle = ((rate*world.realtime/100)%360 + 360)%360		// gives about a 60 minute rotation time
+/*	counter++
+	if(counter<50)		// count 50 pticks (50 seconds, roughly - about a 5deg change)
+		return
+	counter = 0 */
+
+	angle = ((rate*world.time/100)%360 + 360)%360
 	/*
 		Yields a 45 - 75 IC minute rotational period
 		Rotation rate can vary from 4.8 deg/min to 8 deg/min (288 to 480 deg/hr)

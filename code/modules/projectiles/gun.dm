@@ -30,6 +30,15 @@
 	var/tmp/told_cant_shoot = 0 //So that it doesn't spam them with the fact they cannot hit them.
 	var/firerate = 1 	// 0 for one bullet after tarrget moves and aim is lowered,
 						//1 for keep shooting until aim is lowered
+	var/fire_delay = 6
+	var/last_fired = 0
+
+	proc/ready_to_fire()
+		if(world.time >= last_fired + fire_delay)
+			last_fired = world.time
+			return 1
+		else
+			return 0
 
 	proc/load_into_chamber()
 		return 0
@@ -43,7 +52,7 @@
 
 /obj/item/weapon/gun/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 	if(flag)	return //we're placing gun on a table or in backpack
-//	if(istype(target, /obj/machinery/recharger) && istype(src, /obj/item/weapon/gun/energy))	return//Shouldnt flag take care of this?
+	if(istype(target, /obj/machinery/recharger) && istype(src, /obj/item/weapon/gun/energy))	return//Shouldnt flag take care of this?
 	if(user && user.client && user.client.gun_mode && !(A in target))
 		PreFire(A,user,params) //They're using the new gun system, locate what they're aiming at.
 	else
@@ -85,6 +94,11 @@
 		return
 
 	if(!special_check(user))
+		return
+
+	if (!ready_to_fire())
+		if (world.time % 3) //to prevent spam
+			user << "<span class='warning'>[src] is not ready to fire again!"
 		return
 
 	if(!load_into_chamber()) //CHECK
