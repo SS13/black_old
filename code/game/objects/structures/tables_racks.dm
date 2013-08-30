@@ -465,9 +465,7 @@
 	if(usr.a_intent == "disarm" && get_dist(usr, src) <= 1 && !usr.buckled)
 		if(prob(60))
 			visible_message("<span class='notice'>[user] climbs on the [src].</span>")
-			sleep(10)
-			if (src.loc:Enter(usr))
-				usr.loc = src.loc
+			usr.loc = src.loc
 		else
 			sleep(10)
 			visible_message("<span class='warning'>[user] slipped off the edge of the [src].</span>")

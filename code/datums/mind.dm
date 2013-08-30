@@ -732,14 +732,17 @@ datum/mind
 						usr << "\red [current] isn't meme!"
 						return
 
-					for (var/mob/living/carbon/human/H as mob in mob_list)
+					for (var/mob/living/carbon/human/H in mob_list)
 						if(H.client && istype(H) && !H.parasites.len)
 							allowed_mob += H
 
 					if(allowed_mob.len == 0)
 						usr << "\red There is no hosts available now!"
 					else
-						current:enter_host(input ("Select new host for meme ([current]).", "New host", null) in allowed_mob)
+						allowed_mob += "Concel"
+						var/new_host = input ("Select new host for meme ([current]).", "New host", null) in allowed_mob
+						if (new_host == "Concel") return
+						current:enter_host(new_host)
 						message_admins("[key_name(current)] (meme) moved to [key_name(current:host)]")
 						log_admin("[key_name(src)] (meme) moved to [key_name(src:host)]")
 

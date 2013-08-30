@@ -1,7 +1,5 @@
 dmm_suite
 
-	var/debug_file = file("maploader_debug.txt")
-
 	load_map(var/dmm_file as file, var/z_offset as num, var/y_offset as num, var/x_offset as num, var/load_speed = 0 as num)
 		if(!z_offset)
 			z_offset = world.maxz + 1
@@ -22,8 +20,6 @@ dmm_suite
 		else if(!isnum(y_offset))
 			y_offset = 0
 
-		debug_file << "Starting Map Load @ ([x_offset], [y_offset], [z_offset]), [load_speed] tiles per second."
-
 		//Handle slowed loading.
 		var/delay_chance = 0
 		if(load_speed > 0)
@@ -42,8 +38,6 @@ dmm_suite
 		var/key_len = length(copytext(input_file, 2 ,findtext(input_file, quote, 2)))
 		//The key of the default tile model.  (In SS13 this is: "/turf/space,/area")
 		var/default_key
-
-		debug_file << "	Building turf array."
 
 		//Iterates through the mapfile to build the model tiles for the map.
 		for(var/line_position = 1; line_position < input_file_len; line_position = findtext(input_file,"\n", line_position) + 1)
@@ -96,8 +90,6 @@ dmm_suite
 				if(!y_depth)
 					y_depth = length(z_level) / (length(grid_line) + 1)
 					y_depth += y_offset
-					if(y_depth != round(y_depth, 1))
-						debug_file << "	Warning: y_depth is not a round number"
 
 					//And update the worlds variables.
 					if(world.maxy < y_depth)
@@ -154,21 +146,11 @@ dmm_suite
 			//Then remove the quoted section.
 			model = copytext(model, 1, first_quote) + "~[index]" + copytext(model, second_quote + 1)
 
-		var/debug_output = 0
-		//if(x_coordinate == 86 && y_coordinate == 88 && z_coordinate == 7)
-		//	debug_output = 1
-
-		if(debug_output)
-			debug_file << "	Now debugging turf: [model] ([x_coordinate], [y_coordinate], [z_coordinate])"
-
 		var/next_position = 1
 		for(var/data_position = 1, next_position || data_position != 1, data_position = next_position + 1)
 			next_position = findtext(model, ",/", data_position)
 
 			var/full_def = copytext(model, data_position, next_position)
-
-			if(debug_output)
-				debug_file << "		Current Line: [full_def] -- ([data_position] - [next_position])"
 
 			/*Loop: Identifies each object's data, instantiates it, and reconstitues it's fields.
 				- Each iteration represents one object's data, including type path and field values.
@@ -181,9 +163,6 @@ dmm_suite
 			var/list/attributes = list()
 			if(attribute_position)
 				full_def = copytext(full_def, attribute_position + 1)
-				if(debug_output)
-					debug_file << "		Atom Def: [atom_def]"
-					debug_file << "		Parameters: [full_def]"
 
 				var/next_attribute = 1
 				for(attribute_position = 1, next_attribute || attribute_position != 1, attribute_position = next_attribute + 1)
@@ -217,13 +196,6 @@ dmm_suite
 				fields[trim_left] = trim_right
 				sleep(-1)
 
-
-			if(debug_output)
-				var/return_data = "		Debug Fields:"
-				for(var/item in fields)
-					return_data += " [item] = [fields[item]];"
-				debug_file << return_data
-
 			//Begin Instanciation
 			var/atom/instance
 
@@ -243,7 +215,6 @@ dmm_suite
 					var/return_data = "	Failure [atom_def] @ ([x_coordinate], [y_coordinate], [z_coordinate])  fields:"
 					for(var/item in fields)
 						return_data += " [item] = [fields[item]];"
-					debug_file << return_data
 
 			sleep(-1)
 		return 1

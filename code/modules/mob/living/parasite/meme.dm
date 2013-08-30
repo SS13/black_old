@@ -83,7 +83,7 @@ mob/living/parasite/meme/New()
 	src.enter_host(newhost)
 	message_admins("[newhost] has become [src.key]'s host")
 
-	ticker.mode.memes += src
+//	ticker.mode.memes += src
 
 mob/living/parasite/meme/Del()
 	..()
