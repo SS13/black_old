@@ -163,6 +163,11 @@ Deuterium-tritium fusion: 4.5 x 10^7 K
 	React()
 
 	//forcibly radiate any excess energy
+	/*var/energy_max = transfer_ratio * 100000
+	if(mega_energy > energy_max)
+		var/energy_lost = rand( 1.5 * (mega_energy - energy_max), 2.5 * (mega_energy - energy_max) )
+		mega_energy -= energy_lost
+		radiation += energy_lost*/
 
 	//change held plasma temp according to energy levels
 	//SPECIFIC_HEAT_TOXIN

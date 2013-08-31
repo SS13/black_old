@@ -1,8 +1,9 @@
 /obj/item/clothing/suit/storage/labcoat
 	name = "labcoat"
 	desc = "A suit that protects against minor chemical spills."
-	icon_state = "labcoat_open"
+	icon_state = "labcoat"
 	item_state = "labcoat"
+	var/open = 0
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/device/analyzer,/obj/item/stack/medical,/obj/item/weapon/dnainjector,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/hypospray,/obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen)
@@ -13,55 +14,19 @@
 		set category = "Object"
 		set src in usr
 
+		if (istype(src, /obj/item/clothing/suit/storage/labcoat/kimono))
+			return 0
+
 		if(!usr.canmove || usr.stat || usr.restrained())
 			return 0
 
-		switch(icon_state)
-			if("labcoat_open")
-				src.icon_state = "labcoat"
-				usr << "You button up the labcoat."
-			if("labcoat")
-				src.icon_state = "labcoat_open"
-				usr << "You unbutton the labcoat."
-			if("labcoat_cmo_open")
-				src.icon_state = "labcoat_cmo"
-				usr << "You button up the labcoat."
-			if("labcoat_cmo")
-				src.icon_state = "labcoat_cmo_open"
-				usr << "You unbutton the labcoat."
-			if("labcoat_gen_open")
-				src.icon_state = "labcoat_gen"
-				usr << "You button up the labcoat."
-			if("labcoat_gen")
-				src.icon_state = "labcoat_gen_open"
-				usr << "You unbutton the labcoat."
-			if("labcoat_chem_open")
-				src.icon_state = "labcoat_chem"
-				usr << "You button up the labcoat."
-			if("labcoat_chem")
-				src.icon_state = "labcoat_chem_open"
-				usr << "You unbutton the labcoat."
-			if("labcoat_vir_open")
-				src.icon_state = "labcoat_vir"
-				usr << "You button up the labcoat."
-			if("labcoat_vir")
-				src.icon_state = "labcoat_vir_open"
-				usr << "You unbutton the labcoat."
-			if("labcoat_tox_open")
-				src.icon_state = "labcoat_tox"
-				usr << "You button up the labcoat."
-			if("labcoat_tox")
-				src.icon_state = "labcoat_tox_open"
-				usr << "You unbutton the labcoat."
-			if("labgreen_open")
-				src.icon_state = "labgreen"
-				usr << "You button up the labcoat."
-			if("labgreen")
-				src.icon_state = "labgreen_open"
-				usr << "You unbutton the labcoat."
-			else
-				usr << "You attempt to button-up the velcro on your [src], before promptly realising how retarded you are."
-				return
+		if (open)
+			src.icon_state = "[initial(icon_state)]"
+			usr << "You button up the labcoat."
+		else
+			src.icon_state = "[initial(icon_state)]_open"
+			usr << "You unbutton the labcoat."
+		open = !open
 		usr.update_inv_wear_suit()	//so our overlays update
 
 /obj/item/clothing/suit/storage/labcoat/cmo
@@ -96,3 +61,11 @@
 	name = "Scientist Labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a purple stripe on the shoulder."
 	icon_state = "labcoat_tox_open"
+
+/obj/item/clothing/suit/storage/labcoat/kimono
+	name = "Medical Kimono"
+	icon_state = "med_kimono"
+
+/obj/item/clothing/suit/storage/labcoat/kimono/sci_kimono
+	name = "Scientist Kimono"
+	icon_state = "sci_kimono"

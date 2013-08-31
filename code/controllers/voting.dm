@@ -271,9 +271,9 @@ datum/controller/vote
 				var/votes = choices[choices[i]]
 				if(!votes)	votes = 0
 				if(current_votes[C.ckey] == i)
-					. += "<li><b><a href='?src=\ref[src];vote=[i]'>[choices[i]]</a></b></li>"
+					. += "<li><b><a href='?src=\ref[src];vote=[i]'>[choices[i]]</a> (admin ? ([votes] votes))</b></li>"
 				else
-					. += "<li><a href='?src=\ref[src];vote=[i]'>[choices[i]]</a></li>"
+					. += "<li><a href='?src=\ref[src];vote=[i]'>[choices[i]]</a> (admin ? ([votes] votes))</li>"
 
 			. += "</ul><hr>"
 			if(admin)

@@ -17,10 +17,6 @@ LINEN BINS
 	throw_range = 2
 	w_class = 1.0
 	color = "white"
-	body_parts_covered = HEAD
-	slot_flags = SLOT_HEAD
-	flags = FPRINT | TABLEPASS | BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEFACE
 
 
 /obj/item/weapon/bedsheet/attack_self(mob/user as mob)

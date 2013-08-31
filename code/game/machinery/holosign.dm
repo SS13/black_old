@@ -5,7 +5,6 @@
 	icon = 'holosign.dmi'
 	icon_state = "sign_off"
 	layer = 4
-	anchored = 1
 	var/lit = 0
 	var/id = null
 	var/on_icon = "sign_on"

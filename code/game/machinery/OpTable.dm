@@ -20,6 +20,8 @@
 		if (computer)
 			computer.table = src
 			break
+//	spawn(100) //Wont the MC just call this process() before and at the 10 second mark anyway?
+//		process()
 
 /obj/machinery/optable/ex_act(severity)
 

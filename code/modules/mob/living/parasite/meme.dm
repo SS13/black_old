@@ -83,7 +83,7 @@ mob/living/parasite/meme/New()
 	src.enter_host(newhost)
 	message_admins("[newhost] has become [src.key]'s host")
 
-	ticker.mode.memes += src
+//	ticker.mode.memes += src
 
 mob/living/parasite/meme/Del()
 	..()
@@ -473,6 +473,10 @@ mob/living/parasite/meme/verb/AttunedJump(mob/living/carbon/human/target as mob 
 		return
 	if(!(target in indoctrinated))
 		src << "<b>You need to attune the target first.</b>"
+		return
+
+	if(target.parasites.len > 0)
+		src << "<b>Your target already is possessed by something..</b>"
 		return
 
 	src.exit_host()

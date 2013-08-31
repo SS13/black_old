@@ -126,7 +126,7 @@ obj/item/weapon/gun/energy/staff
 	w_class = 4
 	projectile_type = "/obj/item/projectile/meteor"
 	charge_cost = 100
-	cell_type = "/obj/item/weapon/cell/cartridge/potato"
+	cell_type = "/obj/item/weapon/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	var/charge_tick = 0
 	var/recharge_time = 5 //Time it takes for shots to recharge (in ticks)

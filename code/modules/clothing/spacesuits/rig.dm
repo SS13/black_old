@@ -87,7 +87,22 @@
 	color = "syndi"
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 60)
 	siemens_coefficient = 0.6
+	var/obj/machinery/camera/camera
 
+/obj/item/clothing/head/helmet/space/rig/syndi/attack_self(mob/user)
+	if(camera)
+		..(user)
+	else
+		camera = new /obj/machinery/camera(src)
+		camera.network = list("NUKE")
+		cameranet.removeCamera(camera)
+		camera.c_tag = user.name
+		user << "\blue User scanned as [camera.c_tag]. Camera activated."
+
+/obj/item/clothing/head/helmet/space/rig/syndi/examine()
+	..()
+	if(get_dist(usr,src) <= 1)
+		usr << "This helmet has a built-in camera. It's [camera ? "" : "in"]active."
 
 /obj/item/clothing/suit/space/rig/syndi
 	icon_state = "rig-syndi"
@@ -122,6 +137,7 @@
 	unacidable = 1
 	armor = list(melee = 40, bullet = 20, laser = 20,energy = 20, bomb = 35, bio = 100, rad = 60)
 	siemens_coefficient = 0.7
+
 
 //Medical Rig
 /obj/item/clothing/head/helmet/space/rig/medical
@@ -158,6 +174,9 @@
 	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
 	siemens_coefficient = 0.7
 
+/obj/item/clothing/suit/space/rig/security/samurai
+	name = "samurai hardsuit"
+	icon_state = "rig_samurai"
 
 //Atmospherics Rig (BS12)
 /obj/item/clothing/head/helmet/space/rig/atmos

@@ -414,10 +414,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!holder)
 		src << "Only administrators may use this command."
 		return
-	var/input = input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null
+	var/input = sanitize(input(usr, "Please enter anything you want the AI to do. Anything. Serious.", "What?", "") as text|null)
 	if(!input)
 		return
-	input = sanitize(input)
 	for(var/mob/living/silicon/ai/M in mob_list)
 		if (M.stat == 2)
 			usr << "Upload failed. No signal is being detected from the AI."

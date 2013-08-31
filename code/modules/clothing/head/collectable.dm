@@ -116,3 +116,15 @@
 	desc = "Now you can be in the Deathsquad too!"
 	icon_state = "swat"
 	item_state = "swat"
+
+/obj/item/clothing/head/collectable/suzumiyarabbitears
+	name = "suzumiya rabbit ears"
+	desc = "A Collectable Hat that'll make you look just like a real rabbit!"
+	icon_state = "suzumiyarabbitears"
+	item_state = "suzumiyarabbitears"
+
+/obj/item/clothing/head/collectable/mikururabbitears
+	name = "mikuru rabbit ears"
+	desc = "A Collectable Hat that'll make you look just like a real rabbit!"
+	icon_state = "mikururabbitears"
+	item_state = "mikururabbitears"
