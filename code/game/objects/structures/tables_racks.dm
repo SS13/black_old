@@ -421,7 +421,7 @@
 		if (mover.checkpass(PASSTABLE))
 			return 1
 		else
-			for (var/obj/structure/table/T in mover.loc)
+			for (var/obj/structure/table/T in mover.loc.contents)
 				if (istype(T))
 					return 1
 			return 0

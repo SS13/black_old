@@ -106,10 +106,9 @@
 		if(M.client)
 			M.client.perspective = EYE_PERSPECTIVE
 			M.client.eye = src
-			itemcount += 15
 
 		M.loc = src
-		itemcount++
+		itemcount += 16
 
 	src.icon_state = src.icon_closed
 	src.opened = 0

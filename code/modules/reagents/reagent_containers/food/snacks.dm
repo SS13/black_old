@@ -37,7 +37,7 @@
 		M.drop_from_inventory(src)	//so icons update :[
 		del(src)
 		return 0
-	if(istype(M, /mob/living/carbon))
+	if(istype(M, /mob/living/carbon) && !istype(M, /mob/living/carbon/brain))
 		if(M == user)								//If you're eating it yourself.
 
 			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
