@@ -96,7 +96,7 @@
 			itemcount++
 
 	for(var/mob/M in src.loc)
-		if( (itemcount + 16) >= storage_capacity)
+		if( (itemcount + 11) >= storage_capacity)
 			break
 		if(istype (M, /mob/dead/observer))
 			continue
@@ -108,7 +108,7 @@
 			M.client.eye = src
 
 		M.loc = src
-		itemcount += 16
+		itemcount += 11
 
 	src.icon_state = src.icon_closed
 	src.opened = 0
