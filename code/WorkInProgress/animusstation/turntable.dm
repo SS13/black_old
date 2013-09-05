@@ -53,24 +53,38 @@
 
 /obj/machinery/party/turntable/Topic(href, href_list)
 	..()
-
-	if( href_list["on1"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
+	if( href_list["on1"] || href_list["on2"] || href_list["on3"] || href_list["on4"] || href_list["on5"] || href_list["on6"] || href_list["on7"] || href_list["on8"] || href_list["on9"] || href_list["on10"] || href_list["on11"] || href_list["on12"] || href_list["on13"] || href_list["on14"])
 		if(src.playing == 0)
 			//world << "Should be working..."
-			var/sound/S = sound('Cantina_Band_Jawa_Bar_Tatooine_Mos_Eisly.ogg')
+			var/sound/S
+			if(href_list["on1"])
+				S = sound('Cantina_Band_Jawa_Bar_Tatooine_Mos_Eisly.ogg')
+			if(href_list["on2"])
+				S = sound('down_with_the_sickness.ogg')
+			if(href_list["on3"])
+				S = sound('soviet_anthem.ogg')
+			if(href_list["on4"])
+				S = sound('WadeInTheWater.ogg')
+			if(href_list["on5"])
+				S = sound('GlennMiller-InTheMood.ogg')
+			if(href_list["on6"])
+				S = sound('L.A.NoireSoundtrack.ogg')
+			if(href_list["on7"])
+				S = sound('TheAssassinationofJesseJames.ogg')
+			if(href_list["on8"])
+				S = sound('CantHardlyStandIt.ogg')
+			if(href_list["on9"])
+				S = sound('The_Way_You_Look_Tonight.ogg')
+			if(href_list["on10"])
+				S = sound('Max_Payne_Theme_arranged_for_Piano_Solo.ogg')
+			if(href_list["on11"])
+				S = sound('Onizukas_Blues.ogg')
+			if(href_list["on12"])
+				S = sound('Ragtime_Piano_The_Entertainer.ogg')
+			if(href_list["on13"])
+				S = sound('Fly_me_to_the_moon.ogg')
+			if(href_list["on14"])
+				S = sound('Kyou_wa_Yuuhi_Yarou.ogg')
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
@@ -82,608 +96,98 @@
 			//		M << S
 			//		M.music = 1
 			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
 
-	if( href_list["on2"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
 			for(var/area/RA in A.related)
 				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('down_with_the_sickness.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
+					L.turnon()
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
+					if((M.loc.loc in A.related) && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
+					else if(!(M.loc.loc in A.related) && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
 						M.music = 0
 				sleep(10)
 			return
+/*
+	if(src.playing == 1)
+		var/sound/S = sound(null)
+		S.channel = 10
+		S.wait = 1
+		for(var/mob/M in world)
+			M << S
+			M.music = 0
+		playing = 0
+		var/area/A = src.loc.loc:master
+		for(var/area/RA in A.related)
+			for(var/obj/machinery/party/lasermachine/L in RA)
+				L.turnoff()
 
-	if( href_list["on3"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
+	if(src.playing == 0)
+		//world << "Should be working..."
+		var/sound/S
+		switch(href_list)
+			if("on1")
+				S = sound('Cantina_Band_Jawa_Bar_Tatooine_Mos_Eisly.ogg')
+			if("on2")
+				S = sound('down_with_the_sickness.ogg')
+			if("on3")
+				S = sound('soviet_anthem.ogg')
+			if("on4")
+				S = sound('WadeInTheWater.ogg')
+			if("on5")
+				S = sound('GlennMiller-InTheMood.ogg')
+			if("on6")
+				S = sound('L.A.NoireSoundtrack.ogg')
+			if("on7")
+				S = sound('TheAssassinationofJesseJames.ogg')
+			if("on8")
+				S = sound('CantHardlyStandIt.ogg')
+			if("on9")
+				S = sound('The_Way_You_Look_Tonight.ogg')
+			if("on10")
+				S = sound('Max_Payne_Theme_arranged_for_Piano_Solo.ogg')
+			if("on11")
+				S = sound('Onizukas_Blues.ogg')
+			if("on12")
+				S = sound('Ragtime_Piano_The_Entertainer.ogg')
+			if("on13")
+				S = sound('Fly_me_to_the_moon.ogg')
+			if("on14")
+				S = sound('Kyou_wa_Yuuhi_Yarou.ogg')
+		S.repeat = 1
+		S.channel = 10
+		S.falloff = 2
+		S.wait = 1
+		S.environment = 0
+		//for(var/mob/M in world)
+		//	if(M.loc.loc == src.loc.loc && M.music == 0)
+		//		world << "Found the song..."
+		//		M << S
+		//		M.music = 1
+		var/area/A = src.loc.loc:master
+		for(var/obj/machinery/party/lasermachine/L in A)
+			L.turnon()
+		playing = 1
+		while(playing == 1)
 			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('soviet_anthem.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on4"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('WadeInTheWater.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on5"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('GlennMiller-InTheMood.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on6"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('L.A.NoireSoundtrack.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on7"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('TheAssassinationofJesseJames.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on8"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('CantHardlyStandIt.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on9"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('The_Way_You_Look_Tonight.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on10"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('Max_Payne_Theme_arranged_for_Piano_Solo.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on11"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('Onizukas_Blues.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on12"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('Ragtime_Piano_The_Entertainer.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on13"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('Fly_me_to_the_moon.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
-	if( href_list["on14"] )
-		if(src.playing == 1)
-			var/sound/S = sound(null)
-			S.channel = 10
-			S.wait = 1
-			for(var/mob/M in world)
-				M << S
-				M.music = 0
-			playing = 0
-			var/area/A = src.loc.loc:master
-			for(var/area/RA in A.related)
-				for(var/obj/machinery/party/lasermachine/L in RA)
-					L.turnoff()
-
-		if(src.playing == 0)
-			//world << "Should be working..."
-			var/sound/S = sound('Kyou_wa_Yuuhi_Yarou.ogg')
-			S.repeat = 1
-			S.channel = 10
-			S.falloff = 2
-			S.wait = 1
-			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
-			var/area/A = src.loc.loc:master
-			for(var/obj/machinery/party/lasermachine/L in A)
-				L.turnon()
-			playing = 1
-			while(playing == 1)
-				for(var/mob/M in world)
-					if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
-						//world << "Found the song..."
-						M << S
-						M.music = 1
-					else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
-						var/sound/Soff = sound(null)
-						Soff.channel = 10
-						M << Soff
-						M.music = 0
-				sleep(10)
-			return
-
+				if(M.loc.loc:master == src.loc.loc:master && M.music == 0)
+					//world << "Found the song..."
+					M << S
+					M.music = 1
+				else if(M.loc.loc:master != src.loc.loc:master && M.music == 1)
+					var/sound/Soff = sound(null)
+					Soff.channel = 10
+					M << Soff
+					M.music = 0
+			sleep(10)
+		return
+*/
 	if( href_list["off"] )
 		if(src.playing == 1)
 			var/sound/S = sound(null)

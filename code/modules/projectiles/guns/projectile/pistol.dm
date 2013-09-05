@@ -144,6 +144,63 @@
 	else
 		icon_state = "pistol"
 
+/obj/item/weapon/gun/projectile/beretta
+	name = "\improper Beretta"
+	desc = "A small, easily concealable gun. Uses 9mm rounds."
+	icon_state = "Beretta"
+	max_shells = 15
+	caliber = "beretta"
+	origin_tech = "combat=3;materials=2;syndicate=1"
+	ammo_type = "/obj/item/ammo_magazine/beretta"
+
+	New()
+		..()
+		empty_mag = new /obj/item/ammo_magazine/beretta/empty(src)
+		update_icon()
+		return
+
+
+	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+		..()
+		if(!loaded.len && empty_mag)
+			empty_mag.loc = get_turf(src.loc)
+			empty_mag = null
+			update_icon()
+		return
+
+/obj/item/weapon/gun/projectile/beretta/glock
+	name = "\improper Glock"
+	desc = "A small, easily concealable gun. Uses 9mm rounds."
+	icon_state = "Glock"
+	max_shells = 17
+	caliber = "beretta"
+	origin_tech = "combat=3;materials=3;syndicate=2"
+	ammo_type = "/obj/item/ammo_magazine/beretta"
+
+/obj/item/weapon/gun/projectile/SW
+	name = "\improper Smith & Wesson"
+	desc = "A small, easily concealable gun. Uses 9mm rounds."
+	icon_state = "S&W"
+	max_shells = 6
+	caliber = "357"
+	origin_tech = "combat=4;materials=2;syndicate=3"
+	ammo_type = "/obj/item/ammo_casing/a357/SW"
+
+	New()
+		..()
+		empty_mag = new /obj/item/ammo_magazine/a357/SW/empty(src)
+		update_icon()
+		return
+
+
+	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+		..()
+		if(!loaded.len && empty_mag)
+			empty_mag.loc = get_turf(src.loc)
+			empty_mag = null
+			update_icon()
+		return
+
 /obj/item/weapon/silencer
 	name = "silencer"
 	desc = "a silencer"

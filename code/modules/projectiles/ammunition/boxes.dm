@@ -117,3 +117,33 @@
 	ammo_type = "/obj/item/ammo_casing/a762"
 	max_ammo = 0
 	multiple_sprites = 1
+
+/obj/item/ammo_magazine/a357/SW
+	name = "ammo box (.357)"
+	desc = "A box of .357 ammo specially for S&W"
+	icon_state = "38"
+	ammo_type = "/obj/item/ammo_casing/a357/SW"
+	max_ammo = 6
+	multiple_sprites = 1
+
+/obj/item/ammo_magazine/a357/SW/empty
+	name = "ammo box (.357)"
+	desc = "A box of .357 ammo specially for S&W"
+	icon_state = "38"
+	ammo_type = "/obj/item/ammo_casing/a357/SW"
+	max_ammo = 0
+	multiple_sprites = 1
+
+/obj/item/ammo_magazine/beretta
+	name = "magazine (9x19)"
+	icon_state = "9x19p"
+	ammo_type = "/obj/item/ammo_casing/beretta"
+	max_ammo = 17
+	multiple_sprites = 1
+
+/obj/item/ammo_magazine/beretta/empty
+	name = "magazine (9x19)"
+	icon_state = "9x19p"
+	ammo_type = "/obj/item/ammo_casing/beretta"
+	max_ammo = 0
+	multiple_sprites = 1

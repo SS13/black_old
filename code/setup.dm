@@ -662,7 +662,7 @@ var/list/be_special_flags = list(
 	)
 
 #define AGE_MIN 17			//youngest a character can be
-#define AGE_MAX 85			//oldest a character can be
+#define AGE_MAX 130			//oldest a character can be
 
 //Languages!
 #define LANGUAGE_HUMAN		1
