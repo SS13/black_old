@@ -775,7 +775,7 @@ var/list/admin_verbs_events = list(
 
 
 /client/proc/man_up(mob/T as mob in mob_list)
-	set category = "Mod"
+	set category = "Fun"
 	set name = "Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
@@ -786,7 +786,7 @@ var/list/admin_verbs_events = list(
 	message_admins("\blue [key_name_admin(usr)] told [key_name(T)] to man up and deal with it.", 1)
 
 /client/proc/global_man_up()
-	set category = "Mod"
+	set category = "Fun"
 	set name = "Man Up Global"
 	set desc = "Tells everyone to man up and deal with it."
 
