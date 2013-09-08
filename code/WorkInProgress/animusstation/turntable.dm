@@ -29,7 +29,7 @@
 	new /sound/turntable/test(src)
 	return
 
-/obj/machinery/weapon_dispenser/attack_paw(user as mob)
+/obj/machinery/party/turntable/attack_paw(user as mob)
 	return src.attack_hand(user)
 
 /obj/machinery/party/turntable/attack_hand(mob/living/user as mob)
