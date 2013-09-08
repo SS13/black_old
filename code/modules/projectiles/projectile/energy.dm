@@ -10,9 +10,16 @@
 	name = "electrode"
 	icon_state = "spark"
 	nodamage = 1
-	stun = 2
+
+	stun = 10
 	weaken = 10
 	stutter = 10
+
+// Если кто ещё вздумает "пофиксить" тазер то лучше сразу врежте себе по яйцам и вырежте печень.
+
+	agony = 65
+	damage_type = HALLOSS
+	//Damage will be handled on the MOB side, to prevent window shattering.
 
 
 /obj/item/projectile/energy/declone

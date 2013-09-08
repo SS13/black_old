@@ -29,7 +29,15 @@
 	new /sound/turntable/test(src)
 	return
 
-/obj/machinery/party/turntable/attack_hand(mob/user as mob)
+/obj/machinery/weapon_dispenser/attack_paw(user as mob)
+	return src.attack_hand(user)
+
+/obj/machinery/party/turntable/attack_hand(mob/living/user as mob)
+	if (..())
+		return
+
+	usr.set_machine(src)
+	src.add_fingerprint(usr)
 
 	var/t = "<body background='http://pics.kz/i1/1e/ca/1eca739222cecbc8dac809d8897471f4.jpg'><br><br><br><div align='center'><table border='0'><B><font color='maroon' size='6'>J</font><font size='5' color='purple'>uke Box</font> <font size='5' color='green'>Interface</font></B><br><br><br><br>"
 //	t += "<A href='?src=\ref[src];on=1'>On</A><br>"
@@ -50,6 +58,8 @@
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on14=Track 14'><font color='maroon'>K</font><font color='purple'>you wa Yuuhi Yarou</font></A></td></tr>"
 	t += "</table></div></body>"
 	user << browse(t, "window=turntable;size=450x700")
+	onclose(user, "urntable")
+	return
 
 /obj/machinery/party/turntable/Topic(href, href_list)
 	..()

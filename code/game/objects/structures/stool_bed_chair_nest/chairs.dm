@@ -3,6 +3,10 @@
 	desc = "You sit in this. Either by will or force."
 	icon_state = "chair"
 
+/obj/structure/stool/bed/chair/evac
+	name = "comfy chair"
+	icon_state = "schair"
+
 /obj/structure/stool/MouseDrop(atom/over_object)
 	return
 
@@ -35,17 +39,8 @@
 		src.layer = FLY_LAYER
 	else
 		src.layer = OBJ_LAYER
-
 	if(buckled_mob)
-		if(buckled_mob.loc != src.loc)
-			buckled_mob.buckled = null //Temporary, so Move() succeeds.
-			if(!buckled_mob.Move(loc))
-				unbuckle()
-				buckled_mob = null
-			else
-				buckled_mob.buckled = src //Restoring
-		if(buckled_mob)
-			buckled_mob.dir = dir
+		buckled_mob.dir = dir
 
 /obj/structure/stool/bed/chair/verb/rotate()
 	set name = "Rotate Chair"
@@ -114,6 +109,12 @@
 
 /obj/structure/stool/bed/chair/office/Move()
 	..()
+	if(buckled_mob)
+		buckled_mob.buckled = null //Temporary, so Move() succeeds.
+		var/moved = buckled_mob.Move(src.loc)
+		buckled_mob.buckled = src
+		if(!moved)
+			unbuckle()
 	handle_rotation()
 
 /obj/structure/stool/bed/chair/office/light

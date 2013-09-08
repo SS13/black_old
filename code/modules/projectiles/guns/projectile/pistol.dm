@@ -95,6 +95,7 @@
 	origin_tech = "combat=2;materials=2;syndicate=2"
 	ammo_type = "/obj/item/ammo_casing/c9mm"
 	load_method = 2
+	var/notastechtkin = 0
 
 /obj/item/weapon/gun/projectile/pistol/New()
 	..()
@@ -137,45 +138,31 @@
 		return
 	..()
 
-/obj/item/weapon/gun/projectile/pistol/update_icon()
+/obj/item/weapon/gun/projectile/pistol/update_icon(obj/item/I as obj)
 	..()
-	if(silenced)
+	if(silenced && !notastechtkin)
 		icon_state = "pistol-silencer"
 	else
-		icon_state = "pistol"
+		if(!notastechtkin)
+			icon_state = "pistol"
+		else
+			icon_state = "Beretta"
 
-/obj/item/weapon/gun/projectile/beretta
+/obj/item/weapon/gun/projectile/pistol/beretta
 	name = "\improper Beretta"
 	desc = "A small, easily concealable gun. Uses 9mm rounds."
 	icon_state = "Beretta"
 	max_shells = 15
-	caliber = "beretta"
+	caliber = "Beretta"
 	origin_tech = "combat=3;materials=2;syndicate=1"
-	ammo_type = "/obj/item/ammo_magazine/beretta"
+	ammo_type = "/obj/item/ammo_casing/beretta"
+	notastechtkin = 1
 
 	New()
 		..()
 		empty_mag = new /obj/item/ammo_magazine/beretta/empty(src)
 		update_icon()
 		return
-
-
-	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
-		..()
-		if(!loaded.len && empty_mag)
-			empty_mag.loc = get_turf(src.loc)
-			empty_mag = null
-			update_icon()
-		return
-
-/obj/item/weapon/gun/projectile/beretta/glock
-	name = "\improper Glock"
-	desc = "A small, easily concealable gun. Uses 9mm rounds."
-	icon_state = "Glock"
-	max_shells = 17
-	caliber = "beretta"
-	origin_tech = "combat=3;materials=3;syndicate=2"
-	ammo_type = "/obj/item/ammo_magazine/beretta"
 
 /obj/item/weapon/gun/projectile/SW
 	name = "\improper Smith & Wesson"

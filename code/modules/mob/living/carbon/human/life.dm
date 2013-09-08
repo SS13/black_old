@@ -226,14 +226,14 @@
 			Weaken(3)
 			emote("collapse")
 
-		if(MSMALLSIZE in mutations)
+		if(mSmallsize in mutations)
 			if(!(pass_flags & PASSTABLE))
 				pass_flags |= PASSTABLE
 		else
 			if(pass_flags & PASSTABLE)
 				pass_flags &= ~PASSTABLE
 
-		if (MREGENERATE in mutations)
+		if (mRegen in mutations)
 			adjustBruteLoss(-0.5)
 			adjustToxLoss(-0.5)
 			adjustOxyLoss(-0.5)
@@ -241,24 +241,24 @@
 			updatehealth()
 
 		if(!(/mob/living/carbon/human/proc/morph in src.verbs))
-			if(MMORPH in mutations)
+			if(mMorph in mutations)
 				src.verbs += /mob/living/carbon/human/proc/morph
 		else
-			if(!(MMORPH in mutations))
+			if(!(mMorph in mutations))
 				src.verbs -= /mob/living/carbon/human/proc/morph
 
 		if(!(/mob/living/carbon/human/proc/remoteobserve in src.verbs))
-			if(MREMOTEVIEW in mutations)
+			if(mRemote in mutations)
 				src.verbs += /mob/living/carbon/human/proc/remoteobserve
 		else
-			if(!(MREMOTEVIEW in mutations))
+			if(!(mRemote in mutations))
 				src.verbs -= /mob/living/carbon/human/proc/remoteobserve
 
 		if(!(/mob/living/carbon/human/proc/remotesay in src.verbs))
-			if(MREMOTETALK in mutations)
+			if(mRemote in mutations)
 				src.verbs += /mob/living/carbon/human/proc/remotesay
 		else
-			if(!(MREMOTETALK in mutations))
+			if(!(mRemotetalk in mutations))
 				src.verbs -= /mob/living/carbon/human/proc/remotesay
 
 		if (radiation)
@@ -403,7 +403,7 @@
 		if(status_flags & GODMODE)
 			return
 
-		if (MNOBREATH in mutations)
+		if (mNobreath in mutations)
 			adjustOxyLoss(-5)
 			return 1
 
@@ -565,38 +565,37 @@
 	proc/handle_environment(datum/gas_mixture/environment)
 		if(!environment)
 			return
-		var/loc_temp = T0C
-		if(istype(loc, /obj/mecha))
-			var/obj/mecha/M = loc
-			loc_temp =  M.return_temperature()
-		else if(istype(get_turf(src), /turf/space))
-			var/turf/heat_turf = get_turf(src)
-			loc_temp = heat_turf.temperature
-		else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
-			loc_temp = loc:air_contents.temperature
-		else
-			loc_temp = environment.temperature
+		if(!istype(get_turf(src), /turf/space)) //space is not meant to change your body temperature.
+			var/loc_temp = T0C
+			if(istype(loc, /obj/mecha))
+				var/obj/mecha/M = loc
+				loc_temp =  M.return_temperature()
+			else if(istype(get_turf(src), /turf/space))
+			else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
+				loc_temp = loc:air_contents.temperature
+			else
+				loc_temp = environment.temperature
 
-		//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]"
+			//world << "Loc temp: [loc_temp] - Body temp: [bodytemperature] - Fireloss: [getFireLoss()] - Thermal protection: [get_thermal_protection()] - Fire protection: [thermal_protection + add_fire_protection(loc_temp)] - Heat capacity: [environment_heat_capacity] - Location: [loc] - src: [src]"
 
-		//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
-		if(stat != 2)
-			stabilize_temperature_from_calories()
+			//Body temperature is adjusted in two steps. Firstly your body tries to stabilize itself a bit.
+			if(stat != 2)
+				stabilize_temperature_from_calories()
 
-//		log_debug("Adjusting to atmosphere.")
-		//After then, it reacts to the surrounding atmosphere based on your thermal protection
-		if(loc_temp < BODYTEMP_COLD_DAMAGE_LIMIT)			//Place is colder than we are
-			var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-			if(thermal_protection < 1)
-				var/amt = min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
-//				log_debug("[loc_temp] is Cold. Cooling by [amt]")
-				bodytemperature += amt
-		else if (loc_temp > BODYTEMP_HEAT_DAMAGE_LIMIT)			//Place is hotter than we are
-			var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
-			if(thermal_protection < 1)
-				var/amt = min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
-//				log_debug("[loc_temp] is Heat. Heating up by [amt]")
-				bodytemperature += amt
+	//		log_debug("Adjusting to atmosphere.")
+			//After then, it reacts to the surrounding atmosphere based on your thermal protection
+			if(loc_temp < BODYTEMP_COLD_DAMAGE_LIMIT)			//Place is colder than we are
+				var/thermal_protection = get_cold_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+				if(thermal_protection < 1)
+					var/amt = min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_COLD_DIVISOR), BODYTEMP_COOLING_MAX)
+	//				log_debug("[loc_temp] is Cold. Cooling by [amt]")
+					bodytemperature += amt
+			else if (loc_temp > BODYTEMP_HEAT_DAMAGE_LIMIT)			//Place is hotter than we are
+				var/thermal_protection = get_heat_protection(loc_temp) //This returns a 0 - 1 value, which corresponds to the percentage of protection based on what you're wearing and what you're exposed to.
+				if(thermal_protection < 1)
+					var/amt = min((1-thermal_protection) * ((loc_temp - bodytemperature) / BODYTEMP_HEAT_DIVISOR), BODYTEMP_HEATING_MAX)
+	//				log_debug("[loc_temp] is Heat. Heating up by [amt]")
+					bodytemperature += amt
 
 		// +/- 50 degrees from 310.15K is the 'safe' zone, where no damage is dealt.
 		if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)
@@ -1357,7 +1356,7 @@
 				if(!machine.check_eye(src))		reset_view(null)
 			else
 				var/isRemoteObserve = 0
-				if((MREMOTEVIEW in mutations) && remoteview_target)
+				if((mRemote	 in mutations) && remoteview_target)
 					if(remoteview_target.stat==CONSCIOUS)
 						isRemoteObserve = 1
 				if(!isRemoteObserve && client && !client.adminobs)

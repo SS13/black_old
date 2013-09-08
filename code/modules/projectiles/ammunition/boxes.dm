@@ -138,7 +138,7 @@
 	name = "magazine (9x19)"
 	icon_state = "9x19p"
 	ammo_type = "/obj/item/ammo_casing/beretta"
-	max_ammo = 17
+	max_ammo = 15
 	multiple_sprites = 1
 
 /obj/item/ammo_magazine/beretta/empty

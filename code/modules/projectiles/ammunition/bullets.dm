@@ -97,7 +97,7 @@
 
 /obj/item/ammo_casing/beretta
 	desc = "A 9x19 bullet casing."
-	caliber = "beretta"
+	caliber = "Beretta"
 	projectile_type = "/obj/item/projectile/bullet/beretta"
 
 /obj/item/ammo_casing/a357/SW

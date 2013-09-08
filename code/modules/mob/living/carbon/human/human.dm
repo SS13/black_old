@@ -677,7 +677,7 @@
 					for (var/datum/data/record/R in data_core.general)
 						if (R.fields["id"] == E.fields["id"])
 
-							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*Deceased*", "*Unconscious*", "Physically Unfit", "Active", "Cancel")
+							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
 							if(hasHUD(usr,"medical"))
 								if(setmedical != "Cancel")
@@ -876,7 +876,7 @@
 		remoteview_target = null
 		return
 
-	if(!(MMORPH in mutations))
+	if(!(mMorph in mutations))
 		src.verbs -= /mob/living/carbon/human/proc/morph
 		return
 
@@ -955,7 +955,7 @@
 		remoteview_target = null
 		return
 
-	if(!(MREMOTETALK in src.mutations))
+	if(!(mRemotetalk in src.mutations))
 		src.verbs -= /mob/living/carbon/human/proc/remotesay
 		return
 	var/list/creatures = list()
@@ -966,7 +966,7 @@
 		return
 
 	var/say = sanitize_uni(input ("What do you wish to say"))
-	if(MREMOTETALK in target.mutations)
+	if(mRemotetalk in target.mutations)
 		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
 	else
 		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
@@ -983,7 +983,7 @@
 		reset_view(0)
 		return
 
-	if(!(MREMOTEVIEW in src.mutations))
+	if(!(mRemote in src.mutations))
 		remoteview_target = null
 		reset_view(0)
 		src.verbs -= /mob/living/carbon/human/proc/remoteobserve

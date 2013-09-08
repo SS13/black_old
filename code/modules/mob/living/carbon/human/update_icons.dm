@@ -164,7 +164,7 @@ var/global/list/damage_icon_parts = list()
 proc/get_damage_icon_part(damage_state, body_part)
 	if(damage_icon_parts["[damage_state]/[body_part]"] == null)
 		var/icon/DI = new /icon('icons/mob/dam_human.dmi', damage_state)			// the damage icon for whole human
-		DI.Blend(new /icon('dam_mask.dmi', body_part), ICON_MULTIPLY)		// mask with this organ's pixels
+		DI.Blend(new /icon('icons/mob/dam_mask.dmi', body_part), ICON_MULTIPLY)		// mask with this organ's pixels
 		damage_icon_parts["[damage_state]/[body_part]"] = DI
 		return DI
 	else
@@ -187,8 +187,8 @@ proc/get_damage_icon_part(damage_state, body_part)
 
 	previous_damage_appearance = damage_appearance
 
-	var/icon/standing = new /icon('dam_human.dmi', "00")
-	var/icon/lying = new /icon('dam_human.dmi', "00-2")
+	var/icon/standing = new /icon('icons/mob/dam_human.dmi', "00")
+	var/icon/lying = new /icon('icons/mob/dam_human.dmi', "00-2")
 
 	var/image/standing_image = new /image("icon" = standing)
 	var/image/lying_image = new /image("icon" = lying)
@@ -346,8 +346,10 @@ proc/get_damage_icon_part(damage_state, body_part)
 		if(facial_hair_style)
 			var/icon/facial_s = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_s")
 			var/icon/facial_l = new/icon("icon" = facial_hair_style.icon, "icon_state" = "[facial_hair_style.icon_state]_l")
-			facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
-			facial_l.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+			if(facial_hair_style.do_colouration)
+				facial_s.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+				facial_l.Blend(rgb(r_facial, g_facial, b_facial), ICON_ADD)
+
 			face_standing.Blend(facial_s, ICON_OVERLAY)
 			face_lying.Blend(facial_l, ICON_OVERLAY)
 
@@ -356,8 +358,10 @@ proc/get_damage_icon_part(damage_state, body_part)
 		if(hair_style)
 			var/icon/hair_s = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_s")
 			var/icon/hair_l = new/icon("icon" = hair_style.icon, "icon_state" = "[hair_style.icon_state]_l")
-			hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
-			hair_l.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+			if(hair_style.do_colouration)
+				hair_s.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+				hair_l.Blend(rgb(r_hair, g_hair, b_hair), ICON_ADD)
+
 			face_standing.Blend(hair_s, ICON_OVERLAY)
 			face_lying.Blend(hair_l, ICON_OVERLAY)
 

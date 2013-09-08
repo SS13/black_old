@@ -69,7 +69,8 @@ var/list/admin_verbs_admin = list(
 	/client/proc/check_customitem_activity,
 	/client/proc/man_up,
 	/client/proc/global_man_up,
-	/client/proc/response_team // Response Teams admin verb
+	/client/proc/response_team, // Response Teams admin verb
+	/client/proc/delbook
 )
 var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
@@ -121,7 +122,8 @@ var/list/admin_verbs_server = list(
 	/datum/admins/proc/toggle_aliens,
 	/datum/admins/proc/toggle_space_ninja,
 	/client/proc/toggle_random_events,
-	/client/proc/check_customitem_activity
+	/client/proc/check_customitem_activity,
+	/client/proc/delbook
 	)
 var/list/admin_verbs_debug = list(
 	/client/proc/cmd_admin_list_open_jobs,
@@ -391,13 +393,13 @@ var/list/admin_verbs_events = list(
 			mob.invisibility = initial(mob.invisibility)
 			mob << "\red <b>Invisimin off. Invisibility reset.</b>"
 			mob.icon_state = "ghost"
-			mob.icon = 'human.dmi'
+			mob.icon = 'icons/mob/human.dmi'
 			mob.update_icons()
 		else
 			mob.invisibility = INVISIBILITY_OBSERVER
 			mob << "\blue <b>Invisimin on. You are now as invisible as a ghost.</b>"
 			mob.icon_state = "ghost"
-			mob.icon = 'mob.dmi'
+			mob.icon = 'icons/mob/mob.dmi'
 
 
 /client/proc/player_panel()
@@ -516,7 +518,7 @@ var/list/admin_verbs_events = list(
 		feedback_inc("ban_warn",1)
 	else
 		if(C)
-			C << "<font color='red'><BIG><B>You have been formally warned by an administrator.</B></BIG><br>Further warnings will result in an autoban.</font>"
+			C << "<font color='red'><BIG><B>“≈¡≈ ¡¿Õ ¡Àﬂƒ‹ —” ≈ œ–Œœ»—¿“‹ ¿?</B></BIG><br>Further warnings will result in an autoban.</font>"
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")
@@ -773,7 +775,7 @@ var/list/admin_verbs_events = list(
 
 
 /client/proc/man_up(mob/T as mob in mob_list)
-	set category = "Fun"
+	set category = "Mod"
 	set name = "Man Up"
 	set desc = "Tells mob to man up and deal with it."
 
@@ -784,7 +786,7 @@ var/list/admin_verbs_events = list(
 	message_admins("\blue [key_name_admin(usr)] told [key_name(T)] to man up and deal with it.", 1)
 
 /client/proc/global_man_up()
-	set category = "Fun"
+	set category = "Mod"
 	set name = "Man Up Global"
 	set desc = "Tells everyone to man up and deal with it."
 
