@@ -1,5 +1,6 @@
 //Lallander was here
 /mob/living/carbon/human/whisper(message as text)
+
 	if(say_disabled)	//This is here to try to identify lag problems
 		usr << "\red Speech is currently admin-disabled."
 		return
@@ -68,12 +69,18 @@
 				O.hear_talk(src, message)
 
 	var/list/listening = hearers(message_range, src)
-	listening -= src
-	listening += src
-	listening += src.parasites
+	listening |= src
+
+	//Pass whispers on to anything inside the immediate listeners.
+	for(var/mob/L in listening)
+		for(var/mob/C in L.contents)
+			if(istype(C,/mob/living))
+				listening += C
+
 	var/list/eavesdropping = hearers(2, src)
 	eavesdropping -= src
 	eavesdropping -= listening
+
 	var/list/watching  = hearers(5, src)
 	watching  -= src
 	watching  -= listening
@@ -111,10 +118,7 @@
 	if (length(heard_b))
 		var/message_b
 
-		if (src.voice_message)
-			message_b = src.voice_message
-		else
-			message_b = stars(message)
+		message_b = stars(message)
 
 		if (italics)
 			message_b = "<i>[sanitize(message_b)]</i>"
@@ -122,8 +126,6 @@
 		rendered = "<span class='game say'><span class='name'>[src.voice_name]</span> whispers, <span class='message'>\"[message_b]\"</span></span>"
 
 		for (var/mob/M in heard_b)
-			M.show_message(rendered, 2)
-		for (var/mob/M in parasites)
 			M.show_message(rendered, 2)
 
 	for (var/mob/M in eavesdropping)

@@ -71,7 +71,7 @@
 			B.host_brain.name = "host brain"
 			B.host_brain.real_name = "host brain"
 
-		verbs -= /mob/living/carbon/human/proc/release_control
+		verbs -= /mob/living/carbon/proc/release_control
 
 	//Check for heist mode kill count.
 	if(ticker.mode && ( istype( ticker.mode,/datum/game_mode/heist) ) )
@@ -98,6 +98,7 @@
 	if(mind)	mind.store_memory("Time of death: [tod]", 0)
 	if(ticker && ticker.mode)
 //		world.log << "k"
+//		sql_report_death(src)
 		ticker.mode.check_win()		//Calls the rounds wincheck, mainly for wizard, malf, and changeling now
 	return ..(gibbed)
 
@@ -133,5 +134,5 @@
 
 /mob/living/carbon/human/proc/Drain()
 	ChangeToHusk()
-	mutations |= NOCLONE
+	//mutations |= NOCLONE
 	return

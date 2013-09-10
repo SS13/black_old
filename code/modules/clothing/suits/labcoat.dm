@@ -1,9 +1,8 @@
 /obj/item/clothing/suit/storage/labcoat
 	name = "labcoat"
 	desc = "A suit that protects against minor chemical spills."
-	icon_state = "labcoat"
+	icon_state = "labcoat_open"
 	item_state = "labcoat"
-	var/open = 0
 	blood_overlay_type = "coat"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 	allowed = list(/obj/item/device/analyzer,/obj/item/stack/medical,/obj/item/weapon/dnainjector,/obj/item/weapon/reagent_containers/dropper,/obj/item/weapon/reagent_containers/syringe,/obj/item/weapon/reagent_containers/hypospray,/obj/item/device/healthanalyzer,/obj/item/device/flashlight/pen)
@@ -97,11 +96,3 @@
 	name = "Scientist Labcoat"
 	desc = "A suit that protects against minor chemical spills. Has a purple stripe on the shoulder."
 	icon_state = "labcoat_tox_open"
-
-/obj/item/clothing/suit/storage/labcoat/kimono
-	name = "Medical Kimono"
-	icon_state = "med_kimono"
-
-/obj/item/clothing/suit/storage/labcoat/kimono/sci_kimono
-	name = "Scientist Kimono"
-	icon_state = "sci_kimono"

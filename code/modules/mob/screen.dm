@@ -102,33 +102,6 @@
 		screen_loc = ui_gun_select
 		//dir = 1
 
-/obj/screen/gun
-	name = "gun"
-	icon = 'screen1.dmi'
-	master = null
-	dir = 2
-
-	move
-		name = "Allow Walking"
-		icon_state = "no_walk0"
-		screen_loc = ui_gun2
-
-	run
-		name = "Allow Running"
-		icon_state = "no_run0"
-		screen_loc = ui_gun3
-
-	item
-		name = "Allow Item Use"
-		icon_state = "no_item0"
-		screen_loc = ui_gun1
-
-	mode
-		name = "Toggle Gun Mode"
-		icon_state = "gun0"
-		screen_loc = ui_gun_select
-		//dir = 1
-
 
 /obj/screen/zone_sel/MouseDown(location, control,params)
 	// Changes because of 4.0
@@ -394,8 +367,8 @@
 						usr.internals.icon_state = "internal0"
 				else
 					if(ishuman(usr))
-						if (!( istype(usr.wear_mask, /obj/item/clothing/mask) && (usr.wear_mask:can_breath)))
-							usr << "\red You are not wearing mask what can be use for breathing"
+						if (!( istype(usr.wear_mask, /obj/item/clothing/mask) ))
+							usr << "\red You are not wearing a mask"
 							return
 						else
 							if (ishuman(usr) && istype(usr:s_store, /obj/item/weapon/tank))
@@ -575,64 +548,6 @@
 		if("Toggle Gun Mode")
 			usr.client.ToggleGunMode()
 
-		if("Allow Walking")
-			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
-				return
-			if(!istype(usr.equipped(),/obj/item/weapon/gun))
-				usr << "You need your gun in your active hand to do that!"
-				return
-			usr.client.AllowTargetMove()
-			gun_click_time = world.time
-
-		if("Disallow Walking")
-			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
-				return
-			if(!istype(usr.equipped(),/obj/item/weapon/gun))
-				usr << "You need your gun in your active hand to do that!"
-				return
-			usr.client.AllowTargetMove()
-			gun_click_time = world.time
-
-		if("Allow Running")
-			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
-				return
-			if(!istype(usr.equipped(),/obj/item/weapon/gun))
-				usr << "You need your gun in your active hand to do that!"
-				return
-			usr.client.AllowTargetRun()
-			gun_click_time = world.time
-
-		if("Disallow Running")
-			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
-				return
-			if(!istype(usr.equipped(),/obj/item/weapon/gun))
-				usr << "You need your gun in your active hand to do that!"
-				return
-			usr.client.AllowTargetRun()
-			gun_click_time = world.time
-
-		if("Allow Item Use")
-			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
-				return
-			if(!istype(usr.equipped(),/obj/item/weapon/gun))
-				usr << "You need your gun in your active hand to do that!"
-				return
-			usr.client.AllowTargetClick()
-			gun_click_time = world.time
-
-
-		if("Disallow Item Use")
-			if(gun_click_time > world.time - 30)	//give them 3 seconds between mode changes.
-				return
-			if(!istype(usr.equipped(),/obj/item/weapon/gun))
-				usr << "You need your gun in your active hand to do that!"
-				return
-			usr.client.AllowTargetClick()
-			gun_click_time = world.time
-
-		if("Toggle Gun Mode")
-			usr.client.ToggleGunMode()
-
 		else
 			DblClick()
 	return
@@ -716,9 +631,9 @@
 			H.name = "host brain"
 			H.real_name = "host brain"
 
-			verbs -= /mob/living/carbon/human/proc/release_control
-			verbs -= /mob/living/carbon/human/proc/punish_host
-			verbs -= /mob/living/carbon/human/proc/spawn_larvae
+			verbs -= /mob/living/carbon/proc/release_control
+			verbs -= /mob/living/carbon/proc/punish_host
+			verbs -= /mob/living/carbon/proc/spawn_larvae
 
 			return
 
