@@ -404,12 +404,11 @@
 	<BR><B>Belt:</B> <A href='?src=\ref[src];item=belt'>[(belt ? belt : "Nothing")]</A>
 	<BR><B>Uniform:</B> <A href='?src=\ref[src];item=uniform'>[(w_uniform ? w_uniform : "Nothing")]</A>
 	<BR><B>(Exo)Suit:</B> <A href='?src=\ref[src];item=suit'>[(wear_suit ? wear_suit : "Nothing")]</A>
-	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A>
+	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR><B>ID:</B> <A href='?src=\ref[src];item=id'>[(wear_id ? wear_id : "Nothing")]</A>
 	<BR><B>Suit Storage:</B> <A href='?src=\ref[src];item=s_store'>[(s_store ? s_store : "Nothing")]</A>
 	<BR>[(handcuffed ? text("<A href='?src=\ref[src];item=handcuff'>Handcuffed</A>") : text("<A href='?src=\ref[src];item=handcuff'>Not Handcuffed</A>"))]
 	<BR>[(legcuffed ? text("<A href='?src=\ref[src];item=legcuff'>Legcuffed</A>") : text(""))]
-	<BR>[((istype(wear_mask, /obj/item/clothing/mask) && wear_mask.can_breath && (istype(back, /obj/item/weapon/tank)||istype(l_hand, /obj/item/weapon/tank)||istype(r_hand, /obj/item/weapon/tank)||istype(belt, /obj/item/weapon/tank)) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR>[(internal ? text("<A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
 	<BR><A href='?src=\ref[src];item=splints'>Remove Splints</A>
 	<BR><A href='?src=\ref[src];item=pockets'>Empty Pockets</A>
@@ -677,7 +676,7 @@
 					for (var/datum/data/record/R in data_core.general)
 						if (R.fields["id"] == E.fields["id"])
 
-							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*Deceased*", "*Unconscious*", "Physically Unfit", "Active", "Cancel")
+							var/setmedical = input(usr, "Specify a new medical status for this person.", "Medical HUD", R.fields["p_stat"]) in list("*SSD*", "*Deceased*", "Physically Unfit", "Active", "Disabled", "Cancel")
 
 							if(hasHUD(usr,"medical"))
 								if(setmedical != "Cancel")
@@ -876,7 +875,7 @@
 		remoteview_target = null
 		return
 
-	if(!(MMORPH in mutations))
+	if(!(mMorph in mutations))
 		src.verbs -= /mob/living/carbon/human/proc/morph
 		return
 
@@ -955,7 +954,7 @@
 		remoteview_target = null
 		return
 
-	if(!(MREMOTETALK in src.mutations))
+	if(!(mRemotetalk in src.mutations))
 		src.verbs -= /mob/living/carbon/human/proc/remotesay
 		return
 	var/list/creatures = list()
@@ -965,8 +964,8 @@
 	if (isnull(target))
 		return
 
-	var/say = sanitize_uni(input ("What do you wish to say"))
-	if(MREMOTETALK in target.mutations)
+	var/say = input ("What do you wish to say")
+	if(mRemotetalk in target.mutations)
 		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
 	else
 		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
@@ -983,7 +982,7 @@
 		reset_view(0)
 		return
 
-	if(!(MREMOTEVIEW in src.mutations))
+	if(!(mRemote in src.mutations))
 		remoteview_target = null
 		reset_view(0)
 		src.verbs -= /mob/living/carbon/human/proc/remoteobserve
@@ -1002,8 +1001,7 @@
 			continue
 		creatures += h
 
-//	var/mob/target = input ("Who do you want to project your mind to ?") as mob in creatures
-	var/mob/target = pick(creatures)
+	var/mob/target = input ("Who do you want to project your mind to ?") as mob in creatures
 
 	if (target)
 		remoteview_target = target
@@ -1281,83 +1279,3 @@ mob/living/carbon/human/yank_out_object()
 		return 1
 	else
 		return 0
-
-//Brain slug proc for voluntary removal of control.
-/mob/living/carbon/human/proc/release_control()
-
-	set category = "Alien"
-	set name = "Release Control"
-	set desc = "Release control of your host's body."
-
-	var/datum/organ/external/head = get_organ("head")
-	var/mob/living/simple_animal/borer/B
-
-	for(var/I in head.implants)
-		if(istype(I,/mob/living/simple_animal/borer))
-			B = I
-	if(!B)
-		return
-
-	if(B.controlling)
-		src << "\red <B>You withdraw your probosci, releasing control of [B.host_brain]</B>"
-		B.host_brain << "\red <B>Your vision swims as the alien parasite releases control of your body.</B>"
-		B.ckey = ckey
-		B.controlling = 0
-	if(B.host_brain.ckey)
-		ckey = B.host_brain.ckey
-		B.host_brain.ckey = null
-		B.host_brain.name = "host brain"
-		B.host_brain.real_name = "host brain"
-
-	verbs -= /mob/living/carbon/human/proc/release_control
-	verbs -= /mob/living/carbon/human/proc/punish_host
-	verbs -= /mob/living/carbon/human/proc/spawn_larvae
-
-//Brain slug proc for tormenting the host.
-/mob/living/carbon/human/proc/punish_host()
-	set category = "Alien"
-	set name = "Torment host"
-	set desc = "Punish your host with agony."
-
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
-	if(!B)
-		return
-
-	if(B.host_brain.ckey)
-		src << "\red <B>You send a punishing spike of psychic agony lancing into your host's brain.</B>"
-		B.host_brain << "\red <B><FONT size=3>Horrific, burning agony lances through you, ripping a soundless scream from your trapped mind!</FONT></B>"
-
-//Check for brain worms in head.
-/mob/living/carbon/human/proc/has_brain_worms()
-
-	var/datum/organ/external/head = get_organ("head")
-
-	for(var/I in head.implants)
-		if(istype(I,/mob/living/simple_animal/borer))
-			return I
-
-	return 0
-
-/mob/living/carbon/human/proc/spawn_larvae()
-	set category = "Alien"
-	set name = "Reproduce"
-	set desc = "Spawn several young."
-
-	var/mob/living/simple_animal/borer/B = has_brain_worms()
-
-	if(!B)
-		return
-
-	if(B.chemicals >= 100)
-		src << "\red <B>Your host twitches and quivers as you rapdly excrete several larvae from your sluglike body.</B>"
-		visible_message("\red <B>[src] heaves violently, expelling a rush of vomit and a wriggling, sluglike creature!</B>")
-		B.chemicals -= 100
-
-		new /obj/effect/decal/cleanable/vomit(get_turf(src))
-		playsound(loc, 'sound/effects/splat.ogg', 50, 1)
-		new /mob/living/simple_animal/borer(get_turf(src))
-
-	else
-		src << "You do not have enough chemicals stored to reproduce."
-		return

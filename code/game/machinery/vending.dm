@@ -19,6 +19,7 @@
 	var/vend_ready = 1 //Are we ready to vend?? Is it time??
 	var/vend_delay = 10 //How long does it take to vend?
 	var/datum/data/vending_product/currently_vending = null // A /datum/data/vending_product instance of what we're paying for right now.
+	var/unwrenched = 0
 
 	// To be filled out at compile time
 	var/list/products	= list() // For each, use the following pattern:
@@ -157,6 +158,32 @@
 		coin = W
 		user << "\blue You insert the [W] into the [src]"
 		return
+	else if (istype(W, /obj/item/weapon/wrench))
+		if (unwrenched==0)
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			user << "\blue You begin to unfasten \the [src] from the floor..."
+			if (do_after(user, 40))
+				user.visible_message( \
+					"[user] unfastens \the [src].", \
+					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
+					"You hear ratchet.")
+				src.anchored = 0
+				src.stat |= MAINT
+				src.unwrenched = 1
+				if (usr.machine==src)
+					usr << browse(null, "window=vending")
+		else /*if (unwrenched==1)*/
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+			user << "\blue You begin to fasten \the [src] to the floor..."
+			if (do_after(user, 20))
+				user.visible_message( \
+					"[user] fastens \the [src].", \
+					"\blue You have fastened \the [src].", \
+					"You hear ratchet.")
+				src.anchored = 1
+				src.stat &= ~MAINT
+				src.unwrenched = 0
+				power_change()
 	else if(istype(W, /obj/item/weapon/card) && currently_vending)
 		//attempt to connect to a new db, and if that doesn't work then fail
 		if(!linked_db)

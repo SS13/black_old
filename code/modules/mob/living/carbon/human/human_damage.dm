@@ -190,7 +190,7 @@
 		zone = "head"
 	return organs_by_name[zone]
 
-/mob/living/carbon/human/apply_damage(var/damage = 0,var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/obj/used_weapon = null)
+/mob/living/carbon/human/apply_damage(var/damage = 0,var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/obj/used_weapon = null, mob/living/user as mob)
 
 	//visible_message("Hit debug. [damage] | [damagetype] | [def_zone] | [blocked] | [sharp] | [used_weapon]")
 	if((damagetype != BRUTE) && (damagetype != BURN))
@@ -236,14 +236,16 @@
 				H.drop_item()
 			W.loc = src
 
-	else if(istype(used_weapon,/obj/item/projectile)) //We don't want to use the actual projectile item, so we spawn some shrapnel.
-		if(damagetype == BRUTE && prob(75))
-			var/obj/item/projectile/P = used_weapon
-			var/obj/item/weapon/shard/shrapnel/S = new()
-			S.name = "[P.name] shrapnel"
-			S.desc = "[S.desc] It looks like it was fired from [P.shot_from]."
-			S.loc = src
-			organ.implants += S
-			visible_message("<span class='danger'>The projectile sticks in the wound!</span>")
-			S.add_blood(src)
-	return 1
+	else
+		if(istype(used_weapon,/obj/item/projectile) && src.zone_sel.selecting == "chest" && usr:wear_suit.armor["bullet"] < 50) //We don't want to use the actual projectile item, so we spawn some shrapnel.
+		else
+			if(damagetype == BRUTE && prob(75))
+				var/obj/item/projectile/P = used_weapon
+				var/obj/item/weapon/shard/shrapnel/S = new()
+				S.name = "[P.name] shrapnel"
+				S.desc = "[S.desc] It looks like it was fired from [P.shot_from]."
+				S.loc = src
+				organ.implants += S
+				visible_message("<span class='danger'>The projectile sticks in the wound!</span>")
+				S.add_blood(src)
+		return 1

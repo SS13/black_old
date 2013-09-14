@@ -73,19 +73,18 @@
 
 	var/recieve_color = "purple"
 	var/send_pm_type = " "
-	var/recieve_pm_type = "Player"
+	var/recieve_pm_type = "Player "
 
 
 	if(holder)
-	//mod PMs are maroon
-		if( holder.rights & R_MOD )
-			recieve_color = "maroon"
-			send_pm_type = "Moderator"//holder.rank + " "
-			recieve_pm_type = "Moderator"//holder.rank
-		else
+		if ( holder.rights & R_ADMIN )
 			recieve_color = "red"
-			send_pm_type = "Administrator"//holder.rank + " "
-			recieve_pm_type = "Administrator"//holder.rank
+			send_pm_type = "Administrator "//holder.rank + " "
+			recieve_pm_type = "Administrator "//holder.rank
+		else
+			recieve_color = "maroon" //mod PMs are maroon
+			send_pm_type = "Moderator "//holder.rank + " "
+			recieve_pm_type = "Moderator "//holder.rank
 
 	else if(!C.holder)
 		src << "<font color='red'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</font>"
@@ -101,7 +100,7 @@
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = input(C, msg,"[recieve_pm_type] PM from-[sendername]", "") as text|null		//show message and await a reply
+				var/reply = input(C, msg,"[recieve_pm_type]PM from-[sendername]", "") as text|null		//show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
@@ -109,7 +108,7 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-	recieve_message = "<font color='[recieve_color]'>[recieve_pm_type] PM from-<b>[key_name(src, C, C.holder ? 1 : 0, C.holder ? 1 : 0)]</b>: [msg]</font>"
+	recieve_message = "<font color='[recieve_color]'>[recieve_pm_type]PM from-<b>[key_name(src, C, C.holder ? 1 : 0, C.holder ? 1 : 0)]</b>: [msg]</font>"
 	C << recieve_message
 	src << "<font color='blue'>[send_pm_type]PM to-<b>[key_name(C, src, holder ? 1 : 0, holder ? 1 : 0)]</b>: [msg]</font>"
 

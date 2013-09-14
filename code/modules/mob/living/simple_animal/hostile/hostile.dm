@@ -20,7 +20,7 @@
 	stop_automated_movement = 0
 	for(var/atom/A in ListTargets(10))
 
-		if((A == src) || (istype (A, src)) || istype(src, A))
+		if(A == src)
 			continue
 
 		var/atom/F = Found(A)

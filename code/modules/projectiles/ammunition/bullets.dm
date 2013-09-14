@@ -94,3 +94,13 @@
 	desc = "A 7.62 bullet casing."
 	caliber = "a762"
 	projectile_type = "/obj/item/projectile/bullet"
+
+/obj/item/ammo_casing/beretta
+	desc = "A 9x19 bullet casing."
+	caliber = "Beretta"
+	projectile_type = "/obj/item/projectile/bullet/beretta"
+
+/obj/item/ammo_casing/a357/SW
+	desc = "A .357 bullet casing."
+	caliber = "357"
+	projectile_type = "/obj/item/projectile/bullet/SW"

@@ -1,5 +1,5 @@
 /mob/living/carbon/human/movement_delay()
-	if(MRUN in mutations)
+	if(mRun in mutations)
 		return (config.human_delay)
 
 	var/tally = 0

@@ -35,7 +35,9 @@
 		/obj/machinery/apiary,
 		/mob/living/simple_animal/cow,
 		/mob/living/simple_animal/hostile/retaliate/goat,
-		/obj/machinery/computer/centrifuge	)
+		/obj/machinery/computer/centrifuge,
+		/obj/machinery/smartfridge/chemicals,
+		/obj/item/weapon/storage/pill_bottle	)
 
 	New()
 		..()
@@ -47,15 +49,7 @@
 		if (!(usr in view(2)) && usr!=src.loc) return
 		usr << "\blue It contains:"
 		if(reagents && reagents.reagent_list.len)
-			if (ishuman(usr))
-				var/mob/living/carbon/human/H = usr
-				if(H.glasses && istype(H.glasses, /obj/item/clothing/glasses/science))
-					for(var/datum/reagent/R in reagents.reagent_list)
-						usr << "\blue [R.volume] units of [R.name]"
-				else
-					usr << "\blue [src.reagents.total_volume] units of something liquid"
-			else
-				usr << "\blue [src.reagents.total_volume] units of something liquid"
+			usr << "\blue [src.reagents.total_volume] units of liquid."
 		else
 			usr << "\blue Nothing."
 		if (!is_open_container())
@@ -80,16 +74,17 @@
 				return
 
 		if(ismob(target) && target.reagents && reagents.total_volume)
-			var/mob/M = target
 			user << "\blue You splash the solution onto [target]."
-			var/R
-			if(src.reagents)
-				for(var/datum/reagent/A in src.reagents.reagent_list)
-					R += A.id + " ("
-					R += num2text(A.volume) + "),"
-			user.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> splashed <b>[M]/[M.ckey]</b> with ([R])"
-			M.attack_log += "\[[time_stamp()]\] <b>[user]/[user.ckey]</b> splashed <b>[M]/[M.ckey]</b> with ([R])"
-			log_attack("\[[time_stamp()]\] <b>[user]/[user.ckey]</b> splashed <b>[M]/[M.ckey]</b> with ([R])")
+
+			var/mob/living/M = target
+			var/list/injected = list()
+			for(var/datum/reagent/R in src.reagents.reagent_list)
+				injected += R.name
+			var/contained = english_list(injected)
+			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been splashed with [src.name] by [user.name] ([user.ckey]). Reagents: [contained]</font>")
+			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to splash [M.name] ([M.key]). Reagents: [contained]</font>")
+			msg_admin_attack("[user.name] ([user.ckey]) splashed [M.name] ([M.key]) with [src.name]. Reagents: [contained] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message(text("\red [] has been splashed with something by []!", target, user), 1)
 			src.reagents.reaction(target, TOUCH)
