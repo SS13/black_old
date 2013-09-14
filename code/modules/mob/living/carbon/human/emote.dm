@@ -63,7 +63,7 @@
 			else
 				alert("Unable to use this emote, must be either hearable or visible.")
 				return
-			message = "<B>[src]</B> [input]"
+			return custom_emote(m_type, message)
 
 		if ("me")
 			if(silent)
@@ -78,7 +78,7 @@
 				return
 			if(!(message))
 				return
-			message = "<B>[src]</B> [message]"
+			return custom_emote(m_type, message)
 
 		if ("salute")
 			if (!src.buckled)
@@ -574,7 +574,6 @@
 	set name = "Set Pose"
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
-
 	pose =  copytext(sanitize_uni(input(usr, "This is [src]. \He is...", "Pose", null)  as text), 1, MAX_MESSAGE_LEN)
 
 /mob/living/carbon/human/verb/set_flavor()

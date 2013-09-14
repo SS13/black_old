@@ -49,5 +49,13 @@
 	weaken = 10
 	stutter = 10
 
+/obj/item/projectile/bullet/SW
+	damage = 35
+	stun = 15
+	weaken = 15
+
 /obj/item/projectile/bullet/a762
 	damage = 25
+
+/obj/item/projectile/bullet/beretta
+	damage = 27

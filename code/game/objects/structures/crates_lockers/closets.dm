@@ -96,7 +96,7 @@
 			itemcount++
 
 	for(var/mob/M in src.loc)
-		if( (itemcount + 16) >= storage_capacity)
+		if( (itemcount + 11) >= storage_capacity)
 			break
 		if(istype (M, /mob/dead/observer))
 			continue
@@ -108,7 +108,7 @@
 			M.client.eye = src
 
 		M.loc = src
-		itemcount += 16
+		itemcount += 11
 
 	src.icon_state = src.icon_closed
 	src.opened = 0
@@ -119,10 +119,11 @@
 	density = 1
 	return 1
 
-/obj/structure/closet/proc/toggle()
-	if(src.opened)
-		return src.close()
-	return src.open()
+/obj/structure/closet/proc/toggle(mob/user as mob)
+	. = src.opened ? src.close() : src.open()
+	if(!.)
+		user << "<span class='notice'>It won't budge!</span>"
+	return
 
 // this should probably use dump_contents()
 /obj/structure/closet/ex_act(severity)
@@ -207,7 +208,7 @@
 		if(!WT.remove_fuel(0,user))
 			user << "<span class='notice'>You need more welding fuel to complete this task.</span>"
 			return
-		src.welded =! src.welded
+		src.welded = !src.welded
 		src.update_icon()
 		for(var/mob/M in viewers(src))
 			M.show_message("<span class='warning'>[src] has been [welded?"welded shut":"unwelded"] by [user.name].</span>", 3, "You hear welding.", 2)
@@ -258,8 +259,7 @@
 /obj/structure/closet/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
 
-	if(!src.toggle())
-		usr << "<span class='notice'>It won't budge!</span>"
+	src.toggle(user)
 
 /obj/structure/closet/verb/verb_toggleopen()
 	set src in oview(1)
@@ -270,7 +270,8 @@
 		return
 
 	if(ishuman(usr))
-		src.attack_hand(usr)
+		src.add_fingerprint(usr)
+		src.toggle(usr)
 	else
 		usr << "<span class='warning'>This mob type can't use this verb.</span>"
 

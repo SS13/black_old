@@ -58,7 +58,7 @@
 		if (cover)
 			user << "\red \The [src] can't be applied to [H] through [cover:name]!"
 			return 1
-			
+
 		H.UpdateDamageIcon()
 
 	else
@@ -134,7 +134,7 @@
 	name = "\improper S'rendarr's Hand leaf"
 	singular_name = "S'rendarr's Hand leaf"
 	desc = "A soft leaf that is rubbed on bruises."
-	icon = 'harvest.dmi'
+	icon = 'icons/obj/harvest.dmi'
 	icon_state = "cabbage"
 	heal_brute = 7
 
@@ -142,7 +142,7 @@
 	name = "\improper Messa's Tear leaf"
 	singular_name = "Messa's Tear leaf"
 	desc = "A cold leaf that is rubbed on burns."
-	icon = 'harvest.dmi'
+	icon = 'icons/obj/harvest.dmi'
 	icon_state = "ambrosiavulgaris"
 	heal_burn = 7
 

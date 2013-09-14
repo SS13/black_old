@@ -19,11 +19,6 @@
 		return
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if(M == user)
-
-			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-				user << "\red [M.wear_mask] prevents you form swallowing a [src]"
-				return 0
-
 			M << "\blue You swallow [src]."
 			M.drop_from_inventory(src) //icon update
 			if(reagents.total_volume)
@@ -37,10 +32,6 @@
 
 		else if(istype(M, /mob/living/carbon/human) )
 
-			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-				user << "\red [M.wear_mask] prevents you form force [M.name] to take a [src]"
-				return 0
-
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to force [M] to swallow [src].", 1)
 
@@ -52,8 +43,7 @@
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-
-			log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
+			msg_admin_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
 
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
