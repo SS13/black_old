@@ -600,12 +600,7 @@
 		usr << "\red You can't pick that up!"
 		return
 	//All checks are done, time to pick it up!
-	if(istype(usr, /mob/living/carbon/human))
-		src.attack_hand(usr)
-	if(istype(usr, /mob/living/carbon/alien))
-		src.attack_alien(usr)
-	if(istype(usr, /mob/living/carbon/monkey))
-		src.attack_paw(usr)
+	usr.click(src)
 	return
 
 
