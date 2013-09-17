@@ -15,9 +15,7 @@
 
 /datum/disease2/effectholder/proc/getrandomeffect(var/badness = 1)
 	var/list/datum/disease2/effect/list = list()
-	var/list/datum/disease2/effect/not_allowed = list(/datum/disease2/effect)
-	if (!aliens_allowed) not_allowed += /datum/disease2/effect/alien
-	for(var/e in (typesof(/datum/disease2/effect) - not_allowed))
+	for(var/e in (typesof(/datum/disease2/effect) - /datum/disease2/effect))
 		var/datum/disease2/effect/f = new e
 		if (f.badness > badness)	//we don't want such strong effects
 			continue

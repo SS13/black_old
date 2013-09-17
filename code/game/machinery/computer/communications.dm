@@ -105,7 +105,7 @@
 		if("announce")
 			if(src.authenticated==2)
 				if(message_cooldown)	return
-				var/input = sanitize_uni(stripped_input(usr, "Please choose a message to announce to the station crew.", "What?"))
+				var/input = stripped_input(usr, "Please choose a message to announce to the station crew.", "What?")
 				if(!input || !(usr in view(1,src)))
 					return
 				captain_announce(input)//This should really tell who is, IE HoP, CE, HoS, RD, Captain
