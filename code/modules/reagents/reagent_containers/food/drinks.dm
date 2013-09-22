@@ -27,6 +27,11 @@
 			return 0
 
 		if(M == user)
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form drinking [src]"
+				return 0
+
 			M << "\blue You swallow a gulp of [src]."
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)
@@ -37,6 +42,11 @@
 			return 1
 		else if( istype(M, /mob/living/carbon/human) )
 
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form force [M.name] to drink [src]"
+				return 0
+
+
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to feed [M] [src].", 1)
 			if(!do_mob(user, M)) return
@@ -45,7 +55,8 @@
 
 			M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 			user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [M.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-			log_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)]) (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+
+			log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
 
 			if(reagents.total_volume)
 				reagents.reaction(M, INGEST)

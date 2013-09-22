@@ -404,11 +404,12 @@
 	<BR><B>Belt:</B> <A href='?src=\ref[src];item=belt'>[(belt ? belt : "Nothing")]</A>
 	<BR><B>Uniform:</B> <A href='?src=\ref[src];item=uniform'>[(w_uniform ? w_uniform : "Nothing")]</A>
 	<BR><B>(Exo)Suit:</B> <A href='?src=\ref[src];item=suit'>[(wear_suit ? wear_suit : "Nothing")]</A>
-	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A> [((istype(wear_mask, /obj/item/clothing/mask) && istype(back, /obj/item/weapon/tank) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
+	<BR><B>Back:</B> <A href='?src=\ref[src];item=back'>[(back ? back : "Nothing")]</A>
 	<BR><B>ID:</B> <A href='?src=\ref[src];item=id'>[(wear_id ? wear_id : "Nothing")]</A>
 	<BR><B>Suit Storage:</B> <A href='?src=\ref[src];item=s_store'>[(s_store ? s_store : "Nothing")]</A>
 	<BR>[(handcuffed ? text("<A href='?src=\ref[src];item=handcuff'>Handcuffed</A>") : text("<A href='?src=\ref[src];item=handcuff'>Not Handcuffed</A>"))]
 	<BR>[(legcuffed ? text("<A href='?src=\ref[src];item=legcuff'>Legcuffed</A>") : text(""))]
+	<BR>[((istype(wear_mask, /obj/item/clothing/mask) && wear_mask.can_breath && (istype(back, /obj/item/weapon/tank)||istype(l_hand, /obj/item/weapon/tank)||istype(r_hand, /obj/item/weapon/tank)||istype(belt, /obj/item/weapon/tank)) && !( internal )) ? text(" <A href='?src=\ref[];item=internal'>Set Internal</A>", src) : "")]
 	<BR>[(internal ? text("<A href='?src=\ref[src];item=internal'>Remove Internal</A>") : "")]
 	<BR><A href='?src=\ref[src];item=splints'>Remove Splints</A>
 	<BR><A href='?src=\ref[src];item=pockets'>Empty Pockets</A>
@@ -875,7 +876,7 @@
 		remoteview_target = null
 		return
 
-	if(!(mMorph in mutations))
+	if(!(MMORPH in mutations))
 		src.verbs -= /mob/living/carbon/human/proc/morph
 		return
 
@@ -954,7 +955,7 @@
 		remoteview_target = null
 		return
 
-	if(!(mRemotetalk in src.mutations))
+	if(!(MREMOTETALK in src.mutations))
 		src.verbs -= /mob/living/carbon/human/proc/remotesay
 		return
 	var/list/creatures = list()
@@ -964,8 +965,8 @@
 	if (isnull(target))
 		return
 
-	var/say = input ("What do you wish to say")
-	if(mRemotetalk in target.mutations)
+	var/say = sanitize_uni(input ("What do you wish to say"))
+	if(MREMOTETALK in target.mutations)
 		target.show_message("\blue You hear [src.real_name]'s voice: [say]")
 	else
 		target.show_message("\blue You hear a voice that seems to echo around the room: [say]")
@@ -982,7 +983,7 @@
 		reset_view(0)
 		return
 
-	if(!(mRemote in src.mutations))
+	if(!(MREMOTEVIEW in src.mutations))
 		remoteview_target = null
 		reset_view(0)
 		src.verbs -= /mob/living/carbon/human/proc/remoteobserve
@@ -1001,7 +1002,8 @@
 			continue
 		creatures += h
 
-	var/mob/target = input ("Who do you want to project your mind to ?") as mob in creatures
+//	var/mob/target = input ("Who do you want to project your mind to ?") as mob in creatures
+	var/mob/target = pick(creatures)
 
 	if (target)
 		remoteview_target = target

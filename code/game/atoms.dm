@@ -349,7 +349,7 @@ its easier to just keep the beam vertical.
 		add_fibers(M)
 
 		//He has no prints!
-		if (mFingerprints in M.mutations)
+		if (MFINGERPRINTS in M.mutations)
 			if(fingerprintslast != M.key)
 				fingerprintshidden += "(Has no fingerprints) Real name: [M.real_name], Key: [M.key]"
 				fingerprintslast = M.key

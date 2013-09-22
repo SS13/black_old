@@ -367,8 +367,8 @@
 						usr.internals.icon_state = "internal0"
 				else
 					if(ishuman(usr))
-						if (!( istype(usr.wear_mask, /obj/item/clothing/mask) ))
-							usr << "\red You are not wearing a mask"
+						if (!( istype(usr.wear_mask, /obj/item/clothing/mask) && (usr.wear_mask:can_breath)))
+							usr << "\red You are not wearing mask what can be use for breathing"
 							return
 						else
 							if (ishuman(usr) && istype(usr:s_store, /obj/item/weapon/tank))

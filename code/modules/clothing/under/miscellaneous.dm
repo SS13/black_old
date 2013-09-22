@@ -371,3 +371,17 @@
 	item_state = "sundress"
 	color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/suzumiyarabbit
+	name = "suzumiya rabbit dress"
+	icon_state = "suzumiyarabbit"
+	item_state = "suzumiyarabbit"
+	color = "suzumiyarabbit"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/mikururabbit
+	name = "mikuru rabbit dress"
+	icon_state = "mikururabbit"
+	item_state = "mikururabbit"
+	color = "mikururabbit"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO

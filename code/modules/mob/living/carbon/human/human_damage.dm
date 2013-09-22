@@ -236,16 +236,14 @@
 				H.drop_item()
 			W.loc = src
 
-	else
-		if(istype(used_weapon, /obj/item/projectile) && src.zone_sel.selecting == "chest" && usr:wear_suit.armor["bullet"] < 50) // TestUnit к этому дерьму я больше не притронусь. Через процесс не тянет, грубый ifthenelse, switch идут раком. src.zone_sel.selecting не видит как надо за ределами этой строки. Этот код писали в аду. Кто найдёт решение и реализует его для всех остальных частей тела может прийти за наградой.
-		else
-			if(damagetype == BRUTE && prob(75))
-				var/obj/item/projectile/P = used_weapon
-				var/obj/item/weapon/shard/shrapnel/S = new()
-				S.name = "[P.name] shrapnel"
-				S.desc = "[S.desc] It looks like it was fired from [P.shot_from]."
-				S.loc = src
-				organ.implants += S
-				visible_message("<span class='danger'>The projectile sticks in the wound!</span>")
-				S.add_blood(src)
-		return 1
+	else if(istype(used_weapon,/obj/item/projectile)) //We don't want to use the actual projectile item, so we spawn some shrapnel.
+		if(damagetype == BRUTE && prob(75))
+			var/obj/item/projectile/P = used_weapon
+			var/obj/item/weapon/shard/shrapnel/S = new()
+			S.name = "[P.name] shrapnel"
+			S.desc = "[S.desc] It looks like it was fired from [P.shot_from]."
+			S.loc = src
+			organ.implants += S
+			visible_message("<span class='danger'>The projectile sticks in the wound!</span>")
+			S.add_blood(src)
+	return 1

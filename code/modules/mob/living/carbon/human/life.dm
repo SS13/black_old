@@ -227,6 +227,41 @@
 			Weaken(3)
 			emote("collapse")
 
+		if(MSMALLSIZE in mutations)
+			if(!(pass_flags & PASSTABLE))
+				pass_flags |= PASSTABLE
+		else
+			if(pass_flags & PASSTABLE)
+				pass_flags &= ~PASSTABLE
+
+		if (MREGENERATE in mutations)
+			adjustBruteLoss(-0.5)
+			adjustToxLoss(-0.5)
+			adjustOxyLoss(-0.5)
+			adjustFireLoss(-0.5)
+			updatehealth()
+
+		if(!(/mob/living/carbon/human/proc/morph in src.verbs))
+			if(MMORPH in mutations)
+				src.verbs += /mob/living/carbon/human/proc/morph
+		else
+			if(!(MMORPH in mutations))
+				src.verbs -= /mob/living/carbon/human/proc/morph
+
+		if(!(/mob/living/carbon/human/proc/remoteobserve in src.verbs))
+			if(MREMOTEVIEW in mutations)
+				src.verbs += /mob/living/carbon/human/proc/remoteobserve
+		else
+			if(!(MREMOTEVIEW in mutations))
+				src.verbs -= /mob/living/carbon/human/proc/remoteobserve
+
+		if(!(/mob/living/carbon/human/proc/remotesay in src.verbs))
+			if(MREMOTETALK in mutations)
+				src.verbs += /mob/living/carbon/human/proc/remotesay
+		else
+			if(!(MREMOTETALK in mutations))
+				src.verbs -= /mob/living/carbon/human/proc/remotesay
+
 		if (radiation)
 			if (radiation > 100)
 				radiation = 100
@@ -378,6 +413,10 @@
 	proc/handle_breath(datum/gas_mixture/breath)
 		if(status_flags & GODMODE)
 			return
+
+		if (MNOBREATH in mutations)
+			adjustOxyLoss(-5)
+			return 1
 
 		if(!breath || (breath.total_moles() == 0) || suiciding)
 			if(reagents.has_reagent("inaprovaline"))
@@ -542,7 +581,6 @@
 			if(istype(loc, /obj/mecha))
 				var/obj/mecha/M = loc
 				loc_temp =  M.return_temperature()
-			else if(istype(get_turf(src), /turf/space))
 			else if(istype(loc, /obj/machinery/atmospherics/unary/cryo_cell))
 				loc_temp = loc:air_contents.temperature
 			else
@@ -1331,7 +1369,7 @@
 				if(!machine.check_eye(src))		reset_view(null)
 			else
 				var/isRemoteObserve = 0
-				if((mRemote in mutations) && remoteview_target)
+				if((MREMOTEVIEW in mutations) && remoteview_target)
 					if(remoteview_target.stat==CONSCIOUS)
 						isRemoteObserve = 1
 				if(!isRemoteObserve && client && !client.adminobs)

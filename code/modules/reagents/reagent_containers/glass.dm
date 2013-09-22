@@ -49,7 +49,15 @@
 		if (!(usr in view(2)) && usr!=src.loc) return
 		usr << "\blue It contains:"
 		if(reagents && reagents.reagent_list.len)
-			usr << "\blue [src.reagents.total_volume] units of liquid."
+			if (ishuman(usr))
+				var/mob/living/carbon/human/H = usr
+				if(H.glasses && istype(H.glasses, /obj/item/clothing/glasses/science))
+					for(var/datum/reagent/R in reagents.reagent_list)
+						usr << "\blue [R.volume] units of [R.name]"
+				else
+					usr << "\blue [src.reagents.total_volume] units of something liquid."
+			else
+				usr << "\blue [src.reagents.total_volume] units of something liquid"
 		else
 			usr << "\blue Nothing."
 		if (!is_open_container())

@@ -336,17 +336,17 @@ var/MAX_EXPLOSION_RANGE = 14
 #define PLANT			30
 
 // Other Mutations:
-#define mNobreath		100 	// no need to breathe
-#define mRemote			101 	// remote viewing
-#define mRegen			102 	// health regen
-#define mRun			103 	// no slowdown
-#define mRemotetalk		104 	// remote talking
-#define mMorph			105 	// changing appearance
-#define mBlend			106 	// nothing (seriously nothing)
-#define mHallucination	107 	// hallucinations
-#define mFingerprints	108 	// no fingerprints
-#define mShock			109 	// insulated hands
-#define mSmallsize		110 	// table climbing
+#define MNOBREATH		100 	// no need to breathe
+#define MREMOTEVIEW		101 	// remote viewing
+#define MREGENERATE		102 	// health regen
+#define MRUN			103 	// no slowdown
+#define MREMOTETALK		104 	// remote talking
+#define MMORPH			105 	// changing appearance
+#define MBLEND			106 	// nothing (seriously nothing)
+#define MHALLUCINATION	107 	// hallucinations
+#define MFINGERPRINTS	108 	// no fingerprints
+#define MSHOCK			109 	// insulated hands
+#define MSMALLSIZE		110 	// table climbing
 
 //disabilities
 #define NEARSIGHTED		1
@@ -708,19 +708,19 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 	)
 
 //Species flags.
-#define NO_EAT 1
-#define NO_BREATHE 2
-#define NO_SLEEP 4
-#define RAD_ABSORB 8
-#define NO_SCAN 16
-#define NON_GENDERED 32
-#define REQUIRE_LIGHT 64
-#define WHITELISTED 128
-#define HAS_SKIN_TONE 256
-#define HAS_LIPS 512
-#define HAS_UNDERWEAR 1024
-#define HAS_TAIL 2048
-#define IS_PLANT 4096
+#define NO_EAT		1
+#define NO_BREATHE	2
+#define NO_SLEEP	4
+#define RAD_ABSORB	8
+#define NO_SCAN		16
+#define NON_GENDERED	32
+#define REQUIRE_LIGHT	64
+#define WHITELISTED	128
+#define HAS_SKIN_TONE	256
+#define HAS_LIPS	512
+#define HAS_UNDERWEAR	1024
+#define HAS_TAIL	2048
+#define IS_PLANT	4096
 
 //Language flags.
 #define WHITELISTED 1  // Language is available if the speaker is whitelisted.

@@ -179,3 +179,11 @@
 	icon_state = "miner"
 	item_state = "miner"
 	color = "miner"
+
+/obj/item/clothing/under/spacearmy
+	name = "Military jumpsuit"
+	desc = "It`s a camo! Yeah space camo!"
+	icon_state = "spacearmy"
+	item_state = "spacearmy"
+	color = "spacearmy"
+	flags = FPRINT | TABLEPASS

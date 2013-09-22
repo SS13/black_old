@@ -351,7 +351,7 @@
 					del(src)
 					return
 			if("internal")
-				if ((!( (istype(target.wear_mask, /obj/item/clothing/mask) && istype(target.back, /obj/item/weapon/tank) && !( target.internal )) ) && !( target.internal )))
+				if (!(istype(target.wear_mask, /obj/item/clothing/mask) && (istype(target.back, /obj/item/weapon/tank)||istype(target.l_hand, /obj/item/weapon/tank)||istype(target.r_hand, /obj/item/weapon/tank)||istype(target.belt, /obj/item/weapon/tank))) || target.internal)
 					del(src)
 
 	var/list/L = list( "syringe", "pill", "drink", "dnainjector", "fuel")
@@ -634,7 +634,7 @@ It can still be worn/put on as normal.
 				if (target.internals)
 					target.internals.icon_state = "internal0"
 			else
-				if (!( istype(target.wear_mask, /obj/item/clothing/mask) ))
+				if (!( istype(target.wear_mask, /obj/item/clothing/mask) || ! (target.wear_mask.can_breath) ))
 					return
 				else
 					if (istype(target.back, /obj/item/weapon/tank))
@@ -643,6 +643,11 @@ It can still be worn/put on as normal.
 						target.internal = target.s_store
 					else if (istype(target.belt, /obj/item/weapon/tank))
 						target.internal = target.belt
+					else if (istype(target.l_hand, /obj/item/weapon/tank))
+						target.internal = target.l_hand
+					else if (istype(target.r_hand, /obj/item/weapon/tank))
+						target.internal = target.r_hand
+
 					if (target.internal)
 						for(var/mob/M in viewers(target, 1))
 							M.show_message("[target] is now running on internals.", 1)

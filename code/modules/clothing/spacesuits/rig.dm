@@ -206,6 +206,22 @@
 	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
 	siemens_coefficient = 0.7
 
+	//Mongol
+/obj/item/clothing/head/helmet/space/rig/security/mongol
+	name = "mongol hardsuit helmet"
+	icon_state = "rig0_mongol"
+	item_state = "rig0_mongol"
+	color = "mongol"
+
+/obj/item/clothing/suit/space/rig/security/mongol
+	name = "mongol hardsuit"
+	item_state = "rig_mongol"
+	item_state = "rig_mongol"
+
+	//Samurai
+/obj/item/clothing/suit/space/rig/security/samurai
+	name = "samurai hardsuit"
+	icon_state = "rig_samurai"
 
 //Atmospherics Rig (BS12)
 /obj/item/clothing/head/helmet/space/rig/atmos
@@ -224,7 +240,3 @@
 	item_state = "atmos_hardsuit"
 	armor = list(melee = 40, bullet = 0, laser = 0, energy = 0, bomb = 25, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRESUIT_MAX_HEAT_PROTECITON_TEMPERATURE
-
-/obj/item/clothing/suit/space/rig/security/samurai
-	name = "samurai hardsuit"
-	icon_state = "rig_samurai"

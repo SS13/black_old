@@ -518,7 +518,7 @@ var/list/admin_verbs_events = list(
 		feedback_inc("ban_warn",1)
 	else
 		if(C)
-			C << "<font color='red'><BIG><B>ÒÅÁÅ ÁÀÍ ÁËßÄÜ ÑÓÊÅ ÏĞÎÏÈÑÀÒÜ À?</B></BIG><br>Further warnings will result in an autoban.</font>"
+			C << "<font color='red'><BIG><B>You have been formally warned by a[src.holder.rights & R_ADMIN?"n administrator":" moderator"].</B></BIG><br>Further warnings will result in an autoban.</font>"
 			message_admins("[key_name_admin(src)] has warned [key_name_admin(C)]. They have [MAX_WARNS-D.warns] strikes remaining.")
 		else
 			message_admins("[key_name_admin(src)] has warned [warned_ckey] (DC). They have [MAX_WARNS-D.warns] strikes remaining.")

@@ -19,6 +19,11 @@
 		return
 	attack(mob/M as mob, mob/user as mob, def_zone)
 		if(M == user)
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form swallowing a [src]"
+				return 0
+
 			M << "\blue You swallow [src]."
 			M.drop_from_inventory(src) //icon update
 			if(reagents.total_volume)
@@ -31,6 +36,10 @@
 			return 1
 
 		else if(istype(M, /mob/living/carbon/human) )
+
+			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
+				user << "\red [M.wear_mask] prevents you form force [M.name] to take a [src]"
+				return 0
 
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to force [M] to swallow [src].", 1)

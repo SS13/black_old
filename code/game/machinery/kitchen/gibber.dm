@@ -92,6 +92,8 @@
 	src.add_fingerprint(user)
 	if(do_after(user, 30) && G && G.affecting && !occupant)
 		user.visible_message("\red [user] stuffs [G.affecting] into the gibber!")
+		message_admins("[key_name(user, user.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) запихнул [G.affecting] в гиббер! ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_attack("<font color='red'>[user] ([user.ckey]) stuffs [G.affecting] ([G.affecting.ckey]) into the gibber.</font>")
 		var/mob/M = G.affecting
 		if(M.client)
 			M.client.perspective = EYE_PERSPECTIVE
