@@ -39,6 +39,9 @@ var/global/vox_kills = 0 //Used to check the Inviolate.
 	var/list/candidates = get_players_for_role(BE_RAIDER)
 	var/raider_num = 0
 
+	for(var/datum/mind/M in candidates)
+		if (jobban_isbanned(M, "vox"))	candidates -= M
+
 	//Check that we have enough vox.
 	if(candidates.len < required_enemies)
 		return 0

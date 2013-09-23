@@ -535,6 +535,13 @@
 		else
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=meme;jobban4=\ref[M]'>[replacetext("Meme", " ", "&nbsp")]</a></td>"
 
+		//Vox
+		if(jobban_isbanned(M, "vox") || isbanned_dept)
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=vox;jobban4=\ref[M]'><font color=red>[replacetext("Vox", " ", "&nbsp")]</font></a></td>"
+		else
+			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=vox;jobban4=\ref[M]'>[replacetext("Vox", " ", "&nbsp")]</a></td>"
+
+
 /*		//Malfunctioning AI	//Removed Malf-bans because they're a pain to impliment
 		if(jobban_isbanned(M, "malf AI") || isbanned_dept)
 			jobs += "<td width='20%'><a href='?src=\ref[src];jobban3=malf AI;jobban4=\ref[M]'><font color=red>[replacetext("Malf AI", " ", "&nbsp")]</font></a></td>"

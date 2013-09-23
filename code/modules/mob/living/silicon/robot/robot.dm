@@ -147,7 +147,21 @@
 /mob/living/silicon/robot/proc/pick_module()
 	if(module)
 		return
-	var/list/modules = list("Standard", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	var/list/modules = list("Standard")
+
+	if (!jobban_isbanned(src, "Station Engineer") && !jobban_isbanned(src, "engineeringdept"))
+		modules += "Engineering"
+	if (!jobban_isbanned(src, "Medical Doctor") && !jobban_isbanned(src, "medicaldept"))
+		modules += "Medical"
+	if (!jobban_isbanned(src, "Security Officer") && !jobban_isbanned(src, "securitydept"))
+		modules += "Security"
+	if (!jobban_isbanned(src, "Janitor"))
+		modules += "Janitor"
+	if (!jobban_isbanned(src, "Shaft Miner"))
+		modules += "Miner"
+	if (!jobban_isbanned(src, "Bartender"))
+		modules += "Service"
+
 	if(crisis && security_level == SEC_LEVEL_RED) //Leaving this in until it's balanced appropriately.
 		src << "\red Crisis mode active. Combat module available."
 		modules+="Combat"

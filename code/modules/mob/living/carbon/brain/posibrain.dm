@@ -26,7 +26,7 @@
 
 	proc/request_player()
 		for(var/mob/dead/observer/O in player_list)
-			if(jobban_isbanned(O, "pAI"))
+			if(jobban_isbanned(O, "Cyborg"))
 				continue
 			if(O.client)
 				if(O.client.prefs.be_special & BE_PAI)

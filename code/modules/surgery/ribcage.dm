@@ -197,6 +197,7 @@
 	max_duration = 90
 
 	can_use(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
+		if(!istype(target)) return
 		var/is_chest_organ_damaged = 0
 		var/datum/organ/external/chest/chest = target.get_organ("chest")
 		for(var/datum/organ/internal/I in chest.internal_organs) if(I.damage > 0)

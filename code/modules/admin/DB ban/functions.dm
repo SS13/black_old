@@ -39,6 +39,8 @@ datum/admins/proc/DB_ban_record(var/bantype, var/mob/banned_mob, var/duration = 
 			computerid = banned_mob.client.computer_id
 			ip = banned_mob.client.address
 
+	if(istext(banned_mob)) ckey = banned_mob
+
 	var/a_ckey
 	var/a_computerid
 	var/a_ip
