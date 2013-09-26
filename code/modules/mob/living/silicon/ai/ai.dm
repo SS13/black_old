@@ -147,7 +147,7 @@ var/list/ai_list = list()
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
 	if (custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
-	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Ravensdale")
+	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static")
 	switch(icontype)
 		if("Custom") icon_state = "[src.ckey]-ai"
 		if("Clown") icon_state = "ai-clown2"
@@ -165,7 +165,6 @@ var/list/ai_list = list()
 		if("Bliss") icon_state = "ai-bliss"
 		if("Triumvirate") icon_state = "ai-triumvirate"
 		if("Triumvirate Static") icon_state = "ai-triumvirate-malf"
-		if("Ravensdale") icon_state = "ai-ravensdale"
 		else icon_state = "ai"
 	//else
 			//usr <<"You can only change your display once!"
@@ -653,7 +652,7 @@ var/list/ai_list = list()
 					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
 	return
 
-/mob/living/silicon/ai/proc/corereturn()
+/*/mob/living/silicon/ai/proc/corereturn()
 	set category = "Malfunction"
 	set name = "Return to Main Core"
 
@@ -661,7 +660,7 @@ var/list/ai_list = list()
 	if(!istype(apc))
 		src << "\blue You are already in your Main Core."
 		return
-	apc.malfvacate()
+	apc.malfvacate()*/
 
 //Toggles the luminosity and applies it by re-entereing the camera.
 /mob/living/silicon/ai/proc/toggle_camera_light()

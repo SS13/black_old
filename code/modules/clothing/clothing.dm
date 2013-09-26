@@ -28,7 +28,6 @@
 
 	return ..()
 
-
 //Ears: currently only used for headsets and earmuffs
 /obj/item/clothing/ears
 	name = "ears"
@@ -74,9 +73,11 @@ BLIND     // can't see anything
 	siemens_coefficient = 0.50
 	var/wired = 0
 	var/obj/item/weapon/cell/cell = 0
+	var/clipped = 0
 	body_parts_covered = HANDS
 	slot_flags = SLOT_GLOVES
 	attack_verb = list("challenged")
+	species_restricted = list("exclude","Unathi","Tajaran")
 
 /obj/item/clothing/gloves/examine()
 	set src in usr
@@ -123,6 +124,7 @@ BLIND     // can't see anything
 
 	permeability_coefficient = 0.50
 	slowdown = SHOES_SLOWDOWN
+	species_restricted = list("exclude","Unathi","Tajaran")
 
 //Suit
 /obj/item/clothing/suit
@@ -151,6 +153,7 @@ BLIND     // can't see anything
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_HELMET_MIN_COLD_PROTECITON_TEMPERATURE
 	siemens_coefficient = 0.9
+	species_restricted = list("exclude","Diona","Vox")
 
 /obj/item/clothing/suit/space
 	name = "Space suit"
@@ -169,7 +172,7 @@ BLIND     // can't see anything
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
 	siemens_coefficient = 0.9
-
+	species_restricted = list("exclude","Diona","Vox")
 
 //Under clothing
 /obj/item/clothing/under

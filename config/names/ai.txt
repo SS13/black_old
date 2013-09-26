@@ -11,43 +11,54 @@ Alpha 5
 Alpha 6
 Alpha 7
 AmigoBot
+Amplitude
 Android
 Aniel
 Asimov
 Astor
+Atari
 B-4
 B-9
 B.O.B.
 B166ER
+Backup Machine
 Bender
 Bishop
 Blitz
 Box
 Brackenridge
+Brominator
 C-3PO
 Cassandra One
+Captain Bot
 Cell
 Chii
 Chip
+Cluster Machine
 Computer
 Conky 2000
 Cutie
 Data
 Dee Model
 Deep Thought
+Diffraction
 Dor-15
 Dorfl
+Doorknob
 Dot Matrix
 Duey
 E.D.I.
 ED-209
 E-Man
 Emma-2
+Entropy
 Erasmus
 Ez-27
 FRIEND COMPUTER
 Fagor
 Faith
+Feynman
+Fermion
 Fi
 Frost
 Fum
@@ -56,10 +67,12 @@ G2
 George
 Gnut
 Gort
+Goro
 H.A.R.L.I.E.
 H.E.L.P.eR.
 H.E.R.B.I.E.
 HAL 9000
+Han
 Hadaly
 Huey
 Irona
@@ -69,31 +82,39 @@ Johnny 5
 K-9
 KITT
 Klapaucius
+Klein–Gordon Equation
 Kryten 2X4B-523P
 L-76
 L-Ron
 LUH 3417
+Lepton
 Louie
 MARK13
 Maria
 Marvin
 Master Control Program
+Master Unit
 Max 404
 Maximillian
 Mechagodzilla
 Mechani-Kong
 Metalhead
+Momentum
 Mr. R.I.N.G.
 NCH
 Necron-99
 Norby
+Nordy
+Nintendo
 OMM 0910
 Orange v 3.5
 PTO
+Pong
 Project 2501
 R.I.C. 2.0
 R2-D2
 R4-P17
+Reboot
 Revelation
 Ro-Man
 Robbie
@@ -104,6 +125,7 @@ S.O.P.H.I.E.
 SEN 5241
 SHODAN
 SID 6.7
+Singulo
 Setaur
 Shrike
 Solo
@@ -130,6 +152,7 @@ Wikipedia
 Windows 3.1
 X-5
 XERXES
+Xerox
 XR
 Yod
 Z-1
@@ -145,3 +168,5 @@ Optimus
 Megatron
 Soundwave
 Ironhide
+Festival
+Persival

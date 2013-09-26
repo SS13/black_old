@@ -194,7 +194,7 @@
 	ticker.mode:explosion_in_progress = 1
 	for(var/mob/M in world)
 		if(M.client)
-			M << 'sound/AI/Alarm.ogg'
+			M << 'sound/machines/Alarm.ogg'
 	world << "\blue<b>Incoming missile detected.. Impact in 10..</b>"
 	for (var/i=9 to 1 step -1)
 		sleep(10)

@@ -9,7 +9,6 @@
 
 	var/sight_mode = 0
 	var/custom_name = ""
-	var/base_icon
 	var/custom_sprite = 0 //Due to all the sprites involved, a var for our custom borgs may be best
 	var/crisis //Admin-settable for combat module use.
 
@@ -148,7 +147,6 @@
 	if(module)
 		return
 	var/list/modules = list("Standard")
-
 	if (!jobban_isbanned(src, "Station Engineer") && !jobban_isbanned(src, "engineeringdept"))
 		modules += "Engineering"
 	if (!jobban_isbanned(src, "Medical Doctor") && !jobban_isbanned(src, "medicaldept"))
@@ -218,6 +216,8 @@
 		if("Engineering")
 			module = new /obj/item/weapon/robot_module/engineering(src)
 			channels = list("Engineering" = 1)
+			if(camera && "Robots" in camera.network)
+				camera.network.Add("Engineering")
 			module_sprites["Basic"] = "Engineering"
 			module_sprites["Antique"] = "engineerrobot"
 			module_sprites["Landmate"] = "landmate"
@@ -245,7 +245,6 @@
 
 	choose_icon(6,module_sprites)
 	radio.config(channels)
-	base_icon = icon_state
 
 /mob/living/silicon/robot/proc/updatename(var/prefix as text)
 	if(prefix)
@@ -714,6 +713,8 @@
 		if(!opened)//Cover is closed
 			if(locked)
 				if(prob(90))
+					var/obj/item/weapon/card/emag/emag = W
+					emag.uses--
 					user << "You emag the cover lock."
 					locked = 0
 				else
@@ -1024,9 +1025,11 @@
 	if(module_active && istype(module_active,/obj/item/borg/combat/shield))
 		overlays += "[icon_state]-shield"
 
-	if(base_icon)
+	if(modtype == "Combat")
+		var/base_icon = ""
+		base_icon = icon_state
 		if(module_active && istype(module_active,/obj/item/borg/combat/mobility))
-			icon_state = "[base_icon]-roll"
+			icon_state = "[icon_state]-roll"
 		else
 			icon_state = base_icon
 		return
@@ -1246,8 +1249,8 @@
 
 	var/icontype
 
-	if (src.name == "Lucy" && src.ckey == "rowtree")
-		icontype = "Lucy"
+	if (custom_sprite == 1)
+		icontype = "Custom"
 		triesleft = 0
 	else
 		icontype = input("Select an icon! [triesleft ? "You have [triesleft] more chances." : "This is your last try."]", "Robot", null, null) in module_sprites
@@ -1257,11 +1260,9 @@
 	else
 		src << "Something is badly wrong with the sprite selection. Harass a coder."
 		icon_state = module_sprites[1]
-		base_icon = icon_state
 		return
 
 	overlays -= "eyes"
-	base_icon = icon_state
 	updateicon()
 
 	if (triesleft >= 1)

@@ -417,14 +417,8 @@
 	if(air_group || (height==0)) return 1
 	if(src.density == 0) //Because broken racks -Agouri |TODO: SPRITE!|
 		return 1
-	if(istype(mover))
-		if (mover.checkpass(PASSTABLE))
-			return 1
-		else
-			for (var/obj/structure/table/T in mover.loc.contents)
-				if (istype(T))
-					return 1
-			return 0
+	if(istype(mover) && mover.checkpass(PASSTABLE))
+		return 1
 	else
 		return 0
 

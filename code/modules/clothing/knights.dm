@@ -37,7 +37,7 @@
 	name = "Knight's hauberk"
 	icon_state = "hauberk"
 	item_state = "hauberk"
-	color = "hauberk"
+	item_color = "hauberk"
 	armor = list(melee = 80, bullet = 5, laser = 20,energy = 0, bomb = 0, bio = 0, rad = 0)
 	has_sensor = 0
 

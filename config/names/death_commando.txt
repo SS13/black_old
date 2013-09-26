@@ -4,16 +4,29 @@ Sgt. Slaughter
 Maxx Power
 Sir Killaslot
 Slab Bulkhead
+Punck Kichhard
 Fridge Largemeat
 Punt Speedchunk
 Butch Deadlift
 Bold Bigflank
+Bold Corpsemaker
 Splint Chesthair
+George Forge
+Buster Shooter
+Grieffton Smith
+Powell Gamers
 Flint Ironstag
 Bolt Vanderhuge
 Thick McRunfast
+Max Damage
+Max Power
+Hugo Beatdownsson
+Muscle McHeadshot
+Tough McIronfist
+Steel Hardboner
 Blast Hardcheese
 Buff Drinklots
+Buck Shot
 Trunk Slamchest
 Fist Rockbone
 Stump Beefgnaw
@@ -22,6 +35,7 @@ Punch Rockgroin
 Buck Plankchest
 Stump Chunkman
 Dirk Hardpeck
+Killsyou McFast
 Rip Steakface
 Slate Slabrock
 Crud Bonemeal
@@ -37,18 +51,22 @@ Slab Squatthrust
 Lump Beefrock
 Touch Rustrod
 Reef Blastbody
+Moustache McBeard
 Smoke Manmuscle
 Beat Punchbeef
 Pack Blowfist
 Roll Fizzlebeef
 Lance Killiam
 George Melons
+Tough Ironside
 Maximilian Murderface
 Bob Johnson
 Crush McStompbones
 Hank Chesthair
 Killing McKillingalot
+Tackle McKickpunch
 Mancrush McBrorape
+Chip Spawner
 Rex Dudekiller VII
 Seamus McTosterone
 Hans Testosteroneson
@@ -63,6 +81,7 @@ Gibbs McLargehuge
 Evil Martin Luther King
 Evil Bob Marley
 Duke Killington
+Assist Endsson
 AMERICA
 Toolboxl Rose
 Zombie Gandhi

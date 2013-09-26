@@ -5,7 +5,7 @@
 	var/virus
 	var/virus2 = 0
 
-	announce()
+	Announce()
 		if(!virus)
 			for(var/mob/living/carbon/human/H in world)
 				if((H.virus2.len) || (H.stat == 2) || prob(30))

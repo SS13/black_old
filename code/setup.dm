@@ -31,7 +31,7 @@
 #define HAZARD_HIGH_PRESSURE	550	//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
 #define WARNING_HIGH_PRESSURE	325	//This determins when the orange pressure icon is displayed (it is 0.7 * HAZARD_HIGH_PRESSURE)
 #define WARNING_LOW_PRESSURE	50	//This is when the gray low pressure icon is displayed. (it is 2.5 * HAZARD_LOW_PRESSURE)
-#define HAZARD_LOW_PRESSURE		20	//This is when the black ultra-low pressure icon is displayed. (This one is set as a constant)
+#define HAZARD_LOW_PRESSURE	20	//This is when the black ultra-low pressure icon is displayed. (This one is set as a constant)
 
 #define TEMPERATURE_DAMAGE_COEFFICIENT 1.5	//This is used in handle_temperature_damage() for humans, and in reagents that affect body temperature. Temperature damage is multiplied by this amount.
 #define BODYTEMP_AUTORECOVERY_DIVISOR 12 //This is the divisor which handles how much of the temperature difference between the current body temperature and 310.15K (optimal temperature) humans auto-regenerate each tick. The higher the number, the slower the recovery. This is applied each tick, so long as the mob is alive.
@@ -158,8 +158,8 @@ var/MAX_EXPLOSION_RANGE = 14
 
 
 //ITEM INVENTORY SLOT BITMASKS
-#define SLOT_OCLOTHING	1
-#define SLOT_ICLOTHING	2
+#define SLOT_OCLOTHING		1
+#define SLOT_ICLOTHING		2
 #define SLOT_GLOVES		4
 #define SLOT_EYES		8
 #define SLOT_EARS		16
@@ -170,7 +170,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define SLOT_BELT		512
 #define SLOT_BACK		1024
 #define SLOT_POCKET		2048		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
-#define SLOT_DENYPOCKET	4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
+#define SLOT_DENYPOCKET		4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
 
 
 //FLAGS BITMASK
@@ -228,18 +228,18 @@ var/MAX_EXPLOSION_RANGE = 14
 #define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
 //slots
-#define slot_back			1
+#define slot_back		1
 #define slot_wear_mask		2
 #define slot_handcuffed		3
-#define slot_l_hand			4
-#define slot_r_hand			5
-#define slot_belt			6
+#define slot_l_hand		4
+#define slot_r_hand		5
+#define slot_belt		6
 #define slot_wear_id		7
-#define slot_ears			8
+#define slot_ears		8
 #define slot_glasses		9
-#define slot_gloves			10
-#define slot_head			11
-#define slot_shoes			12
+#define slot_gloves		10
+#define slot_head		11
+#define slot_shoes		12
 #define slot_wear_suit		13
 #define slot_w_uniform		14
 #define slot_l_store		15
@@ -343,8 +343,8 @@ var/MAX_EXPLOSION_RANGE = 14
 #define MREMOTETALK		104 	// remote talking
 #define MMORPH			105 	// changing appearance
 #define MBLEND			106 	// nothing (seriously nothing)
-#define MHALLUCINATION	107 	// hallucinations
-#define MFINGERPRINTS	108 	// no fingerprints
+#define MHALLUCINATION		107 	// hallucinations
+#define MFINGERPRINTS		108 	// no fingerprints
 #define MSHOCK			109 	// insulated hands
 #define MSMALLSIZE		110 	// table climbing
 
@@ -580,10 +580,10 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define ORGAN_BLEEDING		8
 #define ORGAN_BROKEN		32
 #define ORGAN_DESTROYED		64
-#define ORGAN_ROBOT			128
+#define ORGAN_ROBOT		128
 #define ORGAN_SPLINTED		256
-#define SALVED				512
-#define ORGAN_DEAD			1024
+#define SALVED			512
+#define ORGAN_DEAD		1024
 #define ORGAN_MUTATED		2048
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
@@ -599,16 +599,16 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_SERVER		16
 #define R_DEBUG			32
 #define R_POSSESS		64
-#define R_PERMISSIONS	128
+#define R_PERMISSIONS		128
 #define R_STEALTH		256
-#define R_REJUVINATE	512
+#define R_REJUVINATE		512
 #define R_VAREDIT		1024
 #define R_SOUNDS		2048
 #define R_SPAWN			4096
 #define R_EVENTS		8192
 #define R_MOD			16384
 
-#define R_MAXPERMISSION 	65536 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 	16384 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			65535
 

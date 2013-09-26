@@ -21,7 +21,7 @@
 		if(M == user)
 
 			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-				user << "\red [M.wear_mask] prevents you form swallowing a [src]"
+				user << "\red [M.wear_mask] prevents you from swallowing a [src]"
 				return 0
 
 			M << "\blue You swallow [src]."
@@ -38,7 +38,7 @@
 		else if(istype(M, /mob/living/carbon/human) )
 
 			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-				user << "\red [M.wear_mask] prevents you form force [M.name] to take a [src]"
+				user << "\red [M.wear_mask] prevents you from force [M.name] to take a [src]"
 				return 0
 
 			for(var/mob/O in viewers(world.view, user))
