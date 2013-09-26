@@ -238,7 +238,8 @@
 	var/water = 0
 	name = "\improper Centrifuge"
 	desc = "It is a machine that spins produce."
-	icon_state = "autolathe"
+	icon = 'icons/obj/virology.dmi'
+	icon_state = "centrifuge"
 	density = 1
 	anchored = 1
 	use_power = 1
