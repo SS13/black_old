@@ -40,8 +40,8 @@
 /mob/living/simple_animal/hostile/hivebot/strong
 	name = "Strong Hivebot"
 	desc = "A robot, this one is armed and looks tough!"
-	health = 80
-	ranged = 1
+	health = 120
+	speed = 7
 
 
 /mob/living/simple_animal/hostile/hivebot/Die()
