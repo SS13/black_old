@@ -47,7 +47,7 @@
 /obj/item/ammo_casing/a12mm
 	desc = "A 12mm bullet casing."
 	caliber = "12mm"
-	projectile_type = "/obj/item/projectile/bullet/midbullet2"
+	projectile_type = "/obj/item/projectile/bullet/midbullet"
 
 
 /obj/item/ammo_casing/shotgun
@@ -93,7 +93,7 @@
 /obj/item/ammo_casing/a762
 	desc = "A 7.62 bullet casing."
 	caliber = "a762"
-	projectile_type = "/obj/item/projectile/bullet/a762"
+	projectile_type = "/obj/item/projectile/bullet"
 
 /obj/item/ammo_casing/beretta
 	desc = "A 9x19 bullet casing."

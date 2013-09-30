@@ -47,11 +47,10 @@ mob/living/parasite/proc/enter_host(mob/living/carbon/host)
 	return 1
 
 mob/living/parasite/proc/exit_host()
-	if (!src.host) return 1
 	src.host.parasites.Remove(src)
-	src.loc = host.loc
 	src.host = null
-	if(client) client.eye = src
+	src.loc = null
+
 	return 1
 
 
@@ -82,12 +81,15 @@ mob/living/parasite/meme/New()
 
 	var/newhost = pick(allowed_mob)
 	src.enter_host(newhost)
-	message_admins("[key_name(newhost, 0, 1, 1)] has become [key_name(src, 0, 1, 1)]'s host")
+	message_admins("[newhost] has become [src.key]'s host")
+
+//	ticker.mode.memes += src
 
 mob/living/parasite/meme/Del()
+	..()
+
 	if(host)
 		exit_host()
-	..()
 
 mob/living/parasite/meme/Life()
 	..()
@@ -125,6 +127,8 @@ mob/living/parasite/meme/Life()
 
 mob/living/parasite/meme/death()
 	// make sure the mob is on the actual map before gibbing
+	if(host) src.loc = host.loc
+	host.parasites -= src
 	src.stat = 2
 	..()
 	del src
@@ -608,7 +612,6 @@ mob/living/parasite/meme/verb/Show_Points()
 
 	if (client && client.statpanel == "Status")
 		stat(null, "Meme Points: [src.meme_points]")
-		stat(null, "Already indoctrinated: [indoctrinated.len] brains")
 
 // Game mode helpers, used for theft objectives
 // --------------------------------------------

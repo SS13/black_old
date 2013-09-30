@@ -186,7 +186,7 @@ obj/machinery/atmospherics/pipe
 		update_icon()
 			if(node1&&node2)
 				var/C = ""
-				switch(pipe_color)
+				switch(color)
 					if ("red") C = "-r"
 					if ("blue") C = "-b"
 					if ("cyan") C = "-c"
@@ -252,22 +252,22 @@ obj/machinery/atmospherics/pipe
 
 	simple/scrubbers
 		name="Scrubbers pipe"
-		pipe_color="red"
+		color="red"
 		icon_state = ""
 
 	simple/supply
 		name="Air supply pipe"
-		pipe_color="blue"
+		color="blue"
 		icon_state = ""
 
 	simple/supplymain
 		name="Main air supply pipe"
-		pipe_color="purple"
+		color="purple"
 		icon_state = ""
 
 	simple/general
 		name="Pipe"
-		pipe_color=""
+		color=""
 		icon_state = ""
 
 	simple/scrubbers/visible
@@ -304,7 +304,7 @@ obj/machinery/atmospherics/pipe
 
 	simple/yellow
 		name="Pipe"
-		pipe_color="yellow"
+		color="yellow"
 		icon_state = ""
 
 	simple/yellow/visible
@@ -697,7 +697,7 @@ obj/machinery/atmospherics/pipe
 		update_icon()
 			if(node1&&node2&&node3)
 				var/C = ""
-				switch(pipe_color)
+				switch(color)
 					if ("red") C = "-r"
 					if ("blue") C = "-b"
 					if ("cyan") C = "-c"
@@ -769,27 +769,27 @@ obj/machinery/atmospherics/pipe
 
 	manifold/scrubbers
 		name="Scrubbers pipe"
-		pipe_color="red"
+		color="red"
 		icon_state = ""
 
 	manifold/supply
 		name="Air supply pipe"
-		pipe_color="blue"
+		color="blue"
 		icon_state = ""
 
 	manifold/supplymain
 		name="Main air supply pipe"
-		pipe_color="purple"
+		color="purple"
 		icon_state = ""
 
 	manifold/general
 		name="Air supply pipe"
-		pipe_color="gray"
+		color="gray"
 		icon_state = ""
 
 	manifold/yellow
 		name="Air supply pipe"
-		pipe_color="yellow"
+		color="yellow"
 		icon_state = ""
 
 	manifold/scrubbers/visible
@@ -925,7 +925,7 @@ obj/machinery/atmospherics/pipe
 			overlays.Cut()
 			if(node1&&node2&&node3&&node4)
 				var/C = ""
-				switch(pipe_color)
+				switch(color)
 					if ("red") C = "-r"
 					if ("blue") C = "-b"
 					if ("cyan") C = "-c"
@@ -980,22 +980,22 @@ obj/machinery/atmospherics/pipe
 
 	manifold4w/scrubbers
 		name="Scrubbers pipe"
-		pipe_color="red"
+		color="red"
 		icon_state = ""
 
 	manifold4w/supply
 		name="Air supply pipe"
-		pipe_color="blue"
+		color="blue"
 		icon_state = ""
 
 	manifold4w/supplymain
 		name="Main air supply pipe"
-		pipe_color="purple"
+		color="purple"
 		icon_state = ""
 
 	manifold4w/general
 		name="Air supply pipe"
-		pipe_color="gray"
+		color="gray"
 		icon_state = ""
 
 	manifold4w/scrubbers/visible

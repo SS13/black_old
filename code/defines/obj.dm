@@ -197,35 +197,35 @@
 	var/d1 = 0
 	var/d2 = 1
 	layer = 2.44 //Just below unary stuff, which is at 2.45 and above pipes, which are at 2.4
-	var/cable_color = "red"
+	var/color = "red"
 	var/obj/structure/powerswitch/power_switch
 
 /obj/structure/cable/yellow
-	cable_color = "yellow"
+	color = "yellow"
 	icon = 'icons/obj/power_cond_yellow.dmi'
 
 /obj/structure/cable/green
-	cable_color = "green"
+	color = "green"
 	icon = 'icons/obj/power_cond_green.dmi'
 
 /obj/structure/cable/blue
-	cable_color = "blue"
+	color = "blue"
 	icon = 'icons/obj/power_cond_blue.dmi'
 
 /obj/structure/cable/pink
-	cable_color = "pink"
+	color = "pink"
 	icon = 'icons/obj/power_cond_pink.dmi'
 
 /obj/structure/cable/orange
-	cable_color = "orange"
+	color = "orange"
 	icon = 'icons/obj/power_cond_orange.dmi'
 
 /obj/structure/cable/cyan
-	cable_color = "cyan"
+	color = "cyan"
 	icon = 'icons/obj/power_cond_cyan.dmi'
 
 /obj/structure/cable/white
-	cable_color = "white"
+	color = "white"
 	icon = 'icons/obj/power_cond_white.dmi'
 
 /obj/effect/projection

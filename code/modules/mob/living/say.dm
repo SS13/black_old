@@ -73,7 +73,7 @@ var/list/department_radio_keys = list(
 		if(!istype(dongle)) return
 		if(dongle.translate_hive) return 1
 
-/mob/living/say(var/message, var/meme_say = 0)
+/mob/living/say(var/message)
 
 	/*
 		Formatting and sanitizing.
@@ -89,7 +89,7 @@ var/list/department_radio_keys = list(
 	if (!message)
 		return
 
-	if(silent && !meme_say)
+	if(silent)
 		return
 
 	if (stat == 2) // Dead.

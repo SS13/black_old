@@ -38,7 +38,7 @@
 	allowed = list(/obj/item/device/flashlight)
 	var/brightness_on = 4 //luminosity when on
 	var/on = 0
-	item_color = "engineering" //Determines used sprites: rig[on]-[color] and rig[on]-[color]2 (lying down sprite)
+	color = "engineering" //Determines used sprites: rig[on]-[color] and rig[on]-[color]2 (lying down sprite)
 	icon_action_button = "action_hardhat"
 	heat_protection = HEAD
 	max_heat_protection_temperature = SPACE_SUIT_MAX_HEAT_PROTECITON_TEMPERATURE
@@ -49,7 +49,7 @@
 			user << "You cannot turn the light on while in this [user.loc]" //To prevent some lighting anomalities.
 			return
 		on = !on
-		icon_state = "rig[on]-[item_color]"
+		icon_state = "rig[on]-[color]"
 //		item_state = "rig[on]-[color]"
 
 		if(on)	user.SetLuminosity(user.luminosity + brightness_on)
@@ -85,7 +85,7 @@
 	desc = "An advanced helmet designed for work in a hazardous, low pressure environment. Shines with a high polish."
 	icon_state = "rig0-white"
 	item_state = "ce_helm"
-	item_color = "white"
+	color = "white"
 
 /obj/item/clothing/suit/space/rig/elite
 	icon_state = "rig-white"
@@ -100,7 +100,7 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has reinforced plating."
 	icon_state = "rig0-mining"
 	item_state = "mining_helm"
-	item_color = "mining"
+	color = "mining"
 
 /obj/item/clothing/suit/space/rig/mining
 	icon_state = "rig-mining"
@@ -116,7 +116,7 @@
 	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders."
 	icon_state = "rig0-syndi"
 	item_state = "syndie_helm"
-	item_color = "syndi"
+	color = "syndi"
 	armor = list(melee = 60, bullet = 50, laser = 30,energy = 15, bomb = 35, bio = 100, rad = 60)
 	siemens_coefficient = 0.6
 	var/obj/machinery/camera/camera
@@ -154,7 +154,7 @@
 	desc = "A bizarre gem-encrusted helmet that radiates magical energies."
 	icon_state = "rig0-wiz"
 	item_state = "wiz_helm"
-	item_color = "wiz"
+	color = "wiz"
 	unacidable = 1 //No longer shall our kind be foiled by lone chemists with spray bottles!
 	armor = list(melee = 40, bullet = 20, laser = 20,energy = 20, bomb = 35, bio = 100, rad = 60)
 	siemens_coefficient = 0.7
@@ -177,7 +177,7 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has minor radiation shielding."
 	icon_state = "rig0-medical"
 	item_state = "medical_helm"
-	item_color = "medical"
+	color = "medical"
 
 /obj/item/clothing/suit/space/rig/medical
 	icon_state = "rig-medical"
@@ -193,7 +193,7 @@
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "rig0-sec"
 	item_state = "sec_helm"
-	item_color = "sec"
+	color = "sec"
 	armor = list(melee = 60, bullet = 10, laser = 30, energy = 5, bomb = 45, bio = 100, rad = 10)
 	siemens_coefficient = 0.7
 
@@ -211,7 +211,7 @@
 	name = "mongol hardsuit helmet"
 	icon_state = "rig0_mongol"
 	item_state = "rig0_mongol"
-	item_color = "mongol"
+	color = "mongol"
 
 /obj/item/clothing/suit/space/rig/security/mongol
 	name = "mongol hardsuit"
@@ -229,7 +229,7 @@
 	name = "atmospherics hardsuit helmet"
 	icon_state = "rig0-atmos"
 	item_state = "atmos_helm"
-	item_color = "atmos"
+	color = "atmos"
 	armor = list(melee = 40, bullet = 0, laser = 0, energy = 0, bomb = 25, bio = 100, rad = 0)
 	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE
 

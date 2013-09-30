@@ -350,11 +350,20 @@ Turf and target are seperate in case you want to teleport some distance from a t
 //When an AI is activated, it can choose from a list of non-slaved borgs to have as a slave.
 /proc/freeborg()
 	var/select = null
+	var/list/names = list()
 	var/list/borgs = list()
+	var/list/namecounts = list()
 	for (var/mob/living/silicon/robot/A in player_list)
-		if (A.stat == 2 || A.connected_ai || A.scrambledcodes)
+		var/name = A.real_name
+		if (A.stat == 2)
 			continue
-		var/name = "[A.real_name] ([A.modtype] [A.braintype])"
+		if (A.connected_ai)
+			continue
+		else
+			if(A.module)
+				name += " ([A.module.name])"
+			names.Add(name)
+			namecounts[name] = 1
 		borgs[name] = A
 
 	if (borgs.len)

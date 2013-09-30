@@ -181,6 +181,7 @@
 	if(src.opened)
 		if(istype(W, /obj/item/weapon/grab))
 			src.MouseDrop_T(W:affecting, user)      //act like they were dragged onto the closet
+
 		if(istype(W, /obj/item/weapon/weldingtool))
 			var/obj/item/weapon/weldingtool/WT = W
 			if(!WT.remove_fuel(0,user))
@@ -191,11 +192,15 @@
 				M.show_message("<span class='notice'>\The [src] has been cut apart by [user] with \the [WT].</span>", 3, "You hear welding.", 2)
 			del(src)
 			return
+
 		if(isrobot(user))
 			return
+
 		usr.drop_item()
+
 		if(W)
 			W.loc = src.loc
+
 	else if(istype(W, /obj/item/weapon/packageWrap))
 		return
 	else if(istype(W, /obj/item/weapon/weldingtool))
@@ -253,6 +258,7 @@
 
 /obj/structure/closet/attack_hand(mob/user as mob)
 	src.add_fingerprint(user)
+
 	src.toggle(user)
 
 /obj/structure/closet/verb/verb_toggleopen()

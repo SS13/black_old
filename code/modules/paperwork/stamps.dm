@@ -10,49 +10,49 @@
 	throw_speed = 7
 	throw_range = 15
 	m_amt = 60
-	item_color = "cargo"
+	color = "cargo"
 	pressure_resistance = 2
 	attack_verb = list("stamped")
 
 /obj/item/weapon/stamp/captain
 	name = "captain's rubber stamp"
 	icon_state = "stamp-cap"
-	item_color = "captain"
+	color = "captain"
 
 /obj/item/weapon/stamp/hop
 	name = "head of personnel's rubber stamp"
 	icon_state = "stamp-hop"
-	item_color = "hop"
+	color = "hop"
 
 /obj/item/weapon/stamp/hos
 	name = "head of security's rubber stamp"
 	icon_state = "stamp-hos"
-	item_color = "hosred"
+	color = "hosred"
 
 /obj/item/weapon/stamp/ce
 	name = "chief engineer's rubber stamp"
 	icon_state = "stamp-ce"
-	item_color = "chief"
+	color = "chief"
 
 /obj/item/weapon/stamp/rd
 	name = "research director's rubber stamp"
 	icon_state = "stamp-rd"
-	item_color = "director"
+	color = "director"
 
 /obj/item/weapon/stamp/cmo
 	name = "chief medical officer's rubber stamp"
 	icon_state = "stamp-cmo"
-	item_color = "cmo"
+	color = "cmo"
 
 /obj/item/weapon/stamp/denied
 	name = "\improper DENIED rubber stamp"
 	icon_state = "stamp-deny"
-	item_color = "redcoat"
+	color = "redcoat"
 
 /obj/item/weapon/stamp/clown
 	name = "clown's rubber stamp"
 	icon_state = "stamp-clown"
-	item_color = "clown"
+	color = "clown"
 
 
 /obj/item/weapon/stamp/attack_paw(mob/user as mob)

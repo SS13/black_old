@@ -54,10 +54,10 @@
 	var/const/wire_power1 = 1		// power connections
 	var/const/wire_power2 = 2
 	var/const/wire_mobavoid = 4		// mob avoidance
-	var/const/wire_loadcheck = 8		// load checking (non-crate)
+	var/const/wire_loadcheck = 8	// load checking (non-crate)
 	var/const/wire_motor1 = 16		// motor wires
 	var/const/wire_motor2 = 32		//
-	var/const/wire_remote_rx = 64		// remote recv functions
+	var/const/wire_remote_rx = 64	// remote recv functions
 	var/const/wire_remote_tx = 128	// remote trans status
 	var/const/wire_beacon_rx = 256	// beacon ping recv
 	var/const/wire_beacon_tx = 512	// beacon ping trans

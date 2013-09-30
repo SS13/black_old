@@ -492,11 +492,11 @@
 
 /obj/item/weapon/holo/esword/green
 	New()
-		item_color = "green"
+		color = "green"
 
 /obj/item/weapon/holo/esword/red
 	New()
-		item_color = "red"
+		color = "red"
 
 /obj/item/weapon/holo/esword/IsShield()
 	if(active)
@@ -507,13 +507,13 @@
 	..()
 
 /obj/item/weapon/holo/esword/New()
-	item_color = pick("red","blue","green","purple")
+	color = pick("red","blue","green","purple")
 
 /obj/item/weapon/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
 	if (active)
 		force = 30
-		icon_state = "sword[item_color]"
+		icon_state = "sword[color]"
 		w_class = 4
 		playsound(user, 'sound/weapons/saberon.ogg', 50, 1)
 		user << "\blue [src] is now active."

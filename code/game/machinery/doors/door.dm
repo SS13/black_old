@@ -185,7 +185,7 @@
 	return
 
 
-/obj/machinery/door/proc/do_animate(animation)
+/obj/machinery/door/proc/animate(animation)
 	switch(animation)
 		if("opening")
 			if(p_open)
@@ -208,7 +208,7 @@
 	if(!ticker)			return 0
 	if(!operating)		operating = 1
 
-	do_animate("opening")
+	animate("opening")
 	icon_state = "door0"
 	src.SetOpacity(0)
 	sleep(10)
@@ -236,7 +236,7 @@
 	if(operating > 0)	return
 	operating = 1
 
-	do_animate("closing")
+	animate("closing")
 	src.density = 1
 	explosion_resistance = initial(explosion_resistance)
 	src.layer = 3.1

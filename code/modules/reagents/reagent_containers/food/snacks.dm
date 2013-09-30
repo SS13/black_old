@@ -41,7 +41,7 @@
 		if(M == user)								//If you're eating it yourself.
 
 			if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-				user << "\red [M.wear_mask] prevents you from eating [src]"
+				user << "\red [M.wear_mask] prevents you form eating [src]"
 				return 0
 
 			var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
@@ -60,7 +60,7 @@
 			if(!istype(M, /mob/living/carbon/slime))		//If you're feeding it to someone else.
 
 				if(istype(M.wear_mask, /obj/item/clothing/mask) && !(M.wear_mask.can_eat))
-					user << "\red [M.wear_mask] prevents you from force [M.name] to eat [src]"
+					user << "\red [M.wear_mask] prevents you form force [M.name] to eat [src]"
 					return 0
 
 				var/fullness = M.nutrition + (M.reagents.get_reagent_amount("nutriment") * 25)
@@ -76,7 +76,8 @@
 
 				M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been fed [src.name] by [user.name] ([user.ckey]) Reagents: [reagentlist(src)]</font>")
 				user.attack_log += text("\[[time_stamp()]\] <font color='red'>Fed [src.name] by [M.name] ([M.ckey]) Reagents: [reagentlist(src)]</font>")
-				log_attack("[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] Reagents: [reagentlist(src)] (INTENT: [uppertext(user.a_intent)])")
+
+				log_attack("<font color='red'>[user.name] ([user.ckey]) fed [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])</font>")
 
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message("\red [user] feeds [M] [src].", 1)
@@ -470,41 +471,41 @@
 
 			usr << "\blue You color \the [src] [clr]"
 			icon_state = "egg-[clr]"
-			item_color = clr
+			color = clr
 		else
 			..()
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/blue
 	icon_state = "egg-blue"
-	item_color = "blue"
+	color = "blue"
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/green
 	icon_state = "egg-green"
-	item_color = "green"
+	color = "green"
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/mime
 	icon_state = "egg-mime"
-	item_color = "mime"
+	color = "mime"
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/orange
 	icon_state = "egg-orange"
-	item_color = "orange"
+	color = "orange"
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/purple
 	icon_state = "egg-purple"
-	item_color = "purple"
+	color = "purple"
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/rainbow
 	icon_state = "egg-rainbow"
-	item_color = "rainbow"
+	color = "rainbow"
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/red
 	icon_state = "egg-red"
-	item_color = "red"
+	color = "red"
 
 /obj/item/weapon/reagent_containers/food/snacks/egg/yellow
 	icon_state = "egg-yellow"
-	item_color = "yellow"
+	color = "yellow"
 
 /obj/item/weapon/reagent_containers/food/snacks/friedegg
 	name = "Fried egg"

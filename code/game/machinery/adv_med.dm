@@ -1,6 +1,5 @@
 // Pretty much everything here is stolen from the dna scanner FYI
 
-
 /obj/machinery/bodyscanner
 	var/mob/living/carbon/occupant
 	var/locked

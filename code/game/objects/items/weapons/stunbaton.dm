@@ -117,6 +117,7 @@
 				H.attack_log += "\[[time_stamp()]\]<font color='orange'> Stunned by thrown [src.name] last touched by ([src.fingerprintslast])</font>"
 				log_attack("Flying [src.name], last touched by ([src.fingerprintslast]) stunned [H.name] ([H.ckey])" )
 
+
 /obj/item/weapon/melee/baton/emp_act(severity)
 	switch(severity)
 		if(1)

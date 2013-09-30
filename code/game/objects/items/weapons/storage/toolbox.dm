@@ -2,7 +2,7 @@
 	name = "toolbox"
 	desc = "Danger. Very robust."
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "red"
+	icon_state = "blue"
 	item_state = "toolbox_red"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	force = 5.0

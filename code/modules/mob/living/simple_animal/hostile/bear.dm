@@ -144,27 +144,10 @@
 		M.attack_animal(src)
 		return M
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// I really need it.
+/mob/living/simple_animal/hostile/bear/zombie
+	name = "Animated corpse"
+	desc = "RawrRawr!!"
+	icon_state = "husk_s"
+	icon_living = "husk_s"
+	icon_dead = "husk_l"

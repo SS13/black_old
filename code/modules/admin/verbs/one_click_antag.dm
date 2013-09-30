@@ -461,7 +461,7 @@ client/proc/one_click_antag()
 			candidates.Remove(G)
 
 	if(candidates.len)
-		var/max_raiders = 1
+		var/max_raiders = 4
 		var/raiders = max_raiders
 		//Spawns vox raiders and equips them.
 		for (var/obj/effect/landmark/L in world)
@@ -517,7 +517,6 @@ client/proc/one_click_antag()
 	new_vox.mind_initialize()
 	new_vox.mind.assigned_role = "MODE"
 	new_vox.mind.special_role = "Vox Raider"
-	new_vox.mutations |= NOCLONE //Stops the station crew from messing around with their DNA.
 
 	ticker.mode.traitors += new_vox.mind
 	new_vox.equip_vox_raider()

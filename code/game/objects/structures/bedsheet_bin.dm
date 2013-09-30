@@ -16,7 +16,7 @@ LINEN BINS
 	throw_speed = 1
 	throw_range = 2
 	w_class = 1.0
-	item_color = "white"
+	color = "white"
 	body_parts_covered = HEAD
 	slot_flags = SLOT_HEAD
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
@@ -32,70 +32,69 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-
 /obj/item/weapon/bedsheet/blue
 	icon_state = "sheetblue"
-	item_color = "blue"
+	color = "blue"
 
 /obj/item/weapon/bedsheet/green
 	icon_state = "sheetgreen"
-	item_color = "green"
+	color = "green"
 
 /obj/item/weapon/bedsheet/orange
 	icon_state = "sheetorange"
-	item_color = "orange"
+	color = "orange"
 
 /obj/item/weapon/bedsheet/purple
 	icon_state = "sheetpurple"
-	item_color = "purple"
+	color = "purple"
 
 /obj/item/weapon/bedsheet/rainbow
 	icon_state = "sheetrainbow"
-	item_color = "rainbow"
+	color = "rainbow"
 
 /obj/item/weapon/bedsheet/red
 	icon_state = "sheetred"
-	item_color = "red"
+	color = "red"
 
 /obj/item/weapon/bedsheet/yellow
 	icon_state = "sheetyellow"
-	item_color = "yellow"
+	color = "yellow"
 
 /obj/item/weapon/bedsheet/mime
 	icon_state = "sheetmime"
-	item_color = "mime"
+	color = "mime"
 
 /obj/item/weapon/bedsheet/clown
 	icon_state = "sheetclown"
-	item_color = "clown"
+	color = "clown"
 
 /obj/item/weapon/bedsheet/captain
 	icon_state = "sheetcaptain"
-	item_color = "captain"
+	color = "captain"
 
 /obj/item/weapon/bedsheet/rd
 	icon_state = "sheetrd"
-	item_color = "director"
+	color = "director"
 
 /obj/item/weapon/bedsheet/medical
 	icon_state = "sheetmedical"
-	item_color = "medical"
+	color = "medical"
 
 /obj/item/weapon/bedsheet/hos
 	icon_state = "sheethos"
-	item_color = "hosred"
+	color = "hosred"
 
 /obj/item/weapon/bedsheet/hop
 	icon_state = "sheethop"
-	item_color = "hop"
+	color = "hop"
 
 /obj/item/weapon/bedsheet/ce
 	icon_state = "sheetce"
-	item_color = "chief"
+	color = "chief"
 
 /obj/item/weapon/bedsheet/brown
 	icon_state = "sheetbrown"
-	item_color = "brown"
+	color = "brown"
 
 
 
