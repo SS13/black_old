@@ -95,7 +95,6 @@
 	origin_tech = "combat=2;materials=2;syndicate=2"
 	ammo_type = "/obj/item/ammo_casing/c9mm"
 	load_method = 2
-	var/notastechtkin = 0
 
 /obj/item/weapon/gun/projectile/pistol/New()
 	..()
@@ -140,13 +139,10 @@
 
 /obj/item/weapon/gun/projectile/pistol/update_icon(obj/item/I as obj)
 	..()
-	if(silenced && !notastechtkin)
-		icon_state = "pistol-silencer"
+	if(silenced)
+		icon_state = "pistol-silenced"
 	else
-		if(!notastechtkin)
-			icon_state = "pistol"
-		else
-			icon_state = "Beretta"
+		icon_state = "pistol"
 
 /obj/item/weapon/gun/projectile/pistol/beretta
 	name = "\improper Beretta"
@@ -156,13 +152,16 @@
 	caliber = "Beretta"
 	origin_tech = "combat=3;materials=2;syndicate=1"
 	ammo_type = "/obj/item/ammo_casing/beretta"
-	notastechtkin = 1
 
 	New()
 		..()
 		empty_mag = new /obj/item/ammo_magazine/beretta/empty(src)
-		update_icon()
 		return
+
+/obj/item/weapon/gun/projectile/pistol/beretta/update_icon(obj/item/I as obj)
+	..()
+	icon_state = "Beretta"
+
 
 /obj/item/weapon/gun/projectile/SW
 	name = "\improper Smith & Wesson"
