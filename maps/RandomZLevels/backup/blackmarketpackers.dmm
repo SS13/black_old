@@ -212,7 +212,7 @@
 "ed" = (/obj/structure/shuttle/engine/heater{tag = "icon-heater (EAST)"; icon_state = "heater"; dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/airless{tag = "icon-engine"; icon_state = "engine"},/area/awaymission/BMPship1)
 "ee" = (/obj/structure/shuttle/engine/propulsion{tag = "icon-propulsion (WEST)"; icon_state = "propulsion"; dir = 8},/turf/space,/area/awaymission/BMPship1)
 "ef" = (/turf/simulated/floor{tag = "icon-carpet15-15 (EAST)"; icon_state = "carpet15-15"; dir = 4},/area/awaymission/BMPship3)
-"eg" = (/obj/structure/table,/obj/machinery/light,/turf/simulated/floor{tag = "icon-carpet5-0 (EAST)"; icon_state = "carpet5-0"; dir = 4},/area/awaymission/BMPship3)
+"eg" = (/obj/structure/table,/obj/machinery/cartridge_charger,/turf/simulated/floor{tag = "icon-carpet5-0 (EAST)"; icon_state = "carpet5-0"; dir = 4},/area/awaymission/BMPship3)
 "eh" = (/obj/structure/stool,/turf/simulated/floor{tag = "icon-carpet13-1 (EAST)"; icon_state = "carpet13-1"; dir = 4},/area/awaymission/BMPship3)
 "ei" = (/turf/simulated/floor{tag = "icon-carpet13-4 (EAST)"; icon_state = "carpet13-4"; dir = 4},/area/awaymission/BMPship3)
 "ej" = (/turf/simulated/floor{tag = "icon-carpet9-0 (EAST)"; icon_state = "carpet9-0"; dir = 4},/area/awaymission/BMPship3)

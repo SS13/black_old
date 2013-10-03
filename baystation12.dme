@@ -1178,6 +1178,7 @@
 #include "code\modules\research\research.dm"
 #include "code\modules\research\research_shuttle.dm"
 #include "code\modules\research\server.dm"
+#include "code\modules\research\viro_shuttle.dm"
 #include "code\modules\research\xenoarchaeology\areas.dm"
 #include "code\modules\research\xenoarchaeology\chemistry.dm"
 #include "code\modules\research\xenoarchaeology\geosample.dm"
@@ -1354,7 +1355,8 @@
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
 #include "maps\tgstation2.dmm"
-#include "maps\backup\portalmap1.dmm"
+#include "maps\backup\odstfix_19.09.13.dmm"
 #include "maps\RandomZLevels\stationCollision.dm"
+#include "maps\RandomZLevels\abacus.dmm"
 #include "maps\RandomZLevels\stationCollision.dmm"
 // END_INCLUDE

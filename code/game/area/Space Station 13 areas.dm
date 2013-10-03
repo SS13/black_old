@@ -309,6 +309,16 @@ proc/process_ghost_teleport_locs()
 /area/shuttle/research/outpost
 	icon_state = "shuttle"
 
+/area/shuttle/viro
+	name = "\improper Research Shuttle"
+	music = "music/escape.ogg"
+
+/area/shuttle/viro/station
+	icon_state = "shuttle2"
+
+/area/shuttle/viro/outpost
+	icon_state = "shuttle"
+
 /area/shuttle/vox/station
 	name = "\improper Vox Skipjack"
 	icon_state = "yellow"
