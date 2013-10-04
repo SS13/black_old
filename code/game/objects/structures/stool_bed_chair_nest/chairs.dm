@@ -4,7 +4,7 @@
 	icon_state = "chair"
 
 /obj/structure/stool/bed/chair/evac
-	name = "comfy chair"
+	name = "shuttle chair"
 	icon_state = "schair"
 
 /obj/structure/stool/MouseDrop(atom/over_object)
