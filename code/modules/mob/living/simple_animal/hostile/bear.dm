@@ -147,7 +147,18 @@
 // I really need it.
 /mob/living/simple_animal/hostile/bear/zombie
 	name = "Animated corpse"
-	desc = "RawrRawr!!"
+	desc = "A grotesque, shambling fleshy horror... was this once a... a person?"
 	icon_state = "husk_s"
 	icon_living = "husk_s"
 	icon_dead = "husk_l"
+	maxHealth = 150
+	health = 150
+	melee_damage_lower = 30
+	melee_damage_upper = 45
+
+/mob/living/simple_animal/hostile/bear/zombie/Life()
+
+	if(loc && istype(loc,/turf/space))
+		icon_state = "husk_s"
+	else
+		icon_state = "husk_s"
