@@ -71,3 +71,8 @@
 	item_state = "ggloves"
 	permeability_coefficient = 0.9
 	siemens_coefficient = 0.9
+
+/obj/item/clothing/gloves/fingerless_gloves
+	name = "fingerless gloves"
+	icon_state = "fingerless_black"
+	item_state = "fingerless_black"

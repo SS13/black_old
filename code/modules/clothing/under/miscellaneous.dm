@@ -385,3 +385,9 @@
 	item_state = "mikururabbit"
 	color = "mikururabbit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/PMC_suit
+	name = "PMC suit"
+	icon_state = "PMC_suit"
+	item_state = "blackskirt"
+	color = "PMC_suit"

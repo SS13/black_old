@@ -1356,6 +1356,5 @@
 #include "interface\skin.dmf"
 #include "maps\tgstation2.dmm"
 #include "maps\RandomZLevels\example.dmm"
-#include "maps\RandomZLevels\listeningpost.dmm"
 #include "maps\RandomZLevels\zresearchlabs.dmm"
 // END_INCLUDE

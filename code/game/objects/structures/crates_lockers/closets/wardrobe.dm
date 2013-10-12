@@ -67,6 +67,7 @@
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
+	new /obj/item/clothing/under/PMC_suit(src)
 	return
 
 
@@ -242,6 +243,10 @@
 /obj/structure/closet/wardrobe/robotics_black/New()
 	new /obj/item/clothing/under/rank/roboticist(src)
 	new /obj/item/clothing/under/rank/roboticist(src)
+	new /obj/item/clothing/under/rank/roboticist_sr2(src)
+	new /obj/item/clothing/under/rank/roboticist_sr2(src)
+	new /obj/item/clothing/under/rank/roboticist_sr3(src)
+	new /obj/item/clothing/under/rank/roboticist_sr3(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/suit/storage/labcoat(src)
 	new /obj/item/clothing/shoes/black(src)
