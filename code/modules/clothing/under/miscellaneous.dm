@@ -390,4 +390,4 @@
 	name = "PMC suit"
 	icon_state = "PMC_suit"
 	item_state = "blackskirt"
-	color = "PMC_suit"
+	color = "PMCsuit"
