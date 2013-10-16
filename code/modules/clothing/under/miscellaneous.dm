@@ -388,6 +388,6 @@
 
 /obj/item/clothing/under/PMC_suit
 	name = "PMC suit"
-	icon_state = "PMC_suit"
+	icon_state = "PMCsuit"
 	item_state = "blackskirt"
 	color = "PMCsuit"
