@@ -181,7 +181,8 @@
 		if(target_temperature < T0C + MIN_TEMPERATURE)
 			target_temperature = T0C + MIN_TEMPERATURE
 
-		var/datum/gas_mixture/gas = location.remove_air(0.25*environment.total_moles)
+		var/datum/gas_mixture/gas
+		gas = location.remove_air(0.25*environment.total_moles)
 		var/heat_capacity = gas.heat_capacity()
 		var/energy_used = max( abs( heat_capacity*(gas.temperature - target_temperature) ), MAX_ENERGY_CHANGE)
 
@@ -1252,7 +1253,7 @@ FIRE ALARM
 */
 /obj/machinery/firealarm
 	name = "fire alarm"
-	desc = "<i>\"Pull this in case of emergency\"<i>. Thus, keep pulling it forever."
+	desc = "<i>\"Pull this in case of emergency\"</i>. Thus, keep pulling it forever."
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "fire0"
 	var/detecting = 1.0

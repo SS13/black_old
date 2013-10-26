@@ -31,7 +31,7 @@
 #define HAZARD_HIGH_PRESSURE	550	//This determins at what pressure the ultra-high pressure red icon is displayed. (This one is set as a constant)
 #define WARNING_HIGH_PRESSURE	325	//This determins when the orange pressure icon is displayed (it is 0.7 * HAZARD_HIGH_PRESSURE)
 #define WARNING_LOW_PRESSURE	50	//This is when the gray low pressure icon is displayed. (it is 2.5 * HAZARD_LOW_PRESSURE)
-#define HAZARD_LOW_PRESSURE		20	//This is when the black ultra-low pressure icon is displayed. (This one is set as a constant)
+#define HAZARD_LOW_PRESSURE	20	//This is when the black ultra-low pressure icon is displayed. (This one is set as a constant)
 
 #define TEMPERATURE_DAMAGE_COEFFICIENT 1.5	//This is used in handle_temperature_damage() for humans, and in reagents that affect body temperature. Temperature damage is multiplied by this amount.
 #define BODYTEMP_AUTORECOVERY_DIVISOR 12 //This is the divisor which handles how much of the temperature difference between the current body temperature and 310.15K (optimal temperature) humans auto-regenerate each tick. The higher the number, the slower the recovery. This is applied each tick, so long as the mob is alive.
@@ -71,10 +71,10 @@
 #define DOOR_CRUSH_DAMAGE 10
 
 // Factor of how fast mob nutrition decreases
-#define	HUNGER_FACTOR 0.05
+#define HUNGER_FACTOR 0.05
 
 // How many units of reagent are consumed per tick, by default.
-#define  REAGENTS_METABOLISM 0.2
+#define REAGENTS_METABOLISM 0.2
 
 // By defining the effect multiplier this way, it'll exactly adjust
 // all effects according to how they originally were with the 0.4 metabolism
@@ -107,6 +107,7 @@
 	//Must be between 0 and 1. Values closer to 1 equalize temperature faster
 	//Should not exceed 0.4 else strange heat flow occur
 
+/*
 #define FIRE_MINIMUM_TEMPERATURE_TO_SPREAD	150+T0C
 #define FIRE_MINIMUM_TEMPERATURE_TO_EXIST	100+T0C
 #define FIRE_SPREAD_RADIOSITY_SCALE		0.85
@@ -114,7 +115,7 @@
 #define FIRE_PLASMA_ENERGY_RELEASED	 3000000 //Amount of heat released per mole of burnt plasma into the tile
 #define FIRE_GROWTH_RATE			40000 //For small fires
 
-//#define WATER_BOIL_TEMP 393
+#define WATER_BOIL_TEMP 393 */
 
 // Fire Damage
 #define CARBON_LIFEFORM_FIRE_RESISTANCE 200+T0C
@@ -132,7 +133,8 @@
 #define T20C 293.15					// 20degC
 #define TCMB 2.7					// -270.3degC
 
-var/turf/space/Space_Tile = locate(/turf/space) // A space tile to reference when atmos wants to remove excess heat.
+//Used to be used by FEA
+//var/turf/space/Space_Tile = locate(/turf/space) // A space tile to reference when atmos wants to remove excess heat.
 
 #define TANK_LEAK_PRESSURE		(30.*ONE_ATMOSPHERE)	// Tank starts leaking
 #define TANK_RUPTURE_PRESSURE	(40.*ONE_ATMOSPHERE) // Tank spills all contents into atmosphere
@@ -160,18 +162,19 @@ var/MAX_EXPLOSION_RANGE = 14
 //ITEM INVENTORY SLOT BITMASKS
 #define SLOT_OCLOTHING	1
 #define SLOT_ICLOTHING	2
-#define SLOT_GLOVES		4
-#define SLOT_EYES		8
-#define SLOT_EARS		16
-#define SLOT_MASK		32
-#define SLOT_HEAD		64
-#define SLOT_FEET		128
-#define SLOT_ID			256
-#define SLOT_BELT		512
-#define SLOT_BACK		1024
-#define SLOT_POCKET		2048		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
+#define SLOT_GLOVES	4
+#define SLOT_EYES	8
+#define SLOT_EARS	16
+#define SLOT_MASK	32
+#define SLOT_HEAD	64
+#define SLOT_FEET	128
+#define SLOT_ID		256
+#define SLOT_BELT	512
+#define SLOT_BACK	1024
+#define SLOT_POCKET	2048		//this is to allow items with a w_class of 3 or 4 to fit in pockets.
 #define SLOT_DENYPOCKET	4096	//this is to deny items with a w_class of 2 or 1 to fit in pockets.
-
+#define SLOT_TWOEARS 	8192
+#define SLOT_LEGS = 	16384
 
 //FLAGS BITMASK
 #define STOPSPRESSUREDMAGE 1	//This flag is used on the flags variable for SUIT and HEAD items which stop pressure damage. Note that the flag 1 was previous used as ONBACK, so it is possible for some code to use (flags & 1) when checking if something can be put on your back. Replace this code with (inv_flags & SLOT_BACK) if you see it anywhere
@@ -187,6 +190,7 @@ var/MAX_EXPLOSION_RANGE = 14
 #define CONDUCT		64		// conducts electricity (metal etc.)
 #define FPRINT		256		// takes a fingerprint
 #define ON_BORDER	512		// item has priority to check when entering or leaving
+#define NOBLOODY	2048	// used to items if they don't want to get a blood overlay
 
 #define GLASSESCOVERSEYES	1024
 #define MASKCOVERSEYES		1024		// get rid of some of the other retardation in these flags
@@ -228,25 +232,27 @@ var/MAX_EXPLOSION_RANGE = 14
 #define HIDEFACE	8	//APPLIES ONLY TO HELMETS/MASKS!! Dictates whether we appear as unknown.
 
 //slots
-#define slot_back			1
-#define slot_wear_mask		2
-#define slot_handcuffed		3
-#define slot_l_hand			4
-#define slot_r_hand			5
-#define slot_belt			6
-#define slot_wear_id		7
-#define slot_ears			8
-#define slot_glasses		9
-#define slot_gloves			10
-#define slot_head			11
-#define slot_shoes			12
-#define slot_wear_suit		13
-#define slot_w_uniform		14
-#define slot_l_store		15
-#define slot_r_store		16
-#define slot_s_store		17
-#define slot_in_backpack	18
-#define slot_legcuffed		19
+#define slot_back 1
+#define slot_wear_mask 2
+#define slot_handcuffed 3
+#define slot_l_hand 4
+#define slot_r_hand 5
+#define slot_belt 6
+#define slot_wear_id 7
+#define slot_l_ear 8
+#define slot_glasses 9
+#define slot_gloves 10
+#define slot_head 11
+#define slot_shoes 12
+#define slot_wear_suit 13
+#define slot_w_uniform 14
+#define slot_l_store 15
+#define slot_r_store 16
+#define slot_s_store 17
+#define slot_in_backpack 18
+#define slot_legcuffed 19
+#define slot_r_ear 20
+#define slot_legs 21
 
 //Cant seem to find a mob bitflags area other than the powers one
 
@@ -580,10 +586,10 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define ORGAN_BLEEDING		8
 #define ORGAN_BROKEN		32
 #define ORGAN_DESTROYED		64
-#define ORGAN_ROBOT			128
+#define ORGAN_ROBOT		128
 #define ORGAN_SPLINTED		256
-#define SALVED				512
-#define ORGAN_DEAD			1024
+#define SALVED			512
+#define ORGAN_DEAD		1024
 #define ORGAN_MUTATED		2048
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME 6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
@@ -608,7 +614,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define R_EVENTS		8192
 #define R_MOD			16384
 
-#define R_MAXPERMISSION 	65536 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
+#define R_MAXPERMISSION 	16384 //This holds the maximum value for a permission. It is used in iteration, so keep it updated.
 
 #define R_HOST			65535
 
@@ -626,6 +632,7 @@ var/list/TAGGERLOCATIONS = list("Disposals",
 #define CHAT_ATTACKLOGS	1024
 #define CHAT_DEBUGLOGS	2048
 #define CHAT_LOOC		4096
+
 
 #define TOGGLES_DEFAULT (SOUND_ADMINHELP|SOUND_MIDI|SOUND_AMBIENCE|SOUND_LOBBY|CHAT_OOC|CHAT_DEAD|CHAT_GHOSTEARS|CHAT_GHOSTSIGHT|CHAT_PRAYER|CHAT_RADIO|CHAT_ATTACKLOGS|CHAT_LOOC)
 
@@ -662,7 +669,7 @@ var/list/be_special_flags = list(
 	)
 
 #define AGE_MIN 17			//youngest a character can be
-#define AGE_MAX 130			//oldest a character can be
+#define AGE_MAX 85			//oldest a character can be
 
 //Languages!
 #define LANGUAGE_HUMAN		1
@@ -725,3 +732,7 @@ var/list/RESTRICTED_CAMERA_NETWORKS = list( //Those networks can only be accesse
 //Language flags.
 #define WHITELISTED 1  // Language is available if the speaker is whitelisted.
 #define RESTRICTED 2   // Language can only be accquired by spawning or an admin.
+
+//Flags for zone sleeping
+#define ZONE_ACTIVE 1
+#define ZONE_SLEEPING 0

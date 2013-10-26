@@ -106,6 +106,7 @@
 		new /obj/item/clothing/head/helmet/HoS(src)
 		new /obj/item/clothing/suit/armor/vest(src)
 		new /obj/item/clothing/under/rank/head_of_security/jensen(src)
+		new /obj/item/clothing/under/rank/head_of_security/corp(src)
 		new /obj/item/clothing/suit/armor/hos/jensen(src)
 		new /obj/item/clothing/suit/armor/hos(src)
 		new /obj/item/clothing/head/helmet/HoS/dermal(src)
@@ -146,6 +147,7 @@
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
 		new /obj/item/clothing/suit/armor/vest/security(src)
 		new /obj/item/clothing/under/rank/warden(src)
+		new /obj/item/clothing/under/rank/warden/corp(src)
 		new /obj/item/clothing/suit/armor/vest/warden(src)
 		new /obj/item/clothing/head/helmet/warden(src)
 //		new /obj/item/weapon/cartridge/security(src)
@@ -193,6 +195,8 @@
 		new /obj/item/taperoll/police(src)
 		new /obj/item/device/hailer(src)
 		new /obj/item/clothing/tie/storage/black_vest(src)
+		new /obj/item/clothing/head/soft/sec/corp(src)
+		new /obj/item/clothing/under/rank/security/corp(src)
 		return
 
 
@@ -244,12 +248,10 @@
 		sleep(2)
 		new /obj/item/clothing/under/det(src)
 		new /obj/item/clothing/suit/storage/det_suit(src)
-		new /obj/item/clothing/suit/storage/det_suit_black(src)
 		new /obj/item/clothing/suit/storage/forensics/blue(src)
 		new /obj/item/clothing/suit/storage/forensics/red(src)
 		new /obj/item/clothing/gloves/black(src)
 		new /obj/item/clothing/head/det_hat(src)
-		new /obj/item/clothing/head/det_hat_black(src)
 		new /obj/item/clothing/shoes/brown(src)
 		new /obj/item/weapon/storage/box/evidence(src)
 		new /obj/item/device/radio/headset/headset_sec(src)

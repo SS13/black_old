@@ -76,7 +76,6 @@ var/list/admin_verbs_ban = list(
 	/client/proc/unban_panel,
 	/client/proc/jobbans,
 	/client/proc/unjobban_panel,
-	/client/proc/late_ban
 	// /client/proc/DB_ban_panel
 	)
 var/list/admin_verbs_sounds = list(
@@ -236,7 +235,8 @@ var/list/admin_verbs_mod = list(
 	/client/proc/cmd_mod_say,
 	/datum/admins/proc/show_player_info,
 	/client/proc/player_panel_new,
-	/datum/admins/proc/show_skills
+	/datum/admins/proc/show_skills,
+	/client/proc/dsay
 )
 /client/proc/add_admin_verbs()
 	if(holder)
@@ -317,7 +317,7 @@ var/list/admin_verbs_events = list(
 			AddBan(ban_key, ban_comp_id, reason, usr.ckey, 1, mins)
 			ban_unban_log_save("[usr.client.ckey] has banned [ban_key] (not in game). - Reason: [reason] - This will be removed in [mins] minutes.")
 			feedback_inc("ban_tmp",1)
-//			DB_ban_record(BANTYPE_TEMP, ban_key, mins, reason)
+//			DB_ban_record(BANTYPE_TEMP, 0, mins, reason, banckey = ban_key)
 			feedback_inc("ban_tmp_mins",mins)
 			log_admin("[usr.client.ckey] has banned [ban_key] (not in game).\nReason: [reason]\nThis will be removed in [mins] minutes.")
 			message_admins("\blue[usr.client.ckey] has banned [ban_key] (not in game).\nReason: [reason]\nThis will be removed in [mins] minutes.")
@@ -338,7 +338,7 @@ var/list/admin_verbs_events = list(
 			log_admin("[usr.client.ckey] has banned [ban_key] (not in game).\nReason: [reason]\nThis is a permanent ban.")
 			message_admins("\blue[usr.client.ckey] has banned [ban_key] (not in game).\nReason: [reason]\nThis is a permanent ban.")
 			feedback_inc("ban_perma",1)
-//			DB_ban_record(BANTYPE_PERMA, ban_key, -1, reason)
+//			DB_ban_record(BANTYPE_PERMA, ban_key, -1, reason, banckey = ban_key)
 		if("Cancel")
 			return
 
@@ -660,11 +660,11 @@ var/list/admin_verbs_events = list(
 	set category = "Debug"
 	set name = "Kill Air"
 	set desc = "Toggle Air Processing"
-	if(kill_air)
-		kill_air = 0
+	if(air_processing_killed)
+		air_processing_killed = 0
 		usr << "<b>Enabled air processing.</b>"
 	else
-		kill_air = 1
+		air_processing_killed = 1
 		usr << "<b>Disabled air processing.</b>"
 	feedback_add_details("admin_verb","KA") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 	log_admin("[key_name(usr)] used 'kill air'.")

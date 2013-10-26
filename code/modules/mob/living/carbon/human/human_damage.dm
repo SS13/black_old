@@ -174,6 +174,21 @@
 
 ////////////////////////////////////////////
 
+/*
+This function restores the subjects blood to max.
+*/
+/mob/living/carbon/human/proc/restore_blood()
+	var/blood_volume = vessel.get_reagent_amount("blood")
+	vessel.add_reagent("blood",560.0-blood_volume)
+	
+
+/*
+This function restores all organs.
+*/
+/mob/living/carbon/human/restore_all_organs()
+	for(var/datum/organ/external/current_organ in organs)
+		current_organ.rejuvenate()
+
 /mob/living/carbon/human/proc/HealDamage(zone, brute, burn)
 	var/datum/organ/external/E = get_organ(zone)
 	if(istype(E, /datum/organ/external))
@@ -190,7 +205,7 @@
 		zone = "head"
 	return organs_by_name[zone]
 
-/mob/living/carbon/human/apply_damage(var/damage = 0,var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/obj/used_weapon = null, mob/living/user as mob)
+/mob/living/carbon/human/apply_damage(var/damage = 0,var/damagetype = BRUTE, var/def_zone = null, var/blocked = 0, var/sharp = 0, var/obj/used_weapon = null)
 
 	//visible_message("Hit debug. [damage] | [damagetype] | [def_zone] | [blocked] | [sharp] | [used_weapon]")
 	if((damagetype != BRUTE) && (damagetype != BURN))

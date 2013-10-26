@@ -462,7 +462,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!holder)
 		src << "Only administrators may use this command."
 		return
-	var/input = input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null
+	var/input = sanitize_uni(input(usr, "Please enter anything you want. Anything. Serious.", "What?", "") as message|null)
 	var/customname = input(usr, "Pick a title for the report.", "Title") as text|null
 	if(!input)
 		return
@@ -599,7 +599,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("[key_name(usr)] used gibself.")
 		message_admins("\blue [key_name_admin(usr)] used gibself.", 1)
 		feedback_add_details("admin_verb","GIBS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
 /*
 /client/proc/cmd_manual_ban()
 	set name = "Manual Ban"

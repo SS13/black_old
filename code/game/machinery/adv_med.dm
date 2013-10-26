@@ -1,5 +1,6 @@
 // Pretty much everything here is stolen from the dna scanner FYI
 
+
 /obj/machinery/bodyscanner
 	var/mob/living/carbon/occupant
 	var/locked
@@ -163,6 +164,7 @@
 
 /obj/machinery/body_scanconsole
 	var/obj/machinery/bodyscanner/connected
+	var/known_implants = list(/obj/item/weapon/implant/chem, /obj/item/weapon/implant/death_alarm, /obj/item/weapon/implant/loyalty, /obj/item/weapon/implant/tracking)
 	var/delete
 	var/temphtml
 	name = "Body Scanner Console"
@@ -295,8 +297,14 @@
 							AN = "[e.broken_description]:"
 						if(e.open)
 							open = "Open:"
-						if(e.implants.len)
-							imp = "Unknown body present:"
+						var/unknown_body = 0
+						for(var/I in e.implants)
+							if(is_type_in_list(I,known_implants))
+								imp += "[I] implanted:"
+							else
+								unknown_body++
+						if(unknown_body)
+							imp += "Unknown body present:"
 						if(!AN && !open && !infected & !imp)
 							AN = "None:"
 						if(!(e.status & ORGAN_DESTROYED))

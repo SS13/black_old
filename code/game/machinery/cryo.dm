@@ -13,8 +13,6 @@
 
 	var/current_heat_capacity = 50
 
-
-
 /obj/machinery/atmospherics/unary/cryo_cell/New()
 	..()
 	initialize_directions = dir

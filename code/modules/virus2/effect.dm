@@ -140,6 +140,7 @@
 			if (!(E.status & ORGAN_DEAD))
 				E.status |= ORGAN_DEAD
 				H << "<span class='notice'>You can't feel your [E.display_name] anymore...</span>"
+			H.update_body(1)
 		mob.adjustToxLoss(15*multiplier)
 
 	deactivate(var/mob/living/carbon/mob,var/multiplier)
@@ -147,6 +148,7 @@
 			var/mob/living/carbon/human/H = mob
 			for (var/datum/organ/external/E in H.organs)
 				E.status &= ~ORGAN_DEAD
+			H.update_body(1)
 
 /datum/disease2/effect/immortal
 	name = "Longevity Syndrome"
@@ -311,7 +313,7 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			if(!(H.h_style == "Bald") && !(H.h_style == "Balding Hair"))
+			if(H.species.name == "Human" && !(H.h_style == "Bald") && !(H.h_style == "Balding Hair"))
 				H << "<span class='danger'>Your hair starts to fall out in clumps...</span>"
 				spawn(50)
 					H.h_style = "Balding Hair"

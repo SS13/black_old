@@ -37,6 +37,7 @@
 			user << "<span class='warning'>You prime \the [name]!</span>"
 
 			msg_admin_attack("[user.name] ([user.ckey]) primed \a [src]. (<A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[user.x];Y=[user.y];Z=[user.z]'>JMP</a>)")
+
 			activate()
 			add_fingerprint(user)
 			if(iscarbon(user))
@@ -244,7 +245,7 @@
 		icon_state = "grenade"
 
 /obj/item/weapon/grenade/chem_grenade/cleaner
-	name = "Cleaner Grenade"
+	name = "cleaner grenade"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = 2
 	path = 1

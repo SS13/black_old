@@ -117,16 +117,23 @@ datum/controller/vote
 		var/text
 		if(winners.len > 0)
 			if(winners.len > 1)
-				text = "<b>Vote Tied Between:</b>\n"
-				for(var/option in winners)
-					text += "\t[option]\n"
+				if(mode != "gamemode" || ticker.hide_mode == 0) // Here we are making sure we don't announce potential game modes
+					text = "<b>Vote Tied Between:</b>\n"
+					for(var/option in winners)
+						text += "\t[option]\n"
 			. = pick(winners)
 
 			for(var/key in current_votes)
 				if(choices[current_votes[key]] == .)
 					round_voters += key // Keep track of who voted for the winning round.
+			if((mode == "gamemode" && . == "extended") || ticker.hide_mode == 0) // Announce Extended gamemode, but not other gamemodes
+				text += "<b>Vote Result: [.]</b>"
+			else
+				if(mode != "gamemode")
+					text += "<b>Vote Result: [.]</b>"
+				else
+					text += "<b>The vote has ended.</b>" // What will be shown if it is a gamemode vote that isn't extended
 
-			text += "<b>Vote Result: [.]</b>"
 		else
 			text += "<b>Vote Result: Inconclusive - No Votes!</b>"
 		log_vote(text)
@@ -195,10 +202,16 @@ datum/controller/vote
 						return 0
 					choices.Add(config.votable_modes)
 				if("crew_transfer")
-					if(ticker.current_state <= 2)
-						return 0
-					question = "End the shift?"
-					choices.Add("Initiate Crew Transfer", "Continue The Round")
+					if(check_rights(R_ADMIN) || check_rights(R_MOD))
+						question = "End the shift?"
+						choices.Add("Initiate Crew Transfer", "Continue The Round")
+					else
+						if (get_security_level() == "red" || get_security_level() == "delta")
+							return 0
+						if(ticker.current_state <= 2)
+							return 0
+						question = "End the shift?"
+						choices.Add("Initiate Crew Transfer", "Continue The Round")
 				if("custom")
 					question = html_encode(input(usr,"What is the vote for?") as text|null)
 					if(!question)	return 0

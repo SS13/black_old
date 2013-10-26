@@ -157,11 +157,6 @@
 		..()
 		empty_mag = new /obj/item/ammo_magazine/beretta/empty(src)
 		return
-/*
-/obj/item/weapon/gun/projectile/pistol/beretta/update_icon(obj/item/I as obj)
-	..()
-	icon_state = "Beretta"
-*/
 
 /obj/item/weapon/gun/projectile/SW
 	name = "\improper Smith & Wesson"
@@ -186,6 +181,9 @@
 			empty_mag = null
 			update_icon()
 		return
+	/obj/item/weapon/gun/projectile/pistol/beretta/update_icon(obj/item/I as obj) 
+		..()
+		icon_state = "Beretta"
 
 /obj/item/weapon/silencer
 	name = "silencer"

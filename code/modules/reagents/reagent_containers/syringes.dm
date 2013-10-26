@@ -6,14 +6,16 @@
 #define SYRINGE_BROKEN 2
 
 /obj/item/weapon/reagent_containers/syringe
-	name = "Syringe"
+	name = "syringe"
 	desc = "A syringe."
 	icon = 'icons/obj/syringe.dmi'
 	item_state = "syringe_0"
 	icon_state = "0"
+	g_amt = 150
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = null //list(5,10,15)
 	volume = 15
+	pass_flags = PASSTABLE
 	var/mode = SYRINGE_DRAW
 
 	on_reagent_change()

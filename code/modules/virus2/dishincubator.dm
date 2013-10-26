@@ -70,7 +70,9 @@
 			dish.loc = src.loc
 			dish = null
 	if (href_list["rad"])
-		radiation += 10
+		var/temp_rad = input(usr, "Add certain ammount (between 10 and 150)", "Type in ammount", 10) as num
+		if (!temp_rad) return
+		radiation += max(10,min(temp_rad,150))
 	if (href_list["flush"])
 		radiation = 0
 		toxins = 0
