@@ -172,22 +172,18 @@
 	item_state = "mime"
 	item_color = "mime"
 	flags = FPRINT | TABLEPASS
+	
+/obj/item/clothing/under/spacearmy
+	name = "Military jumpsuit"
+	desc = "It`s a camo! Yeah space camo!"
+	icon_state = "spacearmy"
+	item_state = "spacearmy"
+	item_color = "spacearmy"
+	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/under/rank/miner
 	desc = "It's a snappy jumpsuit with a sturdy set of overalls. It is very dirty."
 	name = "shaft miner's jumpsuit"
 	icon_state = "miner"
 	item_state = "miner"
-<<<<<<< HEAD
-	color = "miner"
-
-/obj/item/clothing/under/spacearmy
-	name = "Military jumpsuit"
-	desc = "It`s a camo! Yeah space camo!"
-	icon_state = "spacearmy"
-	item_state = "spacearmy"
-	color = "spacearmy"
-	flags = FPRINT | TABLEPASS
-=======
 	item_color = "miner"
->>>>>>> e9bf414... Refactors code to work with BYOND 500.

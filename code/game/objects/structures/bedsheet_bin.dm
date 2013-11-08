@@ -11,20 +11,11 @@ LINEN BINS
 	icon_state = "sheet"
 	item_state = "bedsheet"
 	layer = 4.0
-	throwforce = 0
-	force = 0
+	throwforce = 1
 	throw_speed = 1
 	throw_range = 2
 	w_class = 1.0
-<<<<<<< HEAD
-	color = "white"
-	body_parts_covered = HEAD
-	slot_flags = SLOT_HEAD
-	flags = FPRINT | TABLEPASS | BLOCKHAIR
-	flags_inv = HIDEMASK|HIDEEARS|HIDEFACE
-=======
 	item_color = "white"
->>>>>>> e9bf414... Refactors code to work with BYOND 500.
 
 
 /obj/item/weapon/bedsheet/attack_self(mob/user as mob)
@@ -35,6 +26,7 @@ LINEN BINS
 		layer = initial(layer)
 	add_fingerprint(user)
 	return
+
 
 /obj/item/weapon/bedsheet/blue
 	icon_state = "sheetblue"
@@ -171,6 +163,5 @@ LINEN BINS
 			hidden.loc = user.loc
 			user << "<span class='notice'>[hidden] falls out of [B]!</span>"
 			hidden = null
-
 
 	add_fingerprint(user)

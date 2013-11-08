@@ -30,22 +30,18 @@
 	name = "roboticist's jumpsuit"
 	icon_state = "robotics"
 	item_state = "robotics"
-<<<<<<< HEAD
-	color = "robotics"
+	item_color = "robotics"
 
 /obj/item/clothing/under/rank/roboticist_sr2
 	desc = "It's a slimming black with reinforced seams; great for industrial work."
 	name = "roboticist's sr2 jumpsuit"
 	icon_state = "robotics2"
 	item_state = "robotics"
-	color = "robotics2"
+	item_color = "robotics2"
 
 /obj/item/clothing/under/rank/roboticist_sr3
 	desc = "It's a slimming black with reinforced seams; great for industrial work."
 	name = "roboticist's sr3 jumpsuit"
 	icon_state = "robotics3"
 	item_state = "robotics"
-	color = "robotics3"
-=======
-	item_color = "robotics"
->>>>>>> e9bf414... Refactors code to work with BYOND 500.
+	item_color = "robotics3"

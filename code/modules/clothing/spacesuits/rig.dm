@@ -211,7 +211,7 @@
 	name = "mongol hardsuit helmet"
 	icon_state = "rig0_mongol"
 	item_state = "rig0_mongol"
-	color = "mongol"
+	item_state = "mongol"
 
 /obj/item/clothing/suit/space/rig/security/mongol
 	name = "mongol hardsuit"

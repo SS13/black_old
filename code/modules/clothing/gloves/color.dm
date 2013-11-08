@@ -104,6 +104,12 @@
 	item_state = "lightbrowngloves"
 	item_color="light brown"
 
+/obj/item/clothing/gloves/sexymime
+	name = "sexy mime gloves"
+	icon_state = "sexymime_gloves"
+	item_state = "sexymime_gloves"
+	item_color="brown"
+
 /obj/item/clothing/gloves/brown
 	name = "brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
@@ -112,13 +118,4 @@
 	item_color="brown"
 
 	cargo
-<<<<<<< HEAD
-		color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
-
-/obj/item/clothing/gloves/sexymime
-	name = "sexy mime gloves"
-	icon_state = "sexymime_gloves"
-	item_state = "sexymime_gloves"
-=======
 		item_color = "cargo"				//Exists for washing machines. Is not different from brown gloves in any way.
->>>>>>> e9bf414... Refactors code to work with BYOND 500.

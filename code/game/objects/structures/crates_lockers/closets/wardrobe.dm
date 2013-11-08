@@ -67,7 +67,6 @@
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
 	new /obj/item/clothing/head/that(src)
-	new /obj/item/clothing/under/PMC_suit(src)
 	return
 
 

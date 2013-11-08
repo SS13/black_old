@@ -369,30 +369,26 @@
 	desc = "Makes you want to frolic in a field of daisies."
 	icon_state = "sundress"
 	item_state = "sundress"
-<<<<<<< HEAD
-	color = "sundress"
+	item_color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/suzumiyarabbit
 	name = "suzumiya rabbit dress"
 	icon_state = "suzumiyarabbit"
 	item_state = "suzumiyarabbit"
-	color = "suzumiyarabbit"
+	item_color = "suzumiyarabbit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/mikururabbit
 	name = "mikuru rabbit dress"
 	icon_state = "mikururabbit"
 	item_state = "mikururabbit"
-	color = "mikururabbit"
+	item_color = "mikururabbit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/PMC_suit
 	name = "PMC suit"
 	icon_state = "PMCsuit"
 	item_state = "blackskirt"
-	color = "PMCsuit"
-=======
-	item_color = "sundress"
+	item_color = "PMCsuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
->>>>>>> e9bf414... Refactors code to work with BYOND 500.
