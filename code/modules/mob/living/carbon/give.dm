@@ -1,4 +1,4 @@
-mob/living/carbon/verb/give(var/mob/living/carbon/target in view(1)-usr-usr.parasites)
+mob/living/carbon/verb/give(var/mob/living/carbon/target in view(1)-usr-usr:parasites)
 	set category = "IC"
 	set name = "Give"
 	if(target.stat == 2 || usr.stat == 2|| target.client == null)
