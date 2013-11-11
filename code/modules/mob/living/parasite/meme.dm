@@ -258,7 +258,7 @@ mob/living/parasite/meme/verb/Thought()
 // Mutes the host
 mob/living/parasite/meme/verb/Mute()
 	set category = "Meme"
-	set name	 = "Mute(250)"
+	set name	 = "Mute (250)"
 	set desc     = "Prevents your host from talking for a while."
 
 	if(!src.host) return
@@ -275,22 +275,22 @@ mob/living/parasite/meme/verb/Mute()
 		host << "\red Your tongue feels numb.. You lose your ability to speak."
 		usr << "\red Your host can't speak anymore."
 
-		host.silent = 1200
-//		host.speech_allowed = 0
+		host.silent += 70
 
 		sleep(1200)
 
-		host.silent = 0
 		host << "\red Your tongue has feeling again.."
 		usr << "\red [host] can speak again."
 
 // Makes the host unable to emote
 mob/living/parasite/meme/verb/Paralyze()
 	set category = "Meme"
-	set name	 = "Paralyze(250)"
+	set name	 = "Paralyze (250)"
 	set desc     = "Prevents your host from using emote for a while."
 
 	if(!src.host) return
+
+	var/mob/living/carbon/human/host = src.host
 	if(host.weakened)
 		usr << "\red Your host already paralyzed.."
 		return
@@ -299,11 +299,11 @@ mob/living/parasite/meme/verb/Paralyze()
 	host << "\red Your body feels numb.. You lose your ability to use body language."
 	usr << "\red Your host can't use body language anymore."
 
-	host.weakened = 1200
+	host.weakened += 70
 
 	sleep(1200)
 
-	host.weakened = 0
+//	host.weakened = 0
 	host << "\red Your body has feeling again.."
 	usr << "\red [host] can use body language again."
 
@@ -318,7 +318,7 @@ mob/living/parasite/meme/verb/Agony()
 
 	spawn
 		// backup the host incase we switch hosts after using the verb
-		var/mob/host = src.host
+		var/mob/living/carbon/human/host = src.host
 
 		host.paralysis = max(host.paralysis, 2)
 
@@ -353,7 +353,7 @@ mob/living/parasite/meme/verb/Joy()
 	if(!use_points(200)) return
 
 	spawn
-		var/mob/host = src.host
+		var/mob/living/carbon/human/host = src.host
 		host.druggy = max(host.druggy, 50)
 		host.slurring = max(host.slurring, 10)
 
@@ -372,7 +372,7 @@ mob/living/parasite/meme/verb/Hallucinate()
 	set name	 = "Hallucinate(300)"
 	set desc     = "Makes your host hallucinate, has a short delay."
 
-	var/mob/target = select_indoctrinated("Hallucination", "Who should hallucinate?")
+	var/mob/living/carbon/human/target = select_indoctrinated("Hallucination", "Who should hallucinate?")
 
 	if(!target) return
 	if(!use_points(300)) return
@@ -610,8 +610,11 @@ mob/living/parasite/meme/verb/Show_Points()
 	if (client && client.holder)
 		stat(null, "([x], [y], [z])")
 
-	if (client && client.statpanel == "Status")
-		stat(null, "Meme Points: [src.meme_points]")
+	statpanel("Meme")
+	if (client)
+		statpanel("Meme", "Meme Points", src.meme_points)
+/*	if (client && client.statpanel == "Status")
+		stat(null, "Meme Points: [src.meme_points]")*/
 
 // Game mode helpers, used for theft objectives
 // --------------------------------------------

@@ -38,7 +38,6 @@
 		amount += O.burn_dam
 	return amount
 
-
 /mob/living/carbon/human/adjustBruteLoss(var/amount)
 	if(amount > 0)
 		take_overall_damage(amount, 0)
@@ -180,7 +179,7 @@ This function restores the subjects blood to max.
 /mob/living/carbon/human/proc/restore_blood()
 	var/blood_volume = vessel.get_reagent_amount("blood")
 	vessel.add_reagent("blood",560.0-blood_volume)
-	
+
 
 /*
 This function restores all organs.
