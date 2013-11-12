@@ -275,7 +275,7 @@ mob/living/parasite/meme/verb/Mute()
 		host << "\red Your tongue feels numb.. You lose your ability to speak."
 		usr << "\red Your host can't speak anymore."
 
-		host.silent += 70
+		host.silent += 60
 
 		sleep(1200)
 
@@ -299,11 +299,10 @@ mob/living/parasite/meme/verb/Paralyze()
 	host << "\red Your body feels numb.. You lose your ability to use body language."
 	usr << "\red Your host can't use body language anymore."
 
-	host.weakened += 70
+	host.weakened += 60
 
 	sleep(1200)
 
-//	host.weakened = 0
 	host << "\red Your body has feeling again.."
 	usr << "\red [host] can use body language again."
 
@@ -610,11 +609,8 @@ mob/living/parasite/meme/verb/Show_Points()
 	if (client && client.holder)
 		stat(null, "([x], [y], [z])")
 
-	statpanel("Meme")
-	if (client)
-		statpanel("Meme", "Meme Points", src.meme_points)
-/*	if (client && client.statpanel == "Status")
-		stat(null, "Meme Points: [src.meme_points]")*/
+	if (client && client.statpanel == "Status")
+		stat(null, "Meme Points: [src.meme_points]")
 
 // Game mode helpers, used for theft objectives
 // --------------------------------------------
