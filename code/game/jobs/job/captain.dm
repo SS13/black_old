@@ -14,8 +14,7 @@
 	minimal_player_age = 14
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		if (!H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear))
-			H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_r_ear)
+		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/captain(H), slot_l_ear)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/captain(H), slot_back)
 			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_cap(H), slot_back)
@@ -76,8 +75,7 @@
 
 	equip(var/mob/living/carbon/human/H)
 		if(!H)	return 0
-		if (!H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hop(H), slot_l_ear))
-			H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hop(H), slot_r_ear)
+		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/heads/hop(H), slot_l_ear)
 		switch(H.backbag)
 			if(2) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(H), slot_back)
 			if(3) H.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack/satchel_norm(H), slot_back)
