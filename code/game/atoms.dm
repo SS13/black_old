@@ -297,7 +297,7 @@ its easier to just keep the beam vertical.
 
 /atom/proc/hand_m(mob/user as mob)			//slime - restrained
 	return
-
+/*
 /atom/proc/DirectorClick(mob/user as mob)
 	return
 
@@ -312,7 +312,7 @@ its easier to just keep the beam vertical.
 
 /atom/proc/CtrlDirectorClick(mob/user as mob)
 	return
-
+*/
 /atom/proc/hitby(atom/movable/AM as mob|obj)
 	return
 
@@ -501,10 +501,10 @@ its easier to just keep the beam vertical.
 		build_click(usr, usr.client.buildmode, location, control, params, src)
 		return
 
-	if (usr.client.directormode)
+/*	if (usr.client.directormode)
 		director_click(usr, usr.client.buildmode, location, control, params, src)
 		return
-
+*/
 //	if(using_new_click_proc)  //TODO ERRORAGE (see message below)
 //		return DblClickNew()
 
