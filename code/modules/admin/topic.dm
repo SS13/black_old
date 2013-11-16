@@ -742,7 +742,7 @@
 			if("show")
 				show_player_info(ckey)
 			if("list")
-				PlayerNotesPage(href_list["index"])
+				PlayerNotesPage(text2num(href_list["index"]))
 		return
 
 	else if(href_list["removejobban"])
