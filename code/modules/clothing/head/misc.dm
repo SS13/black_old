@@ -243,3 +243,11 @@
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	siemens_coefficient = 2.0
+
+/obj/item/clothing/head/sheik
+	name = "sheik hat"
+	icon_state = "sheik"
+	item_state = "sheik"
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	flags_inv = HIDEEARS
+	siemens_coefficient = 2.0
