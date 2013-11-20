@@ -37,7 +37,7 @@
 	name = "Knight's hauberk"
 	icon_state = "hauberk"
 	item_state = "hauberk"
-	color = "hauberk"
+	item_color = "hauberk"
 	armor = list(melee = 80, bullet = 5, laser = 20,energy = 0, bomb = 0, bio = 0, rad = 0)
 	has_sensor = 0
 
@@ -61,7 +61,7 @@
 
 	verb/toggle()
 		set category = "Object"
-		set name = "Adjust Knight's hud"
+		set name = "Adjust Knight's hood"
 		set src in usr
 
 		if(usr.canmove && !usr.stat && !usr.restrained())
@@ -84,12 +84,12 @@
 	desc = "Knight's hud"
 
 /obj/item/clothing/head/knighthud/blackknight
-	name = "Hud of the Black Knight"
+	name = "Hood of the Black Knight"
 	icon_state = "bknighthud"
 	item_state = "bknighthud"
 
 /obj/item/clothing/head/knighthud/bedeverhud
-	name =""
+	name ="Bedever Hood"
 	icon_state = "bedeverhud"
 	item_state = "bedeverhud"
 

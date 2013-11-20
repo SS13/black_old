@@ -392,3 +392,10 @@
 	item_state = "blackskirt"
 	item_color = "PMCsuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
+/obj/item/clothing/under/sheik
+	name = "sheik suit"
+	icon_state = "sheik"
+	item_state = "sheik"
+	item_color = "sheik"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS

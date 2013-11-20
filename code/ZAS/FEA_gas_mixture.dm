@@ -457,12 +457,15 @@ What are the archived variables for?
 
 	return remove(amount)
 
-/datum/gas_mixture/proc/copy_from(datum/gas_mixture/sample)
+/datum/gas_mixture/proc/copy_from(var/datum/gas_mixture/sample)
 	//Purpose: Duplicates the sample air mixture.
 	//Called by: airgroups splitting, ?
 	//Inputs: Gas to copy
 	//Outputs: 1
 
+	if (!sample)
+		log_debug("Bug no sample input. FILE: FEA_gas_mixture.dm, 460")
+		return
 	oxygen = sample.oxygen
 	carbon_dioxide = sample.carbon_dioxide
 	nitrogen = sample.nitrogen
