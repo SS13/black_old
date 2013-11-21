@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 10
+#define NUM_OF_POSTER_DESIGNS 14
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -113,6 +113,18 @@ obj/structure/sign/poster/New(var/serial)
 			desc += " This poster is about the uproar that followed Nanotrasen's financial cuts towards insulated-glove purchases."
 		if(10)
 			name += " - Hacking Guide"
+			desc += " This poster details the internal workings of the common Nanotrasen airlock."
+		if(11)
+			name += " - Smoking"
+			desc += " A warning poster which reads 'Smoking'."
+		if(12)
+			name += " - Smoking"
+			desc += " A warning poster which reads 'Smoking'."
+		if(13)
+			name += " - Emperor"
+			desc += " Fight for the Emperor, and you may die. Do not fight for the Emperor, and you will die. We like to make your choice easier."
+		if(14)
+			name += " - NT Effect"
 			desc += " This poster details the internal workings of the common Nanotrasen airlock."
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"
