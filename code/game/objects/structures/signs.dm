@@ -204,23 +204,3 @@
 
 /obj/structure/sign/double/mountain/right
 	icon_state = "mountain-right"
-
-/obj/structure/sign/smoking_1
-	name = "\improper SMOKING"
-	desc = "A warning sign which reads 'SMOKING'"
-	icon_state = "smoking"
-
-/obj/structure/sign/smoking_2
-	name = "\improper SMOKING"
-	desc = "A warning sign which reads 'SMOKING'"
-	icon_state = "smoking2"
-
-/obj/structure/sign/emperror
-	name = "\improper EMPERROR"
-	desc = "Fight for the Emperor, and you may die. Do not fight for the Emperor, and you will die. We like to make your choice easier."
-	icon_state = "emperror"
-
-/obj/structure/sign/nanotrasen_effect
-	name = "\improper NT EFFECT"
-	desc = "A warning sign which reads 'NT EFFECT'"
-	icon_state = "nanotrasen-effect"
