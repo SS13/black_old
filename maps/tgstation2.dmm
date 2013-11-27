@@ -5436,7 +5436,7 @@
 "caB" = (/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,/obj/machinery/newscaster{pixel_y = 32},/obj/machinery/computer/station_alert,/turf/simulated/floor,/area/engine/break_room)
 "caC" = (/obj/machinery/computer/arcade,/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 32},/turf/simulated/floor,/area/engine/break_room)
 "caD" = (/obj/machinery/vending/snack,/turf/simulated/floor,/area/engine/break_room)
-"caE" = (/obj/machinery/vending/coffee,/obj/machinery/light{dir = 4; icon_state = "tube1"},/turf/simulated/floor,/area/atmos)
+"caE" = (/obj/machinery/vending/coffee,/obj/machinery/light{dir = 4; icon_state = "tube1"},/turf/simulated/floor,/area/engine/break_room)
 "caF" = (/obj/structure/rack{dir = 8; layer = 2.9},/obj/item/clothing/shoes/magboots,/obj/item/clothing/suit/space/rig/atmos,/obj/item/clothing/mask/breath,/obj/item/clothing/head/helmet/space/rig/atmos,/obj/machinery/light{dir = 8},/obj/machinery/alarm{dir = 4; icon_state = "alarm0"; pixel_x = -22},/turf/simulated/floor,/area/atmos)
 "caG" = (/obj/machinery/atmospherics/portables_connector{dir = 4},/turf/simulated/floor,/area/atmos)
 "caH" = (/obj/machinery/atmospherics/pipe/manifold{dir = 8; icon_state = "manifold"; level = 2},/turf/simulated/floor,/area/atmos)
