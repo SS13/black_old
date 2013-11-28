@@ -277,7 +277,7 @@ Implants;
 	// Assemble a list of active players without jobbans.
 	for(var/mob/new_player/player in player_list)
 		if( player.client && player.ready )
-			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext))
+			if(!jobban_isbanned(player, "Syndicate") && !jobban_isbanned(player, roletext) && (!istype(traitor.current, /mob/living/silicon/pai)))
 				players += player
 
 	// Shuffle the players list so that it becomes ping-independent.
