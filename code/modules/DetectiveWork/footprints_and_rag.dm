@@ -41,6 +41,7 @@
 		if(do_after(user,30))
 			user.visible_message("[user] finishes wiping off the [A]!")
 			A.clean_blood()
+			del(A.fingerprints)
 	return
 
 /obj/item/weapon/reagent_containers/glass/rag/examine()

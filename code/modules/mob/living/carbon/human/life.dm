@@ -1391,6 +1391,9 @@
 				if(!isRemoteObserve && client && !client.adminobs)
 					remoteview_target = null
 					reset_view(null)
+					
+		if (src.usingcamerascreen == 1)
+			damageoverlay.overlays += image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "cameraoverlay")
 		return 1
 
 	proc/handle_random_events()
