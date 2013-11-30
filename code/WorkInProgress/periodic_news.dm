@@ -57,12 +57,26 @@
 						say so!"}
 			round_time = 60 * 15
 
+			thirteen_loko
+			author = "Assistant Editor Carl Ritz"
+			channel_name = "The Gibson Gazette"
+			message = {"Does drinking Thirteen Loko cause heart failure? Several health administrations
+						say so, including Chief Assistant Cardiologist Rick Reiner. Until futrher notice, all supplies
+						of Thirteen Loko have been made inaccessible to NT-assigned ship crews, taxi drivers and accountants."}
+			round_time = 60 * 35
+
 		net_block
 			author = "Assistant Editor Carl Ritz"
 			channel_name = "The Gibson Gazette"
 			message = {"Several corporations banding together to block access to 'wetskrell.nt', site administrators
 			claiming violation of net laws."}
 			round_time = 60 * 50
+
+			mushroom_poisoning
+			author = "Assistant Editor Carl Ritz"
+			channel_name = "The Gibson Gazette"
+			message = {"Reports of mushroom poisoning all over Tau Ceti. Doctors advise general public not to eat any mushrooms at all."}
+			round_time = 60 * 45
 
 		found_ssd
 			channel_name = "Tau Ceti Daily"
@@ -73,6 +87,25 @@
 						reveals that many of them were playing games instead of working and their pay has been docked
 						accordingly."}
 			round_time = 60 * 90
+
+			blockbuster_reports
+			channel_name = "Tau Ceti Daily"
+			author = "Dane Morgan"
+
+			message = {"Latest blockbuster holomovie "Honking Alive" breaks all records, showing extraordinary huge
+			box office reports. Critics already claim it to be a must-see title, along with the famous "Breaking Bar"
+			and "Traitor`s Revenge"."}
+			round_time = 60 * 65
+
+			assistant_riot
+			channel_name = "Tau Ceti Daily"
+			author = "Chief Assistant Manager McBeard"
+
+			message = {"More unemployed assistants on scientific space stations cause riots demanding to be given a better job.
+					"We won`t take anymore pushing frome security and heads!" - one of the rioters claims. Due to financial cuts
+					 many station commanders prefer to let assistants roam free. The issue wwas reported to have been taken up
+					 to the highest offices. Until official pledge, assistants are advised to not cause riots."}
+			round_time = 60 * 25
 
 	lotus_tree
 
