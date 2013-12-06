@@ -5,7 +5,7 @@
 	icon_state = "rup"
 	var/spawn_nothing_percentage = 0 // this variable determines the likelyhood that this random object will not spawn anything
 
-	
+
 // creates a new object and deletes itself
 /obj/random/New()
 	..()
@@ -37,8 +37,8 @@
 					/obj/item/weapon/crowbar,\
 					/obj/item/weapon/wrench,\
 					/obj/item/device/flashlight)
-					
-					
+
+
 /obj/random/technology_scanner
 	name = "Random Scanner"
 	desc = "This is a random technology scanner."
@@ -48,8 +48,8 @@
 		return pick(prob(5);/obj/item/device/t_scanner,\
 					prob(2);/obj/item/device/radio/intercom,\
 					prob(5);/obj/item/device/analyzer)
-		
-	
+
+
 /obj/random/powercell
 	name = "Random Powercell"
 	desc = "This is a random powercell."
@@ -61,8 +61,8 @@
 					prob(40);/obj/item/weapon/cell/high,\
 					prob(9);/obj/item/weapon/cell/super,\
 					prob(1);/obj/item/weapon/cell/hyper)
-					
-					
+
+
 /obj/random/bomb_supply
 	name = "Bomb Supply"
 	desc = "This is a random bomb supply."
@@ -83,8 +83,8 @@
 		return pick(prob(3);/obj/item/weapon/storage/toolbox/mechanical,\
 					prob(2);/obj/item/weapon/storage/toolbox/electrical,\
 					prob(1);/obj/item/weapon/storage/toolbox/emergency)
-					
-					
+
+
 /obj/random/tech_supply
 	name = "Random Tech Supply"
 	desc = "This is a random piece of technology supplies."
@@ -102,3 +102,58 @@
 					prob(2);/obj/random/toolbox,\
 					prob(2);/obj/item/weapon/storage/belt/utility,\
 					prob(5);/obj/random/tool)
+
+
+
+/obj/random/dirt
+	name = "Random Dirt Decal"
+	desc = "This is a random mess to sparkle janitor`s life."
+	icon = 'icons/effects/blood.dmi'
+	icon_state = "vomit_2"
+	spawn_nothing_percentage = 80
+	item_to_spawn()
+		return pick(prob(2);/obj/effect/decal/cleanable/vomit,\
+					prob(1);/obj/effect/decal/cleanable/oil,\
+					prob(1);/obj/effect/decal/cleanable/oil/streak,\
+					prob(10);/obj/effect/decal/cleanable/dirt,\
+					prob(2);/obj/effect/decal/cleanable/generic)
+
+
+/obj/random/dice
+	name = "Random Dice"
+	desc = "This is a random dice. "
+	icon = 'icons/obj/dice.dmi'
+	icon_state = "d2014"
+	spawn_nothing_percentage = 10
+	item_to_spawn()
+		return pick(prob(1);/obj/item/weapon/dice/d20,\
+					prob(1);/obj/item/weapon/dice)
+
+
+/obj/random/bureaucracy
+	name = "Random Desk Clutter For Bureaucrats"
+	desc = "This is a random desc clutter."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = 'folder_yellow'
+		item_to_spawn()
+		return pick(prob(4);/obj/item/weapon/folder/blue,\
+					prob(4);/obj/item/weapon/folder/red,\
+					prob(5);/obj/item/weapon/folder/yellow,\
+					prob(1);/obj/item/weapon/folder/white,\
+					prob(3);/obj/item/weapon/pen/blue,\
+					prob(1);/obj/item/weapon/pen/red,\
+					prob(3);/obj/item/weapon/pen,\
+					prob(3);/obj/item/weapon/paper)
+
+/obj/random/ashtray
+	name = "Random Ashtray"
+	desc = "This is a random ashtray."
+	icon = 'icons/ashtray.dmi'
+	icon_state = 'ashtray_gl'
+		item_to_spawn()
+		return pick(prob(1);/obj/item/ashtray/bronze,\
+					prob(4);/obj/item/ashtray/glass,\
+					prob(4);/obj/item/ashtray/plastic)
+
+
+
