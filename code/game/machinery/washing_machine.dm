@@ -28,6 +28,7 @@
 	set src in oview(1)
 
 	if(!istype(usr, /mob/living)) //ew ew ew usr, but it's the only way to check.
+		src.add_fingerprint(usr)
 		return
 
 	if( state != 4 )
@@ -211,10 +212,11 @@
 			user << "\blue You begin to [anchored ? "wrench" : "unwrench"] the washing machine..."
 			if (do_after(user, 40))
 
-			anchored = !anchored
-			user.visible_message "[user] is messing with the washing machine!"
-			user << "\blue You [anchored ? "wrenched" : "unwrenched"] the washing machine."
-			playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+				anchored = !anchored
+				src.add_fingerprint(usr)
+				user.visible_message "[user] is messing with the washing machine!"
+				user << "\blue You [anchored ? "wrenched" : "unwrenched"] the washing machine."
+				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
 
 
 	else
