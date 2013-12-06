@@ -31,6 +31,7 @@
 							/obj/item/toy/prize/seraph						= 1,
 							/obj/item/toy/prize/mauler						= 1,
 							/obj/item/toy/prize/odysseus					= 1,
+							/obj/item/toy/prize/phazon            			= 1,
 							/obj/item/weapon/bananapeel						= 1,
 							/obj/item/toy/prize/phazon						= 1,
 							/obj/item/weapon/reagent_containers/food/snacks/grown/potato						= 1
