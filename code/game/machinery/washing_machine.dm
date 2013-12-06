@@ -34,6 +34,10 @@
 		usr << "The washing machine cannot run in this state."
 		return
 
+	if( anchored = 0 )
+		usr << "The washing machine must be attached to the floor to run!"
+		return
+
 	if( locate(/mob,contents) )
 		state = 8
 	else
@@ -192,6 +196,18 @@
 
 /obj/machinery/washing_machine/update_icon()
 	icon_state = "wm_[state][panel]"
+
+/obj/machinery/washing_machine/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	else if(istype(G, /obj/item/weapon/wrench))
+
+	if ( state in list(1, 3, 5, 6, 8) )
+		usr << "The washing machine cannot be unwrenched in this state. Make sure it`s not running."
+		return
+
+		anchored = !anchored
+		user << "You [anchored ? "wrench" : "unwrench"] the washing machine."
+		playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+
 
 /obj/machinery/washing_machine/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	/*if(istype(W,/obj/item/weapon/screwdriver))
