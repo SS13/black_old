@@ -197,23 +197,26 @@
 /obj/machinery/washing_machine/update_icon()
 	icon_state = "wm_[state][panel]"
 
-/obj/machinery/washing_machine/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	else if(istype(G, /obj/item/weapon/wrench))
-
-	if ( state in list(1, 3, 5, 6, 8) )
-		usr << "The washing machine cannot be unwrenched in this state. Make sure it`s not running."
-		return
-
-		anchored = !anchored
-		user << "You [anchored ? "wrench" : "unwrench"] the washing machine."
-		playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
-
 
 /obj/machinery/washing_machine/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	/*if(istype(W,/obj/item/weapon/screwdriver))
 		panel = !panel
 		user << "\blue you [panel ? "open" : "close"] the [src]'s maintenance panel"*/
-	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/weapon/stamp))
+
+	if(istype(W,/obj/item/weapon/wrench)
+		if( state in list(1, 3, 5, 6, 8) )
+		usr << "\blue The washing machine cannot be [anchored ? "unwrenched" : "wrenched"] in this state. Make sure it`s not running and the door is closed."
+
+			else
+			user << "\blue You begin to [anchored ? "wrench" : "unwrench"] the washing machine..."
+				if (do_after(user, 40))
+				anchored = !anchored
+				user.visible_message "[user] is messing with the washing machine!"
+				user << "\blue You [anchored ? "wrenched" : "unwrenched"] the washing machine."
+				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+
+
+	else	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/weapon/stamp))
 		if( state in list(	1, 3, 6 ) )
 			if(!crayon)
 				user.drop_item()
