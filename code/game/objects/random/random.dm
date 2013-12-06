@@ -103,7 +103,7 @@
 					prob(2);/obj/item/weapon/storage/belt/utility,\
 					prob(5);/obj/random/tool)
 
-
+//Following are some random spawnables to make the map seem more alive.
 
 /obj/random/dirt
 	name = "Random Dirt Decal"
@@ -115,8 +115,8 @@
 		return pick(prob(2);/obj/effect/decal/cleanable/vomit,\
 					prob(1);/obj/effect/decal/cleanable/oil,\
 					prob(1);/obj/effect/decal/cleanable/oil/streak,\
-					prob(10);/obj/effect/decal/cleanable/dirt,\
-					prob(2);/obj/effect/decal/cleanable/generic)
+					prob(15);/obj/effect/decal/cleanable/dirt,\
+					prob(3);/obj/effect/decal/cleanable/generic)
 
 
 /obj/random/dice
@@ -132,15 +132,15 @@
 
 /obj/random/bureaucracy
 	name = "Random Desk Clutter For Bureaucrats"
-	desc = "This is a random desc clutter."
+	desc = "This is a random desk clutter."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = 'folder_yellow'
 		item_to_spawn()
 		return pick(prob(4);/obj/item/weapon/folder/blue,\
 					prob(4);/obj/item/weapon/folder/red,\
-					prob(5);/obj/item/weapon/folder/yellow,\
+					prob(4);/obj/item/weapon/folder/yellow,\
 					prob(1);/obj/item/weapon/folder/white,\
-					prob(3);/obj/item/weapon/pen/blue,\
+					prob(2);/obj/item/weapon/pen/blue,\
 					prob(1);/obj/item/weapon/pen/red,\
 					prob(3);/obj/item/weapon/pen,\
 					prob(3);/obj/item/weapon/paper)
@@ -155,5 +155,19 @@
 					prob(4);/obj/item/ashtray/glass,\
 					prob(4);/obj/item/ashtray/plastic)
 
+
+/obj/random/trash
+	name = "Random Trash"
+	desc = "This is a random piece of trash. Only includes station-available items!"
+	icon = 'icons/obj/trash.dmi'
+	icon_state = "chips"
+		item_to_spawn()
+		return pick(prob(5);/obj/item/trash/chips,\
+					prob(5);/obj/item/trash/sosjerky,\
+					prob(5);/obj/item/trash/candy,\
+					prob(5);/obj/item/trash/cheesie,\
+					prob(5);/obj/item/trash/raisins,\
+					prob(1);/obj/item/trash/popcorn,\
+					prob(1);/obj/item/trash/syndi_cakes)
 
 
