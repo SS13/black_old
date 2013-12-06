@@ -35,7 +35,7 @@
 		return
 
 	if( anchored = 0 )
-		usr << "The washing machine must be attached to the floor to operate!"
+		usr << "The washing machine must be attached to the floor to run!"
 		return
 
 	if( locate(/mob,contents) )
@@ -205,7 +205,7 @@
 		return
 
 		anchored = !anchored
-		user << "You [anchored ? "attached" : "detached"] the washing machine."
+		user << "You [anchored ? "wrench" : "unwrench"] the washing machine."
 		playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
 
 
