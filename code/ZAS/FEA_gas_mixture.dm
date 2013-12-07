@@ -464,7 +464,7 @@ What are the archived variables for?
 	//Outputs: 1
 
 	if (!sample)
-		log_debug("Bug no sample input. FILE: FEA_gas_mixture.dm, 460")
+		log_debug("Bug! No sample input. FILE: FEA_gas_mixture.dm, 460")
 		return
 	oxygen = sample.oxygen
 	carbon_dioxide = sample.carbon_dioxide

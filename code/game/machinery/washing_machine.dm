@@ -35,7 +35,7 @@
 		usr << "The washing machine cannot run in this state."
 		return
 
-	if( anchored = 0 )
+	if(!anchored)
 		usr << "The washing machine must be attached to the floor to run!"
 		return
 
@@ -204,23 +204,20 @@
 		panel = !panel
 		user << "\blue you [panel ? "open" : "close"] the [src]'s maintenance panel"*/
 
-	if(istype(W,/obj/item/weapon/wrench)
-		if( state in list(1, 3, 5, 6, 8) )
+	if(istype(W,/obj/item/weapon/wrench))
+		if ( state in list(1, 3, 5, 6, 8) )
 			usr << "\blue The washing machine cannot be [anchored ? "unwrenched" : "wrenched"] in this state. Make sure it`s not running and the door is closed."
-
 		else
 			user << "\blue You begin to [anchored ? "wrench" : "unwrench"] the washing machine..."
 			if (do_after(user, 40))
-
 				anchored = !anchored
 				src.add_fingerprint(usr)
-				user.visible_message "[user] is messing with the washing machine!"
+				user.visible_message("\red [user] is messing with the washing machine!")
 				user << "\blue You [anchored ? "wrenched" : "unwrenched"] the washing machine."
 				playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
 
 
-	else
-	if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/weapon/stamp))
+	else if(istype(W,/obj/item/toy/crayon) ||istype(W,/obj/item/weapon/stamp))
 		if( state in list(	1, 3, 6 ) )
 			if(!crayon)
 				user.drop_item()
