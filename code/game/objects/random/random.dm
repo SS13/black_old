@@ -5,7 +5,6 @@
 	icon_state = "rup"
 	var/spawn_nothing_percentage = 0 // this variable determines the likelyhood that this random object will not spawn anything
 
-
 // creates a new object and deletes itself
 /obj/random/New()
 	..()
@@ -83,8 +82,8 @@
 		return pick(prob(3);/obj/item/weapon/storage/toolbox/mechanical,\
 					prob(2);/obj/item/weapon/storage/toolbox/electrical,\
 					prob(1);/obj/item/weapon/storage/toolbox/emergency)
-
-
+					
+					
 /obj/random/tech_supply
 	name = "Random Tech Supply"
 	desc = "This is a random piece of technology supplies."

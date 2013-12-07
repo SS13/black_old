@@ -27,7 +27,6 @@ LINEN BINS
 	add_fingerprint(user)
 	return
 
-
 /obj/item/weapon/bedsheet/blue
 	icon_state = "sheetblue"
 	item_color = "blue"
