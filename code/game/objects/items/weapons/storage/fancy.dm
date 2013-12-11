@@ -197,13 +197,17 @@
 	else
 		..()
 
-/obj/item/weapon/storage/fancy/cigarettes/dromedaryco
+/obj/item/weapon/storage/fancy/cigarettes/cigaretteslights
+	name = "\improper cigarette packet"
+	desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics. This one are Lights. A label on the packaging reads, \"For those who like to take it easy.\""
+	icon_state = "ciglights"
+	item_state = "ciglights"
+
+obj/item/weapon/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
 	desc = "A packet of six imported DromedaryCo cancer sticks. A label on the packaging reads, \"Wouldn't a slow death make a change?\""
 	icon_state = "Dpacket"
 	item_state = "Dpacket"
-
-
 /*
  * Vial Box
  */
