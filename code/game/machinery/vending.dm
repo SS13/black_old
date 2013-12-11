@@ -715,10 +715,10 @@
 	product_ads = "Probably not bad for you!;Don't believe the scientists!;It's good for you!;Don't quit, buy more!;Smoke!;Nicotine heaven.;Best cigarettes since 2150.;Award-winning cigs."
 	vend_delay = 34
 	icon_state = "cigs"
-	products = list(/obj/item/weapon/storage/fancy/cigarettes = 10,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4)
-	contraband = list(/obj/item/weapon/lighter/zippo = 4)
+	products = list(/obj/item/weapon/storage/fancy/cigarettes = 9,/obj/item/weapon/storage/fancy/cigarettes/cigaretteslights = 9,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 4)
+	contraband = list(/obj/item/weapon/lighter/zippo = 1)
 	premium = list(/obj/item/clothing/mask/cigarette/cigar/havana = 2)
-	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60)
+	prices = list(/obj/item/weapon/storage/fancy/cigarettes = 60,/obj/item/weapon/storage/fancy/cigarettes/cigaretteslights = 55,/obj/item/weapon/storage/box/matches = 10,/obj/item/weapon/lighter/random = 60)
 
 
 /obj/machinery/vending/medical
