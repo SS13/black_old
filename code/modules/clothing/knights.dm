@@ -81,7 +81,7 @@
 			usr.update_inv_wear_mask()
 
 /obj/item/clothing/head/knighthud
-	desc = "Knight's hood"
+	desc = "Knight's hud"
 
 /obj/item/clothing/head/knighthud/blackknight
 	name = "Hood of the Black Knight"

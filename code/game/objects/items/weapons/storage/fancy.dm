@@ -203,11 +203,6 @@
 	icon_state = "Dpacket"
 	item_state = "Dpacket"
 
-/obj/item/weapon/storage/fancy/cigarettes/ciglights
-	name = "\improper Lights cigarette packet"
-	desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics. These are Lights. For those who like to take it easy."
-	icon_state = "ciglights"
-	item_state = "ciglights"
 
 /*
  * Vial Box
