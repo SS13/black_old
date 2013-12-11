@@ -5,6 +5,7 @@
 	icon_state = "rup"
 	var/spawn_nothing_percentage = 0 // this variable determines the likelyhood that this random object will not spawn anything
 
+	
 // creates a new object and deletes itself
 /obj/random/New()
 	..()
@@ -36,8 +37,8 @@
 					/obj/item/weapon/crowbar,\
 					/obj/item/weapon/wrench,\
 					/obj/item/device/flashlight)
-
-
+					
+					
 /obj/random/technology_scanner
 	name = "Random Scanner"
 	desc = "This is a random technology scanner."
@@ -47,8 +48,8 @@
 		return pick(prob(5);/obj/item/device/t_scanner,\
 					prob(2);/obj/item/device/radio/intercom,\
 					prob(5);/obj/item/device/analyzer)
-
-
+		
+	
 /obj/random/powercell
 	name = "Random Powercell"
 	desc = "This is a random powercell."
@@ -60,8 +61,8 @@
 					prob(40);/obj/item/weapon/cell/high,\
 					prob(9);/obj/item/weapon/cell/super,\
 					prob(1);/obj/item/weapon/cell/hyper)
-
-
+					
+					
 /obj/random/bomb_supply
 	name = "Bomb Supply"
 	desc = "This is a random bomb supply."

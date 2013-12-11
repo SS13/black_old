@@ -1390,10 +1390,10 @@
 	else if(href_list["CentcommFaxReply"])
 		var/mob/living/carbon/human/H = locate(href_list["CentcommFaxReply"])
 
-		var/input = sanitize_uni(input(src.owner, "Please enter a message to reply to [key_name(H)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null)
+		var/input = input(src.owner, "Please enter a message to reply to [key_name(H)] via secure connection. NOTE: BBCode does not work, but HTML tags do! Use <br> for line breaks.", "Outgoing message from Centcomm", "") as message|null
 		if(!input)	return
 
-		var/customname = sanitize_uni(input(src.owner, "Pick a title for the report", "Title") as text|null)
+		var/customname = input(src.owner, "Pick a title for the report", "Title") as text|null
 
 		for(var/obj/machinery/faxmachine/F in machines)
 			if(! (F.stat & (BROKEN|NOPOWER) ) )
@@ -1794,7 +1794,7 @@
 				if(!ticker)
 					alert("The game hasn't started yet!")
 					return
-				var/objective = copytext(sanitize_uni(input("Enter an objective")),1,MAX_MESSAGE_LEN)
+				var/objective = copytext(sanitize(input("Enter an objective")),1,MAX_MESSAGE_LEN)
 				if(!objective)
 					return
 				feedback_inc("admin_secrets_fun_used",1)
@@ -2289,7 +2289,7 @@
 		src.access_news_network()
 
 	else if(href_list["ac_set_channel_name"])
-		src.admincaster_feed_channel.channel_name = strip_html_simple(sanitize_uni(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", "")))
+		src.admincaster_feed_channel.channel_name = strip_html_simple(input(usr, "Provide a Feed Channel Name", "Network Channel Handler", ""))
 		while (findtext(src.admincaster_feed_channel.channel_name," ") == 1)
 			src.admincaster_feed_channel.channel_name = copytext(src.admincaster_feed_channel.channel_name,2,lentext(src.admincaster_feed_channel.channel_name)+1)
 		src.access_news_network()
@@ -2515,7 +2515,7 @@
 
 	if(href_list["add_player_info"])
 		var/key = href_list["add_player_info"]
-		var/add = sanitize_uni(input("Add Player Info") as null|text)
+		var/add = input("Add Player Info") as null|text
 		if(!add) return
 
 		notes_add(key,add,usr)
