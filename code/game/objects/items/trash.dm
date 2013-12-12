@@ -18,6 +18,9 @@
 	chips
 		name = "Chips"
 		icon_state = "chips"
+	chipsmonkey
+		name = "Monkey Chips"
+		icon_state = "chipsmonkey"
 	popcorn
 		name = "Popcorn"
 		icon_state = "popcorn"
