@@ -1532,7 +1532,14 @@ datum
 			name = "Vodka Royale"
 			id = "vodkaroyale"
 			result = "vodkaroyale"
-			required_reagents = list("vodka" = 2, "prosecco" = 1)
+			required_reagents = list("vodka" = 1, "prosecco" = 2)
+			result_amount = 3
+
+		tiniroyale
+			name = "Tini Royale"
+			id = "tiniroyale"
+			result = "tiniroyale"
+			required_reagents = list("vermouth" = 1, "prosecco" = 2)
 			result_amount = 3
 
 		white_russian
@@ -1652,6 +1659,20 @@ datum
 			id = "b53"
 			result = "b53"
 			required_reagents = list("irishcream" = 1, "kahlua" = 1, "absinthe" = 1)
+			result_amount = 3
+
+		schlagerloko
+			name = "Schlagerloko"
+			id = "schlagerloko"
+			result = "schlagerloko"
+			required_reagents = list("goldschlager" = 1, "thirteenloko" = 2)
+			result_amount = 3
+
+		spacemonkey
+			name = "Space Monkey"
+			id = "spacemonkey"
+			result = "spacemonkey"
+			required_reagents = list("orangejuice" = 1, "space_up" = 1, "vodka" = 1)
 			result_amount = 3
 
 		atomicbomb

@@ -77,11 +77,19 @@
 				if("gin")
 					icon_state = "ginvodkaglass"
 					name = "Glass of gin"
-					desc = "A crystal clear glass of Griffeater gin."
+					desc = "A crystal clear glass of gin."
 				if("vodka")
 					icon_state = "ginvodkaglass"
 					name = "Glass of vodka"
 					desc = "The glass contain wodka. Xynta."
+				if("vodkaroyale")
+					icon_state = "vodkaroyaleglass"
+					name = "Vodka Royale"
+					desc = "You really should have chosen vermouth."
+				if("tiniroyale")
+					icon_state = "tiniroyaleglass"
+					name = "Tini Royale"
+					desc = "Official drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
 				if("sake")
 					icon_state = "ginvodkaglass"
 					name = "Glass of Sake"
@@ -94,6 +102,14 @@
 					icon_state = "wineglass"
 					name = "Glass of wine"
 					desc = "A very classy looking drink."
+				if("prosecco")
+					icon_state = "proseccoglass"
+					name = "Glass of prosecco"
+					desc = "For when you really need a classy refreshment."
+				if("rossini")
+					icon_state = "rossiniglass"
+					name = "Rossini"
+					desc = "For when ordinary bubbles are not festive enough."
 				if("cognac")
 					icon_state = "cognacglass"
 					name = "Glass of cognac"
@@ -186,6 +202,18 @@
 					icon_state = "b52glass"
 					name = "B-52"
 					desc = "Kahlua, Irish Cream, and congac. You will get bombed."
+				if("b53")
+					icon_state = "b53glass"
+					name = "B-53"
+					desc = "Kahlua, Irish Cream, and absinthe. You better hold tight."
+				if("schlagerloko")
+					icon_state = "schlagerlokoglass"
+					name = "Schlagerloko"
+					desc = "Surprisingly tasty but potent mixture of Goldschlager and Thirteen Loko. Gives a pleasant tongue tingle."
+				if("spacemonkey")
+					icon_state = "spacemonkeyglass"
+					name = "Space Monkey"
+					desc = "May or may not contain monkeys. Best garnished with banana."
 				if("atomicbomb")
 					icon_state = "atomicbombglass"
 					name = "Atomic Bomb"

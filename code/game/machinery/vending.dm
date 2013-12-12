@@ -693,12 +693,12 @@
 	product_slogans = "Robust Softdrinks: More robust than a toolbox to the head!"
 	product_ads = "Refreshing!;Hope you're thirsty!;Over 1 million drinks sold!;Thirsty? Why not cola?;Please, have a drink!;Drink up!;The best drinks in space."
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 10,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 10,
-					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 10,/obj/item/weapon/reagent_containers/food/drinks/starkist = 10,
-					/obj/item/weapon/reagent_containers/food/drinks/space_up = 10)
+					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 10,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 7,
+					/obj/item/weapon/reagent_containers/food/drinks/starkist = 10,/obj/item/weapon/reagent_containers/food/drinks/space_up = 10)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/thirteenloko = 5)
-	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 20,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 20,
-					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 20,/obj/item/weapon/reagent_containers/food/drinks/starkist = 20,
-					/obj/item/weapon/reagent_containers/food/drinks/space_up = 20)
+	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 30,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 30,
+					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 35,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 30,
+					/obj/item/weapon/reagent_containers/food/drinks/starkist = 35,/obj/item/weapon/reagent_containers/food/drinks/space_up = 30)
 
 //This one's from bay12
 /obj/machinery/vending/cart
