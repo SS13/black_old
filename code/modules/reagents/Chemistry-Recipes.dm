@@ -1647,6 +1647,13 @@ datum
 			required_reagents = list("irishcream" = 1, "kahlua" = 1, "cognac" = 1)
 			result_amount = 3
 
+		b53
+			name = "B-53"
+			id = "b53"
+			result = "b53"
+			required_reagents = list("irishcream" = 1, "kahlua" = 1, "absinthe" = 1)
+			result_amount = 3
+
 		atomicbomb
 			name = "Atomic Bomb"
 			id = "atomicbomb"

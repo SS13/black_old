@@ -634,7 +634,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/bourbon = 2,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/tequilla = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/vermouth = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/rum = 5,
-					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 3,obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco = 2,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco = 2,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/cognac = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/beer = 6,/obj/item/weapon/reagent_containers/food/drinks/ale = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice = 4,
@@ -688,6 +688,8 @@
 	name = "Robust Softdrinks"
 	desc = "A softdrink vendor provided by Robust Industries, LLC."
 	icon_state = "Cola_Machine"
+	icon_vend = "Cola_Machine-vend"
+	vend_delay = 20
 	product_slogans = "Robust Softdrinks: More robust than a toolbox to the head!"
 	product_ads = "Refreshing!;Hope you're thirsty!;Over 1 million drinks sold!;Thirsty? Why not cola?;Please, have a drink!;Drink up!;The best drinks in space."
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 10,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 10,

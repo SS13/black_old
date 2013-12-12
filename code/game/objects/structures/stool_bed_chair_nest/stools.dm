@@ -7,6 +7,43 @@
 	flags = FPRINT
 	pressure_resistance = 15
 
+/obj/structure/stool/orange
+	name = "stool"
+	desc = "Apply butt."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "stoolorange"
+	anchored = 1.0
+	flags = FPRINT
+	pressure_resistance = 15
+
+/obj/structure/stool/black
+	name = "stool"
+	desc = "Apply butt."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "stoolblack"
+	anchored = 1.0
+	flags = FPRINT
+	pressure_resistance = 15
+
+/obj/structure/stool/wooden
+	name = "wooden stool"
+	desc = "Apply butt."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "stoolwooden"
+	anchored = 1.0
+	flags = FPRINT
+	pressure_resistance = 15
+
+/obj/structure/stool/darkgreen
+	name = "stool"
+	desc = "Apply butt."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "stooldarkgreen"
+	anchored = 1.0
+	flags = FPRINT
+	pressure_resistance = 15
+
+
 /obj/structure/stool/ex_act(severity)
 	switch(severity)
 		if(1.0)
@@ -34,6 +71,13 @@
 		del(src)
 	return
 
+/obj/structure/stool/wooden/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/wrench))
+		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
+		new /obj/item/stack/sheet/wood(src.loc)
+		del(src)
+	return
+
 /obj/structure/stool/MouseDrop(atom/over_object)
 	if (istype(over_object, /mob/living/carbon/human) && (usr == over_object) && get_dist(over_object, src) <= 1)
 		var/mob/living/carbon/human/H = over_object
@@ -53,6 +97,42 @@
 	throwforce = 10
 	w_class = 5.0
 	var/obj/structure/stool/origin = null
+
+/obj/item/weapon/stool/darkgreen
+	name = "stool"
+	desc = "Uh-hoh, bar is heating up."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "stooldarkgreen"
+	force = 10
+	throwforce = 10
+	w_class = 5.0
+
+/obj/item/weapon/stool/orange
+	name = "stool"
+	desc = "Uh-hoh, bar is heating up."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "stoolorange"
+	force = 10
+	throwforce = 10
+	w_class = 5.0
+
+/obj/item/weapon/stool/wooden
+	name = "wooden stool"
+	desc = "Uh-hoh, bar is heating up."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "stoolwooden"
+	force = 10
+	throwforce = 10
+	w_class = 5.0
+
+/obj/item/weapon/stool/black
+	name = "stool"
+	desc = "Uh-hoh, bar is heating up."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "stoolblack"
+	force = 10
+	throwforce = 10
+	w_class = 5.0
 
 /obj/item/weapon/stool/attack_self(mob/user as mob)
 	..()
