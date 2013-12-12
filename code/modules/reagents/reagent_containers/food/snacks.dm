@@ -312,6 +312,16 @@
 		reagents.add_reagent("nutriment", 3)
 		bitesize = 1
 
+obj/item/weapon/reagent_containers/food/snacks/chipsmonkey
+	name = "monkey chips"
+	desc = "Commander Riker's What-The-Crisps. Now monkey flavored!"
+	icon_state = "chipsmonkey"
+	trash = /obj/item/trash/chipsmonkey
+	New()
+		..()
+		reagents.add_reagent("nutriment", 3)
+		bitesize = 1
+
 /obj/item/weapon/reagent_containers/food/snacks/cookie
 	name = "cookie"
 	desc = "COOKIE!!!"

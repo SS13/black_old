@@ -2979,6 +2979,16 @@ datum
 			slur_start = 65			//amount absorbed after which mob starts slurring
 			confused_start = 145	//amount absorbed after which mob starts confusing directions
 
+		ethanol/prosecco
+			name = "Prosecco"
+			id = "prosecco"
+			description = "When the ooccasion just calls for a celebration. Bubbles!"
+			color = "#C0D15C" // rgb: 192, 203, 92
+			boozepwr = 1.5
+			dizzy_adj = 2
+			slur_start = 65			//amount absorbed after which mob starts slurring
+			confused_start = 145	//amount absorbed after which mob starts confusing dir
+
 		ethanol/cognac
 			name = "Cognac"
 			id = "cognac"

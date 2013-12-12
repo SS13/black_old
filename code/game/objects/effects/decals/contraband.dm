@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 14
+#define NUM_OF_POSTER_DESIGNS 34
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -126,6 +126,67 @@ obj/structure/sign/poster/New(var/serial)
 		if(14)
 			name += " - NT Effect"
 			desc += " This poster details the internal workings of the common Nanotrasen airlock."
+		if(15)
+			name += " - Pinup Girl Cindy"
+			desc += " This particular one is of Nanotrasen's PR girl, Cindy, in a particularly feminine pose."
+		if(16)
+			name += " - Pinup Girl Amy"
+			desc += " This particular one is of Amy, the nymphomaniac Urban Legend of Nanotrasen Space Stations. How this photograph came to be is not known."
+		if(17)
+			name += " - Underwater Laboratory"
+			desc += " This particular one is of the fabled last crew of Nanotrasen's previous project before going big on Asteroid mining, Sealab."
+		if(18)
+			name += " - Martian Warlord"
+			desc += " This particular one depicts the cartoony mug of a certain Martial Warmonger."
+		if(19)
+			name += " - Technological Singularity"
+			desc += " This particular one is of the blood-curdling symbol of a long-since defeated enemy of humanity."
+		if(20)
+			name += " - Unlucky Space Explorer"
+			desc += " This particular one depicts a skeletal form within a space suit."
+		if(21)
+			name += " - Wasteland"
+			desc += " This particular one is of a couple of ragged gunmen, one male and one female, on top of a mound of rubble. The number \"13\" is visible on their blue jumpsuits."
+		if(22)
+			name += " - Augmented Legend"
+			desc += " This particular one is of an obviously augmented individual, gazing towards the sky. The cyber-city in the backround is rather punkish."
+		if(23)
+			name += " - Dangerous Static"
+			desc += " This particular one depicts nothing remarkable other than a rather mesmerising pattern of monitor static. There's a tag on the sides of the poster, urging you to \"tear this poster in half to receive your free sample\"."
+		if(24)
+			name += " - Paranoia"
+			desc += " This particular one warns of the dangers of trusting your co-workers too much."
+		if(25)
+			name += " - Space Security Guard"
+			desc += " This particular one is of a space security guard vearing distinctive Union Aerospace Corporation standart-issue armor. You wish the station security were this cool."
+		if(26)
+			name += " - The Biting Pear of Salamanca"
+			desc += " The surrealist painting of the laughing fruit. Rumored to be a failed genetic experiment of L.L.Wat`s Laboratories, this fearsome creature escaped from the it`s cell to roam space freely and terrorize unsuspecting ship crews."
+		if(27)
+			name += " - Robot Warrior "
+			desc += " This particular one depicts somewhat sentient blue robot that once defeated the infamous bandit duo of Snake Man & Toad Man themselves."
+		if(28)
+			name += " - Cupcake"
+			desc += " This particular one is just a picture of a delicious cupcake. Yum!"
+		if(29)
+			name += " - Keep Calm"
+			desc += " This particular one is of a famous New Earth design, although a bit modified."
+		if(30)
+			name += " - Levitating Skull"
+			desc += " This particular one is the portrait of a certain flying, friendly and somewhat sex-crazed enchanted skull. Its adventures along with its fabled companion are now fading through history..."
+		if(31)
+			name += " - User of the Arcane Arts"
+			desc += " This particular one depicts a wizard, casting a spell. You can't really make out if it's an actial photograph or a computer-generated image."
+		if(32)
+			name += " - Rogue AI"
+			desc += " This particular one depicts the shell of the infamous AI that catastropically comandeered one of Nanotrasen's earliest space stations. Back then, the corporation was just known as TriOptimum."
+		if(33)
+			name += " - Positronic Logic Conflicts"
+			desc += " This particular one depicts the cold, unmoving stare of a particular advanced AI."
+		if(34)
+			name += " - Don't Panic"
+			desc += " This particular one depicts some sort of star in a grimace. The \"Don't Panic\" is written in big, friendly letters."
+
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"
 			desc = "Why are you still here?"

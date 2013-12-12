@@ -28,6 +28,11 @@
 			new /obj/item/device/flashlight/flare(src)
 		new /obj/item/device/radio(src)
 
+/obj/item/weapon/storage/toolbox/orange
+	name = "orange toolbox"
+	icon_state = "orange"
+	item_state = "toolbox_orange"
+
 /obj/item/weapon/storage/toolbox/mechanical
 	name = "mechanical toolbox"
 	icon_state = "blue"

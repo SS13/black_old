@@ -140,10 +140,26 @@
 		..()
 		reagents.add_reagent("gin", 100)
 
+/obj/item/weapon/reagent_containers/food/drinks/bottle/gin/hardon
+	name = "Hardon`s Gin"
+	desc = "Famous gin, twice awarded The Space Queen`s Seal Of Approval. Ol` captain`s all-time favourite."
+	icon_state = "ginbottlealt"
+	New()
+		..()
+		reagents.add_reagent("gin", 100)
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey
 	name = "Uncle Git's Special Reserve"
 	desc = "A premium single-malt whiskey, gently matured inside the tunnels of a nuclear shelter. TUNNEL WHISKEY RULES."
 	icon_state = "whiskeybottle"
+	New()
+		..()
+		reagents.add_reagent("whiskey", 100)
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/bourbon
+	name = "McRoy's Old Time Bourbon"
+	desc = "Genuine bourbon whiskey, matured deep inside brig darkest cells. A robust officer`s drink of choice."
+	icon_state = "bourbonbottle"
 	New()
 		..()
 		reagents.add_reagent("whiskey", 100)
@@ -235,6 +251,14 @@
 	New()
 		..()
 		reagents.add_reagent("wine", 100)
+
+obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco
+	name = "Rosolimi Spumante Prosecco"
+	desc = "Famous Rosolimi Winemakers` all-time classics, this sweet sparkling wine is delicious. Bubbles!"
+	icon_state = "proseccobottle"
+	New()
+		..()
+		reagents.add_reagent("prosecco", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe
 	name = "Jailbreaker Verte"

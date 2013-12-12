@@ -375,6 +375,14 @@
 	New()
 		..()
 		reagents.add_reagent("sodawater", 50)
+
+/obj/item/weapon/reagent_containers/food/drinks/spacejomi
+	name = "Spacejomi Mineral Water"
+	desc = "A bottle of hugh-quality mineral water. Spacejomi was outrightly banned by NT health advisors when a certain president declined one not-so-lucrative NT proposal during negotiations."
+	icon_state = "borjomibottle"
+	New()
+		..()
+		reagents.add_reagent("sodawater", 40)
 //////////////////////////drinkingglass and shaker//
 //Note by Darem: This code handles the mixing of drinks. New drinks go in three places: In Chemistry-Reagents.dm (for the drink
 //	itself), in Chemistry-Recipes.dm (for the reaction that changes the components into the drink), and here (for the drinking glass

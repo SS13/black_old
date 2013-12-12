@@ -39,6 +39,20 @@ var/GLOBAL_RADIO_TYPE = 1 // radio type to use
 	var/const/FREQ_LISTENING = 1
 		//FREQ_BROADCASTING = 2
 
+/obj/item/device/radio/black
+	icon = 'icons/obj/radio.dmi'
+	name = "station bounced radio"
+	suffix = "\[3\]"
+	icon_state = "walkietalkieblack"
+	item_state = "walkietalkieblack"
+
+/obj/item/device/radio/orange
+	icon = 'icons/obj/radio.dmi'
+	name = "station bounced radio"
+	suffix = "\[3\]"
+	icon_state = "walkietalkieorange"
+	item_state = "walkietalkieorange"
+
 /obj/item/device/radio
 	var/datum/radio_frequency/radio_connection
 	var/list/datum/radio_frequency/secure_radio_connections = new
