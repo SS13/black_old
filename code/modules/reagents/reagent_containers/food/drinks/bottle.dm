@@ -252,6 +252,14 @@
 		..()
 		reagents.add_reagent("wine", 100)
 
+obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco
+	name = "Rosolimi Spumante Prosecco"
+	desc = "Famous Rosolimi Winemakers all-time classics, this sweet sparkling wine is delicious. Bubbles!"
+	icon_state = "proseccottle"
+	New()
+		..()
+		reagents.add_reagent("prosecco", 100)
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe
 	name = "Jailbreaker Verte"
 	desc = "One sip of this and you just know you're gonna have a good time."
