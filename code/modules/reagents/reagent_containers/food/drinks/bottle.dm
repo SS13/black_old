@@ -254,7 +254,7 @@
 
 obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco
 	name = "Rosolimi Spumante Prosecco"
-	desc = "Famous Rosolimi Winemakers all-time classics, this sweet sparkling wine is delicious. Bubbles!"
+	desc = "Famous Rosolimi Winemakers` all-time classics, this sweet sparkling wine is delicious. Bubbles!"
 	icon_state = "proseccottle"
 	New()
 		..()

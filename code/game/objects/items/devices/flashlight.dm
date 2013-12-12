@@ -129,7 +129,7 @@
 	on = 1
 
 
-// green-shaded desk lamp (Red one added)
+// green-shaded desk lamp (More colors added)
 /obj/item/device/flashlight/lamp/green
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"

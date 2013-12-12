@@ -1528,6 +1528,13 @@ datum
 			required_reagents = list("vodka" = 2, "vermouth" = 1)
 			result_amount = 3
 
+		vodkaroyale
+			name = "Vodka Royale"
+			id = "vodkaroyale"
+			result = "vodkaroyale"
+			required_reagents = list("vodka" = 2, "prosecco" = 1)
+			result_amount = 3
+
 		white_russian
 			name = "White Russian"
 			id = "whiterussian"
@@ -1540,6 +1547,13 @@ datum
 			id = "whiskeycola"
 			result = "whiskeycola"
 			required_reagents = list("whiskey" = 2, "cola" = 1)
+			result_amount = 3
+
+		rossini
+			name = "Rossini"
+			id = "rossini"
+			result = "rossini"
+			required_reagents = list("prosecco" = 2, "blood" = 1)
 			result_amount = 3
 
 		screwdriver
@@ -1951,6 +1965,5 @@ datum
 			result = "rewriter"
 			required_reagents = list("spacemountainwind" = 1, "coffee" = 1)
 			result_amount = 2
-
 
 
