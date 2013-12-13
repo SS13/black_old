@@ -399,8 +399,10 @@
 
 /obj/item/weapon/reagent_containers/food/drinks/shaker/attack_self(mob/user as mob)
 	var/result = rand(1, 3)
-	playsound(get_turf(src), 'sound/items/shaker1.ogg', 100, 1)
-	user.visible_message("<span class='rose'>[user] shakes the shaker vigorously!</span>")
+
+	if(result == 1)
+		playsound(get_turf(src), 'sound/items/shaker1.ogg', 100, 1)
+		user.visible_message("<span class='rose'>[user] shakes the shaker vigorously!</span>")
 
 	if(result == 2)
 		playsound(get_turf(src), 'sound/items/shaker2.ogg', 100, 1)
@@ -409,14 +411,6 @@
 	if(result == 3)
 		playsound(get_turf(src), 'sound/items/shaker3.ogg', 100, 1)
 		user.visible_message("<span class='rose'>You hear [user] shaking the shaker!.</span>")
-
-
-/obj/item/weapon/coin/attack_self(mob/user as mob)
-	var/result = rand(1, 2)
-	var/comment = "Head!"
-	if(result == 2)
-		comment = "Tail!"
-	user.visible_message("<span class='notice'>[user] has flip [src]. Catch it in the air. [comment]</span>")
 
 
 /obj/item/weapon/reagent_containers/food/drinks/flask
