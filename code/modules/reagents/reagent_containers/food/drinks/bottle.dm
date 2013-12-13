@@ -162,7 +162,7 @@
 	icon_state = "bourbonbottle"
 	New()
 		..()
-		reagents.add_reagent("whiskey", 100)
+		reagents.add_reagent("bourbon", 100)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/vodka
 	name = "Tunguska Triple Distilled"
@@ -171,6 +171,14 @@
 	New()
 		..()
 		reagents.add_reagent("vodka", 100)
+
+/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka/Griefenko
+	name = "Griefenko Soft Vodka"
+	desc = "Superpremium potato vodka intended for rich upper-class bolsheviks only. Na zdorovye!"
+	icon_state = "vodkabottlealt"
+	New()
+		..()
+		reagents.add_reagent("vodka", 80)
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/tequilla
 	name = "Caccavo Guaranteed Quality Tequilla"

@@ -1556,12 +1556,27 @@ datum
 			required_reagents = list("whiskey" = 2, "cola" = 1)
 			result_amount = 3
 
+		bourbon_cola
+			name = "Bourbon Cola"
+			id = "bourboncola"
+			result = "bourboncola"
+			required_reagents = list("bourbon" = 2, "cola" = 1)
+			result_amount = 3
+
 		rossini
 			name = "Rossini"
 			id = "rossini"
 			result = "rossini"
 			required_reagents = list("prosecco" = 2, "blood" = 1)
 			result_amount = 3
+
+		kirpetillant
+			name = "Kir Petillant"
+			id = "kirpetillant"
+			result = "kirpetillant"
+			required_reagents = list("prosecco" = 2, "berryjuice" = 1)
+			result_amount = 3
+
 
 		screwdriver
 			name = "Screwdriver"
@@ -1672,7 +1687,7 @@ datum
 			name = "Space Monkey"
 			id = "spacemonkey"
 			result = "spacemonkey"
-			required_reagents = list("orangejuice" = 1, "space_up" = 1, "vodka" = 1)
+			required_reagents = list("banana" = 1, "space_up" = 1, "vodka" = 1)
 			result_amount = 3
 
 		atomicbomb
@@ -1687,6 +1702,13 @@ datum
 			id = "margarita"
 			result = "margarita"
 			required_reagents = list("tequilla" = 2, "limejuice" = 1)
+			result_amount = 3
+
+		sidecar
+			name = "Sidecar"
+			id = "sidecar"
+			result = "sidecar"
+			required_reagents = list("cognac" = 2, "lemonjuice" = 1)
 			result_amount = 3
 
 		longislandicedtea
@@ -1708,6 +1730,13 @@ datum
 			id = "whiskeysoda"
 			result = "whiskeysoda"
 			required_reagents = list("whiskey" = 2, "sodawater" = 1)
+			result_amount = 3
+
+		bourbonsoda
+			name = "Bourbon Soda"
+			id = "bourbonsoda"
+			result = "bourbonsoda"
+			required_reagents = list("bourbon" = 2, "sodawater" = 1)
 			result_amount = 3
 
 		black_russian
@@ -1743,6 +1772,20 @@ datum
 			id = "ginfizz"
 			result = "ginfizz"
 			required_reagents = list("gin" = 2, "sodawater" = 1, "limejuice" = 1)
+			result_amount = 4
+
+		planterspunch
+			name = "Planter`s Punch"
+			id = "planterspunch"
+			result = "planterspunch"
+			required_reagents = list("rum" = 2, "lemonjuice" = 1, "limejuice" = 1)
+			result_amount = 4
+
+		mojito
+			name = "Mojito"
+			id = "mojito"
+			result = "mojito"
+			required_reagents = list("rum" = 2, "sodawater" = 1, "limejuice" = 1)
 			result_amount = 4
 
 		bahama_mama

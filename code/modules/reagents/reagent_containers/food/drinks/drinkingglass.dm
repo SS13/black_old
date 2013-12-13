@@ -74,6 +74,10 @@
 					icon_state = "whiskeyglass"
 					name = "Glass of whiskey"
 					desc = "The silky, smokey whiskey goodness inside the glass makes the drink look very classy."
+				if("bourbon")
+					icon_state = "whiskeyglass"
+					name = "Glass of bourbon"
+					desc = "Smokey, with caramel nose and long lasting sweety finish. No compromises."
 				if("gin")
 					icon_state = "ginvodkaglass"
 					name = "Glass of gin"
@@ -85,11 +89,11 @@
 				if("vodkaroyale")
 					icon_state = "vodkaroyaleglass"
 					name = "Vodka Royale"
-					desc = "You really should have chosen vermouth."
+					desc = "You really should have chosen vermouth instead of vodka."
 				if("tiniroyale")
 					icon_state = "tiniroyaleglass"
 					name = "Tini Royale"
-					desc = "Official drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
+					desc = "The ffficial drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
 				if("sake")
 					icon_state = "ginvodkaglass"
 					name = "Glass of Sake"
@@ -109,7 +113,11 @@
 				if("rossini")
 					icon_state = "rossiniglass"
 					name = "Rossini"
-					desc = "For when ordinary bubbles are not festive enough."
+					desc = "For when ordinary bubbles are not festive enough. Whait, what it this red thing?"
+				if("kir_petillant")
+					icon_state = "kirpetillantglass"
+					name = "Kir Petillant"
+					desc = "For those who are not classy enough to sip rossini. A girly drink."
 				if("cognac")
 					icon_state = "cognacglass"
 					name = "Glass of cognac"
@@ -142,6 +150,10 @@
 					icon_state = "whiskeycolaglass"
 					name = "Whiskey Cola"
 					desc = "An innocent-looking mixture of cola and Whiskey. Delicious."
+				if("bourboncola")
+					icon_state = "whiskeycolaglass"
+					name = "Bourbon Cola"
+					desc = "An innocent-looking mixture of cola and Bourbon. Delicious."
 				if("whiterussian")
 					icon_state = "whiterussianglass"
 					name = "White Russian"
@@ -230,6 +242,10 @@
 					icon_state = "margaritaglass"
 					name = "Margarita"
 					desc = "On the rocks with salt on the rim. Arriba~!"
+				if("sidecar")
+					icon_state = "sidecarglass"
+					name = "Sidecar"
+					desc = "Named after the shuttle sidecar in which the good captain with drinking problem was driven to and from the station where the drink was born and christened."
 				if("blackrussian")
 					icon_state = "blackrussianglass"
 					name = "Black Russian"
@@ -250,6 +266,14 @@
 					icon_state = "ginfizzglass"
 					name = "Gin Fizz"
 					desc = "Refreshingly lemony, deliciously dry."
+				if("planterspunch")
+					icon_state = "planterspunchglass"
+					name = "Planter`s Punch"
+					desc = "‘This recipe I give to thee. Dear brother in the heat…`"
+				if("mojito")
+					icon_state = "mojitoglass"
+					name = "Mojito"
+					desc = "With approval from both pillaging space pirates and a Space Nobel Prize winner, The Mojito has become a classic loved the galaxy over."
 				if("irishcoffee")
 					icon_state = "irishcoffeeglass"
 					name = "Irish Coffee"
@@ -261,6 +285,10 @@
 				if("whiskeysoda")
 					icon_state = "whiskeysodaglass2"
 					name = "Whiskey Soda"
+					desc = "Ultimate refreshment."
+				if("bourbonsoda")
+					icon_state = "whiskeysodaglass2"
+					name = "Bourbon Soda"
 					desc = "Ultimate refreshment."
 				if("tonic")
 					icon_state = "glass_clear"

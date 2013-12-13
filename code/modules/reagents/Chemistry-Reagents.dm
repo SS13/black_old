@@ -2878,7 +2878,15 @@ datum
 		ethanol/whiskey
 			name = "Whiskey"
 			id = "whiskey"
-			description = "A superb and well-aged single-malt whiskey. Damn."
+			description = "A superb and well-aged single malt whiskey. Damn."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 2
+			dizzy_adj = 4
+
+		ethanol/bourbon
+			name = "Bourbon"
+			id = "bourbon"
+			description = "Barrel-aged, distilled, made from corn. Majestic."
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 2
 			dizzy_adj = 4
@@ -3003,7 +3011,7 @@ datum
 			id = "hooch"
 			description = "Either someone's failure at cocktail making or attempt in alchohol production. In any case, do you really want to drink that?"
 			color = "#664300" // rgb: 102, 67, 0
-			boozepwr = 2
+			boozepwr = 3
 			dizzy_adj = 6
 			slurr_adj = 5
 			slur_start = 35			//amount absorbed after which mob starts slurring
@@ -3090,6 +3098,13 @@ datum
 			name = "Whiskey Cola"
 			id = "whiskeycola"
 			description = "Whiskey, mixed with cola. Surprisingly refreshing."
+			color = "#3E1B00" // rgb: 62, 27, 0
+			boozepwr = 2
+
+		ethanol/bourbon_cola
+			name = "Bourbon Cola"
+			id = "whiskeycola"
+			description = "Bourbon, mixed with cola. Surprisingly refreshing."
 			color = "#3E1B00" // rgb: 62, 27, 0
 			boozepwr = 2
 
@@ -3211,6 +3226,57 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 4
 
+		ethanol/b53
+			name = "B-53"
+			id = "b53"
+			description = "Kahlua, Irish Cream, and absinthe. You better hold tight."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 4
+
+		ethanol/rossini
+			name = "Rossini"
+			id = "rossini"
+			description = "For when ordinary bubbles are not festive enough. Whait, what it this red thing?"
+			color = "#7E4043" // rgb: 102, 67, 0
+			boozepwr = 2
+
+		ethanol/kirpetillant
+			name = "Kir Petillant"
+			id = "kirpetillant"
+			description = "For those who are not classy enough to sip rossini. A girly drink."
+			color = "#DFA6E3" // rgb: 223, 166, 227
+			boozepwr = 2
+
+		ethanol/vodkaroyale
+			name = "Vodka Royale"
+			id = "vodkaroyale"
+			description = "You really should have chosen vermouth instead of vodka."
+			color = "#664300"
+			boozepwr = 4
+
+		ethanol/tiniroyale
+			name = "Tini Royale"
+			id = "tiniroyale"
+			description = "The ffficial drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
+			color = "#91FF91"
+			boozepwr = 3
+
+		ethanol/schlagerloko
+			name = "Schlager Loko"
+			id = "schlagerloko"
+			description = "Surprisingly tasty but potent mixture of Goldschlager and Thirteen Loko. Gives a pleasant tongue tingle.."
+			color = "#102000" // rgb: 102, 67, 0
+			boozepwr = 3
+			nutriment_factor = 1 * FOOD_METABOLISM
+
+		ethanol/spacemonkey
+			name = "Space Monkey"
+			id = "spacemonkey"
+			description = "May or may not contain monkeys. Best garnished with banana."
+			color = "#FFFF91" // rgb: 102, 67, 0
+			boozepwr = 3
+
+
 		ethanol/irishcoffee
 			name = "Irish Coffee"
 			id = "irishcoffee"
@@ -3223,6 +3289,13 @@ datum
 			id = "margarita"
 			description = "On the rocks with salt on the rim. Arriba~!"
 			color = "#8CFF8C" // rgb: 140, 255, 140
+			boozepwr = 3
+
+		ethanol/sidecar
+			name = "Sidecar"
+			id = "sidecar"
+			description = "Named after the shuttle sidecar in which the good captain with drinking problem was driven to and from the station where the drink was born and christened."
+			color = "#FFD75E" // rgb: 255, 215, 94
 			boozepwr = 3
 
 		ethanol/black_russian
@@ -3253,6 +3326,13 @@ datum
 
 		ethanol/whiskeysoda
 			name = "Whiskey Soda"
+			id = "whiskeysoda"
+			description = "For the more refined griffon."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 3
+
+		ethanol/bourbonsoda
+			name = "Bourbon Soda"
 			id = "whiskeysoda"
 			description = "For the more refined griffon."
 			color = "#664300" // rgb: 102, 67, 0
@@ -3306,6 +3386,24 @@ datum
 			id = "ginfizz"
 			description = "Refreshingly lemony, deliciously dry."
 			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 1.5
+			dizzy_adj = 4
+			slurr_adj = 3
+
+		ethanol/planterspunch
+			name = "Planter`s Punch"
+			id = "planterspunch"
+			description = "‘This recipe I give to thee. Dear brother in the heat…`"
+			color = "#F45F39" // rgb: 244, 95, 57
+			boozepwr = 1.5
+			dizzy_adj = 4
+			slurr_adj = 3
+
+		ethanol/mojito
+			name = "Mojito"
+			id = "mojito"
+			description = "With approval from both pillaging space pirates and a Space Nobel Prize winner, The Mojito has become a classic loved the galaxy over."
+			color = "#365000"
 			boozepwr = 1.5
 			dizzy_adj = 4
 			slurr_adj = 3
