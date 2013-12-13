@@ -628,20 +628,20 @@
 /obj/machinery/vending/boozeomat
 	name = "Booze-O-Mat"
 	desc = "A technological marvel, supposedly able to mix just the mixture you'd like to drink the moment you ask for one."
-	icon_state = "boozeomat"        //////////////19 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
+	icon_state = "boozeomat"        //////////////~~23 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	icon_deny = "boozeomat-deny"
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/gin = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/gin/hardon =2,
-					/obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/bourbon = 2,
-					/obj/item/weapon/reagent_containers/food/drinks/bottle/tequilla = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka = 5,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/bourbon = 3,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/tequilla = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/vermouth = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/rum = 5,
-					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco = 2,
-					/obj/item/weapon/reagent_containers/food/drinks/bottle/cognac = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 5,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco = 3,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/cognac = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 4,
 					/obj/item/weapon/reagent_containers/food/drinks/beer = 6,/obj/item/weapon/reagent_containers/food/drinks/ale = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice = 4,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/cream = 4,
-					/obj/item/weapon/reagent_containers/food/drinks/tonic = 8,/obj/item/weapon/reagent_containers/food/drinks/cola = 8,
-					/obj/item/weapon/reagent_containers/food/drinks/sodawater = 15,/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 30,
-					/obj/item/weapon/reagent_containers/food/drinks/ice = 9)
+					/obj/item/weapon/reagent_containers/food/drinks/milk = 2,/obj/item/weapon/reagent_containers/food/drinks/tonic = 8,
+					/obj/item/weapon/reagent_containers/food/drinks/cola = 8,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 15,
+					/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 30,/obj/item/weapon/reagent_containers/food/drinks/ice = 9)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/tea = 10)
 	vend_delay = 15
 	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?"
@@ -667,7 +667,6 @@
 
 
 
-
 /obj/machinery/vending/snack
 	name = "Getmore Chocolate Corp"
 	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
@@ -683,6 +682,16 @@
 					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25)
 
 
+/obj/machinery/vending/sustenance
+	name = "\improper Sustenance Vendor"
+	desc = "A vending machine which vends food, as required by section 47-C of the NT's Prisoner Ethical Treatment Agreement."
+	product_slogans = "Enjoy your meal.;Enough calories to support strenuous labor."
+	product_ads = "Sufficiently healthy.;Efficiently produced tofu!;Mmm! So good!;Have a meal.; This will sustain your life so you can work more!; You need food to live!;Have some more candy corn!; Share with your cellmates!; Try our new ice cups!"
+	icon_state = "sustenance"
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/tofu = 15,
+					/obj/item/weapon/reagent_containers/food/drinks/ice = 15,
+					/obj/item/weapon/reagent_containers/food/snacks/candy_corn = 6)
+	contraband = list(/obj/item/weapon/kitchen/utensil/knife = 1)
 
 /obj/machinery/vending/cola
 	name = "Robust Softdrinks"
@@ -693,12 +702,12 @@
 	product_slogans = "Robust Softdrinks: More robust than a toolbox to the head!"
 	product_ads = "Refreshing!;Hope you're thirsty!;Over 1 million drinks sold!;Thirsty? Why not cola?;Please, have a drink!;Drink up!;The best drinks in space."
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 10,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 10,
-					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 10,/obj/item/weapon/reagent_containers/food/drinks/starkist = 10,
-					/obj/item/weapon/reagent_containers/food/drinks/space_up = 10)
+					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 10,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 7,
+					/obj/item/weapon/reagent_containers/food/drinks/starkist = 10,/obj/item/weapon/reagent_containers/food/drinks/space_up = 10)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/thirteenloko = 5)
-	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 20,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 20,
-					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 20,/obj/item/weapon/reagent_containers/food/drinks/starkist = 20,
-					/obj/item/weapon/reagent_containers/food/drinks/space_up = 20)
+	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 30,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 30,
+					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 35,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 30,
+					/obj/item/weapon/reagent_containers/food/drinks/starkist = 35,/obj/item/weapon/reagent_containers/food/drinks/space_up = 30)
 
 //This one's from bay12
 /obj/machinery/vending/cart

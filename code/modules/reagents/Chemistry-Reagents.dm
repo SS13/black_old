@@ -2622,6 +2622,131 @@ datum
 				..()
 				return
 
+		drink/cold/milkshake_banana
+			name = "Banana Milkshake"
+			description = "Clowns and kids all-time favorite."
+			id = "milkshake_banana"
+			color = "#AEE5E4" // rgb" 174, 229, 228
+			adj_temp = -9
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!data) data = 1
+				switch(data)
+					if(1 to 15)
+						M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(holder.has_reagent("capsaicin"))
+							holder.remove_reagent("capsaicin", 5)
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(5,20)
+					if(15 to 25)
+						M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(10,20)
+					if(25 to INFINITY)
+						M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(prob(1)) M.emote("shiver")
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(15,20)
+				data++
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+				..()
+				return
+
+		drink/cold/milkshake_berry
+			name = "Berry Milkshake"
+			description = "Sweet, brainfreezing deliciousness."
+			id = "milkshake_berry"
+			color = "#AEE5E4" // rgb" 174, 229, 228
+			adj_temp = -9
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!data) data = 1
+				switch(data)
+					if(1 to 15)
+						M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(holder.has_reagent("capsaicin"))
+							holder.remove_reagent("capsaicin", 5)
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(5,20)
+					if(15 to 25)
+						M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(10,20)
+					if(25 to INFINITY)
+						M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(prob(1)) M.emote("shiver")
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(15,20)
+				data++
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+				..()
+				return
+
+		drink/cold/milkshake_coffee
+			name = "Coffee Milkshake"
+			description = "Better than coffee and cream anyway."
+			id = "milkshake_coffee"
+			color = "#AEE5E4" // rgb" 174, 229, 228
+			adj_temp = -9
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!data) data = 1
+				switch(data)
+					if(1 to 15)
+						M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(holder.has_reagent("capsaicin"))
+							holder.remove_reagent("capsaicin", 5)
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(5,20)
+					if(15 to 25)
+						M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(10,20)
+					if(25 to INFINITY)
+						M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(prob(1)) M.emote("shiver")
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(15,20)
+				data++
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+				..()
+				return
+
+
+		drink/cold/milkshake_tomato
+			name = "Bloody Mary Jr."
+			description = "Just like father drinks, almost real Bloody Mary! For children who like to develop alcoholism before they are middle-aged."
+			id = "milkshake_tomato"
+			color = "#AEE5E4" // rgb" 174, 229, 228
+			adj_temp = -9
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!data) data = 1
+				switch(data)
+					if(1 to 15)
+						M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(holder.has_reagent("capsaicin"))
+							holder.remove_reagent("capsaicin", 5)
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(5,20)
+					if(15 to 25)
+						M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(10,20)
+					if(25 to INFINITY)
+						M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(prob(1)) M.emote("shiver")
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(15,20)
+				data++
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+				..()
+				return
+
 		drink/cold/rewriter
 			name = "Rewriter"
 			description = "The secert of the sanctuary of the Libarian..."
@@ -2878,7 +3003,15 @@ datum
 		ethanol/whiskey
 			name = "Whiskey"
 			id = "whiskey"
-			description = "A superb and well-aged single-malt whiskey. Damn."
+			description = "A superb and well-aged single malt whiskey. Damn."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 2
+			dizzy_adj = 4
+
+		ethanol/bourbon
+			name = "Bourbon"
+			id = "bourbon"
+			description = "Barrel-aged, distilled, made from corn. Majestic."
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 2
 			dizzy_adj = 4
@@ -3003,7 +3136,7 @@ datum
 			id = "hooch"
 			description = "Either someone's failure at cocktail making or attempt in alchohol production. In any case, do you really want to drink that?"
 			color = "#664300" // rgb: 102, 67, 0
-			boozepwr = 2
+			boozepwr = 3
 			dizzy_adj = 6
 			slurr_adj = 5
 			slur_start = 35			//amount absorbed after which mob starts slurring
@@ -3090,6 +3223,13 @@ datum
 			name = "Whiskey Cola"
 			id = "whiskeycola"
 			description = "Whiskey, mixed with cola. Surprisingly refreshing."
+			color = "#3E1B00" // rgb: 62, 27, 0
+			boozepwr = 2
+
+		ethanol/bourbon_cola
+			name = "Bourbon Cola"
+			id = "whiskeycola"
+			description = "Bourbon, mixed with cola. Surprisingly refreshing."
 			color = "#3E1B00" // rgb: 62, 27, 0
 			boozepwr = 2
 
@@ -3211,6 +3351,57 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 4
 
+		ethanol/b53
+			name = "B-53"
+			id = "b53"
+			description = "Kahlua, Irish Cream, and absinthe. You better hold tight."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 4
+
+		ethanol/rossini
+			name = "Rossini"
+			id = "rossini"
+			description = "For when ordinary bubbles are not festive enough. Whait, what it this red thing?"
+			color = "#7E4043" // rgb: 102, 67, 0
+			boozepwr = 2
+
+		ethanol/kirpetillant
+			name = "Kir Petillant"
+			id = "kirpetillant"
+			description = "For those who are not classy enough to sip rossini. A girly drink."
+			color = "#DFA6E3" // rgb: 223, 166, 227
+			boozepwr = 2
+
+		ethanol/vodkaroyale
+			name = "Vodka Royale"
+			id = "vodkaroyale"
+			description = "You really should have chosen vermouth instead of vodka."
+			color = "#664300"
+			boozepwr = 4
+
+		ethanol/tiniroyale
+			name = "Tini Royale"
+			id = "tiniroyale"
+			description = "The ffficial drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
+			color = "#91FF91"
+			boozepwr = 3
+
+		ethanol/schlagerloko
+			name = "Schlager Loko"
+			id = "schlagerloko"
+			description = "Surprisingly tasty but potent mixture of Goldschlager and Thirteen Loko. Gives a pleasant tongue tingle.."
+			color = "#102000" // rgb: 102, 67, 0
+			boozepwr = 3
+			nutriment_factor = 1 * FOOD_METABOLISM
+
+		ethanol/spacemonkey
+			name = "Space Monkey"
+			id = "spacemonkey"
+			description = "May or may not contain monkeys. Best garnished with banana."
+			color = "#FFFF91" // rgb: 102, 67, 0
+			boozepwr = 3
+
+
 		ethanol/irishcoffee
 			name = "Irish Coffee"
 			id = "irishcoffee"
@@ -3223,6 +3414,13 @@ datum
 			id = "margarita"
 			description = "On the rocks with salt on the rim. Arriba~!"
 			color = "#8CFF8C" // rgb: 140, 255, 140
+			boozepwr = 3
+
+		ethanol/sidecar
+			name = "Sidecar"
+			id = "sidecar"
+			description = "Named after the shuttle sidecar in which the good captain with drinking problem was driven to and from the station where the drink was born and christened."
+			color = "#FFD75E" // rgb: 255, 215, 94
 			boozepwr = 3
 
 		ethanol/black_russian
@@ -3253,6 +3451,13 @@ datum
 
 		ethanol/whiskeysoda
 			name = "Whiskey Soda"
+			id = "whiskeysoda"
+			description = "For the more refined griffon."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 3
+
+		ethanol/bourbonsoda
+			name = "Bourbon Soda"
 			id = "whiskeysoda"
 			description = "For the more refined griffon."
 			color = "#664300" // rgb: 102, 67, 0
@@ -3306,6 +3511,24 @@ datum
 			id = "ginfizz"
 			description = "Refreshingly lemony, deliciously dry."
 			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 1.5
+			dizzy_adj = 4
+			slurr_adj = 3
+
+		ethanol/planterspunch
+			name = "Planter`s Punch"
+			id = "planterspunch"
+			description = "‘This recipe I give to thee. Dear brother in the heat…`"
+			color = "#F45F39" // rgb: 244, 95, 57
+			boozepwr = 1.5
+			dizzy_adj = 4
+			slurr_adj = 3
+
+		ethanol/mojito
+			name = "Mojito"
+			id = "mojito"
+			description = "With approval from both pillaging space pirates and a Space Nobel Prize winner, The Mojito has become a classic loved the galaxy over."
+			color = "#365000"
 			boozepwr = 1.5
 			dizzy_adj = 4
 			slurr_adj = 3

@@ -1532,7 +1532,14 @@ datum
 			name = "Vodka Royale"
 			id = "vodkaroyale"
 			result = "vodkaroyale"
-			required_reagents = list("vodka" = 2, "prosecco" = 1)
+			required_reagents = list("vodka" = 1, "prosecco" = 2)
+			result_amount = 3
+
+		tiniroyale
+			name = "Tini Royale"
+			id = "tiniroyale"
+			result = "tiniroyale"
+			required_reagents = list("vermouth" = 1, "prosecco" = 2)
 			result_amount = 3
 
 		white_russian
@@ -1549,12 +1556,27 @@ datum
 			required_reagents = list("whiskey" = 2, "cola" = 1)
 			result_amount = 3
 
+		bourbon_cola
+			name = "Bourbon Cola"
+			id = "bourboncola"
+			result = "bourboncola"
+			required_reagents = list("bourbon" = 2, "cola" = 1)
+			result_amount = 3
+
 		rossini
 			name = "Rossini"
 			id = "rossini"
 			result = "rossini"
 			required_reagents = list("prosecco" = 2, "blood" = 1)
 			result_amount = 3
+
+		kirpetillant
+			name = "Kir Petillant"
+			id = "kirpetillant"
+			result = "kirpetillant"
+			required_reagents = list("prosecco" = 2, "berryjuice" = 1)
+			result_amount = 3
+
 
 		screwdriver
 			name = "Screwdriver"
@@ -1654,6 +1676,20 @@ datum
 			required_reagents = list("irishcream" = 1, "kahlua" = 1, "absinthe" = 1)
 			result_amount = 3
 
+		schlagerloko
+			name = "Schlagerloko"
+			id = "schlagerloko"
+			result = "schlagerloko"
+			required_reagents = list("goldschlager" = 1, "thirteenloko" = 2)
+			result_amount = 3
+
+		spacemonkey
+			name = "Space Monkey"
+			id = "spacemonkey"
+			result = "spacemonkey"
+			required_reagents = list("banana" = 1, "space_up" = 1, "vodka" = 1)
+			result_amount = 3
+
 		atomicbomb
 			name = "Atomic Bomb"
 			id = "atomicbomb"
@@ -1666,6 +1702,13 @@ datum
 			id = "margarita"
 			result = "margarita"
 			required_reagents = list("tequilla" = 2, "limejuice" = 1)
+			result_amount = 3
+
+		sidecar
+			name = "Sidecar"
+			id = "sidecar"
+			result = "sidecar"
+			required_reagents = list("cognac" = 2, "lemonjuice" = 1)
 			result_amount = 3
 
 		longislandicedtea
@@ -1687,6 +1730,13 @@ datum
 			id = "whiskeysoda"
 			result = "whiskeysoda"
 			required_reagents = list("whiskey" = 2, "sodawater" = 1)
+			result_amount = 3
+
+		bourbonsoda
+			name = "Bourbon Soda"
+			id = "bourbonsoda"
+			result = "bourbonsoda"
+			required_reagents = list("bourbon" = 2, "sodawater" = 1)
 			result_amount = 3
 
 		black_russian
@@ -1722,6 +1772,20 @@ datum
 			id = "ginfizz"
 			result = "ginfizz"
 			required_reagents = list("gin" = 2, "sodawater" = 1, "limejuice" = 1)
+			result_amount = 4
+
+		planterspunch
+			name = "Planter`s Punch"
+			id = "planterspunch"
+			result = "planterspunch"
+			required_reagents = list("rum" = 2, "lemonjuice" = 1, "limejuice" = 1)
+			result_amount = 4
+
+		mojito
+			name = "Mojito"
+			id = "mojito"
+			result = "mojito"
+			required_reagents = list("rum" = 2, "sodawater" = 1, "limejuice" = 1)
 			result_amount = 4
 
 		bahama_mama
@@ -1832,6 +1896,34 @@ datum
 			result = "cafe_latte"
 			required_reagents = list("coffee" = 1, "milk" = 1)
 			result_amount = 2
+
+		milkshake_banana
+			name = "Banana Milkshake"
+			id = "milkshake_banana"
+			result = "milkshake_banana"
+			required_reagents = list("cream" = 1, "milk" = 2, "banana" = 1, "ice" = 1)
+			result_amount = 4
+
+		milkshake_berry
+			name = "Berry Milkshake"
+			id = "milkshake_berry"
+			result = "milkshake_berry"
+			required_reagents = list("cream" = 1, "milk" = 2, "berryjuice" = 1, "ice" = 1)
+			result_amount = 4
+
+		milkshake_coffee
+			name = "Coffee Milkshake"
+			id = "milkshake_coffee"
+			result = "milkshake_coffee"
+			required_reagents = list("cream" = 1, "milk" = 2, "coffee" = 1, "ice" = 1)
+			result_amount = 4
+
+		milkshake_tomato
+			name = "Bloody Mary Jr."
+			id = "milkshake_tomato"
+			result = "milkshake_tomato"
+			required_reagents = list("cream" = 1, "milk" = 2, "tomatojuice" = 1, "ice" = 1)
+			result_amount = 4
 
 		acidspit
 			name = "Acid Spit"
