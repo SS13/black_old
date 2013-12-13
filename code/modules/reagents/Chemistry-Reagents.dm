@@ -2622,6 +2622,131 @@ datum
 				..()
 				return
 
+		drink/cold/milkshake_banana
+			name = "Banana Milkshake"
+			description = "Clowns and kids all-time favorite."
+			id = "milkshake_banana"
+			color = "#AEE5E4" // rgb" 174, 229, 228
+			adj_temp = -9
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!data) data = 1
+				switch(data)
+					if(1 to 15)
+						M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(holder.has_reagent("capsaicin"))
+							holder.remove_reagent("capsaicin", 5)
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(5,20)
+					if(15 to 25)
+						M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(10,20)
+					if(25 to INFINITY)
+						M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(prob(1)) M.emote("shiver")
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(15,20)
+				data++
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+				..()
+				return
+
+		drink/cold/milkshake_berry
+			name = "Berry Milkshake"
+			description = "Sweet, brainfreezing deliciousness."
+			id = "milkshake_berry"
+			color = "#AEE5E4" // rgb" 174, 229, 228
+			adj_temp = -9
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!data) data = 1
+				switch(data)
+					if(1 to 15)
+						M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(holder.has_reagent("capsaicin"))
+							holder.remove_reagent("capsaicin", 5)
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(5,20)
+					if(15 to 25)
+						M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(10,20)
+					if(25 to INFINITY)
+						M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(prob(1)) M.emote("shiver")
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(15,20)
+				data++
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+				..()
+				return
+
+		drink/cold/milkshake_coffee
+			name = "Coffee Milkshake"
+			description = "Better than coffee and cream anyway."
+			id = "milkshake_coffee"
+			color = "#AEE5E4" // rgb" 174, 229, 228
+			adj_temp = -9
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!data) data = 1
+				switch(data)
+					if(1 to 15)
+						M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(holder.has_reagent("capsaicin"))
+							holder.remove_reagent("capsaicin", 5)
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(5,20)
+					if(15 to 25)
+						M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(10,20)
+					if(25 to INFINITY)
+						M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(prob(1)) M.emote("shiver")
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(15,20)
+				data++
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+				..()
+				return
+
+
+		drink/cold/milkshake_tomato
+			name = "Bloody Mary Jr."
+			description = "Just like father drinks, almost real Bloody Mary! For children who like to develop alcoholism before they are middle-aged."
+			id = "milkshake_tomato"
+			color = "#AEE5E4" // rgb" 174, 229, 228
+			adj_temp = -9
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				if(!data) data = 1
+				switch(data)
+					if(1 to 15)
+						M.bodytemperature -= 5 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(holder.has_reagent("capsaicin"))
+							holder.remove_reagent("capsaicin", 5)
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(5,20)
+					if(15 to 25)
+						M.bodytemperature -= 10 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(10,20)
+					if(25 to INFINITY)
+						M.bodytemperature -= 15 * TEMPERATURE_DAMAGE_COEFFICIENT
+						if(prob(1)) M.emote("shiver")
+						if(istype(M, /mob/living/carbon/slime))
+							M.bodytemperature -= rand(15,20)
+				data++
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+				..()
+				return
+
 		drink/cold/rewriter
 			name = "Rewriter"
 			description = "The secert of the sanctuary of the Libarian..."

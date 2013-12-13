@@ -494,6 +494,18 @@
 					icon_state = "milkshake"
 					name = "Milkshake"
 					desc = "Glorious brainfreezing mixture."
+				if("milkshake_banana")
+					icon_state = "milkshakebananaglass"
+					name = "Banana Milkshake"
+					desc = "Clowns and kids all-time favorite."
+				if("milkshake_coffee")
+					icon_state = "milkshakecoffeeglass"
+					name = "Coffee Milkshake"
+					desc = "Better than coffee and cream anyway"
+				if("milkshake_tomato")
+					icon_state = "milkshaketomatoglass"
+					name = "Bloody Mary Jr."
+					desc = "Just like father drinks, almost real Bloody Mary! For children who like to develop alcoholism before they are middle-aged."
 				if("lemonade")
 					icon_state = "lemonade"
 					name = "Lemonade"

@@ -1897,6 +1897,34 @@ datum
 			required_reagents = list("coffee" = 1, "milk" = 1)
 			result_amount = 2
 
+		milkshake_banana
+			name = "Banana Milkshake"
+			id = "milkshake_banana"
+			result = "milkshake_banana"
+			required_reagents = list("cream" = 1, "milk" = 2, "banana" = 1, "ice" = 1)
+			result_amount = 4
+
+		milkshake_berry
+			name = "Berry Milkshake"
+			id = "milkshake_berry"
+			result = "milkshake_berry"
+			required_reagents = list("cream" = 1, "milk" = 2, "berryjuice" = 1, "ice" = 1)
+			result_amount = 4
+
+		milkshake_coffee
+			name = "Coffee Milkshake"
+			id = "milkshake_coffee"
+			result = "milkshake_coffee"
+			required_reagents = list("cream" = 1, "milk" = 2, "coffee" = 1, "ice" = 1)
+			result_amount = 4
+
+		milkshake_tomato
+			name = "Bloody Mary Jr."
+			id = "milkshake_tomato"
+			result = "milkshake_tomato"
+			required_reagents = list("cream" = 1, "milk" = 2, "tomatojuice" = 1, "ice" = 1)
+			result_amount = 4
+
 		acidspit
 			name = "Acid Spit"
 			id = "acidspit"
