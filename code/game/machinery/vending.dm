@@ -667,7 +667,6 @@
 
 
 
-
 /obj/machinery/vending/snack
 	name = "Getmore Chocolate Corp"
 	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
@@ -687,10 +686,10 @@
 	name = "\improper Sustenance Vendor"
 	desc = "A vending machine which vends food, as required by section 47-C of the NT's Prisoner Ethical Treatment Agreement."
 	product_slogans = "Enjoy your meal.;Enough calories to support strenuous labor."
-	product_ads = "Sufficiently healthy.;Efficiently produced tofu!;Mmm! So good!;Have a meal.; This will sustain you live so you can work e!; You need food to live!;Have some more candy corn!;Try our new ice cups!"
+	product_ads = "Sufficiently healthy.;Efficiently produced tofu!;Mmm! So good!;Have a meal.; This will sustain your life so you can work more!; You need food to live!;Have some more candy corn!; Share with your cellmates!; Try our new ice cups!"
 	icon_state = "sustenance"
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/tofu = 15,
-					/obj/item/weapon/reagent_containers/food/drinks/ice = 10,
+					/obj/item/weapon/reagent_containers/food/drinks/ice = 15,
 					/obj/item/weapon/reagent_containers/food/snacks/candy_corn = 6)
 	contraband = list(/obj/item/weapon/kitchen/utensil/knife = 1)
 
