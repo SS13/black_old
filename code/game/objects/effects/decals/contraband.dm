@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 34
+#define NUM_OF_POSTER_DESIGNS 35
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -186,6 +186,9 @@ obj/structure/sign/poster/New(var/serial)
 		if(34)
 			name += " - Don't Panic"
 			desc += " This particular one depicts some sort of star in a grimace. The \"Don't Panic\" is written in big, friendly letters."
+		if(35)
+			name += " - RIP Badger"
+			desc += " This poster commemorates the day hundreds of badgers worldwide were sacrificed for the greater good."
 
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"
