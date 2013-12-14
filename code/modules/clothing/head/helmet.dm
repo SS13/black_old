@@ -30,7 +30,7 @@
 
 /obj/item/clothing/head/helmet/riot/tinted
 	name = "tinted riot helmet"
-	desc = "It's a helmet specifically designed to protect against close range attacks. The visor is tinted. They get scared when they can`t see your face."
+	desc = "It's a helmet specifically designed to protect against stronger close range attacks. The visor is tinted. They get scared when they can`t see your face."
 	icon_state = "riottinted"
 
 /obj/item/clothing/head/helmet/roman

@@ -666,6 +666,33 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_armory
 	group = "Security"
 
+datum/supply_packs/riotadvanced
+	name = "Advanced riot gear crate"
+	contains = list(/obj/item/weapon/melee/baton,
+					/obj/item/weapon/melee/baton,
+					/obj/item/weapon/melee/baton,
+					/obj/item/weapon/shield/metal,
+					/obj/item/weapon/shield/metal,
+					/obj/item/weapon/shield/metal,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/weapon/storage/box/flashbangs,
+					/obj/item/weapon/handcuffs,
+					/obj/item/weapon/handcuffs,
+					/obj/item/weapon/handcuffs,
+					/obj/item/clothing/head/helmet/riot/tinted,
+					/obj/item/clothing/suit/armor/riot,
+					/obj/item/clothing/head/helmet/riot/tinted,
+					/obj/item/clothing/suit/armor/riot,
+					/obj/item/clothing/head/helmet/riot/tinted,
+					/obj/item/clothing/suit/armor/riot)
+	cost = 70
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Advanced riot gear crate"
+	access = access_armory
+	group = "Security"
+
 /datum/supply_packs/loyalty
 	name = "Loyalty implant crate"
 	contains = list (/obj/item/weapon/storage/lockbox/loyalty)
@@ -690,6 +717,8 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 /datum/supply_packs/shotgunammo
 	name = "Shotgun shells"
 	contains = list(/obj/item/ammo_casing/shotgun,
+					/obj/item/ammo_casing/shotgun,
+					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
