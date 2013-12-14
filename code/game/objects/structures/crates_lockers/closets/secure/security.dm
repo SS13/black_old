@@ -250,6 +250,7 @@
 		new /obj/item/clothing/suit/storage/det_suit(src)
 		new /obj/item/clothing/suit/storage/forensics/blue(src)
 		new /obj/item/clothing/suit/storage/forensics/red(src)
+		new /obj/item/clothing/suit/storage/forensics/black(src)
 		new /obj/item/clothing/gloves/black(src)
 		new /obj/item/clothing/head/det_hat(src)
 		new /obj/item/clothing/shoes/brown(src)
