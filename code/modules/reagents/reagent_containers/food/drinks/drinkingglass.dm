@@ -525,7 +525,7 @@
 				if("lynchburg")
 					icon_state = "lynchburg"
 					name = "Lynchburg Lemonade"
-					desc = "Nobody knows what Lynchburg is anymore, but this recipe is well-known around this sector."
+					desc = "Nobody knows what Lynchburg is anymore, but the recipe is well-known around this sector."
 				if("kiraspecial")
 					icon_state = "kiraspecial"
 					name = "Kira Special"

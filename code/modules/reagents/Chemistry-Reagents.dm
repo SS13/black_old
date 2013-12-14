@@ -3278,7 +3278,7 @@ datum
 		ethanol/lynchburg
 			name = "Lynchburg Lemonade"
 			id = "lynchburg"
-			description = "Nobody knows what Lynchburg is anymore, but this recipe is well-known around this sector."
+			description = "Nobody knows what Lynchburg is anymore, but the recipe is well-known around this sector."
 			color = "#CACA22" // rgb: 202, 202, 34
 			boozepwr = 2
 
