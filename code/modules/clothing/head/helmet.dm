@@ -28,6 +28,11 @@
 	flags_inv = HIDEEARS
 	siemens_coefficient = 0.7
 
+/obj/item/clothing/head/helmet/riot/tinted
+	name = "tinted riot helmet"
+	desc = "It's a helmet specifically designed to protect against close range attacks. The visor is tinted. They get scared when they can`t see your face."
+	icon_state = "riottinted"
+
 /obj/item/clothing/head/helmet/roman
 	name = "roman helmet"
 	desc = "An ancient helmet made of bronze and leather."

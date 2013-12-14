@@ -424,6 +424,26 @@
 			return
 	else return attack_hand(user)
 
+
+/obj/structure/closet/crate/secure/verb/verb_togglelock()
+	set src in oview(1) // One square distance
+	set category = "Object"
+	set name = "Toggle Lock"
+
+	if(!usr.canmove || usr.stat || usr.restrained())
+		return
+
+	if(ishuman(usr))
+		src.add_fingerprint(usr)
+	if(!broken)
+		return
+		src.locked = !src.locked
+		src.update_icon()
+
+	else
+		usr << "<span class='warning'>This mob type can't use this verb.</span>"
+
+
 /obj/structure/closet/crate/secure/emp_act(severity)
 	for(var/obj/O in src)
 		O.emp_act(severity)

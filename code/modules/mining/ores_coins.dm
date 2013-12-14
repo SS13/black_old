@@ -95,7 +95,8 @@
 	playsound(user.loc, 'sound/items/coinflip_caught.ogg', 40, 1)
 
 	if(result == 3)
-		user.visible_message("<span class='notice'>[user] has flipped [src], but could not catch it! [src] land on the floor! </span>")
+		user.drop_item()
+		user.visible_message("<span class='notice'>[user] has flipped [src], but could not catch it! [src] lands on the floor! </span>")
 		playsound(user.loc, 'sound/items/coinflip_drop.ogg', 50, 1)
 
 		spamcheck = 1

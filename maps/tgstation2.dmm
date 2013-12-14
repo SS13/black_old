@@ -2264,7 +2264,7 @@
 "aRB" = (/obj/structure/grille,/obj/structure/window/reinforced{dir = 4},/obj/structure/window/reinforced{dir = 8},/turf/simulated/floor/plating,/area/hallway/primary/central)
 "aRC" = (/obj/machinery/light{brightness = 6; dir = 4; icon_state = "tube1"},/turf/simulated/floor,/area/hallway/primary/central)
 "aRD" = (/obj/machinery/status_display{density = 0; layer = 4; pixel_x = 0; pixel_y = 0},/turf/simulated/wall,/area/crew_quarters/bar)
-"aRE" = (/obj/machinery/light{brightness = 4; dir = 8; icon_state = "tube1"},/turf/simulated/floor/wood,/area/crew_quarters/bar)
+"aRE" = (/obj/machinery/light{brightness = 2; dir = 8; icon_state = "tube1"},/turf/simulated/floor/wood,/area/crew_quarters/bar)
 "aRF" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 5},/turf/simulated/floor/wood,/area/crew_quarters/bar)
 "aRG" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 4},/turf/simulated/floor/wood,/area/crew_quarters/bar)
 "aRH" = (/obj/machinery/atmospherics/pipe/simple/supply/hidden{dir = 10},/turf/simulated/floor/wood,/area/crew_quarters/bar)

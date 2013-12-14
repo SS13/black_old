@@ -1,6 +1,6 @@
 
 /obj/item/clothing/suit/armor
-	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs)
+	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs, /obj/item/weapon/reagent_containers/food/snacks/donut)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags = FPRINT | TABLEPASS
 
@@ -69,7 +69,7 @@
 
 /obj/item/clothing/suit/armor/tactical/green
 	name = "Tactical Vest"
-	desc = "Tactical vest for tactical specialists to carry out tactical maneuvers in foodlands, hence this one comes in tactical green. Can protect from small firearms fire."
+	desc = "Tactical vest for tactical specialists to carry out tactical maneuvers in woodlands, hence this one comes in tactical green. Can protect from small firearms fire."
 	icon_state = "tacticalvestgreen"
 	item_state = "armor"
 
