@@ -162,6 +162,10 @@
 					icon_state = "whiterussianglass"
 					name = "White Russian"
 					desc = "A very nice looking drink. But that's just, like, your opinion, man."
+				if("greenstar")
+					icon_state = "greenstarglass"
+					name = "Green Star"
+					desc = "Sweet somewhat plain tropical taste. Not a great one, actually."
 				if("icecoffee")
 					icon_state = "icecoffeeglass"
 					name = "Rhode Island Ice Coffee"
@@ -230,6 +234,10 @@
 					icon_state = "b53glass"
 					name = "B-53"
 					desc = "Kahlua, Irish Cream, and absinthe. You better hold tight."
+				if("evelynwhite")
+					icon_state = "evelynwhiteglass"
+					name = "evelynwhite"
+					desc = "They say this drink was invented in a shower cabin by two girls doing stuff. Kinky!."
 				if("schlagerloko")
 					icon_state = "schlagerlokoglass"
 					name = "Schlagerloko"
@@ -358,6 +366,10 @@
 					icon_state = "bahama_mama"
 					name = "Bahama Mama"
 					desc = "Tropic cocktail"
+				if("bluelagoon")
+					icon_state = "bluelagoon"
+					name = "Blue Lagoon"
+					desc = "The Blue Lagoon will take you to times spent on the golden sand of holodeck with bright blue holowaves lapping around your feet."
 				if("singulo")
 					icon_state = "singulo"
 					name = "Singulo"
@@ -503,9 +515,9 @@
 					name = "Glass of grape juice"
 					desc = "It's grrrrrape!"
 				if("grapesoda")
-					icon_state = "grapesoda"
-					name = "Can of Grape Soda"
-					desc = "Looks like a delicious drank!"
+					icon_state = "grapesodaglass"
+					name = "Grape Soda"
+					desc = "It's grrrrrape and fizzy!"
 				if("icetea")
 					icon_state = "icetea"
 					name = "Iced Tea"

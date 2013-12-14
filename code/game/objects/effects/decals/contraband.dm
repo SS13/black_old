@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 35
+#define NUM_OF_POSTER_DESIGNS 36
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -158,7 +158,7 @@ obj/structure/sign/poster/New(var/serial)
 			desc += " This particular one warns of the dangers of trusting your co-workers too much."
 		if(25)
 			name += " - Space Security Guard"
-			desc += " This particular one is of a space security guard vearing distinctive Union Aerospace Corporation standart-issue armor. You wish the station security were this cool."
+			desc += " This particular one is of a space security guard wearing distinctive Union Aerospace Corporation standart-issue armor. You wish the station security were this cool."
 		if(26)
 			name += " - The Biting Pear of Salamanca"
 			desc += " The surrealist painting of the laughing fruit. Rumored to be a failed genetic experiment of L.L.Wat`s Laboratories, this fearsome creature escaped from the it`s cell to roam space freely and terrorize unsuspecting ship crews."
@@ -189,6 +189,10 @@ obj/structure/sign/poster/New(var/serial)
 		if(35)
 			name += " - RIP Badger"
 			desc += " This poster commemorates the day hundreds of badgers worldwide were sacrificed for the greater good."
+		if(36)
+			name += " - Security  Recruitment Poster"
+			desc += " This poster is a part of NT official internal police recruitment campaign. Join today!"
+
 
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"

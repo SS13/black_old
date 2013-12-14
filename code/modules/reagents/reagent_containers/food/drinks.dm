@@ -376,6 +376,14 @@
 		..()
 		reagents.add_reagent("sodawater", 50)
 
+/obj/item/weapon/reagent_containers/food/drinks/grapesoda
+	name = "Grape soda"
+	desc = "It's grrrrrape and fizzy!"
+	icon_state = "grapesoda"
+	New()
+		..()
+		reagents.add_reagent("grapesoda", 50)
+
 /obj/item/weapon/reagent_containers/food/drinks/spacejomi
 	name = "Spacejomi Mineral Water"
 	desc = "A bottle of hugh-quality mineral water. Spacejomi was outrightly banned by NT health advisors when a certain president declined one not-so-lucrative NT proposal during negotiations."

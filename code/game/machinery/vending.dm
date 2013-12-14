@@ -701,13 +701,15 @@
 	vend_delay = 20
 	product_slogans = "Robust Softdrinks: More robust than a toolbox to the head!"
 	product_ads = "Refreshing!;Hope you're thirsty!;Over 1 million drinks sold!;Thirsty? Why not cola?;Please, have a drink!;Drink up!;The best drinks in space."
-	products = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 10,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 10,
-					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 10,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 7,
-					/obj/item/weapon/reagent_containers/food/drinks/starkist = 10,/obj/item/weapon/reagent_containers/food/drinks/space_up = 10)
+	products = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 7,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 7,
+					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 7,/obj/item/weapon/reagent_containers/food/drinks/grapesoda =7,
+					/obj/item/weapon/reagent_containers/food/drinks/sodawater = 7,/obj/item/weapon/reagent_containers/food/drinks/starkist = 7,
+					/obj/item/weapon/reagent_containers/food/drinks/space_up = 7)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/thirteenloko = 5)
 	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 30,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 30,
-					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 35,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 30,
-					/obj/item/weapon/reagent_containers/food/drinks/starkist = 35,/obj/item/weapon/reagent_containers/food/drinks/space_up = 30)
+					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 35,/obj/item/weapon/reagent_containers/food/drinks/grapesoda = 35,
+					/obj/item/weapon/reagent_containers/food/drinks/sodawater = 25,/obj/item/weapon/reagent_containers/food/drinks/starkist = 35,
+					/obj/item/weapon/reagent_containers/food/drinks/space_up = 30)
 
 //This one's from bay12
 /obj/machinery/vending/cart

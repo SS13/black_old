@@ -2513,6 +2513,14 @@ datum
 			adj_dizzy = -5
 			adj_drowsy = -3
 
+		drink/cold/grapesoda
+			name = "Grape Soda"
+			id = "grapesoda"
+			description = "It's grrrrrape and fizzy!"
+			color = "#9966CC" // rgb: 153, 102, 204
+			adj_dizzy = -5
+			adj_drowsy = -3
+
 		drink/cold/ice
 			name = "Ice"
 			id = "ice"
@@ -3311,6 +3319,13 @@ datum
 			color = "#A68340" // rgb: 166, 131, 64
 			boozepwr = 3
 
+		ethanol/greenstar
+			name = "Green Star"
+			id = "greenstar"
+			description = "Sweet somewhat plain tropical taste. Not a great one, actually. "
+			color = "#02AE0F" // rgb: 2, 174, 15
+			boozepwr = 3
+
 		ethanol/icecoffee
 			name = "Rhode Island Ice Coffee"
 			id = "icecoffee"
@@ -3435,6 +3450,14 @@ datum
 			description = "Kahlua, Irish Cream, and absinthe. You better hold tight."
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 4
+
+		ethanol/evelynwhite
+			name = "Evelyn White"
+			id = "evelynwhite"
+			description = "They say this drink was invented in a shower cabin by two girls doing stuff. Kinky!."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 4
+
 
 		ethanol/rossini
 			name = "Rossini"
@@ -3644,6 +3667,13 @@ datum
 			id = "bahama_mama"
 			description = "Tropical cocktail."
 			color = "#FF7F3B" // rgb: 255, 127, 59
+			boozepwr = 2
+
+		ethanol/bluelagoon
+			name = "Blue Lagoon"
+			id = "bluelagoon"
+			description = " The Blue Lagoon will take you to times spent on the golden sand of holodeck with bright blue holowaves lapping around your feet."
+			color = "#00D7E8" // rgb: 0, 215, 232
 			boozepwr = 2
 
 		ethanol/singulo

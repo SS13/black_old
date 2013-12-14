@@ -1582,6 +1582,13 @@ datum
 			required_reagents = list("blackrussian" = 3, "cream" = 2)
 			result_amount = 5
 
+		greenstar
+			name = "Green Star"
+			id = "greenstar"
+			result = "greenstar"
+			required_reagents = list("rum" = 2, "melonliquor" = 2, "spacemountainwind" =1)
+			result_amount = 5
+
 		icecoffee
 			name = "Rhode Island Ice Coffee"
 			id = "icecoffee"
@@ -1730,6 +1737,13 @@ datum
 			required_reagents = list("irishcream" = 1, "kahlua" = 1, "absinthe" = 1)
 			result_amount = 3
 
+		evelynwhite
+			name = "Evelyn White"
+			id = "evelynwhite"
+			result = "evelynwhite"
+			required_reagents = list("irishcream" = 1, "kahlua" = 1, "melonliqor" = 1)
+			result_amount = 3
+
 		schlagerloko
 			name = "Schlagerloko"
 			id = "schlagerloko"
@@ -1848,6 +1862,13 @@ datum
 			result = "bahama_mama"
 			required_reagents = list("rum" = 2, "orangejuice" = 2, "limejuice" = 1, "ice" = 1)
 			result_amount = 6
+
+		bluelagoon
+			name = "Blue Lagoon"
+			id = "bluelagoon"
+			result = "bluelagoon"
+			required_reagents = list("vodka" = 2, "bluecuracao" = 1, "limejuice" = 1, "lemonade" = 1)
+			result_amount = 5
 
 		singulo
 			name = "Singulo"
