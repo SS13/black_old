@@ -58,6 +58,21 @@
 	armor = list(melee = 10, bullet = 80, laser = 10, energy = 10, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 0.7
 
+/obj/item/clothing/suit/armor/tactical
+	name = "Tactical Vest"
+	desc = "Tactical vest for tactical specialists to carry out tactical maneuvers. Can protect from small firearms fire."
+	icon_state = "tacticalvest"
+	item_state = "armor"
+	blood_overlay_type = "armor"
+	armor = list(melee = 20, bullet = 40, laser = 20, energy = 0, bomb = 0, bio = 0, rad = 0)
+	siemens_coefficient = 0.7
+
+/obj/item/clothing/suit/armor/tactical/green
+	name = "Tactical Vest"
+	desc = "Tactical vest for tactical specialists to carry out tactical maneuvers in foodlands, hence this one comes in tactical green. Can protect from small firearms fire."
+	icon_state = "tacticalvestgreen"
+	item_state = "armor"
+
 /obj/item/clothing/suit/armor/laserproof
 	name = "Ablative Armor Vest"
 	desc = "A vest that excels in protecting the wearer against energy projectiles."

@@ -393,7 +393,6 @@
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
 	action_button_name = "Shake!"
-	var/cooldown = 0
 	amount_per_transfer_from_this = 10
 	volume = 100
 	var/spamcheck = 0
@@ -405,27 +404,27 @@
 	var/result = rand(1, 5)
 
 	if(result == 1)
-		playsound(get_turf(src), 'sound/items/shaker1.ogg', 100, 1)
+		playsound(get_turf(src), 'sound/items/shaker1.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] shakes the shaker vigorously!</span>")
 
 	if(result == 2)
-		playsound(get_turf(src), 'sound/items/shaker2.ogg', 100, 1)
+		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] shakes the shaker, ice clinging inside it!</span>")
 
 	if(result == 3)
-		playsound(get_turf(src), 'sound/items/shaker2.ogg', 100, 1)
+		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] shakes the cocktail shaker!</span>")
 
 	if(result == 4)
-		playsound(get_turf(src), 'sound/items/shaker2.ogg', 100, 1)
+		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] is shaking the shaker!</span>")
 
 	if(result == 5)
-		playsound(get_turf(src), 'sound/items/shaker3.ogg', 100, 1)
+		playsound(get_turf(src), 'sound/items/shaker3.ogg', 70, 1)
 		user.visible_message("<span class='rose'>You hear [user] shaking the shaker!</span>")
 
 		spamcheck = 1
-	spawn(40)
+	spawn(50)
 		spamcheck = 0
 
 /obj/item/weapon/reagent_containers/food/drinks/flask
