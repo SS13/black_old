@@ -3254,6 +3254,13 @@ datum
 			color = "#A68340" // rgb: 166, 131, 64
 			boozepwr = 3
 
+		ethanol/icecoffee
+			name = "Rhode Island Ice Coffee"
+			id = "icecoffee"
+			description = "Neither it has coffee in it, nor it has anything to do with Rhode Island, it is pretty strong. Your White Russian on steroids."
+			color = "#874010" // rgb: 135, 064, 016
+			boozepwr = 4
+
 		ethanol/screwdrivercocktail
 			name = "Screwdriver"
 			id = "screwdrivercocktail"
@@ -3267,6 +3274,13 @@ datum
 			description = "Ewww..."
 			color = "#8CFF8C" // rgb: 140, 255, 140
 			boozepwr = 1.5
+
+		ethanol/lynchburg
+			name = "Lynchburg Lemonade"
+			id = "lynchburg"
+			description = "Nobody knows what Lynchburg is anymore, but this recipe is well-known around this sector."
+			color = "#CACA22" // rgb: 202, 202, 34
+			boozepwr = 2
 
 		ethanol/bloody_mary
 			name = "Bloody Mary"
@@ -3330,6 +3344,13 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 2
 
+		ethanol/assistantshighball
+			name = "Assistant`s Highball"
+			id = "assistantshighball"
+			description = "What looks to be a pint of ale is not ale actually, but ale and bouron! Wow! Takes an assistant to drink."
+			color = "#AD7C7E" // rgb: 173, 124, 126
+			boozepwr = 3
+
 		ethanol/longislandicedtea
 			name = "Long Island Iced Tea"
 			id = "longislandicedtea"
@@ -3365,6 +3386,13 @@ datum
 			color = "#7E4043" // rgb: 102, 67, 0
 			boozepwr = 2
 
+		ethanol/wardenswife
+			name = "Warden`s Wife"
+			id = "wardenswife"
+			description = "Is it whiskey? Is it wine? Is that thing sparkling?! You can`t even tell anymore!"
+			color = "#FF9682" // rgb: 255, 150, 130
+			boozepwr = 3
+
 		ethanol/kirpetillant
 			name = "Kir Petillant"
 			id = "kirpetillant"
@@ -3382,7 +3410,7 @@ datum
 		ethanol/tiniroyale
 			name = "Tini Royale"
 			id = "tiniroyale"
-			description = "The ffficial drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
+			description = "The official drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
 			color = "#91FF91"
 			boozepwr = 3
 

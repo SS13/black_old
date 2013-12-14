@@ -114,6 +114,10 @@
 					icon_state = "rossiniglass"
 					name = "Rossini"
 					desc = "For when ordinary bubbles are not festive enough. Whait, what it this red thing?"
+				if("wardenswife")
+					icon_state = "wardenswifelass"
+					name = "Warden`s Wife"
+					desc = "Is it whiskey? Is it wine? Is that thing sparkling?! You can`t even tell anymore!"
 				if("kir_petillant")
 					icon_state = "kirpetillantglass"
 					name = "Kir Petillant"
@@ -158,6 +162,10 @@
 					icon_state = "whiterussianglass"
 					name = "White Russian"
 					desc = "A very nice looking drink. But that's just, like, your opinion, man."
+				if("icecoffee")
+					icon_state = "icecoffeeglass"
+					name = "Rhode Island Ice Coffee"
+					desc = "Neither it has coffee in it, nor it has anything to do with Rhode Island, it is pretty strong. Your White Russian on steroids."
 				if("screwdrivercocktail")
 					icon_state = "screwdriverglass"
 					name = "Screwdriver"
@@ -202,6 +210,10 @@
 					icon_state = "manlydorfglass"
 					name = "The Manly Dorf"
 					desc = "A manly concotion made from Ale and Beer. Intended for true men only."
+				if("assistantshighball")
+					icon_state = "assistantshighballglass"
+					name = "Assistant`s Highball"
+					desc = "What looks to be a pint of ale is not ale actually, but ale and bouron! Wow! Takes an assistant to drink."
 				if("irishcream")
 					icon_state = "irishcreamglass"
 					name = "Irish Cream"
@@ -510,6 +522,10 @@
 					icon_state = "lemonade"
 					name = "Lemonade"
 					desc = "Oh the nostalgia..."
+				if("lynchburg")
+					icon_state = "lynchburg"
+					name = "Lynchburg Lemonade"
+					desc = "Nobody knows what Lynchburg is anymore, but this recipe is well-known around this sector."
 				if("kiraspecial")
 					icon_state = "kiraspecial"
 					name = "Kira Special"

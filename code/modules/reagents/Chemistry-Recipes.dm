@@ -1549,6 +1549,13 @@ datum
 			required_reagents = list("blackrussian" = 3, "cream" = 2)
 			result_amount = 5
 
+		icecoffee
+			name = "Rhode Island Ice Coffee"
+			id = "icecoffee"
+			result = "icecoffee"
+			required_reagents = list("kahlua" = 1, "vodka" = 1, "cognac" = 1, "cream" = 2)
+			result_amount = 4
+
 		whiskey_cola
 			name = "Whiskey Cola"
 			id = "whiskeycola"
@@ -1568,6 +1575,13 @@ datum
 			id = "rossini"
 			result = "rossini"
 			required_reagents = list("prosecco" = 2, "blood" = 1)
+			result_amount = 3
+
+		wardenswife
+			name = "Warden`s Wife"
+			id = "wardenswife"
+			result = "wardenswife"
+			required_reagents = list("prosecco" = 1, "wine" = 1, "bourbon" = 1)
 			result_amount = 3
 
 		kirpetillant
@@ -1647,6 +1661,13 @@ datum
 			result = "manlydorf"
 			required_reagents = list ("beer" = 1, "ale" = 2)
 			result_amount = 3
+
+		assistantshighball
+			name = "Assistant`s Highball"
+			id = "assistantshighball"
+			result = "assistantshighball"
+			required_reagents = list ("bourbon" = 1, "ale" = 3)
+			result_amount = 4
 
 		hooch
 			name = "Hooch"
@@ -2035,6 +2056,13 @@ datum
 			id = "lemonade"
 			result = "lemonade"
 			required_reagents = list("lemonjuice" = 1, "sugar" = 1, "water" = 1)
+			result_amount = 3
+
+		lynchburg
+			name = "Lynchburg Lemonade"
+			id = "lynchburg"
+			result = "lynchburg"
+			required_reagents = list("lemonade" = 1, "bourbon" = 1, "space_up" = 2)
 			result_amount = 3
 
 		kiraspecial
