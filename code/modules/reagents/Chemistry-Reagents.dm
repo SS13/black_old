@@ -2513,6 +2513,14 @@ datum
 			adj_dizzy = -5
 			adj_drowsy = -3
 
+		drink/cold/grapesoda
+			name = "Grape Soda"
+			id = "grapesoda"
+			description = "It's grrrrrape and fizzy!"
+			color = "#9966CC" // rgb: 153, 102, 204
+			adj_dizzy = -5
+			adj_drowsy = -3
+
 		drink/cold/ice
 			name = "Ice"
 			id = "ice"
@@ -3168,6 +3176,63 @@ datum
 				..()
 				return
 
+		ethanol/pwine
+			name = "Poison Wine"
+			id = "pwine"
+			description = "Is this even wine? Toxic! Hallucinogenic! Probably consumed in boatloads by your superiors!"
+			color = "#000000" // rgb: 0, 0, 0 SHOCKER
+			boozepwr = 1
+			dizzy_adj = 1
+			slur_start = 1
+			confused_start = 1
+
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.druggy = max(M.druggy, 50)
+				if(!data) data = 1
+				data++
+				switch(data)
+					if(1 to 25)
+						if (!M.stuttering) M.stuttering = 1
+						M.make_dizzy(10)
+						M.hallucination = max(M.hallucination, 3)
+						if(prob(1)) M.emote(pick("twitch","giggle"))
+					if(25 to 75)
+						if (!M.stuttering) M.stuttering = 1
+						M.hallucination = max(M.hallucination, 10)
+						M.make_jittery(20)
+						M.make_dizzy(20)
+						M.druggy = max(M.druggy, 45)
+						if(prob(5)) M.emote(pick("twitch","giggle"))
+					if (75 to 150)
+						if (!M.stuttering) M.stuttering = 1
+						M.hallucination = max(M.hallucination, 60)
+						M.make_jittery(40)
+						M.make_dizzy(40)
+						M.druggy = max(M.druggy, 60)
+						if(prob(10)) M.emote(pick("twitch","giggle"))
+						if(prob(30)) M.adjustToxLoss(2)
+					if (150 to 300)
+						if (!M.stuttering) M.stuttering = 1
+						M.hallucination = max(M.hallucination, 60)
+						M.make_jittery(40)
+						M.make_dizzy(40)
+						M.druggy = max(M.druggy, 60)
+						if(prob(10)) M.emote(pick("twitch","giggle"))
+						if(prob(30)) M.adjustToxLoss(2)
+						if(prob(5)) if(ishuman(M))
+							var/mob/living/carbon/human/H = M
+							var/datum/organ/internal/heart/L = H.internal_organs["heart"]
+							if (istype(L))
+								L.take_damage(5, 0)
+					if (300 to INFINITY)
+						if(ishuman(M))
+							var/mob/living/carbon/human/H = M
+							var/datum/organ/internal/heart/L = H.internal_organs["heart"]
+							if (istype(L))
+								L.take_damage(100, 0)
+				holder.remove_reagent(src.id, FOOD_METABOLISM)
+
 		ethanol/deadrum
 			name = "Deadrum"
 			id = "rum"
@@ -3254,6 +3319,20 @@ datum
 			color = "#A68340" // rgb: 166, 131, 64
 			boozepwr = 3
 
+		ethanol/greenstar
+			name = "Green Star"
+			id = "greenstar"
+			description = "Sweet somewhat plain tropical taste. Not a great one, actually. "
+			color = "#02AE0F" // rgb: 2, 174, 15
+			boozepwr = 3
+
+		ethanol/icecoffee
+			name = "Rhode Island Ice Coffee"
+			id = "icecoffee"
+			description = "Neither it has coffee in it, nor it has anything to do with Rhode Island, it is pretty strong. Your White Russian on steroids."
+			color = "#874010" // rgb: 135, 064, 016
+			boozepwr = 4
+
 		ethanol/screwdrivercocktail
 			name = "Screwdriver"
 			id = "screwdrivercocktail"
@@ -3267,6 +3346,13 @@ datum
 			description = "Ewww..."
 			color = "#8CFF8C" // rgb: 140, 255, 140
 			boozepwr = 1.5
+
+		ethanol/lynchburg
+			name = "Lynchburg Lemonade"
+			id = "lynchburg"
+			description = "Nobody knows what Lynchburg is anymore, but the recipe is well-known around this sector."
+			color = "#CACA22" // rgb: 202, 202, 34
+			boozepwr = 2
 
 		ethanol/bloody_mary
 			name = "Bloody Mary"
@@ -3330,6 +3416,13 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 2
 
+		ethanol/assistantshighball
+			name = "Assistant`s Highball"
+			id = "assistantshighball"
+			description = "What looks to be a pint of ale is not ale actually, but ale and bouron! Wow! Takes an assistant to drink."
+			color = "#AD7C7E" // rgb: 173, 124, 126
+			boozepwr = 3
+
 		ethanol/longislandicedtea
 			name = "Long Island Iced Tea"
 			id = "longislandicedtea"
@@ -3358,12 +3451,27 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 4
 
+		ethanol/evelynwhite
+			name = "Evelyn White"
+			id = "evelynwhite"
+			description = "They say this drink was invented in a shower cabin by two girls doing stuff. Kinky!."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 4
+
+
 		ethanol/rossini
 			name = "Rossini"
 			id = "rossini"
 			description = "For when ordinary bubbles are not festive enough. Whait, what it this red thing?"
 			color = "#7E4043" // rgb: 102, 67, 0
 			boozepwr = 2
+
+		ethanol/wardenswife
+			name = "Warden`s Wife"
+			id = "wardenswife"
+			description = "Is it whiskey? Is it wine? Is that thing sparkling?! You can`t even tell anymore!"
+			color = "#FF9682" // rgb: 255, 150, 130
+			boozepwr = 3
 
 		ethanol/kirpetillant
 			name = "Kir Petillant"
@@ -3382,7 +3490,7 @@ datum
 		ethanol/tiniroyale
 			name = "Tini Royale"
 			id = "tiniroyale"
-			description = "The ffficial drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
+			description = "The official drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
 			color = "#91FF91"
 			boozepwr = 3
 
@@ -3490,6 +3598,27 @@ datum
 			color = "#FFFFFF" // rgb: 255, 255, 255
 			boozepwr = 1.5
 
+		ethanol/melonliquor
+			name = "Melon Liquor"
+			id = "melonliquor"
+			description = "A relatively sweet and fruity 46 proof liquor."
+			color = "#138808" // rgb: 19, 136, 8
+			boozepwr = 1
+
+		ethanol/bluecuracao
+			name = "Blue Curacao"
+			id = "bluecuracao"
+			description = "Exotically blue, fruity drink, distilled from oranges."
+			color = "#0000CD" // rgb: 0, 0, 205
+			boozepwr = 1.5
+
+		ethanol/suidream
+			name = "Sui Dream"
+			id = "suidream"
+			description = "Comprised of: White soda, blue curacao, melon liquor."
+			color = "#00A86B" // rgb: 0, 168, 107
+			boozepwr = 0.5
+
 		ethanol/demonsblood
 			name = "Demons Blood"
 			id = "demonsblood"
@@ -3538,6 +3667,13 @@ datum
 			id = "bahama_mama"
 			description = "Tropical cocktail."
 			color = "#FF7F3B" // rgb: 255, 127, 59
+			boozepwr = 2
+
+		ethanol/bluelagoon
+			name = "Blue Lagoon"
+			id = "bluelagoon"
+			description = " The Blue Lagoon will take you to times spent on the golden sand of holodeck with bright blue holowaves lapping around your feet."
+			color = "#00D7E8" // rgb: 0, 215, 232
 			boozepwr = 2
 
 		ethanol/singulo

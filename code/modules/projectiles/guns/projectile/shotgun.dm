@@ -39,6 +39,7 @@
 		if(current_shell)//We have a shell in the chamber
 			current_shell.loc = get_turf(src)//Eject casing
 			current_shell = null
+			playsound(M, 'sound/weapons/shotgunshelldrop.ogg', 60, 1)
 			if(in_chamber)
 				in_chamber = null
 		if(!loaded.len)	return 0
@@ -103,6 +104,7 @@
 		for(var/obj/item/ammo_casing/shotgun/shell in src)	//This feels like a hack.	//don't code at 3:30am kids!!
 			if(shell in loaded)
 				loaded -= shell
+			playsound('sound/weapons/shotgunshelldrop.ogg', 60, 1)
 			shell.loc = get_turf(src.loc)
 
 		user << "<span class='notice'>You break \the [src].</span>"

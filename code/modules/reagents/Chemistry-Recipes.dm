@@ -1461,11 +1461,43 @@ datum
 			required_catalysts = list("enzyme" = 5)
 			result_amount = 10
 
+		grenadine
+			name = "Grenadine Syrup"
+			id = "grenadine"
+			result = "grenadine"
+			required_reagents = list("berryjuice" = 10)
+			required_catalysts = list("enzyme" = 5)
+			result_amount = 10
+
 		wine
 			name = "Wine"
 			id = "wine"
 			result = "wine"
-			required_reagents = list("berryjuice" = 10)
+			required_reagents = list("grapejuice" = 10)
+			required_catalysts = list("enzyme" = 5)
+			result_amount = 10
+
+		pwine
+			name = "Poison Wine"
+			id = "pwine"
+			result = "pwine"
+			required_reagents = list("poisonberryjuice" = 10)
+			required_catalysts = list("enzyme" = 5)
+			result_amount = 10
+
+		melonliquor
+			name = "Melon Liquor"
+			id = "melonliquor"
+			result = "melonliquor"
+			required_reagents = list("watermelonjuice" = 10)
+			required_catalysts = list("enzyme" = 5)
+			result_amount = 10
+
+		bluecuracao
+			name = "Blue Curacao"
+			id = "bluecuracao"
+			result = "bluecuracao"
+			required_reagents = list("orangejuice" = 10)
 			required_catalysts = list("enzyme" = 5)
 			result_amount = 10
 
@@ -1484,6 +1516,7 @@ datum
 			required_reagents = list("potato" = 10)
 			required_catalysts = list("enzyme" = 5)
 			result_amount = 10
+
 		sake
 			name = "Sake"
 			id = "sake"
@@ -1549,6 +1582,20 @@ datum
 			required_reagents = list("blackrussian" = 3, "cream" = 2)
 			result_amount = 5
 
+		greenstar
+			name = "Green Star"
+			id = "greenstar"
+			result = "greenstar"
+			required_reagents = list("rum" = 2, "melonliquor" = 2, "spacemountainwind" =1)
+			result_amount = 5
+
+		icecoffee
+			name = "Rhode Island Ice Coffee"
+			id = "icecoffee"
+			result = "icecoffee"
+			required_reagents = list("kahlua" = 1, "vodka" = 1, "cognac" = 1, "cream" = 2)
+			result_amount = 4
+
 		whiskey_cola
 			name = "Whiskey Cola"
 			id = "whiskeycola"
@@ -1568,6 +1615,13 @@ datum
 			id = "rossini"
 			result = "rossini"
 			required_reagents = list("prosecco" = 2, "blood" = 1)
+			result_amount = 3
+
+		wardenswife
+			name = "Warden`s Wife"
+			id = "wardenswife"
+			result = "wardenswife"
+			required_reagents = list("prosecco" = 1, "wine" = 1, "bourbon" = 1)
 			result_amount = 3
 
 		kirpetillant
@@ -1648,6 +1702,13 @@ datum
 			required_reagents = list ("beer" = 1, "ale" = 2)
 			result_amount = 3
 
+		assistantshighball
+			name = "Assistant`s Highball"
+			id = "assistantshighball"
+			result = "assistantshighball"
+			required_reagents = list ("bourbon" = 1, "ale" = 3)
+			result_amount = 4
+
 		hooch
 			name = "Hooch"
 			id = "hooch"
@@ -1674,6 +1735,13 @@ datum
 			id = "b53"
 			result = "b53"
 			required_reagents = list("irishcream" = 1, "kahlua" = 1, "absinthe" = 1)
+			result_amount = 3
+
+		evelynwhite
+			name = "Evelyn White"
+			id = "evelynwhite"
+			result = "evelynwhite"
+			required_reagents = list("irishcream" = 1, "kahlua" = 1, "melonliqor" = 1)
 			result_amount = 3
 
 		schlagerloko
@@ -1794,6 +1862,13 @@ datum
 			result = "bahama_mama"
 			required_reagents = list("rum" = 2, "orangejuice" = 2, "limejuice" = 1, "ice" = 1)
 			result_amount = 6
+
+		bluelagoon
+			name = "Blue Lagoon"
+			id = "bluelagoon"
+			result = "bluelagoon"
+			required_reagents = list("vodka" = 2, "bluecuracao" = 1, "limejuice" = 1, "lemonade" = 1)
+			result_amount = 5
 
 		singulo
 			name = "Singulo"
@@ -2037,6 +2112,13 @@ datum
 			required_reagents = list("lemonjuice" = 1, "sugar" = 1, "water" = 1)
 			result_amount = 3
 
+		lynchburg
+			name = "Lynchburg Lemonade"
+			id = "lynchburg"
+			result = "lynchburg"
+			required_reagents = list("lemonade" = 1, "bourbon" = 1, "space_up" = 2)
+			result_amount = 3
+
 		kiraspecial
 			name = "Kira Special"
 			id = "kiraspecial"
@@ -2065,4 +2147,10 @@ datum
 			required_reagents = list("spacemountainwind" = 1, "coffee" = 1)
 			result_amount = 2
 
+		suidream
+			name = "Sui Dream"
+			id = "suidream"
+			result = "suidream"
+			required_reagents = list("space_up" = 2, "bluecuracao" = 1, "melonliquor" = 1)
+			result_amount = 4
 

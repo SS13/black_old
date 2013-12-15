@@ -376,6 +376,14 @@
 		..()
 		reagents.add_reagent("sodawater", 50)
 
+/obj/item/weapon/reagent_containers/food/drinks/grapesoda
+	name = "Grape soda"
+	desc = "It's grrrrrape and fizzy!"
+	icon_state = "grapesoda"
+	New()
+		..()
+		reagents.add_reagent("grapesoda", 50)
+
 /obj/item/weapon/reagent_containers/food/drinks/spacejomi
 	name = "Spacejomi Mineral Water"
 	desc = "A bottle of hugh-quality mineral water. Spacejomi was outrightly banned by NT health advisors when a certain president declined one not-so-lucrative NT proposal during negotiations."
@@ -393,31 +401,39 @@
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
 	action_button_name = "Shake!"
-	var/cooldown = 0
 	amount_per_transfer_from_this = 10
 	volume = 100
+	var/spamcheck = 0
 
 /obj/item/weapon/reagent_containers/food/drinks/shaker/attack_self(mob/user as mob)
-	var/result = rand(1, 3)
-	playsound(get_turf(src), 'sound/items/shaker1.ogg', 100, 1)
-	user.visible_message("<span class='rose'>[user] shakes the shaker vigorously!</span>")
+	if (spamcheck)
+		return
+
+	var/result = rand(1, 5)
+
+	if(result == 1)
+		playsound(get_turf(src), 'sound/items/shaker1.ogg', 70, 1)
+		user.visible_message("<span class='rose'>[user] shakes the shaker vigorously!</span>")
 
 	if(result == 2)
-		playsound(get_turf(src), 'sound/items/shaker2.ogg', 100, 1)
+		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] shakes the shaker, ice clinging inside it!</span>")
 
 	if(result == 3)
-		playsound(get_turf(src), 'sound/items/shaker3.ogg', 100, 1)
-		user.visible_message("<span class='rose'>You hear [user] shaking the shaker!.</span>")
+		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
+		user.visible_message("<span class='rose'>[user] shakes the cocktail shaker!</span>")
 
+	if(result == 4)
+		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
+		user.visible_message("<span class='rose'>[user] is shaking the shaker!</span>")
 
-/obj/item/weapon/coin/attack_self(mob/user as mob)
-	var/result = rand(1, 2)
-	var/comment = "Head!"
-	if(result == 2)
-		comment = "Tail!"
-	user.visible_message("<span class='notice'>[user] has flip [src]. Catch it in the air. [comment]</span>")
+	if(result == 5)
+		playsound(get_turf(src), 'sound/items/shaker3.ogg', 70, 1)
+		user.visible_message("<span class='rose'>You hear [user] shaking the shaker!</span>")
 
+		spamcheck = 1
+	spawn(50)
+		spamcheck = 0
 
 /obj/item/weapon/reagent_containers/food/drinks/flask
 	name = "Captain's Flask"

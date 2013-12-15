@@ -666,6 +666,33 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_armory
 	group = "Security"
 
+datum/supply_packs/riotadvanced
+	name = "Advanced riot gear crate"
+	contains = list(/obj/item/weapon/melee/classic_baton/nightstick,
+					/obj/item/weapon/melee/classic_baton/nightstick,
+					/obj/item/weapon/melee/classic_baton/nightstick,
+					/obj/item/weapon/shield/metal,
+					/obj/item/weapon/shield/metal,
+					/obj/item/weapon/shield/metal,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/clothing/gloves/combat,
+					/obj/item/weapon/storage/box/flashbangs,
+					/obj/item/weapon/handcuffs,
+					/obj/item/weapon/handcuffs,
+					/obj/item/weapon/handcuffs,
+					/obj/item/clothing/head/helmet/riot/tinted,
+					/obj/item/clothing/suit/armor/riot,
+					/obj/item/clothing/head/helmet/riot/tinted,
+					/obj/item/clothing/suit/armor/riot,
+					/obj/item/clothing/head/helmet/riot/tinted,
+					/obj/item/clothing/suit/armor/riot)
+	cost = 75
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Advanced riot gear crate"
+	access = access_armory
+	group = "Security"
+
 /datum/supply_packs/loyalty
 	name = "Loyalty implant crate"
 	contains = list (/obj/item/weapon/storage/lockbox/loyalty)
@@ -675,21 +702,36 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_armory
 	group = "Security"
 
-/datum/supply_packs/ballistic
-	name = "Ballistic gear crate"
+/datum/supply_packs/ballisticcombat
+	name = "Combat ballistic gear crate"
 	contains = list(/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/weapon/gun/projectile/shotgun/pump/combat,
 					/obj/item/weapon/gun/projectile/shotgun/pump/combat)
-	cost = 50
+	cost = 60
 	containertype = /obj/structure/closet/crate/secure
-	containername = "Ballistic gear crate"
+	containername = "Combat ballistic gear crate"
 	access = access_armory
 	group = "Security"
+
+/datum/supply_packs/ballisticservice
+	name = "Service ballistic gear crate"
+	contains = list(/obj/item/clothing/suit/armor/bulletproof,
+					/obj/item/clothing/suit/armor/bulletproof,
+					/obj/item/weapon/gun/projectile/shotgun/pump,
+					/obj/item/weapon/gun/projectile/shotgun/pump)
+	cost = 50
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Service ballistic gear crate"
+	access = access_armory
+	group = "Security"
+
 
 /datum/supply_packs/shotgunammo
 	name = "Shotgun shells"
 	contains = list(/obj/item/ammo_casing/shotgun,
+					/obj/item/ammo_casing/shotgun,
+					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
@@ -813,6 +855,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	num_contained = 5
 	contains = list(/obj/item/seeds/bloodtomatoseed,
 					/obj/item/weapon/storage/pill_bottle/zoom,
+					/obj/item/weapon/contraband/poster,
 					/obj/item/weapon/storage/pill_bottle/happy,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe)
 

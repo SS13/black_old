@@ -327,6 +327,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	slot_flags = SLOT_BELT
 	attack_verb = list("burnt", "singed")
 	var/lit = 0
+	var/spamcheck = 0
 
 /obj/item/weapon/lighter/zippo
 	name = "Zippo lighter"
@@ -344,6 +345,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		icon_state = icon_off
 
 /obj/item/weapon/lighter/attack_self(mob/living/user)
+	if (spamcheck)
+		return
+
 	if(user.r_hand == src || user.l_hand == src)
 		if(!lit)
 			lit = 1
@@ -369,6 +373,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what they're doing. Wow.")
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
+
+		spamcheck = 1
+		spawn(40)
+			spamcheck = 0
 
 			user.SetLuminosity(user.luminosity - 2)
 			processing_objects.Remove(src)
