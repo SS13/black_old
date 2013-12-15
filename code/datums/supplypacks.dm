@@ -687,7 +687,7 @@ datum/supply_packs/riotadvanced
 					/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/head/helmet/riot/tinted,
 					/obj/item/clothing/suit/armor/riot)
-	cost = 70
+	cost = 75
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Advanced riot gear crate"
 	access = access_armory
@@ -702,17 +702,30 @@ datum/supply_packs/riotadvanced
 	access = access_armory
 	group = "Security"
 
-/datum/supply_packs/ballistic
-	name = "Ballistic gear crate"
+/datum/supply_packs/ballisticcombat
+	name = "Combat ballistic gear crate"
 	contains = list(/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/weapon/gun/projectile/shotgun/pump/combat,
 					/obj/item/weapon/gun/projectile/shotgun/pump/combat)
-	cost = 50
+	cost = 60
 	containertype = /obj/structure/closet/crate/secure
-	containername = "Ballistic gear crate"
+	containername = "Combat ballistic gear crate"
 	access = access_armory
 	group = "Security"
+
+/datum/supply_packs/ballisticservice
+	name = "Service ballistic gear crate"
+	contains = list(/obj/item/clothing/suit/armor/bulletproof,
+					/obj/item/clothing/suit/armor/bulletproof,
+					/obj/item/weapon/gun/projectile/shotgun/pump,
+					/obj/item/weapon/gun/projectile/shotgun/pump)
+	cost = 50
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Service ballistic gear crate"
+	access = access_armory
+	group = "Security"
+
 
 /datum/supply_packs/shotgunammo
 	name = "Shotgun shells"

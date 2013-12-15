@@ -688,9 +688,9 @@
 	product_slogans = "Enjoy your meal.;Enough calories to support strenuous labor."
 	product_ads = "Sufficiently healthy.;Efficiently produced tofu!;Mmm! So good!;Have a meal.; This will sustain your life so you can work more!; You need food to live!;Have some more candy corn!; Share with your cellmates!; Try our new ice cups!"
 	icon_state = "sustenance"
-	products = list(/obj/item/weapon/reagent_containers/food/snacks/tofu = 15,
-					/obj/item/weapon/reagent_containers/food/drinks/ice = 15,
-					/obj/item/weapon/reagent_containers/food/snacks/candy_corn = 6)
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/tofu = 10,
+					/obj/item/weapon/reagent_containers/food/drinks/ice = 10,
+					/obj/item/weapon/reagent_containers/food/snacks/candy_corn = 5)
 	contraband = list(/obj/item/weapon/kitchen/utensil/knife = 1)
 
 /obj/machinery/vending/cola

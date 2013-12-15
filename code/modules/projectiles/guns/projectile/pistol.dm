@@ -13,7 +13,7 @@
 /obj/item/weapon/gun/projectile/colt1911
 	name = "\improper m1911"
 	desc = "M1911 is a single-action, semi-automatic, recoil-operated pistol chambered for the .45 ACP cartridge. True classic."
-	icon_state = "m1911"
+	icon_state = "m1911firearm"
 	max_shells = 7
 	caliber = ".45"
 	origin_tech = "combat=4;materials=2;syndicate=3"
