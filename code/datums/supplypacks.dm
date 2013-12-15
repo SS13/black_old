@@ -668,9 +668,9 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 
 datum/supply_packs/riotadvanced
 	name = "Advanced riot gear crate"
-	contains = list(/obj/item/weapon/melee/baton,
-					/obj/item/weapon/melee/baton,
-					/obj/item/weapon/melee/baton,
+	contains = list(/obj/item/weapon/melee/classic_baton/nightstick,
+					/obj/item/weapon/melee/classic_baton/nightstick,
+					/obj/item/weapon/melee/classic_baton/nightstick,
 					/obj/item/weapon/shield/metal,
 					/obj/item/weapon/shield/metal,
 					/obj/item/weapon/shield/metal,
@@ -842,6 +842,7 @@ datum/supply_packs/riotadvanced
 	num_contained = 5
 	contains = list(/obj/item/seeds/bloodtomatoseed,
 					/obj/item/weapon/storage/pill_bottle/zoom,
+					/obj/item/weapon/contraband/poster,
 					/obj/item/weapon/storage/pill_bottle/happy,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe)
 

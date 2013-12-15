@@ -65,6 +65,13 @@
 	slot_flags = SLOT_BELT
 	force = 10
 
+/obj/item/weapon/melee/classic_baton/nightstick
+	name = "nightstick"
+	desc = "Lightweight, nylon fiberglass, rubber grip handle, pitch black. Never did beating petty criminal scumbags feel any better. Ever."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "batonblack"
+	item_state = "classic_batonblack"
+
 /obj/item/weapon/melee/classic_baton/attack(mob/M as mob, mob/living/user as mob)
 	if ((CLUMSY in user.mutations) && prob(50))
 		user << "\red You club yourself over the head."
@@ -93,8 +100,8 @@
 			if (O.client)	O.show_message("\red <B>[M] has been beaten with \the [src] by [user]!</B>", 1, "\red You hear someone fall", 2)
 	else
 		playsound(src.loc, 'sound/weapons/Genhit.ogg', 50, 1, -1)
-		M.Stun(5)
-		M.Weaken(5)
+		M.Stun(2)
+		M.Weaken(2)
 		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been attacked with [src.name] by [user.name] ([user.ckey])</font>")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [src.name] to attack [M.name] ([M.ckey])</font>")
 		log_attack("[user.name] ([user.ckey]) attacked [M.name] ([M.ckey]) with [src.name] (INTENT: [uppertext(user.a_intent)])")
@@ -167,7 +174,7 @@
 		if(!..()) return
 		playsound(src.loc, "swing_hit", 50, 1, -1)
 		//target.Stun(4)	//naaah
-		target.Weaken(4)
+		target.Weaken(1)
 		return
 	else
 		return ..()

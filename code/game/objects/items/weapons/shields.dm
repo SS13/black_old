@@ -60,7 +60,7 @@
 				cooldown = world.time
 		if(istype(W, /obj/item/weapon/gun/))
 			if(cooldown < world.time - 25)
-				user.visible_message("<span class='warning'>[user] bashes [src] with [W]!</span>")
+				user.visible_message("<span class='warning'>[user] hits [W] on [src]!</span>")
 				playsound(user.loc, 'sound/effects/shieldbashmetal2.ogg', 50, 1)
 				cooldown = world.time
 		else
