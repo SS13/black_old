@@ -609,6 +609,25 @@
 	if(!istype(src.loc, /turf)) //Object is on a turf
 		usr << "\red You can't pick that up!"
 		return
+
+
+	if(src.loc != usr.loc)
+		//Ooops, we need check obstacles
+		if(src.loc.x != usr.loc.x && src.loc.y != usr.loc.y)
+			//Let's try hor-vert move
+			var/turf/C = locate(src.x, usr.y, src.z)
+			if(!PassCheck(usr.loc, C) || !PassCheck(src.loc, C))
+			//Or vert-hor
+				C = locate(usr.x, src.y, src.z)
+				if(!PassCheck(usr.loc, C) || !PassCheck(src.loc, C))
+					//Nowai
+					usr << "\red Your hand can't pass through the obstacle."
+					return
+		else
+			if(!PassCheck(usr.loc, src.loc))
+				usr << "\red Your hand can't pass through the obstacle."
+				return
+
 	//All checks are done, time to pick it up!
 	if(istype(usr, /mob/living/carbon/human))
 		src.attack_hand(usr)
@@ -618,7 +637,19 @@
 		src.attack_paw(usr)
 	return
 
-
+/obj/item/proc/PassCheck(var/turf/A, var/turf/B)
+//Part from ZCanPass but without space check
+	for(var/obj/obstacle in A)
+		if(istype(obstacle, /obj/machinery/door) && !(obstacle:air_properties_vary_with_direction))
+			continue
+		if(!obstacle.CanPass(null, B, 1.5, 1))
+			return 0
+	for(var/obj/obstacle in B)
+		if(istype(obstacle, /obj/machinery/door) && !(obstacle:air_properties_vary_with_direction))
+			continue
+		if(!obstacle.CanPass(null, A, 1.5, 1))
+			return 0
+	return 1
 //This proc is executed when someone clicks the on-screen UI button. To make the UI button show, set the 'icon_action_button' to the icon_state of the image of the button in screen1_action.dmi
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, paralyzed, asleep, resting, laying, item is on the mob.
