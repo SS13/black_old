@@ -189,8 +189,15 @@
 	return
 
 /mob/living/simple_animal/hostile/proc/DestroySurroundings()
-	if(prob(break_stuff_probability))
-		for(var/dir in cardinal) // North, South, East, West
-			var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
-			if(istype(obstacle, /obj/structure/window) || istype(obstacle, /obj/structure/closet) || istype(obstacle, /obj/structure/table) || istype(obstacle, /obj/structure/grille))
+	if(!prob(break_stuff_probability)) return
+	for(var/dir in cardinal) // North, South, East, West
+		var/obj/structure/obstacle = locate(/obj/structure, get_step(src, dir))
+		if(istype(obstacle, /obj/structure/closet) || istype(obstacle, /obj/structure/table) || istype(obstacle, /obj/structure/grille))
+			var/obj/o = src.loc:PassCollide(obstacle.loc)
+			if(o)
+				o.attack_animal(src)
+			else
 				obstacle.attack_animal(src)
+			return
+		else if(istype(obstacle, /obj/structure/window))
+			obstacle.attack_animal(src)
