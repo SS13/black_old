@@ -108,9 +108,19 @@
 	attack_verb = list("pinched", "nipped")
 
 /obj/item/weapon/wirecutters/New()
-	if(prob(50))
+	if(prob(25))
 		icon_state = "cutters-y"
 		item_state = "cutters_yellow"
+
+/obj/item/weapon/wirecutters/New()
+	if(prob(25))
+		icon_state = "cutters-g"
+		item_state = "cutters_green"
+
+/obj/item/weapon/wirecutters/New()
+	if(prob(25))
+		icon_state = "cutters-b"
+		item_state = "cutters_blue"
 
 /obj/item/weapon/wirecutters/attack(mob/living/carbon/C as mob, mob/user as mob)
 	if((C.handcuffed) && (istype(C.handcuffed, /obj/item/weapon/handcuffs/cable)))

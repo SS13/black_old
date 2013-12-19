@@ -6,10 +6,10 @@
 /mob/var/music = 0
 
 /obj/machinery/party/turntable
-	name = "Turntable"
+	name = "Jukebox"
 	desc = "A jukebox is a partially automated music-playing device, usually a coin-operated machine, that will play a patron's selection from self-contained media."
 	icon = 'lasers2.dmi'
-	icon_state = "Jukebox7"
+	icon_state = "Jukeboxalt"
 	var/playing = 0
 	anchored = 1
 	density = 1
@@ -48,17 +48,20 @@
 	t += "<tr height='50' weight='50'><td><A href='?src=\ref[src];on5=Track 5'><font color='maroon'>B</font><font color='green'>lue Theme</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on3=Track 3'><font color='maroon'>C</font><font color='purple'>hinatown</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on7=Track 7'><font color='maroon'>T</font><font color='green'>he Assassination of Jesse James</font></A></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on4=Track 4'><font color='maroon'>W</font><font color='purple'>ade In The Water</font></A>"
+	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on4=Track 4'><font color='maroon'>W</font><font color='purple'>ade In The Water</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on9=Track 9'><font color='maroon'>T</font><font color='green'>he Way You Look Tonight</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on8=Track 8'><font color='maroon'>E</font><font color='purple'>veryone Has Their Vices</font></A></td></tr>"
 	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on10=Track 10'><font color='maroon'>T</font><font color='green'>hey Were All Dead</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on11=Track 11'><font color='maroon'>O</font><font color='purple'>nizukas Blues</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on12=Track 12'><font color='maroon'>R</font><font color='green'>agtime Piano</font></A></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on13=Track 13'><font color='maroon'>I</font><font color='purple'>t Had To Be You</font></A></td><td height='50' weight='50'></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on14=Track 14'><font color='maroon'>J</font><font color='purple'>anitorial Blues</font></A></td></tr>"
-	t += "<tr height='50' weight='50'><td><A href='?src=\ref[src];on15=Track 15'><font color='maroon'>L</font><font color='green'>ujon</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on16=Track 16'><font color='maroon'>M</font><font color='purple'>ute Beat</font></A></td></tr>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on17=Track 17'><font color='maroon'>G</font><font color='purple'>roovy Times</font></A></td></tr>"
+	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on13=Track 13'><font color='maroon'>I</font><font color='purple'>t Had To Be You</font></A></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on14=Track 14'><font color='maroon'>J</font><font color='purple'>anitorial Blues</font></A></td>"
+	t += "<td height='50' weight='50'><td><A href='?src=\ref[src];on15=Track 15'><font color='maroon'>L</font><font color='green'>ujon</font></A></td></tr>"
+	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on16=Track 16'><font color='maroon'>M</font><font color='purple'>ute Beat</font></A></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on17=Track 17'><font color='maroon'>G</font><font color='purple'>roovy Times</font></A></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on18=Track 18'><font color='maroon'>U</font><font color='purple'>nder My Skin</font></A></td></tr>"
+	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on19=Track 19'><font color='maroon'>T</font><font color='purple'>hat`s All</font></A></td>"
+	t += "<td height='50' weight='50'><A href='?src=\ref[src];on20=Track 20'><font color='maroon'>T</font><font color='purple'>he Folks On The Hill</font></A></td></tr>"
 	t += "</table></div></body>"
 	user << browse(t, "window=turntable;size=450x700")
 	onclose(user, "urntable")
@@ -104,6 +107,12 @@
 				S = sound('MuteBeat.ogg')
 			if(href_list["on17"])
 				S = sound('GroovyTime.ogg')
+			if(href_list["on18"])
+				S = sound('IveGotYouUnderMySkin.ogg')
+			if(href_list["on19"])
+				S = sound('ThatsAll.ogg')
+			if(href_list["on20"])
+				S = sound('TheFolksWhoLiveOnTheHill.ogg')
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2

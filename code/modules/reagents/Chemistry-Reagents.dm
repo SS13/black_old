@@ -3049,6 +3049,22 @@ datum
 				..()
 				return
 
+		ethanol/redwing
+			name = "Red Wing"
+			id = "redwing"
+			description = "Superpopular energy rink."
+			color = "#102000" // rgb: 16, 32, 0
+			boozepwr = 2
+			nutriment_factor = 1 * FOOD_METABOLISM
+
+			on_mob_life(var/mob/living/M as mob)
+				M:drowsyness = max(0,M:drowsyness-7)
+				if (M.bodytemperature > 310)
+					M.bodytemperature = max(310, M.bodytemperature - (5 * TEMPERATURE_DAMAGE_COEFFICIENT))
+				M.make_jittery(5)
+				..()
+				return
+
 		ethanol/vodka
 			name = "Vodka"
 			id = "vodka"
@@ -3498,6 +3514,14 @@ datum
 			name = "Schlager Loko"
 			id = "schlagerloko"
 			description = "Surprisingly tasty but potent mixture of Goldschlager and Thirteen Loko. Gives a pleasant tongue tingle.."
+			color = "#102000" // rgb: 102, 67, 0
+			boozepwr = 3
+			nutriment_factor = 1 * FOOD_METABOLISM
+
+		ethanol/vodkaredwing
+			name = "Vodka Red Wing"
+			id = "vodkaredwing"
+			description = "Classic mix for those who need a boost."
 			color = "#102000" // rgb: 102, 67, 0
 			boozepwr = 3
 			nutriment_factor = 1 * FOOD_METABOLISM

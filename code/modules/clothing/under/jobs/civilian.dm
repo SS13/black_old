@@ -8,6 +8,13 @@
 	item_color = "ba_suit"
 	flags = FPRINT | TABLEPASS
 
+/obj/item/clothing/under/rank/bartender/red
+	desc = "It looks like it could use less flair."
+	name = "bartender's uniform"
+	icon_state = "ba_suitred"
+	item_state = "ba_suitred"
+	item_color = "ba_suitred"
+
 
 /obj/item/clothing/under/rank/captain //Alright, technically not a 'civilian' but its better then giving a .dm file for a single define.
 	desc = "It's a blue jumpsuit with some gold markings denoting the rank of \"Captain\"."
@@ -172,7 +179,7 @@
 	item_state = "mime"
 	item_color = "mime"
 	flags = FPRINT | TABLEPASS
-	
+
 /obj/item/clothing/under/spacearmy
 	name = "Military jumpsuit"
 	desc = "It`s a camo! Yeah space camo!"
