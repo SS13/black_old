@@ -32,6 +32,10 @@
 		return
 
 /obj/machinery/biogenerator/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if (istype(O, /obj/item/weapon/card/emag))
+		src.emagged = 1
+		user << "You short out the circuitry on [src]"
+		return
 	if(istype(O, /obj/item/weapon/reagent_containers/glass))
 		if(beaker)
 			user << "\red The biogenerator already occuped."
@@ -96,14 +100,20 @@
 					dat += "<A href='?src=\ref[src];action=create;item=l4z;cost=20'>Left 4 Zed</A> <FONT COLOR=blue>(20)</FONT> | <A href='?src=\ref[src];action=create;item=l4z5;cost=100'>x5</A><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=rh;cost=25'>Robust Harvest</A> <FONT COLOR=blue>(25)</FONT> | <A href='?src=\ref[src];action=create;item=rh5;cost=125'>x5</A><BR>"
 					dat += "Leather<BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=wallet;cost=100'>Wallet</A> <FONT COLOR=blue>(100)</FONT><BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=gloves;cost=250'>Botanical gloves</A> <FONT COLOR=blue>(250)</FONT><BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=tbelt;cost=300'>Utility belt</A> <FONT COLOR=blue>(300)</FONT><BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=satchel;cost=400'>Leather Satchel</A> <FONT COLOR=blue>(400)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=wallet;cost=150'>Wallet</A> <FONT COLOR=blue>(100)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=gloves;cost=350'>Botanical gloves</A> <FONT COLOR=blue>(250)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=tbelt;cost=400'>Utility belt</A> <FONT COLOR=blue>(300)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=shoes;cost=300'>Shoes</A> <FONT COLOR=blue>(100)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=satchel;cost=500'>Leather Satchel</A> <FONT COLOR=blue>(400)</FONT><BR>"
 					//dat += "Other<BR>"
 					//dat += "<A href='?src=\ref[src];action=create;item=monkey;cost=500'>Monkey</A> <FONT COLOR=blue>(500)</FONT><BR>"
+					if (emagged)
+						dat += "<A href='?src=\ref[src];action=create;item=muzzle;cost=350'>Muzzle</A> <FONT COLOR=blue>(100)</FONT><BR>"
+						dat += "<A href='?src=\ref[src];action=create;item=blindfold;cost=300'>Blindfold</A> <FONT COLOR=blue>(400)</FONT><BR>"
+
 				else
 					dat += "<BR><FONT COLOR=red>No beaker inside. Please insert a beaker.</FONT><BR>"
+
 			if("nopoints")
 				dat += "You do not have biomass to create products.<BR>Please, put growns into reactor and activate it.<BR>"
 				dat += "<A href='?src=\ref[src];action=menu'>Return to menu</A>"
@@ -192,8 +202,14 @@
 			new/obj/item/clothing/gloves/botanic_leather(src.loc)
 		if("tbelt")
 			new/obj/item/weapon/storage/belt/utility(src.loc)
+		if("shoes")
+			new/obj/item/clothing/shoes/leather(src.loc)
 		if("satchel")
 			new/obj/item/weapon/storage/backpack/satchel(src.loc)
+		if("mullze")
+			new/obj/item/clothing/mask/muzzle(src.loc)
+		if("blindfold")
+			new/obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
 		if("monkey")
 			new/mob/living/carbon/monkey(src.loc)
 	processing = 0

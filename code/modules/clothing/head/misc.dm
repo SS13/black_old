@@ -29,6 +29,14 @@
 	flags = FPRINT|TABLEPASS
 	siemens_coefficient = 0.9
 
+/obj/item/clothing/head/mongolhat
+	name = "Mongolian Hat"
+	desc = "Nobody expects the mongols!."
+	icon_state = "mongolhat"
+	item_state = "mongolhat"
+	flags = FPRINT|TABLEPASS
+	siemens_coefficient = 0.9
+
 /obj/item/clothing/head/redcoat
 	name = "redcoat's hat"
 	icon_state = "redcoat"
