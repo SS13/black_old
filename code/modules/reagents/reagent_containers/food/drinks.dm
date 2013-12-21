@@ -302,6 +302,16 @@
 		src.pixel_x = rand(-10.0, 10)
 		src.pixel_y = rand(-10.0, 10)
 
+/obj/item/weapon/reagent_containers/food/drinks/redwing
+	name = "Red Wing"
+	desc = "Toxic, addictive, energised! May cause coma or caffeine poisoning! Superpopular energy drink."
+	icon_state = "redwing"
+	New()
+		..()
+		reagents.add_reagent("redwing", 25)
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
+
 /obj/item/weapon/reagent_containers/food/drinks/dr_gibb
 	name = "Dr. Gibb"
 	desc = "A delicious mixture of 42 different flavors."

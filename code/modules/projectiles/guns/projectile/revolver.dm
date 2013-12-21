@@ -52,6 +52,8 @@
 		options["Leopard Spots"] = "detective_leopard"
 		options["Black Panther"] = "detective_panther"
 		options["Gold Trim"] = "detective_gold"
+		options["Rookie"] = "detective_rookie"
+		options["Callahan"] = "detective_callahan"
 		options["Deckard"] = "detective_deckard"
 		options["The Peacemaker"] = "detective_peacemaker"
 		var/choice = input(M,"What do you want to skin the gun to?","Reskin Gun") in options

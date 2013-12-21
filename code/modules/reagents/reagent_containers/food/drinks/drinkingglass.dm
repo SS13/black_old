@@ -242,6 +242,10 @@
 					icon_state = "schlagerlokoglass"
 					name = "Schlagerloko"
 					desc = "Surprisingly tasty but potent mixture of Goldschlager and Thirteen Loko. Gives a pleasant tongue tingle."
+				if("vodkaredwing")
+					icon_state = "schlagerlokoglass"
+					name = "Vodka Red Wing"
+					desc = "Classic mix for those who need a boost."
 				if("spacemonkey")
 					icon_state = "spacemonkeyglass"
 					name = "Space Monkey"
@@ -330,6 +334,10 @@
 					icon_state = "thirteen_loko_glass"
 					name = "Glass of Thirteen Loko"
 					desc = "This is a glass of Thirteen Loko, it appears to be of the highest quality. The drink, not the glass"
+				if("redwing")
+					icon_state = "thirteen_loko_glass"
+					name = "Glass of Red Wing"
+					desc = "A glass of Red Wing. Caution: may give you wings!"
 				if("dr_gibb")
 					icon_state = "dr_gibb_glass"
 					name = "Glass of Dr. Gibb"

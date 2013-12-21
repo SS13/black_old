@@ -12,6 +12,11 @@
 	max_heat_protection_temperature = HELMET_MAX_HEAT_PROTECITON_TEMPERATURE
 	siemens_coefficient = 0.7
 
+/obj/item/clothing/head/helmet/green
+	name = "helmet"
+	desc = "Protects the head from impacts."
+	icon_state = "helmetgreen"
+
 /obj/item/clothing/head/helmet/warden
 	name = "warden's hat"
 	desc = "It's a special helmet issued to the Warden of a securiy force. Protects the head from impacts."

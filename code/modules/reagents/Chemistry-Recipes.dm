@@ -1751,6 +1751,13 @@ datum
 			required_reagents = list("goldschlager" = 1, "thirteenloko" = 2)
 			result_amount = 3
 
+		vodkaredwing
+			name = "Vodka Red Wing"
+			id = "vodkaredwing"
+			result = "vodkaredwing"
+			required_reagents = list("vodka" = 1, "redwing" = 2)
+			result_amount = 3
+
 		spacemonkey
 			name = "Space Monkey"
 			id = "spacemonkey"

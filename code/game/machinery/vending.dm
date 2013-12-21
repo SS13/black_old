@@ -160,8 +160,8 @@
 	else if (istype(W, /obj/item/weapon/wrench))
 		if (anchored)
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-			user << "\blue You begin to unfasten \the [src] from the floor..."
-			if (do_after(user, 40))
+			user << "\blue You begin to unfasten \the [src] from the floor. Be patient..."
+			if (do_after(user, 300))
 				user.visible_message( \
 					"[user] unfastens \the [src].", \
 					"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
@@ -173,7 +173,7 @@
 		else /*if (anchored)*/
 			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "\blue You begin to fasten \the [src] to the floor..."
-			if (do_after(user, 20))
+			if (do_after(user, 100))
 				user.visible_message( \
 					"[user] fastens \the [src].", \
 					"\blue You have fastened \the [src].", \
@@ -452,6 +452,7 @@
 
 	src.updateUsrDialog()
 
+
 /obj/machinery/vending/process()
 	if(stat & (BROKEN|NOPOWER))
 		return
@@ -638,12 +639,11 @@
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/cognac = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 4,
 					/obj/item/weapon/reagent_containers/food/drinks/beer = 6,/obj/item/weapon/reagent_containers/food/drinks/ale = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice = 4,
-					/obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/cream = 4,
-					/obj/item/weapon/reagent_containers/food/drinks/milk = 2,/obj/item/weapon/reagent_containers/food/drinks/tonic = 8,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/tonic = 8,
 					/obj/item/weapon/reagent_containers/food/drinks/cola = 8,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 15,
 					/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 30,/obj/item/weapon/reagent_containers/food/drinks/ice = 9)
-	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/tea = 10)
-	vend_delay = 15
+	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe = 1)
+	vend_delay = 25
 	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?"
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"
 	req_access_txt = "25"
@@ -653,6 +653,18 @@
 						/obj/item/weapon/wirecutters = 1, /obj/item/weapon/cartridge/signal = 4)
 	contraband = list(/obj/item/device/flashlight = 5,/obj/item/device/assembly/timer = 2)
 	product_ads = "Only the finest!;Have some tools.;The most robust equipment.;The finest gear in space!"
+
+
+/obj/machinery/vending/coffeemachine
+	name = "Coffee Machine"
+	desc = "Superautomatic bean-to-cup machine able to prepare a cup of most robust coffee by simply pushing a button."
+	product_ads = "Drink up!;Mamma mia! Real spacepresso!; From the bean to your cup!; R-r-r-robust and caffeinated!I'd kill for some coffee!;The best beans in the galaxy.;Only the finest brew for you.;Mmmm. Nothing like a coffee.;I like coffee, don't you?;Coffee helps you work!;We hope you like the best!"
+	icon_state = "coffeemachine"
+	vend_delay = 25
+	req_access_txt = "25"
+	products = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25,/obj/item/weapon/reagent_containers/food/drinks/tea = 15,/obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 10,
+					/obj/item/weapon/reagent_containers/food/drinks/milk = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/cream = 4)
+	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 1)
 
 /obj/machinery/vending/coffee
 	name = "Hot Drinks machine"
@@ -704,7 +716,7 @@
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 7,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 7,
 					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 7,/obj/item/weapon/reagent_containers/food/drinks/grapesoda =7,
 					/obj/item/weapon/reagent_containers/food/drinks/sodawater = 7,/obj/item/weapon/reagent_containers/food/drinks/starkist = 7,
-					/obj/item/weapon/reagent_containers/food/drinks/space_up = 7)
+					/obj/item/weapon/reagent_containers/food/drinks/space_up = 7, /obj/item/weapon/reagent_containers/food/drinks/redwing =5)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/thirteenloko = 5)
 	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 30,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 30,
 					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 35,/obj/item/weapon/reagent_containers/food/drinks/grapesoda = 35,
@@ -846,6 +858,15 @@
 	product_ads = "For Tsar and Country.;Have you fulfilled your nutrition quota today?;Very nice!;We are simple people, for this is all we eat.;If there is a person, there is a problem. If there is no person, then there is no problem."
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/soda = 30)
 	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/cola = 20)
+
+/obj/machinery/vending/sovietsnack
+	name = "Npn"
+	desc = "Old individual rations vending machine"
+	icon_state = "sovietsnack"
+	product_ads = "Have you fulfilled your nutrition quota today?;We are simple people, for this is all we eat.;If there is a person, there is a problem. If there is no person, then there is no problem.; In soviet space, rations vend you!; "
+	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/potato = 3,/obj/item/weapon/reagent_containers/food/snacks/grown/whitebeet = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka = 1)
+	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/cola= 1)
+	premium = list(/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/cola = 3)
 
 /obj/machinery/vending/tool
 	name = "YouTool"

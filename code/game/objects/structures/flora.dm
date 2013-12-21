@@ -372,7 +372,7 @@
 	name = "Potted plant"
 	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-25"
-	desc = "A potted plants. This one appears to be long dead."
+	desc = "A potted plant. This one appears to be long dead."
 
 /obj/structure/flora/pottedplant/plant26
 	name = "Potted plant"

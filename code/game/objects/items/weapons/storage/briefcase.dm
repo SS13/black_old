@@ -46,3 +46,24 @@
 		M.eye_blurry += 3
 
 	return
+
+/obj/item/weapon/storage/briefcase/metal
+	name = "metal briefcase"
+	desc = "It's made of nano-alloy of aluminium and chugunium, although you have no idea what chugunium is. As seen in gangster movies."
+	icon_state = "briefcasemetal"
+	flags = FPRINT | TABLEPASS| CONDUCT
+	force = 9.0
+	throw_speed = 1
+	throw_range = 3
+	w_class = 4.0
+	max_w_class = 4
+	max_combined_w_class = 18
+
+/obj/item/weapon/storage/briefcase/med
+	name = "medical briefcase"
+	desc = "Sturdy plastic briefcase for storing essential tools and supplies. When you are too cool to carry a first-aid kit around."
+	icon_state = "medbriefcase"
+	flags = FPRINT | TABLEPASS| CONDUCT
+	force = 3.0
+	throw_speed = 1
+	throw_range = 5

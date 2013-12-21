@@ -113,14 +113,27 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
 
+/obj/item/weapon/shuriken
+	name = "shuriken"
+	desc = "Throwing weapon of choice of all the ninjas lurking in the maintenance"
+	icon_state = "shuriken"
+	item_state = "shuriken"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BELT
+	force = 5
+	throwforce = 25
+	w_class = 1
+	throw_speed = 5
+	throw_range = 15
+
 /obj/item/weapon/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20"
 	icon_state = "katana"
 	item_state = "katana"
 	flags = FPRINT | TABLEPASS | CONDUCT
-	slot_flags = SLOT_BELT | SLOT_BACK
-	force = 40
+	slot_flags = SLOT_BELT
+	force = 20
 	throwforce = 10
 	w_class = 3
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -136,6 +149,47 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
 
+/obj/item/weapon/katana/wakizashi
+	name = "wakizashi"
+	desc = "Blademaster`s choice"
+	icon_state = "wakizashi"
+	item_state = "wakizashi"
+
+/obj/item/weapon/katana/tachi
+	name = "tachi"
+	desc = "Truly, a monster of a blade. Let the heads roll!"
+	icon_state = "tachi"
+	item_state = "tachi"
+
+/obj/item/weapon/naginata
+	name = "naginata"
+	desc = "Porearms are for rearu menu!"
+	icon_state = "naginata"
+	item_state = "naginata"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BACK
+	force = 25
+	throwforce = 10
+	w_class = 3
+	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+
+	suicide_act(mob/user)
+		viewers(user) << "\red <b>[user] is going to pierce \his stomach with the [src.name]! It looks like \he's not going do die dishonored.</b>"
+		return(BRUTELOSS)
+
+/obj/item/weapon/naginata/IsShield()
+		return 1
+
+/obj/item/weapon/naginata/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	return ..()
+
+/obj/item/weapon/naginata/yari
+	name = "yari"
+	desc = "No time to explain, stab `em all!"
+	icon_state = "yari"
+	item_state = "yari"
+
 /obj/item/weapon/harpoon
 	name = "harpoon"
 	sharp = 1
@@ -146,3 +200,75 @@
 	throwforce = 15
 	w_class = 3
 	attack_verb = list("jabbed","stabbed","ripped")
+
+/obj/item/weapon/hatajirushi
+	name = "hatajirushi"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them. This one is Security"
+	icon_state = "hatajirushisecurity"
+	item_state = "hatajirushisecurity"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BACK
+	force = 5
+	throwforce = 10
+	w_class = 3
+	attack_verb = list("attacked", "poked", "hit", "whacked")
+
+/obj/item/weapon/hatajirushi/med
+	name = "hatajirushi"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them. This one is Medbay"
+	icon_state = "hatajirushimedbay"
+	item_state = "hatajirushimedbay"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BACK
+	force = 5
+	throwforce = 10
+	w_class = 3
+	attack_verb = list("attacked", "poked", "hit", "whacked")
+
+/obj/item/weapon/hatajirushi/cargo
+	name = "hatajirushi"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them.This one is Cargobay"
+	icon_state = "hatajirushicargo"
+	item_state = "hatajirushicargo"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BACK
+	force = 5
+	throwforce = 10
+	w_class = 3
+	attack_verb = list("attacked", "poked", "hit", "whacked")
+
+/obj/item/weapon/hatajirushi/rnd
+	name = "hatajirushi"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them.This one is RnD"
+	icon_state = "hatajirushirnd"
+	item_state = "hatajirushirnd"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BACK
+	force = 5
+	throwforce = 10
+	w_class = 3
+	attack_verb = list("attacked", "poked", "hit", "whacked")
+
+/obj/item/weapon/hatajirushi/engie
+	name = "hatajirushi"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them.This one is Engieneering"
+	icon_state = "hatajirushiengineering"
+	item_state = "hatajirushiengineering"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BACK
+	force = 5
+	throwforce = 10
+	w_class = 3
+	attack_verb = list("attacked", "poked", "hit", "whacked")
+
+/obj/item/weapon/hatajirushi/greytide
+	name = "hatajirushi"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them.This one is Grey Ronins"
+	icon_state = "hatajirushigreytide"
+	item_state = "hatajirushigreytide"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BACK
+	force = 5
+	throwforce = 10
+	w_class = 3
+	attack_verb = list("attacked", "poked", "hit", "whacked")

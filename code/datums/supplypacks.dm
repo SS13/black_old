@@ -139,6 +139,15 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containername = "Party equipment"
 	group = "Hospitality"
 
+/datum/supply_packs/piano
+	name = "Piano set"
+	contains = list(/obj/structure/device/piano)
+	cost = 215
+	containertype = /obj/structure/largecrate
+	containername = "Piano. Caution: Fragile!"
+	group = "Hospitality"
+
+
 /datum/supply_packs/internals
 	name = "Internals crate"
 	contains = list(/obj/item/clothing/mask/gas,
