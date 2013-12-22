@@ -1,5 +1,5 @@
 /obj/item/clothing/tie
-	name = "tie"
+	name = "blue tie"
 	desc = "A neosilk clip-on tie."
 	icon = 'icons/obj/clothing/ties.dmi'
 	icon_state = "bluetie"
@@ -82,9 +82,14 @@
 	desc = "A bronze medal awarded for distinguished conduct. Whilst a great honor, this is most basic award given by Nanotrasen. It is often awarded by a captain to a member of his crew."
 
 /obj/item/clothing/tie/medal/bronze_heart
-	name = "bronze heart medal"
+	name = "purple heart medal"
 	desc = "A bronze heart-shaped medal awarded for sacrifice. It is often awarded posthumously or for severe injury in the line of duty."
 	icon_state = "bronze_heart"
+
+/obj/item/clothing/tie/medal/bronze_diamond
+	name = "distinguished EPRer medal"
+	desc = "A bronze diamond-shaped medal awarded for brave conduct during Emergency Reaction Protocols. Usually awarded to workers of emergency services whose actions ensured safety of other employees. "
+	icon_state = "bronze_diamond"
 
 /obj/item/clothing/tie/medal/nobel_science
 	name = "nobel sciences award"
@@ -109,6 +114,11 @@
 	desc = "A prestigious golden medal."
 	icon_state = "gold"
 	item_color = "gold"
+
+/obj/item/clothing/tie/medal/gold_diamond
+	name = "public service medal"
+	desc = "Rather common medal awarded for distinctive public service. Usually awarded to public transportation, waste management, postal service and town planning workers, alhtough there were few occurances when librarians recieved such."
+	icon_state = "gold_diamond"
 
 /obj/item/clothing/tie/medal/gold/captain
 	name = "medal of captaincy"

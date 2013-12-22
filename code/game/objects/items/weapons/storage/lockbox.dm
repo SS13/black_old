@@ -108,3 +108,5 @@
 		new /obj/item/clothing/tie/medal/conduct(src)
 		new /obj/item/clothing/tie/medal/conduct(src)
 		new /obj/item/clothing/tie/medal/conduct(src)
+		new	/obj/item/clothing/tie/medal/gold_diamond(src)
+		new /obj/item/clothing/tie/medal/silver/security(src)

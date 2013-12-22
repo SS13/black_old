@@ -215,17 +215,18 @@
 
 /obj/item/clothing/suit/space/rig/security/mongol
 	name = "mongol hardsuit"
-	item_state = "rig_mongol"
+	icon_state = "rig_mongol"
 	item_state = "rig_mongol"
 
 	//Samurai
 /obj/item/clothing/suit/space/rig/security/samurai
 	name = "samurai hardsuit"
 	icon_state = "rig_samurai"
+	item_state = "rig_samurai"
 
 //Atmospherics Rig (BS12)
 /obj/item/clothing/head/helmet/space/rig/atmos
-	desc = "A special helmet designed for work in a hazardou, low pressure environments. Has reduced radiation shielding and protective plating to allow for greater mobility."
+	desc = "A special helmet designed for work in a hazardous, low pressure environments. Has reduced radiation shielding and protective plating to allow for greater mobility."
 	name = "atmospherics hardsuit helmet"
 	icon_state = "rig0-atmos"
 	item_state = "atmos_helm"

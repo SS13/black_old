@@ -120,10 +120,10 @@
 	icon = 'icons/obj/chemical.dmi'
 	item_state = "contsolid"
 	w_class = 2.0
-	can_hold = list("/obj/item/weapon/reagent_containers/pill","/obj/item/weapon/dice","/obj/item/weapon/paper")
+	can_hold = list("/obj/item/weapon/reagent_containers/pill","/obj/item/weapon/dice","/obj/item/weapon/paper", "obj/item/ammo_casing","/obj/item/weapon/coin","/obj/item/weapon/cigbutt","/obj/item/weapon/match")
 	allow_quick_gather = 1
 	use_to_pickup = 1
-	storage_slots = 14
+	storage_slots = 10
 
 /obj/item/weapon/storage/pill_bottle/MouseDrop(obj/over_object as obj) //Quick pillbottle fix. -Agouri
 
@@ -199,4 +199,6 @@
 		..()
 		new /obj/item/weapon/dice( src )
 		new /obj/item/weapon/dice/d20( src )
-
+		new /obj/item/weapon/dice/d12( src )
+		new /obj/item/weapon/dice/d10( src )
+		new /obj/item/weapon/dice/d00( src )
