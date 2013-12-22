@@ -678,6 +678,12 @@
 	prices = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25, /obj/item/weapon/reagent_containers/food/drinks/tea = 25, /obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 25)
 
 
+/obj/machinery/vending/coffee/black
+	name = "Hot Drinks machine"
+	desc = "A vending machine which dispenses hot drinks."
+	product_ads = "Have a drink!;Drink up!;It's good for you!;Would you like a hot joe?;I'd kill for some coffee!;The best beans in the galaxy.;Only the finest brew for you.;Mmmm. Nothing like a coffee.;I like coffee, don't you?;Coffee helps you work!;Try some tea.;We hope you like the best!;Try our new chocolate!;Admin conspiracies"
+	icon_state = "coffeeblack"
+	icon_vend = "coffeeblack-vend"
 
 /obj/machinery/vending/snack
 	name = "Getmore Chocolate Corp"
@@ -693,6 +699,11 @@
 					/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 30,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 20,/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 30,
 					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25)
 
+
+/obj/machinery/vending/snack/red
+	name = "Getmore Chocolate Corp"
+	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
+	icon_state = "snack"
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
@@ -722,6 +733,21 @@
 					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 35,/obj/item/weapon/reagent_containers/food/drinks/grapesoda = 35,
 					/obj/item/weapon/reagent_containers/food/drinks/sodawater = 25,/obj/item/weapon/reagent_containers/food/drinks/starkist = 35,
 					/obj/item/weapon/reagent_containers/food/drinks/space_up = 30)
+
+/obj/machinery/vending/cola/red
+	name = "Robust Softdrinks"
+	desc = "A softdrink vendor provided by Robust Industries, LLC."
+	icon_state = "Colared"
+
+/obj/machinery/vending/cola/blue
+	name = "Robust Softdrinks"
+	desc = "A softdrink vendor provided by Robust Industries, LLC."
+	icon_state = "Cola"
+
+/obj/machinery/vending/cola/orange
+	name = "Robust Softdrinks"
+	desc = "A softdrink vendor provided by Robust Industries, LLC."
+	icon_state = "Colaorange"
 
 //This one's from bay12
 /obj/machinery/vending/cart

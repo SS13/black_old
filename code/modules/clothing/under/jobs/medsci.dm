@@ -79,6 +79,14 @@
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 
+
+/obj/item/clothing/under/rank/nursesuit/nursenew
+	desc = "A dress commonly worn by the nursing staff in the medical department.This one looks like it comes from a sex-shop."
+	name = "nurse's dress"
+	icon_state = "nursenew"
+	item_state = "nurse"
+	item_color = "nurse"
+
 /obj/item/clothing/under/rank/orderly
 	desc = "A white suit to be worn by orderly people who love orderly things."
 	name = "orderly's uniform"

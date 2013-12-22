@@ -46,7 +46,7 @@
 	icon_state = "atmos"
 	item_to_spawn()
 		return pick(prob(5);/obj/item/device/t_scanner,\
-					prob(2);/obj/item/device/radio/intercom,\
+					//prob(2);/obj/item/device/radio/intercom,\//
 					prob(5);/obj/item/device/analyzer)
 
 
@@ -92,13 +92,40 @@
 	icon_state = "cell"
 	spawn_nothing_percentage = 50
 	item_to_spawn()
-		return pick(prob(3);/obj/random/powercell,\
-					prob(2);/obj/random/technology_scanner,\
+		return pick(prob(1);/obj/random/powercell,\
+					prob(3);/obj/random/technology_scanner,\
 					prob(1);/obj/item/weapon/packageWrap,\
 					prob(2);/obj/random/bomb_supply,\
 					prob(1);/obj/item/weapon/extinguisher,\
 					prob(1);/obj/item/clothing/gloves/fyellow,\
-					prob(3);/obj/item/weapon/cable_coil,\
-					prob(2);/obj/random/toolbox,\
-					prob(2);/obj/item/weapon/storage/belt/utility,\
-					prob(5);/obj/random/tool)
+					prob(4);/obj/item/weapon/cable_coil,\
+					prob(3);/obj/random/toolbox,\
+					prob(1);/obj/item/weapon/storage/belt/utility,\
+					prob(6);/obj/random/tool)
+
+
+/obj/random/ashtray
+	name = "Random Ashtray"
+	desc = "This is a random ashtray."
+	icon = 'icons/ashtray.dmi'
+	icon_state = "ashtray_gl"
+	item_to_spawn()
+		return pick(prob(1);/obj/item/ashtray/bronze,\
+					prob(3);/obj/item/ashtray/glass,\
+					prob(4);/obj/item/ashtray/plastic)
+
+
+
+/obj/random/dice
+	name = "Random Dice"
+	desc = "This is a random dice. "
+	icon = 'icons/obj/dice.dmi'
+	icon_state = "d61"
+	spawn_nothing_percentage = 10
+	item_to_spawn()
+		return pick(prob(6);/obj/item/weapon/dice/d20,\
+					prob(8);/obj/item/weapon/dice,\
+					prob(2);/obj/item/weapon/dice/d4,\
+					prob(4);/obj/item/weapon/dice/d10,\
+					prob(4);/obj/item/weapon/dice/d00,\
+					prob(5);/obj/item/weapon/dice/d12)

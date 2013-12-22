@@ -76,8 +76,8 @@
 		src.loc.visible_message("<span class='notice'>[src] rolls to a stop, landing on [result]. [comment]</span>")
 
 /obj/item/weapon/dice/Crossed(var/mob/living/carbon/human/H)
-	if(istype(H) && !H.shoes)
-		H << "<span class='userdanger'>You step on the die!</span>"
+	if(istype(H))
+		H << "<span class='userdanger'>You step on the die, losing your balance, and fall hard.</span>"
 		H.apply_damage(4,BRUTE,(pick("l_leg", "r_leg")))
 		H.Weaken(1)
 
