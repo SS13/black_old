@@ -31,7 +31,8 @@
 							/obj/item/toy/prize/seraph						= 1,
 							/obj/item/toy/prize/mauler						= 1,
 							/obj/item/toy/prize/odysseus					= 1,
-							/obj/item/toy/prize/phazon						= 1
+							/obj/item/toy/prize/phazon						= 1,
+							/obj/item/clothing/tie/medal/toy				= 1
 							)
 
 /obj/machinery/computer/arcade
@@ -43,10 +44,10 @@
 	var/name_part1
 	var/name_part2
 
-	name_action = pick("Defeat ", "Annihilate ", "Save ", "Strike ", "Stop ", "Destroy ", "Robust ", "Romance ", "Pwn ", "Own ")
+	name_action = pick("Defeat ", "Annihilate ", "Save ", "Strike ", "Stop ", "Destroy ", "Robust ", "Romance ", "Pwn ", "Own ", "Ban", "Grief", "Desintegrate")
 
-	name_part1 = pick("the Automatic ", "Farmer ", "Lord ", "Professor ", "the Cuban ", "the Evil ", "the Dread King ", "the Space ", "Lord ", "the Great ", "Duke ", "General ")
-	name_part2 = pick("Melonoid", "Murdertron", "Sorcerer", "Ruin", "Jeff", "Ectoplasm", "Crushulon", "Uhangoid", "Vhakoid", "Peteoid", "slime", "Griefer", "ERPer", "Lizard Man", "Unicorn")
+	name_part1 = pick("the Automatic ", "Farmer ", "Lord ", "Professor ", "the Cuban ", "the Evil ", "the Dread King ", "the Space ", "Lord ", "the Great ", "Duke ", "General ", "Malfunctioning", "Grieffing")
+	name_part2 = pick("Melonoid", "Murdertron", "Sorcerer", "Ruin", "Jeff", "Ectoplasm", "Crushulon", "Uhangoid", "Vhakoid", "Peteoid", "slime", "Griefer", "ERPer", "Lizard Man", "Unicorn", "Assistant", "Malf")
 
 	src.enemy_name = replacetext((name_part1 + name_part2), "the ", "")
 	src.name = (name_action + name_part1 + name_part2)

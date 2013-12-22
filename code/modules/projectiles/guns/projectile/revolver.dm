@@ -55,6 +55,7 @@
 		options["Rookie"] = "detective_rookie"
 		options["Callahan"] = "detective_callahan"
 		options["Deckard"] = "detective_deckard"
+		options["General Patton"] = "detective_patton"
 		options["The Peacemaker"] = "detective_peacemaker"
 		var/choice = input(M,"What do you want to skin the gun to?","Reskin Gun") in options
 
