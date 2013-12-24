@@ -120,6 +120,11 @@
 	desc = "Rather common medal awarded for distinctive public service. Usually awarded to public transportation, waste management, postal service and town planning workers, alhtough there were few occurances when librarians recieved such."
 	icon_state = "gold_diamond"
 
+/obj/item/clothing/tie/medal/toy
+	name = "Major Tom`s Space Cowboy Super Authentic Faux Medal"
+	desc = "This faux medal is for true space cowboys who are cool and stuff! Ages 8 and up. Don`t swallow."
+	icon_state = "gold_faux"
+
 /obj/item/clothing/tie/medal/gold/captain
 	name = "medal of captaincy"
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."

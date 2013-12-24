@@ -193,6 +193,14 @@
 				usr << "You unbutton the jacket."
 		usr.update_inv_wear_suit()	//so our overlays update
 
+/obj/item/clothing/suit/storage/paramedicvest
+	name = "paramedic vest"
+	desc = "A high-visibility vest issued for medical staff working emergencies."
+	icon_state = "paramedic-vest"
+	item_state = "paramedic-vest"
+	blood_overlay_type = "armor"
+
+
 //Mime
 /obj/item/clothing/suit/suspenders
 	name = "suspenders"
