@@ -54,11 +54,11 @@ proc/airborne_can_reach(turf/source, turf/target)
 //Attemptes to infect mob M with virus. Set forced to 1 to ignore protective clothnig
 /proc/infect_virus2(var/mob/living/carbon/M,var/datum/disease2/disease/disease,var/forced = 0)
 	if(!istype(disease))
-		return
 //                log_debug("Bad virus")
-	if(!istype(M))
 		return
+	if(!istype(M))
 //                log_debug("Bad mob")
+		return
 	if ("[disease.uniqueID]" in M.virus2)
 		return
 	// if one of the antibodies in the mob's body matches one of the disease's antigens, don't infect
