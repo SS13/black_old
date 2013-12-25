@@ -411,7 +411,6 @@
 
 		if(breath)
 			loc.assume_air(breath)
-
 			//spread some viruses while we are at it
 			/*if (virus2.len > 0)
 				if (get_infection_chance(src) && prob(10))
@@ -421,6 +420,7 @@
 						src.spread_disease*/
 
 	proc/get_breath_from_internal(volume_needed)
+
 		if(internal)
 			if (!contents.Find(internal))
 				internal = null
@@ -1429,11 +1429,7 @@
 				for (var/ID in B.virus2)
 					var/datum/disease2/disease/V = B.virus2[ID]
 					infect_virus2(src,V)
-<<<<<<< HEAD
-		
-=======
 
->>>>>>> upd
 		for(var/obj/effect/decal/cleanable/mucus/M in view(1,src))
 			if(M.virus2.len)
 				for (var/ID in M.virus2)
