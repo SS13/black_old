@@ -417,7 +417,7 @@
 				if (get_infection_chance(src) && prob(20))
 //					log_debug("[src] : Exhaling some viruses")
 					for(var/mob/living/carbon/M in view(1,src))
-						rc.spread_disease_to(M)
+						src.spread_disease_to(M)
 
 	proc/get_breath_from_internal(volume_needed)
 		if(internal)
