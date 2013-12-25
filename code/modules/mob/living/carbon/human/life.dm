@@ -411,6 +411,7 @@
 
 		if(breath)
 			loc.assume_air(breath)
+
 			//spread some viruses while we are at it
 			/*if (virus2.len > 0)
 				if (get_infection_chance(src) && prob(10))
