@@ -1427,6 +1427,7 @@
 				for (var/ID in B.virus2)
 					var/datum/disease2/disease/V = B.virus2[ID]
 					infect_virus2(src,V)
+		
 		for(var/obj/effect/decal/cleanable/mucus/M in view(1,src))
 			if(M.virus2.len)
 				for (var/ID in M.virus2)
