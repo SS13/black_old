@@ -69,7 +69,7 @@ proc/airborne_can_reach(turf/source, turf/target)
 
 	if(prob(disease.infectionchance) || forced)
 		// certain clothes can prevent an infection
-		if(!forced && !get_infection_chance(M, disease.spreadtype)
+		if(!forced && !get_infection_chance(M, disease.spreadtype))
 			return
 
 		var/datum/disease2/disease/D = disease.getcopy()
