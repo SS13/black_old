@@ -94,7 +94,6 @@ proc/airborne_can_reach(turf/source, turf/target)
 /proc/dprob(var/p)
 	return(prob(sqrt(p)) && prob(sqrt(p)))
 
-
 /mob/living/carbon/proc/spread_disease_to(var/mob/living/carbon/victim, var/vector = "Airborne")
         if (src == victim)
                 return "retardation"
