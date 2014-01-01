@@ -63,7 +63,7 @@ obj
 		anchored = 1
 		mouse_opacity = 0
 
-		//luminosity = 3
+		luminosity = 3
 
 		icon = 'icons/effects/fire.dmi'
 		icon_state = "1"
@@ -90,7 +90,7 @@ obj
 						//Also get liquid fuels on the ground.
 						obj/effect/decal/cleanable/liquid_fuel/liquid = locate() in S
 
-					var/datum/gas_mixture/flow = air_contents.remove_ratio(0.25)
+					var/datum/gas_mixture/flow = air_contents.remove_ratio(0.40)
 					//The reason we're taking a part of the air instead of all of it is so that it doesn't jump to
 					//the fire's max temperature instantaneously.
 
@@ -292,8 +292,8 @@ datum/gas_mixture/proc/calculate_firelevel(obj/effect/decal/cleanable/liquid_fue
 
 	//Always check these damage procs first if fire damage isn't working. They're probably what's wrong.
 
-	apply_damage(2.5*mx*head_exposure, BURN, "head", 0, 0, "Fire")
-	apply_damage(2.5*mx*chest_exposure, BURN, "chest", 0, 0, "Fire")
+	apply_damage(2.9*mx*head_exposure, BURN, "head", 0, 0, "Fire")
+	apply_damage(2.9*mx*chest_exposure, BURN, "chest", 0, 0, "Fire")
 	apply_damage(2.0*mx*groin_exposure, BURN, "groin", 0, 0, "Fire")
 	apply_damage(0.6*mx*legs_exposure, BURN, "l_leg", 0, 0, "Fire")
 	apply_damage(0.6*mx*legs_exposure, BURN, "r_leg", 0, 0, "Fire")
