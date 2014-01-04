@@ -224,6 +224,13 @@
 	item_state = "soviet"
 	item_color = "soviet"
 
+/obj/item/clothing/under/soviet/ks13
+	name = "soviet KS13 uniform"
+	desc = "Standart-issue uniform for tovarischi from KS13. It is somewhat rugged and smells of potatoes and kerosine. "
+	icon_state = "ks13suit"
+	item_state = "ks13suit"
+	item_color = "ks13suit"
+
 /obj/item/clothing/under/redcoat
 	name = "redcoat uniform"
 	desc = "Looks old."
@@ -380,6 +387,14 @@
 	item_color = "sundress"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/bluedress
+	name = "blue dress"
+	desc = "This light blue dress brings up your 'lady features' just perfect."
+	icon_state = "bluedress"
+	item_state = "bluedress"
+	item_color = "bluedress"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
 /obj/item/clothing/under/suzumiyarabbit
 	name = "suzumiya rabbit dress"
 	icon_state = "suzumiyarabbit"
@@ -392,13 +407,6 @@
 	icon_state = "mikururabbit"
 	item_state = "mikururabbit"
 	item_color = "mikururabbit"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-
-/obj/item/clothing/under/PMC_suit
-	name = "PMC suit"
-	icon_state = "PMCsuit"
-	item_state = "blackskirt"
-	item_color = "PMCsuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/sheik
