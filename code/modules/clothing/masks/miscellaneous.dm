@@ -7,6 +7,12 @@
 	w_class = 2
 	gas_transfer_coefficient = 0.90
 
+/obj/item/clothing/mask/muzzle/ballgag
+	name = "ballgag"
+	desc = "For when Master wants silence."
+	icon_state = "ballgag"
+	item_state = "ballgag"
+
 //Monkeys can not take the muzzle off of themself! Call PETA!
 /obj/item/clothing/mask/muzzle/attack_paw(mob/user as mob)
 	if (src == user.wear_mask)

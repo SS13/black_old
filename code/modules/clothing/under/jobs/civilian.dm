@@ -103,6 +103,12 @@
 	item_color = "internalaffairs"
 	flags = FPRINT | TABLEPASS
 
+/obj/item/clothing/under/rank/internalaffairs/female
+	desc = "Somewhat sexy, yet professional female attire of an Internal Affairs Agent. The pantyhose has <i>absolutely</i> no ladders."
+	name = "Internal Affairs female uniform"
+	icon_state = "internalaffairsfem"
+	item_state = "internalaffairsfem"
+	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/under/rank/janitor
 	desc = "It's the official uniform of the station's janitor. It has minor protection from biohazards."

@@ -164,6 +164,10 @@
 	desc = "A Nanotrasen brand bar of soap. Smells of plasma."
 	icon_state = "soapnt"
 
+/obj/item/weapon/soap/blue
+	desc = "Generic brand of space soap. Smells of detergent."
+	icon_state = "soapblue"
+
 /obj/item/weapon/soap/deluxe
 	desc = "A deluxe Waffle Co. brand bar of soap. Smells of condoms."
 	icon_state = "soapdeluxe"
@@ -266,6 +270,21 @@
 	w_class = 3.0
 	origin_tech = "materials=1"
 	var/breakouttime = 300	//Deciseconds = 30s = 0.5 minute
+
+/obj/item/weapon/legcuffs/attack(mob/living/carbon/C as mob, mob/user as mob)
+	if(istype(src, /obj/item/weapon/handcuffs/cyborg) && isrobot(user))
+		if(!C.legcuffed)
+			var/turf/p_loc = user.loc
+			var/turf/p_loc_m = C.loc
+			playsound(src.loc, 'sound/weapons/handcuffs.ogg', 30, 1, -2)
+			for(var/mob/O in viewers(user, null))
+				O.show_message("\red <B>[user] is trying to put legcuffs on [C]!</B>", 1)
+			spawn(30)
+				if(!C)	return
+				if(p_loc == user.loc && p_loc_m == C.loc)
+					C.legcuffed = new /obj/item/weapon/legcuffs(C)
+					C.update_inv_legcuffed()
+
 
 /obj/item/weapon/legcuffs/beartrap
 	name = "bear trap"

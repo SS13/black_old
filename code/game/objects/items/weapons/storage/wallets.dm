@@ -27,6 +27,8 @@
 		"/obj/item/weapon/reagent_containers/pill",
 		"/obj/item/clothing/tie/medal/",
 		"/obj/item/trash/candy",
+		"/obj/item/clothing/tie/holobadge/detective",
+		"/obj/item/clothing/tie/holobadge/forensic",
 		"/obj/item/weapon/cartridge",
 		"/obj/item/weapon/f_card")
 	slot_flags = SLOT_ID
