@@ -100,7 +100,7 @@
 		return
 
 /obj/item/weapon/gun/projectile/pistol
-	name = "\improper Stechtkin pistol"
+	name = "\improper Makarov pistol"
 	desc = "A small, easily concealable gun. Uses 9mm rounds."
 	icon_state = "pistol"
 	w_class = 2
@@ -164,14 +164,19 @@
 	desc = "A small, easily concealable gun. Uses 9mm rounds."
 	icon_state = "Beretta"
 	max_shells = 15
-	caliber = "Beretta"
-	origin_tech = "combat=3;materials=2;syndicate=1"
-	ammo_type = "/obj/item/ammo_casing/beretta"
 
-	New()
-		..()
-		empty_mag = new /obj/item/ammo_magazine/beretta/empty(src)
-		return
+
+/obj/item/weapon/gun/projectile/pistol/walther
+	name = "Walther pistol"
+	desc = "A small, precise gun, PPK model. A certain dictator shot himself with the same model. Uses 9mm rounds."
+	icon_state = "walther"
+
+/obj/item/weapon/gun/projectile/pistol/walther/update_icon(obj/item/I as obj)
+	..()
+	if(silenced)
+		icon_state = "walther-silencer"
+	else
+		icon_state = "walther"
 
 /obj/item/weapon/gun/projectile/SW
 	name = "\improper Smith & Wesson"

@@ -68,6 +68,20 @@
 			icon_state = "c20r"
 		return
 
+
+/obj/item/weapon/gun/projectile/automatic/c20r/orange
+	name = "C-20r SMG"
+	desc = "This C-20r has funky orange striped camo. Only the maddest insane nut-crazy cold-blooded maniac who enjoys killing things could paint a gun orange. Uses 12mm rounds."
+	icon_state = "c20rorange"
+	item_state = "c20rorange"
+
+/obj/item/weapon/gun/projectile/automatic/c20r/c05r
+	name = "C-05r SMG"
+	desc = "Though being C20r`s little brother, this little guy packs a punch nonetheless. Uses 12mm rounds. Has a 'Scarborough Arms - Mortificatur quam assistentes, robustiores quam securitas' buttstamp"
+	icon_state = "c05r"
+	item_state = "c05r"
+	max_shells = 12
+
 /obj/item/weapon/gun/projectile/automatic/l6_saw
 	name = "\improper L6 SAW"
 	desc = "A rather traditionally made light machine gun with a pleasantly lacquered wooden pistol grip. Has 'Aussec Armoury- 2531' engraved on the reciever"

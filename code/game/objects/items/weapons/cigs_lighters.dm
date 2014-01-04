@@ -337,6 +337,14 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_on = "zippoon"
 	icon_off = "zippo"
 
+/obj/item/weapon/lighter/zippo/gold
+	name = "Zippo lighter"
+	desc = "The zippo."
+	icon_state = "goldzippo"
+	item_state = "goldzippo"
+	icon_on = "goldzippoon"
+	icon_off = "goldzippo"
+
 /obj/item/weapon/lighter/random
 	New()
 		var/color = pick("r","c","y","g","b","w","m","o")

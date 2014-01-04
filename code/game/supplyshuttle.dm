@@ -132,8 +132,8 @@ var/list/mechtoys = list(
 	//supply points
 	var/points = 50
 	var/points_per_process = 1
-	var/points_per_slip = 2
-	var/points_per_crate = 5
+	var/points_per_slip = 5
+	var/points_per_crate = 2
 	var/plasma_per_point = 2 // 2 plasma for 1 point
 	//control
 	var/ordernum

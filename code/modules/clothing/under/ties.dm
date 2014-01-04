@@ -264,6 +264,22 @@
 	var/emagged = 0 //Emagging removes Sec check.
 	var/stored_name = null
 
+/obj/item/clothing/tie/holobadge/detective
+
+	name = "detective badge"
+	desc = "This shiny badge marks the holder as the one with the gun, you scum. Badge number is 108."
+	icon_state = "holobadge_detective"
+	item_color = "holobadge_detective"
+	slot_flags = SLOT_BELT
+
+/obj/item/clothing/tie/holobadge/forensic
+
+	name = "forensic badge"
+	desc = "A faded badge, backed with leather, that reads 'NT Security Force' across the front. It bears the emblem of the Forensic division."
+	icon_state = "holobadge_forensic"
+	item_color = "holobadge_forensic"
+	slot_flags = SLOT_BELT
+
 /obj/item/clothing/tie/holobadge/cord
 	icon_state = "holobadge-cord"
 	item_color = "holobadge-cord"

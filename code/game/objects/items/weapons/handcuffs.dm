@@ -13,7 +13,7 @@
 	m_amt = 500
 	origin_tech = "materials=1"
 	var/dispenser = 0
-	var/breakouttime = 1200 //Deciseconds = 120s = 2 minutes
+	var/breakouttime = 1200 //Deciseconds = 120s
 
 /obj/item/weapon/handcuffs/attack(mob/living/carbon/C as mob, mob/user as mob)
 	if(istype(src, /obj/item/weapon/handcuffs/cyborg) && isrobot(user))
@@ -97,6 +97,12 @@
 	desc = "Looks like some cables tied together. Could be used to tie something up."
 	icon_state = "cuff_red"
 	breakouttime = 300 //Deciseconds = 30s
+
+/obj/item/weapon/handcuffs/pink
+	name = "fluffy handcuffs"
+	desc = "Soft fluffy handcuffs for that special inmate."
+	icon_state = "handcuffpink"
+	breakouttime = 100
 
 /obj/item/weapon/handcuffs/cable/red
 	icon_state = "cuff_red"
