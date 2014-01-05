@@ -31,7 +31,7 @@
 
 /obj/item/clothing/head/mongolhat
 	name = "Mongolian Hat"
-	desc = "Nobody expects the mongols!."
+	desc = "Nobody expects the mongols!"
 	icon_state = "mongolhat"
 	item_state = "mongolhat"
 	flags = FPRINT|TABLEPASS
