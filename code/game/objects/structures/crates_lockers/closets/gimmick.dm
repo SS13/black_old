@@ -40,13 +40,42 @@
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
+	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/soviet(src)
+
+
+/obj/structure/closet/gimmick/russianKS13
+	name = "KS13 surplus closet"
+	desc = "It's a storage unit for KS13 standard-issue surplus."
+	icon_state = "syndicate1"
+	icon_closed = "syndicate1"
+	icon_opened = "syndicate1open"
+
+/obj/structure/closet/gimmick/russianKS13/New()
+	..()
+	sleep(2)
+	new /obj/item/clothing/under/soviet/ks13(src)
+	new /obj/item/clothing/under/soviet/ks13(src)
+	new /obj/item/clothing/under/soviet/ks13(src)
+	new /obj/item/clothing/under/soviet/ks13(src)
+
+/obj/structure/closet/gimmick/russianKS13officer
+	name = "KS13 surplus closet"
+	desc = "It's a storage unit for KS13 officer standard-issue surplus."
+	icon_state = "syndicate1"
+	icon_closed = "syndicate1"
+	icon_opened = "syndicate1open"
+
+/obj/structure/closet/gimmick/russianKS13officer/New()
+	..()
+	sleep(2)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
-	new /obj/item/clothing/under/soviet(src)
+	new /obj/item/clothing/under/soviet/ks13(src)
+	new /obj/item/clothing/under/soviet/ks13(src)
+	new /obj/item/clothing/suit/redarmycoat(src)
+	new /obj/item/clothing/suit/redarmycoat(src)
 
 
 /obj/structure/closet/gimmick/tacticool

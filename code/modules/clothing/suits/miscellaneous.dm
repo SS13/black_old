@@ -259,7 +259,7 @@
 
 /obj/item/clothing/suit/redarmycoat
 	name = "red army coat"
-	desc = "Tovarisch komanir`s very own coat."
+	desc = "Tovarisch komandir`s very own coat."
 	icon_state = "redarmycoat"
 	item_state = "redarmycoat"
 	flags = FPRINT | TABLEPASS

@@ -418,14 +418,14 @@
 
 /obj/item/clothing/under/snmsuit
 	name = "S&M Suit"
-	desc = "This tight bondage of latex and leather together make for a fine ensemble of pain."
+	desc = "This tight bondage of latex and leather makes for a fine ensemble of pain."
 	icon_state = "snmsuit"
 	item_state = "snmsuit"
 	item_color = "snmsuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
 /obj/item/clothing/under/sheik
-	name = "sheik suit"
+	name = "sheikh suit"
 	icon_state = "sheik"
 	item_state = "sheik"
 	item_color = "sheik"
