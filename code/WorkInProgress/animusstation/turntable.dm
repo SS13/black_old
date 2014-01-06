@@ -59,9 +59,9 @@
 	t += "<td height='50' weight='50'><td><A href='?src=\ref[src];on15=Track 15'><font color='maroon'>L</font><font color='green'>ujon</font></A></td></tr>"
 	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on16=Track 16'><font color='maroon'>M</font><font color='purple'>ute Beat</font></A></td>"
 	t += "<td height='50' weight='50'><A href='?src=\ref[src];on17=Track 17'><font color='maroon'>G</font><font color='purple'>roovy Times</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on18=Track 18'><font color='maroon'>U</font><font color='purple'>nder My Skin</font></A></td></tr>"
+	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on18=Track 18'><font color='maroon'>U</font><font color='purple'>nder My Skin</font></A></td>"
 	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on19=Track 19'><font color='maroon'>T</font><font color='purple'>hat`s All</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on20=Track 20'><font color='maroon'>T</font><font color='purple'>he Folks On The Hill</font></A></td></tr>"
+	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on20=Track 20'><font color='maroon'>T</font><font color='purple'>he Folks On The Hill</font></A></td>"
 	t += "</table></div></body>"
 	user << browse(t, "window=turntable;size=450x700")
 	onclose(user, "urntable")

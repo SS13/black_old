@@ -80,12 +80,14 @@
 
 
 		//Special case for blood splaters.
-		if (istype(A, /obj/effect/decal/cleanable/blood) || istype(A, /obj/effect/rune))
+		//if (istype(A, /obj/effect/decal/cleanable/blood) || istype(A, /obj/effect/rune))
+		//Special case for blood splatters, runes and gibs.
+		if (istype(A, /obj/effect/decal/cleanable/blood) || istype(A, /obj/effect/rune) || istype(A, /obj/effect/decal/cleanable/blood/gibs))
 			if(!isnull(A.blood_DNA))
 				for(var/blood in A.blood_DNA)
 					user << "\blue Blood type: [A.blood_DNA[blood]]\nDNA: [blood]"
 					flick("forensic2",src)
-			return
+				return
 
 		//General
 		if ((!A.fingerprints || !A.fingerprints.len) && !A.suit_fibers && !A.blood_DNA)
