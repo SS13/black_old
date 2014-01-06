@@ -422,23 +422,23 @@
 	var/result = rand(1, 5)
 
 	if(result == 1)
-		playsound(get_turf(src), 'sound/items/shaker1.ogg', 70, 1)
+		playsound(user.loc, 'sound/items/shaker1.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] shakes the shaker vigorously!</span>")
 
 	if(result == 2)
-		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
+		playsound(user.loc, 'sound/items/shaker2.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] shakes the shaker, ice clinging inside it!</span>")
 
 	if(result == 3)
-		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
+		playsound(user.loc, 'sound/items/shaker2.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] shakes the cocktail shaker!</span>")
 
 	if(result == 4)
-		playsound(get_turf(src), 'sound/items/shaker2.ogg', 70, 1)
+		playsound(user.loc, 'sound/items/shaker2.ogg', 70, 1)
 		user.visible_message("<span class='rose'>[user] is shaking the shaker!</span>")
 
 	if(result == 5)
-		playsound(get_turf(src), 'sound/items/shaker3.ogg', 70, 1)
+		playsound(user.loc, 'sound/items/shaker3.ogg', 70, 1)
 		user.visible_message("<span class='rose'>You hear [user] shaking the shaker!</span>")
 
 		spamcheck = 1
