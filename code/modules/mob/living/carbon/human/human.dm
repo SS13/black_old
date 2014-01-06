@@ -72,7 +72,7 @@
 		var/mob/tmob = AM
 
 		if( istype(tmob, /mob/living/carbon) && prob(10) )
-	  	src.spread_disease_to(AM, "Contact")
+			src.spread_disease_to(AM, "Contact")
 //BubbleWrap - Should stop you pushing a restrained person out of the way
 
 		if(istype(tmob, /mob/living/carbon/human))
