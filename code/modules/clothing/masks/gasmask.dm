@@ -16,7 +16,7 @@
 // **** Security gas mask ****
 
 /obj/item/clothing/mask/gas/sechailer
-	name = "security gas mask"
+	name = "security mask"
 	desc = "A standard issue Security gas mask with integrated 'Compli-o-nator 3000' device, plays over a dozen pre-recorded compliance phrases designed to get scumbags to stand still whilst you taze them. Do not tamper with the device."
 	action_button_name = "HALT!"
 	icon_state = "hailer_white"
@@ -31,6 +31,21 @@
 
 /obj/item/clothing/mask/gas/sechailer/red
 	icon_state = "hailer_red"
+
+/obj/item/clothing/mask/gas/sechailer/warden
+	name = "security warden mask"
+	desc = "An elite Security gas mask with integrated 'Compli-o-nator 3000', space ressistant lenses and rebreather. Do not tamper with the device. This one is intended for junior officers."
+	icon_state = "wardenmask"
+
+/obj/item/clothing/mask/gas/sechailer/hos
+	name = "head of security mask"
+	desc = "An elite Security gas mask with integrated 'Compli-o-nator 3000', space ressistant lenses and rebreather. Do not tamper with the device. This one is intended for chief commanding officer."
+	icon_state = "hosmask"
+
+/obj/item/clothing/mask/gas/sechailer/officer
+	name = "security mask"
+	desc = "An elite Security gas mask with integrated 'Compli-o-nator 3000', space ressistant lenses and rebreather. Do not tamper with the device. This one is intended for privates."
+	icon_state = "officermask"
 
 /obj/item/clothing/mask/gas/sechailer/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/screwdriver))

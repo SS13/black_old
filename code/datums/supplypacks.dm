@@ -132,9 +132,8 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/reagent_containers/food/drinks/ale,
 					/obj/item/weapon/reagent_containers/food/drinks/beer,
 					/obj/item/weapon/reagent_containers/food/drinks/beer,
-					/obj/item/weapon/reagent_containers/food/drinks/beer,
 					/obj/item/weapon/reagent_containers/food/drinks/beer)
-	cost = 20
+	cost = 25
 	containertype = /obj/structure/closet/crate
 	containername = "Party equipment"
 	group = "Hospitality"
@@ -717,7 +716,7 @@ datum/supply_packs/riotadvanced
 					/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/weapon/gun/projectile/shotgun/pump/combat,
 					/obj/item/weapon/gun/projectile/shotgun/pump/combat)
-	cost = 60
+	cost = 75
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Combat ballistic gear crate"
 	access = access_armory
@@ -729,7 +728,7 @@ datum/supply_packs/riotadvanced
 					/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/weapon/gun/projectile/shotgun/pump,
 					/obj/item/weapon/gun/projectile/shotgun/pump)
-	cost = 50
+	cost = 60
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Service ballistic gear crate"
 	access = access_armory
@@ -739,6 +738,7 @@ datum/supply_packs/riotadvanced
 /datum/supply_packs/shotgunammo
 	name = "Shotgun shells"
 	contains = list(/obj/item/ammo_casing/shotgun,
+					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun,
@@ -786,7 +786,7 @@ datum/supply_packs/riotadvanced
 					/obj/machinery/deployable/barrier,
 					/obj/machinery/deployable/barrier,
 					/obj/machinery/deployable/barrier)
-	cost = 20
+	cost = 30
 	containertype = /obj/structure/closet/crate/secure/gear
 	containername = "Security Barriers crate"
 	group = "Security"
@@ -797,7 +797,7 @@ datum/supply_packs/riotadvanced
 					/obj/machinery/shieldwallgen,
 					/obj/machinery/shieldwallgen,
 					/obj/machinery/shieldwallgen)
-	cost = 20
+	cost = 35
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Shield Generators crate"
 	access = access_teleporter
@@ -855,7 +855,7 @@ datum/supply_packs/riotadvanced
 	/obj/item/weapon/wrapping_paper,
 	/obj/item/weapon/wrapping_paper,
 	/obj/item/weapon/wrapping_paper)
-	cost = 10
+	cost = 15
 	containertype = "/obj/structure/closet/crate"
 	containername = "Arts and Crafts crate"
 	group = "Operations"
@@ -929,7 +929,7 @@ datum/supply_packs/riotadvanced
 					/obj/item/pizzabox/meat,
 					/obj/item/pizzabox/vegetable)
 	name = "Surprise pack of five dozen pizzas"
-	cost = 15
+	cost = 20
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "Pizza crate"
 	group = "Hospitality"
