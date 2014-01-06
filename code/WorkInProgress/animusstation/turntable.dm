@@ -69,7 +69,7 @@
 
 /obj/machinery/party/turntable/Topic(href, href_list)
 	..()
-	if( href_list["on1"] || href_list["on2"] || href_list["on3"] || href_list["on4"] || href_list["on5"] || href_list["on6"] || href_list["on7"] || href_list["on8"] || href_list["on9"] || href_list["on10"] || href_list["on11"] || href_list["on12"] || href_list["on13"] || href_list["on14"] || href_list["on15"] || href_list["on16"] || href_list["on17"])
+	if( href_list["on1"] || href_list["on2"] || href_list["on3"] || href_list["on4"] || href_list["on5"] || href_list["on6"] || href_list["on7"] || href_list["on8"] || href_list["on9"] || href_list["on10"] || href_list["on11"] || href_list["on12"] || href_list["on13"] || href_list["on14"] || href_list["on15"] || href_list["on16"] || href_list["on17"] || href_list["on18"] || href_list["on19"] || href_list["on20"])
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S
