@@ -8,13 +8,13 @@
 	anchored = 0
 //	weight = 1.0E7
 	req_one_access = list(access_security, access_forensics_lockers)
-	health = 100
+	health = 130
 	maxhealth = 100
 	fire_dam_coeff = 0.7
 	brute_dam_coeff = 0.5
 
 	var/lastfired = 0
-	var/shot_delay = 3 //.3 seconds between shots
+	var/shot_delay = 4 //.3 seconds between shots
 	var/lasercolor = ""
 	var/disabled = 0//A holder for if it needs to be disabled, if true it will not seach for targets, shoot at targets, or move, currently only used for lasertag
 
@@ -91,9 +91,9 @@
 			req_access = list(access_maint_tunnels)
 			arrest_type = 1
 			if((lasercolor == "b") && (name == "ED-209 Security Robot"))//Picks a name if there isn't already a custome one
-				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT")
+				name = pick("BLUE BALLER","SANIC","BLUE KILLDEATH MURDERBOT", "ROBUSTONATOR")
 			if((lasercolor == "r") && (name == "ED-209 Security Robot"))
-				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT")
+				name = pick("RED RAMPAGE","RED ROVER","RED KILLDEATH MURDERBOT", "BATON RAGE")
 
 /obj/machinery/bot/ed209/turn_on()
 	. = ..()
@@ -1002,6 +1002,21 @@ Auto Patrol: []"},
 					user << "<span class='notice'>Taser gun attached.</span>"
 
 		if(9)
+			if( istype(W, /obj/item/weapon/melee/baton) )
+				playsound(src.loc, 'sound/items/ratchet.ogg', 100, 1)
+				var/turf/T = get_turf(user)
+				user << "<span class='notice'>Now attaching the stun baton to the frame...</span>"
+				sleep(30)
+
+				if(get_turf(user) == T)
+					build_step++
+					name = "armed [name]"
+					user << "<span class='notice'>Stun baton attached.</span>"
+					user.drop_item()
+				del(W)
+				build_step++
+
+		if(10)
 			if( istype(W, /obj/item/weapon/cell) )
 				build_step++
 				user << "<span class='notice'>You complete the ED-209.</span>"

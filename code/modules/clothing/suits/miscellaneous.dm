@@ -257,6 +257,13 @@
 	item_state = "neocoat"
 	flags = FPRINT | TABLEPASS
 
+/obj/item/clothing/suit/redarmycoat
+	name = "red army coat"
+	desc = "Tovarisch komandir`s very own coat."
+	icon_state = "redarmycoat"
+	item_state = "redarmycoat"
+	flags = FPRINT | TABLEPASS
+
 //actual suits
 
 /obj/item/clothing/suit/creamsuit

@@ -732,7 +732,7 @@
 	prices = list(/obj/item/weapon/reagent_containers/food/drinks/cola = 30,/obj/item/weapon/reagent_containers/food/drinks/space_mountain_wind = 30,
 					/obj/item/weapon/reagent_containers/food/drinks/dr_gibb = 35,/obj/item/weapon/reagent_containers/food/drinks/grapesoda = 35,
 					/obj/item/weapon/reagent_containers/food/drinks/sodawater = 25,/obj/item/weapon/reagent_containers/food/drinks/starkist = 35,
-					/obj/item/weapon/reagent_containers/food/drinks/space_up = 30)
+					/obj/item/weapon/reagent_containers/food/drinks/space_up = 30, /obj/item/weapon/reagent_containers/food/drinks/redwing =40)
 
 /obj/machinery/vending/cola/red
 	name = "Robust Softdrinks"

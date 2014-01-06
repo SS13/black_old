@@ -502,8 +502,8 @@
 					dat += "<td><A HREF='?src=\ref[src];traitor=\ref[M]'>Show Objective</A></td></tr>"
 			dat += "</table>"
 
-		/*
-		if(ticker.mode.ninjas.len > 0)
+
+		/*if(ticker.mode.ninjas.len > 0)
 			dat += "<br><table cellspacing=5><tr><td><B>Ninjas</B></td><td></td><td></td></tr>"
 			for(var/datum/mind/ninja in ticker.mode.ninjas)
 				var/mob/M = ninja.current

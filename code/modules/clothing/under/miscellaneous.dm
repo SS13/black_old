@@ -225,11 +225,18 @@
 	item_color = "soviet"
 
 /obj/item/clothing/under/soviet/ks13
-	name = "soviet KS13 uniform"
-	desc = "Standart-issue uniform for tovarischi from KS13. It is somewhat rugged and smells of potatoes and kerosine. "
+	name = "KS13 uniform"
+	desc = "Standart-issue uniform for tovarischi from KS13. It`s somewhat rugged and smells of potatoes and kerosine. "
 	icon_state = "ks13suit"
 	item_state = "ks13suit"
 	item_color = "ks13suit"
+
+/obj/item/clothing/under/soviet/ks13officer
+	name = "KS13 officer uniform"
+	desc = "Standart-issue uniform for tovarischi komandiri from KS13. It`s somewhat rugged and smells of beet and gasoline. "
+	icon_state = "ks13suitofficer"
+	item_state = "ks13suitofficer"
+	item_color = "ks13suitofficer"
 
 /obj/item/clothing/under/redcoat
 	name = "redcoat uniform"
@@ -409,8 +416,16 @@
 	item_color = "mikururabbit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/snmsuit
+	name = "S&M Suit"
+	desc = "This tight bondage of latex and leather makes for a fine ensemble of pain."
+	icon_state = "snmsuit"
+	item_state = "snmsuit"
+	item_color = "snmsuit"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+
 /obj/item/clothing/under/sheik
-	name = "sheik suit"
+	name = "sheikh suit"
 	icon_state = "sheik"
 	item_state = "sheik"
 	item_color = "sheik"

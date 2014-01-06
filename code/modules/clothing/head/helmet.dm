@@ -17,6 +17,11 @@
 	desc = "Protects the head from impacts."
 	icon_state = "helmetgreen"
 
+/obj/item/clothing/head/helmet/khalkhingolka
+	name = "thermal khalkhingolka helmet"
+	desc = "The Soviet Otryad Smerty is rumored to wear these. The thermal visor doesn`t seem to work."
+	icon_state = "thermalkhalkhingolka"
+
 /obj/item/clothing/head/helmet/warden
 	name = "warden's hat"
 	desc = "It's a special helmet issued to the Warden of a securiy force. Protects the head from impacts."
@@ -35,7 +40,7 @@
 
 /obj/item/clothing/head/helmet/riot/tinted
 	name = "tinted riot helmet"
-	desc = "It's a helmet specifically designed to protect against stronger close range attacks. The visor is tinted. They get scared when they can`t see your face."
+	desc = "A helmet specifically designed to protect against stronger close range attacks. The visor is tinted. They get scared when they can`t see your face."
 	icon_state = "riottinted"
 
 /obj/item/clothing/head/helmet/roman
