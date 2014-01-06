@@ -40,7 +40,7 @@
 	if(stage <= 1 && clicks == 0) 	// with a certain chance, the mob may become immune to the disease before it starts properly
 		if(prob(5))
 			mob.antibodies |= antigen // 20% immunity is a good chance IMO, because it allows finding an immune person easily
-	
+
 	if(mob.radiation > 50)
 		if(prob(1))
 			majormutate()
@@ -66,10 +66,10 @@
 		e.runeffect(mob,stage)
 
 	//Short airborne spread
-        if(src.spreadtype == "Airborne")
-                for(var/mob/living/carbon/M in oview(1,mob))
-                        if(airborne_can_reach(get_turf(mob), get_turf(M)))
-                                infect_virus2(M,src)
+	if(src.spreadtype == "Airborne")
+		for(var/mob/living/carbon/M in oview(1,mob))
+			if(airborne_can_reach(get_turf(mob), get_turf(M)))
+				infect_virus2(M,src)
 
 	//fever
 	mob.bodytemperature = max(mob.bodytemperature, min(310+5*stage ,mob.bodytemperature+5*stage))
