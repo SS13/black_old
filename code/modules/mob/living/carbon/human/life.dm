@@ -420,6 +420,7 @@
 				log_debug("[src] : Exhaling some viruses")
 					(/mob/living/carbon/) in view(1,src)
 						src.spread_disease*/
+
 	proc/get_breath_from_internal(volume_needed)
 
 		if(internal)
