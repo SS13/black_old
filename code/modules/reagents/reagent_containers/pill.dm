@@ -7,6 +7,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = null
 	item_state = "pill"
+	slot_flags = SLOT_EARS
 	possible_transfer_amounts = null
 	volume = 50
 

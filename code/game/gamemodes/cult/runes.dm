@@ -818,7 +818,7 @@ var/list/sacrificed = list()
 				for(var/mob/living/carbon/human/C in orange(1,src))
 					if(iscultist(C) && !C.stat)
 						C.say("N'ath reth sh'yro eth d[pick("'","`")]rekkathnor!")
-						C.take_overall_damage(25, 0)
+						C.apply_damage(20,BRUTE,(pick("l_leg", "r_leg", "r_arm", "l_arm", "l_hand", "r_hand", "l_foot", "r_foot", "groin", "chest", "head")))
 				user.visible_message("\red Rune disappears with a flash of red light, and in its place now a body lies.", \
 				"\red You are blinded by the flash of red light! After you're able to see again, you see that now instead of the rune there's a body.", \
 				"\red You hear a pop and smell ozone.")

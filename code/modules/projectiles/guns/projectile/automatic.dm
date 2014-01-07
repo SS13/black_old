@@ -74,6 +74,39 @@
 	desc = "This C-20r has funky orange striped camo. Only the maddest insane nut-crazy cold-blooded maniac who enjoys killing things could paint a gun orange. Uses 12mm rounds."
 	icon_state = "c20rorange"
 	item_state = "c20rorange"
+	w_class = 3.0
+	max_shells = 20
+	caliber = "12mm"
+	origin_tech = "combat=5;materials=2;syndicate=8"
+	ammo_type = "/obj/item/ammo_casing/a12mm"
+	fire_sound = 'sound/weapons/Gunshot_smg.ogg'
+	load_method = 2
+
+
+	New()
+		..()
+		empty_mag = new /obj/item/ammo_magazine/a12mm/empty(src)
+		update_icon()
+		return
+
+
+	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+		..()
+		if(!loaded.len && empty_mag)
+			empty_mag.loc = get_turf(src.loc)
+			empty_mag = null
+			playsound(user, 'sound/weapons/smg_empty_alarm.ogg', 40, 1)
+			update_icon()
+		return
+
+
+	update_icon()
+		..()
+		if(empty_mag)
+			icon_state = "c20rorange-[round(loaded.len,4)]"
+		else
+			icon_state = "c20rorange "
+		return
 
 /obj/item/weapon/gun/projectile/automatic/c20r/c05r
 	name = "C-05r SMG"

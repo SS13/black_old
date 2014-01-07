@@ -223,7 +223,7 @@
 		else
 			..()
 
-/*	else if(istype(W,/obj/item/weapon/wrench))
+	else if(istype(W,/obj/item/weapon/wrench))
 		if ( state in list(1, 3, 5, 6, 8) )
 			usr << "\blue The washing machine cannot be [anchored ? "unwrenched" : "wrenched"] in this state. Make sure it`s not running and the door is closed."
 		else
@@ -232,7 +232,7 @@
 				anchored = !anchored
 				src.add_fingerprint(usr)
 				user.visible_message("\red [user] is messing with the washing machine!", "You [anchored ? "wrenched" : "unwrenched"] the washing machine.","You hear strange ratched sound")
-				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)*/
+				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 
 	else if(istype(W,/obj/item/stack/sheet/hairlesshide) || \
 		istype(W,/obj/item/clothing/under) || \

@@ -17,10 +17,10 @@
 	anchored = 1
 
 /obj/effect/decal/cleanable/ash/attack_hand(mob/user as mob)
-	user << "<span class='notice'>[src] sifts through your fingers.</span>"
+	user << "<span class='notice'>[src] sift through your fingers.</span>"
 	var/turf/simulated/floor/F = get_turf(src)
 	if (istype(F))
-		spawn /obj/effect/decal/cleanable/dirt
+		new /obj/effect/decal/cleanable/dirt(src.loc)
 	del(src)
 
 /obj/effect/decal/cleanable/greenglow

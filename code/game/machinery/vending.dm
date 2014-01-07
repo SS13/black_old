@@ -632,7 +632,7 @@
 	icon_state = "boozeomat"        //////////////~~23 drink entities below, plus the glasses, in case someone wants to edit the number of bottles
 	icon_deny = "boozeomat-deny"
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/gin = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/gin/hardon =2,
-					/obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/bourbon = 3,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/whiskey = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/bourbon = 4,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/tequilla = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/vermouth = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/rum = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco = 3,
@@ -642,7 +642,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/tonic = 8,
 					/obj/item/weapon/reagent_containers/food/drinks/cola = 8,/obj/item/weapon/reagent_containers/food/drinks/sodawater = 15,
 					/obj/item/weapon/reagent_containers/food/drinks/drinkingglass = 30,/obj/item/weapon/reagent_containers/food/drinks/ice = 9)
-	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe = 1)
+	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/absinthe = 2)
 	vend_delay = 25
 	product_slogans = "I hope nobody asks me for a bloody cup o' tea...;Alcohol is humanity's friend. Would you abandon a friend?;Quite delighted to serve you!;Is nobody thirsty on this station?"
 	product_ads = "Drink up!;Booze is good for you!;Alcohol is humanity's best friend.;Quite delighted to serve you!;Care for a nice, cold beer?;Nothing cures you like booze!;Have a sip!;Have a drink!;Have a beer!;Beer is good for you!;Only the finest alcohol!;Best quality booze since 2053!;Award-winning wine!;Maximum alcohol!;Man loves beer.;A toast for progress!"
@@ -664,7 +664,7 @@
 	req_access_txt = "25"
 	products = list(/obj/item/weapon/reagent_containers/food/drinks/coffee = 25,/obj/item/weapon/reagent_containers/food/drinks/tea = 15,/obj/item/weapon/reagent_containers/food/drinks/h_chocolate = 10,
 					/obj/item/weapon/reagent_containers/food/drinks/milk = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/cream = 4)
-	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 1)
+	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 2)
 
 /obj/machinery/vending/coffee
 	name = "Hot Drinks machine"

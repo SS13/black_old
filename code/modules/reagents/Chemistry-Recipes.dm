@@ -1593,7 +1593,7 @@ datum
 			name = "Rhode Island Ice Coffee"
 			id = "icecoffee"
 			result = "icecoffee"
-			required_reagents = list("kahlua" = 1, "vodka" = 1, "cognac" = 1, "cream" = 2)
+			required_reagents = list("kahlua" = 1, "vodka" = 1, "cognac" = 1, "milk" = 2)
 			result_amount = 4
 
 		whiskey_cola
