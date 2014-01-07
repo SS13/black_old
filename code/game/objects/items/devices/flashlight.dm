@@ -112,6 +112,7 @@
 	icon_state = "penlight"
 	item_state = ""
 	flags = FPRINT | TABLEPASS | CONDUCT
+	slot_flags = SLOT_BELT | SLOT_EARS
 	brightness_on = 2
 
 
@@ -134,7 +135,6 @@
 	desc = "A classic green-shaded desk lamp."
 	icon_state = "lampgreen"
 	item_state = "lampgreen"
-	brightness_on = 5
 
 /obj/item/device/flashlight/lamp/red
 	desc = "A classic red-shaded desk lamp."
@@ -152,7 +152,6 @@
 	desc = "A classic white-shaded desk lamp."
 	icon_state = "lampwhite"
 	item_state = "lampwhite"
-	brightness_on = 5
 
 /obj/item/device/flashlight/lamp/blue
 	desc = "A classic dark-blue-shaded desk lamp."
@@ -172,7 +171,7 @@
 
 /obj/item/device/flashlight/flare
 	name = "flare"
-	desc = "A red Nanotrasen issued flare. There are instructions on the side, it reads 'pull cord, make light'."
+	desc = "A red Nanotrasen issued flare. There are instruction on the side, it reads 'pull cord, make light'."
 	w_class = 2.0
 	brightness_on = 7 // Pretty bright.
 	icon_state = "flare"

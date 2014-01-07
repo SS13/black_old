@@ -383,7 +383,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 
 		spamcheck = 1
-		spawn(40)
+		spawn(10)
 			spamcheck = 0
 
 			user.SetLuminosity(user.luminosity - 2)
