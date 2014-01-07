@@ -1628,3 +1628,103 @@ datum/design/borg_syndicate_module
 	req_tech = list("combat" = 4, "syndicate" = 3)
 	build_path = "/obj/item/borg/upgrade/syndicate"
 	category = "Cyborg Upgrade Modules"
+
+
+/////////////////////////////////////////
+/////////////PDA and Radio stuff/////////
+/////////////////////////////////////////
+datum/design/binaryencrypt
+	name = "Binary Encrpytion Key"
+	desc = "An encyption key for a radio headset.  Contains cypherkeys."
+	id = "binaryencrypt"
+	req_tech = list("syndicate" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 150, "$glass" = 250)
+	build_path = "/obj/item/device/encryptionkey/binary"
+
+datum/design/pda
+	name = "PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
+	id = "pda"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 300, "$glass" = 250)
+	build_path = "/obj/item/device/pda"
+
+datum/design/cart_basic
+	name = "Generic Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_basic"
+	req_tech = list("engineering" = 2, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 50, "$glass" = 50)
+	build_path = "/obj/item/weapon/cartridge"
+
+datum/design/cart_hop
+	name = "Human Resources 9001 Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_hop"
+	req_tech = list("engineering" = 2, "powerstorage" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 500, "$glass" = 500)
+	build_path = "/obj/item/weapon/cartridge/hop"
+	locked = 1
+
+datum/design/cart_hos
+	name = "R.O.B.U.S.T. DELUXE Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_hos"
+	req_tech = list("engineering" = 2, "powerstorage" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 500, "$glass" = 500)
+	build_path = "/obj/item/weapon/cartridge/hos"
+	locked = 1
+
+datum/design/cart_ce
+	name = "Power-On DELUXE Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_ce"
+	req_tech = list("engineering" = 2, "powerstorage" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 500, "$glass" = 500)
+	build_path = "/obj/item/weapon/cartridge/ce"
+	locked = 1
+
+datum/design/cart_cmo
+	name = "Med-U DELUXE Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_cmo"
+	req_tech = list("engineering" = 2, "powerstorage" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 500, "$glass" = 500)
+	build_path = "/obj/item/weapon/cartridge/cmo"
+	locked = 1
+
+datum/design/cart_rd
+	name = "Signal Ace DELUXE Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_rd"
+	req_tech = list("engineering" = 2, "powerstorage" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 500, "$glass" = 500)
+	build_path = "/obj/item/weapon/cartridge/rd"
+	locked = 1
+
+datum/design/cart_captain
+	name = "Value-PAK Cartridge"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_captain"
+	req_tech = list("engineering" = 2, "powerstorage" = 4)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 700, "$glass" = 700)
+	build_path = "/obj/item/weapon/cartridge/captain"
+	locked = 1
+
+datum/design/cart_traitor
+	name = "Detomatix Cart"
+	desc = "A data cartridge for portable microcomputers."
+	id = "cart_traitor"
+	req_tech = list("syndicate" = 3, "powerstorage" = 3)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 700, "$glass" = 700)
+	build_path = "/obj/item/weapon/cartridge/syndicate"
