@@ -70,9 +70,9 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_med(src)
 		if(prob(50))
-			new /obj/item/clothing/under/rank/nursesuit (src)
+			new /obj/item/clothing/under/rank/nurse (src)
 		else
-			new /obj/item/clothing/under/rank/nursesuit/nursenew (src)
+			new /obj/item/clothing/under/rank/nurse/nursenew (src)
 		new /obj/item/clothing/head/nursehat (src)
 		switch(pick("blue", "green", "purple"))
 			if ("blue")
