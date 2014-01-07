@@ -183,8 +183,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 
 /datum/supply_packs/janitor
 	name = "Janitorial supplies"
-	contains = list(/obj/item/weapon/reagent_containers/glass/bucket,
-					/obj/item/weapon/reagent_containers/glass/bucket,
+	contains = list(/obj/item/weapon/soap/blue,
 					/obj/item/weapon/reagent_containers/glass/bucket,
 					/obj/item/weapon/mop,
 					/obj/item/weapon/caution,
