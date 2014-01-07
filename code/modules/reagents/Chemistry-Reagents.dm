@@ -3309,7 +3309,7 @@ datum
 
 		ethanol/bourbon_cola
 			name = "Bourbon Cola"
-			id = "whiskeycola"
+			id = "bourboncola"
 			description = "Bourbon, mixed with cola. Surprisingly refreshing."
 			color = "#3E1B00" // rgb: 62, 27, 0
 			boozepwr = 2
@@ -3590,7 +3590,7 @@ datum
 
 		ethanol/bourbonsoda
 			name = "Bourbon Soda"
-			id = "whiskeysoda"
+			id = "bourbonsoda"
 			description = "For the more refined griffon."
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 3

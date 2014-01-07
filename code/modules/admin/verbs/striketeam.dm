@@ -127,7 +127,7 @@ var/global/sent_strike_team = 0
 	R.set_frequency(1441)
 	equip_to_slot_or_del(R, slot_l_ear)
 	if (leader_selected == 0)
-		equip_to_slot_or_del(new /obj/item/clothing/under/color/green(src), slot_w_uniform)
+		equip_to_slot_or_del(new /obj/item/clothing/under/syndicate/PMC(src), slot_w_uniform)
 	else
 		equip_to_slot_or_del(new /obj/item/clothing/under/rank/centcom_officer(src), slot_w_uniform)
 	equip_to_slot_or_del(new /obj/item/clothing/shoes/swat(src), slot_shoes)

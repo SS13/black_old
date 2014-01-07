@@ -93,7 +93,7 @@
 				if("tiniroyale")
 					icon_state = "tiniroyaleglass"
 					name = "Tini Royale"
-					desc = "The ffficial drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
+					desc = "The official drink of Festival du Holofilm de New Cannes. Maybe you should have chosen vodka instead of vermouth?"
 				if("sake")
 					icon_state = "ginvodkaglass"
 					name = "Glass of Sake"
@@ -115,7 +115,7 @@
 					name = "Rossini"
 					desc = "For when ordinary bubbles are not festive enough. Whait, what it this red thing?"
 				if("wardenswife")
-					icon_state = "wardenswifelass"
+					icon_state = "wardenswifeglass"
 					name = "Warden`s Wife"
 					desc = "Is it whiskey? Is it wine? Is that thing sparkling?! You can`t even tell anymore!"
 				if("kir_petillant")

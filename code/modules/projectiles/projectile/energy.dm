@@ -16,9 +16,12 @@
 	stutter = 10
 
 // Если кто ещё вздумает "пофиксить" тазер то лучше сразу врежте себе по яйцам и вырежте печень.
+//Сначала догони~
 
-	agony = 65
+/obj/item/projectile/energy/electrode/New()
+	agony = rand(30,130)
 	damage_type = HALLOSS
+
 	//Damage will be handled on the MOB side, to prevent window shattering.
 
 

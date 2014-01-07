@@ -236,6 +236,14 @@
 		..()
 		reagents.add_reagent("kahlua", 100)
 
+/obj/item/weapon/reagent_containers/food/drinks/bottle/melon
+	name = "Halp Melon Liqueur"
+	desc = "Halp Melon Liqueur has been produced by G.G. Mellon`s distillery for over a century and has became a true standart for cockail making. "
+	icon_state = "midoribottle"
+	New()
+		..()
+		reagents.add_reagent("melonliquor", 100)
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/goldschlager
 	name = "College Girl Goldschlager"
 	desc = "Because they are the only ones who will drink 100 proof cinnamon schnapps."

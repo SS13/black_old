@@ -66,32 +66,25 @@ Works together with spawning an observer, noted above.
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		ghost.key = key
 		return ghost
-
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
 */
 /mob/living/verb/ghost()
-        set category = "OOC"
-        set name = "Ghost"
-        set desc = "Relinquish your life and enter the land of the dead."
-        if(stat == DEAD)
-                message_admins("[ckey] has become a ghost", 1)
-                ghostize(1)
+	set category = "OOC"
+	set name = "Ghost"
+	set desc = "Relinquish your life and enter the land of the dead."
 
-        else
-                if(src.health >= 0)
-                        message_admins("[ckey] has tried to ghostize.", 1)
-                        src << "No. Adminhelp if there is a legitimate reason."
-                else
-                        var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost, you won't be able to play this round for another 30 minutes! You can't change your mind so choose wisely!)","Are you sure you want to ghost?","Ghost","Stay in body")
-                        if(response != "Ghost")        return        //didn't want to ghost after-all
-                        resting = 1
-                        var/mob/dead/observer/ghost = ghostize(0)                                                //0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
-                        ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
-        return
-
-
-
+	if(stat == DEAD)
+		ghostize(1)
+		message_admins("[ckey] has become a ghost", 1)
+	else
+		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost, you won't be able to play this round for another 30 minutes! You can't change your mind so choose wisely!)","Are you sure you want to ghost?","Ghost","Stay in body")
+		if(response != "Ghost")	return	//didn't want to ghost after-all
+		resting = 1
+		var/mob/dead/observer/ghost = ghostize(0)						//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
+		message_admins("[ckey] has become a ghost", 1)
+		ghost.timeofdeath = world.time // Because the living mob won't have a time of death and we want the respawn timer to work properly.
+	return
 
 /mob/dead/observer/Move(NewLoc, direct)
 	if(NewLoc)

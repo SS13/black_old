@@ -4454,7 +4454,7 @@
 "bHH" = (/obj/structure/disposalpipe/segment,/obj/machinery/atmospherics/pipe/simple/supply/hidden,/obj/machinery/door/airlock/glass{name = "Central Access"},/turf/simulated/floor{dir = 8; icon_state = "cautioncorner"},/area/hallway/primary/aft)
 "bHI" = (/obj/machinery/door/airlock/glass{name = "Central Access"},/turf/simulated/floor,/area/hallway/primary/aft)
 "bHJ" = (/obj/machinery/door/airlock/glass{name = "Central Access"},/obj/structure/cable{d1 = 1; d2 = 2; icon_state = "1-2"; pixel_y = 0},/turf/simulated/floor{dir = 2; icon_state = "yellowcorner"},/area/hallway/primary/aft)
-"bHK" = (/obj/structure/closet/jcloset,/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; on = 1},/turf/simulated/floor,/area/janitor)
+"bHK" = (/obj/structure/closet/jcloset,/obj/machinery/atmospherics/unary/vent_scrubber{dir = 4; on = 1},/obj/item/weapon/soap/blue,/turf/simulated/floor,/area/janitor)
 "bHL" = (/obj/structure/closet/l3closet/janitor,/obj/machinery/atmospherics/pipe/manifold{pipe_color = "red"; dir = 1; icon_state = "manifold-r-f"; level = 1; name = "pipe manifold"},/obj/machinery/alarm{frequency = 1439; pixel_y = 23},/turf/simulated/floor,/area/janitor)
 "bHM" = (/obj/item/weapon/storage/box/lights/mixed,/obj/item/weapon/storage/box/lights/mixed,/obj/machinery/light_switch{pixel_y = 28},/obj/machinery/camera{c_tag = "Custodial Closet"},/obj/machinery/atmospherics/pipe/simple{pipe_color = "red"; dir = 4; icon_state = "intact-r-f"; level = 1; name = "pipe"},/turf/simulated/floor,/area/janitor)
 "bHN" = (/obj/machinery/atmospherics/pipe/manifold{pipe_color = "red"; icon_state = "manifold-r-f"; level = 1; name = "pipe manifold"},/obj/machinery/newscaster{pixel_y = 30},/turf/simulated/floor,/area/janitor)
