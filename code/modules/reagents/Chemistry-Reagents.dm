@@ -643,6 +643,16 @@ datum
 
 			custom_metabolism = 0.01
 
+		ester
+			name = "Ester"
+			id = "ester"
+			description = "Ester is used to produce soap."
+			reagent_state = LIQUID
+			color = "#808080" // rgb: 128, 128, 128
+
+			custom_metabolism = 0.01
+
+
 		nitroglycerin
 			name = "Nitroglycerin"
 			id = "nitroglycerin"
@@ -1110,6 +1120,7 @@ datum
 				..()
 				return
 
+
 		impedrezene
 			name = "Impedrezene"
 			id = "impedrezene"
@@ -1525,7 +1536,7 @@ datum
 			description = "A highly toxic chemical."
 			reagent_state = LIQUID
 			color = "#CF3600" // rgb: 207, 54, 0
-			toxpwr = 4
+			toxpwr = 5
 			custom_metabolism = 0.4
 
 			on_mob_life(var/mob/living/M as mob)
@@ -1595,6 +1606,8 @@ datum
 			on_mob_life(var/mob/living/M)
 				if(!M) M = holder.my_atom
 				M.hallucination += 10
+				if(prob(5))	M.eye_blurry = max(M.eye_blurry, 10)
+
 				..()
 				return
 
