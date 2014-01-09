@@ -107,7 +107,7 @@
 	icon_state = "forensics_blue"
 
 /obj/item/clothing/suit/storage/forensics/black
-	name = "blue jacket"
+	name = "black jacket"
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_black"
 //Engineering
