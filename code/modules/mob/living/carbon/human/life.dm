@@ -414,7 +414,8 @@
 
 			//spread some viruses while we are at it
 			if (virus2.len > 0)
-				if (get_infection_chance(src) && prob(20))
+				if (get_infection_chance(src) && prob(10))
+
 //					log_debug("[src] : Exhaling some viruses")
 					for(var/mob/living/carbon/M in view(1,src))
 						src.spread_disease_to(M)
@@ -1398,7 +1399,7 @@
 				if(!isRemoteObserve && client && !client.adminobs)
 					remoteview_target = null
 					reset_view(null)
-					
+
 		if (src.usingcamerascreen == 1)
 			damageoverlay.overlays += image("icon" = 'icons/mob/screen1_full.dmi', "icon_state" = "cameraoverlay")
 		return 1
@@ -1429,7 +1430,11 @@
 				for (var/ID in B.virus2)
 					var/datum/disease2/disease/V = B.virus2[ID]
 					infect_virus2(src,V)
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> upd
 		for(var/obj/effect/decal/cleanable/mucus/M in view(1,src))
 			if(M.virus2.len)
 				for (var/ID in M.virus2)

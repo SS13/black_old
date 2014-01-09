@@ -1,5 +1,5 @@
 /datum/disease2/disease
-	var/infectionchance = 70
+	var/infectionchance = 30
 	var/speed = 1
 	var/spreadtype = "Contact" // Can also be "Airborne"
 	var/stage = 1
@@ -25,10 +25,10 @@
 			holder.getrandomeffect()
 		effects += holder
 	uniqueID = rand(0,10000)
-	infectionchance = rand(60,90)
+	infectionchance = rand(1,20)
 	antigen |= text2num(pick(ANTIGENS))
 	antigen |= text2num(pick(ANTIGENS))
-	spreadtype = prob(70) ? "Airborne" : "Contact"
+	spreadtype = prob(20) ? "Airborne" : "Contact"
 
 /datum/disease2/disease/proc/activate(var/mob/living/carbon/mob)
 	if(dead)

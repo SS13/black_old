@@ -3159,6 +3159,26 @@ datum
 			slur_start = 65			//amount absorbed after which mob starts slurring
 			confused_start = 145	//amount absorbed after which mob starts confusing dir
 
+		ethanol/limoncello
+			name = "Limoncello"
+			id = "limoncello"
+			description = "Natural lemons used, no artificial colors added."
+			color = "#863333" // rgb: 175, 175, 0
+			boozepwr = 2
+			dizzy_adj = 2
+			slur_start = 65
+			confused_start = 145
+
+		ethanol/panache
+			name = "Limoncello Panache"
+			id = "panache"
+			description = "Italianissmo."
+			color = "#863333" // rgb: 175, 175, 0
+			boozepwr = 2
+			dizzy_adj = 2
+			slur_start = 65
+			confused_start = 145
+
 		ethanol/cognac
 			name = "Cognac"
 			id = "cognac"
@@ -3333,6 +3353,13 @@ datum
 			description = "Vermouth with Gin. Not quite how 007 enjoyed it, but still delicious."
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 2
+
+		ethanol/limoncellomartini
+			name = "Limoncello Martini"
+			id = "limoncellomartini"
+			description = "Classic cocktail with Italian twist."
+			color = "#863333" // rgb: 175, 175, 0, 0
+			boozepwr = 3
 
 		ethanol/vodkamartini
 			name = "Vodka Martini"

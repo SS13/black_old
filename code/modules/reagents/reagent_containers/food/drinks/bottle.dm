@@ -244,6 +244,14 @@
 		..()
 		reagents.add_reagent("melonliquor", 100)
 
+/obj/item/weapon/reagent_containers/food/drinks/bottle/limoncello
+	name = "Giuseppe`s Homemade Limoncello"
+	desc = "Albeit being factory-made, this classic Italian liqueur made of lemons tastes like sweet, sweet vendetta. Mamma mia!"
+	icon_state = "limoncellobottle"
+	New()
+		..()
+		reagents.add_reagent("limoncello", 100)
+
 /obj/item/weapon/reagent_containers/food/drinks/bottle/goldschlager
 	name = "College Girl Goldschlager"
 	desc = "Because they are the only ones who will drink 100 proof cinnamon schnapps."

@@ -1383,6 +1383,16 @@ proc/process_ghost_teleport_locs()
 	name = "\improper DJ Station Solars"
 	icon_state = "DJ"
 
+//SPAMSATELLITE
+/area/spamsatellite
+	name = "\improper Spam Messaging Satellite"
+	icon_state = "spamsatellite"
+
+//SHIPWRECK
+/area/shipwreck
+	name = "\improper Shipwreck"
+	icon_state = "shipwreck"
+
 //DERELICT
 
 /area/derelict

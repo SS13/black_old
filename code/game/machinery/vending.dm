@@ -637,6 +637,7 @@
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/vermouth = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/rum = 5,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/wine = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/prosecco = 3,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/cognac = 5,/obj/item/weapon/reagent_containers/food/drinks/bottle/kahlua = 4,
+					/obj/item/weapon/reagent_containers/food/drinks/bottle/limoncello =1,/obj/item/weapon/reagent_containers/food/drinks/bottle/melon = 1,
 					/obj/item/weapon/reagent_containers/food/drinks/beer = 6,/obj/item/weapon/reagent_containers/food/drinks/ale = 6,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/orangejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/bottle/tomatojuice = 4,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/limejuice = 4,/obj/item/weapon/reagent_containers/food/drinks/tonic = 8,

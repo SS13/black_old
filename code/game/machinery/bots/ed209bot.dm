@@ -1007,14 +1007,12 @@ Auto Patrol: []"},
 				var/turf/T = get_turf(user)
 				user << "<span class='notice'>Now attaching the stun baton to the frame...</span>"
 				sleep(30)
-
 				if(get_turf(user) == T)
 					build_step++
 					name = "armed [name]"
 					user << "<span class='notice'>Stun baton attached.</span>"
 					user.drop_item()
-				del(W)
-				build_step++
+					del(W)
 
 		if(10)
 			if( istype(W, /obj/item/weapon/cell) )

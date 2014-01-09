@@ -186,6 +186,10 @@
 					icon_state = "martiniglass"
 					name = "Vodka martini"
 					desc ="A bastardisation of the classic martini. Still great."
+				if("limoncellomartini")
+					icon_state = "limoncellomartiniglass"
+					name = "Limoncello Martini"
+					desc ="An Italian twist on classic cocktail."
 				if("gargleblaster")
 					icon_state = "gargleblasterglass"
 					name = "Pan-Galactic Gargle Blaster"
@@ -574,6 +578,14 @@
 					icon_state = "emeraldglass"
 					name = "Glass of Melon Liquor"
 					desc = "A relatively sweet and fruity 46 proof liquor."
+				if("limoncello")
+					icon_state = "limoncellolass"
+					name = "Glass of Limoncello"
+					desc = "Natural lemons used, no artificial colors added."
+				if("panache")
+					icon_state = "panacheglass"
+					name = "Italianissmo Limoncello Panache"
+					desc = "Capitano e` un bel ragazzo, amico. Mamma mia!"
 				if("bluecuracao")
 					icon_state = "curacaoglass"
 					name = "Glass of Blue Curacao"

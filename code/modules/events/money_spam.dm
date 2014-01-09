@@ -1,11 +1,11 @@
-/datum/event/pda_spam
+datum/event/pda_spam
 	endWhen = 6000
 	var/time_failed = 0
-	var/obj/machinery/message_server/useMS
+	var/obj/machinery/message_server/spamserver/useMS
 
 /datum/event/pda_spam/setup()
 	time_failed = world.time
-	for (var/obj/machinery/message_server/MS in message_servers)
+	for (var/obj/machinery/message_server/spamserver/MS in message_servers)
 		if(MS.active)
 			useMS = MS
 			break
@@ -14,7 +14,7 @@
 	if(!useMS || !useMS.active)
 		useMS = null
 		if(message_servers)
-			for (var/obj/machinery/message_server/MS in message_servers)
+			for (var/obj/machinery/message_server/spamserver/MS in message_servers)
 				if(MS.active)
 					useMS = MS
 					break
@@ -36,7 +36,7 @@
 
 			var/sender
 			var/message
-			switch(pick(1,2,3,4,5,6,7))
+			switch(pick(1,2,3,4,5,6,7,8,9.10))
 				if(1)
 					sender = pick("MaxBet","MaxBet Online Casino","There is no better time to register","I'm excited for you to join us")
 					message = pick("Triple deposits are waiting for you at MaxBet Online when you register to play with us.",\
@@ -78,6 +78,7 @@
 					message = pick("The NanoTrasen Morale Division wishes to provide you with quality entertainment sites.",\
 					"WetSkrell.nt is a xenophillic website endorsed by NT for the use of male crewmembers among it's many stations and outposts.",\
 					"Wetskrell.nt only provides the higest quality of male entertaiment to NanoTrasen Employees.",\
+					"Wetskrell.nt is where allCentComm officials hang out! Send your billing information to buy a premmium account!",\
 					"Simply enter your NanoTrasen Bank account system number and pin. With three easy steps this service could be yours!")
 				if(7)
 					sender = pick("You have won free tickets!","Click here to claim your prize!","You are the 1000th vistor!","You are our lucky grand prize winner!")
@@ -85,6 +86,26 @@
 					"You have won tickets to the newest crime drama DETECTIVE MYSTERY IN THE CLAMITY CAPER!",\
 					"You have won tickets to the newest romantic comedy 16 RULES OF LOVE!",\
 					"You have won tickets to the newest thriller THE CULT OF THE SLEEPING ONE!")
+
+				if(8)
+					sender = pick("tajaransecret.nt","Furry tajaran males having fun at tajaranamateur.nt","tajaranamateur.nt","Free trial membership @ tajaranamateurs.nt!")
+					message = pick("Join now to see all these nasty tajaran males having furry fun together!",\
+					"These kitties are no pussies! See them mrrrowl each other now! Buy premium account.",\
+					"You have subscribed to our newsletter. Funds have been deducted from your account",\
+					"tajaransecret.nt and tajaranamateur.nt have the hottest male tajarans! See more!")
+
+				if(9)
+					sender = pick("hornysec.snd","It`s getting hot in the grig! hornysec.snd","Hot security guys.","Free trial membership @ hornysec.snd!")
+					message = pick("Banned by NT officials, hornysec.snd brings you sweet, illegal pleasure.",\
+					"See hot officers whip their batons our at hornysec.snd!",\
+					"The Syndicate brings you your favourite security guys...their pulsating batons out! hornysec.snd",\
+					"Visit hornysec.snd to see what NT censors don`t want you to see. Click the link!")
+				if(10)
+					sender = pick("vladislav@okhotsk14.ks","tovarisch.ks","komdiv@spaceredarmy.ks","ivan@okhotsk14.ks","sergeantprihodkov@okhotsk14.ks")
+					message = pick("Comrade! The Motherland calls for you to click this link please honesty no spam money you lose. Click to winned, motherland calls, thanks you.",\
+					"Click link, tovarisch, i no spam. I friend you, now click link. please, Thanks you. Not spam.",\
+					"YOu click dis link, tovarisch, you get rich! earns million credits! do like Me did, yes? Click link please. Not spam. ",\
+					"Hey, this is you Russian penfriend! Long time no see, yes? Now pleas clicked that links i send you now thank you. Not spam, you not lose money. Good bye. Clicks link, yes? ")
 
 			useMS.send_pda_message("[P.owner]", sender, message)
 

@@ -26,7 +26,7 @@
 	pressure_resistance = 15
 
 /obj/structure/stool/wooden
-	name = "wooden stool"
+	name = "stool"
 	desc = "Apply butt."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stoolwooden"
@@ -117,7 +117,7 @@
 	w_class = 5.0
 
 /obj/item/weapon/stool/wooden
-	name = "wooden stool"
+	name = "stool"
 	desc = "Uh-hoh, bar is heating up."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stoolwooden"
