@@ -72,10 +72,10 @@
 	sleep(2)
 	new /obj/item/clothing/head/ushanka(src)
 	new /obj/item/clothing/head/ushanka(src)
-	new /obj/item/clothing/under/soviet/ks13(src)
-	new /obj/item/clothing/under/soviet/ks13(src)
-	new /obj/item/clothing/suit/redarmycoat(src)
-	new /obj/item/clothing/suit/redarmycoat(src)
+	new /obj/item/clothing/under/soviet/ks13officer(src)
+	new /obj/item/clothing/under/soviet/ks13officer(src)
+	new /obj/item/clothing/suit/sovietredarmycoat(src)
+	new /obj/item/clothing/suit/sovietredarmycoat(src)
 
 
 /obj/structure/closet/gimmick/tacticool

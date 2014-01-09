@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 36
+#define NUM_OF_POSTER_DESIGNS 37
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -192,7 +192,21 @@ obj/structure/sign/poster/New(var/serial)
 		if(36)
 			name += " - Security  Recruitment Poster"
 			desc += " This poster is a part of NT official internal police recruitment campaign. Join today!"
-
+		if(37)
+			name += " - East Interstellar Company"
+			desc += " This poster is a large mark of The Royal East Interstellar Trading Company Of New London. Long live the Queen!"
+		/*if(38)
+			name += " - Passport"
+			desc += " This poster depicts a Soviet colony passport. The text reads 'My comrade'."
+		if(39)
+			name += " - Okhotsuku-14"
+			desc += " A coat of arms of Soviet colony Okhotsk-14. Strangely, the name of the colony is also written in hieroglyphs."
+		if(40)
+			name += " - KS 13"
+			desc += "KS13 insignia. The slogan reads 'Glory to the space station of The New Comintern!"
+		if(41)
+			name += " - Army Glory"
+			desc += " This poster depicts a cheerfull Space Red Army soldier in uniform. The slogan reads 'Glory to The Space Red Army!'"*/
 
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"

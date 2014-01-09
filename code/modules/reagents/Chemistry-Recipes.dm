@@ -112,12 +112,12 @@ datum
 			required_reagents = list("ethanol" = 1, "tramadol" = 1, "plasma" = 1)
 			result_amount = 1
 
-		//cyanide
-		//	name = "Cyanide"
-		//	id = "cyanide"
-		//	result = "cyanide"
-		//	required_reagents = list("hydrogen" = 1, "carbon" = 1, "nitrogen" = 1)
-		//	result_amount = 1
+		cyanide
+			name = "Cyanide"
+			id = "cyanide"
+			result = "cyanide"
+			required_reagents = list("hydrogen" = 3, "carbon" = 3, "nitrogen" = 3, "sodiumchloride" = 1, "ammonia" = 2)
+			result_amount = 4
 
 		thermite
 			name = "Thermite"
@@ -317,6 +317,13 @@ datum
 			result = "glycerol"
 			required_reagents = list("cornoil" = 3, "sacid" = 1)
 			result_amount = 1
+
+		ester
+			name = "Ester"
+			id = "ester"
+			result = "ester"
+			required_reagents = list("glycerol" = 4, "sodiumchloride" = 3, "ammonia" = 2)
+			result_amount = 5
 
 		nitroglycerin
 			name = "Nitroglycerin"
@@ -1380,6 +1387,18 @@ datum
 			on_reaction(var/datum/reagents/holder, var/created_volume)
 				var/location = get_turf(holder.my_atom)
 				new /obj/item/weapon/reagent_containers/food/snacks/sliceable/cheesewheel(location)
+				return
+
+		soap
+			name = "soap"
+			id = "soap"
+			result = null
+			required_reagents = list("ester" = 40)
+			required_catalysts = list("enzyme" = 10)
+			result_amount = 1
+			on_reaction(var/datum/reagents/holder, var/created_volume)
+				var/location = get_turf(holder.my_atom)
+				new /obj/item/weapon/soap/homemade(location)
 				return
 
 		syntiflesh

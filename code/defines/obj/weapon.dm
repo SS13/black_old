@@ -176,6 +176,10 @@
 	desc = "An untrustworthy bar of soap. Smells of fear."
 	icon_state = "soapsyndie"
 
+/obj/item/weapon/soap/homemade
+	desc = "An ugly bar of soap, rough to the touch. Smells of vomit and chemicals and looks to be homemade."
+	icon_state = "soaphomemade"
+
 /obj/item/weapon/bikehorn
 	name = "bike horn"
 	desc = "A horn off of a bicycle."

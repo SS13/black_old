@@ -127,13 +127,18 @@
 
 /obj/structure/sign/redcross
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
+	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
 	icon_state = "redcross"
 
 /obj/structure/sign/greencross
 	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
+	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
 	icon_state = "greencross"
+
+/obj/structure/sign/lifestar
+	name = "EMS"
+	desc = "Star of Life is the Intergalactic symbol of emergency medical services units and personnel."
+	icon_state = "lifestar"
 
 /obj/structure/sign/goldenplaque
 	name = "The Most Robust Men Award for Robustness"
@@ -174,6 +179,32 @@
 	name = "\improper HYDROPONICS"
 	desc = "A warning sign which reads 'HYDROPONICS'"
 	icon_state = "hydro1"
+
+/obj/structure/sign/soviet/passport
+	name = "My comrade"
+	desc = "A sign depicting a passport os USSR-3, the slogan reads 'Moy tovarysch.'"
+	icon_state = "Mycomrade"
+
+/obj/structure/sign/soviet/okhotsk
+	name = "\improper Okhotsuku14"
+	desc = "A coat of arms of Soviet colony Okhotsk-14. Strangely, the name of the colony is also written in hieroglyphs."
+	icon_state = "Okhotsuku14"
+
+/obj/structure/sign/soviet/ks13glory
+	name = "KS13"
+	desc = "A sign which reads 'Glory to the space station of The New Comintern!"
+	icon_state = "KC13glory"
+
+/obj/structure/sign/soviet/armyglory
+	name = "Space Army"
+	desc = "A sign which reads 'Glory to the Space Army!"
+	icon_state = "Glorytospacearmy"
+
+/obj/structure/sign/soviet/ks13vympel
+	name = "KS13 Pennant"
+	desc = "A pennant of KS 13"
+	icon_state = "KC13vympel"
+
 
 /obj/structure/sign/double/planet
 	name = "planet"

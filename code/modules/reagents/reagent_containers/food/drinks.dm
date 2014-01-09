@@ -416,8 +416,7 @@
 	var/spamcheck = 0
 
 /obj/item/weapon/reagent_containers/food/drinks/shaker/attack_self(mob/user as mob)
-	if (spamcheck)
-		return
+	if (spamcheck)	return
 
 	var/result = rand(1, 5)
 
@@ -440,8 +439,9 @@
 	if(result == 5)
 		playsound(user.loc, 'sound/items/shaker3.ogg', 70, 1)
 		user.visible_message("<span class='rose'>You hear [user] shaking the shaker!</span>")
-		spamcheck = 1
-	spawn(50)
+
+	spamcheck = 1
+	spawn(40)
 		spamcheck = 0
 
 /obj/item/weapon/reagent_containers/food/drinks/flask
