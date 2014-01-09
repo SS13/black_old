@@ -117,7 +117,7 @@
 	blood_overlay_type = "armor"
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
-	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 15, laser = 30, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 
 //Reactive armor
@@ -156,8 +156,6 @@
 	src.icon_state = "reactiveoff"
 	src.item_state = "reactiveoff"
 	..()
-
-
 //All of the armor below is mostly unused
 
 

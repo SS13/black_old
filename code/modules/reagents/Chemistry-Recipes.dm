@@ -116,7 +116,7 @@ datum
 			name = "Cyanide"
 			id = "cyanide"
 			result = "cyanide"
-			required_reagents = list("hydrogen" = 3, "carbon" = 3, "nitrogen" = 3, "sodiumchloride" = 1, "ammonia" = 2)
+			required_reagents = list("hydrogen" = 3, "carbon" = 3, "sodiumchloride" = 2, "ammonia" = 2)
 			result_amount = 4
 
 		thermite
@@ -1512,6 +1512,14 @@ datum
 			required_catalysts = list("enzyme" = 5)
 			result_amount = 10
 
+		limoncello
+			name = "Limoncello"
+			id = "limoncello"
+			result = "Limoncello"
+			required_reagents = list("lemonjuice" = 10, "vodka" = 10)
+			required_catalysts = list("enzyme" = 5)
+			result_amount = 20
+
 		bluecuracao
 			name = "Blue Curacao"
 			id = "bluecuracao"
@@ -1635,6 +1643,20 @@ datum
 			result = "rossini"
 			required_reagents = list("prosecco" = 2, "blood" = 1)
 			result_amount = 3
+
+		limoncellomartini
+			name = "Limoncello Martini"
+			id = "limoncellomartini"
+			result = "limoncellomartini"
+			required_reagents = list("limoncello" = 2, "gin" = 1, "vodka" = 1)
+			result_amount = 4
+
+		panache
+			name = "Limoncello Panache"
+			id = "panache"
+			result = "panache"
+			required_reagents = list("limoncello" = 1, "tonic" = 1, "beer" = 2)
+			result_amount = 4
 
 		wardenswife
 			name = "Warden`s Wife"

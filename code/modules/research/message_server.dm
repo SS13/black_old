@@ -59,6 +59,22 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 	var/active = 1
 	var/decryptkey = "password"
 
+/obj/machinery/message_server/spamserver
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "server"
+	name = "Suspicious Message Server"
+	density = 1
+	anchored = 1.0
+	use_power = 1
+	idle_power_usage = 10
+	active_power_usage = 100
+
+/obj/machinery/message_server/attack_hand(user as mob)
+	user << "\blue You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]"
+	active = !active
+	update_icon()
+	return
+
 /obj/machinery/message_server/New()
 	message_servers += src
 	decryptkey = GenerateKey()
