@@ -353,8 +353,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		icon_state = icon_off
 
 /obj/item/weapon/lighter/attack_self(mob/living/user)
-	if (spamcheck)
-		return
+	if (spamcheck)	return
 
 	if(user.r_hand == src || user.l_hand == src)
 		if(!lit)
@@ -382,12 +381,13 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			else
 				user.visible_message("<span class='notice'>[user] quietly shuts off the [src].")
 
-		spamcheck = 1
-		spawn(10)
-			spamcheck = 0
 
 			user.SetLuminosity(user.luminosity - 2)
 			processing_objects.Remove(src)
+			spamcheck = 1
+			spawn(20)
+				spamcheck = 0
+
 	else
 		return ..()
 	return
