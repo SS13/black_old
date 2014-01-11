@@ -70,7 +70,7 @@
 		else
 			new /obj/item/weapon/storage/backpack/satchel_med(src)
 		if(prob(50))
-			new /obj/item/clothing/under/rank/nurse (src)
+			new /obj/item/clothing/under/rank/nurse/sexy (src)
 		else
 			new /obj/item/clothing/under/rank/nurse/nursenew (src)
 		new /obj/item/clothing/head/nursehat (src)

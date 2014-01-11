@@ -148,6 +148,51 @@
 	siemens_coefficient = 0.6
 
 
+/obj/item/clothing/head/helmet/space/rig/syndi/unathi
+	name = "blood-red hardsuit helmet"
+	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for unathi."
+	icon_state = "rig0-syndi-unathi"
+	item_state = "syndi_helm-unathi"
+	item_color = "syndi"
+	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Skrell")
+
+/obj/item/clothing/suit/space/rig/syndi/unahti
+	icon_state = "rig-syndi-unathi"
+	name = "blood-red hardsuit"
+	desc = "An advanced suit that protects against injuries during special operations. Property of Gorlex Marauders.This one is for unathi."
+	item_state = "syndi_hardsuit-unathi"
+	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Skrell")
+
+/obj/item/clothing/head/helmet/space/rig/syndi/skrell
+	name = "blood-red hardsuit helmet"
+	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for skrell."
+	icon_state = "rig0-syndi-skrell"
+	item_state = "syndi_helm-skrell"
+	item_color = "syndi"
+	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Unathi")
+
+/obj/item/clothing/suit/space/rig/syndi/skrell
+	icon_state = "rig-syndi-skrell"
+	name = "blood-red hardsuit"
+	desc = "An advanced suit that protects against injuries during special operations. Property of Gorlex Marauders. This one is for skrell."
+	item_state = "syndi_hardsuit-skrell"
+	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Unathi")
+
+/obj/item/clothing/head/helmet/space/rig/syndi/tajaran
+	name = "blood-red hardsuit helmet"
+	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for tajaran."
+	icon_state = "rig0-syndi-tajaran"
+	item_state = "syndi_helm-tajaran"
+	item_color = "syndi"
+	species_restricted = list("exclude","Skrell","Diona","Vox", "Human", "Unathi")
+
+/obj/item/clothing/suit/space/rig/syndi/tajaran
+	icon_state = "rig-syndi-tajaran"
+	name = "blood-red hardsuit"
+	desc = "An advanced suit that protects against injuries during special operations. Property of Gorlex Marauders.This one is for tajaran."
+	item_state = "syndi_hardsuit-tajaran"
+	species_restricted = list("exclude","Skrell","Diona","Vox", "Human", "Unathi")
+
 //Wizard Rig
 /obj/item/clothing/head/helmet/space/rig/wizard
 	name = "gem-encrusted hardsuit helmet"

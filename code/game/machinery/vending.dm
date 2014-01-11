@@ -892,7 +892,7 @@
 	icon_state = "sovietsnack"
 	product_ads = "Have you fulfilled your nutrition quota today?;We are simple people, for this is all we eat.;If there is a person, there is a problem. If there is no person, then there is no problem.; In soviet space, rations vend you!; "
 	products = list(/obj/item/weapon/reagent_containers/food/snacks/grown/potato = 3,/obj/item/weapon/reagent_containers/food/snacks/grown/whitebeet = 3,/obj/item/weapon/reagent_containers/food/drinks/bottle/vodka = 1)
-	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/cola= 1)
+	contraband = list(/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/cola = 1)
 	premium = list(/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/cola = 3)
 
 /obj/machinery/vending/tool
