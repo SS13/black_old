@@ -73,6 +73,38 @@
 /obj/item/clothing/head/bio_hood/cmo
 	icon_state = "bio_cmo"
 
+//Hazmat suits
+
+/obj/item/clothing/suit/bio_suit/hazmat/yellow
+	icon_state = "hazmat_yellow"
+
+/obj/item/clothing/head/bio_hood/hazmat/yellow
+	icon_state = "hazmat_yellow"
+
+/obj/item/clothing/suit/bio_suit/hazmat/firered
+	icon_state = "hazmat_firered"
+
+/obj/item/clothing/head/bio_hood/hazmat/firered
+	icon_state = "hazmat_firered"
+
+/obj/item/clothing/suit/bio_suit/hazmat/green
+	icon_state = "hazmat_green"
+
+/obj/item/clothing/head/bio_hood/hazmat/green
+	icon_state = "hazmat_green"
+
+/obj/item/clothing/suit/bio_suit/hazmat/white
+	icon_state = "hazmat_white"
+
+/obj/item/clothing/head/bio_hood/hazmat/white
+	icon_state = "hazmat_white"
+
+/obj/item/clothing/suit/bio_suit/hazmat/janitor
+	icon_state = "hazmat_janitor"
+
+/obj/item/clothing/head/bio_hood/hazmat/janitor
+	icon_state = "hazmat_janitor"
+
 
 //Plague Dr mask can be found in clothing/masks/gasmask.dm
 /obj/item/clothing/suit/bio_suit/plaguedoctorsuit

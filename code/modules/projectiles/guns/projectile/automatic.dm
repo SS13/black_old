@@ -108,12 +108,15 @@
 			icon_state = "c20rorange "
 		return
 
-/obj/item/weapon/gun/projectile/automatic/c20r/c05r
+/obj/item/weapon/gun/projectile/automatic/c05r
 	name = "C-05r SMG"
 	desc = "Though being C20r`s little brother, this little guy packs a punch nonetheless. Uses 12mm rounds. Has a 'Scarborough Arms - Mortificatur quam assistentes, robustiores quam securitas' buttstamp"
 	icon_state = "c05r"
 	item_state = "c05r"
 	max_shells = 12
+
+	isHandgun()
+		return 1
 
 /obj/item/weapon/gun/projectile/automatic/l6_saw
 	name = "\improper L6 SAW"
