@@ -621,9 +621,3 @@
 		reagents.add_reagent("cola", 50)
 		on_reagent_change()
 
-
-/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if (istype(W, /obj/item/weapon/lighter))
-		if (src.reagents.master_reagent="b52")
-			icon_state = "52_fire"
-

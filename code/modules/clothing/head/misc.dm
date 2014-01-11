@@ -104,6 +104,14 @@
 	flags = FPRINT|TABLEPASS
 	flags_inv = 0
 
+/obj/item/clothing/head/fez
+	name = "fez"
+	desc = "Mama, ben bir hirsiz olacagim!"
+	icon_state = "fez"
+	item_state = "fez"
+	flags = FPRINT|TABLEPASS
+	flags_inv = 0
+
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
 	desc = "A helmet made out of a box."
