@@ -50,6 +50,25 @@
 	heat_protection = HEAD
 	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE
 
+/obj/item/clothing/head/hardhat/tactical
+	icon_state = "hardhat0_tactical"
+	item_state = "hardhat0_tactical"
+	item_color = "tactical"
+	name = "tactical helmet"
+	desc = "A piece of headgear used in tactical operations. Plastic wisor and a built-in flashlight are a must for any field maneuvers."
+	armor = list(melee = 30, bullet = 25, laser = 20,energy = 0, bomb = 20, bio = 10, rad = 20)
+	flags = FPRINT | TABLEPASS | STOPSPRESSUREDMAGE
+	heat_protection = HEAD
+	max_heat_protection_temperature = FIRE_HELMET_MAX_HEAT_PROTECITON_TEMPERATURE
+
+
+/obj/item/clothing/head/hardhat/tactical/officer
+	icon_state = "hardhat0_officer"
+	item_state = "hardhat0_officer"
+	item_color = "tacticalofficer"
+	name = "tactical officer helmet"
+	desc = "A piece of headgear used in tactical operations. Plastic wisor and a built-in flashlight are a must for any field maneuvers. This one is meant for officers."
+
 /obj/item/clothing/head/hardhat/white
 	icon_state = "hardhat0_white"
 	item_state = "hardhat0_white"

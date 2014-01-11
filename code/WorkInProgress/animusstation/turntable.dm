@@ -286,3 +286,7 @@
 		for(var/obj/effects/laser/F in RA)
 			del(F)
 
+
+
+
+

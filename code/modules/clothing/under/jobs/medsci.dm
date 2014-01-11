@@ -81,11 +81,18 @@
 
 
 /obj/item/clothing/under/rank/nurse/nursenew
-	desc = "A dress commonly worn by the nursing staff in the medical department.This one has white stockings, hence the sex-shop look."
+	desc = "A dress commonly worn by the nursing staff in the medical department. This one has white stockings, hence the sex-shop look."
 	name = "nurse's dress"
 	icon_state = "nursenew"
 	item_state = "nursenew"
 	item_color = "nursenew"
+
+/obj/item/clothing/under/rank/nurse/sexy
+	desc = "A dress commonly worn by the nursing staff in the medical department. This one is very revealing."
+	name = "nurse's dress"
+	icon_state = "nursesexy"
+	item_state = "nursesexy"
+	item_color = "nursesexy"
 
 /obj/item/clothing/under/rank/orderly
 	desc = "A white suit to be worn by orderly people who love orderly things."

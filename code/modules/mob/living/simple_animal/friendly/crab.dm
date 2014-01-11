@@ -40,16 +40,32 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"
 
+/mob/living/simple_animal/crab/evilcrab
+	name = "Evil Crab"
+	real_name = "Evil Crab"
+	desc = "Is it a huge pitch-black crab with glowing blood-red eyes? Sweet!"
+	response_help  = "pets"
+	response_disarm = "gently pushes aside"
+	response_harm   = "stomps"
+	icon_state = "evilcrab"
+	icon_living = "evilcrab"
+	icon_dead = "evil_dead"
+
+/mob/living/simple_animal/crab/evilcrab/attackby(var/obj/item/O as obj, var/mob/user as mob)
+	if(istype(O, /obj/item/weapon/))
+		usr.show_message("\red \b [src] has been attacked with the [O] by [user]. [src] is furious!")
+		GetMad()
+
 //LOOK AT THIS - ..()??
 /*/mob/living/simple_animal/crab/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/wirecutters))
-		if(prob(50))
-			user << "\red \b This kills the crab."
+		if(prob(70))
+			user << "\red \b This kills the crab. Crabs hate wirecutters, didn`t you know?"
 			health -= 20
 			Die()
 		else
 			GetMad()
-			get
+
 	if(istype(O, /obj/item/stack/medical))
 		if(stat != DEAD)
 			var/obj/item/stack/medical/MED = O
@@ -76,7 +92,9 @@
 				if ((M.client && !( M.blinded )))
 					M.show_message("\red [user] gently taps [src] with the [O]. ")
 
-/mob/living/simple_animal/crab/Topic(href, href_list)
+
+
+/*/mob/living/simple_animal/crab/Topic(href, href_list)
 	if(usr.stat) return
 
 	//Removing from inventory
@@ -251,16 +269,16 @@
 
 		//show_inv(usr) //Commented out because changing Ian's  name and then calling up his inventory opens a new inventory...which is annoying.
 	else
-		..()
+		..()*/*/
 
-/mob/living/simple_animal/crab/GetMad()
+/mob/living/simple_animal/crab/proc/GetMad()
 	name = "MEGAMADCRAB"
 	real_name = "MEGAMADCRAB"
 	desc = "OH NO YOU DUN IT NOW."
 	icon = 'icons/mob/mob.dmi'
-	icon_state = "madcrab"
-	icon_living = "madcrab"
-	icon_dead = "madcrab_dead"
+	icon_state = "evilcrab"
+	icon_living = "evilcrab"
+	icon_dead = "evilcrab"
 	speak_emote = list("clicks")
 	emote_hear = list("clicks with fury", "clicks angrily")
 	emote_see = list("clacks")
@@ -270,7 +288,7 @@
 	health = 100
 	melee_damage_lower = 3
 	melee_damage_upper = 10//Kill them. Kill them all
-	if(inventory_head)//Drops inventory so it doesn't have to be dealt with
+	/*if(inventory_head)//Drops inventory so it doesn't have to be dealt with
 		inventory_head.loc = src.loc
 		inventory_head = null
 	if(inventory_mask)
