@@ -3724,6 +3724,7 @@ datum
 			name = "Planter`s Punch"
 			id = "planterspunch"
 			description = "This recipe I give to thee. Dear brother in the heat…"
+
 			color = "#F45F39" // rgb: 244, 95, 57
 			boozepwr = 1.5
 			dizzy_adj = 4
