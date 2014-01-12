@@ -15,8 +15,8 @@
 	weaken = 10
 	stutter = 10
 
-// Если кто ещё вздумает "пофиксить" тазер то лучше сразу врежте себе по яйцам и вырежте печень.
-//Сначала догони~
+// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
+//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ~
 
 /obj/item/projectile/energy/electrode/New()
 	agony = rand(30,130)
@@ -44,16 +44,17 @@
 /obj/item/projectile/energy/bolt
 	name = "bolt"
 	icon_state = "cbbolt"
-	damage = 10
+	damage = 20
 	damage_type = TOX
 	nodamage = 0
 	weaken = 10
-	stutter = 10
 
 
 /obj/item/projectile/energy/bolt/large
 	name = "largebolt"
-	damage = 20
+	damage = 30
+	stutter = 10
+
 
 
 /obj/item/projectile/energy/neurotoxin
