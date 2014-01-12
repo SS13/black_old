@@ -104,6 +104,36 @@
 				E.min_bruised_damage = initial(E.min_broken_damage)
 
 
+/datum/disease2/effect/bones
+	name = "Fragile Bones Syndrome"
+	stage = 4
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = mob
+			for (var/datum/organ/external/E in H.organs)
+				E.min_broken_damage = max(5, E.min_broken_damage - 30)
+
+	deactivate(var/mob/living/carbon/mob,var/multiplier)
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = mob
+			for (var/datum/organ/external/E in H.organs)
+				E.min_broken_damage = initial(E.min_broken_damage)
+
+/datum/disease2/effect/liver
+	name = "Liver Failure"
+	stage = 4
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = mob
+			for (var/datum/organ/internal/liver/E in H.organs)
+				E.min_bruised_damage = max(1, E.min_broken_damage - 10)
+
+	deactivate(var/mob/living/carbon/mob,var/multiplier)
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = mob
+			for (var/datum/organ/internal/liver/E in H.organs)
+				E.min_bruised_damage = initial(E.min_broken_damage)
+
 /datum/disease2/effect/gibbingtons
 	name = "Gibbingtons Syndrome"
 	stage = 4
