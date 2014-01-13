@@ -269,6 +269,13 @@
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+//Von Karma costume
+/obj/item/clothing/under/prosecutor_suit
+	name = "prosecutor suit"
+	desc = "Don't be foolish, you foolish fool wearing the foolishly foolish clothes."
+	icon_state = "prosecutor_suit"
+	item_color = "prosecutor_suit"
+
 //dress
 
 /obj/item/clothing/under/dress/dress_fire

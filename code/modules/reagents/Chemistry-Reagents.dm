@@ -1366,6 +1366,18 @@ datum
 			description = "A highly addictive stimulant extracted from the tobacco plant."
 			reagent_state = LIQUID
 			color = "#181818" // rgb: 24, 24, 24
+			on_mob_life(var/mob/living/M as mob)
+				if(!M) M = holder.my_atom
+				M.adjustToxLoss(1)
+				if(!M) M = holder.my_atom
+				M.druggy = max(M.druggy, 5)
+				if(isturf(M.loc) && !istype(M.loc, /turf/space))
+					if(M.canmove && !M.restrained())
+						if(prob(10)) step(M, pick(cardinal))
+				if(prob(7)) M.emote(pick("twitch","drool","moan","giggle"))
+				holder.remove_reagent(src.id, 0.5 * REAGENTS_METABOLISM)
+				..()
+				return
 
 		ammonia
 			name = "Ammonia"
@@ -3711,7 +3723,7 @@ datum
 		ethanol/planterspunch
 			name = "Planter`s Punch"
 			id = "planterspunch"
-			description = "‘This recipe I give to thee. Dear brother in the heat…`"
+			description = "This recipe I give to thee. Dear brother in the heat…"
 			color = "#F45F39" // rgb: 244, 95, 57
 			boozepwr = 1.5
 			dizzy_adj = 4

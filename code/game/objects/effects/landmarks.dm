@@ -146,6 +146,13 @@
 	new /obj/item/clothing/head/that(src.loc)
 	del(src)
 
+/obj/effect/landmark/costume/vonkarma/New()
+	new /obj/item/clothing/suit/prosecutor_jacket(src.loc)
+	new /obj/item/clothing/under/prosecutor_suit(src.loc)
+	new /obj/item/weapon/melee/scourge(src.loc)
+	new	/obj/item/clothing/gloves/black
+	del(src)
+
 /obj/effect/landmark/costume/scratch/New()
 	new /obj/item/clothing/gloves/white(src.loc)
 	new /obj/item/clothing/shoes/white(src.loc)

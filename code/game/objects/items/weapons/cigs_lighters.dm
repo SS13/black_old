@@ -66,7 +66,10 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	var/type_butt = /obj/item/weapon/cigbutt
 	var/lastHolder = null
 	var/smoketime = 300
-	var/chem_volume = 15
+	var/chem_volume = 20
+	New()
+		..()
+		reagents.add_reagent("nicotine", 5)
 
 /obj/item/clothing/mask/cigarette/New()
 	..()

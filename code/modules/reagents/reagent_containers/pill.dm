@@ -108,6 +108,22 @@
 		..()
 		reagents.add_reagent("toxin", 50)
 
+/obj/item/weapon/reagent_containers/pill/hyronalin
+	name = "Hyronalin pill."
+	desc = "Hyronalin is a medicinal drug used to counter the effect of radiation poisoning.."
+	icon_state = "pill17"
+	New()
+		..()
+		reagents.add_reagent("hyronalin", 10)
+
+/obj/item/weapon/reagent_containers/pill/arithrazine
+	name = "Arithrazine pill."
+	desc = "Arithrazine is an unstable medication used for the most extreme cases of radiation poisoning."
+	icon_state = "pill8"
+	New()
+		..()
+		reagents.add_reagent("hyronalin", 10)
+
 /obj/item/weapon/reagent_containers/pill/cyanide
 	name = "Cyanide pill"
 	desc = "Don't swallow this."

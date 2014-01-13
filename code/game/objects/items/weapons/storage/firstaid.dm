@@ -56,7 +56,7 @@
 
 /obj/item/weapon/storage/firstaid/toxin
 	name = "toxin first aid"
-	desc = "Used to treat when you have a high amoutn of toxins in your body."
+	desc = "Used to treat when you have a high amount of toxins in your body."
 	icon_state = "antitoxin"
 	item_state = "firstaid-toxin"
 
@@ -72,6 +72,27 @@
 		new /obj/item/weapon/reagent_containers/pill/antitox( src )
 		new /obj/item/weapon/reagent_containers/pill/antitox( src )
 		new /obj/item/weapon/reagent_containers/pill/antitox( src )
+		new /obj/item/device/healthanalyzer( src )
+		return
+
+
+/obj/item/weapon/storage/firstaid/radiation
+	name = "radiation first aid"
+	desc = "Used to treat when you have been heavily irradiated."
+	icon_state = "radfirstaid4"
+	item_state = "firstaid-radiation"
+
+	New()
+		..()
+		if (empty) return
+
+		icon_state = pick("radfirstaid","radfirstaid2","radfirstaid3", "radfirstaid4")
+
+		new /obj/item/weapon/reagent_containers/pill/arithrazine( src )
+		new /obj/item/weapon/reagent_containers/pill/arithrazine( src )
+		new /obj/item/weapon/reagent_containers/pill/hyronalin( src )
+		new /obj/item/weapon/reagent_containers/pill/hyronalin( src )
+		new /obj/item/weapon/reagent_containers/pill/hyronalin( src )
 		new /obj/item/device/healthanalyzer( src )
 		return
 
