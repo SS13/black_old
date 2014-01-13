@@ -102,6 +102,15 @@
 	blood_overlay_type = "armor"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+//Von Karma costume part
+/obj/item/clothing/suit/prosecutor_jacket
+	name = "prosecutor jacket"
+	desc = "Don't be foolish, you foolish fool wearing the foolishly foolish clothes."
+	icon_state = "prosecutor_jacket"
+	item_state = "prosecutor_jacket"
+	blood_overlay_type = "armor"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+//
 
 /obj/item/clothing/suit/apron/overalls
 	name = "coveralls"
@@ -262,6 +271,13 @@
 	desc = "Tovarisch komandir`s very own coat. "
 	icon_state = "redarmycoat"
 	item_state = "redarmycoat"
+	flags = FPRINT | TABLEPASS
+
+/obj/item/clothing/suit/sovietcommisarcoat
+	name = "commisar coat"
+	desc = "Tovarisch kommissar`s very own coat. "
+	icon_state = "commissarcoat"
+	item_state = "commissarcoat"
 	flags = FPRINT | TABLEPASS
 
 //actual suits

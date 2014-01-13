@@ -23,6 +23,7 @@
 /obj/item/clothing/suit/armor/vest/ronin
 	name = "ronin armor"
 	icon_state = "armor_ronin"
+	item_state = "armor_ronin"
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"

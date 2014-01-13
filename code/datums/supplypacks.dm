@@ -358,7 +358,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 
 /datum/supply_packs/medical
 	name = "Medical crate"
-	contains = list(/obj/item/weapon/storage/firstaid/regular,
+	contains = list(/obj/item/weapon/storage/firstaid/radiation,
 					/obj/item/weapon/storage/firstaid/fire,
 					/obj/item/weapon/storage/firstaid/toxin,
 					/obj/item/weapon/storage/firstaid/o2,
@@ -368,7 +368,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/reagent_containers/glass/bottle/stoxin,
 					/obj/item/weapon/storage/box/syringes,
 					/obj/item/weapon/storage/box/autoinjectors)
-	cost = 10
+	cost = 15
 	containertype = /obj/structure/closet/crate/medical
 	containername = "Medical crate"
 	group = "Medical / Science"

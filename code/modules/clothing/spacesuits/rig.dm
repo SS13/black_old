@@ -181,16 +181,16 @@
 /obj/item/clothing/head/helmet/space/rig/syndi/tajaran
 	name = "blood-red hardsuit helmet"
 	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for tajaran."
-	icon_state = "rig0-syndi-tajaran"
-	item_state = "syndi_helm-tajaran"
+	icon_state = "rig0-syndi-taj"
+	item_state = "syndi_helm-taj"
 	item_color = "syndi"
 	species_restricted = list("exclude","Skrell","Diona","Vox", "Human", "Unathi")
 
 /obj/item/clothing/suit/space/rig/syndi/tajaran
-	icon_state = "rig-syndi-tajaran"
+	icon_state = "rig-syndi-taj"
 	name = "blood-red hardsuit"
 	desc = "An advanced suit that protects against injuries during special operations. Property of Gorlex Marauders.This one is for tajaran."
-	item_state = "syndi_hardsuit-tajaran"
+	item_state = "syndi_hardsuit-taj"
 	species_restricted = list("exclude","Skrell","Diona","Vox", "Human", "Unathi")
 
 //Wizard Rig
@@ -255,7 +255,6 @@
 /obj/item/clothing/head/helmet/space/rig/security/mongol
 	name = "mongol hardsuit helmet"
 	icon_state = "rig0_mongol"
-	item_state = "rig0_mongol"
 	item_state = "mongol"
 
 /obj/item/clothing/suit/space/rig/security/mongol
@@ -268,6 +267,30 @@
 	name = "samurai hardsuit"
 	icon_state = "rig_samurai"
 	item_state = "rig_samurai"
+
+/obj/item/clothing/head/helmet/space/rig/samurai
+	name = "samurai hardsuit helmet"
+	icon_state = "rig0_samurai_helm"
+	item_state = "rig0_samurai_helm"
+
+//HoS` personal
+
+/obj/item/clothing/suit/space/rig/securityhosrig
+	icon_state = "rig_hos"
+	name = "head of security hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. This one is somewhat sturdier than usual, handmade for security chief himself."
+	item_state = "hosrig"
+	armor = list(melee = 25, bullet = 30, laser = 40, energy = 25, bomb = 45, bio = 100, rad = 10)
+	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
+	siemens_coefficient = 0.7
+
+
+/obj/item/clothing/head/helmet/space/rig/secutityhoshelm
+	name = "head Of security hardsuit helmet"
+	desc = "A special suit that protects against hazardous, low pressure environments. This one is somewhat sturdier than usual, handmade for security chief himself."
+	icon_state = "rig0-hos"
+	item_state = "hoshelm"
+
 
 //Atmospherics Rig (BS12)
 /obj/item/clothing/head/helmet/space/rig/atmos

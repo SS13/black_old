@@ -77,7 +77,8 @@
 
 /obj/item/weapon/dice/Crossed(var/mob/living/carbon/human/H)
 	if(istype(H))
-		H << "<span class='userdanger'>You step on the die, losing your balance, and fall hard.</span>"
-		H.apply_damage(4,BRUTE,(pick("l_leg", "r_leg")))
-		H.Weaken(1)
+		if (prob (50))
+			H << "<span class='userdanger'>You step on the die, losing your balance, and fall hard.</span>"
+			H.apply_damage(4,BRUTE,(pick("l_leg", "r_leg")))
+			H.Weaken(1)
 

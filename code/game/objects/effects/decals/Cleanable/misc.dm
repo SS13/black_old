@@ -106,6 +106,14 @@
 			D.cure(0)
 		..()
 
+/obj/effect/decal/cleanable/vomit/Crossed(var/mob/living/carbon/human/H)
+	if(istype(H))
+		if (prob (10))
+			H << "<span class='userdanger'>You slip on the puddle of vomit and fall down!.</span>"
+			playsound(src.loc, 'sound/misc/slip.ogg', 50, 1)
+			H.Weaken(1)
+
+
 /obj/effect/decal/cleanable/tomato_smudge
 	name = "tomato smudge"
 	desc = "It's red."

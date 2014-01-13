@@ -1393,6 +1393,16 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Shipwreck"
 	icon_state = "shipwreck"
 
+//DESOLATE BAR
+/area/desolatebar
+	name = "\improper Desolate Bar"
+	icon_state = "desolatebar"
+
+//NUKE ASTEROID
+/area/nukeasteroid
+	name = "\improper Strange Asteroid"
+	icon_state = "nukeasteroid"
+
 //DERELICT
 
 /area/derelict

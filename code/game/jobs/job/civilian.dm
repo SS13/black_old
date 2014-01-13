@@ -352,9 +352,9 @@
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the captain and HoP"
+	supervisors = "the captain (HoP for Attorneys-At-Law)"
 	selection_color = "#dddddd"
-	alt_titles = list("Attorney")
+	alt_titles = list("Attorney-At-Law")
 	access = list(access_lawyer, access_court, access_sec_doors, access_maint_tunnels)
 	minimal_access = list(access_lawyer, access_court, access_sec_doors)
 
@@ -371,7 +371,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/device/pda/lawyer(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/weapon/storage/briefcase(H), slot_l_hand)
-		if(H.mind.role_alt_title && H.mind.role_alt_title == "Attorney")
+		if(H.mind.role_alt_title && H.mind.role_alt_title == "Attorney-At-Law")
 			H.equip_to_slot_or_del(new /obj/item/clothing/under/lawyer/bluesuit(H), slot_w_uniform)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/storage/lawyer/bluejacket(H), slot_wear_suit)
 		if(H.backbag == 1)

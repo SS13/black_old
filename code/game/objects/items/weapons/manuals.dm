@@ -587,7 +587,7 @@
 		</head>
 
 		<body>
-		  <iframe width='100%' height='97%' src="http://wiki.ss13.ru/index.php?title=Space_Law/Black&printable=yes" frameborder="0" id="main_frame"></iframe>	
+		  <iframe width='100%' height='97%' src="http://wiki.ss13.ru/index.php?title=Space_Law/Black&printable=yes" frameborder="0" id="main_frame"></iframe>
 		</body>
 
 		</html>
@@ -716,6 +716,23 @@
 				<h2>Classic Martini:</h2>
 				Mix vermouth and gin into a glass.
 
+				<h2>Lynchburg Lemonade:</h2>
+				Mix bourbon, lemonade and Space Up into a glass.
+
+				<h2>Rhose Island Iced Coffee:</h2>
+				Mix kahlua, vodka, cognac and milk into a glass.
+
+				<h2>Milkshake:</h2>
+				Mix cream, milk and ice. Shake vogorously. Add juice or coffee for flavour.
+
+				<h2>Sidecar:</h2>
+				Mix cognac and lemon juice into a glass with salt rim.
+
+				<h2>B-52:</h2>
+				Mix cognac, irish cream and kahlua into a shot glass. Substitute cognac for absinth to make a B-53.
+
+				<h2>Blue Lagoon:</h2>
+				Mix vodka, lime juice and lemonade. Shake intensively. Add blue curacao liqueur.
 
 				</body>
 				</html>
