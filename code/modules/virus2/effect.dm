@@ -207,6 +207,32 @@
 
 ////////////////////////STAGE 3/////////////////////////////////
 
+////////////////////////MY EFFECTS//////////////////////////////
+/datum/disease2/effect/tourett
+	name = "Tourett Syndrome"
+	stage = 3
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		mob.dna.check_integrity()
+		var/newdna = setblock(mob.dna.struc_enzymes,TWITCHBLOCK,toggledblock(getblock(mob.dna.struc_enzymes,TWITCHBLOCK,3)),3)
+		mob.dna.struc_enzymes = newdna
+		domutcheck(mob, null)
+
+/datum/disease2/effect/liver
+	name = "Liver failure"
+	stage = 4
+	activate(var/mob/living/carbon/mob,var/multiplier)
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = mob
+			for (var/datum/organ/internal/liver/E in H.organs)
+				E.min_bruised_damage = max(1, E.min_broken_damage - 10)
+
+	deactivate(var/mob/living/carbon/mob,var/multiplier)
+		if(istype(mob, /mob/living/carbon/human))
+			var/mob/living/carbon/human/H = mob
+			for (var/datum/organ/internal/liver/E in H.organs)
+				E.min_bruised_damage = initial(E.min_broken_damage)
+////////////////////////MY EFFECTS END//////////////////////////
+
 /datum/disease2/effect/bones
 	name = "Fragile Bones Syndrome"
 	stage = 4
