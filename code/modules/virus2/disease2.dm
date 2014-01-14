@@ -1,4 +1,4 @@
-﻿/datum/disease2/disease
+/datum/disease2/disease
 	var/infectionchance = 30
 	var/speed = 1
 	var/spreadtype = "Contact" // Can also be "Airborne"
