@@ -3338,6 +3338,13 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 1
 
+		ethanol/kingsmen
+			name = "All The King`s Men"
+			id = "kingsmen"
+			description = "And all the king`s men got wasted on this monstrosity."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 4
+
 		ethanol/cuba_libre
 			name = "Cuba Libre"
 			id = "cubalibre"
@@ -3498,6 +3505,13 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 4
 
+		ethanol/blueislandicedtea
+			name = "Blue Island Iced Tea"
+			id = "blueislandicedtea"
+			description = "The liquor cabinet, brought together in a delicious mix. Meh, like making it blue makes it less desperate."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 4
+
 		ethanol/moonshine
 			name = "Moonshine"
 			id = "moonshine"
@@ -3598,6 +3612,13 @@ datum
 			id = "margarita"
 			description = "On the rocks with salt on the rim. Arriba~!"
 			color = "#8CFF8C" // rgb: 140, 255, 140
+			boozepwr = 3
+
+		ethanol/bluemargarita
+			name = "Blue Margarita"
+			id = "bluemargarita"
+			description = "On the rocks with salt on the rim. Wait, why is it blue, again?"
+			color = "#00A86B" // rgb: 140, 255, 140
 			boozepwr = 3
 
 		ethanol/sidecar
@@ -3733,6 +3754,24 @@ datum
 			name = "Mojito"
 			id = "mojito"
 			description = "With approval from both pillaging space pirates and a Space Nobel Prize winner, The Mojito has become a classic loved the galaxy over."
+			color = "#365000"
+			boozepwr = 1.5
+			dizzy_adj = 4
+			slurr_adj = 3
+
+		ethanol/daiquiri
+			name = "Daiquiri"
+			id = "daiquiri"
+			description = "'There's no whiskey or gin around here... time to doctor up the local rum.'"
+			color = "#365000"
+			boozepwr = 1.5
+			dizzy_adj = 4
+			slurr_adj = 3
+
+		ethanol/melondaiquiri
+			name = "Melon Daiquiri"
+			id = "melondaiquiri"
+			description = "'There's no whiskey or gin around here... time to doctor up the local rum.' With a melon twist, yeah."
 			color = "#365000"
 			boozepwr = 1.5
 			dizzy_adj = 4
@@ -3889,6 +3928,13 @@ datum
 			id = "driestmartini"
 			description = "Only for the experienced. You think you see sand floating in the glass."
 			nutriment_factor = 1 * FOOD_METABOLISM
+			color = "#2E6671" // rgb: 46, 102, 113
+			boozepwr = 4
+
+		ethanol/elpresidente
+			name = "El Presidente"
+			id = "elpresidente"
+			description = "So, El Presidente walks into a bar..."
 			color = "#2E6671" // rgb: 46, 102, 113
 			boozepwr = 4
 

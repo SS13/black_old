@@ -1393,6 +1393,11 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Shipwreck"
 	icon_state = "shipwreck"
 
+//SHIP HEIST
+/area/shipheist
+	name = "Ship Heist"
+	icon_state = "shipheist"
+
 //DESOLATE BAR
 /area/desolatebar
 	name = "\improper Desolate Bar"

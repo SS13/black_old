@@ -115,6 +115,55 @@
 	slot_flags = SLOT_BELT | SLOT_EARS
 	brightness_on = 2
 
+//Disduised EMP jammer
+/obj/item/device/flashlight/emp
+	origin_tech = "magnets=4;syndicate=5"
+
+	var/emp_max_charges = 4
+	var/emp_cur_charges = 4
+	var/charge_tick = 0
+
+
+	New()
+		..()
+		processing_objects.Add(src)
+
+
+	Del()
+		processing_objects.Remove(src)
+		..()
+
+
+	process()
+		charge_tick++
+		if(charge_tick < 10) return 0
+		charge_tick = 0
+		emp_cur_charges = min(emp_cur_charges+1, emp_max_charges)
+		return 1
+
+/obj/item/device/flashlight/emp/examine()
+	..()
+	return
+
+/obj/item/device/flashlight/emp/attack(mob/living/M as mob, mob/living/user as mob)
+	if(on && user.zone_sel.selecting == "eyes") // call original attack proc only if aiming at the eyes
+		..()
+	return
+
+/obj/item/device/flashlight/emp/afterattack(atom/A as mob|obj, mob/user, proximity)
+	if(!proximity) return
+	if (emp_cur_charges > 0)
+		emp_cur_charges -= 1
+		A.emp_act(1)
+		A.visible_message("<span class='danger'>[user] blinks \the [src] at \the [A].", \
+											"<span class='userdanger'>[user] blinks \the [src] at \the [A].")
+		/*if(ismob(A))
+			var/mob/M = A
+			add_logs(user, M, "attacked", object="EMP-light")*/
+		user << "\The [src] now has [emp_cur_charges] charge\s."
+	else
+		user << "<span class='warning'>The [src] needs time to recharge!</span>"
+	return
 
 // the desk lamps are a bit special
 /obj/item/device/flashlight/lamp

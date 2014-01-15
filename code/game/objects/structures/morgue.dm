@@ -12,7 +12,7 @@
 
 /obj/structure/morgue
 	name = "morgue"
-	desc = "Used to keep bodies in untill someone fetches them."
+	desc = "Used to keep bodies in until someone fetches them."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "morgue1"
 	dir = EAST
@@ -24,11 +24,25 @@
 	if (src.connected)
 		src.icon_state = "morgue0"
 	else
-		if (src.contents.len)
-			src.icon_state = "morgue2"
-		else
+		if(!src.contents.len)
 			src.icon_state = "morgue1"
+		else
+
+			src.icon_state = "morgue2"//default dead no-client mob
+
+			var/list/compiled = recursive_mob_check(src)//run through contents
+
+			if(!length(compiled))//no mobs at all, but objects inside
+				src.icon_state = "morgue3"
+				return
+
+			for(var/mob/living/M in compiled)
+				if(M.client)
+					src.icon_state = "morgue4"//clone that mofo
+					break
+
 	return
+
 
 /obj/structure/morgue/ex_act(severity)
 	switch(severity)
@@ -191,11 +205,16 @@
 /obj/structure/crematorium/proc/update()
 	if (src.connected)
 		src.icon_state = "crema0"
+
+	if (src.cremating)
+		src.icon_state = "crema_active"
+
 	else
 		if (src.contents.len)
 			src.icon_state = "crema2"
 		else
 			src.icon_state = "crema1"
+
 	return
 
 /obj/structure/crematorium/ex_act(severity)

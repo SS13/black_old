@@ -13,7 +13,7 @@
 
 /datum/organ/internal/proc/rejuvenate()
 	damage=0
-	
+
 /datum/organ/internal/proc/is_bruised()
 	return damage >= min_bruised_damage
 
@@ -44,6 +44,11 @@
 /datum/organ/internal/heart
 	name = "heart"
 	parent_organ = "chest"
+
+	process()
+		if(is_bruised())
+			spawn owner.emote("me", 1, "suddenly gasps, twitching, and falls limp!")
+			owner.losebreath += 100
 
 
 /datum/organ/internal/lungs
