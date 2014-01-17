@@ -726,7 +726,7 @@ datum/supply_packs/riotadvanced
 					/obj/item/clothing/suit/armor/bulletproof,
 					/obj/item/weapon/gun/projectile/shotgun/pump,
 					/obj/item/weapon/gun/projectile/shotgun/pump)
-	cost = 60
+	cost = 65
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Service ballistic gear crate"
 	access = access_armory

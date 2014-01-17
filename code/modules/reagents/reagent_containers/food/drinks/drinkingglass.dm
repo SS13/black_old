@@ -150,6 +150,10 @@
 					icon_state = "gintonicglass"
 					name = "Gin and Tonic"
 					desc = "A mild but still great cocktail. Drink up, like a true Englishman."
+				if("kingsmen")
+					icon_state = "kingsmenglass"
+					name = "All The King`s Men"
+					desc = "And all the king`s men got wasted on this monstrosity."
 				if("whiskeycola")
 					icon_state = "whiskeycolaglass"
 					name = "Whiskey Cola"
@@ -262,6 +266,10 @@
 					icon_state = "longislandicedteaglass"
 					name = "Long Island Iced Tea"
 					desc = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
+				if("blueislandicedtea")
+					icon_state = "blueislandicedteaglass"
+					name = "Blue Island Iced Tea"
+					desc = "'It had to ne you/Could make me be true, could make me be blue'"
 				if("threemileisland")
 					icon_state = "threemileislandglass"
 					name = "Three Mile Island Ice Tea"
@@ -270,6 +278,10 @@
 					icon_state = "margaritaglass"
 					name = "Margarita"
 					desc = "On the rocks with salt on the rim. Arriba~!"
+				if("bluemargarita")
+					icon_state = "bluemargaritaglass"
+					name = "Blue Margarita"
+					desc = "On the rocks with salt on the rim. Wait, why is it blue, again?"
 				if("sidecar")
 					icon_state = "sidecarglass"
 					name = "Sidecar"
@@ -302,6 +314,14 @@
 					icon_state = "mojitoglass"
 					name = "Mojito"
 					desc = "With approval from both pillaging space pirates and a Space Nobel Prize winner, The Mojito has become a classic loved the galaxy over."
+				if("daiquiri")
+					icon_state = "daiquiriglass"
+					name = "daiquiri"
+					desc = "'There's no whiskey or gin around here... time to doctor up the local rum.'"
+				if("melondaiquiri")
+					icon_state = "melondaiquiriglass"
+					name = "melondaiquiri"
+					desc = "'There's no whiskey or gin around here... time to doctor up the local rum.' With a melon twist, yeah."
 				if("irishcoffee")
 					icon_state = "irishcoffeeglass"
 					name = "Irish Coffee"
@@ -498,6 +518,10 @@
 					icon_state = "driestmartiniglass"
 					name = "Driest Martini"
 					desc = "Only for the experienced. You think you see sand floating in the glass."
+				if("elpresidente")
+					icon_state = "elpresidenteglass"
+					name = "El Presidente"
+					desc = "So, El Presidente walks into a bar..."
 				if("ice")
 					icon_state = "iceglass"
 					name = "Glass of ice"

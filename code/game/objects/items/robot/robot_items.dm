@@ -24,6 +24,7 @@
 		for(var/mob/O in viewers(M, null))
 			if (O.client)
 				O.show_message("\red <B>[user] has prodded [M] with an electrically-charged arm!</B>", 1, "\red You hear someone fall", 2)
+		log_admin(user, M, "stunned", object="[src.name]", addition="(INTENT: [uppertext(user.a_intent)])")
 
 /obj/item/borg/overdrive
 	name = "Overdrive"

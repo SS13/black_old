@@ -329,6 +329,7 @@ What a mess.*/
 			if ("Print Record")
 				if (!( printing ))
 					printing = 1
+					src.updateUsrDialog()
 					sleep(50)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 					P.info = "<CENTER><B>Security Record</B></CENTER><BR>"

@@ -63,7 +63,7 @@
 	heat_level_2 = 480 //Default 400
 	heat_level_3 = 1100 //Default 1000
 
-	flags = WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | HAS_TAIL | HAS_SKIN_TONE
+	flags = WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | HAS_TAIL
 
 /datum/species/tajaran
 	name = "Tajaran"
@@ -85,7 +85,7 @@
 
 	primitive = /mob/living/carbon/monkey/tajara
 
-	flags = WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | HAS_TAIL | HAS_SKIN_TONE
+	flags = WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | HAS_TAIL
 
 /datum/species/skrell
 	name = "Skrell"
@@ -94,7 +94,7 @@
 	language = "Skrellian"
 	primitive = /mob/living/carbon/monkey/skrell
 
-	flags = WHITELISTED | HAS_LIPS | HAS_UNDERWEAR | HAS_SKIN_TONE
+	flags = WHITELISTED | HAS_LIPS | HAS_UNDERWEAR
 
 /datum/species/vox
 	name = "Vox"
@@ -134,4 +134,4 @@
 	heat_level_2 = 3000
 	heat_level_3 = 4000
 
-	flags = WHITELISTED | NO_BREATHE | REQUIRE_LIGHT | NON_GENDERED | NO_SCAN | IS_PLANT | RAD_ABSORB | HAS_SKIN_TONE
+	flags = WHITELISTED | NO_BREATHE | REQUIRE_LIGHT | NON_GENDERED | NO_SCAN | IS_PLANT | RAD_ABSORB

@@ -240,6 +240,7 @@
 	desc = "Bkaw!"
 	icon_state = "chickenhead"
 	item_state = "chickensuit"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	siemens_coefficient = 2.0
 

@@ -13,6 +13,13 @@
 	var/ico = "monkey"                         // Used when updating icons.
 	var/uni_append = "12C4E2"                  // Small appearance modifier for different species.
 
+/mob/living/carbon/monkey/punpun
+	name = "Pun Pun"
+	voice_name = "Pun Pun"
+	speak_emote = list("chimpers")
+	icon_state = "punpun1"
+	ico = "punpun"
+
 /mob/living/carbon/monkey/tajara
 	name = "farwa"
 	voice_name = "farwa"

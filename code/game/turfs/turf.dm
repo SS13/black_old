@@ -349,31 +349,3 @@
 			if(!LinkBlocked(src, t) && !TurfBlockedNonWindow(t))
 				L.Add(t)
 	return L
-
-/turf/proc/PassCheck(var/turf/T)
-//Part from ZCanPass but without space check
-	for(var/obj/obstacle in src)
-		if(istype(obstacle, /obj/machinery/door) && !(obstacle:air_properties_vary_with_direction))
-			continue
-		if(!obstacle.CanPass(null, T, 1.5, 1))
-			return 0
-	for(var/obj/obstacle in T)
-		if(istype(obstacle, /obj/machinery/door) && !(obstacle:air_properties_vary_with_direction))
-			continue
-		if(!obstacle.CanPass(null, src, 1.5, 1))
-			return 0
-	return 1
-
-/turf/proc/PassCollide(var/turf/T)
-//Part from ZCanPass but without space check
-	for(var/obj/obstacle in src)
-		if(istype(obstacle, /obj/machinery/door) && !(obstacle:air_properties_vary_with_direction))
-			continue
-		if(!obstacle.CanPass(null, T, 1.5, 1))
-			return obstacle
-	for(var/obj/obstacle in T)
-		if(istype(obstacle, /obj/machinery/door) && !(obstacle:air_properties_vary_with_direction))
-			continue
-		if(!obstacle.CanPass(null, src, 1.5, 1))
-			return obstacle
-	return 0

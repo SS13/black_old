@@ -131,6 +131,13 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
 
+/obj/item/weapon/broken_beer
+
+	name = "Broken beer bottle"
+	desc = "A broken beer bottle."
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "broken_beer"
+	force = 5.0
 
 /obj/item/weapon/reagent_containers/food/drinks/bottle/gin
 	name = "Griffeater Gin"

@@ -609,25 +609,6 @@
 	if(!istype(src.loc, /turf)) //Object is on a turf
 		usr << "\red You can't pick that up!"
 		return
-
-
-	if(src.loc != usr.loc)
-		//Ooops, we need check obstacles
-		if(src.loc.x != usr.loc.x && src.loc.y != usr.loc.y)
-			//Let's try hor-vert move
-			var/turf/C = locate(src.x, usr.y, src.z)
-			if(!usr.loc:PassCheck(C) || !src.loc:PassCheck(C))
-			//Or vert-hor
-				C = locate(usr.x, src.y, src.z)
-				if(!usr.loc:PassCheck(C) || !src.loc:PassCheck(C))
-					//Nowai
-					usr << "\red Your hand can't pass through the obstacle."
-					return
-		else
-			if(!usr.loc:PassCheck(src.loc))
-				usr << "\red Your hand can't pass through the obstacle."
-				return
-
 	//All checks are done, time to pick it up!
 	if(istype(usr, /mob/living/carbon/human))
 		src.attack_hand(usr)
@@ -636,6 +617,7 @@
 	if(istype(usr, /mob/living/carbon/monkey))
 		src.attack_paw(usr)
 	return
+
 
 //This proc is executed when someone clicks the on-screen UI button. To make the UI button show, set the 'icon_action_button' to the icon_state of the image of the button in screen1_action.dmi
 //The default action is attack_self().
