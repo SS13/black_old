@@ -1553,7 +1553,7 @@ datum
 
 			on_mob_life(var/mob/living/M as mob)
 				if(!M) M = holder.my_atom
-				M.adjustOxyLoss(4*REM)
+				M.adjustOxyLoss(5*REM)
 				M.sleeping += 1
 				..()
 				return

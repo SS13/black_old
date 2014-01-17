@@ -46,6 +46,9 @@
 	reagents = R
 	R.my_atom = src
 
+	if(name == "Pun Pun")
+		real_name = "Pun Pun"
+
 	if(name == initial(name)) //To stop Pun-Pun becoming generic.
 		name = "[name] ([rand(1, 1000)])"
 		real_name = name
