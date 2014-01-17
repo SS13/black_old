@@ -166,13 +166,10 @@
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		if(istype(mob, /mob/living/carbon/human))
 			var/mob/living/carbon/human/H = mob
-			var/organ = pick(list("r_arm","l_arm","r_leg","r_leg"))
-			var/datum/organ/external/E = H.organs_by_name[organ]
+			var/datum/organ/external/E = pick(H.organs)
 			if (!(E.status & ORGAN_DEAD))
 				E.status |= ORGAN_DEAD
 				H << "<span class='notice'>You can't feel your [E.display_name] anymore...</span>"
-				for (var/datum/organ/external/C in E.children)
-					C.status |= ORGAN_DEAD
 			H.update_body(1)
 		mob.adjustToxLoss(15*multiplier)
 
@@ -181,8 +178,6 @@
 			var/mob/living/carbon/human/H = mob
 			for (var/datum/organ/external/E in H.organs)
 				E.status &= ~ORGAN_DEAD
-				for (var/datum/organ/external/C in E.children)
-					C.status &= ~ORGAN_DEAD
 			H.update_body(1)
 
 /datum/disease2/effect/immortal
@@ -207,20 +202,14 @@
 
 ////////////////////////STAGE 3/////////////////////////////////
 
-/datum/disease2/effect/bones
-	name = "Fragile Bones Syndrome"
-	stage = 4
+/datum/disease2/effect/tourette
+	name = "Tourette Syndrome"
+	stage = 3
 	activate(var/mob/living/carbon/mob,var/multiplier)
-		if(istype(mob, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = mob
-			for (var/datum/organ/external/E in H.organs)
-				E.min_broken_damage = max(5, E.min_broken_damage - 30)
-
-	deactivate(var/mob/living/carbon/mob,var/multiplier)
-		if(istype(mob, /mob/living/carbon/human))
-			var/mob/living/carbon/human/H = mob
-			for (var/datum/organ/external/E in H.organs)
-				E.min_broken_damage = initial(E.min_broken_damage)
+		mob.dna.check_integrity()
+		var/newdna = setblock(mob.dna.struc_enzymes,TWITCHBLOCK,toggledblock(getblock(mob.dna.struc_enzymes,TWITCHBLOCK,3)),3)
+		mob.dna.struc_enzymes = newdna
+		domutcheck(mob, null)
 
 /datum/disease2/effect/toxins
 	name = "Hyperacidity"
@@ -324,8 +313,11 @@
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob.say("*cough")
-		for(var/mob/living/carbon/M in oview(2,mob))
-			mob.spread_disease_to(M)
+		for(var/mob/living/carbon/M in view(1,mob))
+			if(airborne_can_reach(get_turf(mob), get_turf(M)))
+				for (var/datum/disease2/disease/V in mob.virus2)
+					if(V.spreadtype == "Airborne")
+						infect_virus2(M,V)
 
 /datum/disease2/effect/hungry
 	name = "Appetiser Effect"
@@ -356,8 +348,8 @@
 	stage = 2
 	activate(var/mob/living/carbon/mob,var/multiplier)
 		mob << "<span class='notice'>You feel a rush of energy inside you!</span>"
-		if (mob.reagents.get_reagent_amount("hyperzine") < 10)
-			mob.reagents.add_reagent("hyperzine", 4)
+		if (mob.reagents.get_reagent_amount("hyperzine") < 30)
+			mob.reagents.add_reagent("hyperzine", 10)
 		if (prob(30))
 			mob.jitteriness += 10
 

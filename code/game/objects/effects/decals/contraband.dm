@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 37
+#define NUM_OF_POSTER_DESIGNS 43
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -195,7 +195,7 @@ obj/structure/sign/poster/New(var/serial)
 		if(37)
 			name += " - East Interstellar Company"
 			desc += " This poster is a large mark of The Royal East Interstellar Trading Company Of New London. Long live the Queen!"
-		/*if(38)
+		if(38)
 			name += " - Passport"
 			desc += " This poster depicts a Soviet colony passport. The text reads 'My comrade'."
 		if(39)
@@ -206,8 +206,25 @@ obj/structure/sign/poster/New(var/serial)
 			desc += "KS13 insignia. The slogan reads 'Glory to the space station of The New Comintern!"
 		if(41)
 			name += " - Army Glory"
-			desc += " This poster depicts a cheerfull Space Red Army soldier in uniform. The slogan reads 'Glory to The Space Red Army!'"*/
-
+			desc += " This poster depicts a cheerfull Space Red Army soldier in uniform. The slogan reads 'Glory to The Space Red Army!'"
+		if(42)
+			name += " - Borg Fancy v2"
+			desc += " Borg Fancy, Now only taking the most fancy."
+		if(43)
+			name += " - Borg Fancy"
+			desc += " Being fancy can be for any borg, Just need a suit."
+		if(44)
+			name += " - Lamarr"
+			desc += " This poster depicts Lamarr. Probably made by the research director."
+		if(45)
+			name += " - Communist state"
+			desc += " All hail the Communist party!"
+		if(46)
+			name += " - Donut Corp."
+			desc += " This poster is an advertisement for Donut Corp."
+		if(47)
+			name += " - EAT"
+			desc += " This poster is advising that you eat."
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"
 			desc = "Why are you still here?"

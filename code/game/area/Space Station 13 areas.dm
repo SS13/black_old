@@ -613,6 +613,10 @@ proc/process_ghost_teleport_locs()
  	name = "Atmospherics"
  	icon_state = "atmos"
 
+/area/atmosbrig
+ 	name = "Brig Atmospherics Maintenance"
+ 	icon_state = "atmosbrig"
+
 //Maintenance
 
 /area/maintenance/atmos_control
@@ -1392,6 +1396,11 @@ proc/process_ghost_teleport_locs()
 /area/shipwreck
 	name = "\improper Shipwreck"
 	icon_state = "shipwreck"
+
+//SHIP HEIST
+/area/shipheist
+	name = "Ship Heist"
+	icon_state = "shipheist"
 
 //DESOLATE BAR
 /area/desolatebar

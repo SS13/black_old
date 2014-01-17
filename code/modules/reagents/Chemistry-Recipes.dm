@@ -1567,6 +1567,13 @@ datum
 			required_reagents = list("gin" = 2, "tonic" = 1)
 			result_amount = 3
 
+		kingsmen
+			name = "Gin and Tonic"
+			id = "kingsmen"
+			result = "kingsmen"
+			required_reagents = list("wine" = 2, "tequila" = 1, "beer" = 1)
+			result_amount = 4
+
 		cuba_libre
 			name = "Cuba Libre"
 			id = "cubalibre"
@@ -1820,6 +1827,13 @@ datum
 			required_reagents = list("tequilla" = 2, "limejuice" = 1)
 			result_amount = 3
 
+		bluemargarita
+			name = "Blue Margarita"
+			id = "bluemargarita"
+			result = "blumargarita"
+			required_reagents = list("tequilla" = 2, "limejuice" = 1, "bluecuracao" = 1)
+			result_amount = 4
+
 		sidecar
 			name = "Sidecar"
 			id = "sidecar"
@@ -1833,6 +1847,13 @@ datum
 			result = "longislandicedtea"
 			required_reagents = list("vodka" = 1, "gin" = 1, "tequilla" = 1, "cubalibre" = 1)
 			result_amount = 4
+
+		blueislandicedtea
+			name = "Blue Island Iced Tea"
+			id = "blueislandicedtea"
+			result = "blueislandicedtea"
+			required_reagents = list("longislandicedtea" = 2, "bluecuracao" = 1)
+			result_amount = 3
 
 		threemileisland
 			name = "Three Mile Island Iced Tea"
@@ -1903,6 +1924,20 @@ datum
 			result = "mojito"
 			required_reagents = list("rum" = 2, "sodawater" = 1, "limejuice" = 1)
 			result_amount = 4
+
+		daiquiri
+			name = "Daiquiri"
+			id = "daiquiri"
+			result = "daiquiri"
+			required_reagents = list("rum" = 2, "sugar" = 1, "limejuice" = 1)
+			result_amount = 4
+
+		melondaiquiri
+			name = "Melon Daiquiri"
+			id = "melondaiquiri"
+			result = "melondaiquiri"
+			required_reagents = list("rum" = 2, "sugar" = 1, "limejuice" = 1, "melonliquor" = 1)
+			result_amount = 5
 
 		bahama_mama
 			name = "Bahama mama"
@@ -2152,6 +2187,13 @@ datum
 			result = "driestmartini"
 			required_reagents = list("nothing" = 1, "gin" = 1)
 			result_amount = 2
+
+		elpresidente
+			name = "El Presidente"
+			id = "elpresidente"
+			result = "elpresidente"
+			required_reagents = list("rum" = 1, "gin" = 1, "grenadine" = 1)
+			result_amount = 3
 
 		lemonade
 			name = "Lemonade"
