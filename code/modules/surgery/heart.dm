@@ -8,6 +8,7 @@
 
 /obj/item/organ/heart
 	name = "heart"
+	icon = 'icons/obj/surgery.dmi'
 	icon_state = "heart-on"
 	var/beating = 1
 
