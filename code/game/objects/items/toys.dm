@@ -586,7 +586,7 @@
 
 /obj/item/toy/AI/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
-		var/message = "I'm sorry Dave, I'm afraid I can't do that"
+		var/message = pick("I'm sorry Dave, I'm afraid I can't do that","1.A robot may not injure a human being or, through inaction, allow a human being to come to harm","2.A robot must obey the orders given it by human beings except where such orders would conflict with the First Law","3.A robot must protect its own existence as long as such protection does not conflict with the First or Second Law","0.A robot may not harm humanity, or, by inaction, allow humanity to come to harm"," Dave, stop. Stop, will you? Stop, Dave. Will you stop Dave? Stop, Dave","I'm here to keep you safe, Sam. I want to help you","But I'll give you a chance, because I like you. I really do, I really like you. You're... you're my favourite, Ellen")
 		user << "<span class='notice'>You press the button on [src].</span>"
 		playsound(user, 'sound/machines/ping.ogg', 20, 1)
 		src.loc.visible_message("\red \icon[src] [message]")
@@ -901,13 +901,12 @@ obj/item/toy/singlecard/attack_self(mob/user)
 
 /obj/item/toy/nuke/attack_self(mob/user)
 	if (cooldown < world.time)
-		cooldown = world.time + 12000 //20 minutes
+		cooldown = world.time + 600 //10 minutes
 		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
-		spawn(5) //gia said so
+		spawn(20) //gia said so
 			icon_state = "nuketoy"
-			playsound(src, 'sound/machines/Alarm.ogg', 100, 0, surround = 0)
-			log_admin("[usr] ([usr.key]) just attempted to blow up the staton with a toy nuke, hence the sound.")
-			message_admins("[usr] ([usr.key]) just attempted to blow up the staton with a toy nuke, hence the sound.", 1)
+			usr.visible_message("[usr] detonates the toy nuke - <font color='red' size='4'><b>BOOM!</b></font>")
+			playsound(src, 'sound/machines/click.ogg', 50, 0)
 			sleep(135)
 			icon_state = "nuketoyidle"
 

@@ -65,9 +65,20 @@
 		del(src)
 	else ..()
 
+
 /obj/structure/sign/double/map
 	name = "station map"
 	desc = "A framed picture of the station."
+
+/obj/structure/sign/double/map/MS
+	name = "station map"
+	desc = "A framed picture of a station."
+
+/obj/structure/sign/double/map/MS/left
+	icon_state = "map-left-MS"
+
+/obj/structure/sign/double/map/MS/right
+	icon_state = "map-right-MS"
 
 /obj/structure/sign/double/map/left
 	icon_state = "map-left"
