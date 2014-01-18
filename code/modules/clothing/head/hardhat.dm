@@ -63,8 +63,8 @@
 
 
 /obj/item/clothing/head/hardhat/tactical/officer
-	icon_state = "hardhat0_officer"
-	item_state = "hardhat0_officer"
+	icon_state = "hardhat0_tacticalofficer"
+	item_state = "hardhat0_tacticalofficer"
 	item_color = "tacticalofficer"
 	name = "tactical officer helmet"
 	desc = "A piece of headgear used in tactical operations. Plastic wisor and a built-in flashlight are a must for any field maneuvers. This one is meant for officers."

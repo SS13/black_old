@@ -251,6 +251,19 @@
 	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
 	siemens_coefficient = 0.7
 
+	//Security VGstation
+/obj/item/clothing/head/helmet/space/rig/security/alt
+	name = "security hardsuit helmet"
+	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
+	icon_state = "rig0-altsec"
+	item_state = "sec_helm"
+
+/obj/item/clothing/suit/space/rig/security/alt
+	icon_state = "rig-altsec"
+	name = "security hardsuit"
+	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
+	item_state = "sec_hardsuit"
+
 	//Mongol
 /obj/item/clothing/head/helmet/space/rig/security/mongol
 	name = "mongol hardsuit helmet"
