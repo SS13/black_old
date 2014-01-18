@@ -194,6 +194,23 @@
 					icon_state = "wood_tabledir2"
 				if(6)
 					icon_state = "wood_tabledir3"
+
+		else if(istype(src,/obj/structure/table/poker))
+			switch(table_type)
+				if(0)
+					icon_state = "pokertable"
+				if(1)
+					icon_state = "pokertable_1tileendtable"
+				if(2)
+					icon_state = "pokertable_1tilethick"
+				if(3)
+					icon_state = "pokertable_dir"
+				if(4)
+					icon_state = "pokertable_middle"
+				if(5)
+					icon_state = "pokertable_dir2"
+				if(6)
+					icon_state = "pokertable_dir3"
 		else
 			switch(table_type)
 				if(0)
@@ -215,12 +232,11 @@
 		else
 			dir = 2
 
-//No games, only mapping object//
-/obj/structure/table/woodentable/poker //No specialties, Just a mapping object.
+/obj/structure/table/poker //No specialties, Just a mapping object.
 	name = "gambling table"
 	desc = "A seedy table for seedy dealings in seedy places."
 	icon_state = "pokertable"
-	parts = /obj/item/weapon/table_parts/wood/poker
+	parts = /obj/item/weapon/table_parts/poker
 
 /obj/structure/table/ex_act(severity)
 	switch(severity)

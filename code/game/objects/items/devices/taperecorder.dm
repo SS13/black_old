@@ -298,5 +298,9 @@
 
 
 //Random colour tapes
-/obj/item/device/tape/random/New()
-	icon_state = "tape_[pick("white", "blue", "red", "yellow", "purple")]"
+/obj/item/device/tape/random
+	New()
+		var/color = pick("white","blue","red","yellow","purple")
+		icon_state = "tape_[color]"
+
+
