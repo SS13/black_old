@@ -1,31 +1,22 @@
 /**********************Mineral stacking unit console**************************/
 
-/obj/machinery/mineral/stacking_unit_console
+/obj/machinery/mineral/linking/stacking_unit_console
 	name = "stacking machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = 1
 	anchored = 1
 	var/obj/machinery/mineral/stacking_machine/machine = null
-	var/machinedir = SOUTHEAST
+	machinetype = "/obj/machinery/mineral/stacking_machine"
 
-/obj/machinery/mineral/stacking_unit_console/New()
-	..()
-	spawn(7)
-		src.machine = locate(/obj/machinery/mineral/stacking_machine, get_step(src, machinedir))
-		if (machine)
-			machine.CONSOLE = src
-		else
-			del(src)
-
-/obj/machinery/mineral/stacking_unit_console/process()
+/obj/machinery/mineral/linking/stacking_unit_console/process()
 	updateDialog()
 
-/obj/machinery/mineral/stacking_unit_console/attack_hand(mob/user)
+/obj/machinery/mineral/linking/stacking_unit_console/attack_hand(mob/user)
 	add_fingerprint(user)
 	interact(user)
 
-/obj/machinery/mineral/stacking_unit_console/interact(mob/user)
+/obj/machinery/mineral/linking/stacking_unit_console/interact(mob/user)
 	user.set_machine(src)
 
 	var/dat
@@ -70,7 +61,7 @@
 	user << browse("[dat]", "window=console_stacking_machine")
 	onclose(user, "console_stacking_machine")
 
-/obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
+/obj/machinery/mineral/linking/stacking_unit_console/Topic(href, href_list)
 	if(..())
 		return
 	usr.set_machine(src)
@@ -186,7 +177,7 @@
 	icon_state = "stacker"
 	density = 1
 	anchored = 1.0
-	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
+	var/obj/machinery/mineral/linking/stacking_unit_console/CONSOLE
 	var/stk_types = list()
 	var/stk_amt   = list()
 	var/obj/machinery/mineral/input = null

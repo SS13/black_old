@@ -1,31 +1,22 @@
 /**********************Mineral processing unit console**************************/
 
-/obj/machinery/mineral/processing_unit_console
+/obj/machinery/mineral/linking/processing_unit_console
 	name = "production machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = 1
 	anchored = 1
 	var/obj/machinery/mineral/processing_unit/machine = null
-	var/machinedir = EAST
+	machinetype = "/obj/machinery/mineral/processing_unit"
 
-/obj/machinery/mineral/processing_unit_console/New()
-	..()
-	spawn(7)
-		src.machine = locate(/obj/machinery/mineral/processing_unit, get_step(src, machinedir))
-		if (machine)
-			machine.CONSOLE = src
-		else
-			del(src)
-
-/obj/machinery/mineral/processing_unit_console/process()
+/obj/machinery/mineral/linking/processing_unit_console/process()
 	updateDialog()
 
-/obj/machinery/mineral/processing_unit_console/attack_hand(mob/user)
+/obj/machinery/mineral/linking/processing_unit_console/attack_hand(mob/user)
 	add_fingerprint(user)
 	interact(user)
 
-/obj/machinery/mineral/processing_unit_console/interact(mob/user)
+/obj/machinery/mineral/linking/processing_unit_console/interact(mob/user)
 	user.set_machine(src)
 
 	var/dat = "<b>Smelter control console</b><br><br>"
@@ -125,7 +116,7 @@
 	onclose(user, "console_processing_unit")
 
 
-/obj/machinery/mineral/processing_unit_console/Topic(href, href_list)
+/obj/machinery/mineral/linking/processing_unit_console/Topic(href, href_list)
 	if(..())
 		return
 	usr.set_machine(src)
