@@ -188,7 +188,7 @@ datum/gas_mixture/proc/zburn(obj/effect/decal/cleanable/liquid_fuel/liquid)
 	if(temperature > PLASMA_FLASHPOINT && !reacting)
 		reacting = 1
 
-	if(temperature > PLASMA_MINIMUM_BURN_TEMPERATURE && reacting)
+	if(temperature >= PLASMA_MINIMUM_BURN_TEMPERATURE || reacting)
 		var
 			total_fuel = toxins
 			fuel_sources = 0 //We'll divide by this later so that fuel is consumed evenly.

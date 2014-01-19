@@ -330,7 +330,7 @@ mob/living/simple_animal/borer/proc/detatch()
 		if(vent_found.network&&vent_found.network.normal_members.len)
 			var/list/vents = list()
 			for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in vent_found.network.normal_members)
-				if(temp_vent.loc == loc)
+				if((temp_vent.loc == loc)||(temp_vent.welded))
 					continue
 				vents.Add(temp_vent)
 			var/list/choices = list()

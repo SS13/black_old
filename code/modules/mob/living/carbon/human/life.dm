@@ -329,7 +329,7 @@
 		var/datum/gas_mixture/environment = loc.return_air()
 		var/datum/gas_mixture/breath
 		// HACK NEED CHANGING LATER
-		if(health < config.health_threshold_crit)
+		if((health < config.health_threshold_crit)||(shock_stage > 80))
 			losebreath++
 		if(losebreath>0) //Suffocating so do not take a breath
 			losebreath--
