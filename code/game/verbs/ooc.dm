@@ -137,15 +137,8 @@ var/global/normal_ooc_colour = "#002eb8"
 
 		if(C.prefs.toggles & CHAT_LOOC)
 			var/display_name = "ghost"
-			if(!istype(src.mob,/mob/dead/observer) || istype(M,/mob/dead/observer))
+			if(istype(src.mob,/mob/living/carbon/human) || istype(M,/mob/dead/observer) || src==M)
 				display_name = src.mob.name
-/*			var/display_name = src.key
-			if(holder)
-				if(holder.fakekey)
-					if(C.holder)
-						display_name = "[holder.fakekey]/([src.key])"
-					else
-						display_name = holder.fakekey*/
 			C << "<font color='#6699CC'><span class='ooc'><span class='prefix'>LOOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>"
 
 	for(var/client/C in admins)
