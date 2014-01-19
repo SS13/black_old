@@ -1,71 +1,110 @@
 /**********************Mineral stacking unit console**************************/
 
-/obj/machinery/mineral/linking/stacking_unit_console
+/obj/machinery/mineral/stacking_unit_console
 	name = "stacking machine console"
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = 1
 	anchored = 1
+	var/stage = 0
+	/*
+		0 - main
+		1 - connect
+	*/
 	var/obj/machinery/mineral/stacking_machine/machine = null
-	machinetype = "/obj/machinery/mineral/stacking_machine"
+	var/id = 0
 
-/obj/machinery/mineral/linking/stacking_unit_console/process()
+/obj/machinery/mineral/stacking_unit_console/New()
+	..()
+	spawn(7)
+		src.connect()
+
+/obj/machinery/mineral/stacking_unit_console/proc/connect()
+	if(!id) return
+	for (var/obj/machinery/mineral/stacking_machine/M in machines)
+		if (istype(M) && M.id == src.id)
+			src.machine = M
+			M.CONSOLE = src
+
+/obj/machinery/mineral/stacking_unit_console/process()
 	updateDialog()
 
-/obj/machinery/mineral/linking/stacking_unit_console/attack_hand(mob/user)
+/obj/machinery/mineral/stacking_unit_console/attack_hand(mob/user)
 	add_fingerprint(user)
 	interact(user)
 
-/obj/machinery/mineral/linking/stacking_unit_console/interact(mob/user)
+/obj/machinery/mineral/stacking_unit_console/interact(mob/user)
 	user.set_machine(src)
 
 	var/dat
 
 	dat += text("<b>Stacking unit console</b><br><br>")
 
-	if(machine.ore_iron)
-		dat += text("Iron: [machine.ore_iron] <A href='?src=\ref[src];release=iron'>Release</A><br>")
-	if(machine.ore_plasteel)
-		dat += text("Plasteel: [machine.ore_plasteel] <A href='?src=\ref[src];release=plasteel'>Release</A><br>")
-	if(machine.ore_glass)
-		dat += text("Glass: [machine.ore_glass] <A href='?src=\ref[src];release=glass'>Release</A><br>")
-	if(machine.ore_rglass)
-		dat += text("Reinforced Glass: [machine.ore_rglass] <A href='?src=\ref[src];release=rglass'>Release</A><br>")
-	if(machine.ore_plasma)
-		dat += text("Plasma: [machine.ore_plasma] <A href='?src=\ref[src];release=plasma'>Release</A><br>")
-	if(machine.ore_gold)
-		dat += text("Gold: [machine.ore_gold] <A href='?src=\ref[src];release=gold'>Release</A><br>")
-	if(machine.ore_silver)
-		dat += text("Silver: [machine.ore_silver] <A href='?src=\ref[src];release=silver'>Release</A><br>")
-	if(machine.ore_uranium)
-		dat += text("Uranium: [machine.ore_uranium] <A href='?src=\ref[src];release=uranium'>Release</A><br>")
-	if(machine.ore_diamond)
-		dat += text("Diamond: [machine.ore_diamond] <A href='?src=\ref[src];release=diamond'>Release</A><br>")
-	if(machine.ore_wood)
-		dat += text("Wood: [machine.ore_wood] <A href='?src=\ref[src];release=wood'>Release</A><br>")
-	if(machine.ore_cardboard)
-		dat += text("Cardboard: [machine.ore_cardboard] <A href='?src=\ref[src];release=cardboard'>Release</A><br>")
-	if(machine.ore_cloth)
-		dat += text("Cloth: [machine.ore_cloth] <A href='?src=\ref[src];release=cloth'>Release</A><br>")
-	if(machine.ore_leather)
-		dat += text("Leather: [machine.ore_leather] <A href='?src=\ref[src];release=leather'>Release</A><br>")
-	if(machine.ore_clown)
-		dat += text("Bananium: [machine.ore_clown] <A href='?src=\ref[src];release=clown'>Release</A><br>")
-	if(machine.ore_adamantine)
-		dat += text ("Adamantine: [machine.ore_adamantine] <A href='?src=\ref[src];release=adamantine'>Release</A><br>")
-	if(machine.ore_mythril)
-		dat += text ("Mythril: [machine.ore_mythril] <A href='?src=\ref[src];release=adamantine'>Release</A><br>")
+	if(stage == 1)
+		if(!machine)
+			if(!src.id)
+				dat += text("Communication circuit is dead. <br>")
+				dat += text("Replace it and try to reconnect. <br>")
+			else
+				dat += text("Couldn't locate Staking machine. Try again later. ")
+			dat += text("<A href='?src=\ref[src];page=1'>Try to reconnect</A>. <br>")
+		else
+			dat += text("Connection successfully established!")
+		dat += text("<A href='?src=\ref[src];page=0'>Return</A>. <br>")
 
-	dat += text("<br>Stacking: [machine.stack_amt]<br><br>")
+	else //if(stage == 0)
+		if(!machine)
+			dat += text("Couldn't locate Stacking machine. <br>")
+			dat += text("<A href='?src=\ref[src];page=1'>Try to reconnect</A>. <br>")
+		else
+			if(machine.ore_iron)
+				dat += text("Iron: [machine.ore_iron] <A href='?src=\ref[src];release=iron'>Release</A><br>")
+			if(machine.ore_plasteel)
+				dat += text("Plasteel: [machine.ore_plasteel] <A href='?src=\ref[src];release=plasteel'>Release</A><br>")
+			if(machine.ore_glass)
+				dat += text("Glass: [machine.ore_glass] <A href='?src=\ref[src];release=glass'>Release</A><br>")
+			if(machine.ore_rglass)
+				dat += text("Reinforced Glass: [machine.ore_rglass] <A href='?src=\ref[src];release=rglass'>Release</A><br>")
+			if(machine.ore_plasma)
+				dat += text("Plasma: [machine.ore_plasma] <A href='?src=\ref[src];release=plasma'>Release</A><br>")
+			if(machine.ore_gold)
+				dat += text("Gold: [machine.ore_gold] <A href='?src=\ref[src];release=gold'>Release</A><br>")
+			if(machine.ore_silver)
+				dat += text("Silver: [machine.ore_silver] <A href='?src=\ref[src];release=silver'>Release</A><br>")
+			if(machine.ore_uranium)
+				dat += text("Uranium: [machine.ore_uranium] <A href='?src=\ref[src];release=uranium'>Release</A><br>")
+			if(machine.ore_diamond)
+				dat += text("Diamond: [machine.ore_diamond] <A href='?src=\ref[src];release=diamond'>Release</A><br>")
+			if(machine.ore_wood)
+				dat += text("Wood: [machine.ore_wood] <A href='?src=\ref[src];release=wood'>Release</A><br>")
+			if(machine.ore_cardboard)
+				dat += text("Cardboard: [machine.ore_cardboard] <A href='?src=\ref[src];release=cardboard'>Release</A><br>")
+			if(machine.ore_cloth)
+				dat += text("Cloth: [machine.ore_cloth] <A href='?src=\ref[src];release=cloth'>Release</A><br>")
+			if(machine.ore_leather)
+				dat += text("Leather: [machine.ore_leather] <A href='?src=\ref[src];release=leather'>Release</A><br>")
+			if(machine.ore_clown)
+				dat += text("Bananium: [machine.ore_clown] <A href='?src=\ref[src];release=clown'>Release</A><br>")
+			if(machine.ore_adamantine)
+				dat += text ("Adamantine: [machine.ore_adamantine] <A href='?src=\ref[src];release=adamantine'>Release</A><br>")
+			if(machine.ore_mythril)
+				dat += text ("Mythril: [machine.ore_mythril] <A href='?src=\ref[src];release=adamantine'>Release</A><br>")
+
+			dat += text("<br>Stacking: [machine.stack_amt]<br><br>")
 
 	user << browse("[dat]", "window=console_stacking_machine")
 	onclose(user, "console_stacking_machine")
 
-/obj/machinery/mineral/linking/stacking_unit_console/Topic(href, href_list)
+/obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())
 		return
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
+
+	if(href_list["page"])
+		src.connect()
+		src.stage = text2num(href_list["page"])
+
 	if(href_list["release"])
 		switch(href_list["release"])
 			if ("plasma")
@@ -177,7 +216,8 @@
 	icon_state = "stacker"
 	density = 1
 	anchored = 1.0
-	var/obj/machinery/mineral/linking/stacking_unit_console/CONSOLE
+	var/id = 0
+	var/obj/machinery/mineral/stacking_unit_console/CONSOLE
 	var/stk_types = list()
 	var/stk_amt   = list()
 	var/obj/machinery/mineral/input = null

@@ -1,18 +1,3 @@
-/**********************Consoles************************/
-/obj/machinery/mineral/linking
-	var/machinetype = "notype"
-
-/obj/machinery/mineral/linking/New()
-	..()
-	spawn(7)
-	for (var/i=1,i<=3,i++) 				// Создаем цикл, с счетичком i (1:3)
-		if(src:machine) break			// Если консоль уже слинкована выходим из цикла
-		for(var/obj/O in view(i, src)) 	// Берем по очереди все объекты на расстоянии i от консоли
-			if(istype(O, machinetype)) 	// Если тип текущего объекта - нужая машина
-				src:machine = O			// Линкуем и выходим из ицкла
-				O:CONSOLE = src
-				break
-
 /**********************Light************************/
 
 //this item is intended to give the effect of entering the mine, so that light gradually fades
