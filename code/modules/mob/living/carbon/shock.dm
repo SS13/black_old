@@ -5,10 +5,10 @@
 /mob/living/carbon/proc/updateshock()
 	src.traumatic_shock = 			\
 	1	* src.getOxyLoss() + 		\
-	0.5	* src.getToxLoss() + 		\
-	2.5	* src.getFireLoss() + 		\
-	1.5	* src.getBruteLoss() + 		\
-	2	* src.getCloneLoss() + 		\
+	0.6	* src.getToxLoss() + 		\
+	1.5	* src.getFireLoss() + 		\
+	1.2	* src.getBruteLoss() + 		\
+	1	* src.getCloneLoss() + 		\
 	1	* src.halloss
 
 	if(reagents.has_reagent("alkysine"))
