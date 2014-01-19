@@ -65,7 +65,7 @@ Works together with spawning an observer, noted above.
 		ghost.can_reenter_corpse = can_reenter_corpse
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		ghost.key = key
-		message_admins("[key_name(usr, usr.client)] has become a ghost", 1)
+		message_admins("[key_name(ghost, ghost.client)] has become a ghost", 1)
 		return ghost
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
