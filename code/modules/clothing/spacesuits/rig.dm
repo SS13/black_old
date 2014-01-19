@@ -153,7 +153,6 @@
 	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for unathi."
 	icon_state = "rig0-syndi-unathi"
 	item_state = "syndi_helm-unathi"
-	item_color = "syndi"
 	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Skrell")
 
 /obj/item/clothing/suit/space/rig/syndi/unahti
@@ -168,7 +167,6 @@
 	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for skrell."
 	icon_state = "rig0-syndi-skrell"
 	item_state = "syndi_helm-skrell"
-	item_color = "syndi"
 	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Unathi")
 
 /obj/item/clothing/suit/space/rig/syndi/skrell
@@ -183,7 +181,6 @@
 	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for tajaran."
 	icon_state = "rig0-syndi-taj"
 	item_state = "syndi_helm-taj"
-	item_color = "syndi"
 	species_restricted = list("exclude","Skrell","Diona","Vox", "Human", "Unathi")
 
 /obj/item/clothing/suit/space/rig/syndi/tajaran

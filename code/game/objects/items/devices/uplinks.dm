@@ -108,11 +108,13 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 		randomItems.Add("/obj/item/weapon/melee/energy/sword") //Energy Sword
 		randomItems.Add("/obj/item/clothing/mask/gas/voice") //Voice Changer
 		randomItems.Add("/obj/item/device/chameleon") //Chameleon Projector
+		randomItems.Add("new /obj/item/device/flashlight/emp")//EMP jammer hidden in a flashlight
 
 	if(uses > 2)
 		randomItems.Add("/obj/item/weapon/storage/box/emps") //EMP Grenades
 		randomItems.Add("/obj/item/weapon/pen/paralysis") //Paralysis Pen
 		randomItems.Add("/obj/item/weapon/cartridge/syndicate") //Detomatix Cartridge
+		randomItems.Add("/obj/item/weapon/melee/knifezippo")//Zippo with hidden knife
 		randomItems.Add("/obj/item/clothing/under/chameleon") //Chameleon Jumpsuit
 		randomItems.Add("/obj/item/weapon/card/id/syndicate") //Agent ID Card
 		randomItems.Add("/obj/item/weapon/card/emag") //Cryptographic Sequencer
@@ -160,7 +162,7 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 				uses -= 4
 			if("/obj/item/weapon/storage/box/emps" , "new /obj/item/device/flashlight/emp", "/obj/item/weapon/pen/paralysis" , "/obj/item/weapon/cartridge/syndicate" , "/obj/item/clothing/under/chameleon" , \
 			"/obj/item/weapon/card/emag" , "/obj/item/weapon/storage/box/syndie_kit/space" , "/obj/item/device/encryptionkey/binary" , \
-			"/obj/item/weapon/storage/box/syndie_kit/imp_freedom" , "/obj/item/clothing/glasses/thermal/syndi")
+			"/obj/item/weapon/storage/box/syndie_kit/imp_freedom" , "/obj/item/clothing/glasses/thermal/syndi","/obj/item/weapon/melee/knifezippo")
 				uses -= 3
 			if("/obj/item/ammo_magazine/a357" , "/obj/item/clothing/shoes/syndigaloshes" , "/obj/item/weapon/plastique", "/obj/item/weapon/card/id/syndicate")
 				uses -= 2
@@ -222,6 +224,8 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 			feedback_add_details("traitor_uplink_items_bought","RA")
 		if("/obj/item/clothing/shoes/syndigaloshes")
 			feedback_add_details("traitor_uplink_items_bought","SH")
+		if("/obj/item/weapon/melee/knifezippo")
+			feedback_add_details("traitor_uplink_items_bought","ZP")
 		if("/obj/item/weapon/plastique")
 			feedback_add_details("traitor_uplink_items_bought","C4")
 		if("/obj/item/weapon/soap/syndie")

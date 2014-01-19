@@ -697,11 +697,11 @@ obj/item/toy/cards/attackby(obj/item/toy/cardhand/C, mob/living/user)
 		else if(cards.len > 1)
 			src.icon_state = "deck_low"
 
-/*obj/item/toy/cards/MouseDrop(atom/over_object)
+obj/item/toy/cards/MouseDrop(atom/over_object)
 	var/mob/M = usr
 	if(usr.stat || !ishuman(usr) || !usr.canmove || usr.restrained())
 		return
-	if(Adjacent(usr))
+	if (usr in range(1))
 		if(over_object == M)
 			M.put_in_hands(src)
 			usr << "<span class='notice'>You pick up the deck.</span>"
@@ -717,7 +717,7 @@ obj/item/toy/cards/attackby(obj/item/toy/cardhand/C, mob/living/user)
 					M.put_in_l_hand(src)
 					usr << "<span class='notice'>You pick up the deck.</span>"
 	else
-		usr<< "<span class='notice'>You can't reach it from here.</span>"*/
+		usr<< "<span class='notice'>You can't reach it from here.</span>"
 
 
 
