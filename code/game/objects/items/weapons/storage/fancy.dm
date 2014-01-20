@@ -156,7 +156,7 @@
 	flags = TABLEPASS
 	slot_flags = SLOT_BELT
 	storage_slots = 6
-	can_hold = list("/obj/item/clothing/mask/cigarette,/obj/item/weapon/lighter/")
+	can_hold = list("/obj/item/clothing/mask/cigarette", "/obj/item/weapon/lighter/")
 	icon_type = "cigarette"
 
 /obj/item/weapon/storage/fancy/cigarettes/New()
