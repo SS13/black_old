@@ -65,7 +65,7 @@
 	icon_state = "tacticalvest"
 	item_state = "armor"
 	blood_overlay_type = "armor"
-	armor = list(melee = 20, bullet = 40, laser = 20, energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 30, bullet = 60, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0)
 	siemens_coefficient = 0.7
 
 /obj/item/clothing/suit/armor/tactical/green

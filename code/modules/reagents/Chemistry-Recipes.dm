@@ -1568,7 +1568,7 @@ datum
 			result_amount = 3
 
 		kingsmen
-			name = "Gin and Tonic"
+			name = "All The King`s Men"
 			id = "kingsmen"
 			result = "kingsmen"
 			required_reagents = list("wine" = 2, "tequila" = 1, "beer" = 1)
