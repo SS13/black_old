@@ -150,7 +150,9 @@
 	new /obj/item/clothing/suit/prosecutor_jacket(src.loc)
 	new /obj/item/clothing/under/prosecutor_suit(src.loc)
 	new /obj/item/weapon/melee/scourge(src.loc)
-	new	/obj/item/clothing/gloves/black
+	new /obj/item/clothing/shoes/jackboots(src.loc)
+	new	/obj/item/clothing/gloves/black(src.loc)
+
 	del(src)
 
 /obj/effect/landmark/costume/scratch/New()

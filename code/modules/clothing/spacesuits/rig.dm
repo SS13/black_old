@@ -153,7 +153,7 @@
 	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for unathi."
 	icon_state = "rig0-syndi-unathi"
 	item_state = "syndi_helm-unathi"
-	item_color = "syndi"
+	item_color = "syndi-unathi"
 	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Skrell")
 
 /obj/item/clothing/suit/space/rig/syndi/unahti
@@ -168,7 +168,7 @@
 	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for skrell."
 	icon_state = "rig0-syndi-skrell"
 	item_state = "syndi_helm-skrell"
-	item_color = "syndi"
+	item_color = "syndi-skrell"
 	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Unathi")
 
 /obj/item/clothing/suit/space/rig/syndi/skrell
@@ -183,7 +183,7 @@
 	desc = "An advanced helmet designed for work in special operations. Property of Gorlex Marauders. This one is for tajaran."
 	icon_state = "rig0-syndi-taj"
 	item_state = "syndi_helm-taj"
-	item_color = "syndi"
+	item_color = "syndi-taj"
 	species_restricted = list("exclude","Skrell","Diona","Vox", "Human", "Unathi")
 
 /obj/item/clothing/suit/space/rig/syndi/tajaran
@@ -256,19 +256,20 @@
 	name = "security hardsuit helmet"
 	desc = "A special helmet designed for work in a hazardous, low pressure environment. Has an additional layer of armor."
 	icon_state = "rig0-altsec"
-	item_state = "sec_helm"
+	item_state = "altsec"
 
 /obj/item/clothing/suit/space/rig/security/alt
 	icon_state = "rig-altsec"
 	name = "security hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
-	item_state = "sec_hardsuit"
+	item_state = "rig-altsec"
 
 	//Mongol
 /obj/item/clothing/head/helmet/space/rig/security/mongol
 	name = "mongol hardsuit helmet"
 	icon_state = "rig0_mongol"
 	item_state = "mongol"
+	item_color = "mongol"
 
 /obj/item/clothing/suit/space/rig/security/mongol
 	name = "mongol hardsuit"
@@ -285,6 +286,7 @@
 	name = "samurai hardsuit helmet"
 	icon_state = "rig0_samurai_helm"
 	item_state = "rig0_samurai_helm"
+	item_color = "samurai_helm"
 
 //HoS` personal
 
@@ -292,17 +294,17 @@
 	icon_state = "rig_hos"
 	name = "head of security hardsuit"
 	desc = "A special suit that protects against hazardous, low pressure environments. This one is somewhat sturdier than usual, handmade for security chief himself."
-	item_state = "hosrig"
+	item_state = "rig_hos"
 	armor = list(melee = 25, bullet = 30, laser = 40, energy = 25, bomb = 45, bio = 100, rad = 10)
 	allowed = list(/obj/item/weapon/gun,/obj/item/device/flashlight,/obj/item/weapon/tank,/obj/item/weapon/melee/baton)
 	siemens_coefficient = 0.7
 
 
 /obj/item/clothing/head/helmet/space/rig/secutityhoshelm
-	name = "head Of security hardsuit helmet"
+	name = "head of security hardsuit helmet"
 	desc = "A special suit that protects against hazardous, low pressure environments. This one is somewhat sturdier than usual, handmade for security chief himself."
 	icon_state = "rig0-hos"
-	item_state = "hoshelm"
+	item_state = "rig0-hos"
 
 
 //Atmospherics Rig (BS12)

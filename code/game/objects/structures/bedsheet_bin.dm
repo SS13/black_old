@@ -92,7 +92,20 @@ LINEN BINS
 	icon_state = "sheetbrown"
 	item_color = "brown"
 
+/obj/item/weapon/bedsheet/prison
+	icon_state = "sheetprison"
+	item_color = "prison"
 
+/obj/item/weapon/bedsheet/love
+	icon_state = "sheetlove"
+	item_color = "love"
+
+/obj/item/weapon/bedsheet/centcom
+	icon_state = "sheetcentcom"
+	item_color = "centcom"
+/obj/item/weapon/bedsheet/syndie
+	icon_state = "sheetsyndie"
+	item_color = "syndie"
 
 
 /obj/structure/bedsheetbin

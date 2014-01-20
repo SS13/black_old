@@ -8,6 +8,16 @@
 	desc = "A heavy box used for storing ore."
 	density = 1
 
+/obj/structure/ore_box/New()
+	if (prob(50))
+		icon_state = "orebox1"
+		name = "Rugged Ore Box"
+		desc = "A heavy box used for storing ore. This one looks old."
+	else
+		icon_state = "orebox0"
+		name = "Ore Box"
+		desc = "A heavy box used for storing ore."
+
 /obj/structure/ore_box/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/ore))
 		src.contents += W;

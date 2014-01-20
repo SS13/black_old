@@ -6,6 +6,8 @@
  *		Energy Blade
  *		Energy Axe
  *		Energy Shield
+ *		Knife Zippo
+ *		Balisong
  */
 
 /*
@@ -257,3 +259,133 @@
 		user << "\blue [src] can now be concealed."
 	add_fingerprint(user)
 	return
+
+//Knife Zippo//
+
+/obj/item/weapon/melee/knifezippo
+	name = "Zippo lighter"
+	desc = "The zippo."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "knifezippo"
+	item_state = "knifezippo"
+	flags = FPRINT | TABLEPASS
+	slot_flags = SLOT_BELT
+	w_class = 2
+	force = 3
+	var/on = 0
+
+
+/obj/item/weapon/melee/knifezippo/attack_self(mob/user as mob)
+	on = !on
+	if(on)
+		user.visible_message("You hear a click.")
+		icon_state = "knifezippoon"
+		item_state = "knifezippoon"
+		w_class = 3
+		force = 10
+		attack_verb = list("stabbed", "cut", "slashed")
+	else
+		user.visible_message("You hear a click.")
+		icon_state = "knifezippo"
+		item_state = "knifezippo"
+		w_class = 2
+		force = 3
+		attack_verb = list("hit", "punched")
+	playsound(src.loc, 'sound/weapons/empty.ogg', 20, 1)
+	add_fingerprint(user)
+
+	if(blood_overlay && (blood_DNA.len >= 1))
+		overlays.Cut()
+
+		var/icon/I = new /icon(src.icon, src.icon_state)
+		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)),ICON_ADD)
+		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY)
+		blood_overlay = I
+
+		overlays += blood_overlay
+
+	return
+
+/obj/item/weapon/melee/knifezippo/attack(mob/target as mob, mob/living/user as mob)
+	if(on)
+		if ((CLUMSY in user.mutations) && prob(50))
+			user << "\red You slash yourself over the head."
+			user.Weaken(3 * force)
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				H.apply_damage(2*force, BRUTE, "head")
+			else
+				user.take_organ_damage(2*force)
+			return
+
+		if(!..()) return
+		playsound(user, 'sound/weapons/bladeslice.ogg', 30, 1)
+		return
+	else
+		return ..()
+
+//Balisong//
+
+/obj/item/weapon/melee/balisong
+	name = "balisong knife"
+	desc = "Robust, easily concealable wepon of choice of professional spies or generic back-alley robbers."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "closedbalisong"
+	item_state = "closedbalisong"
+	flags = FPRINT | TABLEPASS
+	slot_flags = SLOT_BELT
+	w_class = 2
+	force = 3
+	var/on = 0
+
+
+/obj/item/weapon/melee/balisong/attack_self(mob/user as mob)
+	on = !on
+	if(on)
+		user.visible_message("\red With a flick of their wrist, [user] opens their butterfly knife!",\
+		"\red You open the balisong.")
+		icon_state = "openbalisong"
+		item_state = "openbalisong"
+		w_class = 3
+		force = 13
+		attack_verb = list("stabbed", "cut", "slashed")
+	else
+		user.visible_message("\blue [user] closes their butterfly knife in a fast sharp movement of a wrist.",\
+		"\blue You close the knife.")
+		icon_state = "closedbalisong"
+		item_state = "closedbalisong"
+		w_class = 2
+		force = 3
+		attack_verb = list("hit", "punched")
+	playsound(src.loc, 'sound/weapons/empty.ogg', 20, 1)
+	add_fingerprint(user)
+
+	if(blood_overlay && (blood_DNA.len >= 1))
+		overlays.Cut()
+
+		var/icon/I = new /icon(src.icon, src.icon_state)
+		I.Blend(new /icon('icons/effects/blood.dmi', rgb(255,255,255)),ICON_ADD)
+		I.Blend(new /icon('icons/effects/blood.dmi', "itemblood"),ICON_MULTIPLY)
+		blood_overlay = I
+
+		overlays += blood_overlay
+
+	return
+
+/obj/item/weapon/melee/balisong/attack(mob/target as mob, mob/living/user as mob)
+	if(on)
+		if ((CLUMSY in user.mutations) && prob(50))
+			user << "\red You don`t heave the required dexterity - you slash yourself on the chest!"
+			user.Weaken(3 * force)
+			if(ishuman(user))
+				var/mob/living/carbon/human/H = user
+				H.apply_damage(2*force, BRUTE, "chest")
+			else
+				user.take_organ_damage(2*force)
+			return
+
+		if(!..()) return
+		playsound(user, 'sound/weapons/bladeslice.ogg', 30, 1)
+		return
+	else
+		return ..()
