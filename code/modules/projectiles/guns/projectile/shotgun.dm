@@ -37,8 +37,8 @@
 		playsound(M, 'sound/weapons/shotgunpump.ogg', 60, 1)
 		pumped = 0
 		if(current_shell)//We have a shell in the chamber
-			current_shell.loc = get_turf(src)//Eject casing
 			playsound(M, 'sound/weapons/shotgunshelldrop.ogg', 60, 1)
+			current_shell.loc = get_turf(src)//Eject casing
 			current_shell = null
 			if(in_chamber)
 				in_chamber = null

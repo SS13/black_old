@@ -126,6 +126,32 @@
 	desc = "It's worth 1000 credits."
 	worth = 1000
 
+/obj/item/weapon/strangecash
+	name = "uncommon cash"
+	desc = "A stack of uncommon cash. Who issued it?"
+	icon_state = "strangecash"
+	w_class = 1.0
+	throwforce = 2
+	throw_speed = 2
+	throw_range = 3
+
+/obj/item/weapon/strangecash2
+	name = "uncommon cash"
+	desc = "A stack of uncommon cash. Who issued it?"
+	icon_state = "strangecash2"
+	w_class = 1.0
+	throwforce = 2
+	throw_speed = 2
+	throw_range = 3
+
+/obj/item/weapon/strangecash3
+	name = "uncommon cash"
+	desc = "A stack of uncommon cash. Who issued it?"
+	icon_state = "strangecash3"
+	w_class = 1.0
+	throwforce = 2
+	throw_speed = 2
+	throw_range = 3
 
 /obj/item/weapon/bananapeel
 	name = "banana peel"

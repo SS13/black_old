@@ -98,6 +98,7 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 		randomItems.Add("/obj/item/device/radio/beacon/syndicate") //Singularity Beacon
 
 	if(uses > 5)
+		randomItems.Add("new /obj/item/device/flashlight/emp")//EMP jammer hidden in a flashlight
 		randomItems.Add("/obj/item/weapon/gun/projectile") //Revolver
 
 	if(uses > 4)
@@ -108,7 +109,6 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 		randomItems.Add("/obj/item/weapon/melee/energy/sword") //Energy Sword
 		randomItems.Add("/obj/item/clothing/mask/gas/voice") //Voice Changer
 		randomItems.Add("/obj/item/device/chameleon") //Chameleon Projector
-		randomItems.Add("new /obj/item/device/flashlight/emp")//EMP jammer hidden in a flashlight
 
 	if(uses > 2)
 		randomItems.Add("/obj/item/weapon/storage/box/emps") //EMP Grenades
@@ -158,9 +158,9 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 				uses -= 6
 			if("/obj/item/weapon/gun/energy/crossbow" , "/obj/item/device/powersink")
 				uses -= 5
-			if("/obj/item/weapon/melee/energy/sword" , "/obj/item/clothing/mask/gas/voice" , "/obj/item/device/chameleon")
+			if("/obj/item/weapon/melee/energy/sword" , "/obj/item/clothing/mask/gas/voice" , "/obj/item/device/chameleon" , "/obj/item/device/flashlight/emp")
 				uses -= 4
-			if("/obj/item/weapon/storage/box/emps" , "new /obj/item/device/flashlight/emp", "/obj/item/weapon/pen/paralysis" , "/obj/item/weapon/cartridge/syndicate" , "/obj/item/clothing/under/chameleon" , \
+			if("/obj/item/weapon/storage/box/emps" , "/obj/item/weapon/pen/paralysis" , "/obj/item/weapon/cartridge/syndicate" , "/obj/item/clothing/under/chameleon" , \
 			"/obj/item/weapon/card/emag" , "/obj/item/weapon/storage/box/syndie_kit/space" , "/obj/item/device/encryptionkey/binary" , \
 			"/obj/item/weapon/storage/box/syndie_kit/imp_freedom" , "/obj/item/clothing/glasses/thermal/syndi","/obj/item/weapon/melee/knifezippo")
 				uses -= 3

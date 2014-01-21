@@ -111,6 +111,7 @@
 		if (prob (20))
 			H << "<span class='userdanger'>You slip on the puddle of vomit and fall down!.</span>"
 			playsound(src.loc, 'sound/misc/slip.ogg', 50, 1)
+			H.apply_damage(4,BRUTE,(pick("l_leg", "r_leg", "chest", "groin", "head")))
 			H.Weaken(1)
 
 

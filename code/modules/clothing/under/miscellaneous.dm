@@ -233,7 +233,7 @@
 
 /obj/item/clothing/under/soviet/ks13officer
 	name = "KS13 officer uniform"
-	desc = "Standart-issue uniform for tovarischi komandiri from KS13. It`s somewhat rugged and smells of beet and gasoline. "
+	desc = "Standart-issue uniform for tovarischi komandiri from KS13. It`s somewhat rugged and smells of beetroot and gasoline. "
 	icon_state = "ks13suitofficer"
 	item_state = "ks13suitofficer"
 	item_color = "ks13suitofficer"
