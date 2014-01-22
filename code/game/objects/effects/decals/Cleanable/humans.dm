@@ -66,6 +66,21 @@
 	random_icon_states = list("gibbl1", "gibbl2", "gibbl3", "gibbl4", "gibbl5")
 	amount = 2
 
+/obj/effect/decal/cleanable/blood/handprints
+	icon_state = "bloodhandprints"
+	random_icon_states = list("bloodhandprints", "bloodhandprints2")
+	amount = 0
+
+/obj/effect/decal/cleanable/blood/honk
+	icon_state = "honk"
+	random_icon_states = list("honk")
+	amount = 0
+
+/obj/effect/decal/cleanable/blood/safe
+	icon_state = "safe"
+	random_icon_states = list("safe")
+	amount = 0
+
 /obj/effect/decal/cleanable/blood/footprints
 	name = "bloody footprints"
 	desc = "Whoops..."

@@ -75,6 +75,7 @@
 				for(var/mob/M in viewers(user))
 					if(M == user) continue
 					M << "[user] activates the power sink!"
+					message_admins("Power sink activated by [key_name(user, user.client)](<A HREF='?_src_=holder;adminmoreinfo=\ref[user]'>?</A>) at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)")
 				mode = 2
 				icon_state = "powersink1"
 				processing_objects.Add(src)
@@ -114,6 +115,7 @@
 
 			if(power_drained > max_power * 0.95)
 				playsound(src, 'sound/effects/screech.ogg', 100, 1, 1)
+				message_admins("Power sink at ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>) is about to explode")
 			if(power_drained >= max_power)
 				processing_objects.Remove(src)
 				explosion(src.loc, 3,6,9,12)

@@ -214,61 +214,66 @@
 	attack_verb = list("attacked", "poked", "hit", "whacked")
 
 /obj/item/weapon/hatajirushi/med
-	name = "hatajirushi"
 	desc = "This is a banner with your mon. Let your enemies know who defeated them. This one is Medbay"
 	icon_state = "hatajirushimedbay"
 	item_state = "hatajirushimedbay"
-	flags = FPRINT | TABLEPASS | CONDUCT
-	slot_flags = SLOT_BACK
-	force = 5
-	throwforce = 10
-	w_class = 3
-	attack_verb = list("attacked", "poked", "hit", "whacked")
+
 
 /obj/item/weapon/hatajirushi/cargo
-	name = "hatajirushi"
-	desc = "This is a banner with your mon. Let your enemies know who defeated them.This one is Cargobay"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them. This one is Cargobay"
 	icon_state = "hatajirushicargo"
 	item_state = "hatajirushicargo"
-	flags = FPRINT | TABLEPASS | CONDUCT
-	slot_flags = SLOT_BACK
-	force = 5
-	throwforce = 10
-	w_class = 3
-	attack_verb = list("attacked", "poked", "hit", "whacked")
 
 /obj/item/weapon/hatajirushi/rnd
-	name = "hatajirushi"
-	desc = "This is a banner with your mon. Let your enemies know who defeated them.This one is RnD"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them. This one is RnD"
 	icon_state = "hatajirushirnd"
 	item_state = "hatajirushirnd"
-	flags = FPRINT | TABLEPASS | CONDUCT
-	slot_flags = SLOT_BACK
-	force = 5
-	throwforce = 10
-	w_class = 3
-	attack_verb = list("attacked", "poked", "hit", "whacked")
+
 
 /obj/item/weapon/hatajirushi/engie
-	name = "hatajirushi"
-	desc = "This is a banner with your mon. Let your enemies know who defeated them.This one is Engieneering"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them. This one is Engieneering"
 	icon_state = "hatajirushiengineering"
 	item_state = "hatajirushiengineering"
-	flags = FPRINT | TABLEPASS | CONDUCT
-	slot_flags = SLOT_BACK
-	force = 5
-	throwforce = 10
-	w_class = 3
-	attack_verb = list("attacked", "poked", "hit", "whacked")
+
 
 /obj/item/weapon/hatajirushi/greytide
-	name = "hatajirushi"
-	desc = "This is a banner with your mon. Let your enemies know who defeated them.This one is Grey Ronins"
+	desc = "This is a banner with your mon. Let your enemies know who defeated them. This one is Grey Ronins"
 	icon_state = "hatajirushigreytide"
 	item_state = "hatajirushigreytide"
+
+
+/*obj/item/weapon/wirerod
+	name = "wired rod"
+	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
+	icon_state = "wiredrod"
+	item_state = "rods"
 	flags = FPRINT | TABLEPASS | CONDUCT
-	slot_flags = SLOT_BACK
-	force = 5
+	force = 9
 	throwforce = 10
 	w_class = 3
-	attack_verb = list("attacked", "poked", "hit", "whacked")
+	m_amt = 1875
+	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
+
+obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
+	..()
+	if(istype(I, /obj/item/weapon/shard))
+		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
+
+		user.before_take_item(I)
+		user.before_take_item(src)
+
+		user.put_in_hands(S)
+		user << "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>"
+		del(I)
+		del(src)
+
+	else if(istype(I, /obj/item/weapon/wirecutters))
+		var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
+
+		user.before_take_item(I)
+		user.before_take_item(src)
+
+		user.put_in_hands(P)
+		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
+		del(I)
+		del(src)*/

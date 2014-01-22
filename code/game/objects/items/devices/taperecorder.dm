@@ -5,8 +5,8 @@
 	item_state = "analyzer"
 	w_class = 2
 	slot_flags = SLOT_BELT
-	m_amt = 60
-	g_amt = 30
+	m_amt = 180
+	g_amt = 120
 	force = 2
 	throwforce = 2
 	var/recording = 0
@@ -262,8 +262,8 @@
 	icon_state = "tape_white"
 	item_state = "analyzer"
 	w_class = 1
-	m_amt = 20
-	g_amt = 5
+	m_amt = 40
+	g_amt = 40
 	force = 1
 	throwforce = 1
 	var/max_capacity = 600

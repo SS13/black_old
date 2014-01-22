@@ -41,6 +41,11 @@
 		usr << "\red You have deadchat muted."
 		return
 
+	if(!src.client.holder)
+		if(!dsay_allowed)
+			src << "\red Deadchat is globally muted"
+			return
+
 	if(mind && mind.name)
 		name = "[mind.name]"
 	else
