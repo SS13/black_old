@@ -1,4 +1,4 @@
-/sound/turntable/test
+./sound/turntable/test
 	file = 'TestLoop1.ogg'
 	falloff = 2
 	repeat = 1
@@ -13,26 +13,26 @@
 	var/playing = 0
 	anchored = 1
 	density = 1
-	var/list/songs = list ("Jawa Bar",
-		"Lonely Assistant Blues",
-		"Chinatown",
-		"Wade In The Water",
-		"Blue Theme",
-		"Beyond The Sea",
-		"The Assassination of Jesse James",
-		"Everyone Has Their Vices",
-		"The Way You Look Tonight",
-		"They Were All Dead",
-		"Onizukas Blues",
-		"Ragtime Piano",
-		"It Had To Be You",
-		"Janitorial Blues",
-		"Lujon",
-		"Mute Beat",
-		"Groovy Times",
-		"Under My Skin",
-		"That`s All",
-		"The Folks On The Hill")
+	var/list/songs = list ("Jawa Bar"='Cantina.ogg',
+		"Lonely Assistant Blues"='AGrainOfSandInSandwich.ogg',
+		"Chinatown"='chinatown.ogg',
+		"Wade In The Water"='WadeInTheWater.ogg',
+		"Blue Theme"='BlueTheme.ogg',
+		"Beyond The Sea"='BeyondTheSea.ogg',
+		"The Assassination of Jesse James"='TheAssassinationOfJesseJames.ogg',
+		"Everyone Has Their Vices"='EveryoneHasTheirVices.ogg',
+		"The Way You Look Tonight"='TheWayYouLookTonight.ogg',
+		"They Were All Dead"='TheyWereAllDead.ogg',
+		"Onizukas Blues"='OnizukasBlues.ogg',
+		"Ragtime Piano"='TheEntertainer.ogg',
+		"It Had To Be You"='ItHadToBeYou.ogg',
+		"Janitorial Blues"='KyouWaYuuhiYarou.ogg',
+		"Lujon"='Lujon.ogg',
+		"Mute Beat"='MuteBeat.ogg',
+		"Groovy Times"='GroovyTime.ogg',
+		"Under My Skin"='IveGotYouUnderMySkin.ogg',
+		"That`s All"='ThatsAll.ogg',
+		"The Folks On The Hill"='TheFolksWhoLiveOnTheHill.ogg')
 
 
 /obj/machinery/party/mixer
@@ -59,16 +59,17 @@
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 
-	var/t = "<body background = 'turntable.png' ><br><br><br><div align='center'>"
-	t += "<B><font color='maroon' size='6'>J</font><font size='5' color='purple'>uke Box</font> <font size='5' color='green'>Interface</font></B>"
-	t += "<br><br><br><br><A href='?src=\ref[src];off=1'><font color='maroon'>T</font><font color='geen'>urn</font> <font color='red'>Off</font></A>"
-	t += "<table border='0'><tr>"
+	var/t = "<body background=turntable.png ><br><br><br><br><br><br><br><br><br><br><br><br><div align='center'>"
+	t += "<A href='?src=\ref[src];off=1'><font color='maroon'>T</font><font color='geen'>urn</font> <font color='red'>Off</font></A>"
+	t += "<table border='0' height='25' width='300'><tr>"
+
 	for (var/i = 1, i<=(songs.len), i++)
-		var/check = i%3
-		t += "<td height='25' weight='70'><A href='?src=\ref[src];on=[i]'><font color='maroon'>[copytext(songs[i],1,2)]</font><font color='[(check==2) ? "green" : "purple"]'>[copytext(songs[i],2)]</font></A></td>"
+		var/check = i%2
+		t += "<td><A href='?src=\ref[src];on=[i]'><font color='maroon'>[copytext(songs[i],1,2)]</font><font color='purple'>[copytext(songs[i],2)]</font></A></td>"
 		if(!check) t += "</tr><tr>"
+
 	t += "</tr></table></div></body>"
-	user << browse(t, "window=turntable;size=450x700")
+	user << browse(t, "window=turntable;size=500x636;can_resize=0")
 	onclose(user, "urntable")
 	return
 
@@ -78,37 +79,13 @@
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S
-			switch (text2num(href_list["on"]))
-				if(1) S = sound('Cantina.ogg')
-				if(2) S = sound('AGrainOfSandInSandwich.ogg')
-				if(3) S = sound('chinatown.ogg')
-				if(4) S = sound('WadeInTheWater.ogg')
-				if(5) S = sound('BlueTheme.ogg')
-				if(6) S = sound('BeyondTheSea.ogg')
-				if(7) S = sound('TheAssassinationOfJesseJames.ogg')
-				if(8) S = sound('EveryoneHasTheirVices.ogg')
-				if(9) S = sound('TheWayYouLookTonight.ogg')
-				if(10) S = sound('TheyWereAllDead.ogg')
-				if(11) S = sound('OnizukasBlues.ogg')
-				if(12) S = sound('TheEntertainer.ogg')
-				if(13) S = sound('ItHadToBeYou.ogg')
-				if(14) S = sound('KyouWaYuuhiYarou.ogg')
-				if(15) S = sound('Lujon.ogg')
-				if(16) S = sound('MuteBeat.ogg')
-				if(17) S = sound('GroovyTime.ogg')
-				if(18) S = sound('IveGotYouUnderMySkin.ogg')
-				if(19) S = sound('ThatsAll.ogg')
-				if(20) S = sound('TheFolksWhoLiveOnTheHill.ogg')
+			S = sound(songs[songs[text2num(href_list["on"])]])
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
 			S.wait = 1
 			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
+
 			var/area/A = src.loc.loc:master
 
 			for(var/area/RA in A.related)
@@ -266,14 +243,8 @@
 				X++
 
 
-
 /obj/machinery/party/lasermachine/proc/turnoff()
 	var/area/A = src.loc.loc
 	for(var/area/RA in A.related)
 		for(var/obj/effects/laser/F in RA)
 			del(F)
-
-
-
-
-
