@@ -1202,6 +1202,10 @@ proc/process_ghost_teleport_locs()
 	name = "\improper Prison Wing"
 	icon_state = "sec_prison"
 
+/area/security/permabrig
+ 	name = "\improper Permanent Cell"
+ 	icon_state = "permabrig"
+
 /area/security/warden
 	name = "\improper Warden"
 	icon_state = "Warden"

@@ -135,23 +135,12 @@
 	throw_speed = 2
 	throw_range = 3
 
-/obj/item/weapon/strangecash2
-	name = "uncommon cash"
-	desc = "A stack of uncommon cash. Who issued it?"
+/obj/item/weapon/strangecash/c100
 	icon_state = "strangecash2"
-	w_class = 1.0
-	throwforce = 2
-	throw_speed = 2
-	throw_range = 3
 
-/obj/item/weapon/strangecash3
-	name = "uncommon cash"
-	desc = "A stack of uncommon cash. Who issued it?"
+/obj/item/weapon/strangecash/c1000
 	icon_state = "strangecash3"
-	w_class = 1.0
-	throwforce = 2
-	throw_speed = 2
-	throw_range = 3
+
 
 /obj/item/weapon/bananapeel
 	name = "banana peel"

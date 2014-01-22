@@ -603,7 +603,7 @@
 					name = "Glass of Melon Liquor"
 					desc = "A relatively sweet and fruity 46 proof liquor."
 				if("limoncello")
-					icon_state = "limoncellolass"
+					icon_state = "limoncelloglass"
 					name = "Glass of Limoncello"
 					desc = "Natural lemons used, no artificial colors added."
 				if("panache")
