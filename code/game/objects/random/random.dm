@@ -38,6 +38,22 @@
 					/obj/item/weapon/wrench,\
 					/obj/item/device/flashlight)
 
+/obj/random/coin
+	name = "Random Coin"
+	desc = "This is a random coin"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "coin_gold"
+	item_to_spawn()
+		return pick(prob(4);/obj/item/weapon/coin/gold,\
+					prob(6);/obj/item/weapon/coin/silver,\
+					prob(1);/obj/item/weapon/coin/diamond,\
+					prob(1);/obj/item/weapon/coin/plasma,\
+					prob(1);/obj/item/weapon/coin/uranium,\
+					/*prob(4);/obj/item/weapon/coin/clown,\
+					prob(2);/obj/item/weapon/coin/adamantine,\
+					prob(1);/obj/item/weapon/coin/mythril,\*/
+					prob(12);/obj/item/weapon/coin/iron)
+
 
 /obj/random/technology_scanner
 	name = "Random Scanner"
@@ -58,9 +74,9 @@
 	item_to_spawn()
 		return pick(prob(10);/obj/item/weapon/cell/crap,\
 					prob(40);/obj/item/weapon/cell,\
-					prob(40);/obj/item/weapon/cell/high,\
-					prob(9);/obj/item/weapon/cell/super,\
-					prob(1);/obj/item/weapon/cell/hyper)
+					prob(20);/obj/item/weapon/cell/high)
+					//prob(9);/obj/item/weapon/cell/super,\
+					//prob(1);/obj/item/weapon/cell/hyper)
 
 
 /obj/random/bomb_supply
@@ -99,9 +115,28 @@
 					prob(1);/obj/item/weapon/extinguisher,\
 					prob(1);/obj/item/clothing/gloves/fyellow,\
 					prob(4);/obj/item/weapon/cable_coil,\
-					prob(3);/obj/random/toolbox,\
+					prob(2);/obj/random/toolbox,\
 					prob(1);/obj/item/weapon/storage/belt/utility,\
 					prob(6);/obj/random/tool)
+
+
+/obj/random/bureaucracy
+	name = "Random Folders Or Pens"
+	desc = "This is a random desc clutter."
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "folder_yellow"
+	item_to_spawn()
+		return pick(prob(4);/obj/item/weapon/folder/blue,\
+					prob(4);/obj/item/weapon/folder/red,\
+					prob(4);/obj/item/weapon/folder,\
+					prob(5);/obj/item/weapon/folder/yellow,\
+					prob(1);/obj/item/weapon/folder/white,\
+					prob(1);/obj/item/weapon/folder/green,\
+					prob(3);/obj/item/weapon/pen/blue,\
+					prob(1);/obj/item/weapon/pen/red,\
+					prob(3);/obj/item/weapon/pen,\
+					prob(3);/obj/item/weapon/paper)
+
 
 
 /obj/random/ashtray
@@ -127,5 +162,6 @@
 					prob(8);/obj/item/weapon/dice,\
 					prob(2);/obj/item/weapon/dice/d4,\
 					prob(4);/obj/item/weapon/dice/d10,\
+					prob(4);/obj/item/weapon/dice/d8,\
 					prob(4);/obj/item/weapon/dice/d00,\
 					prob(5);/obj/item/weapon/dice/d12)

@@ -100,12 +100,13 @@ datum/event/pda_spam
 					"See hot officers whip their batons our at hornysec.snd!",\
 					"The Syndicate brings you your favourite security guys...their pulsating batons out! hornysec.snd",\
 					"Visit hornysec.snd to see what NT censors don`t want you to see. Click the link!")
+
 				if(10)
 					sender = pick("vladislav@okhotsk14.ks","tovarisch.ks","komdiv@spaceredarmy.ks","ivan@okhotsk14.ks","sergeantprihodkov@okhotsk14.ks")
 					message = pick("Comrade! The Motherland calls for you to click this link please honesty no spam money you lose. Click to winned, motherland calls, thanks you.",\
 					"Click link, tovarisch, i no spam. I friend you, now click link. please, Thanks you. Not spam.",\
-					"YOu click dis link, tovarisch, you get rich! earns million credits! do like Me did, yes? Click link please. Not spam. ",\
-					"Hey, this is you Russian penfriend! Long time no see, yes? Now pleas clicked that links i send you now thank you. Not spam, you not lose money. Good bye. Clicks link, yes? ")
+					"YOu click dis link, tovarisch, you get rich! earns million credits! do like Me did, yes? Click link please. Not spam.",\
+					"Hey, this is you Russian penfriend! Long time no see, yes? Now pleas clicked that links i send you now thank you. Not spam, you not lose money. Good bye. Clicks link, yes?")
 
 			useMS.send_pda_message("[P.owner]", sender, message)
 

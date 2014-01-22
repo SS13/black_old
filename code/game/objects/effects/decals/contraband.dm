@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 49
+#define NUM_OF_POSTER_DESIGNS 48
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -229,10 +229,6 @@ obj/structure/sign/poster/New(var/serial)
 		if(48)
 			name += " - Responsible medbay habits, No #259"
 			desc += "A poster with a nervous looking geneticist on it states; \"Friends Don't Tell Friends They're Clones. It can cause severe and irreparable emotional trauma. Always do the right thing and never tell them that they were dead.\""
-
-		if(49)
-			name += " - Irresponsible medbay habits, No #2"
-			desc += "This is a safety poster starring a perverted looking naked doctor. \"Sexual harassment is never okay. REPORT any acts of sexual deviance or harassment that disrupt a healthy working environment.\""
 
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"

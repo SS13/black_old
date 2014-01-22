@@ -1,3 +1,5 @@
+1337-Machine
+144-657/1
 1-Rover-1
 16-20
 7-Zark-7
@@ -14,6 +16,7 @@ Amplitude
 Android
 Aniel
 Asimov
+Assistant
 ASTAR
 Astor
 Atari
@@ -39,6 +42,7 @@ Computer
 Conky 2000
 Cutie
 Data
+Dave
 Decimus
 Dee Model
 Deep Thought
@@ -51,6 +55,7 @@ Duey
 E-Man
 E.D.I.
 ED-209
+ED-E
 Emma-2
 Entropy
 Erasmus
@@ -66,10 +71,13 @@ Frost
 Fum
 Futura
 G2
+G.E.R.T.Y.
 George
 Gnut
 Goro
 Gort
+Gorrister
+Gwaed-E
 H.A.R.L.I.E.
 H.E.L.P.eR.
 H.E.R.B.I.E.
@@ -77,6 +85,7 @@ Hadaly
 HAL 9000
 Han
 Huey
+IAN
 Irona
 Ironhide
 Jay-Dub
@@ -158,6 +167,7 @@ Uniblab
 V.I.N.CENT.
 Voltes V
 W1k1
+Wetskrell.nt
 Wikipedia
 Windows 3.1
 X-5
