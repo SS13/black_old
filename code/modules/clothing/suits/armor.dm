@@ -87,7 +87,7 @@
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor suit"
 	desc = "A heavily armored suit reinforced with kevlar plating and micro-webbing. This makes the wearer a true tank."
-	icon_state = "deathsquad"
+	icon_state = "heavyarmor"
 	item_state = "heavyarmor"
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.01
@@ -102,6 +102,7 @@
 
 /obj/item/clothing/suit/armor/heavy/orange
 	item_state = "heavyarmororange"
+	icon_state = "heavyarmororange"
 
 /obj/item/clothing/suit/armor/swat
 	name = "swat suit"
