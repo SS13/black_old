@@ -167,6 +167,3 @@
 		T.apply_damage(20)
 		return
 	..()
-
-
-

@@ -3,7 +3,6 @@ Aaliyah
 Aaron
 Abby
 Abel
-Abel
 Abigail
 Abraham
 Adam
@@ -17,12 +16,10 @@ Adrian
 Adriana
 Adrianna
 Aida
-Aidan
 Aiden
 Aileen
 Ainsley
 Alaina
-Alan
 Alan
 Alana
 Alanna
@@ -191,7 +188,6 @@ Braiden
 Brandon
 Braxton
 Brayan
-Brayden
 Brayden
 Braydon
 Braylon
@@ -776,7 +772,6 @@ Jonathan
 Jonathon
 Jonathon
 Joni
-Jordan
 Jordan
 Jordyn
 Jorge

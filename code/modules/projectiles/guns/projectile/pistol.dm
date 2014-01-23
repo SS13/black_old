@@ -25,7 +25,6 @@
 		update_icon()
 		return
 
-
 /obj/item/weapon/gun/projectile/deagle
 	name = "desert eagle"
 	desc = "A robust handgun that uses .50 AE ammo"

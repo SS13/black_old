@@ -81,9 +81,8 @@ mob/living/parasite/meme/New()
 
 	var/newhost = pick(allowed_mob)
 	src.enter_host(newhost)
-	message_admins("[newhost] has become [src.key]'s host")
+	message_admins("[src.host] has become [src.ckey]'s host")
 
-//	ticker.mode.memes += src
 
 mob/living/parasite/meme/Del()
 	..()

@@ -57,7 +57,7 @@
 						say so!"}
 			round_time = 60 * 15
 
-			thirteen_loko
+		thirteen_loko
 			author = "Assistant Editor Carl Ritz"
 			channel_name = "The Gibson Gazette"
 			message = {"Does drinking Thirteen Loko cause heart failure? Several health administrations
@@ -72,7 +72,7 @@
 			claiming violation of net laws."}
 			round_time = 60 * 50
 
-			mushroom_poisoning
+		mushroom_poisoning
 			author = "Assistant Editor Carl Ritz"
 			channel_name = "The Gibson Gazette"
 			message = {"Reports of mushroom poisoning all over Tau Ceti. Doctors advise general public not to eat any mushrooms at all."}
@@ -88,7 +88,7 @@
 						accordingly."}
 			round_time = 60 * 90
 
-			blockbuster_reports
+		blockbuster_reports
 			channel_name = "Tau Ceti Daily"
 			author = "Dane Morgan"
 
@@ -97,7 +97,7 @@
 			and "Traitor`s Revenge"."}
 			round_time = 60 * 65
 
-			assistant_riot
+		assistant_riot
 			channel_name = "Tau Ceti Daily"
 			author = "Chief Assistant Manager McBeard"
 

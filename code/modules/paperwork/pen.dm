@@ -64,10 +64,10 @@
 
 
 /obj/item/weapon/pen/sleepypen/New()
-	var/datum/reagents/R = new/datum/reagents(60) //Used to be 300
+	var/datum/reagents/R = new/datum/reagents(30) //Used to be 300
 	reagents = R
 	R.my_atom = src
-	R.add_reagent("chloralhydrate", 45)	//Used to be 100 sleep toxin//30 Chloral seems to be fatal, reducing it to 22./N
+	R.add_reagent("chloralhydrate", 22)	//Used to be 100 sleep toxin//30 Chloral seems to be fatal, reducing it to 22./N
 	..()
 	return
 
@@ -77,7 +77,7 @@
 		return
 	..()
 	if(reagents.total_volume)
-		if(M.reagents) reagents.trans_to(M, 20) //used to be 150
+		if(M.reagents) reagents.trans_to(M, 50) //used to be 150
 	return
 
 
