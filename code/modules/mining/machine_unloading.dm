@@ -40,6 +40,8 @@
 			if (!C.lying)
 				return
 			else
+				spawn ( 30 )
+				C.loc = src.loc
 				C.gib()
 
 
