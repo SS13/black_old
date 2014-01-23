@@ -71,7 +71,6 @@
 				src.down = !src.down
 				item_state = "[initial(item_state)]"
 				usr << "Your hud is now hanging on your neck."
-
 			else
 				src.down = !src.down
 				flags_inv |= HIDEEARS
