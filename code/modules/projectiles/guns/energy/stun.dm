@@ -11,8 +11,8 @@
 
 /obj/item/weapon/gun/energy/taser/cyborg
 	name = "taser gun"
-	desc = "A small, low capacity gun used for non-lethal takedowns."
-	icon_state = "taser"
+	desc = "Low capacity mounted gun used for non-lethal takedowns."
+	icon_state = "borgtaser"
 	fire_sound = 'sound/weapons/Taser.ogg'
 	charge_cost = 100
 	projectile_type = "/obj/item/projectile/energy/electrode"
@@ -36,7 +36,7 @@
 
 		if(!power_supply) return 0 //sanity
 		if(power_supply.charge >= power_supply.maxcharge) return 0 // check if we actually need to recharge
-		
+
 		if(isrobot(src.loc))
 			var/mob/living/silicon/robot/R = src.loc
 			if(R && R.cell)

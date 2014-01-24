@@ -49,6 +49,9 @@ obj/item/weapon/gun/energy/laser/retro
 		return 1
 
 
+/obj/item/weapon/gun/energy/laser/cyborg
+	icon_state = "borglaser"
+	item_state = "borglaser"
 
 /obj/item/weapon/gun/energy/laser/cyborg/load_into_chamber()
 	if(in_chamber)
