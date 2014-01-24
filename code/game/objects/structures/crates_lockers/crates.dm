@@ -66,6 +66,22 @@
 	icon_closed = "crate"
 */
 
+/obj/structure/closet/crate/weapon
+	desc = "A weapon crate."
+	name = "Weapon crate"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "weaponnolock crate"
+	icon_opened = "weaponnolock crate open"
+	icon_closed = "weaponnolock crate"
+
+/obj/structure/closet/crate/ammo
+	desc = "An ammo crate."
+	name = "Ammo crate"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "ammo crate"
+	icon_opened = "ammo crate open"
+	icon_closed = "ammo crate"
+
 /obj/structure/closet/crate/medical
 	desc = "A medical crate."
 	name = "Medical crate"

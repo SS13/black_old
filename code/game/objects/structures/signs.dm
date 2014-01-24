@@ -146,6 +146,14 @@
 	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
 	icon_state = "greencross"
 
+/obj/structure/sign/bluecross
+	name = "medbay"
+	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
+	icon_state = "bluecross"
+
+/obj/structure/sign/bluecross/alt
+	icon_state = "bluecross2"
+
 /obj/structure/sign/lifestar
 	name = "EMS"
 	desc = "Star of Life is the Intergalactic symbol of emergency medical services units and personnel."
@@ -190,6 +198,17 @@
 	name = "\improper HYDROPONICS"
 	desc = "A warning sign which reads 'HYDROPONICS'"
 	icon_state = "hydro1"
+
+/obj/structure/sign/wantedposter
+	name = "Wanted poster"
+	desc = "An old faded wanted poster with a picture of somebody wearing a gas mask. The text is illegible from age."
+	icon_state = "wantedposter"
+
+/obj/structure/sign/carp
+	name = "Space Carp Display"
+	desc = "Rather peculiar display of a spess carp. Somebody is quiet good at space fishing."
+	icon_state = "carp"
+
 
 /obj/structure/sign/soviet/passport
 	name = "My comrade"

@@ -259,6 +259,13 @@
 	item_state = "browncoat"
 	flags = FPRINT | TABLEPASS
 
+/obj/item/clothing/suit/charcoalcoat
+	name = "charcoal coat"
+	desc = "A long, charcoal coat."
+	icon_state = "charcoalcoat"
+	item_state = "charcoalcoat"
+	flags = FPRINT | TABLEPASS
+
 /obj/item/clothing/suit/neocoat
 	name = "black coat"
 	desc = "A flowing, black coat."

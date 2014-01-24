@@ -127,6 +127,7 @@
 	worth = 1000
 
 /obj/item/weapon/strangecash
+	icon = 'icons/obj/items.dmi'
 	name = "uncommon cash"
 	desc = "A stack of uncommon cash. Who issued it?"
 	icon_state = "strangecash"

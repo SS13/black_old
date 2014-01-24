@@ -79,7 +79,7 @@
 			Centcomm_fax(tofax.info, tofax.name, usr)
 			usr << "Message transmitted."
 			sendcooldown = 1
-			spawn(3000) // three minute cooldown. might mess with this number a bit as time goes on
+			spawn(1500) // three minute cooldown. might mess with this number a bit as time goes on. I just halved it.
 				sendcooldown = 0
 
 	if(href_list["remove"])

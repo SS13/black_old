@@ -26,7 +26,23 @@
 		new /obj/item/clothing/shoes/white( src )
 	return
 
+/obj/structure/closet/secure_closet/personal/patient/genetics
+	name = "genetics patient closet"
+	icon_state = "genepatient1"
+	icon_closed = "genepatient"
+	icon_locked = "genepatient1"
+	icon_opened = "genepatientopen"
+	icon_broken = "genepatientbroken"
+	icon_off = "genepatientoff"
 
+/obj/structure/closet/secure_closet/personal/patient/virology
+	name = "virology patient closet"
+	icon_state = "viropatient1"
+	icon_closed = "viropatient"
+	icon_locked = "viropatient1"
+	icon_opened = "viropatientopen"
+	icon_broken = "viropatientbroken"
+	icon_off = "viropatientoff"
 
 /obj/structure/closet/secure_closet/personal/cabinet
 	icon_state = "cabinetdetective_locked"

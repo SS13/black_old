@@ -100,3 +100,12 @@
 	w_class = 2
 	var/voicechange = 0
 	siemens_coefficient = 0.9
+
+/obj/item/clothing/mask/vampire
+	name = "vampire fangs"
+	desc = "Space Dracula fangs"
+	icon_state = "vampire"
+	item_state = "vampire"
+	flags = FPRINT|TABLEPASS
+	w_class = 2
+	siemens_coefficient = 0.9

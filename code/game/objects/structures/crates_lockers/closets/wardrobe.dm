@@ -201,8 +201,8 @@
 
 /obj/structure/closet/wardrobe/pjs
 	name = "Pajama wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	icon_state = "medpj"
+	icon_closed = "medpj"
 
 /obj/structure/closet/wardrobe/pjs/New()
 	new /obj/item/clothing/under/pj/red(src)
@@ -216,10 +216,10 @@
 	return
 
 
-/obj/structure/closet/wardrobe/toxins_white
+/obj/structure/closet/wardrobe/toxins_purple
 	name = "toxins wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	icon_state = "sciuniform"
+	icon_closed = "sciuniform"
 
 /obj/structure/closet/wardrobe/toxins_white/New()
 	new /obj/item/clothing/under/rank/scientist(src)
@@ -258,27 +258,28 @@
 	return
 
 
-/obj/structure/closet/wardrobe/chemistry_white
+/obj/structure/closet/wardrobe/chemistry_orange
 	name = "chemistry wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	icon_state = "chemuniform"
+	icon_closed = "chemuniform"
 
-/obj/structure/closet/wardrobe/chemistry_white/New()
+/obj/structure/closet/wardrobe/chemistry_orange/New()
 	new /obj/item/clothing/under/rank/chemist(src)
 	new /obj/item/clothing/under/rank/chemist(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/white(src)
+	new /obj/item/weapon/storage/backpack/satchel_chem(src)
 	new /obj/item/clothing/suit/storage/labcoat/chemist(src)
 	new /obj/item/clothing/suit/storage/labcoat/chemist(src)
 	return
 
 
-/obj/structure/closet/wardrobe/genetics_white
+/obj/structure/closet/wardrobe/genetics_blue
 	name = "genetics wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	icon_state = "geneuniform"
+	icon_closed = "geneuniform"
 
-/obj/structure/closet/wardrobe/genetics_white/New()
+/obj/structure/closet/wardrobe/genetics_blue/New()
 	new /obj/item/clothing/under/rank/geneticist(src)
 	new /obj/item/clothing/under/rank/geneticist(src)
 	new /obj/item/clothing/shoes/white(src)
@@ -288,12 +289,12 @@
 	return
 
 
-/obj/structure/closet/wardrobe/virology_white
+/obj/structure/closet/wardrobe/virology_green
 	name = "virology wardrobe"
-	icon_state = "white"
-	icon_closed = "white"
+	icon_state = "virouniform"
+	icon_closed = "virouniform"
 
-/obj/structure/closet/wardrobe/virology_white/New()
+/obj/structure/closet/wardrobe/virology_green/New()
 	new /obj/item/clothing/under/rank/virologist(src)
 	new /obj/item/clothing/under/rank/virologist(src)
 	new /obj/item/clothing/shoes/white(src)

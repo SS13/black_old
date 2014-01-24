@@ -2,7 +2,7 @@
  * Contents:
  *		Welding mask
  *		Cakehat
- *		Ushanka
+ *		Ushanka & Officer Ushanka
  *		Pumpkin head
  *		Kitty ears
  *
@@ -93,8 +93,15 @@
 
 
 /*
- * Ushanka
+ * Ushanka & Officer Ushanka
  */
+/obj/item/clothing/head/sovietofficerushanka
+	name = "officer ushanka"
+	desc = "This ushanka is warmer than regulal, although ear flaps won`t move."
+	icon_state = "officerushanka"
+	item_state = "officerushanka"
+	flags_inv = HIDEEARS
+
 /obj/item/clothing/head/ushanka
 	name = "ushanka"
 	desc = "Perfect for winter in Siberia, da?"

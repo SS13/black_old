@@ -183,6 +183,12 @@
 	return
 
 
+/obj/item/weapon/card/id/soviet
+	name = "soviet identification card"
+	desc = "A card used to provide ID and determine access for tovarischi. "
+	icon_state = "soviet"
+	item_state = "soviet"
+
 /obj/item/weapon/card/id/silver
 	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
@@ -277,6 +283,16 @@
 	icon_state = "centcom"
 	registered_name = "Central Command"
 	assignment = "General"
+	New()
+		access = get_all_centcom_access()
+		..()
+
+/obj/item/weapon/card/id/centcom/supervisor
+	name = "\improper CentCom. ID"
+	desc = "A Cent. Com. Level-4 ID."
+	icon_state = "centcomm_gold"
+	registered_name = "Central Command Supervisor"
+	assignment = "Supervisor"
 	New()
 		access = get_all_centcom_access()
 		..()

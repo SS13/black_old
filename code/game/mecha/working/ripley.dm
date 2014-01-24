@@ -37,6 +37,11 @@
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 
+/obj/mecha/working/ripley/deathripley/syndie
+	desc = "Blood-Red Ripley"
+	name = "Blood-Red Ripley"
+	icon_state = "syndieripley"
+
 /obj/mecha/working/ripley/deathripley/New()
 	..()
 	var/obj/item/mecha_parts/mecha_equipment/ME = new /obj/item/mecha_parts/mecha_equipment/tool/safety_clamp

@@ -114,6 +114,11 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	icon = 'icons/obj/doors/Doormed.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_med
 
+/obj/machinery/door/airlock/genetics
+	name = "Airlock"
+	icon = 'icons/obj/doors/Doorgen.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_med
+
 /obj/machinery/door/airlock/maintenance
 	name = "Maintenance Access"
 	icon = 'icons/obj/doors/Doormaint.dmi'
@@ -183,6 +188,20 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 /obj/machinery/door/airlock/glass_medical
 	name = "Maintenance Hatch"
 	icon = 'icons/obj/doors/Doormedglass.dmi'
+	opacity = 0
+	assembly_type = /obj/structure/door_assembly/door_assembly_med
+	glass = 1
+
+/obj/machinery/door/airlock/glass_chemical
+	name = "Maintenance Hatch"
+	icon = 'icons/obj/doors/Doorchemglass.dmi'
+	opacity = 0
+	assembly_type = /obj/structure/door_assembly/door_assembly_med
+	glass = 1
+
+obj/machinery/door/airlock/glass_genetics
+	name = "Maintenance Hatch"
+	icon = 'icons/obj/doors/Doorgenglass.dmi'
 	opacity = 0
 	assembly_type = /obj/structure/door_assembly/door_assembly_med
 	glass = 1
