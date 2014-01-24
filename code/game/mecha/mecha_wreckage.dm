@@ -153,6 +153,11 @@
 	name = "Death-Ripley wreckage"
 	icon_state = "deathripley-broken"
 
+
+/obj/effect/decal/mecha_wreckage/ripley/syndieripley
+	name = "Syndicate Ripley wreckage"
+	icon_state = "syndieripley-broken"
+
 /obj/effect/decal/mecha_wreckage/honker
 	name = "Honker wreckage"
 	icon_state = "honker-broken"

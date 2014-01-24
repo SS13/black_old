@@ -171,18 +171,19 @@
 /obj/structure/closet/secure_closet/chemical
 	name = "Chemical Closet"
 	desc = "Store dangerous chemicals in here."
-	icon_state = "medical1"
-	icon_closed = "medical"
-	icon_locked = "medical1"
-	icon_opened = "medicalopen"
-	icon_broken = "medicalbroken"
-	icon_off = "medicaloff"
+	icon_state = "chemmed1"
+	icon_closed = "chemmed"
+	icon_locked = "chemmed1"
+	icon_opened = "chemmedopen"
+	icon_broken = "chemmedbroken"
+	icon_off = "chemmedoff"
 	req_access = list(access_chemistry)
 
 
 	New()
 		..()
 		sleep(2)
+		new /obj/item/weapon/storage/box/pillbottles(src)
 		new /obj/item/weapon/storage/box/pillbottles(src)
 		new /obj/item/weapon/storage/box/pillbottles(src)
 		return

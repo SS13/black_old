@@ -148,7 +148,7 @@ var/list/ai_list = list()
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
 	if (custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
-	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Whale")
+	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Whale", "RED OCTOBER")
 	switch(icontype)
 		if("Custom") icon_state = "[src.ckey]-ai"
 		if("Clown") icon_state = "ai-clown2"
@@ -167,6 +167,7 @@ var/list/ai_list = list()
 		if("Triumvirate") icon_state = "ai-triumvirate"
 		if("Triumvirate Static") icon_state = "ai-triumvirate-malf"
 		if("Whale") icon_state = "ai-whale"
+		if("RED OCTOBER") icon_state = "ai-redoctober"
 		else icon_state = "ai"
 	//else
 			//usr <<"You can only change your display once!"
@@ -642,7 +643,8 @@ var/list/ai_list = list()
 	else
 		var/icon_list[] = list(
 		"default",
-		"floating face"
+		"floating face",
+		"alien queen"
 		)
 		input = input("Please select a hologram:") as null|anything in icon_list
 		if(input)
@@ -652,6 +654,9 @@ var/list/ai_list = list()
 					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo1"))
 				if("floating face")
 					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo2"))
+				if("alien queen")
+					holo_icon = getHologramIcon(icon('icons/mob/AI.dmi',"holo3"))
+
 	return
 
 /*/mob/living/silicon/ai/proc/corereturn()

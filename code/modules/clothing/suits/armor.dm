@@ -84,7 +84,7 @@
 	siemens_coefficient = 0
 
 
-/obj/item/clothing/suit/armor/heavy
+/obj/item/clothing/suit/armor/tacticalheavy
 	name = "heavy armor suit"
 	desc = "A heavily armored suit reinforced with kevlar plating and micro-webbing. This makes the wearer a true tank."
 	icon_state = "heavyarmor"
@@ -100,7 +100,7 @@
 	cold_protection = UPPER_TORSO | LOWER_TORSO | LEGS | FEET | ARMS | HANDS
 	min_cold_protection_temperature = SPACE_SUIT_MIN_COLD_PROTECITON_TEMPERATURE
 
-/obj/item/clothing/suit/armor/heavy/orange
+/obj/item/clothing/suit/armor/tacticalheavy/orange
 	item_state = "heavyarmororange"
 	icon_state = "heavyarmororange"
 

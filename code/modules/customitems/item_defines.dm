@@ -600,11 +600,11 @@
 
 /obj/item/clothing/suit/storage/det_suit/fluff/leatherjack //atomicdog92: Seth Sealis
 	name = "leather jacket"
-	desc = "A black leather coat, popular amongst punks, greasers, and other galactic scum."
-	icon = 'icons/obj/custom_items.dmi'
-	icon_state = "leatherjack"
-	item_state = "leatherjack"
-	item_color = "leatherjack"
+	desc = "A brown leather retro-styled jacket."
+	icon = 'icons/obj/clothing/suits.dmi'
+	icon_state = "leatherjacket"
+	item_state = "leatherjacket"
+	item_color = "leatherjacket"
 
 /obj/item/clothing/suit/armor/vest/fluff/deus_blueshield //deusdactyl
 	name = "blue shield security armor"
