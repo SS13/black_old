@@ -31,3 +31,10 @@ obj/item/weapon/melee/scourge
 	suicide_act(mob/user)
 		viewers(user) << "\red <b>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</b>"
 		return (OXYLOSS)
+
+obj/item/weapon/melee/scourge/whip
+	name = "archeological whip"
+	desc = "Legend says ancient archeologists never left home without such a thing, Weird, right?"
+	icon_state = "indianawhip"
+	item_state = "scourge"
+	attack_verb = list("flogged", "whipped", "lashed")
