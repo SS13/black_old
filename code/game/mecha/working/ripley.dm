@@ -41,6 +41,7 @@
 	desc = "Blood-Red Ripley"
 	name = "Blood-Red Ripley"
 	icon_state = "syndieripley"
+	initial_icon = "syndieripley"
 
 /obj/mecha/working/ripley/deathripley/New()
 	..()
