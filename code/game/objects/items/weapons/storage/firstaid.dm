@@ -40,11 +40,12 @@
 
 
 /obj/item/weapon/storage/firstaid/regular
-	icon_state = "firstaid"
-
 	New()
 		..()
 		if (empty) return
+
+		icon_state = pick ("firstaid","firstaidheart")
+
 		new /obj/item/stack/medical/bruise_pack(src)
 		new /obj/item/stack/medical/bruise_pack(src)
 		new /obj/item/stack/medical/bruise_pack(src)

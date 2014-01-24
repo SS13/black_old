@@ -242,7 +242,7 @@
 	item_state = "hatajirushigreytide"
 
 
-/*obj/item/weapon/wirerod
+obj/item/weapon/wirerod
 	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
@@ -276,4 +276,4 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 		user.put_in_hands(P)
 		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
 		del(I)
-		del(src)*/
+		del(src)

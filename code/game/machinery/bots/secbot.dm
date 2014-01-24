@@ -58,6 +58,12 @@
 	idcheck = 0
 	auto_patrol = 1
 
+/obj/machinery/bot/secbot/gold
+	name = "Securitron"
+	desc = "A little security robot. This bot has a plating of solid gold."
+	icon = 'icons/obj/aibots.dmi'
+	icon_state = "goldsecbot0"
+
 /obj/item/weapon/secbot_assembly
 	name = "helmet/signaler assembly"
 	desc = "Some sort of bizarre assembly."
@@ -798,3 +804,5 @@ Auto Patrol: []"},
 		if(!in_range(src, usr) && src.loc != usr)
 			return
 		src.created_name = t
+
+

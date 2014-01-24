@@ -127,6 +127,7 @@
 	worth = 1000
 
 /obj/item/weapon/strangecash
+	icon = 'icons/obj/items.dmi'
 	name = "uncommon cash"
 	desc = "A stack of uncommon cash. Who issued it?"
 	icon_state = "strangecash"
@@ -232,6 +233,19 @@
 	w_class = 2.0
 	m_amt = 50
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+
+/obj/item/weapon/icepick
+	name = "ice pick"
+	desc = "A tool used to crush ice for cocktail making. Or, you know, crushing skulls.."
+	icon = 'icons/obj/weapons.dmi'
+	icon_state = "icepick"
+	item_state = "icepick"
+	flags = FPRINT | TABLEPASS| CONDUCT
+	force = 7.0
+	throwforce = 7.0
+	w_class = 2.0
+	m_amt = 50
+	attack_verb = list("crushed", "stabbed", "ice-picked")
 
 /obj/item/weapon/disk
 	name = "disk"
