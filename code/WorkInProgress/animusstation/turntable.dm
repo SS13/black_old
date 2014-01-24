@@ -1,4 +1,4 @@
-/sound/turntable/test
+./sound/turntable/test
 	file = 'TestLoop1.ogg'
 	falloff = 2
 	repeat = 1
@@ -13,6 +13,27 @@
 	var/playing = 0
 	anchored = 1
 	density = 1
+	var/list/songs = list ("Jawa Bar"='Cantina.ogg',
+		"Lonely Assistant Blues"='AGrainOfSandInSandwich.ogg',
+		"Chinatown"='chinatown.ogg',
+		"Wade In The Water"='WadeInTheWater.ogg',
+		"Blue Theme"='BlueTheme.ogg',
+		"Beyond The Sea"='BeyondTheSea.ogg',
+		"The Assassination of Jesse James"='TheAssassinationOfJesseJames.ogg',
+		"Everyone Has Their Vices"='EveryoneHasTheirVices.ogg',
+		"The Way You Look Tonight"='TheWayYouLookTonight.ogg',
+		"They Were All Dead"='TheyWereAllDead.ogg',
+		"Onizukas Blues"='OnizukasBlues.ogg',
+		"Ragtime Piano"='TheEntertainer.ogg',
+		"It Had To Be You"='ItHadToBeYou.ogg',
+		"Janitorial Blues"='KyouWaYuuhiYarou.ogg',
+		"Lujon"='Lujon.ogg',
+		"Mute Beat"='MuteBeat.ogg',
+		"Groovy Times"='GroovyTime.ogg',
+		"Under My Skin"='IveGotYouUnderMySkin.ogg',
+		"That`s All"='ThatsAll.ogg',
+		"The Folks On The Hill"='TheFolksWhoLiveOnTheHill.ogg')
+
 
 /obj/machinery/party/mixer
 	name = "mixer"
@@ -35,94 +56,36 @@
 /obj/machinery/party/turntable/attack_hand(mob/living/user as mob)
 	if (..())
 		return
-
 	usr.set_machine(src)
 	src.add_fingerprint(usr)
 
-	var/t = "<body background='http://pics.kz/i1/1e/ca/1eca739222cecbc8dac809d8897471f4.jpg'><br><br><br><div align='center'><table border='0'><B><font color='maroon' size='6'>J</font><font size='5' color='purple'>uke Box</font> <font size='5' color='green'>Interface</font></B><br><br><br><br>"
-//	t += "<A href='?src=\ref[src];on=1'>On</A><br>"
-	t += "<tr><td height='50' weight='50'></td><td height='50' weight='50'><A href='?src=\ref[src];off=1'><font color='maroon'>T</font><font color='geen'>urn</font> <font color='red'>Off</font></A></td><td height='50' weight='50'></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on1=Track 1'><font color='maroon'>J</font><font color='purple'>awa Bar</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on2=Track 2'><font color='maroon'>L</font><font color='green'>onely Assistant Blues</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on6=Track 6'><font color='maroon'>B</font><font color='purple'>eyond The Sea</font></A></td></tr>"
-	t += "<tr height='50' weight='50'><td><A href='?src=\ref[src];on5=Track 5'><font color='maroon'>B</font><font color='green'>lue Theme</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on3=Track 3'><font color='maroon'>C</font><font color='purple'>hinatown</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on7=Track 7'><font color='maroon'>T</font><font color='green'>he Assassination of Jesse James</font></A></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on4=Track 4'><font color='maroon'>W</font><font color='purple'>ade In The Water</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on9=Track 9'><font color='maroon'>T</font><font color='green'>he Way You Look Tonight</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on8=Track 8'><font color='maroon'>E</font><font color='purple'>veryone Has Their Vices</font></A></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on10=Track 10'><font color='maroon'>T</font><font color='green'>hey Were All Dead</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on11=Track 11'><font color='maroon'>O</font><font color='purple'>nizukas Blues</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on12=Track 12'><font color='maroon'>R</font><font color='green'>agtime Piano</font></A></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on13=Track 13'><font color='maroon'>I</font><font color='purple'>t Had To Be You</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on14=Track 14'><font color='maroon'>J</font><font color='purple'>anitorial Blues</font></A></td>"
-	t += "<td height='50' weight='50'><td><A href='?src=\ref[src];on15=Track 15'><font color='maroon'>L</font><font color='green'>ujon</font></A></td></tr>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on16=Track 16'><font color='maroon'>M</font><font color='purple'>ute Beat</font></A></td>"
-	t += "<td height='50' weight='50'><A href='?src=\ref[src];on17=Track 17'><font color='maroon'>G</font><font color='purple'>roovy Times</font></A></td>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on18=Track 18'><font color='maroon'>U</font><font color='purple'>nder My Skin</font></A></td>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on19=Track 19'><font color='maroon'>T</font><font color='purple'>hat`s All</font></A></td>"
-	t += "<tr><td height='50' weight='50'><A href='?src=\ref[src];on20=Track 20'><font color='maroon'>T</font><font color='purple'>he Folks On The Hill</font></A></td>"
-	t += "</table></div></body>"
-	user << browse(t, "window=turntable;size=450x700")
+	var/t = "<body background=turntable.png ><br><br><br><br><br><br><br><br><br><br><br><br><div align='center'>"
+	t += "<A href='?src=\ref[src];off=1'><font color='maroon'>T</font><font color='geen'>urn</font> <font color='red'>Off</font></A>"
+	t += "<table border='0' height='25' width='300'><tr>"
+
+	for (var/i = 1, i<=(songs.len), i++)
+		var/check = i%2
+		t += "<td><A href='?src=\ref[src];on=[i]'><font color='maroon'>[copytext(songs[i],1,2)]</font><font color='purple'>[copytext(songs[i],2)]</font></A></td>"
+		if(!check) t += "</tr><tr>"
+
+	t += "</tr></table></div></body>"
+	user << browse(t, "window=turntable;size=500x636;can_resize=0")
 	onclose(user, "urntable")
 	return
 
 /obj/machinery/party/turntable/Topic(href, href_list)
 	..()
-	if( href_list["on1"] || href_list["on2"] || href_list["on3"] || href_list["on4"] || href_list["on5"] || href_list["on6"] || href_list["on7"] || href_list["on8"] || href_list["on9"] || href_list["on10"] || href_list["on11"] || href_list["on12"] || href_list["on13"] || href_list["on14"] || href_list["on15"] || href_list["on16"] || href_list["on17"] || href_list["on18"] || href_list["on19"] || href_list["on20"])
+	if( href_list["on"])
 		if(src.playing == 0)
 			//world << "Should be working..."
 			var/sound/S
-			if(href_list["on1"])
-				S = sound('Cantina.ogg')
-			if(href_list["on2"])
-				S = sound('AGrainOfSandInSandwich.ogg')
-			if(href_list["on3"])
-				S = sound('chinatown.ogg')
-			if(href_list["on4"])
-				S = sound('WadeInTheWater.ogg')
-			if(href_list["on5"])
-				S = sound('BlueTheme.ogg')
-			if(href_list["on6"])
-				S = sound('BeyondTheSea.ogg')
-			if(href_list["on7"])
-				S = sound('TheAssassinationOfJesseJames.ogg')
-			if(href_list["on8"])
-				S = sound('EveryoneHasTheirVices.ogg')
-			if(href_list["on9"])
-				S = sound('TheWayYouLookTonight.ogg')
-			if(href_list["on10"])
-				S = sound('TheyWereAllDead.ogg')
-			if(href_list["on11"])
-				S = sound('OnizukasBlues.ogg')
-			if(href_list["on12"])
-				S = sound('TheEntertainer.ogg')
-			if(href_list["on13"])
-				S = sound('ItHadToBeYou.ogg')
-			if(href_list["on14"])
-				S = sound('KyouWaYuuhiYarou.ogg')
-			if(href_list["on15"])
-				S = sound('Lujon.ogg')
-			if(href_list["on16"])
-				S = sound('MuteBeat.ogg')
-			if(href_list["on17"])
-				S = sound('GroovyTime.ogg')
-			if(href_list["on18"])
-				S = sound('IveGotYouUnderMySkin.ogg')
-			if(href_list["on19"])
-				S = sound('ThatsAll.ogg')
-			if(href_list["on20"])
-				S = sound('TheFolksWhoLiveOnTheHill.ogg')
+			S = sound(songs[songs[text2num(href_list["on"])]])
 			S.repeat = 1
 			S.channel = 10
 			S.falloff = 2
 			S.wait = 1
 			S.environment = 0
-			//for(var/mob/M in world)
-			//	if(M.loc.loc == src.loc.loc && M.music == 0)
-			//		world << "Found the song..."
-			//		M << S
-			//		M.music = 1
+
 			var/area/A = src.loc.loc:master
 
 			for(var/area/RA in A.related)
@@ -131,11 +94,12 @@
 			playing = 1
 			while(playing == 1)
 				for(var/mob/M in world)
-					if((M.loc.loc in A.related) && M.music == 0)
+					var/area/location = get_area(M)
+					if((location in A.related) && M.music == 0)
 						//world << "Found the song..."
 						M << S
 						M.music = 1
-					else if(!(M.loc.loc in A.related) && M.music == 1)
+					else if(!(location in A.related) && M.music == 1)
 						var/sound/Soff = sound(null)
 						Soff.channel = 10
 						M << Soff
@@ -279,14 +243,8 @@
 				X++
 
 
-
 /obj/machinery/party/lasermachine/proc/turnoff()
 	var/area/A = src.loc.loc
 	for(var/area/RA in A.related)
 		for(var/obj/effects/laser/F in RA)
 			del(F)
-
-
-
-
-

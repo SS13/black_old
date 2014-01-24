@@ -71,7 +71,6 @@
 				src.down = !src.down
 				item_state = "[initial(item_state)]"
 				usr << "Your hud is now hanging on your neck."
-
 			else
 				src.down = !src.down
 				flags_inv |= HIDEEARS
@@ -81,7 +80,7 @@
 			usr.update_inv_wear_mask()
 
 /obj/item/clothing/head/knighthud
-	desc = "Knight's hud"
+	desc = "Knight's hood"
 
 /obj/item/clothing/head/knighthud/blackknight
 	name = "Hood of the Black Knight"

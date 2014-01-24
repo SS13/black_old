@@ -65,7 +65,7 @@ Works together with spawning an observer, noted above.
 		ghost.can_reenter_corpse = can_reenter_corpse
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		ghost.key = key
-		message_admins("[key_name(usr, usr.client)] has become a ghost", 1)
+		message_admins("[key_name(ghost, ghost.client)] has become a ghost", 1)
 		return ghost
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -78,7 +78,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(stat == DEAD)
 		ghostize(1)
 	else
-		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost, you won't be able to play this round for another 30 minutes! You can't change your mind so choose wisely!)","Are you sure you want to ghost?","Ghost","Stay in body")
+		var/response = alert(src, "Are you -sure- you want to ghost?\n(You are alive. If you ghost, you won't be able to play this round for another [timetorespawn] minutes! You can't change your mind so choose wisely!)","Are you sure you want to ghost?","Ghost","Stay in body")
 		if(response != "Ghost")	return	//didn't want to ghost after-all
 		resting = 1
 		var/mob/dead/observer/ghost = ghostize(0)						//0 parameter is so we can never re-enter our body, "Charlie, you can never come baaaack~" :3
