@@ -2302,6 +2302,15 @@ obj/item/weapon/reagent_containers/food/snacks/chipsmonkey
 		bitesize = 3
 
 
+/obj/item/weapon/reagent_containers/food/snacks/singulolollipop
+	name = "singulo lollipop"
+	desc = "In space, you eat the singulo. In spess, the singulo eats you."
+	icon_state = "singulopop"
+	New()
+		..()
+		reagents.add_reagent("sugar", 10)
+		bitesize = 1
+
 /////////////////////////////////////////////////PIZZA////////////////////////////////////////
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza
@@ -2554,3 +2563,5 @@ obj/item/weapon/reagent_containers/food/snacks/chipsmonkey
 /obj/item/pizzabox/meat/New()
 	pizza = new /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza/meatpizza(src)
 	boxtag = "Meatlover's Supreme"
+
+

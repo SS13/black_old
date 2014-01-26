@@ -98,7 +98,7 @@
 	layer = 2
 	icon = 'icons/effects/blood.dmi'
 	icon_state = "vomit_1"
-	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4", "vomit_5", "vomit_6", "vomit_7", "vomit_8")
+	random_icon_states = list("vomit_1", "vomit_2", "vomit_3", "vomit_4", "vomit_5", "vomit_6", "vomit_7", "vomit_8", "vomit_9", "vomit_10", "vomit_11")
 	var/list/viruses = list()
 
 	Del()
@@ -109,7 +109,7 @@
 /obj/effect/decal/cleanable/vomit/Crossed(var/mob/living/carbon/human/H)
 	if(istype(H))
 		if (prob (20))
-			H << "<span class='userdanger'>You slip on the puddle of vomit and fall down!.</span>"
+			H << "<span class='userdanger'>You slip on the puddle of vomit and fall down!</span>"
 			playsound(src.loc, 'sound/misc/slip.ogg', 50, 1)
 			H.apply_damage(4,BRUTE,(pick("l_leg", "r_leg", "chest", "groin", "head")))
 			H.Weaken(1)

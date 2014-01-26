@@ -49,7 +49,7 @@
 	response_harm   = "stomps"
 	icon_state = "evilcrab"
 	icon_living = "evilcrab"
-	icon_dead = "evil_dead"
+	icon_dead = "evilcrab_dead"
 
 /mob/living/simple_animal/crab/evilcrab/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(istype(O, /obj/item/weapon/))
