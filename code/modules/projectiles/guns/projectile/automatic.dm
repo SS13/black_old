@@ -28,6 +28,43 @@
 	isHandgun()
 		return 1
 
+/obj/item/weapon/gun/projectile/automatic/pp90
+	name = "PP90"
+	desc = "A lightweight folding Russian SMG used in special operations. Uses 9mm rounds."
+	icon_state = "pp90"
+	w_class = 3.0
+	max_shells = 16
+	caliber = "9mm"
+	origin_tech = "combat=5;materials=3;syndicate=6"
+	ammo_type = "/obj/item/ammo_casing/c9mm"
+
+	isHandgun()
+		return 1
+
+	New()
+		..()
+		empty_mag = new /obj/item/ammo_magazine/pp90/empty(src)
+		update_icon()
+		return
+
+	afterattack(atom/target as mob|obj|turf|area, mob/living/user as mob|obj, flag)
+		..()
+		if(!loaded.len && empty_mag)
+			empty_mag.loc = get_turf(src.loc)
+			empty_mag = null
+			playsound(user, 'sound/weapons/bulletinchamber.ogg', 40, 1)
+			update_icon()
+		return
+
+
+	update_icon()
+		..()
+		if(empty_mag)
+			icon_state = "pp90-empty"
+		else
+			icon_state = "pp90"
+		return
+
 
 /obj/item/weapon/gun/projectile/automatic/c20r
 	name = "\improper C-20r SMG"

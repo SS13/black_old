@@ -218,6 +218,13 @@
 	desc = "A sharp, stylish hat with a feather."
 	flags = FPRINT|TABLEPASS
 
+/obj/item/clothing/head/trilby
+	name = "\improper trilby hat"
+	icon_state = "trilbyhat"
+	item_state = "trilbyhat"
+	desc = "Indeed a sharp, stylish hat perfect for attending horse racing, sir."
+
+
 /obj/item/clothing/head/fez
 	name = "\improper fez"
 	icon_state = "fez"

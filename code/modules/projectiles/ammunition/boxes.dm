@@ -147,3 +147,19 @@
 	ammo_type = "/obj/item/ammo_casing/beretta"
 	max_ammo = 0
 	multiple_sprites = 1
+
+
+/obj/item/ammo_magazine/pp90
+	name = "pp90 magazine"
+	icon_state = "pp90_full"
+	origin_tech = "combat=3"
+	ammo_type = "/obj/item/ammo_casing/c9mm"
+	max_ammo = 18
+	multiple_sprites = 1
+
+/obj/item/ammo_magazine/pp90/empty
+	name = "pp90 magazine"
+	icon_state = "pp90_empty"
+	ammo_type = "/obj/item/ammo_casing/c9mm"
+	max_ammo = 0
+	multiple_sprites = 1

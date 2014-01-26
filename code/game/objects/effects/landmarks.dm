@@ -140,6 +140,13 @@
 	new /obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
 	del(src)
 
+/obj/effect/landmark/costume/maido/New()
+	new /obj/item/clothing/under/maid(src.loc)
+	new /obj/item/clothing/gloves/white(src.loc)
+	var/CHOICE = pick( /obj/item/clothing/head/kitty , /obj/item/clothing/head/rabbitears )
+	new CHOICE(src.loc)
+	del(src)
+
 /obj/effect/landmark/costume/butler/New()
 	new /obj/item/clothing/suit/wcoat(src.loc)
 	new /obj/item/clothing/under/suit_jacket(src.loc)

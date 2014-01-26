@@ -13,6 +13,12 @@
 	can_breath = 1
 	can_eat = 0
 
+/obj/item/clothing/mask/gas/dual
+	name = "gas mask"
+	desc = "A face-covering mask that can be connected to an air supply. Filters harmful gases from the air. This one has twice as many filters as usual."
+	icon_state = "gas_dual"
+	item_state = "gas_dual"
+
 // **** Security gas mask ****
 
 /obj/item/clothing/mask/gas/sechailer

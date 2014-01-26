@@ -31,10 +31,11 @@
 							/obj/item/toy/prize/marauder					= 1,
 							/obj/item/toy/prize/seraph						= 1,
 							/obj/item/toy/prize/mauler						= 1,
+							/obj/item/weapon/reagent_containers/food/snacks/singulolollipop			= 1,
 							/obj/item/toy/prize/odysseus					= 1,
 							/obj/item/toy/prize/phazon						= 1,
 							/obj/item/clothing/tie/medal/toy				= 1,
-							/obj/item/toy/cards								= 2,
+							/obj/item/toy/cards								= 1,
 							/obj/item/toy/nuke								= 1
 							)
 

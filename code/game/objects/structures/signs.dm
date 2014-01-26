@@ -206,7 +206,7 @@
 
 /obj/structure/sign/carp
 	name = "Space Carp Display"
-	desc = "Rather peculiar display of a spess carp. Somebody is quiet good at space fishing."
+	desc = "Rather peculiar display of a spess carp. Somebody is quite good at space fishing."
 	icon_state = "carp"
 
 

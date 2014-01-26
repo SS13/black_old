@@ -269,12 +269,39 @@
 	item_color = "gladiator"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS
 
+/obj/item/clothing/under/fancyvest
+	name = "fancy suit vest"
+	desc = "Sharp outfit for smart people. Now only missing a jacket."
+	icon_state = "fancyvest"
+	item_color = "fancyvest"
+
 //Von Karma costume
 /obj/item/clothing/under/prosecutor_suit
 	name = "prosecutor suit"
 	desc = "Don't be foolish, you foolish fool wearing the foolishly foolish clothes."
 	icon_state = "prosecutor_suit"
 	item_color = "prosecutor_suit"
+
+//Maid costume
+/obj/item/clothing/under/maid
+	name = "maid uniform"
+	desc = "Traditional French maid uniform."
+	icon_state = "meido"
+	item_color = "meido"
+
+//Track/cargo pants + white tank top
+/obj/item/clothing/under/tracktank
+	name = "track pants"
+	desc = "Track pants with tank top, huh? Better go get some semki."
+	icon_state = "trackpants"
+	item_color = "trackpants"
+
+/obj/item/clothing/under/cargotank
+	name = "cargo pants"
+	desc = "Cargo pants with tank top."
+	icon_state = "cargopants"
+	item_color = "cargopants"
+
 
 //dress
 
