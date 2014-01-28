@@ -9,11 +9,6 @@
 	slot_flags = 0
 	w_class = 2.0
 
-/obj/item/clothing/tie/blue
-	name = "blue tie"
-	icon_state = "bluetie"
-	item_color = "bluetie"
-
 /obj/item/clothing/tie/black
 	name = "black tie"
 	icon_state = "blacktie"

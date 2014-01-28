@@ -265,3 +265,28 @@
 
 /obj/structure/sign/double/mountain/right
 	icon_state = "mountain-right"
+
+//Got these from Ralphey
+/obj/structure/sign/advertisement
+	name = "advertisement display"
+	desc = "Drink some space cola!"
+	icon_state = "cola"
+
+/obj/structure/sign/advertisement/gin
+	desc = "Drink some gin!"
+	icon_state = "gin"
+
+/obj/structure/sign/advertisement/smoke
+	desc = "Smoking is cool!"
+	icon_state = "smoke"
+
+/obj/structure/sign/advertisement/random //Plain copypasta from barsigns.
+	icon_state = "gin"
+	anchored = 1
+	New()
+		ChangeSign(pick("gin", "cola", "smoke"))
+		return
+	proc/ChangeSign(var/Text)
+		src.desc = "[Text]"
+		luminosity = 1
+		return

@@ -464,3 +464,49 @@
 	item_state = "sheik"
 	item_color = "sheik"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
+
+
+/*
+ * Asylum
+ */
+
+
+/obj/item/clothing/under/asylum_chronic
+	name = "Chronic Jumpsuit"
+	icon_state = "a_chronic"
+	item_state = "a_chronic"
+	item_color = "a_chronic"
+
+/obj/item/clothing/under/asylum_orderly
+	name = "a_orderly suit"
+	icon_state = "a_orderly"
+	item_state = "a_orderly"
+	item_color = "a_orderly"
+
+/obj/item/clothing/under/asylum_overalls
+	name = "Patient's overalls"
+	icon_state = "a_overalls"
+	item_state = "a_overalls"
+	item_color = "a_overalls"
+
+/*
+ *Star Wars
+ */
+
+/obj/item/clothing/under/rebel
+	name = "Rebel Jumpsuit"
+	icon_state = "rebel"
+	item_state = "rebel"
+	item_color = "rebel"
+
+/obj/item/clothing/under/rebel_pilot
+	name = "Rebel pilot Jumpsuit"
+	icon_state = "rebel_pilot"
+	item_state = "rebel_pilot"
+	item_color = "rebel_pilot"
+
+/obj/item/clothing/under/imperial_officer
+	name = "Imperial offiser Jumpsuit"
+	icon_state = "imp_officer"
+	item_state = "imp_officer"
+	item_color = "imp_officer"

@@ -33,7 +33,7 @@
 	icon_state = "deathripley"
 	step_in = 2
 	opacity=0
-	lights_power = 60
+	lights_power = 30
 	wreckage = /obj/effect/decal/mecha_wreckage/ripley/deathripley
 	step_energy_drain = 0
 
@@ -42,6 +42,10 @@
 	name = "Blood-Red Ripley"
 	icon_state = "syndieripley"
 	initial_icon = "syndieripley"
+	step_in = 4
+	health = 200
+	wreckage = /obj/effect/decal/mecha_wreckage/ripley/syndieripley
+	lights_power = 8
 
 /obj/mecha/working/ripley/deathripley/New()
 	..()

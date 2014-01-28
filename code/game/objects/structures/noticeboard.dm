@@ -78,3 +78,29 @@
 				usr << browse("<HTML><HEAD><TITLE>[P.name]</TITLE></HEAD><BODY><TT>[P.info]</TT></BODY></HTML>", "window=[P.name]")
 				onclose(usr, "[P.name]")
 	return
+
+
+/obj/structure/noticeboard/cargo/New()
+	notices = 3
+	icon_state = "nboard03"
+
+	var/obj/item/weapon/paper/P = new()
+	P.name = "Memo RE: proper stamping and marking"
+	P.info = "Don`t forget to collect the supply manifests and stamp them, then send `em back on the shuttle. Don`t send them in boxes or any containers - the scanners won`t be able to scan anything whatsoever. We`ve been promised some rewards for following the procedures, so keep it neat."
+	P.stamped = list(/obj/item/weapon/stamp)
+	P.overlays = list("paper_stamped_qm")
+	src.contents += P
+
+	P = new()
+	P.name = "Regarding the missing booze!"
+	P.info = "Guys, that was not funny! I`m sending this note to all stations in this sector, okay, and I hope you see it. I nearly got fired because of the damn crate! Next time you wanna have a party on your station`s account, either call the corporate, or pay up front. -G."
+	P.stamped = list(/obj/item/weapon/stamp/centcom)
+	P.overlays = list("paper_stamped_cent")
+	src.contents += P
+
+	P = new()
+	P.name = "RE: 'Special Orders And Inventory' - A friendly reminder from your friends here at Corporate"
+	P.info = "On behalf of corporate dept, we once again remind you that any special orders must be validated by your supervisors. If compliance is not sustained, your files will be forwarded to HR dept for further penalization."
+	P.stamped = list(/obj/item/weapon/stamp/centcom)
+	P.overlays = list("paper_stamped_cent")
+	src.contents += P
