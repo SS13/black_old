@@ -1,5 +1,5 @@
 /obj/structure/closet/wardrobe
-	name = "wardrobe"
+	name = "blue wardrobe"
 	desc = "It's a storage unit for standard-issue Nanotrasen attire."
 	icon_state = "blue"
 	icon_closed = "blue"
@@ -105,6 +105,21 @@
 	new /obj/item/clothing/shoes/black(src)
 	return
 
+/obj/structure/closet/wardrobe/mining
+	name = "wardrobe"
+	icon_state = "mining"
+	icon_closed = "mining"
+
+/obj/structure/closet/wardrobe/mining/New()
+	var/CHOICE = pick( /obj/item/clothing/under/overalls , /obj/item/clothing/under/rank/miner )
+	new CHOICE(src)
+	new CHOICE(src)
+	new /obj/item/clothing/gloves/brown(src)
+	new /obj/item/clothing/gloves/brown(src)
+	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/shoes/brown(src)
+	return
+
 /obj/structure/closet/wardrobe/xenos
 	name = "xenos wardrobe"
 	icon_state = "green"
@@ -137,16 +152,16 @@
 
 /obj/structure/closet/wardrobe/yellow
 	name = "yellow wardrobe"
-	icon_state = "wardrobe-y"
-	icon_closed = "wardrobe-y"
+	icon_state = "yellow"
+	icon_closed = "yellow"
 
 /obj/structure/closet/wardrobe/yellow/New()
 	new /obj/item/clothing/under/color/yellow(src)
 	new /obj/item/clothing/under/color/yellow(src)
 	new /obj/item/clothing/under/color/yellow(src)
-	new /obj/item/clothing/shoes/orange(src)
-	new /obj/item/clothing/shoes/orange(src)
-	new /obj/item/clothing/shoes/orange(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/black(src)
+	new /obj/item/clothing/shoes/black(src)
 	return
 
 

@@ -258,6 +258,7 @@
 		new /obj/item/device/radio/headset/headset_sec(src)
 		new /obj/item/device/detective_scanner(src)
 		new /obj/item/clothing/suit/armor/det_suit(src)
+		new /obj/item/clothing/head/det_hat/black(src)
 		new /obj/item/clothing/suit/storage/det_suit_black(src)
 		new /obj/item/ammo_magazine/c38(src)
 		new /obj/item/ammo_magazine/c38(src)

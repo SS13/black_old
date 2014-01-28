@@ -672,7 +672,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_armory
 	group = "Security"
 
-datum/supply_packs/riotadvanced
+/*datum/supply_packs/riotadvanced
 	name = "Advanced riot gear crate"
 	contains = list(/obj/item/weapon/melee/classic_baton/nightstick,
 					/obj/item/weapon/melee/classic_baton/nightstick,
@@ -697,7 +697,7 @@ datum/supply_packs/riotadvanced
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Advanced riot gear crate"
 	access = access_armory
-	group = "Security"
+	group = "Security"*/
 
 /datum/supply_packs/loyalty
 	name = "Loyalty implant crate"

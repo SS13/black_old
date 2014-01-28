@@ -64,6 +64,10 @@
 	icon_state = "stamp-cent"
 	item_color = "cent"
 
+/obj/item/weapon/stamp/internal
+	name = "internal and legal affairs rubber stamp"
+	icon_state = "stamp-intaff"
+	item_color = "intaff"
 
 /obj/item/weapon/stamp/attack_paw(mob/user as mob)
 	return attack_hand(user)

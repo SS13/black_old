@@ -159,7 +159,6 @@
 	new /obj/item/weapon/melee/scourge(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
 	new	/obj/item/clothing/gloves/black(src.loc)
-
 	del(src)
 
 /obj/effect/landmark/costume/scratch/New()
@@ -174,6 +173,17 @@
 	new /obj/item/clothing/under/kilt(src.loc)
 	new /obj/item/clothing/head/beret(src.loc)
 	del(src)
+
+/obj/effect/landmark/costume/mikuru/New()
+	new /obj/item/clothing/under/mikururabbit(src.loc)
+	new /obj/item/clothing/head/collectable/mikururabbitears(src.loc)
+	del(src)
+
+/obj/effect/landmark/costume/haruhisuzumiya/New()
+	new /obj/item/clothing/under/suzumiyarabbit(src.loc)
+	new /obj/item/clothing/head/collectable/suzumiyarabbitears(src.loc)
+	del(src)
+
 
 /obj/effect/landmark/costume/prig/New()
 	new /obj/item/clothing/suit/wcoat(src.loc)

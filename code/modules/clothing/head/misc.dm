@@ -204,20 +204,6 @@
 	desc = "The ultimate in summer fashion."
 	flags = FPRINT|TABLEPASS
 
-/obj/item/clothing/head/fedora
-	name = "\improper fedora"
-	icon_state = "fedora"
-	item_state = "fedora"
-	desc = "A sharp, stylish hat."
-	flags = FPRINT|TABLEPASS
-
-/obj/item/clothing/head/feathertrilby
-	name = "\improper feather trilby"
-	icon_state = "feather_trilby"
-	item_state = "feather_trilby"
-	desc = "A sharp, stylish hat with a feather."
-	flags = FPRINT|TABLEPASS
-
 /obj/item/clothing/head/trilby
 	name = "\improper trilby hat"
 	icon_state = "trilbyhat"
