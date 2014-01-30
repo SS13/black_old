@@ -455,7 +455,10 @@
 		return
 		src.locked = !src.locked
 		src.update_icon()
-
+	if(!allowed(usr))
+		usr << "<span class='notice'>[src] is locked.</span>"
+		src.add_fingerprint(usr)
+		return
 	else
 		usr << "<span class='warning'>This mob type can't use this verb.</span>"
 

@@ -69,5 +69,11 @@
 	icon_state = "stamp-intaff"
 	item_color = "intaff"
 
+/obj/item/weapon/stamp/approved
+	name = "\improper GRANTED rubber stamp"
+	icon_state = "stamp-ok"
+	item_color = "ok"
+
+
 /obj/item/weapon/stamp/attack_paw(mob/user as mob)
 	return attack_hand(user)

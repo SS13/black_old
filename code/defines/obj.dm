@@ -248,6 +248,37 @@
 	anchored = 1
 	unacidable = 1//temporary until I decide whether the borg can be removed. -veyveyr
 
+/obj/structure/showcase/fakeid
+	name = "Centcom Identification Console"
+	desc = "You can use this to change ID's."
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "id"
+
+/obj/structure/showcase/fakesec
+	name = "Centcom Security Records"
+	desc = "Used to view and edit personnel's security records"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "security"
+
+/obj/structure/showcase/fake
+	name = "Workstation"
+	desc = "A generic workstation used to perfomr a wide array of tasks."
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "old_security"
+
+/obj/structure/showcase/fake/blue
+	icon_state = "solarold"
+
+/obj/structure/showcase/fake/blue_animated
+	icon_state = "powerold"
+
+/obj/structure/showcase/fakeshuttle
+	name = "Shuttle Console"
+	desc = "Used to control shuttle systems"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "shuttle"
+
+
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 /obj/item/weapon/beach_ball

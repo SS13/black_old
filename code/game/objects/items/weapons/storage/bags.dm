@@ -32,7 +32,7 @@
 	icon_state = "trashbag0"
 	item_state = "trashbag"
 
-	w_class = 4
+	w_class = 3
 	max_w_class = 2
 	storage_slots = 21
 	can_hold = list() // any
@@ -59,7 +59,7 @@
 	icon_state = "plasticbag"
 	item_state = "plasticbag"
 
-	w_class = 4
+	w_class = 3
 	max_w_class = 2
 	storage_slots = 21
 	can_hold = list() // any

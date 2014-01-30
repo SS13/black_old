@@ -156,7 +156,7 @@
 	item_color = "syndi-unathi"
 	species_restricted = list("exclude","Tajaran","Diona","Vox", "Human", "Skrell")
 
-/obj/item/clothing/suit/space/rig/syndi/unahti
+/obj/item/clothing/suit/space/rig/syndi/unathi
 	icon_state = "rig-syndi-unathi"
 	name = "blood-red hardsuit"
 	desc = "An advanced suit that protects against injuries during special operations. Property of Gorlex Marauders.This one is for unathi."

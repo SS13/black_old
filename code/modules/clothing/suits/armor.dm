@@ -37,6 +37,12 @@
 	icon_state = "warden_jacket"
 	item_state = "armor"
 
+/obj/item/clothing/suit/armor/vest/captain
+	name = "elite armor vest"
+	desc = "An armor vest reinforced with special alloy plates and decorated with captainship insignia. Worn by honored officers or batalion commanders only."
+	icon_state = "capcarapace"
+	item_state = "armor"
+	armor = list(melee = 55, bullet = 25, laser = 35, energy = 20, bomb = 25, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/riot
 	name = "Riot Suit"

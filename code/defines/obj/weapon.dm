@@ -236,7 +236,7 @@
 
 /obj/item/weapon/icepick
 	name = "ice pick"
-	desc = "A tool used to crush ice for cocktail making. Or, you know, crushing skulls.."
+	desc = "A tool used to crush ice for cocktail making. Or, you know, crush skulls."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "icepick"
 	item_state = "icepick"
@@ -699,6 +699,16 @@
 	origin_tech = "syndicate=2"
 	var/timer = 10
 	var/atom/target = null
+
+
+/obj/item/weapon/blownshotgun
+	name = "blown-up shotgun"
+	desc = "This once used to ba a shotgun. Now it`s but a useless piece of trash."
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "b-shotgun"
+	item_state = "shotgun"
+	flags = FPRINT | TABLEPASS
+	w_class = 4.0
 
 ///////////////////////////////////////Stock Parts /////////////////////////////////
 
