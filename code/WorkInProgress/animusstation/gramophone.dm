@@ -16,7 +16,9 @@
 	if (src.playing == 0)
 
 		var/sound/S
-		S = sound('Taintedlove.ogg')
+		if (prob(50))
+			S = sound('Taintedlove.ogg')
+		else S = sound('solace.ogg')
 		S.repeat = 1
 		S.channel = 10
 		S.falloff = 2
