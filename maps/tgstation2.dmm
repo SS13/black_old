@@ -7427,7 +7427,7 @@
 "cMQ" = (/turf/unsimulated/floor{icon_state = "asteroid6"; name = "sand"},/area/centcom/creed)
 "cMR" = (/turf/unsimulated/wall,/area/centcom/creed)
 "cMS" = (/obj/structure/table/reinforced,/obj/item/weapon/handcuffs,/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
-"cMT" = (/obj/machinery/pdapainter,/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
+"cMT" = (/turf/unsimulated/floor{icon_state = "floor"},/area/centcom/control)
 "cMU" = (/obj/structure/sign/double/map/left,/turf/unsimulated/wall,/area/centcom/control)
 "cMV" = (/obj/structure/sign/double/map/right,/turf/unsimulated/wall,/area/centcom/control)
 "cMW" = (/obj/machinery/door/airlock/centcom{name = "Courthouse"; opacity = 1; req_one_access_txt = "101"},/turf/unsimulated/floor{icon_state = "grimy"},/area/centcom/control)
