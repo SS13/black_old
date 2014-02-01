@@ -153,6 +153,11 @@
 	new /obj/item/clothing/head/that(src.loc)
 	del(src)
 
+/obj/effect/landmark/costume/mexican/New()
+	new /obj/item/clothing/suit/poncho(src.loc)
+	new /obj/item/clothing/head/sombrero(src.loc)
+	del(src)
+
 /obj/effect/landmark/costume/vonkarma/New()
 	new /obj/item/clothing/suit/prosecutor_jacket(src.loc)
 	new /obj/item/clothing/under/prosecutor_suit(src.loc)

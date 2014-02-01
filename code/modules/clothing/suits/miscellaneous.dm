@@ -66,14 +66,6 @@
 	flags = FPRINT | TABLEPASS
 
 
-/obj/item/clothing/suit/johnny_coat
-	name = "johnny~~ coat"
-	desc = "Johnny~~"
-	icon_state = "johnny"
-	item_state = "johnny"
-	flags = FPRINT | TABLEPASS
-
-
 /obj/item/clothing/suit/justice
 	name = "justice suit"
 	desc = "this pretty much looks ridiculous"
@@ -119,6 +111,10 @@
 	item_state = "overalls"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
 
+/obj/item/clothing/suit/apron/surgical
+	name = "surgical apron"
+	desc = "A surgical apron used to keep the blood away from the uniform."
+	icon_state = "surgeon"
 
 /obj/item/clothing/suit/syndicatefake
 	name = "red space suit replica"
@@ -168,6 +164,12 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	siemens_coefficient = 2.0
 
+/obj/item/clothing/suit/poncho
+	name = "el poncho"
+	desc = "Jefe de seguridad chupa la polla, hombre! Arriba~~"
+	icon_state = "poncho"
+	item_state = "poncho"
+	flags = FPRINT | TABLEPASS
 
 /obj/item/clothing/suit/holidaypriest
 	name = "Holiday Priest"

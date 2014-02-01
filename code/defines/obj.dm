@@ -292,6 +292,15 @@
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "server_closed(steady)"
 
+/obj/structure/tombstone
+	name = "tombstone"
+	icon = 'icons/obj/stationobjs.dmi'
+	icon_state = "tombstone"
+	desc = "An old tombstone marking a grave of an unfortunate spaceman."
+	density = 1
+	anchored = 1
+	unacidable = 1
+
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
 /obj/item/weapon/beach_ball
