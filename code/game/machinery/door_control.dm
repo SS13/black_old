@@ -185,3 +185,84 @@
 	active = 0
 
 	return
+
+
+/obj/machinery/door_control/dark
+	name = "remote door-control"
+	desc = "It controls doors, remotely."
+	icon = 'icons/obj/buttons.dmi'
+	icon_state = "button1"
+
+
+/obj/machinery/door_control/dark/attack_hand(mob/user as mob)
+	src.add_fingerprint(usr)
+	if(stat & (NOPOWER|BROKEN))
+		return
+
+	if(!allowed(user) && (wires & 1))
+		user << "\red Access Denied"
+		flick("button1-1",src)
+		return
+
+	use_power(5)
+	icon_state = "button1"
+	add_fingerprint(user)
+
+	if(normaldoorcontrol)
+		for(var/obj/machinery/door/airlock/D in range(range))
+			if(D.id_tag == src.id)
+				if(specialfunctions & OPEN)
+					if (D.density)
+						spawn(0)
+							D.open()
+							return
+					else
+						spawn(0)
+							D.close()
+							return
+				if(desiredstate == 1)
+					if(specialfunctions & IDSCAN)
+						D.aiDisabledIdScanner = 1
+					if(specialfunctions & BOLTS)
+						D.locked = 1
+						D.update_icon()
+					if(specialfunctions & SHOCK)
+						D.secondsElectrified = -1
+					if(specialfunctions & SAFE)
+						D.safe = 0
+				else
+					if(specialfunctions & IDSCAN)
+						D.aiDisabledIdScanner = 0
+					if(specialfunctions & BOLTS)
+						if(!D.isWireCut(4) && D.arePowerSystemsOn())
+							D.locked = 0
+							D.update_icon()
+					if(specialfunctions & SHOCK)
+						D.secondsElectrified = 0
+					if(specialfunctions & SAFE)
+						D.safe = 1
+
+	else
+		for(var/obj/machinery/door/poddoor/M in world)
+			if (M.id == src.id)
+				if (M.density)
+					spawn( 0 )
+						M.open()
+						return
+				else
+					spawn( 0 )
+						M.close()
+						return
+
+	desiredstate = !desiredstate
+	spawn(15)
+		if(!(stat & NOPOWER))
+			icon_state = "button1"
+
+/obj/machinery/door_control/dark/power_change()
+	..()
+	if(stat & NOPOWER)
+		icon_state = "button1-p"
+	else
+		icon_state = "button1"
+

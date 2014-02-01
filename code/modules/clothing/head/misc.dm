@@ -156,6 +156,13 @@
 	item_state = "detective"
 	siemens_coefficient = 0.9
 
+/obj/item/clothing/head/sombrero
+	name = "el sombrero"
+	desc = "Asistente me esta' griefing! Ayu'dame!"
+	icon_state = "sombrero"
+	item_state = "detective"
+	siemens_coefficient = 0.9
+
 /obj/item/clothing/head/pirate
 	name = "pirate hat"
 	desc = "Yarr."
@@ -242,6 +249,14 @@
 	desc = "Fuzzy."
 	icon_state = "bearpelt"
 	item_state = "bearpelt"
+	flags = FPRINT | TABLEPASS | BLOCKHAIR
+	siemens_coefficient = 2.0
+
+/obj/item/clothing/head/monkeypelt
+	name = "monkey pelt hat"
+	desc = "What kind of minster would wear this?"
+	icon_state = "monkeypelt"
+	item_state = "monkeypelt"
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	siemens_coefficient = 2.0
 

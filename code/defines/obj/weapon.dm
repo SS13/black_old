@@ -258,6 +258,20 @@
 	item_state = "card-id"
 	w_class = 1.0
 
+/obj/item/weapon/hdd
+	name = "supermagnetic data storage disk"
+	desc = "Up to 64 zettabytes of data right here in your pocket."
+	icon = 'icons/obj/stock_parts.dmi'
+	icon_state = "hdd2"
+	item_state = "card-id"
+	w_class = 1.0
+	flags = FPRINT | TABLEPASS| CONDUCT
+	attack_verb = list("zip-filed", "formatted")
+
+/obj/item/weapon/hdd/mini
+	desc = "Up to 32 zettabytes of data right here in your pocket."
+	icon_state = "hdd1"
+
 //TODO: Figure out wtf this is and possibly remove it -Nodrak
 /obj/item/weapon/dummy
 	name = "dummy"

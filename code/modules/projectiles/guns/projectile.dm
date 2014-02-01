@@ -17,6 +17,11 @@
 	var/load_method = SPEEDLOADER //0 = Single shells or quick loader, 1 = box, 2 = magazine
 	var/obj/item/ammo_magazine/empty_mag = null
 
+/obj/item/weapon/gun/projectile/cobra
+	desc = "Colt King Cobra double-action revolver. When you want someone dead and you don`t take no for an answer. Uses .357 ammo."
+	name = "Colt King Cobra"
+	icon_state = "cobra"
+
 
 /obj/item/weapon/gun/projectile/New()
 	..()
