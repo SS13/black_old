@@ -134,11 +134,12 @@ var/global/list/all_money_accounts = list()
 	var/source_terminal = ""
 
 /obj/machinery/account_database
-	name = "Accounts database"
+	name = "Accounts database server"
 	desc = "Holds transaction logs, account data and all kinds of other financial records."
-	icon = 'icons/obj/virology.dmi'
-	icon_state = "analyser"
+	icon = 'icons/obj/stock_parts.dmi'
+	icon_state = "server_closed"
 	density = 1
+	anchored = 1
 	req_one_access = list(access_hop, access_captain)
 	var/receipt_num
 	var/machine_id = ""
@@ -146,7 +147,9 @@ var/global/list/all_money_accounts = list()
 	var/access_level = 0
 	var/datum/money_account/detailed_account_view
 	var/creating_new_account = 0
+	var/closed = 1
 	var/activated = 1
+	var/obj/item/weapon/hdd/
 
 /obj/machinery/account_database/New()
 	..()
@@ -164,6 +167,7 @@ var/global/list/all_money_accounts = list()
 		current_date_string = "[num2text(rand(1,31))] [pick("January","February","March","April","May","June","July","August","September","October","November","December")], [game_year]"
 
 	machine_id = "[station_name()] Acc. DB #[num_financial_terminals++]"
+	hdd = new/obj/item/weapon/hdd
 
 /obj/machinery/account_database/attack_hand(mob/user as mob)
 	if(get_dist(src,user) <= 1)
@@ -227,9 +231,9 @@ var/global/list/all_money_accounts = list()
 	else
 		user << browse(null,"window=account_db")
 
-/obj/machinery/account_database/attackby(O as obj, user as mob)//TODO:SANITY
-	if(istype(O, /obj/item/weapon/card))
-		var/obj/item/weapon/card/id/idcard = O
+/obj/machinery/account_database/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/card))
+		var/obj/item/weapon/card/id/idcard = W
 		if(!held_card)
 			usr.drop_item()
 			idcard.loc = src
@@ -239,6 +243,21 @@ var/global/list/all_money_accounts = list()
 				access_level = 2
 			else if(access_hop in idcard.access || access_captain in idcard.access)
 				access_level = 1
+
+	if(istype(W,/obj/item/weapon/screwdriver))
+		closed = !closed
+		user << "\blue you [closed ? "open" : "close"] the [src]'s door"
+		src.icon_state = "[closed ? "server_closed" : "server_open"]"
+		playsound(src, 'sound/machines/click.ogg', 50, 0)
+
+
+	if(istype(W,/obj/item/weapon/wrench))
+		user << "\blue You begin to [anchored ? "wrench" : "unwrench"] the account server..."
+		if (do_after(user, 40))
+			anchored = !anchored
+			src.add_fingerprint(usr)
+			user.visible_message("\red [user] is messing with the account server!", "You [anchored ? "wrenched" : "unwrenched"] the server rack.","You hear strange ratched sound.")
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 	else
 		..()
 

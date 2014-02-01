@@ -64,9 +64,9 @@
 /obj/item/clothing/under/rank/nursesuit
 	desc = "It's a jumpsuit commonly worn by nursing staff in the medical department."
 	name = "nurse's suit"
-	icon_state = "nursesuit"
-	item_state = "nursesuit"
-	item_color = "nursesuit"
+	icon_state = "nursesexy"
+	item_state = "nursesexy"
+	item_color = "nursesexy"
 	permeability_coefficient = 0.50
 	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 10, rad = 0)
 
@@ -87,12 +87,6 @@
 	item_state = "nursenew"
 	item_color = "nursenew"
 
-/obj/item/clothing/under/rank/nurse/sexy
-	desc = "A dress commonly worn by the nursing staff in the medical department. This one is very revealing."
-	name = "nurse's dress"
-	icon_state = "nursesexy"
-	item_state = "nursesexy"
-	item_color = "nursesexy"
 
 /obj/item/clothing/under/rank/orderly
 	desc = "A white suit to be worn by orderly people who love orderly things."

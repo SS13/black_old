@@ -278,6 +278,19 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "shuttle"
 
+/obj/structure/showcase/fakeserver
+	name = "Server Works"
+	desc = "Looks like a bunch of servers"
+	icon = 'icons/obj/virology.dmi'
+	icon_state = "analyser_processing"
+
+/obj/structure/showcase/fakeserver/tall
+	icon = 'icons/obj/stock_parts.dmi'
+	icon_state = "server_closed"
+
+/obj/structure/showcase/fakeserver/tall/steady
+	icon = 'icons/obj/stock_parts.dmi'
+	icon_state = "server_closed(steady)"
 
 /obj/item/mouse_drag_pointer = MOUSE_ACTIVE_POINTER
 
