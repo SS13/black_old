@@ -1301,5 +1301,4 @@ datum/mind
 /mob/living/parasite/meme/mind_initialize()
 	..()
 	mind.assigned_role = "Meme"
-	mind.special_role = "Meme"
 	mind.current.real_name = "Meme"
