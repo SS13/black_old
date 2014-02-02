@@ -5,6 +5,8 @@
 	item_state = "flight"
 	var/label = null
 	var/labels_left = 30
+	m_amt = 120
+	g_amt = 60
 	var/mode = 0
 
 
@@ -68,3 +70,5 @@
 	icon_state = "labeler_refill"
 	item_state = "electropack"
 	w_class = 1.0
+	m_amt = 20
+	g_amt = 10

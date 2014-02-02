@@ -82,3 +82,9 @@
 	item_state = "hardhat0_dblue"
 	item_color = "dblue"
 
+/obj/item/clothing/head/hardhat/justice
+	name = "helmet of justice"
+	desc = "Assistants flee only catching a sight of this majestic helmet, only fit for the biggest and smartest heads."
+	icon_state = "hardhat0_justice"
+	item_state = "hardhat0_justice"
+	item_color = "justice"

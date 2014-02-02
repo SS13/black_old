@@ -23,6 +23,15 @@
 	//var/electro = 0.75
 	//var/shocked = null
 
+/turf/simulated/wall/mineral/wood
+	name = "wooden wall"
+	desc = "A wall made of wood."
+	icon_state = "wood0"
+	walltype = "wood"
+	mineral = "wood"
+	//var/electro = 0.75
+	//var/shocked = null
+
 /turf/simulated/wall/mineral/diamond
 	name = "diamond wall"
 	desc = "A wall with diamond plating. You monster."
@@ -84,7 +93,7 @@
 	mineral = "plasma"
 
 /turf/simulated/wall/mineral/plasma/attackby(obj/item/weapon/W as obj, mob/user as mob)
-	if(is_hot(W) > 300)//If the temperature of the object is over 300, then ignite
+	if(is_hot(W) > 200)//If the temperature of the object is over 200, then ignite
 		ignite(is_hot(W))
 		return
 	..()

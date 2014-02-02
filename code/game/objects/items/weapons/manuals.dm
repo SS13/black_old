@@ -726,6 +726,9 @@
 				<h1>Drinks for dummies</h1>
 				Heres a guide for some basic drinks.
 
+				<h2>Old Fashioned:</h2>
+				Put two parts of sugar in a glass, add two parts of bourbon, then splash with water. Don`t shake!
+
 				<h2>Manly Dorf:</h2>
 				Mix ale and beer into a glass.
 
@@ -760,10 +763,10 @@
 				Mix kahlua, vodka, cognac and milk into a glass.
 
 				<h2>Milkshake:</h2>
-				Mix cream, milk and ice. Shake vogorously. Add juice or coffee for flavour.
+				Mix cream, milk and ice. Shake vigorously. Add juice or coffee for flavour.
 
 				<h2>Sidecar:</h2>
-				Mix cognac and lemon juice into a glass with salt rim.
+				Mix cognac and lemon juice into a glass with salt rim. Don`t forget to shake vigorously!
 
 				<h2>B-52:</h2>
 				Mix cognac, irish cream and kahlua into a shot glass. Substitute cognac for absinth to make a B-53.

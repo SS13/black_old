@@ -225,157 +225,84 @@
 
 
 /obj/structure/flora/pottedplant/plant1
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-01"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant2
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-02"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant3
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-03"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant4
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-04"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant5
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-05"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant6
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-06"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant7
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
+
 	icon_state = "plant-07"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant8
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-08"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant9
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-09"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant10
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-10"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant11
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-11"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant12
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-12"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant13
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-13"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant14
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-14"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant15
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-15"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant16
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-16"
-	desc = "A potted plant."
+
 
 /obj/structure/flora/pottedplant/plant17
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-17"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant18
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-18"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant19
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-19"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant20
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-20"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant21
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-11"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant22
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-22"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant23
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-23"
-	desc = "A potted plant."
 
 /obj/structure/flora/pottedplant/plant24
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-24"
-	desc = "A potted plant."
+
 
 /obj/structure/flora/pottedplant/plant25
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "plant-25"
 	desc = "A potted plant. This one appears to be long dead."
 
 /obj/structure/flora/pottedplant/plant26
-	name = "Potted plant"
-	icon = 'icons/obj/plants.dmi'
 	icon_state = "applebush"
 	desc = "A potted plant trimmed to resemble an apple."

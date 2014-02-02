@@ -1876,6 +1876,13 @@ datum
 			required_reagents = list("bourbon" = 2, "sodawater" = 1)
 			result_amount = 3
 
+		oldfashioned
+			name = "Old Fashioned"
+			id = "oldfashioned"
+			result = "oldfashioned"
+			required_reagents = list("bourbon" = 2, "water" = 1, "sugar" = 2)
+			result_amount = 5
+
 		black_russian
 			name = "Black Russian"
 			id = "blackrussian"

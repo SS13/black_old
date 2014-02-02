@@ -2,6 +2,7 @@
  * Contains:
  *		Lasertag
  *		Costume
+ *		Fur Coats
  *		Misc
  */
 
@@ -187,6 +188,49 @@
 	item_state = "cardborg"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 	flags_inv = HIDEJUMPSUIT
+
+/*
+ * Fur Coats
+ */
+
+
+/obj/item/clothing/suit/winter
+	name = "warm coat"
+	desc = "Extra warm coat made for work in extreme cold conditions."
+	icon_state = "coatwinter"
+	item_state = "coatwinter"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO
+	flags_inv = HIDEJUMPSUIT
+
+/obj/item/clothing/suit/winter/attack_self(mob/user as mob)
+	if(src.icon_state == "coatwinter")
+		src.icon_state = "coatwinter-hood"
+		src.item_state = "coatwinter-hood"
+		user << "You pull the hood over your head."
+		flags = FPRINT|TABLEPASS|BLOCKHAIR
+	else
+		src.icon_state = "coatwinter"
+		src.item_state = "coatwinter"
+		user << "You pull the hood off of your head."
+		flags = FPRINT|TABLEPASS
+
+/obj/item/clothing/suit/winter/security
+	name = "warm security coat"
+	desc = "Extra warm coat made for work in extreme cold conditions. This one is in red color with monkey fur trim hood."
+	icon_state = "coatsecurity"
+	item_state = "coatsecurity"
+
+/obj/item/clothing/suit/winter/security/attack_self(mob/user as mob)
+	if(src.icon_state == "coatsecurity")
+		src.icon_state = "coatsecurity-hood"
+		src.item_state = "coatsecurity-hood"
+		user << "You pull the hood over your head."
+		flags = FPRINT|TABLEPASS|BLOCKHAIR
+	else
+		src.icon_state = "coatsecurity"
+		src.item_state = "coatsecurity"
+		user << "You pull the hood off of your head."
+		flags = FPRINT|TABLEPASS
 
 /*
  * Misc

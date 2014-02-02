@@ -338,6 +338,10 @@
 					icon_state = "whiskeysodaglass2"
 					name = "Bourbon Soda"
 					desc = "Ultimate refreshment."
+				if("oldfashioned")
+					icon_state = "oldfashionedglass"
+					name = "Old Fashioned"
+					desc = "The Old Fahioned. If the name doesn`t ring a bell, you probably shouldn`t be in a bar."
 				if("tonic")
 					icon_state = "glass_clear"
 					name = "Glass of Tonic Water"

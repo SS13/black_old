@@ -163,6 +163,8 @@
 		explosion(src.loc,-1,1,2)
 	if(src)
 		del(src)
+		if (prob (50))
+			new /obj/structure/blownfueltank(src.loc)
 
 /obj/structure/reagent_dispensers/fueltank/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	if(temperature > T0C+500)
@@ -190,29 +192,10 @@
 	icon_state = "water_cooler"
 	possible_transfer_amounts = null
 	anchored = 1
-	var/cups = 50
 	New()
 		..()
 		reagents.add_reagent("water",500)
 
-/obj/structure/reagent_dispensers/water_cooler/attack_hand(var/mob/living/carbon/human/user)
-	if((!istype(user)) || (user.stat))
-		return
-	if(cups <= 0)
-		user << "<span class='danger'>What? No cups?"
-		return
-	cups--
-	user.put_in_hands(new /obj/item/weapon/reagent_containers/food/drinks/sillycup)
-	user.visible_message("<span class='notice'>[user] gets a cup from [src].","<span class='notice'>You get a cup from [src].")
-
-/obj/structure/reagent_dispensers/water_cooler/attackby(var/obj/item/I, var/mob/user)
-	if(istype(I, /obj/item/weapon/reagent_containers/food/drinks/sillycup))
-		user.drop_item()
-		del I
-		cups++
-		return
-	else
-		..()
 
 /obj/structure/reagent_dispensers/beerkeg
 	name = "beer keg"

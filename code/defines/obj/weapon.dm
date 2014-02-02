@@ -724,6 +724,24 @@
 	flags = FPRINT | TABLEPASS
 	w_class = 4.0
 
+/obj/item/weapon/blownextinguisher
+	name = "blown-up extinguisher"
+	desc = "This fire extinguisher probably exploded because of too hight internal pressure. Not so robust now, huh?"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "exting_blown"
+	item_state = "coil"
+	w_class = 3.0
+	force = 5.0
+
+/obj/structure/blownfueltank //Oh God, where the hell do I put it? If doesn`t fir in both structures and weapons!
+	name = "blown-up fueltank"
+	desc = "What part of refueling the welder didn`t you get clear?"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "fuel_blown"
+	anchored = 0
+	flags = FPRINT
+
+
 ///////////////////////////////////////Stock Parts /////////////////////////////////
 
 /obj/item/weapon/stock_parts

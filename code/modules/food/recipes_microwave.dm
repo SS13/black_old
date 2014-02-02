@@ -1181,3 +1181,20 @@ I said no!
 		/obj/item/weapon/reagent_containers/food/snacks/carpmeat,
 	)
 	result = /obj/item/weapon/reagent_containers/food/snacks/sashimi
+
+/datum/recipe/honeysteak
+	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/honeycomb,
+		/obj/item/weapon/reagent_containers/food/snacks/meatsteak,
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/honeysteak
+
+/datum/recipe/honeypie
+	reagents = list("milk" = 5, "flour" = 15)
+	items = list(
+		/obj/item/weapon/reagent_containers/food/snacks/egg,
+		/obj/item/weapon/reagent_containers/food/snacks/egg,
+		/obj/item/weapon/reagent_containers/food/snacks/honeycomb,
+		/obj/item/weapon/reagent_containers/food/snacks/honeycomb,
+	)
+	result = /obj/item/weapon/reagent_containers/food/snacks/sliceable/honeypie

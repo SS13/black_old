@@ -69,3 +69,24 @@
 /obj/item/clothing/suit/storage/labcoat/kimono/sci_kimono
 	name = "Scientist Kimono"
 	icon_state = "sci_kimono"
+
+/obj/item/clothing/suit/storage/labcoat/blue
+	name = "blue labcoat"
+	icon_state = "labblue"
+
+/obj/item/clothing/suit/storage/labcoat/orange
+	name = "orange labcoat"
+	icon_state = "laborange"
+
+/obj/item/clothing/suit/storage/labcoat/red
+	name = "red labcoat"
+	icon_state = "labred"
+
+/obj/item/clothing/suit/storage/labcoat/green
+	name = "green labcoat"
+	icon_state = "labgreen"
+
+
+/obj/item/clothing/suit/storage/labcoat/purple
+	name = "purple labcoat"
+	icon_state = "labpurple"

@@ -3668,6 +3668,13 @@ datum
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 3
 
+		ethanol/oldfashioned
+			name = "Old Fashioned"
+			id = "bourbonsoda"
+			description = "True classic."
+			color = "#664300" // rgb: 102, 67, 0
+			boozepwr = 3
+
 		ethanol/antifreeze
 			name = "Anti-freeze"
 			id = "antifreeze"
