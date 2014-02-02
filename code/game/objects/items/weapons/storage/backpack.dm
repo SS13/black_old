@@ -101,6 +101,12 @@
 	icon_state = "securitypack"
 	item_state = "securitypack"
 
+/obj/item/weapon/storage/backpack/ertcommander
+	name = "ERT commander backpack"
+	desc = "A backpack for the ERT commander."
+	icon_state = "ertpack"
+	item_state = "ertpack"
+
 /obj/item/weapon/storage/backpack/captain
 	name = "captain's backpack"
 	desc = "It's a special backpack made exclusively for Nanotrasen officers."

@@ -1173,6 +1173,20 @@ obj/item/weapon/reagent_containers/food/snacks/chipsmonkey
 		reagents.add_reagent("blackpepper", 1)
 		bitesize = 3
 
+/obj/item/weapon/reagent_containers/food/snacks/honeysteak
+	name = "Honey Meat steak"
+	desc = "A piece of hot spicy meat covered in sweet golden honey. This will either be gross or magnificent."
+	icon_state = "honeysteak"
+	trash = /obj/item/trash/plate
+	New()
+		..()
+		reagents.add_reagent("nutriment", 8)
+		reagents.add_reagent("sodiumchloride", 1)
+		reagents.add_reagent("blackpepper", 1)
+		reagents.add_reagent("honey",10)
+		bitesize = 2
+
+
 /obj/item/weapon/reagent_containers/food/snacks/spacylibertyduff
 	name = "Spacy Liberty Duff"
 	desc = "Jello gelatin, from Alfred Hubbard's cookbook"
@@ -1992,6 +2006,26 @@ obj/item/weapon/reagent_containers/food/snacks/chipsmonkey
 	bitesize = 2
 
 
+/obj/item/weapon/reagent_containers/food/snacks/sliceable/honeypie
+	name = "Honey Pie"
+	desc = "This sweet, sweet pie is filled with honey. The bees themselves will get jealous of how much honey this pie packs."
+	icon_state = "honeypie"
+	slice_path = /obj/item/weapon/reagent_containers/food/snacks/honeypieslice
+	slices_num = 5
+	New()
+		..()
+		reagents.add_reagent("nutriment", 30)
+		reagents.add_reagent("honey",20)
+		bitesize = 2
+
+/obj/item/weapon/reagent_containers/food/snacks/honeypieslice
+	name = "Honey Pie slice"
+	desc = "This piece of honey pie is bleeding honey, asking for you to eat it. Don`t let any bees around it, however."
+	icon_state = "honeypie_slice"
+	trash = /obj/item/trash/plate
+	bitesize = 2
+
+
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/carrotcake
 	name = "Carrot Cake"
 	desc = "A favorite desert of a certain wascally wabbit. Not a lie."
@@ -2308,9 +2342,9 @@ obj/item/weapon/reagent_containers/food/snacks/chipsmonkey
 	icon_state = "singulopop"
 	New()
 		..()
-		reagents.add_reagent("sugar", 10)
-		bitesize = 1
-
+		reagents.add_reagent("sugar", 20)
+		reagents.add_reagent("nutriment", 1)
+		bitesize = 5
 /////////////////////////////////////////////////PIZZA////////////////////////////////////////
 
 /obj/item/weapon/reagent_containers/food/snacks/sliceable/pizza

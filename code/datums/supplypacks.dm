@@ -224,10 +224,22 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/clothing/head/beret,
 					/obj/item/clothing/suit/suspenders,
 					/obj/item/weapon/reagent_containers/food/drinks/bottle/bottleofnothing)
-	cost = 10
+	cost = 20
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Standard Costumes"
 	access = access_theatre
+	group = "Operations"
+
+/datum/supply_packs/boxing
+	name = "Boxing gear supply"
+	contains = list(/obj/item/clothing/gloves/boxing,
+					/obj/item/clothing/gloves/boxing/blue,
+					/obj/item/clothing/gloves/boxing/green,
+					/obj/item/clothing/gloves/boxing/yellow)
+
+	cost = 15
+	containertype = /obj/structure/closet
+	containername = "Boxing gear"
 	group = "Operations"
 
 /datum/supply_packs/wizard
@@ -816,6 +828,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/clothing/head/collectable/wizard,
 					/obj/item/clothing/head/collectable/hardhat,
 					/obj/item/clothing/head/collectable/HoS,
+					/obj/item/clothing/head/hardhat/justice,
 					/obj/item/clothing/head/collectable/thunderdome,
 					/obj/item/clothing/head/collectable/swat,
 					/obj/item/clothing/head/collectable/slime,
@@ -850,6 +863,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	/obj/item/weapon/reagent_containers/glass/paint/white,
 	/obj/item/weapon/reagent_containers/glass/paint/remover,
 	/obj/item/weapon/contraband/poster,
+	/obj/item/hand_labeler_refill,
 	/obj/item/weapon/wrapping_paper,
 	/obj/item/weapon/wrapping_paper,
 	/obj/item/weapon/wrapping_paper)

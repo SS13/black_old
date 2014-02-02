@@ -44,7 +44,7 @@
 		..()
 		if (empty) return
 
-		icon_state = pick ("firstaid","firstaidheart")
+		icon_state = "firstaid"
 
 		new /obj/item/stack/medical/bruise_pack(src)
 		new /obj/item/stack/medical/bruise_pack(src)

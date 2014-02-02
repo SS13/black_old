@@ -37,6 +37,8 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/ammo_magazine/c38(), \
 		new /obj/item/device/taperecorder/empty(), \
 		new /obj/item/device/tape(), \
+		new /obj/item/hand_labeler_refill(), \
+		new /obj/item/weapon/hand_labeler(), \
 		new /obj/item/device/assembly/igniter(), \
 		new /obj/item/device/assembly/signaler(), \
 		new /obj/item/device/radio/headset(), \

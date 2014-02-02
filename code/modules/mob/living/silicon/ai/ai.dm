@@ -148,7 +148,7 @@ var/list/ai_list = list()
 		//if(icon_state == initial(icon_state))
 	var/icontype = ""
 	if (custom_sprite == 1) icontype = ("Custom")//automagically selects custom sprite if one is available
-	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Whale", "RED OCTOBER","House","Yuki","Helios","President AI")
+	else icontype = input("Select an icon!", "AI", null, null) in list("Monochrome", "Blue", "Inverted", "Text", "Smiley", "Angry", "Dorf", "Matrix", "Bliss", "Firewall", "Green", "Red", "Static", "Triumvirate", "Triumvirate Static", "Whale", "RED OCTOBER","House","Yuki","Helios","President AI","Xeno")
 	switch(icontype)
 		if("Custom") icon_state = "[src.ckey]-ai"
 		if("Clown") icon_state = "ai-clown2"
@@ -171,7 +171,8 @@ var/list/ai_list = list()
 		if("House") icon_state = "ai-rhouse"//Robert House from FONV
 		if("Yuki") icon_state = "ai-yuki" //Am I kawaii~ RD-sempai?
 		if("Helios") icon_state = "ai-helios"
-		if("President AI") icon_state = "ai-president"//President A from FO3
+		if("President AI") icon_state = "ai-president"//President AI from FO3
+		if("Xeno") icon_state = "ai-xeno"
 		else icon_state = "ai"
 
 	//else

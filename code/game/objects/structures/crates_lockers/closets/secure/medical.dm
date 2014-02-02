@@ -95,7 +95,7 @@
 				new /obj/item/clothing/under/rank/medical/purple(src)
 				new /obj/item/clothing/head/surgery/purple(src)
 		new /obj/item/clothing/under/rank/medical(src)
-		new /obj/item/clothing/under/rank/nurse(src)
+		new /obj/item/clothing/under/rank/nursesuit(src)
 		new /obj/item/clothing/under/rank/orderly(src)
 		new /obj/item/clothing/suit/storage/labcoat(src)
 		new /obj/item/clothing/shoes/white(src)

@@ -124,9 +124,14 @@
 					name = "Corn Oil"
 					desc = "A delicious oil used in cooking. Made from corn."
 					icon_state = "oliveoil"
+				if("honey")
+					name = "Honey"
+					desc = "Sweety golden goodnes. Bzzzz!"
+					icon_state = "honey"
 				if("sugar")
 					name = "Sugar"
 					desc = "Tastey space sugar!"
+
 				else
 					name = "Misc Condiment Bottle"
 					if (reagents.reagent_list.len==1)
