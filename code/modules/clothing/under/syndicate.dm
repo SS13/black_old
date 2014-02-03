@@ -31,5 +31,6 @@
 	name = "woodland camo suit"
 	desc = "A camouflage suit made of sturdy material. In case you have to hide in the woods while in space. Duh."
 	icon_state = "camo"
+	item_color = "camo"
 	item_state = "bl_suit"
 	armor = list(melee = 5, bullet = 5, laser = 5,energy = 5, bomb = 0, bio = 0, rad = 0)

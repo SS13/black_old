@@ -55,3 +55,8 @@
 
 /obj/effect/decal/cleanable/oil/streak
 	random_icon_states = list("streak1", "streak2", "streak3", "streak4", "streak5")
+
+/obj/effect/decal/cleanable/oil/drip
+	icon = 'icons/effects/drip.dmi'
+	desc = "A drip of greasy motor oil."
+	random_icon_states = list("oil1", "oil2", "oil3", "oil4", "oil5")

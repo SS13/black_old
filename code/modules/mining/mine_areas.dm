@@ -24,6 +24,7 @@
 
 /area/mine/abandoned
 	name = "Abandoned Mining Station"
+	music = 'sound/ambience/asteroid-desolate.ogg'
 
 /area/mine/living_quarters
 	name = "Mining Station Port Wing"

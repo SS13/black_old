@@ -52,7 +52,7 @@ var/global/list/cached_icons = list()
 		paint_type = "yellow"
 
 	violet
-		icon_state = "paint_violet"
+		icon_state = "paint_red"
 		paint_type = "violet"
 
 	black

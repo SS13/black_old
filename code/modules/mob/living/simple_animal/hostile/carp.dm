@@ -14,8 +14,8 @@
 	response_disarm = "gently pushes aside the"
 	response_harm = "hits the"
 	speed = 4
-	maxHealth = 25
-	health = 25
+	maxHealth = 35
+	health = 35
 
 	harm_intent_damage = 8
 	melee_damage_lower = 15

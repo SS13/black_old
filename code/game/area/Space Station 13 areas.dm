@@ -1446,6 +1446,7 @@ proc/process_ghost_teleport_locs()
 /area/mushroomasteroid
 	name = "Strange Asteroid"
 	icon_state = "mushroomasteroid"
+	music = 'sound/ambience/asteroid-desolate.ogg'
 
 //LISTENING POST
 /area/listeningpost

@@ -96,3 +96,8 @@
 	else
 		..()
 	return
+
+/obj/item/brain/alien
+	name = "alien brain"
+	desc = "A piece of juicy greenish meat found in xenomorph`s cranium."
+	icon_state = "alienbrain"

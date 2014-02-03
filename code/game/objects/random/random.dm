@@ -38,6 +38,18 @@
 					/obj/item/weapon/wrench,\
 					/obj/item/device/flashlight)
 
+/obj/random/broken_weapon
+	name = "Random Broken Gun"
+	desc = "This is a random broken gun"
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "egun-broken"
+	item_to_spawn()
+		return pick(/obj/item/weapon/brokenlaser,\
+					/obj/item/weapon/brokenegun,\
+					/obj/item/weapon/brokentaser,\
+					/obj/item/weapon/blownshotgun)
+
+
 /obj/random/coin
 	name = "Random Coin"
 	desc = "This is a random coin"
@@ -117,7 +129,7 @@
 					prob(4);/obj/item/weapon/cable_coil,\
 					prob(2);/obj/random/toolbox,\
 					prob(1);/obj/item/weapon/storage/belt/utility,\
-					prob(6);/obj/random/tool)
+					prob(7);/obj/random/tool)
 
 
 /obj/random/bureaucracy

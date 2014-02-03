@@ -307,6 +307,10 @@
 		name = "Skinhead"
 		icon_state = "hair_skinhead"
 
+	sidepart
+		name = "Sidepart"
+		icon_state = "hair_sidepart"
+
 	balding
 		name = "Balding Hair"
 		icon_state = "hair_e"

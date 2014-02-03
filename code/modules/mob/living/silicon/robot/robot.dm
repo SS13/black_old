@@ -172,6 +172,7 @@
 			module_sprites["Waitress"] = "Service"
 			module_sprites["Kent"] = "toiletbot"
 			module_sprites["Bro"] = "Brobot"
+			module_sprites["Proto"] = "proto"
 			module_sprites["Rich"] = "maximillion"
 			module_sprites["Default"] = "Service2"
 

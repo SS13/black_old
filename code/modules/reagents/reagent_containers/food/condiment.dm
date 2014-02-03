@@ -179,3 +179,20 @@
 	New()
 		..()
 		reagents.add_reagent("blackpepper", 20)
+
+
+/obj/item/weapon/reagent_containers/food/condiment/honey
+	name = "Honey"
+	desc = "A bottle of sweet, sweet honey. Bzzzz!"
+	icon_state = "honey"
+	New()
+		..()
+		reagents.add_reagent("honey", 30)
+
+/obj/item/weapon/reagent_containers/food/condiment/soysauce
+	name = "Soy Sauce"
+	desc = "A bottle of soy sauce."
+	icon_state = "soysauce"
+	New()
+		..()
+		reagents.add_reagent("soysauce", 25)

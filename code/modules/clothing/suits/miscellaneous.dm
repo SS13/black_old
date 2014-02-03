@@ -208,6 +208,7 @@
 		src.item_state = "coatwinter-hood"
 		user << "You pull the hood over your head."
 		flags = FPRINT|TABLEPASS|BLOCKHAIR
+		flags_inv = HIDEEARS|HIDEJUMPSUIT
 	else
 		src.icon_state = "coatwinter"
 		src.item_state = "coatwinter"
@@ -249,6 +250,12 @@
 	desc = "A worn out, curiously comfortable t-shirt with a picture of Ian. You wouldn't go so far as to say it feels like being hugged when you wear it but it's pretty close. Good for sleeping in."
 	icon_state = "ianshirt"
 	item_state = "ianshirt"
+
+/obj/item/clothing/suit/nerdshirt
+	name = "videogaming shirt"
+	desc = "A baggy shirt with vintage game character Phanic the Weasel. Someone who wears this is probably quite good at arcade gaming."
+	icon_state = "nerdshirt"
+	item_state = "nerdshirt"
 
 //Blue suit jacket toggle
 /obj/item/clothing/suit/suit/verb/toggle()

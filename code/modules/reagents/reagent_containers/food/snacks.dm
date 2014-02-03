@@ -558,12 +558,6 @@ obj/item/weapon/reagent_containers/food/snacks/chipsmonkey
 	desc = "An appendix which appears to be inflamed."
 	icon_state = "appendixinflamed"
 
-/obj/item/weapon/reagent_containers/food/snacks/heart
-	name = "heart"
-	desc = "A heart"
-	icon = 'icons/obj/surgery.dmi'
-	icon_state = "heart-off"
-
 /obj/item/weapon/reagent_containers/food/snacks/tofu
 	name = "Tofu"
 	icon_state = "tofu"

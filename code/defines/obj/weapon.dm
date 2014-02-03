@@ -723,23 +723,81 @@
 	item_state = "shotgun"
 	flags = FPRINT | TABLEPASS
 	w_class = 4.0
+	m_amt = 60
 
 /obj/item/weapon/blownextinguisher
 	name = "blown-up extinguisher"
-	desc = "This fire extinguisher probably exploded because of too hight internal pressure. Not so robust now, huh?"
+	desc = "This fire extinguisher probably exploded because of too high internal pressure. Not so robust now, huh?"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "exting_blown"
 	item_state = "coil"
 	w_class = 3.0
 	force = 5.0
+	m_amt = 30
 
-/obj/structure/blownfueltank //Oh God, where the hell do I put it? If doesn`t fir in both structures and weapons!
+/obj/item/weapon/brokenscrewdriwer
+	name = "broken screwdriwer"
+	desc = "This was once supposed to be a screwdriwer, supposedly."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "screwdriver_broken"
+	item_state = "screwdriver_blue"
+	w_class = 2.0
+	m_amt = 10
+
+/obj/item/weapon/brokencrowbar
+	name = "broken crowbar"
+	desc = "A crowbar broken by prolonged use."
+	icon = 'icons/obj/items.dmi'
+	icon_state = "crowbar_broken"
+	item_state = "stick"
+	w_class = 2.0
+	m_amt = 20
+
+/obj/item/weapon/brokenriot
+	name = "broken riot shield"
+	desc = "A riot shield broken from too powerful impact, now useless"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "riot_broken"
+	item_state = "sheet-glass"
+	w_class = 4.0
+	m_amt = 20
+	g_amt = 100
+
+/obj/item/weapon/brokenegun
+	name = "broken energy gun"
+	desc = "This energy gun is dead beyond repair"
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "egun-broken"
+	item_state = "gun"
+	w_class = 3.0
+	m_amt = 40
+
+/obj/item/weapon/brokenlaser
+	name = "broken laser gun"
+	desc = "This laser gun is dead beyond repair"
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "laser-broken"
+	item_state = "gun"
+	w_class = 3.0
+	m_amt = 50
+
+/obj/item/weapon/brokentaser
+	name = "broken taser gun"
+	desc = "This taser gun is dead beyond repair"
+	icon = 'icons/obj/gun.dmi'
+	icon_state = "taser-broken"
+	item_state = "gun"
+	w_class = 3.0
+	m_amt = 30
+
+/obj/structure/blownfueltank //Oh God, where the hell do I put it? If doesn`t fit in both structures and weapons!
 	name = "blown-up fueltank"
 	desc = "What part of refueling the welder didn`t you get clear?"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "fuel_blown"
 	anchored = 0
 	flags = FPRINT
+
 
 
 ///////////////////////////////////////Stock Parts /////////////////////////////////

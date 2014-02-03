@@ -163,8 +163,8 @@
 		explosion(src.loc,-1,1,2)
 	if(src)
 		del(src)
-		if (prob (50))
-			new /obj/structure/blownfueltank(src.loc)
+		spawn (30)
+		new /obj/structure/blownfueltank(src.loc)
 
 /obj/structure/reagent_dispensers/fueltank/temperature_expose(datum/gas_mixture/air, temperature, volume)
 	if(temperature > T0C+500)
