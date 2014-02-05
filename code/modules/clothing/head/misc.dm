@@ -276,3 +276,24 @@
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	flags_inv = HIDEEARS
 	siemens_coefficient = 2.0
+
+/obj/item/clothing/head/fedora
+	name = "fedora"
+	icon_state = "fedora"
+	item_state = "fedora"
+	desc = "A really cool hat if you're a mobster. A really lame hat if you're not."
+	action_button_name = "Tip Fedora"
+
+/obj/item/clothing/head/fedora/attack_self(mob/user)
+	fedoraproc(user)
+
+/obj/item/clothing/head/fedora/proc/fedoraproc(mob/user)
+	if(user.canmove && !user.stat && !user.restrained())
+		user.visible_message("[user] tips their fedora.")
+
+/obj/item/clothing/head/fedora/verb/fedoratip()
+	set category = "Object"
+	set name = "Tip Fedora"
+	set src in usr
+
+	fedoraproc(usr)

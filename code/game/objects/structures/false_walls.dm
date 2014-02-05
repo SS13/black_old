@@ -326,6 +326,11 @@
 	icon_state = ""
 	mineral = "plasma"
 
+/obj/structure/falsewall/wood
+	name = "wooden wall"
+	desc = "A wall made of wood"
+	icon_state = ""
+	mineral = "wood"
 //-----------wtf?-----------start
 /obj/structure/falsewall/clown
 	name = "bananium wall"

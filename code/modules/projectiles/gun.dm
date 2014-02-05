@@ -77,6 +77,7 @@
 		if(istype(user, /mob/living))
 			var/mob/living/M = user
 			M << "<span class='danger'>[src] blows up in your face.</span>"
+			playsound(M, 'sound/weapons/gunshot_det.ogg', 80, 1)
 			M.take_organ_damage(0,20)
 			M.drop_item()
 			new /obj/item/weapon/blownshotgun(src.loc)

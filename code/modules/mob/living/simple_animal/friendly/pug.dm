@@ -40,3 +40,12 @@
 					sleep(1)
 	else
 		..()
+
+
+/mob/living/simple_animal/pug/beagle
+	name = "\improper beagle"
+	real_name = "beagle"
+	desc = "It's a beagle."
+	icon_state = "beagle"
+	icon_living = "beagle"
+	icon_dead = "beagle_dead"

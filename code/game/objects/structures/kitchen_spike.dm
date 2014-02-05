@@ -22,12 +22,13 @@
 			if(src.occupied == 0)
 				src.icon_state = "spikebloody"
 				src.occupied = 1
-				src.meat = 5
+				src.meat = 4
 				src.meattype = 1
 				for(var/mob/O in viewers(src, null))
 					O.show_message(text("\red [user] has forced [G.affecting] onto the spike, killing them instantly!"))
 				del(G.affecting)
 				del(G)
+				new /obj/effect/decal/cleanable/blood(src.loc)
 
 			else
 				user << "\red The spike already has something on it, finish collecting its meat first!"
@@ -35,12 +36,13 @@
 			if(src.occupied == 0)
 				src.icon_state = "spikebloodygreen"
 				src.occupied = 1
-				src.meat = 5
+				src.meat = 4
 				src.meattype = 2
 				for(var/mob/O in viewers(src, null))
 					O.show_message(text("\red [user] has forced [G.affecting] onto the spike, killing them instantly!"))
 				del(G.affecting)
 				del(G)
+				new /obj/effect/decal/cleanable/xenoblood(src.loc)
 			else
 				user << "\red The spike already has something on it, finish collecting its meat first!"
 		else

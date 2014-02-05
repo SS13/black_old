@@ -310,12 +310,16 @@
 /obj/mecha/proc/mechturn(direction)
 	dir = direction
 	playsound(src,'sound/mecha/mechturn.ogg',40,1)
+	if (prob(1))
+		new /obj/effect/decal/cleanable/oil/drip(src.loc)
 	return 1
 
 /obj/mecha/proc/mechstep(direction)
 	var/result = step(src,direction)
 	if(result)
 		playsound(src,'sound/mecha/mechstep.ogg',40,1)
+		if (prob(2))
+			new /obj/effect/decal/cleanable/oil/drip(src.loc)
 	return result
 
 

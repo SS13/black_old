@@ -11,6 +11,7 @@
 	throw_speed = 2
 	throw_range = 10
 	force = 10.0
+	health = 250
 	m_amt = 90
 	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
 	var/max_water = 50
@@ -130,3 +131,37 @@
 	else
 		return ..()
 	return
+
+/obj/item/weapon/extinguisher/bullet_act(var/obj/item/projectile/Proj)
+	if(istype(Proj ,/obj/item/projectile/beam)||istype(Proj,/obj/item/projectile/bullet))
+		if(!istype(Proj ,/obj/item/projectile/beam/lastertag) && !istype(Proj ,/obj/item/projectile/beam/practice) )
+			explode()
+
+/obj/item/weapon/extinguisher/attack(mob/M as mob, mob/user as mob)
+	health -= force
+	..()
+	if(health <= 0)
+		user.drop_item()
+		user.visible_message("\red [user] swings [src] it dents hard and bursts!",\
+			"\red The extinguisher bursts up!!",\
+			"You hear loud clap!!")
+		explode()
+
+
+/obj/item/weapon/extinguisher/proc/explode()
+	if (reagents.total_volume > 30)
+		explosion(src.loc,0,0,2)
+	else if (reagents.total_volume > 20)
+		explosion(src.loc,0,0,1)
+	else
+		explosion(src.loc,0,0,1)
+	if(src)
+		playsound(src.loc, 'sound/effects/bamf.ogg', 30, 1, -6)
+		del(src)
+		new /obj/item/weapon/blownextinguisher(src.loc)
+
+/obj/item/weapon/extinguisher/blob_act()
+	explode()
+
+
+

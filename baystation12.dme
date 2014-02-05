@@ -1304,6 +1304,7 @@
 #include "code\WorkInProgress\periodic_news.dm"
 #include "code\WorkInProgress\animusstation\donations_panel.dm"
 #include "code\WorkInProgress\animusstation\gramophone.dm"
+#include "code\WorkInProgress\animusstation\shotgunrack.dm"
 #include "code\WorkInProgress\animusstation\turntable.dm"
 #include "code\WorkInProgress\Apples\artifacts.dm"
 #include "code\WorkInProgress\Cael_Aislinn\Economy\Accounts.dm"

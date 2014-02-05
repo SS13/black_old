@@ -114,6 +114,16 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	icon = 'icons/obj/doors/Doormed.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_med
 
+/obj/machinery/door/airlock/cult
+	name = "Airlock"
+	icon = 'icons/obj/doors/Doorcult.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_com
+
+/obj/machinery/door/airlock/cult/norune
+	name = "Airlock"
+	icon = 'icons/obj/doors/Doorcultnorune.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_com
+
 /obj/machinery/door/airlock/genetics
 	name = "Airlock"
 	icon = 'icons/obj/doors/Doorgen.dmi'

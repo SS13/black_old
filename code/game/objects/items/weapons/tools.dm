@@ -44,6 +44,7 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
+	health = 20
 	g_amt = 0
 	m_amt = 75
 	attack_verb = list("stabbed")
@@ -82,6 +83,15 @@
 	return
 
 /obj/item/weapon/screwdriver/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	health -= force
+	..()
+	if(health <= 0)
+		user.drop_item()
+		user.visible_message("\red [user] just broke [src]r hitting [M]!",\
+			"\red The screwdriver breaks!",\
+			"You hear metal cracking!")
+		new /obj/item/weapon/brokenscrewdriwer(src.loc)
+		del(src)
 	if(!istype(M))	return ..()
 	if(user.zone_sel.selecting != "eyes" && user.zone_sel.selecting != "head")
 		return ..()
@@ -449,6 +459,7 @@
 	throwforce = 7.0
 	item_state = "crowbar"
 	w_class = 2.0
+	health = 35
 	m_amt = 50
 	origin_tech = "engineering=1"
 	attack_verb = list("attacked", "bashed", "battered", "bludgeoned", "whacked")
@@ -457,6 +468,18 @@
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_crowbar"
 	item_state = "crowbar_red"
+
+
+/obj/item/weapon/crowbar/attack(mob/M as mob, mob/user as mob)
+	health -= force
+	..()
+	if(health <= 0)
+		user.drop_item()
+		user.visible_message("\red [user] just broke a crowbar hitting [M]!",\
+			"\red The crowbrar breaks!",\
+			"You hear loud metallic noise!")
+		new /obj/item/weapon/brokencrowbar(src.loc)
+		del(src)
 
 /obj/item/weapon/weldingtool/attack(mob/M as mob, mob/user as mob)
 	if(hasorgans(M))
