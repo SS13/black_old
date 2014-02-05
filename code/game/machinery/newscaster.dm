@@ -95,6 +95,10 @@ var/list/obj/machinery/newscaster/allCasters = list() //Global list that will co
 	luminosity = 0
 	anchored = 1
 
+	blob_act()
+		if(prob(80))
+			del(src)
+
 
 /obj/machinery/newscaster/security_unit                   //Security unit
 	name = "Security Newscaster"

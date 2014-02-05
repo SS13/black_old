@@ -1448,6 +1448,12 @@ proc/process_ghost_teleport_locs()
 	icon_state = "mushroomasteroid"
 	music = 'sound/ambience/asteroid-desolate.ogg'
 
+//OLD COMMSAT
+/area/oldcomm
+	name = "Old Communication Satellite"
+	icon_state = "oldcomm"
+	music = 'sound/ambience/asteroid-desolate.ogg'
+
 //LISTENING POST
 /area/listeningpost
 	name = "Asteroid"

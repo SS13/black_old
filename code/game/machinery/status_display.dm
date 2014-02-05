@@ -56,6 +56,10 @@
 			return
 		update()
 
+	blob_act()
+		if(prob(50))
+			del(src)
+
 	emp_act(severity)
 		if(stat & (BROKEN|NOPOWER))
 			..(severity)

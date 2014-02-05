@@ -205,11 +205,29 @@
 	amount_per_transfer_from_this = 10
 	New()
 		..()
-		reagents.add_reagent("beer",1000)
+		reagents.add_reagent("beer",500)
 
 /obj/structure/reagent_dispensers/beerkeg/blob_act()
 	explosion(src.loc,0,3,5,7,10)
 	del(src)
+
+/obj/structure/reagent_dispensers/keg
+	name = "keg"
+	desc = "Metal keg. Could there be beer inside?"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "keg"
+	amount_per_transfer_from_this = 10
+
+/obj/structure/reagent_dispensers/keg/hooch
+	amount_per_transfer_from_this = 10
+	New()
+		..()
+		reagents.add_reagent("hooch",300)
+
+/obj/structure/reagent_dispensers/keg/potato //Because Russians, man. You gotta drink something, right?
+	New()
+		..()
+		reagents.add_reagent("potato_juice",300)
 
 /obj/structure/reagent_dispensers/virusfood
 	name = "Virus Food Dispenser"

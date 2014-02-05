@@ -287,7 +287,7 @@
 	icon_state = "plant-20"
 
 /obj/structure/flora/pottedplant/plant21
-	icon_state = "plant-11"
+	icon_state = "plant-21"
 
 /obj/structure/flora/pottedplant/plant22
 	icon_state = "plant-22"

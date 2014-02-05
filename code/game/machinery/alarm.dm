@@ -97,6 +97,9 @@
 
 	var/list/TLV = list()
 
+	blob_act()
+		if(prob(50))
+			del(src)
 
 /obj/machinery/alarm/server/New()
 	..()

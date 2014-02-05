@@ -209,6 +209,10 @@
 
 	var/rigged = 0				// true if rigged to explode
 
+	blob_act()
+		if(prob(50))
+			del(src)
+
 // the smaller bulb light fixture
 
 /obj/machinery/light/small

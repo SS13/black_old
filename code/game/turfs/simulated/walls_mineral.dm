@@ -29,8 +29,6 @@
 	icon_state = "wood0"
 	walltype = "wood"
 	mineral = "wood"
-	//var/electro = 0.75
-	//var/shocked = null
 
 /turf/simulated/wall/mineral/diamond
 	name = "diamond wall"

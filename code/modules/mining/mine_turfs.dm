@@ -625,7 +625,7 @@ commented out in r5061, I left it because of the shroom thingies
 	//	seedName = pick(list("1","2","3","4"))
 	//	seedAmt = rand(1,4)
 	if(prob(20))
-		icon_state = "asteroid[rand(0,12)]"
+		icon_state = "asteroid[rand(1,15)]"
 	spawn(2)
 		updateMineralOverlays()
 
