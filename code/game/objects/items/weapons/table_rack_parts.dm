@@ -54,7 +54,7 @@
  */
 /obj/item/weapon/table_parts/wood/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/wrench))
-		new /obj/item/stack/sheet/wood( user.loc )
+		new /obj/item/stack/sheet/mineral/wood( user.loc )
 		del(src)
 
 	if (istype(W, /obj/item/stack/tile/grass))
@@ -80,7 +80,7 @@
 
 /obj/item/weapon/table_parts/poker/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/wrench))
-		new /obj/item/stack/sheet/wood( user.loc )
+		new /obj/item/stack/sheet/mineral/wood( user.loc )
 		new /obj/item/stack/tile/grass( user.loc )
 		del(src)
 

@@ -74,7 +74,7 @@
 /obj/structure/stool/wooden/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		new /obj/item/stack/sheet/wood(src.loc)
+		new /obj/item/stack/sheet/mineral/wood(src.loc)
 		del(src)
 	return
 
@@ -145,7 +145,7 @@
 	if (prob(25) && istype(M,/mob/living))
 		user.visible_message("\red [user] breaks [src] over [M]'s back!.")
 		user.u_equip(src)
-		var/obj/item/stack/sheet/wood/m = new/obj/item/stack/sheet/wood
+		var/obj/item/stack/sheet/mineral/wood/m = new/obj/item/stack/sheet/mineral/wood
 		m.loc = get_turf(src)
 		del src
 		var/mob/living/T = M

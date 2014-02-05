@@ -134,14 +134,14 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	new/datum/stack_recipe("apiary", /obj/item/apiary, 10, time = 25, one_per_turf = 0, on_floor = 0), \
 	)
 
-/obj/item/stack/sheet/wood
+/obj/item/stack/sheet/mineral/wood
 	name = "wooden planks"
 	desc = "One can only guess that this is a bunch of wood."
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
 	origin_tech = "materials=1;biotech=1"
 
-/obj/item/stack/sheet/wood/New(var/loc, var/amount=null)
+/obj/item/stack/sheet/mineral/wood/New(var/loc, var/amount=null)
 	recipes = wood_recipes
 	return ..()
 

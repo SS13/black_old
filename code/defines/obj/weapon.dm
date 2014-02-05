@@ -1016,3 +1016,29 @@
 	icon_state = "capacitor"
 	desc = "A debug item for research."
 	origin_tech = "materials=8;programming=8;magnets=8;powerstorage=8;bluespace=8;combat=8;biotech=8;syndicate=8"
+
+
+/*
+ * Ding! Bellboys ahoy!
+ */
+/obj/item/weapon/servicebell
+	name = "service bell"
+	desc = "Use this to summon bellboys."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "servicebell"
+	item_state = "zippo"
+	throwforce = 3
+	w_class = 1.0
+	throw_speed = 3
+	throw_range = 6
+	attack_verb = list("bellboyed")
+	var/spam_flag = 0
+
+/obj/item/weapon/servicebell/attack_self(mob/user as mob)
+	if (spam_flag == 0)
+		spam_flag = 1
+		playsound(src.loc, 'sound/items/servicebell.ogg', 50, 1)
+		src.add_fingerprint(user)
+		spawn(20)
+			spam_flag = 0
+	return

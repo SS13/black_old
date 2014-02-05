@@ -11,6 +11,10 @@
 	var/mob/living/silicon/ai/ai = list()
 	var/last_tick //used to delay the powercheck
 
+	blob_act()
+		if(prob(50))
+			del(src)
+
 /obj/item/device/radio/intercom/New()
 	..()
 	processing_objects += src

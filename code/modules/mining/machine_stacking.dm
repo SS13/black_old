@@ -163,7 +163,7 @@
 					machine.ore_plasteel = 0
 			if ("wood")
 				if (machine.ore_wood > 0)
-					var/obj/item/stack/sheet/wood/G = new /obj/item/stack/sheet/wood
+					var/obj/item/stack/sheet/mineral/wood/G = new /obj/item/stack/sheet/mineral/wood
 					G.amount = machine.ore_wood
 					G.loc = machine.output.loc
 					machine.ore_wood = 0
@@ -310,7 +310,7 @@
 				ore_cardboard+= O:amount
 				del(O)
 				continue
-			if (istype(O,/obj/item/stack/sheet/wood))
+			if (istype(O,/obj/item/stack/sheet/mineral/wood))
 				ore_wood+= O:amount
 				del(O)
 				continue
@@ -387,7 +387,7 @@
 		ore_plasteel -= stack_amt
 		return
 	if (ore_wood >= stack_amt)
-		var/obj/item/stack/sheet/wood/G = new /obj/item/stack/sheet/wood
+		var/obj/item/stack/sheet/mineral/wood/G = new /obj/item/stack/sheet/mineral/wood
 		G.amount = stack_amt
 		G.loc = output.loc
 		ore_wood -= stack_amt

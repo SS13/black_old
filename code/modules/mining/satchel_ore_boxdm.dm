@@ -9,7 +9,7 @@
 	density = 1
 
 /obj/structure/ore_box/New()
-	if (prob(50))
+	if (prob(60))
 		icon_state = "orebox1"
 		name = "Rugged Ore Box"
 		desc = "A heavy box used for storing ore. This one looks old."

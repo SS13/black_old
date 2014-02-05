@@ -107,6 +107,12 @@
 		..()
 		name = "plating"
 
+/turf/simulated/floor/plating/airless/asteroid
+	icon_state = "asteroidplating"
+	New()
+		..()
+		name = "plating"
+
 /turf/simulated/floor/bluegrid
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"

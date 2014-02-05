@@ -168,6 +168,8 @@
 	New()
 		..()
 		reagents.add_reagent("nutriment", 1+round((potency / 10), 1))
+		if (prob(50))
+			icon_state = "potato2"
 		spawn(5)	//So potency can be set in the proc that creates these crops
 			bitesize = reagents.total_volume
 
