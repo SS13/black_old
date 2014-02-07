@@ -249,6 +249,30 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set hidden = 1
 	src << "\red You are dead! You have no mind to store memory!"
 
+/mob/dead/observer/verb/colorchange()
+	set category = "Ghost"
+	set name = "Change Ghost Color"
+	set desc= "Why, you still are fabulous even after death."
+
+	var/icontype = ""
+	icontype = input("Select new color.", "Ghost", null, null) in list("White", "Black", "Blue", "Yellow", "Green", "Pink", "Cyan", "Dark Blue", "Dark Red", "Dark Green", "Dark Cyan", "Dark Grey", "Dark Yellow ", "Dark Pink")
+	switch(icontype)
+		if("White") icon_state = "ghost"
+		if("Black") icon_state = "ghost_black"
+		if("Blue") icon_state = "ghost_blue"
+		if("Yellow") icon_state = "ghost_yellow"
+		if("Green") icon_state = "ghost_green"
+		if("Pink") icon_state = "ghost_pink"
+		if("Cyan") icon_state = "ghost_cyan"
+		if("Dark Blue") icon_state = "ghost_dblue"
+		if("Dark Red") icon_state = "ghost_dred"
+		if("Dark Green") icon_state = "ghost_dgreen"
+		if("Dark Cyan") icon_state = "ghost_dcyan"
+		if("Dark Grey") icon_state = "ghost_dgrey"
+		if("Dark Yellow") icon_state = "ghost_dyellow"
+		if("Dark Pink") icon_state = "ghost_dpink"
+		else icon_state = "ghost"
+
 /mob/dead/observer/verb/toggle_darkness()
 	set name = "Toggle Darkness"
 	set category = "Ghost"

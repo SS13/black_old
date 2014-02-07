@@ -72,7 +72,7 @@
 
 /obj/item/ammo_magazine/a12mm/empty
 	name = "magazine (12mm)"
-	icon_state = "12mm"
+	icon_state = "12mm-0"
 	ammo_type = "/obj/item/ammo_casing/12mm"
 	max_ammo = 0
 
@@ -86,7 +86,7 @@
 
 /obj/item/ammo_magazine/a50/empty
 	name = "magazine (.50)"
-	icon_state = "50ae"
+	icon_state = "50ae-0"
 	ammo_type = "/obj/item/ammo_casing/a50"
 	max_ammo = 0
 

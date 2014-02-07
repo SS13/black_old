@@ -7,6 +7,16 @@
 	flags = FPRINT
 	pressure_resistance = 15
 
+/obj/structure/stool/barstool
+	name = "bar stool"
+	icon_state = "barstool"
+
+
+/obj/structure/stool/barstool/tall
+	name = "tall stool"
+	icon_state = "barstool2"
+
+
 /obj/structure/stool/orange
 	name = "stool"
 	desc = "Apply butt."
@@ -97,6 +107,15 @@
 	throwforce = 10
 	w_class = 5.0
 	var/obj/structure/stool/origin = null
+
+/obj/item/weapon/stool/barstool
+	name = "bar stool"
+	desc = "Uh-hoh, bar is heating up."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "barstool"
+	force = 10
+	throwforce = 10
+	w_class = 5.0
 
 /obj/item/weapon/stool/darkgreen
 	name = "stool"

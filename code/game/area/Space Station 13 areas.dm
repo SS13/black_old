@@ -337,6 +337,30 @@ proc/process_ghost_teleport_locs()
 	icon_state = "yellow"
 	requires_power = 0
 
+//SS21
+
+/area/ss21/
+	name = "\improper SS21 Research"
+	icon_state = "away"
+	requires_power = 1
+	music = 'sound/ambience/inthedark.ogg'
+
+/area/ss21/mainhall
+    name = "\improper SS21 Main Hall"
+    music = 'sound/ambience/inthedark.ogg'
+
+/area/ss21/mainsolars
+    name = "\improper SS21 Main Solars"
+    music = 'sound/ambience/inthedark.ogg'
+
+/area/ss21/dormitories
+    name = "\improper SS21 Dormitories"
+    music = 'sound/ambience/inthedark.ogg'
+
+/area/ss21/security
+    name = "\improper SS21 Security"
+    music = 'sound/ambience/inthedark.ogg'
+
 // CENTCOM
 
 /area/centcom
@@ -1453,6 +1477,12 @@ proc/process_ghost_teleport_locs()
 	name = "Old Communication Satellite"
 	icon_state = "oldcomm"
 	music = 'sound/ambience/asteroid-desolate.ogg'
+
+//SMUGGLERS LAB
+/area/smugglers
+	name = "Smugglers Asteroid"
+	icon_state = "smugglers"
+	music = 'sound/ambience/shipambience.ogg'
 
 //LISTENING POST
 /area/listeningpost

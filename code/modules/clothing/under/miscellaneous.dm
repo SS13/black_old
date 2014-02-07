@@ -120,12 +120,6 @@
 	item_color = "owl"
 	flags = FPRINT | TABLEPASS
 
-/obj/item/clothing/under/johnny
-	name = "johnny~~ jumpsuit"
-	desc = "Johnny~~"
-	icon_state = "johnny"
-	item_color = "johnny"
-
 /obj/item/clothing/under/rainbow
 	name = "rainbow"
 	desc = "rainbow"

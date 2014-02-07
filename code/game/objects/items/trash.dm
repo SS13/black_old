@@ -48,6 +48,12 @@
 	tray
 		name = "Tray"
 		icon_state = "tray"
+	cannedmeat
+		name = "Empty meat can"
+		icon_state = "cannedmeat_open"
+	cannedtuna
+		name = "Empty carp can"
+		icon_state = "cannedtuna_open"
 	candle
 		name = "candle"
 		icon = 'icons/obj/candle.dmi'

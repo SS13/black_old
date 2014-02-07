@@ -724,6 +724,9 @@
 	flags = FPRINT | TABLEPASS
 	w_class = 4.0
 	m_amt = 60
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
 
 /obj/item/weapon/blownextinguisher
 	name = "blown-up extinguisher"
@@ -734,6 +737,9 @@
 	w_class = 3.0
 	force = 5.0
 	m_amt = 30
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
 
 /obj/item/weapon/brokenscrewdriwer
 	name = "broken screwdriwer"
@@ -743,6 +749,9 @@
 	item_state = "screwdriver_blue"
 	w_class = 2.0
 	m_amt = 10
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
 
 /obj/item/weapon/brokencrowbar
 	name = "broken crowbar"
@@ -752,6 +761,9 @@
 	item_state = "stick"
 	w_class = 2.0
 	m_amt = 20
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
 
 /obj/item/weapon/brokenriot
 	name = "broken riot shield"
@@ -762,6 +774,9 @@
 	w_class = 4.0
 	m_amt = 20
 	g_amt = 100
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
 
 /obj/item/weapon/brokenegun
 	name = "broken energy gun"
@@ -771,6 +786,9 @@
 	item_state = "gun"
 	w_class = 3.0
 	m_amt = 40
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
 
 /obj/item/weapon/brokenlaser
 	name = "broken laser gun"
@@ -780,6 +798,9 @@
 	item_state = "gun"
 	w_class = 3.0
 	m_amt = 50
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
 
 /obj/item/weapon/brokentaser
 	name = "broken taser gun"
@@ -789,6 +810,9 @@
 	item_state = "gun"
 	w_class = 3.0
 	m_amt = 30
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
 
 /obj/structure/blownfueltank //Oh God, where the hell do I put it? If doesn`t fit in both structures and weapons!
 	name = "blown-up fueltank"
@@ -797,7 +821,35 @@
 	icon_state = "fuel_blown"
 	anchored = 0
 	flags = FPRINT
+	New()
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
 
+/obj/item/weapon/cannedcarp
+	name = "canned fish"
+	desc = "Eeek, some canned space carp. Wait, how are you gonna open it?"
+	icon = 'icons/obj/items.dmi'
+	icon_state = "cannedtuna"
+	flags = FPRINT | TABLEPASS | CONDUCT
+	force = 4.0
+	throwforce = 6.0
+	throw_speed = 3
+	throw_range = 6
+	w_class = 2
+	attack_verb = list("canned")
+
+/obj/item/weapon/cannedmeat
+	name = "canned meat"
+	desc = "Eeek, is that some 'tushonka'? Wait, how are you gonna open it?"
+	icon_state = "cannedmeat"
+	icon = 'icons/obj/items.dmi'
+	flags = FPRINT | TABLEPASS | CONDUCT
+	force = 4.0
+	throwforce = 6.0
+	throw_speed = 3
+	throw_range = 6
+	w_class = 2
+	attack_verb = list("canned")
 
 
 ///////////////////////////////////////Stock Parts /////////////////////////////////
