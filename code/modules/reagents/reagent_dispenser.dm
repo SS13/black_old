@@ -218,13 +218,32 @@
 	icon_state = "keg"
 	amount_per_transfer_from_this = 10
 
-/obj/structure/reagent_dispensers/keg/hooch
+
+/obj/structure/reagent_dispensers/spacedrugs
+	name = "keg"
+	desc = "Metal keg. Could there be beer inside?"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "keg"
+	amount_per_transfer_from_this = 10
+	New()
+		..()
+		reagents.add_reagent("space_drugs",300)
+
+/obj/structure/reagent_dispensers/hooch
+	name = "keg"
+	desc = "Metal keg. Could there be beer inside?"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "keg"
 	amount_per_transfer_from_this = 10
 	New()
 		..()
 		reagents.add_reagent("hooch",300)
 
-/obj/structure/reagent_dispensers/keg/potato //Because Russians, man. You gotta drink something, right?
+/obj/structure/reagent_dispensers/potato //Because Russians, man. You gotta drink something, right?
+	name = "keg"
+	desc = "Metal keg. Could there be beer inside?"
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "keg"
 	New()
 		..()
 		reagents.add_reagent("potato_juice",300)

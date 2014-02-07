@@ -254,6 +254,12 @@
 	icon = 'icons/obj/computer.dmi'
 	icon_state = "id"
 
+/obj/structure/showcase/engine
+	name = "engine block"
+	desc = "A solid powerhouse no less."
+	icon = 'code/WorkInProgress/Cael_Aislinn/Rust/rust.dmi'
+	icon_state = "injector0"
+
 /obj/structure/showcase/fakesec
 	name = "Centcom Security Records"
 	desc = "Used to view and edit personnel's security records"

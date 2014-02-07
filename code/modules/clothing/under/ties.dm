@@ -366,3 +366,14 @@
 	..()
 	new /obj/item/weapon/hatchet/unathiknife(hold)
 	new /obj/item/weapon/hatchet/unathiknife(hold)
+
+/obj/item/clothing/tie/toothnecklace
+	name = "tooth necklace"
+	desc = "A set of tooth hanging on a leather string. Wear this and boast to everyone about that time you killed a space shark with your bare hands, even if you didn`t."
+	icon_state = "tooth-necklace"
+	item_state = "tooth-necklace"
+	item_color = "tooth-necklace"
+	slot_flags = 0
+	flags = FPRINT|TABLEPASS
+	w_class = 1
+	slot_flags = SLOT_MASK

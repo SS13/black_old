@@ -20,6 +20,7 @@
 					gun = null
 					icon_state = "rack_empty"
 					src.add_fingerprint(usr)
+					update_icon()
 					return
 			else
 				user << "\blue There is no gun on the rack!"
@@ -37,29 +38,23 @@
 		gun = I
 		icon_state = "rack_pump"
 		src.add_fingerprint(usr)
-		for(var/mob/M in viewers(src, null))
-			if(M.client)
-				M.show_message(text("\blue [user] puts his pump shotgun onto the rack."), 2)
-		return
+		update_icon()
+
 	if ( istype(I,/obj/item/weapon/gun/projectile/shotgun/pump/combat) && !gun)
 		user.drop_item()
 		I.loc = src
 		gun = I
 		icon_state = "rack_combat"
 		src.add_fingerprint(usr)
-		for(var/mob/M in viewers(src, null))
-			if(M.client)
-				M.show_message(text("\blue [user] puts his combat shotgun onto the rack."), 2)
-		return
+		update_icon()
+
 	if ( istype(I,/obj/item/weapon/gun/projectile/shotgun/doublebarrel) && !gun)
 		user.drop_item()
 		I.loc = src
 		gun = I
 		icon_state = "rack_dbarrel"
 		src.add_fingerprint(usr)
-		for(var/mob/M in viewers(src, null))
-			if(M.client)
-				M.show_message(text("\blue [user] puts his double-barreled shotgun onto the rack."), 2)
+		update_icon()
 
 	if ( istype(I, /obj/item/weapon/wrench))
 		src.add_fingerprint(usr)
@@ -69,10 +64,6 @@
 		anchored = !anchored
 		user << "You [anchored ? "attached" : "detached"] the shotgun rack."
 		playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
-
-	if ( istype(I,/obj/item/clothing/head/det_hat) && gun)
-		user << "There's already a hat on the rack!"
-		return ..()
 
 	else
 		return ..()

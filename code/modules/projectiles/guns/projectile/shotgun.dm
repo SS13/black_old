@@ -155,3 +155,14 @@
 				else
 					potato = 0
 
+
+/obj/item/weapon/gun/projectile/shotgun/doublebarrel/shorty
+	name = "shorty shotgun"
+	desc = "A short version of double-barreled shotgun. Favored by outlaws and back alley troublemakers."
+	icon_state = "cerber"
+	item_state = "gun"
+	max_shells = 2
+
+	flags =  FPRINT | TABLEPASS | CONDUCT | USEDELAY
+	slot_flags = SLOT_BELT
+	caliber = "shotgun"
