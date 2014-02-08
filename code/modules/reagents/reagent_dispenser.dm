@@ -244,6 +244,7 @@
 	desc = "Metal keg. Could there be beer inside?"
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "keg"
+	amount_per_transfer_from_this = 10
 	New()
 		..()
 		reagents.add_reagent("potato_juice",300)
