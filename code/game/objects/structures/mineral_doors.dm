@@ -182,11 +182,11 @@
 	hardness = 0.5
 
 /obj/structure/mineral_door/cult
-	mineralType = "mythril" //Yeah, why not?
+	mineralType = "adamantine" //Yeah, why not?
 	hardness = 0.5
 
 /obj/structure/mineral_door/cultnorune
-	mineralType = "mythril" //Yeah, why not?
+	mineralType = "adamantine" //Yeah, why not?
 	hardness = 0.5
 
 /obj/structure/mineral_door/transparent

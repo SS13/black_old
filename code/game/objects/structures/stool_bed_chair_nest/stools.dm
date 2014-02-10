@@ -15,6 +15,7 @@
 /obj/structure/stool/barstool/tall
 	name = "tall stool"
 	icon_state = "barstool2"
+	desc = "This barstool looks way to heavy to lift and swing."
 
 
 /obj/structure/stool/orange
@@ -93,6 +94,36 @@
 		var/mob/living/carbon/human/H = over_object
 		if (!H.restrained() && !H.stat)
 			var/obj/item/weapon/stool/S = new/obj/item/weapon/stool()
+			S.origin = src
+			src.loc = S
+			H.put_in_hands(S)
+			H.visible_message("\red [H] grabs [src] from the floor!", "\red You grab [src] from the floor!")
+
+/obj/structure/stool/barstool/MouseDrop(atom/over_object)
+	if (istype(over_object, /mob/living/carbon/human) && (usr == over_object) && get_dist(over_object, src) <= 1)
+		var/mob/living/carbon/human/H = over_object
+		if (!H.restrained() && !H.stat)
+			var/obj/item/weapon/stool/barstool/S = new/obj/item/weapon/stool/barstool()
+			S.origin = src
+			src.loc = S
+			H.put_in_hands(S)
+			H.visible_message("\red [H] grabs [src] from the floor!", "\red You grab [src] from the floor!")
+
+/obj/structure/stool/black/MouseDrop(atom/over_object)
+	if (istype(over_object, /mob/living/carbon/human) && (usr == over_object) && get_dist(over_object, src) <= 1)
+		var/mob/living/carbon/human/H = over_object
+		if (!H.restrained() && !H.stat)
+			var/obj/item/weapon/stool/black/S = new/obj/item/weapon/stool/black()
+			S.origin = src
+			src.loc = S
+			H.put_in_hands(S)
+			H.visible_message("\red [H] grabs [src] from the floor!", "\red You grab [src] from the floor!")
+
+/obj/structure/stool/green/MouseDrop(atom/over_object)
+	if (istype(over_object, /mob/living/carbon/human) && (usr == over_object) && get_dist(over_object, src) <= 1)
+		var/mob/living/carbon/human/H = over_object
+		if (!H.restrained() && !H.stat)
+			var/obj/item/weapon/stool/darkgreen/S = new/obj/item/weapon/stool/darkgreen()
 			S.origin = src
 			src.loc = S
 			H.put_in_hands(S)

@@ -232,7 +232,7 @@ proc/process_ghost_teleport_locs()
 	icon_state = "shuttle"
 	name = "\improper Alien Shuttle Base"
 	requires_power = 1
-	luminosity = 0
+	luminosity = 1
 	lighting_use_dynamic = 1
 
 /area/shuttle/alien/mine
@@ -241,6 +241,17 @@ proc/process_ghost_teleport_locs()
 	requires_power = 1
 	luminosity = 0
 	lighting_use_dynamic = 1
+
+/area/shuttle/smuggler/base
+	icon_state = "shuttle"
+	name = "\improper Smuggler Shuttle Base"
+	requires_power = 1
+	luminosity = 1
+	lighting_use_dynamic = 1
+
+/area/shuttle/smuggler/centcom
+	icon_state = "shuttle"
+	name = "\improper Smuggler Shuttle Centcom"
 
 /area/shuttle/prison/
 	name = "\improper Prison Shuttle"
@@ -345,21 +356,33 @@ proc/process_ghost_teleport_locs()
 	requires_power = 1
 	music = 'sound/ambience/inthedark.ogg'
 
+/area/ss21/gateway
+    name = "\improper SS21 Gateway"
+    icon_state = "teleporter"
+
 /area/ss21/mainhall
     name = "\improper SS21 Main Hall"
-    music = 'sound/ambience/inthedark.ogg'
+    icon_state = "hallC"
 
 /area/ss21/mainsolars
     name = "\improper SS21 Main Solars"
-    music = 'sound/ambience/inthedark.ogg'
+    icon_state = "panelsA"
 
 /area/ss21/dormitories
     name = "\improper SS21 Dormitories"
-    music = 'sound/ambience/inthedark.ogg'
+    icon_state = "Sleep"
 
 /area/ss21/security
     name = "\improper SS21 Security"
-    music = 'sound/ambience/inthedark.ogg'
+    icon_state = "brig"
+
+/area/ss21/cafeteria
+	name = "\improper SS21 Cafeteria"
+	icon_state = "cafeteria"
+
+/area/ss21/cargo
+    name = "\improper SS21 Cargo"
+    icon_state = "quartoffice"
 
 // CENTCOM
 

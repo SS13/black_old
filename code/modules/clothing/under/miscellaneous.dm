@@ -461,29 +461,6 @@
 
 
 /*
- * Asylum
- */
-
-
-/obj/item/clothing/under/asylum_chronic
-	name = "Chronic Jumpsuit"
-	icon_state = "a_chronic"
-	item_state = "a_chronic"
-	item_color = "a_chronic"
-
-/obj/item/clothing/under/asylum_orderly
-	name = "a_orderly suit"
-	icon_state = "a_orderly"
-	item_state = "a_orderly"
-	item_color = "a_orderly"
-
-/obj/item/clothing/under/asylum_overalls
-	name = "Patient's overalls"
-	icon_state = "a_overalls"
-	item_state = "a_overalls"
-	item_color = "a_overalls"
-
-/*
  *Star Wars
  */
 
