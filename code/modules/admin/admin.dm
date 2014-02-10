@@ -620,6 +620,7 @@ var/global/floorIsLava = 0
 			<A href='?src=\ref[src];secretsfun=eagles'>Egalitarian Station Mode</A><BR>
 			<A href='?src=\ref[src];secretsfun=moveadminshuttle'>Move Administration Shuttle</A><BR>
 			<A href='?src=\ref[src];secretsfun=moveferry'>Move Ferry</A><BR>
+			<A href='?src=\ref[src];secretsfun=movesmugglersship'>Move Smugglers Shuttle</A><BR>
 			<A href='?src=\ref[src];secretsfun=movealienship'>Move Alien Dinghy</A><BR>
 			<A href='?src=\ref[src];secretsfun=moveminingshuttle'>Move Mining Shuttle</A><BR>
 			<A href='?src=\ref[src];secretsfun=blackout'>Break all lights</A><BR>
@@ -1150,4 +1151,25 @@ proc/move_alien_ship()
 		alien_ship_location = 0
 	else
 		alien_ship_location = 1
+	return
+
+
+/**********************Smugglers Shuttle**************************/
+
+var/smugglers_shuttle_location = 0 // 0 = centcom 13, 1 = asteroid base
+
+proc/move_smugglers_shuttle()
+	var/area/fromArea
+	var/area/toArea
+	if (smugglers_shuttle_location == 1)
+		fromArea = locate(/area/shuttle/smuggler/base)
+		toArea = locate(/area/shuttle/smuggler/centcom)
+	else
+		fromArea = locate(/area/shuttle/smuggler/centcom)
+		toArea = locate(/area/shuttle/smuggler/base)
+	fromArea.move_contents_to(toArea)
+	if (smugglers_shuttle_location)
+		smugglers_shuttle_location = 0
+	else
+		smugglers_shuttle_location = 1
 	return

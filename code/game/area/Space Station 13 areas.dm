@@ -232,7 +232,7 @@ proc/process_ghost_teleport_locs()
 	icon_state = "shuttle"
 	name = "\improper Alien Shuttle Base"
 	requires_power = 1
-	luminosity = 0
+	luminosity = 1
 	lighting_use_dynamic = 1
 
 /area/shuttle/alien/mine
@@ -241,6 +241,17 @@ proc/process_ghost_teleport_locs()
 	requires_power = 1
 	luminosity = 0
 	lighting_use_dynamic = 1
+
+/area/shuttle/smuggler/base
+	icon_state = "shuttle"
+	name = "\improper Smuggler Shuttle Base"
+	requires_power = 1
+	luminosity = 1
+	lighting_use_dynamic = 1
+
+/area/shuttle/smuggler/centcom
+	icon_state = "shuttle"
+	name = "\improper Smuggler Shuttle Centcom"
 
 /area/shuttle/prison/
 	name = "\improper Prison Shuttle"
