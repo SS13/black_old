@@ -3670,7 +3670,7 @@ datum
 
 		ethanol/oldfashioned
 			name = "Old Fashioned"
-			id = "bourbonsoda"
+			id = "oldfashioned"
 			description = "True classic."
 			color = "#664300" // rgb: 102, 67, 0
 			boozepwr = 3

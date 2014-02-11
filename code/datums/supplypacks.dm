@@ -350,6 +350,16 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_hydroponics
 	group = "Hydroponics"
 
+
+/datum/supply_packs/tray
+	name = "Hydroponics Tray Crate" //Grow weed in cargo every shift, mah niggah!
+	contains = list(/obj/machinery/hydroponics)
+	cost = 35
+	containertype = /obj/structure/closet/crate/hydroponics
+	containername = "Hydroponics tray cratee"
+	access = access_hydroponics
+	group = "Hydroponics"
+
 /datum/supply_packs/exoticseeds
 	name = "Exotic Seeds Crate"
 	contains = list(/obj/item/seeds/nettleseed,

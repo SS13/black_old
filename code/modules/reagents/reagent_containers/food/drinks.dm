@@ -468,8 +468,33 @@
 	icon_state = "vacuumflask"
 	volume = 60
 
-/obj/item/weapon/reagent_containers/food/drinks/britcup
+/obj/item/weapon/reagent_containers/food/drinks/cup
 	name = "cup"
 	desc = "A cup with the british flag emblazoned on it."
 	icon_state = "britcup"
 	volume = 30
+
+/obj/item/weapon/reagent_containers/food/drinks/cup/nt
+	desc = "A souvenir cup with the Nanotraseen logo emblazoned on it."
+	icon_state = "ntcup"
+
+/obj/item/weapon/reagent_containers/food/drinks/cup/pirate
+	desc = "A cup with the jolly rodger emblazoned on it. Let everyone think you are drinking rum, while you actually drink tea!"
+	icon_state = "piratecup"
+
+/obj/item/weapon/reagent_containers/food/drinks/cup/mesa
+	desc = "A souvenir cup with the Half-Mesa Laboratories logo emblazoned on it."
+	icon_state = "mesacup"
+
+/obj/item/weapon/reagent_containers/food/drinks/cup/soviet
+	desc = "A souvenir cup with Soviet symbolics logo emblazoned on it. Whan your tea is two parts vodka and zero parts tea."
+	icon_state = "sovietcup"
+
+/obj/item/weapon/reagent_containers/food/drinks/cup/cult
+	desc = "A souvenir cup with some runes emblazoned on it. They read 'In teae veritas'"
+	icon_state = "cultcup"
+
+/obj/item/weapon/reagent_containers/food/drinks/cup/white
+	desc = "A big white cup for hot drinks"
+	icon_state = "bigcup"
+	volume = 40
