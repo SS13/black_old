@@ -186,3 +186,10 @@
 	desc = "An exclusive satchel for Nanotrasen officers."
 	icon_state = "satchel-cap"
 	item_state = "captainpack"
+
+/obj/item/weapon/storage/backpack/toy
+	name = "space backpack"
+	icon = 'icons/obj/tank.dmi'
+	desc = "You can look like a real spessman with it! WARNING: this backpack is not suitable for real space EVA!"
+	icon_state = "jetpack-on"
+	item_state = "jetpack-on"

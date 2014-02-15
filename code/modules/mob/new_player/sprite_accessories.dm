@@ -235,7 +235,7 @@
 	hitop
 		name = "Hitop"
 		icon_state = "hair_hitop"
-		gender = MALE
+		//gender = MALE
 
 	mohawk
 		name = "Mohawk"
@@ -244,12 +244,12 @@
 	jensen
 		name = "Adam Jensen Hair"
 		icon_state = "hair_jensen"
-		gender = MALE
+		//gender = MALE
 
 	gelled
 		name = "Gelled Back"
 		icon_state = "hair_gelled"
-		gender = FEMALE
+		//gender = FEMALE
 
 	spiky
 		name = "Spiky"
@@ -286,7 +286,7 @@
 	odango
 		name = "Odango"
 		icon_state = "hair_odango"
-		gender = FEMALE
+		//gender = FEMALE
 
 	ombre
 		name = "Ombre"
@@ -301,15 +301,21 @@
 	updo
 		name = "Updo"
 		icon_state = "hair_updo"
-		gender = FEMALE
+		//gender = FEMALE
 
 	skinhead
 		name = "Skinhead"
 		icon_state = "hair_skinhead"
+		gender = MALE
 
 	sidepart
 		name = "Sidepart"
 		icon_state = "hair_sidepart"
+		gender = MALE
+
+	fancyboy
+		name = "Fancyboy`s hairdo"
+		icon_state = "hair_fancyboy"
 
 	balding
 		name = "Balding Hair"

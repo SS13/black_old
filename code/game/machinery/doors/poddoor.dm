@@ -12,6 +12,9 @@
 	else
 		return 0
 
+/obj/machinery/door/poddoor/black
+	icon = 'icons/obj/doors/blastdoors.dmi'
+
 /obj/machinery/door/poddoor/attackby(obj/item/weapon/C as obj, mob/user as mob)
 	src.add_fingerprint(user)
 	if (!( istype(C, /obj/item/weapon/crowbar) || (istype(C, /obj/item/weapon/twohanded/fireaxe) && C:wielded == 1) ))
