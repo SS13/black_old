@@ -460,6 +460,13 @@
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 
 
+/obj/item/clothing/under/xenorobe
+	desc = "It's a strange old-looking alien robe decorated with intricate ornaments. This must have costed a fortune, and probably costs still."
+	name = "\improper alien robe"
+	icon_state = "xenorobe"
+	item_state = "w_suit"
+	item_color = "xenorobe"
+
 /*
  *Star Wars
  */

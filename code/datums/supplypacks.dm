@@ -46,6 +46,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 /datum/supply_packs/food
 	name = "Food crate"
 	contains = list(/obj/item/weapon/reagent_containers/food/drinks/flour,
+					/obj/item/weapon/reagent_containers/food/drinks/sugar,
 					/obj/item/weapon/reagent_containers/food/drinks/milk,
 					/obj/item/weapon/reagent_containers/food/drinks/milk,
 					/obj/item/weapon/storage/fancy/egg_box,
@@ -957,7 +958,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	group = "Hospitality"
 
 /datum/supply_packs/formal_wear
-	contains = list(/obj/item/clothing/head/bowler,
+	contains = list(/obj/item/clothing/head/fedora,
 					/obj/item/clothing/head/that,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket,
 					/obj/item/clothing/suit/storage/lawyer/purpjacket,
