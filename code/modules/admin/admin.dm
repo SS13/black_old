@@ -271,7 +271,7 @@ var/global/floorIsLava = 0
 /datum/admins/proc/ghost_colouration_adminfun(var/mob/H as mob)
 	set category = "Fun"
 	set name = "Change Mob Color"
-	set desc = "Changing selected mob color. White for default. TestUnit Edition."
+	set desc = "Changing selected mob color. White for default."
 
 	if (!istype(src,/datum/admins))
 		src = usr.client.holder
@@ -279,7 +279,7 @@ var/global/floorIsLava = 0
 		usr << "Error: you are not an admin!"
 		return
 
-	var/new_mobcolor = input(usr, "Choose your Ghost color. TestUnit beta test edition.") as color|null
+	var/new_mobcolor = input(usr, "Choose your Ghost color.") as color|null
 	if(!new_mobcolor)	new_mobcolor = "#ffffff"
 	H.color = new_mobcolor
 

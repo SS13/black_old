@@ -250,7 +250,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set hidden = 1
 	src << "\red You are dead! You have no mind to store memory!"
 
-/*
+
 /mob/dead/observer/verb/colorchange()
 	set category = "Ghost"
 	set name = "Change Ghost Color"
@@ -274,7 +274,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if("Dark Yellow") icon_state = "ghost_dyellow"
 		if("Dark Pink") icon_state = "ghost_dpink"
 		else icon_state = "ghost"
-*/
+
 /mob/dead/observer/verb/toggle_darkness()
 	set name = "Toggle Darkness"
 	set category = "Ghost"
@@ -317,10 +317,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/ghost_colouration()
 	set category = "Ghost"
-	set name = "Change Ghost Color"
-	set desc = "Why, you still are fabulous even after death. TestUnit Edition."
+	set name = "Change Mob Color"
+	set desc = "Why, you still are fabulous even after death."
 
-	var/new_ghostcolor = input(usr, "Choose your Ghost color. TestUnit beta test edition.") as color|null
+	var/new_ghostcolor = input(usr, "Choose your Ghost color.") as color|null
 	if(!new_ghostcolor)	new_ghostcolor = "#ffffff"
 	usr.color = new_ghostcolor // TODO: Affects ghost overlays. (Hats)
 
