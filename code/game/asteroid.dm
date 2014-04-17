@@ -13,9 +13,9 @@ var/global/list/space_surprises = list(		/obj/item/clothing/mask/facehugger				=
 											/obj/item/device/violin							=2,
 											/obj/structure/device/piano						=1,
 											/obj/effect/decal/remains/human					=2,
+											/obj/item/clothing/shoes/slippers_worn			=1,
 											/obj/structure/reagent_dispensers/hooch			=1,
 											/obj/effect/decal/cleanable/vomit				=1,
-											/obj/item/clothing/under/xenorobe				=1,
 											/obj/mecha/working/ripley/mining				=1
 											)
 

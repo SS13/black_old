@@ -298,6 +298,7 @@
 /obj/structure/flora/pottedplant/plant24
 	icon_state = "plant-24"
 
+
 /obj/structure/flora/pottedplant/plant25
 	icon_state = "plant-25"
 	desc = "A potted plant. This one appears to be long dead."
@@ -305,7 +306,3 @@
 /obj/structure/flora/pottedplant/plant26
 	icon_state = "applebush"
 	desc = "A potted plant trimmed to resemble an apple."
-
-/obj/structure/flora/pottedplant/plant27
-	icon_state = "plant-27"
-	desc = "A potted birch tree."

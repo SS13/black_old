@@ -163,14 +163,3 @@
 
 
 		return
-
-/obj/item/device/assembly/prox_sensor/proc/lickthesensor(mob/user)
-	if(user.canmove && !user.stat && !user.restrained())
-		user.visible_message("<span class='rose'>[user] licks the proximity sensor!</span>")
-
-/obj/item/device/assembly/prox_sensor/verb/lick()
-	set category = "Object"
-	set name = "Lick the sensor"
-	set src in usr
-
-	lickthesensor(usr)

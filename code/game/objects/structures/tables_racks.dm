@@ -236,7 +236,7 @@
 	name = "gambling table"
 	desc = "A seedy table for seedy dealings in seedy places."
 	icon_state = "pokertable"
-	parts = /obj/item/weapon/table_parts/wood
+	parts = /obj/item/weapon/table_parts/poker
 
 /obj/structure/table/ex_act(severity)
 	switch(severity)

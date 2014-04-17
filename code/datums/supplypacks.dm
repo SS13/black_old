@@ -46,7 +46,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 /datum/supply_packs/food
 	name = "Food crate"
 	contains = list(/obj/item/weapon/reagent_containers/food/drinks/flour,
-					/obj/item/weapon/reagent_containers/food/drinks/sugar,
 					/obj/item/weapon/reagent_containers/food/drinks/milk,
 					/obj/item/weapon/reagent_containers/food/drinks/milk,
 					/obj/item/weapon/storage/fancy/egg_box,
@@ -348,16 +347,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 20
 	containertype = /obj/structure/closet/crate/secure/hydrosec
 	containername = "Weed control crate"
-	access = access_hydroponics
-	group = "Hydroponics"
-
-
-/datum/supply_packs/tray
-	name = "Hydroponics Tray Crate" //Grow weed in cargo every shift, mah niggah!
-	contains = list(/obj/machinery/hydroponics)
-	cost = 35
-	containertype = /obj/structure/closet/crate/hydroponics
-	containername = "Hydroponics tray cratee"
 	access = access_hydroponics
 	group = "Hydroponics"
 
@@ -958,7 +947,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	group = "Hospitality"
 
 /datum/supply_packs/formal_wear
-	contains = list(/obj/item/clothing/head/fedora,
+	contains = list(/obj/item/clothing/head/bowler,
 					/obj/item/clothing/head/that,
 					/obj/item/clothing/suit/storage/lawyer/bluejacket,
 					/obj/item/clothing/suit/storage/lawyer/purpjacket,

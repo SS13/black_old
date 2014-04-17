@@ -1,3 +1,5 @@
+//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:32
+
 /obj/structure/closet/crate
 	name = "crate"
 	desc = "A rectangular steel crate."
@@ -449,7 +451,7 @@
 
 	if(ishuman(usr))
 		src.add_fingerprint(usr)
-	if(broken)
+	if(!broken)
 		return
 		src.locked = !src.locked
 		src.update_icon()

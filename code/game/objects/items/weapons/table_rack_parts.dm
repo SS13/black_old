@@ -63,7 +63,7 @@
 			Grass.amount -= 1
 		else
 			del(Grass)
-		new /obj/item/weapon/table_parts/wood/poker( src.loc )
+		new /obj/item/weapon/table_parts/poker( src.loc )
 		visible_message("<span class='notice'>[user] adds grass to the wooden table parts</span>") //Grass, huh? Gotta come up with something better.
 		del(src)
 
@@ -78,16 +78,13 @@
  * Poker Table Parts
  */
 
-/obj/item/weapon/table_parts/wood/poker
-	icon_state = "poker_tableparts"
-
-/obj/item/weapon/table_parts/wood/poker/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/item/weapon/table_parts/poker/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if (istype(W, /obj/item/weapon/wrench))
 		new /obj/item/stack/sheet/mineral/wood( user.loc )
 		new /obj/item/stack/tile/grass( user.loc )
 		del(src)
 
-/obj/item/weapon/table_parts/wood/poker/attack_self(mob/user as mob)
+/obj/item/weapon/table_parts/poker/attack_self(mob/user as mob)
 	new /obj/structure/table/poker( user.loc )
 	user.drop_item()
 	del(src)
