@@ -76,3 +76,10 @@ var/list/GPS_list = list()
 /obj/item/device/gps/engineering
 	icon_state = "gps-e"
 	gpstag = "ENG0"
+	desc = "A positioning system helpful for EVA maintenance jobs, keeping one on you at all times while working outside might just save your life."
+
+
+/obj/item/device/gps/mining
+	icon_state = "gps-m"
+	gpstag = "MINE0"
+	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
