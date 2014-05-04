@@ -247,7 +247,7 @@
 	amount_per_transfer_from_this = 10
 	New()
 		..()
-		reagents.add_reagent("potato_juice",300)
+		reagents.add_reagent("potato",300)
 
 /obj/structure/reagent_dispensers/virusfood
 	name = "Virus Food Dispenser"

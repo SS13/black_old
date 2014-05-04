@@ -35,3 +35,32 @@
 		if(src.flags&NOSLIP)
 			state = "enabled"
 		usr << "Its mag-pulse traction system appears to be [state]."
+
+/obj/item/clothing/shoes/magbootsadvance
+	desc = "Advanced magnetic boots that have a lighter magnetic pull, placing less burden on the wearer."
+	name = "advanced magboots"
+	icon_state = "advmag0"
+
+	var/magpulse = 0
+//	flags = NOSLIP //disabled by default
+
+
+	verb/toggle()
+		set name = "Toggle Advanced Magboots"
+		set category = "Object"
+		set src in usr
+		if(usr.stat)
+			return
+		if(src.magpulse)
+			src.flags &= ~NOSLIP
+			src.slowdown = SHOES_SLOWDOWN
+			src.magpulse = 0
+			icon_state = "advmag0"
+			usr << "You disable the mag-pulse traction system."
+		else
+			src.flags |= NOSLIP
+			src.slowdown = 2
+			src.magpulse = 1
+			icon_state = "advmag1"
+			usr << "You enable the mag-pulse traction system."
+		usr.update_inv_shoes()

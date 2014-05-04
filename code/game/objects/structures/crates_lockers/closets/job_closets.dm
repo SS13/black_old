@@ -54,6 +54,8 @@
 	new /obj/item/device/lightreplacer(src)
 	new /obj/item/weapon/storage/bag/trash(src)
 	new /obj/item/clothing/shoes/galoshes(src)
+	if(prob(50))
+		new /obj/item/weapon/storage/belt/janitor(src)
 
 /*
  * Lawyer (IAAs)

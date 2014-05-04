@@ -1,109 +1,73 @@
-"aa" = (/turf/unsimulated/beach/sand{density = 1; opacity = 1},/area/awaymission/beach)
-"ab" = (/obj/machinery/gateway{dir = 9},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ac" = (/obj/machinery/gateway{dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ad" = (/obj/machinery/gateway{dir = 5},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ae" = (/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"af" = (/obj/effect/overlay/palmtree_r,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ag" = (/obj/machinery/gateway{dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ah" = (/obj/machinery/gateway/centeraway,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ai" = (/obj/machinery/gateway{dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aj" = (/obj/effect/overlay/palmtree_l,/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ak" = (/obj/machinery/gateway{dir = 10},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"al" = (/obj/machinery/gateway,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"am" = (/obj/machinery/gateway{dir = 6},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"an" = (/turf/unsimulated/wall{tag = "icon-sandstone6"; icon_state = "sandstone6"},/area/awaymission/beach)
-"ao" = (/turf/unsimulated/wall{tag = "icon-sandstone12"; icon_state = "sandstone12"},/area/awaymission/beach)
-"ap" = (/turf/unsimulated/wall{tag = "icon-sandstone10"; icon_state = "sandstone10"},/area/awaymission/beach)
-"aq" = (/obj/structure/closet/athletic_mixed,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ar" = (/obj/item/clothing/shoes/sandal,/obj/item/clothing/shoes/sandal,/obj/item/clothing/shoes/sandal,/obj/structure/closet/crate,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"as" = (/obj/effect/landmark/start{name = "Cyborg"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"at" = (/obj/effect/landmark/start{name = "Detective"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"au" = (/obj/effect/landmark/start{name = "Geneticist"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"av" = (/obj/effect/landmark/start{name = "Head of Personnel"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aw" = (/obj/effect/landmark/start{name = "Roboticist"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ax" = (/obj/effect/landmark/start{name = "Scientist"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ay" = (/turf/unsimulated/wall{tag = "icon-sandstone3"; icon_state = "sandstone3"},/area/awaymission/beach)
-"az" = (/obj/structure/closet/gmcloset{icon_closed = "black"; icon_state = "black"; name = "formal wardrobe"},/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aA" = (/obj/structure/closet/secure_closet/bar,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aB" = (/obj/structure/table/woodentable,/obj/item/weapon/book/manual/barman_recipes,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aC" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/shaker,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aD" = (/obj/structure/table/woodentable,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aE" = (/obj/structure/table/woodentable,/obj/item/clothing/glasses/sunglasses,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aF" = (/obj/machinery/vending/boozeomat{emagged = 1},/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aG" = (/obj/machinery/vending/cigarette,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aH" = (/obj/machinery/vending/cola,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aI" = (/obj/machinery/vending/snack,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aJ" = (/obj/effect/landmark/start,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aK" = (/obj/effect/landmark/start{name = "AI"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aL" = (/obj/effect/landmark/start{name = "Chief Medical Officer"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aM" = (/obj/effect/landmark/start{name = "Head of Security"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aN" = (/obj/effect/landmark/start{name = "Research Director"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aO" = (/obj/effect/landmark/start{name = "Security Officer"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aP" = (/turf/unsimulated/wall{tag = "icon-sandstone1"; icon_state = "sandstone1"},/area/awaymission/beach)
-"aQ" = (/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aR" = (/obj/effect/landmark/start{name = "Assistant"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aS" = (/obj/effect/landmark/start{name = "Atmospheric Technician"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aT" = (/obj/effect/landmark/start{name = "Chief Engineer"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aU" = (/obj/effect/landmark/start{name = "Internal Affairs Agent"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aV" = (/obj/effect/landmark/start{name = "Quartermaster"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aW" = (/obj/effect/landmark/start{name = "Xenobiologist"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aX" = (/obj/effect/landmark/start{name = "Shaft Miner"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"aY" = (/obj/structure/mineral_door/wood{tag = "icon-wood"; icon_state = "wood"},/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"aZ" = (/obj/effect/overlay/palmtree_l,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"ba" = (/obj/effect/landmark/start{name = "Bartender"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bb" = (/obj/effect/landmark/start{name = "Botanist"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bc" = (/obj/effect/landmark/start{name = "Chemist"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bd" = (/obj/effect/landmark/start{name = "Janitor"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"be" = (/obj/effect/landmark/start{name = "Psychiatrist"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bf" = (/obj/effect/landmark/start{name = "wizard"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bg" = (/obj/effect/landmark/start{name = "Station Engineer"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bh" = (/turf/unsimulated/wall{tag = "icon-sandstone0"; icon_state = "sandstone0"},/area/awaymission/beach)
-"bi" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/beer,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
-"bj" = (/obj/item/weapon/beach_ball,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bk" = (/obj/effect/landmark{name = "Observer-Start"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bl" = (/obj/effect/landmark/start{name = "Captain"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bm" = (/obj/effect/landmark/start{name = "Cargo Technician"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bn" = (/obj/effect/landmark/start{name = "Chaplain"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bo" = (/obj/effect/landmark/start{name = "Chef"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bp" = (/obj/effect/landmark/start{name = "Librarian"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bq" = (/obj/effect/landmark/start{name = "Medical Doctor"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"br" = (/obj/effect/landmark/start{name = "Warden"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bs" = (/obj/effect/landmark/start{name = "Virologist"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bt" = (/obj/structure/stool,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bu" = (/obj/effect/landmark{name = "JoinLate"},/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bv" = (/mob/living/simple_animal/crab,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bw" = (/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bx" = (/mob/living/simple_animal/crab/Coffee,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"by" = (/obj/structure/stool/bed/chair,/turf/unsimulated/beach/sand,/area/awaymission/beach)
-"bz" = (/turf/unsimulated/beach/coastline{density = 1; opacity = 1},/area/awaymission/beach)
-"bA" = (/turf/unsimulated/beach/coastline,/area/awaymission/beach)
-"bB" = (/turf/unsimulated/beach/water{density = 1; opacity = 1},/area/awaymission/beach)
-"bC" = (/turf/unsimulated/beach/water,/area/awaymission/beach)
+"a" = (/turf/unsimulated/beach/sand{density = 1; opacity = 1},/area/awaymission/beach)
+"b" = (/obj/machinery/gateway{dir = 9},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"c" = (/obj/machinery/gateway{dir = 1},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"d" = (/obj/machinery/gateway{dir = 5},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"e" = (/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"f" = (/obj/effect/overlay/palmtree_r,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"g" = (/obj/machinery/gateway{dir = 8},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"h" = (/obj/machinery/gateway/centeraway,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"i" = (/obj/machinery/gateway{dir = 4},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"j" = (/obj/effect/overlay/palmtree_l,/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"k" = (/obj/machinery/gateway{dir = 10},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"l" = (/obj/machinery/gateway,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"m" = (/obj/machinery/gateway{dir = 6},/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"n" = (/turf/unsimulated/wall{tag = "icon-sandstone6"; icon_state = "sandstone6"},/area/awaymission/beach)
+"o" = (/turf/unsimulated/wall{tag = "icon-sandstone12"; icon_state = "sandstone12"},/area/awaymission/beach)
+"p" = (/turf/unsimulated/wall{tag = "icon-sandstone10"; icon_state = "sandstone10"},/area/awaymission/beach)
+"q" = (/obj/structure/closet/athletic_mixed,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"r" = (/obj/item/clothing/shoes/sandal,/obj/item/clothing/shoes/sandal,/obj/item/clothing/shoes/sandal,/obj/structure/closet/crate,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"s" = (/turf/unsimulated/wall{tag = "icon-sandstone3"; icon_state = "sandstone3"},/area/awaymission/beach)
+"t" = (/obj/structure/closet/gmcloset{icon_closed = "black"; icon_state = "black"; name = "formal wardrobe"},/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"u" = (/obj/structure/closet/secure_closet/bar,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"v" = (/obj/structure/table/woodentable,/obj/item/weapon/book/manual/barman_recipes,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"w" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/shaker,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"x" = (/obj/structure/table/woodentable,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"y" = (/obj/structure/table/woodentable,/obj/item/clothing/glasses/sunglasses,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"z" = (/obj/machinery/vending/boozeomat{emagged = 1},/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"A" = (/obj/machinery/vending/cigarette,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"B" = (/obj/machinery/vending/cola,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"C" = (/obj/machinery/vending/snack,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"D" = (/turf/unsimulated/wall{tag = "icon-sandstone1"; icon_state = "sandstone1"},/area/awaymission/beach)
+"E" = (/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"F" = (/obj/structure/mineral_door/wood{tag = "icon-wood"; icon_state = "wood"},/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"G" = (/obj/effect/overlay/palmtree_l,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"H" = (/turf/unsimulated/wall{tag = "icon-sandstone0"; icon_state = "sandstone0"},/area/awaymission/beach)
+"I" = (/obj/structure/table/woodentable,/obj/item/weapon/reagent_containers/food/drinks/beer,/turf/unsimulated/floor{tag = "icon-wood"; icon_state = "wood"},/area/awaymission/beach)
+"J" = (/obj/item/weapon/beach_ball,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"K" = (/obj/structure/stool,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"L" = (/mob/living/simple_animal/crab,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"M" = (/obj/effect/overlay/coconut,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"N" = (/mob/living/simple_animal/crab/Coffee,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"O" = (/obj/structure/stool/bed/chair,/turf/unsimulated/beach/sand,/area/awaymission/beach)
+"P" = (/turf/unsimulated/beach/coastline{density = 1; opacity = 1},/area/awaymission/beach)
+"Q" = (/turf/unsimulated/beach/coastline,/area/awaymission/beach)
+"R" = (/turf/unsimulated/beach/water{density = 1; opacity = 1},/area/awaymission/beach)
+"S" = (/turf/unsimulated/beach/water,/area/awaymission/beach)
 
 (1,1,1) = {"
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-aaabacadaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeafaeaa
-aaagahaiaeaeaeaeajaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaa
-aaakalamaeaeaeaeaeaeaeaeanaoaoaoaoaoaoaoaoaoaoapaeaeaqaraqaraqaraqaraqaraqaraqaa
-aaaeaeaeasatauavawaeaxaeayazaAaBaCaDaEaFaGaHaIayaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaa
-aaaeaeaeaJaKaLaMaNaeaOaeaPaQaQaQaQaQaQaQaQaQaQayaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaa
-aaaeaeaeaRaSaTaUaVaWaXaeaYaQaQaQaQaQaQaQaQaQaQayaeaeaeaeaeaeaeaeaeaZaeaeaeaeaeaa
-aaaeafaebabbbcbdbebfbgaebhaDbiaDaDaDaDaDaDaDaDaPaeaeaeaZaeaebjaeaeaeaeaeaeaeaeaa
-aaaebkblbmbnbobpbqbrbsaeaebtbtbtbtbtbtbtbtbtbtaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaa
-aaaeaebubububububububuaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaa
-aaaeaebvaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeafaeaeaeaeaeaeaeaa
-aaaeaeaeaeaeaZbwaeaeaeaeaeaeaeaeaeaeaeaeaeaeaZaeaeaeaeaebxaeaeaebwaeaeaeaeaeafaa
-aaaeaebjaeaeaeaeaeaebvaeaebyaebyaebyaebyaebyaebyaeaeaeaeaeaeaeaeaeaebyaebyaeaeaa
-aaaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaeaa
-bzbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbAbz
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbCbB
-bBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbBbB
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+abcdeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeefea
+aghieeeejeeeeeeeeeeeeeeeeeeeeeeeeeeeeeea
+aklmeeeeeeeenoooooooooopeeqrqrqrqrqrqrqa
+aeeeeeeeeeeestuvwxyzABCseeeeeeeeeeeeeeea
+aeeeeeeeeeeeDEEEEEEEEEEseeeeeeeeeeeeeeea
+aeeeeeeeeeeeFEEEEEEEEEEseeeeeeeeeGeeeeea
+aefeeeeeeeeeHxIxxxxxxxxDeeeGeeJeeeeeeeea
+aeeeeeeeeeeeeKKKKKKKKKKeeeeeeeeeeeeeeeea
+aeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeea
+aeeLeeeeeeeeeeeeeeeeeeeeeeeeeeefeeeeeeea
+aeeeeeGMeeeeeeeeeeeeeeGeeeeeNeeeMeeeeefa
+aeeJeeeeeeLeeOeOeOeOeOeOeeeeeeeeeeOeOeea
+aeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeea
+PQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQP
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSR
+RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR
 "}

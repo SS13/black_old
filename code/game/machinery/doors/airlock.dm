@@ -174,12 +174,27 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	opacity = 1
 	assembly_type = /obj/structure/door_assembly/door_assembly_mhatch
 
+/obj/machinery/door/airlock/armoury
+	name = "Secure Armoury Section"
+	icon = 'icons/obj/doors/Doorhatcharmoury.dmi'
+	opacity = 1
+	assembly_type = /obj/structure/door_assembly/door_assembly_mhatch
+
 /obj/machinery/door/airlock/glass_command
 	name = "Maintenance Hatch"
 	icon = 'icons/obj/doors/Doorcomglass.dmi'
 	opacity = 0
 	assembly_type = /obj/structure/door_assembly/door_assembly_com
 	glass = 1
+
+
+/obj/machinery/door/airlock/glass_grey
+	name = "Maintenance Hatch"
+	icon = 'icons/obj/doors/Doorweapglass.dmi'
+	opacity = 0
+	assembly_type = /obj/structure/door_assembly/door_assembly_com
+	glass = 1
+
 
 /obj/machinery/door/airlock/glass_engineering
 	name = "Maintenance Hatch"
@@ -348,6 +363,9 @@ obj/machinery/door/airlock/glass_genetics
 	name = "High Tech Security Airlock"
 	icon = 'icons/obj/doors/hightechsecurity.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_highsecurity
+
+/obj/machinery/door/airlock/highsecurity/black
+	icon = 'icons/obj/doors/hightechsyndie.dmi'
 
 /*
 About the new airlock wires panel:

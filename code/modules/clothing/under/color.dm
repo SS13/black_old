@@ -33,6 +33,17 @@
 	item_color = "grey"
 	flags = FPRINT | TABLEPASS
 
+/obj/item/clothing/under/color/grey/verb/rolldown()
+	set name = "Roll jumpsuit down"
+	set category = "Object"
+	set src in usr
+	item_color = item_color == "grey" ? "jumpsuitdown" : "grey"
+	item_state = item_state == "gy_suit" ? "jumpsuitdown" : "gy_suit"
+	icon_state = icon_state == "grey" ? "jumpsuitdown" : "grey"
+	if (ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_w_uniform(1)
+
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
 	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."

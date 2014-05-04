@@ -12,6 +12,7 @@
  *		AI toy core
  *		Cards
  *		Toy nuke warhead
+ *		Toy C4
  */
 
 
@@ -910,4 +911,65 @@ obj/item/toy/singlecard/attack_self(mob/user)
 			sleep(135)
 			icon_state = "nuketoyidle"
 
+/*
+ * Toy C4
+ */
+/obj/item/toy/c4
+	name = "explosive"
+	desc = "A plastic model of a plastic explosive, as seen in action movies. Boom!"
+	icon = 'icons/obj/assemblies.dmi'
+	icon_state = "plastic-explosive0"
+	item_state = "plasticx"
+	flags = FPRINT | USEDELAY
+	w_class = 2
+	var/timer = 10
+	var/atom/target = null
+	var/overlayicon
 
+/obj/item/toy/c4/attack_self(mob/user as mob)
+	var/newtime = input(usr, "Please set the timer.", "Timer", 10) as num
+	if(user.get_active_hand() == src)
+		newtime = Clamp(newtime, 10, 600)
+		timer = newtime
+		user << "Timer set for [timer] seconds."
+
+/obj/item/toy/c4/afterattack(atom/target as obj|turf, mob/user as mob, flag)
+	if(!flag)
+		return
+	if (istype(target, /turf/unsimulated) || istype(target, /turf/simulated/shuttle) || istype(target, /obj/item/weapon/storage))
+		return
+	user << "Planting explosives..."
+	if(ismob(target))
+		user.visible_message("\red [user.name] is trying to plant some kind of device on [target.name]!")
+
+	if(do_after(user, 50) && in_range(user, target))
+		user.drop_item()
+		src.target = target
+		loc = null
+
+		if (ismob(target))
+			user.visible_message("\red [user.name] finished planting device on [target.name]!")
+
+		overlayicon = image('icons/obj/assemblies.dmi', "plastic-explosive2")
+		target.overlays += overlayicon
+		user << "Toy has been planted. Timer counting down from [timer]."
+		spawn(timer*10)
+			explode(get_turf(target))
+
+/obj/item/toy/c4/proc/explode(var/turf/location)
+	if(!target)
+		target = src
+
+	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+	s.set_up(2, 0, location)
+	s.start()
+	new /obj/effect/decal/cleanable/ash(location)
+	location.visible_message("\red The [src.name] explodes!","\red You hear a snap!")
+	playsound(src, 'sound/effects/snap.ogg', 100, 1)
+
+	if(target)
+		target.overlays -= overlayicon
+	del(src)
+
+/obj/item/toy/c4/attack(mob/M as mob, mob/user as mob)
+	return

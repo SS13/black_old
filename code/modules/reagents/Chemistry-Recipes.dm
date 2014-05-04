@@ -1571,7 +1571,7 @@ datum
 			name = "All The King`s Men"
 			id = "kingsmen"
 			result = "kingsmen"
-			required_reagents = list("wine" = 2, "tequila" = 1, "beer" = 1)
+			required_reagents = list("wine" = 2, "tequilla" = 1, "beer" = 1)
 			result_amount = 4
 
 		cuba_libre

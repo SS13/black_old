@@ -268,20 +268,7 @@ var/global/floorIsLava = 0
 	dat += "</body></html>"
 	usr << browse(dat, "window=adminplayerinfo;size=480x480")
 
-/datum/admins/proc/ghost_colouration_adminfun(var/mob/H as mob)
-	set category = "Fun"
-	set name = "Change Mob Color"
-	set desc = "Changing selected mob color. White for default."
 
-	if (!istype(src,/datum/admins))
-		src = usr.client.holder
-	if (!istype(src,/datum/admins))
-		usr << "Error: you are not an admin!"
-		return
-
-	var/new_mobcolor = input(usr, "Choose your Ghost color.") as color|null
-	if(!new_mobcolor)	new_mobcolor = "#ffffff"
-	H.color = new_mobcolor
 
 /datum/admins/proc/access_news_network() //MARKER
 	set category = "Fun"

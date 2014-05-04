@@ -18,7 +18,6 @@
 							//Note that this is not a reliable way to determine if admins started as observers, since they change mobs a lot.
 	universal_speak = 1
 	var/atom/movable/following = null
-
 /mob/dead/observer/New(mob/body)
 	sight |= SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF
 	see_invisible = SEE_INVISIBLE_OBSERVER
@@ -250,7 +249,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set hidden = 1
 	src << "\red You are dead! You have no mind to store memory!"
 
-
 /mob/dead/observer/verb/colorchange()
 	set category = "Ghost"
 	set name = "Change Ghost Color"
@@ -315,24 +313,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		host.ckey = src.ckey
 		host << "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>"
 
-/mob/dead/observer/verb/ghost_colouration()
-	set category = "Ghost"
-	set name = "Change Mob Color"
-	set desc = "Why, you still are fabulous even after death."
-
-	var/new_ghostcolor = input(usr, "Choose your Ghost color.") as color|null
-	if(!new_ghostcolor)	new_ghostcolor = "#ffffff"
-	usr.color = new_ghostcolor // TODO: Affects ghost overlays. (Hats)
-
 /mob/dead/observer/verb/hat()
 	set name = "Hats"
 	set category = "Ghost"
 
 	var/list/hats = list("beret", "wizard", "witch", "redwizard", "marisa", "wizard-fake", "deathsquad", "riot", "bio", "nursehat", "santahat", "detective", "paper", "hoscap", "pirate", "security", "viking", "headslime", "metroid", "petehat", "kitty", "bunny", "xenom", "xenos", "sombrero", "wardenberet", "officerberet", "hosberet", "hardhat0_pumpkin", "xmashat", "cardborg_h", "chickenhead", "helmlaw", "Bald")
-	var/h = input("Choose a hat", "Choice") in hats
+	var h = input("Choose a hat", "Choice") in hats
 
 	usr.overlays = null
-	usr.overlays += image('icons/mob/head.dmi',"[h]")
+	usr.overlays += image('icons/mob/head.dmi',icon_state = h)
 
 /mob/dead/observer/verb/view_manfiest()
 	set name = "View Crew Manifest"
