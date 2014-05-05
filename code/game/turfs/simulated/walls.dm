@@ -94,6 +94,7 @@
 	if ((HULK in user.mutations))
 		if (prob(40))
 			usr << text("\blue You smash through the wall.")
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			usr.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 			dismantle_wall(1)
 			return
@@ -112,10 +113,12 @@
 		else
 			if (prob(40) || rotting)
 				M << text("\blue You smash through the wall.")
+				playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 				dismantle_wall(1)
 				return
 			else
 				M << text("\blue You smash against the wall.")
+				playsound(src, 'sound/effects/bang.ogg', 50, 1)
 				return
 
 	M << "\blue You push the wall but nothing happens!"
@@ -125,6 +128,7 @@
 	if (HULK in user.mutations)
 		if (prob(40) || rotting)
 			usr << text("\blue You smash through the wall.")
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			usr.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 			dismantle_wall(1)
 			return

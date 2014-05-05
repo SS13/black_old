@@ -129,6 +129,11 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	icon = 'icons/obj/doors/Doorgen.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_med
 
+/obj/machinery/door/airlock/shuttle
+	name = "Shuttle Airlock"
+	icon = 'icons/obj/doors/doorshuttle.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_highsecurity
+
 /obj/machinery/door/airlock/maintenance
 	name = "Maintenance Access"
 	icon = 'icons/obj/doors/Doormaint.dmi'

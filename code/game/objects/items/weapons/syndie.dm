@@ -20,7 +20,7 @@
 	icon_state = "c-4large_0"
 	item_state = "c-4large"
 	desc = "A mysterious package, it's quite heavy."
-	power = 2
+	power = 3
 	size = "large"
 
 /obj/item/weapon/syndie/c4explosive/New()

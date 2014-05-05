@@ -1995,6 +1995,7 @@ datum
 				if(!M) M = holder.my_atom
 				if(prob(5))
 					M.visible_message("<span class='warning'>[M] [pick("dry heaves!","coughs!","splutters!")]</span>")
+				..()
 				return
 
 		frostoil

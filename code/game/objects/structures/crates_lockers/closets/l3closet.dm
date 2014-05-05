@@ -21,8 +21,22 @@
 	..()
 	sleep(2)
 	contents = list()
-	new /obj/item/clothing/suit/bio_suit/general( src )
-	new /obj/item/clothing/head/bio_hood/general( src )
+
+	if (prob(10))
+		new /obj/item/clothing/suit/bio_suit/hazmat/yellow( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/yellow( src )
+
+	if (prob(5))
+		new /obj/item/clothing/suit/bio_suit/hazmat/green( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/green( src )
+
+	if (prob(20))
+		new /obj/item/clothing/suit/bio_suit/hazmat/white( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/white( src )
+
+	else
+		new /obj/item/clothing/suit/bio_suit/general( src )
+		new /obj/item/clothing/head/bio_hood/general( src )
 
 
 /obj/structure/closet/l3closet/virology

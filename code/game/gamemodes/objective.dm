@@ -492,7 +492,7 @@ datum/objective/steal
 		"a jetpack" = /obj/item/weapon/tank/jetpack,
 		"a captain's jumpsuit" = /obj/item/clothing/under/rank/captain,
 		"a functional AI" = /obj/item/device/aicard,
-		"a pair of magboots" = /obj/item/clothing/shoes/magboots,
+		"Chief Engineer's advanced magboots" = /obj/item/clothing/shoes/magbootsadvance,
 		"the station blueprints" = /obj/item/blueprints,
 		"a nasa voidsuit" = /obj/item/clothing/suit/space/nasavoid,
 		"28 moles of plasma (full tank)" = /obj/item/weapon/tank,

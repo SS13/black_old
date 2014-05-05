@@ -112,7 +112,7 @@
 /obj/item/device/camera
 	name = "camera"
 	icon = 'icons/obj/items.dmi'
-	desc = "A polaroid camera. 10 photos left."
+	desc = "A polaroid camera"
 	icon_state = "camera"
 	item_state = "electropack"
 	w_class = 2.0
@@ -125,6 +125,9 @@
 	var/icon_on = "camera"
 	var/icon_off = "camera_off"
 
+/obj/item/device/camera/examine()
+	..()
+	usr << "It has [pictures_left] photos left."
 
 /obj/item/device/camera/attack(mob/living/carbon/human/M as mob, mob/user as mob)
 	return

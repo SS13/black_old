@@ -19,7 +19,7 @@
 //Сначала догони~
 
 /obj/item/projectile/energy/electrode/New()
-	agony = rand(30,130)
+	agony = rand(40,130)
 	damage_type = HALLOSS
 
 	//Damage will be handled on the MOB side, to prevent window shattering.
@@ -47,7 +47,7 @@
 	damage = 10
 	damage_type = TOX
 	nodamage = 0
-	weaken = 10
+	agony = 35
 	stutter = 10
 
 

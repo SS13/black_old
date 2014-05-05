@@ -3,7 +3,6 @@
  *		Table Parts
  *		Reinforced Table Parts
  *		Wooden Table Parts
- *		Poker Table
  *		Rack Parts
  */
 
@@ -21,7 +20,7 @@
 	if (istype(W, /obj/item/stack/rods))
 		if (W:amount >= 4)
 			new /obj/item/weapon/table_parts/reinforced( user.loc )
-			user << "\blue You reinforce the [name]."
+			user << "\blue You reinforce thae [name]."
 			W:use(4)
 			del(src)
 		else if (W:amount < 4)
@@ -72,7 +71,6 @@
 	user.drop_item()
 	del(src)
 	return
-
 
 /*
  * Poker Table Parts

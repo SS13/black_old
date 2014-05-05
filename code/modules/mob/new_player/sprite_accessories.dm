@@ -283,6 +283,17 @@
 		icon_state = "hair_braid"
 		gender = FEMALE
 
+	antenna //Test this out to see if alpha-level works
+		name = "Ahoge"
+		icon_state = "hair_antenna"
+		gender = FEMALE
+
+	oneshoulder //Test this out to see if colouring works
+		name = "One Shoulder"
+		icon_state = "hair_oneshoulder"
+		gender = FEMALE
+
+
 	odango
 		name = "Odango"
 		icon_state = "hair_odango"

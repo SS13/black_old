@@ -214,6 +214,7 @@ proc/hasorgans(A)
 
 
 /proc/stars(n, pr)
+	n = html_decode(n)
 	if (pr == null)
 		pr = 25
 	if (pr <= 0)
@@ -232,7 +233,7 @@ proc/hasorgans(A)
 		else
 			t = text("[]*", t)
 		p++
-	return t
+	return sanitize(t)
 
 proc/slur(phrase)
 	phrase = html_decode(phrase)
