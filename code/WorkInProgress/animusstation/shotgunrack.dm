@@ -12,7 +12,7 @@
 /obj/machinery/shotgunrack/attack_hand(mob/user as mob)
 	switch(alert("Do you want to take the shotgun off of the wall?",,"Yes","No"))
 		if("Yes")
-			if(gun)
+			if(!gun)
 				if(!user.get_active_hand())
 					user.put_in_active_hand(gun)
 				else
