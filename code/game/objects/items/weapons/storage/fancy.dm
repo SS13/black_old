@@ -201,7 +201,7 @@
 	name = "\improper Lights cigarette packet"
 	desc = "The most popular brand of Space Cigarettes, sponsors of the Space Olympics. This one are Lights. A label on the packaging reads, \"For those who like to take it easy.\""
 	icon_state = "ciglights"
-	item_state = "ciglights"
+	item_state = "cigpacket"
 
 obj/item/weapon/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"

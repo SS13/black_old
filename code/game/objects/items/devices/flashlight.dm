@@ -188,24 +188,24 @@
 /obj/item/device/flashlight/lamp/red
 	desc = "A classic red-shaded desk lamp."
 	icon_state = "lampred"
-	item_state = "lampred"
+	item_state = "lampgreen"
 	brightness_on = 4
 
 /obj/item/device/flashlight/lamp/black
 	desc = "A classic black-shaded desk lamp."
 	icon_state = "lampblack"
-	item_state = "lampblack"
+	item_state = "lamp"
 	brightness_on = 4
 
 /obj/item/device/flashlight/lamp/white
 	desc = "A classic white-shaded desk lamp."
 	icon_state = "lampwhite"
-	item_state = "lampwhite"
+	item_state = "lamp"
 
 /obj/item/device/flashlight/lamp/blue
 	desc = "A classic dark-blue-shaded desk lamp."
 	icon_state = "lampblue"
-	item_state = "lampblue"
+	item_state = "lampgreen"
 	brightness_on = 4
 
 /obj/item/device/flashlight/lamp/verb/toggle_light()

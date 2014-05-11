@@ -48,6 +48,8 @@
 
 
 /mob/proc/death(gibbed)
+	drop_r_hand()
+	drop_l_hand()
 	timeofdeath = world.time
 
 	living_mob_list -= src

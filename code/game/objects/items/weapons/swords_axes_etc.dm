@@ -280,14 +280,14 @@
 	if(on)
 		user.visible_message("You hear a click.")
 		icon_state = "knifezippoon"
-		item_state = "knifezippoon"
+		item_state = "zippo"
 		w_class = 3
 		force = 10
 		attack_verb = list("stabbed", "cut", "slashed")
 	else
 		user.visible_message("You hear a click.")
 		icon_state = "knifezippo"
-		item_state = "knifezippo"
+		item_state = "zippo"
 		w_class = 2
 		force = 3
 		attack_verb = list("hit", "punched")
@@ -345,7 +345,7 @@
 		user.visible_message("\red With a flick of their wrist, [user] opens their butterfly knife!",\
 		"\red You open the balisong.")
 		icon_state = "openbalisong"
-		item_state = "openbalisong"
+		item_state = "pen"
 		w_class = 3
 		force = 13
 		attack_verb = list("stabbed", "cut", "slashed")

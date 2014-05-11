@@ -144,6 +144,17 @@
 	desc = "Uh-hoh, bar is heating up."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "barstool"
+	item_state = "stool"
+	force = 10
+	throwforce = 10
+	w_class = 5.0
+
+/obj/item/weapon/stool/barstool/tall
+	name = "bar stool"
+	desc = "Uh-hoh, bar is heating up."
+	icon = 'icons/obj/objects.dmi'
+	icon_state = "barstool2"
+	item_state = "stool"
 	force = 10
 	throwforce = 10
 	w_class = 5.0
@@ -153,6 +164,7 @@
 	desc = "Uh-hoh, bar is heating up."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stooldarkgreen"
+	item_state = "stool"
 	force = 10
 	throwforce = 10
 	w_class = 5.0
@@ -162,6 +174,7 @@
 	desc = "Uh-hoh, bar is heating up."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stoolorange"
+	item_state = "stool"
 	force = 10
 	throwforce = 10
 	w_class = 5.0
@@ -171,6 +184,7 @@
 	desc = "Uh-hoh, bar is heating up."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stoolwooden"
+	item_state = "stool"
 	force = 10
 	throwforce = 10
 	w_class = 5.0
@@ -180,6 +194,7 @@
 	desc = "Uh-hoh, bar is heating up."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "stoolblack"
+	item_state = "stool"
 	force = 10
 	throwforce = 10
 	w_class = 5.0

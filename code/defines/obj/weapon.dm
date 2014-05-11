@@ -758,7 +758,7 @@
 	desc = "A crowbar broken by prolonged use."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "crowbar_broken"
-	item_state = "stick"
+	item_state = "pen"
 	w_class = 2.0
 	m_amt = 20
 	New()
