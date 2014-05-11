@@ -30,6 +30,7 @@
 	var/id
 	var/sync = 0
 	var/part_set
+	var/eject_dir = 2 //This is Guap's
 	var/obj/being_built
 	var/list/queue = list()
 	var/processing_queue = 0
@@ -373,7 +374,7 @@
 	src.overlays -= "fab-active"
 	src.desc = initial(src.desc)
 	if(being_built)
-		src.being_built.Move(get_step(src,SOUTH))
+		src.being_built.Move(get_step(src,eject_dir))
 		src.visible_message("\icon[src] <b>[src]</b> beeps, \"The following has been completed: [src.being_built] is built\".")
 		src.being_built = null
 	src.updateUsrDialog()

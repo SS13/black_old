@@ -58,15 +58,13 @@
 Transfer_mind is there to check if mob is being deleted/not going to have a body.
 Works together with spawning an observer, noted above.
 */
-
 /mob/proc/ghostize(var/can_reenter_corpse = 1)
 	if(key)
-		var/mob/dead/observer/ghost = new(src)	//Transfer safety to observer spawning proc.
-		ghost.can_reenter_corpse = can_reenter_corpse
-		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
-		ghost.key = key
-		message_admins("[key_name(ghost, ghost.client)] has become a ghost", 1)
-		return ghost
+		if(!cmptext(copytext(key,1,2),"@")) //aghost
+			var/mob/dead/observer/ghost = new(src)	//Transfer safety to observer spawning proc.
+			ghost.can_reenter_corpse = can_reenter_corpse
+			ghost.key = key
+			return ghost
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
 */
