@@ -224,88 +224,9 @@
 				src.add_fingerprint(usr)
 
 
-/obj/structure/flora/pottedplant/plant1
-	icon_state = "plant-01"
+/obj/structure/flora/pottedplant/plant
+	icon_state = "plant-1"
 
-/obj/structure/flora/pottedplant/plant2
-	icon_state = "plant-02"
+/obj/structure/flora/pottedplant/plant/New()
+	icon_state = "plant-[rand(0, 27)]"
 
-/obj/structure/flora/pottedplant/plant3
-	icon_state = "plant-03"
-
-/obj/structure/flora/pottedplant/plant4
-	icon_state = "plant-04"
-
-/obj/structure/flora/pottedplant/plant5
-	icon_state = "plant-05"
-
-/obj/structure/flora/pottedplant/plant6
-	icon_state = "plant-06"
-
-/obj/structure/flora/pottedplant/plant7
-
-	icon_state = "plant-07"
-
-/obj/structure/flora/pottedplant/plant8
-	icon_state = "plant-08"
-
-/obj/structure/flora/pottedplant/plant9
-	icon_state = "plant-09"
-
-/obj/structure/flora/pottedplant/plant10
-	icon_state = "plant-10"
-
-/obj/structure/flora/pottedplant/plant11
-	icon_state = "plant-11"
-
-/obj/structure/flora/pottedplant/plant12
-	icon_state = "plant-12"
-
-/obj/structure/flora/pottedplant/plant13
-	icon_state = "plant-13"
-
-/obj/structure/flora/pottedplant/plant14
-	icon_state = "plant-14"
-
-/obj/structure/flora/pottedplant/plant15
-	icon_state = "plant-15"
-
-/obj/structure/flora/pottedplant/plant16
-	icon_state = "plant-16"
-
-
-/obj/structure/flora/pottedplant/plant17
-	icon_state = "plant-17"
-
-/obj/structure/flora/pottedplant/plant18
-	icon_state = "plant-18"
-
-/obj/structure/flora/pottedplant/plant19
-	icon_state = "plant-19"
-
-/obj/structure/flora/pottedplant/plant20
-	icon_state = "plant-20"
-
-/obj/structure/flora/pottedplant/plant21
-	icon_state = "plant-21"
-
-/obj/structure/flora/pottedplant/plant22
-	icon_state = "plant-22"
-
-/obj/structure/flora/pottedplant/plant23
-	icon_state = "plant-23"
-
-/obj/structure/flora/pottedplant/plant24
-	icon_state = "plant-24"
-
-/obj/structure/flora/pottedplant/plant25
-	icon_state = "plant-25"
-	desc = "A potted plant. This one appears to be long dead."
-
-/obj/structure/flora/pottedplant/plant26
-	icon_state = "applebush"
-	desc = "A potted plant trimmed to resemble an apple."
-
-/obj/structure/flora/pottedplant/plant27
-	icon_state = "plant-27"
-	desc = "A potted birch tree."

@@ -13,7 +13,7 @@
 	force = 10.0
 	health = 250
 	m_amt = 90
-	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
+	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed","extinguished")
 	var/max_water = 50
 	var/last_use = 1.0
 	var/safety = 1
@@ -142,9 +142,9 @@
 	..()
 	if(health <= 0)
 		user.drop_item()
-		user.visible_message("\red [user] swings [src] it dents hard and bursts!",\
+		user.visible_message("\red [user] swings [src], it dents hard and bursts!",\
 			"\red The extinguisher bursts up!!",\
-			"You hear loud clap!!")
+			"You hear loud clap!")
 		explode()
 
 

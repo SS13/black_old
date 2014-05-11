@@ -317,7 +317,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Hats"
 	set category = "Ghost"
 
-	var/list/hats = list("beret", "wizard", "witch", "redwizard", "marisa", "wizard-fake", "deathsquad", "riot", "bio", "nursehat", "santahat", "detective", "paper", "hoscap", "pirate", "security", "viking", "headslime", "metroid", "petehat", "kitty", "bunny", "xenom", "xenos", "sombrero", "wardenberet", "officerberet", "hosberet", "hardhat0_pumpkin", "xmashat", "cardborg_h", "chickenhead", "helmlaw", "Bald")
+	var/list/hats = list("beret", "wizard", "witch", "redwizard", "marisa", "wizard-fake", "deathsquad", "riot", "bio", "nursehat", "santahat", "detective", "paper", "hoscap", "pirate", "security", "viking", "headslime", "metroid", "petehat", "kitty", "bunny", "xenom", "xenos", "sombrero", "wardenberet", "officerberet", "hosberet", "hardhat0_pumpkin", "xmashat", "cardborg_h", "chickenhead", "helmlaw", "Bald", "ushankadown","kkc","chickenhead","rig1_samurai_helm","stormtrooper_helmet")
 	var h = input("Choose a hat", "Choice") in hats
 
 	usr.overlays = null

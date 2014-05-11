@@ -177,3 +177,14 @@
 					prob(4);/obj/item/weapon/dice/d8,\
 					prob(4);/obj/item/weapon/dice/d00,\
 					prob(5);/obj/item/weapon/dice/d12)
+
+/obj/random/hat
+	name = "Random Hat"
+	desc = "This is a random hat placer for that wall cavity. "
+	icon = 'icons/obj/clothing/hats.dmi'
+	icon_state = "ushankadown"
+	spawn_nothing_percentage = 5
+	item_to_spawn()
+		return pick(prob(1);/obj/item/clothing/head/fedora,\
+					prob(10);/obj/item/clothing/head/ushanka,\
+					prob(1);/obj/item/clothing/head/fez)

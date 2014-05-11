@@ -695,7 +695,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_armory
 	group = "Security"
 
-/*datum/supply_packs/riotadvanced
+datum/supply_packs/riotadvanced
 	name = "Advanced riot gear crate"
 	contains = list(/obj/item/weapon/melee/classic_baton/nightstick,
 					/obj/item/weapon/melee/classic_baton/nightstick,
@@ -703,9 +703,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/shield/metal,
 					/obj/item/weapon/shield/metal,
 					/obj/item/weapon/shield/metal,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat,
-					/obj/item/clothing/gloves/combat,
 					/obj/item/weapon/storage/box/flashbangs,
 					/obj/item/weapon/handcuffs,
 					/obj/item/weapon/handcuffs,
@@ -720,7 +717,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Advanced riot gear crate"
 	access = access_armory
-	group = "Security"*/
+	group = "Security"
 
 /datum/supply_packs/loyalty
 	name = "Loyalty implant crate"
@@ -846,6 +843,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/clothing/head/collectable/police,
 					/obj/item/clothing/head/collectable/slime,
 					/obj/item/clothing/head/collectable/xenom,
+					/obj/item/clothing/head/fez,
 					/obj/item/clothing/head/collectable/petehat)
 	name = "Collectable hat crate!"
 	cost = 200

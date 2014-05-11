@@ -3,6 +3,7 @@
 	var/server_suffix = 0				// generate numeric suffix based on server port
 
 	var/log_ooc = 1						// log OOC channel
+	var/log_looc = 1					// log LOOC channel
 	var/log_access = 0					// log login/logout
 	var/log_say = 1						// log client say
 	var/log_admin = 1					// log admin actions
@@ -173,6 +174,9 @@
 
 				if ("log_ooc")
 					config.log_ooc = 1
+
+				if ("log_looc")
+					config.log_looc = 1
 
 				if ("log_access")
 					config.log_access = 1

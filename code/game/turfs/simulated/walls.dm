@@ -346,6 +346,7 @@
 	var/turf/simulated/floor/F = src
 	F.burn_tile()
 	F.icon_state = "wall_thermite"
+	playsound(src, 'sound/items/Welder.ogg', 100, 1)
 	user << "<span class='warning'>The thermite starts melting through the wall.</span>"
 
 	spawn(100)
