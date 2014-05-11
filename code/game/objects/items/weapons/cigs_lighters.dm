@@ -341,7 +341,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "Zippo lighter"
 	desc = "The zippo."
 	icon_state = "goldzippo"
-	item_state = "goldzippo"
+	item_state = "zippo"
 	icon_on = "goldzippoon"
 	icon_off = "goldzippo"
 

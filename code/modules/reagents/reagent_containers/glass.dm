@@ -262,6 +262,35 @@
 			user.drop_from_inventory(src)
 			del(src)
 
+	/obj/item/weapon/reagent_containers/glass/bucket
+	desc = "It's a bucket."
+	name = "bucket"
+	icon = 'icons/obj/janitor.dmi'
+	icon_state = "bucket"
+	item_state = "bucket"
+	m_amt = 200
+	g_amt = 0
+	w_class = 3.0
+	amount_per_transfer_from_this = 20
+	possible_transfer_amounts = list(10,20,30,50,70)
+	volume = 70
+	flags = FPRINT | OPENCONTAINER
+
+	attackby(var/obj/D, mob/user as mob)
+		if(isprox(D))
+			user << "You add [D] to [src]."
+			del(D)
+			user.put_in_hands(new /obj/item/weapon/bucket_sensor)
+			user.drop_from_inventory(src)
+			del(src)
+
+	update_icon()
+		overlays.Cut()
+
+		if (!is_open_container())
+			var/image/lid = image(icon, src, "lid_[initial(icon_state)]")
+			overlays += lid
+
 // vials are defined twice, what?
 /*
 /obj/item/weapon/reagent_containers/glass/beaker/vial
