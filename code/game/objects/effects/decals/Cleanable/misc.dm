@@ -23,6 +23,12 @@
 		new /obj/effect/decal/cleanable/dirt(src.loc)
 	del(src)
 
+obj/effect/decal/cleanable/ash/Crossed(var/mob/living/carbon/human/H)
+	if(istype(H))
+		new /obj/effect/decal/cleanable/dirt(src.loc)
+		del(src)
+
+
 /obj/effect/decal/cleanable/greenglow
 
 	New()

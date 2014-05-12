@@ -223,7 +223,7 @@
 	name = "keg"
 	desc = "Metal keg. Could there be beer inside?"
 	icon = 'icons/obj/objects.dmi'
-	icon_state = "keg"
+	icon_state = "chemtank"
 	amount_per_transfer_from_this = 10
 	New()
 		..()
