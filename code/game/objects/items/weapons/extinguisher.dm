@@ -150,11 +150,11 @@
 
 /obj/item/weapon/extinguisher/proc/explode()
 	if (reagents.total_volume > 30)
-		explosion(src.loc,0,0,2)
+		explosion(src.loc,0,1,2)
 	else if (reagents.total_volume > 20)
-		explosion(src.loc,0,0,1)
+		explosion(src.loc,0,0,2)
 	else
-		explosion(src.loc,0,0,1)
+		explosion(src.loc,0,0,2)
 	if(src)
 		playsound(src.loc, 'sound/effects/bamf.ogg', 30, 1, -6)
 		del(src)

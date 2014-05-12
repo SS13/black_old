@@ -191,7 +191,7 @@
 	throwforce = 15
 	flags = NOSHIELD
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored")
+	attack_verb = list("attacked", "poked", "jabbed", "torn", "gored", "stabbed")
 
 /obj/item/weapon/twohanded/spear/update_icon()
 	icon_state = "spearglass[wielded]"

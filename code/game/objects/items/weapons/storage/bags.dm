@@ -74,6 +74,7 @@
 	desc = "This little bugger can be used to store and transport ores."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
+	item_state = "backpack"
 	slot_flags = SLOT_BELT | SLOT_POCKET
 	w_class = 3
 	storage_slots = 50
@@ -89,6 +90,7 @@
 /obj/item/weapon/storage/bag/plants
 	icon = 'icons/obj/hydroponics.dmi'
 	icon_state = "plantbag"
+	item_state = "backpack"
 	name = "Plant Bag"
 	storage_slots = 50; //the number of plant pieces it can carry.
 	max_combined_w_class = 200 //Doesn't matter what this is, so long as it's more or equal to storage_slots * plants.w_class

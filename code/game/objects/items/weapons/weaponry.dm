@@ -246,12 +246,12 @@ obj/item/weapon/wirerod
 	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
-	item_state = "rods"
+	item_state = "quarrel"
 	flags = FPRINT | TABLEPASS | CONDUCT
-	force = 9
-	throwforce = 10
+	force = 3
+	throwforce = 6
 	w_class = 3
-	m_amt = 1875
+	m_amt = 900
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
 
 obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
