@@ -18,7 +18,7 @@
 
 		command_alert("The station has entered the radiation belt. Please remain in a sheltered area until we have passed the radiation belt.", "Anomaly Alert")
 
-		for(var/i = 0, i < 10, i++)
+		for(var/i = 0, i < 20, i++)
 			for(var/mob/living/carbon/human/H in living_mob_list)
 				var/turf/T = get_turf(H)
 				if(!T)
@@ -29,9 +29,9 @@
 					continue
 
 				if(istype(H,/mob/living/carbon/human))
-					H.apply_effect((rand(15,35)),IRRADIATE,0)
+					H.apply_effect((rand(2,8)),IRRADIATE,0)
 					if(prob(5))
-						H.apply_effect((rand(40,70)),IRRADIATE,0)
+						H.apply_effect((rand(20,40)),IRRADIATE,0)
 						if (prob(75))
 							randmutb(H) // Applies bad mutation
 							domutcheck(H,null,1)
@@ -46,8 +46,8 @@
 					continue
 				if(T.z != 1)
 					continue
-				M.apply_effect((rand(5,25)),IRRADIATE,0)
-			sleep(100)
+				M.apply_effect((rand(2,6)),IRRADIATE,0)
+			sleep(50)
 
 
 		command_alert("The station has passed the radiation belt. Please report to medbay if you experience any unusual symptoms. Maintenance will lose all access again shortly.", "Anomaly Alert")
