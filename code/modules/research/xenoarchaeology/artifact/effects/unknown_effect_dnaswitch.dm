@@ -4,6 +4,13 @@
 	effecttype = "dnaswitch"
 	effect_type = 5
 	var/severity
+	var/list/messages = list("\green You feel a little different.",\
+							"\green You feel very strange.",\
+							"\green Your stomach churns.",\
+							"\green Your skin feels loose.",\
+							"\green You feel a stabbing pain in your head.",\
+							"\green You feel a tingling sensation in your chest.",\
+							"\green Your entire body vibrates.")
 
 /datum/artifact_effect/dnaswitch/New()
 	..()
@@ -14,18 +21,19 @@
 
 /datum/artifact_effect/dnaswitch/DoEffectTouch(var/mob/toucher)
 	var/weakness = GetAnomalySusceptibility(toucher)
-	if(ishuman(toucher) && prob(weakness * 100))
-		toucher << pick("\green You feel a little different.",\
-		"\green You feel very strange.",\
-		"\green Your stomach churns.",\
-		"\green Your skin feels loose.",\
-		"\green You feel a stabbing pain in your head.",\
-		"\green You feel a tingling sensation in your chest.",\
-		"\green Your entire body vibrates.")
+	if(!ishuman(toucher))
+		return 0
+
+	var/mob/living/carbon/human/H = toucher
+	if(prob(weakness * 100))
+		toucher << pick(messages)
 		if(prob(75))
-			scramble(1, toucher, weakness * severity)
+			scramble(1, H, weakness * severity)
+		else if(prob(4))
+			var/newspecies = pick(all_species)
+			H.set_species(newspecies)
 		else
-			scramble(0, toucher, weakness * severity)
+			scramble(0, H, weakness * severity)
 	return 1
 
 /datum/artifact_effect/dnaswitch/DoEffectAura()
@@ -34,15 +42,12 @@
 			var/weakness = GetAnomalySusceptibility(H)
 			if(prob(weakness * 100))
 				if(prob(30))
-					H << pick("\green You feel a little different.",\
-					"\green You feel very strange.",\
-					"\green Your stomach churns.",\
-					"\green Your skin feels loose.",\
-					"\green You feel a stabbing pain in your head.",\
-					"\green You feel a tingling sensation in your chest.",\
-					"\green Your entire body vibrates.")
+					H << pick(messages)
 				if(prob(50))
 					scramble(1, H, weakness * severity)
+				else if(prob(2))
+					var/newspecies = pick(all_species)
+					H.set_species(newspecies)
 				else
 					scramble(0, H, weakness * severity)
 
@@ -52,15 +57,12 @@
 			var/weakness = GetAnomalySusceptibility(H)
 			if(prob(weakness * 100))
 				if(prob(75))
-					H << pick("\green You feel a little different.",\
-					"\green You feel very strange.",\
-					"\green Your stomach churns.",\
-					"\green Your skin feels loose.",\
-					"\green You feel a stabbing pain in your head.",\
-					"\green You feel a tingling sensation in your chest.",\
-					"\green Your entire body vibrates.")
+					H << pick(messages)
 				if(prob(25))
 					if(prob(75))
 						scramble(1, H, weakness * severity)
+					else if(prob(4))
+						var/newspecies = pick(all_species)
+						H.set_species(newspecies)
 					else
 						scramble(0, H, weakness * severity)

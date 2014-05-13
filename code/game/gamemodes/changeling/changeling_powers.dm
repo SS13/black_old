@@ -370,24 +370,24 @@
 		if(changeling_power(20,1,100,DEAD))
 			// charge the changeling chemical cost for stasis
 			changeling.chem_charges -= 20
-			
+
 			// restore us to health
 			C.rejuvenate()
-			
+
 			// remove our fake death flag
 			C.status_flags &= ~(FAKEDEATH)
-			
+
 			// let us move again
 			C.update_canmove()
-			
+
 			// re-add out changeling powers
-			C.make_changeling()		
-			
+			C.make_changeling()
+
 			// sending display messages
 			C << "<span class='notice'>We have regenerated.</span>"
 			C.visible_message("<span class='warning'>[src] appears to wake from the dead, having healed all wounds.</span>")
-			
-			
+
+
 	feedback_add_details("changeling_powers","FD")
 	return 1
 
@@ -402,7 +402,7 @@
 	if(!changeling)	return 0
 	changeling.chem_charges -= 10
 	src << "<span class='notice'>Your throat adjusts to launch the sting.</span>"
-	changeling.sting_range = 2
+	changeling.sting_range = 2.9
 	src.verbs -= /mob/proc/changeling_boost_range
 	spawn(5)	src.verbs += /mob/proc/changeling_boost_range
 	feedback_add_details("changeling_powers","RS")

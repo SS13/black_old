@@ -16,7 +16,7 @@
 			new /obj/item/weapon/storage/backpack/industrial(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
-		if (prob(70))
+		if (prob(50))
 			new /obj/item/clothing/tie/storage/brown_vest(src)
 		else
 			new /obj/item/clothing/tie/storage/webbing(src)
@@ -34,6 +34,8 @@
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/flash(src)
 		new /obj/item/taperoll/engineering(src)
+		if(prob(10))
+			new /obj/item/device/gps/engineering(src)
 		return
 
 
@@ -63,6 +65,8 @@
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/multitool(src)
 		new /obj/item/device/multitool(src)
+		if(prob(5))
+			new /obj/item/device/gps/engineering(src)
 		return
 
 
@@ -109,7 +113,7 @@
 			new /obj/item/weapon/storage/backpack/industrial(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
-		if (prob(70))
+		if (prob(50))
 			new /obj/item/clothing/tie/storage/brown_vest(src)
 		else
 			new /obj/item/clothing/tie/storage/webbing(src)
@@ -139,7 +143,7 @@
 			new /obj/item/weapon/storage/backpack/industrial(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_eng(src)
-		if (prob(70))
+		if (prob(50))
 			new /obj/item/clothing/tie/storage/brown_vest(src)
 		else
 			new /obj/item/clothing/tie/storage/webbing(src)
