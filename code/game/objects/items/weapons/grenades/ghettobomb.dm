@@ -82,7 +82,7 @@
 				prime()
 
 /obj/item/weapon/grenade/iedcasing/prime() //Blowing that can up
-	explosion(src.loc,0,4,3)
+	explosion(src.loc,0,3,1)
 	playsound(src.loc, 'sound/effects/bamf.ogg', 30, 1, -6)
 	del(src)
 

@@ -78,7 +78,7 @@ var/diary = null
 var/diaryofmeanpeople = null
 var/href_logfile = null
 var/station_name = "NSS Exodus"
-var/game_version = "Baystation12"
+var/game_version = "Black Tea"
 var/changelog_hash = ""
 var/game_year = (text2num(time2text(world.realtime, "YYYY")) + 544)
 
@@ -188,7 +188,7 @@ var/list/AAlarmWireColorToIndex
 
 #define SPEED_OF_LIGHT 3e8 //not exact but hey!
 #define SPEED_OF_LIGHT_SQ 9e+16
-#define FIRE_DAMAGE_MODIFIER 0.0215 //Higher values result in more external fire damage to the skin (default 0.0215)
+#define FIRE_DAMAGE_MODIFIER 0.0315 //Higher values result in more external fire damage to the skin (default 0.0215)
 #define AIR_DAMAGE_MODIFIER 2.025 //More means less damage from hot air scalding lungs, less = more damage. (default 2.025)
 #define INFINITY 1.#INF
 
@@ -199,7 +199,7 @@ var/list/AAlarmWireColorToIndex
 #define MAX_NAME_LEN 26
 
 #define shuttle_time_in_station 1800 // 3 minutes in the station
-#define shuttle_time_to_arrive 6000 // 10 minutes to arrive
+#define shuttle_time_to_arrive 9000 // 15 minutes to arrive
 
 	//away missions
 var/list/awaydestinations = list()	//a list of landmarks that the warpgate can take you to

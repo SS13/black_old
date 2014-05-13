@@ -74,7 +74,7 @@
 
 /*
  * Poker Table Parts
- *
+ */
 
 /obj/item/weapon/table_parts/poker
 	icon_state = "poker_tableparts"
@@ -89,7 +89,7 @@
 	new /obj/structure/table/poker( user.loc )
 	user.drop_item()
 	del(src)
-	return */
+	return
 
 
 /*

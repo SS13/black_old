@@ -492,8 +492,8 @@
 			user << "Centcom will not allow the shuttle to be called. Consider all contracts terminated."
 			return
 
-		if(world.time < 54000) // 30 minute grace period to let the game get going
-			user << "The shuttle is refueling. Please wait another [round((54000-world.time)/600)] minutes before trying again."//may need to change "/600"
+		if(world.time < 54000*2) // 60 minute grace period to let the game get going
+			user << "The shuttle is refueling. Please wait another [round((54000*2-world.time)/600)] minutes before trying again."//may need to change "/600"
 			return
 
 		if(ticker.mode.name == "revolution" || ticker.mode.name == "AI malfunction" || ticker.mode.name == "sandbox")

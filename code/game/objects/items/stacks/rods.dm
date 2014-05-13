@@ -37,7 +37,7 @@
 	if (istype(W, /obj/item/weapon/cable_coil))
 		var/obj/item/weapon/cable_coil/C = W
 		var/obj/item/stack/rods/R = src
-		new /obj/item/weapon/wirerod(src.loc)
+		new /obj/item/weapon/wirerod(user.loc)
 		C.use(1)
 		R.use(1)
 		user << "\red You tie wires to the rod."

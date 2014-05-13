@@ -157,7 +157,12 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	desc = "This roll of cloth is made from only the finest chemicals and bunny rabbits."
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
+	item_state = "paper"
 	origin_tech = "materials=2"
+
+var/global/list/datum/stack_recipe/cloth_recipes = list ( \
+	new/datum/stack_recipe("bandages", /obj/item/stack/medical/bandage, 2), \
+	)
 
 /*
  * Cardboard
