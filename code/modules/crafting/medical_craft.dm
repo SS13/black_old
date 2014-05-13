@@ -8,7 +8,7 @@
 	name = "roll of bandages"
 	singular_name = "bandage length"
 	desc = "Some crude bandages to wrap around wounds"
-	icon_state = "sheet-cloth"
+	icon_state = "bandages"
 	item_state = "paper"
 	origin_tech = "biotech=1"
 
