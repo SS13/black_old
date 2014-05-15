@@ -127,14 +127,23 @@
 		status = 0
 		update_icon()
 
-//Makeshift stun baton. Replacement for stun gloves.
+//Makeshift stun baton. Replacement for stun gloves, less stealthy, less dangerous
 /obj/item/weapon/melee/baton/cattleprod
 	name = "stunprod"
-	desc = "An improvised stun baton."
-	icon_state = "stunprod_nocell"
+	desc = "An improvised stun baton, more likely to put you in trouble than anything. Only has a single charge."
+	icon_state = "stunprod"
 	item_state = "prod"
-	force = 3
+	force = 5
 	throwforce = 5
 	status = 0
-	charges = 3
+	charges = 1
 	slot_flags = null
+	w_class = 3
+	origin_tech = "combat=1"
+
+/obj/item/weapon/melee/baton/cattleprod/update_icon()
+	if(status)
+		icon_state = "stunprod_active"
+	else
+		icon_state = "stunprod"
+

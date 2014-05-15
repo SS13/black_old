@@ -381,6 +381,7 @@
 	desc = "A cup with the british flag emblazoned on it."
 	icon_state = "britcup"
 	volume = 30
+	g_amt = 60
 
 /obj/item/weapon/reagent_containers/food/drinks/cup/nt
 	desc = "A souvenir cup with the Nanotraseen logo emblazoned on it."

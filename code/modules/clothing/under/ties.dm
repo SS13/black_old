@@ -160,8 +160,8 @@
 	item_color = "hydro"
 
 /obj/item/clothing/tie/armband/med
-	name = "medical guard armband"
-	desc = "An armband, worn by the station's security forces to display which department they're assigned to. This one is white."
+	name = "white armband"
+	//desc = "An armband, worn by the station's security forces to display which department they're assigned to. This one is white."
 	icon_state = "med"
 	item_color = "med"
 

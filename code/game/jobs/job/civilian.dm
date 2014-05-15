@@ -209,8 +209,8 @@
 
 
 
-//Griff //BS12 EDIT
-/*
+//Griff //BS12 EDIT I hate un-commenting it, but oh well, let's see how it goes
+
 /datum/job/clown
 	title = "Clown"
 	flag = CLOWN
@@ -283,7 +283,7 @@
 		H.mind.special_verbs += /client/proc/mimewall
 		H.miming = 1
 		return 1
-*/
+
 
 
 /datum/job/janitor

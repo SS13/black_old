@@ -34,3 +34,15 @@
 					user.visible_message( 	"\blue [user] places bandage patch over [W.desc] on [M]'s [affecting.display_name].", \
 									"\blue You place bandage over [W.desc] on [M]'s [affecting.display_name]." )
 			use(1)
+
+/obj/item/clothing/mask/cloth
+	name = "cloth mask"
+	desc = "A handmade mask from cloth that covers mouth. Could probably protect you from inhaling something. Probably."
+	icon_state = "handmade"
+	item_state = "sterile"
+	w_class = 1
+	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
+	gas_transfer_coefficient = 0.60
+	permeability_coefficient = 0.01
+	armor = list(melee = 0, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 20, rad = 0)
+	can_eat = 0

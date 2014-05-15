@@ -252,14 +252,6 @@
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	siemens_coefficient = 2.0
 
-/obj/item/clothing/head/monkeypelt
-	name = "monkey pelt hat"
-	desc = "What kind of minster would wear this?"
-	icon_state = "monkeypelt"
-	item_state = "monkeypelt"
-	flags = FPRINT | TABLEPASS | BLOCKHAIR
-	siemens_coefficient = 2.0
-
 /obj/item/clothing/head/xenos
 	name = "xenos helmet"
 	icon_state = "xenos"
@@ -267,14 +259,6 @@
 	desc = "A helmet made out of chitinous alien hide."
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
-	siemens_coefficient = 2.0
-
-/obj/item/clothing/head/sheik
-	name = "sheik hat"
-	icon_state = "sheik"
-	item_state = "sheik"
-	flags = FPRINT | TABLEPASS | BLOCKHAIR
-	flags_inv = HIDEEARS
 	siemens_coefficient = 2.0
 
 /obj/item/clothing/head/fedora
