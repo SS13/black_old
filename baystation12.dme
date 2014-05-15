@@ -806,6 +806,7 @@
 #include "code\modules\clothing\under\jobs\medsci.dm"
 #include "code\modules\clothing\under\jobs\security.dm"
 #include "code\modules\crafting\cloth.dm"
+#include "code\modules\crafting\clothing.dm"
 #include "code\modules\crafting\medical_craft.dm"
 #include "code\modules\customitems\item_defines.dm"
 #include "code\modules\customitems\item_spawning.dm"
@@ -1371,5 +1372,4 @@
 #include "code\ZAS\ZAS_Zones.dm"
 #include "interface\interface.dm"
 #include "interface\skin.dmf"
-#include "maps\tgstation2.dmm"
 // END_INCLUDE

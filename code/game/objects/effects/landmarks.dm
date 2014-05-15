@@ -114,6 +114,12 @@
 	new /obj/item/clothing/head/helmet/gladiator(src.loc)
 	del(src)
 
+/obj/effect/landmark/costume/roman/New()
+	new /obj/item/clothing/under/roman(src.loc)
+	var/CHOICE = pick( /obj/item/clothing/head/helmet/roman , /obj/item/clothing/head/helmet/roman/legionaire )
+	new CHOICE(src.loc)
+	del(src)
+
 /obj/effect/landmark/costume/madscientist/New()
 	new /obj/item/clothing/under/gimmick/rank/captain/suit(src.loc)
 	new /obj/item/clothing/head/flatcap(src.loc)
@@ -193,8 +199,7 @@
 /obj/effect/landmark/costume/prig/New()
 	new /obj/item/clothing/suit/wcoat(src.loc)
 	new /obj/item/clothing/glasses/monocle(src.loc)
-	var/CHOICE= pick( /obj/item/clothing/head/bowler, /obj/item/clothing/head/that)
-	new CHOICE(src.loc)
+	new /obj/item/clothing/head/that(src.loc)
 	new /obj/item/clothing/shoes/black(src.loc)
 	new /obj/item/weapon/cane(src.loc)
 	new /obj/item/clothing/under/sl_suit(src.loc)
@@ -239,6 +244,7 @@
 
 /obj/effect/landmark/costume/holiday_priest/New()
 	new /obj/item/clothing/suit/holidaypriest(src.loc)
+	new/obj/item/candle(src.loc)
 	del(src)
 
 /obj/effect/landmark/costume/marisawizard/fake/New()
@@ -266,4 +272,33 @@
 /obj/effect/landmark/costume/sexymime/New()
 	new /obj/item/clothing/mask/gas/sexymime(src.loc)
 	new /obj/item/clothing/under/sexymime(src.loc)
+	del(src)
+
+/obj/effect/landmark/costume/arab/New()
+	new/obj/item/clothing/under/sheik(src.loc)
+	var/CHOICE = pick( /obj/item/clothing/head/fez , /obj/item/clothing/head/sheik )
+	new CHOICE(src.loc)
+	del(src)
+
+/obj/effect/landmark/costume/monkey/New()
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src.loc)
+	new/obj/item/clothing/suit/monkeysuit(src.loc)
+	new/obj/item/clothing/mask/gas/monkeymask(src.loc)
+
+/obj/effect/landmark/costume/nazi/New()
+	new/obj/item/clothing/under/brown(src.loc)
+	new/obj/item/clothing/tie/armband(src.loc)
+	if(prob(10))
+		new/obj/item/clothing/shoes/jackboots
+	del(src)
+
+/obj/effect/landmark/costume/xenos/New()
+	new/obj/item/clothing/suit/xenos(src.loc)
+	new/obj/item/clothing/head/xenos(src.loc)
+	del(src)
+
+/obj/effect/landmark/costume/mafia/New()
+	new/obj/item/clothing/head/fedora(src.loc)
+	new/obj/item/clothing/under/fluff/callum_suit(src.loc)
+	new/obj/item/weapon/contraband/poster(src.loc)
 	del(src)

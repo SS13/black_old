@@ -452,13 +452,6 @@
 	item_color = "snmsuit"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
-/obj/item/clothing/under/sheik
-	name = "sheikh suit"
-	icon_state = "sheik"
-	item_state = "sheik"
-	item_color = "sheik"
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
-
 
 /obj/item/clothing/under/xenorobe
 	desc = "It's a strange old-looking alien robe decorated with intricate ornaments. This must have costed a fortune, and probably costs still."

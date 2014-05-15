@@ -286,7 +286,7 @@
 	name = "samurai hardsuit helmet"
 	icon_state = "rig0_samurai_helm"
 	item_state = "rig0_samurai_helm"
-	item_color = "samurai_helm"
+	item_color = "samurai"
 
 //HoS` personal
 

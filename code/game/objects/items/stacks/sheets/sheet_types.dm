@@ -161,8 +161,18 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	origin_tech = "materials=2"
 
 var/global/list/datum/stack_recipe/cloth_recipes = list ( \
-	new/datum/stack_recipe("bandages", /obj/item/stack/medical/bandage, 2), \
+	new/datum/stack_recipe("bandages", /obj/item/stack/medical/bandage, 1), \
+	new/datum/stack_recipe("cloth mask", /obj/item/clothing/mask/cloth, 1), \
+	new/datum/stack_recipe("white armband", /obj/item/clothing/tie/armband/med, 1), \
+	new/datum/stack_recipe("kufiya", /obj/item/clothing/head/sheik, 3), \
+	new/datum/stack_recipe("thawb", /obj/item/clothing/under/sheik, 4), \
+	new/datum/stack_recipe("roughspun robes", /obj/item/clothing/suit/unathi/robe, 3), \
 	)
+
+obj/item/stack/sheet/cloth/New(var/loc, var/amount=null)
+	recipes = cloth_recipes
+	return ..()
+
 
 /*
  * Cardboard
