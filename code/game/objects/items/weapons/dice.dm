@@ -4,6 +4,7 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = 1
+	g_amt = 1
 	var/sides = 6
 
 /obj/item/weapon/dice/New()

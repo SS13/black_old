@@ -42,8 +42,10 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/device/tape(), \
 		new /obj/item/hand_labeler_refill(), \
 		new /obj/item/weapon/hand_labeler(), \
+		new /obj/item/clothing/tie/stethoscope(), \
 		new /obj/item/device/assembly/igniter(), \
 		new /obj/item/device/assembly/signaler(), \
+		new /obj/item/device/flashlight/pen(), \
 		new /obj/item/device/radio/headset(), \
 		new /obj/item/device/radio/off(), \
 		new /obj/item/device/assembly/infra(), \
@@ -58,6 +60,7 @@ var/global/list/autolathe_recipes = list( \
 var/global/list/autolathe_recipes_hidden = list( \
 		new /obj/item/weapon/flamethrower/full(), \
 		new /obj/item/weapon/rcd(), \
+		new /obj/item/target(), \
 		new /obj/item/device/radio/electropack(), \
 		new /obj/item/weapon/weldingtool/largetank(), \
 		new /obj/item/weapon/handcuffs(), \

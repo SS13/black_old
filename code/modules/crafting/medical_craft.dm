@@ -39,7 +39,7 @@
 	name = "cloth mask"
 	desc = "A handmade mask from cloth that covers mouth. Could probably protect you from inhaling something. Probably."
 	icon_state = "handmade"
-	item_state = "sterile"
+	item_state = "handmade"
 	w_class = 1
 	flags = FPRINT|TABLEPASS|MASKCOVERSMOUTH
 	gas_transfer_coefficient = 0.60

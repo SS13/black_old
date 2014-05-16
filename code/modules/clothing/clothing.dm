@@ -89,6 +89,8 @@
 	icon_state = "earmuffs"
 	item_state = "earmuffs"
 	slot_flags = SLOT_EARS | SLOT_TWOEARS
+	m_amt = 45
+	g_amt = 20
 
 //Glasses
 /obj/item/clothing/glasses

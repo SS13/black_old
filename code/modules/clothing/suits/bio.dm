@@ -99,6 +99,12 @@
 /obj/item/clothing/head/bio_hood/hazmat/white
 	icon_state = "hazmat_white"
 
+/obj/item/clothing/suit/bio_suit/hazmat/orange
+	icon_state = "hazmat_orange"
+
+/obj/item/clothing/head/bio_hood/hazmat/orange
+	icon_state = "hazmat_orange"
+
 /obj/item/clothing/suit/bio_suit/hazmat/janitor
 	icon_state = "hazmat_janitor"
 

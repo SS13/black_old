@@ -130,6 +130,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	new/datum/stack_recipe("table parts", /obj/item/weapon/table_parts/wood, 2), \
 	new/datum/stack_recipe("wooden chair", /obj/structure/stool/bed/chair/wood/normal, 3, time = 10, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wooden comfy chair", /obj/structure/stool/bed/chair/wood/comfy, 5, time = 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("wooden cabinet", /obj/structure/closet/cabinet, 12, time = 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1), \
@@ -185,8 +186,9 @@ var/global/list/datum/stack_recipe/cardboard_recipes = list ( \
 	new/datum/stack_recipe("cardborg suit", /obj/item/clothing/suit/cardborg, 3), \
 	new/datum/stack_recipe("cardborg helmet", /obj/item/clothing/head/cardborg), \
 	new/datum/stack_recipe("pizza box", /obj/item/pizzabox), \
+	new/datum/stack_recipe("paper cup", /obj/item/weapon/reagent_containers/food/drinks/sillycup), \
 	new/datum/stack_recipe("folder", /obj/item/weapon/folder), \
-)
+	)
 
 /obj/item/stack/sheet/cardboard	//BubbleWrap
 	name = "cardboard"

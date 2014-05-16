@@ -15,6 +15,7 @@
 	name = "Iron ore"
 	icon_state = "Iron ore"
 	origin_tech = "materials=1"
+	m_amt = 10 //Not so tough now, huh, raw ore?!
 
 /obj/item/weapon/ore/glass
 	name = "Sand"
@@ -125,6 +126,7 @@
 /obj/item/weapon/coin/iron
 	name = "Iron coin"
 	icon_state = "coin_iron"
+	m_amt = 1
 
 /obj/item/weapon/coin/plasma
 	name = "Solid plasma coin"

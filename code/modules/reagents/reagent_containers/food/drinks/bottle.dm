@@ -123,6 +123,7 @@
 	throwforce = 5.0
 	throw_speed = 3
 	throw_range = 5
+	g_amt = 5
 	item_state = "beer"
 	attack_verb = list("stabbed", "slashed", "attacked")
 	var/icon/broken_outline = icon('icons/obj/drinks.dmi', "broken")

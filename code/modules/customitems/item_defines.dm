@@ -324,7 +324,7 @@
 
 /obj/item/weapon/storage/pill_bottle/fluff/listermedbottle //compactninja: Lister Black
 	name = "Pill bottle (anti-depressants)"
-	desc = "Contains pills used to deal with depression. They appear to be prescribed to Lister Black"
+	desc = "Contains pills used to deal with depression. Prescription label has no name."
 	New()
 		..()
 		new /obj/item/weapon/reagent_containers/pill/fluff/listermed( src )
