@@ -32,6 +32,17 @@
 	item_state = "lb_suit"
 	item_color = "qm"
 
+/obj/item/clothing/under/rank/cargo/verb/rolldown()
+	set name = "Roll jumpsuit down"
+	set category = "Object"
+	set src in usr
+	item_color = item_color == "qm" ? "jumpsuitdown" : "qm"
+	item_state = item_state == "lb_suit" ? "jumpsuitdown" : "lb_suit"
+	icon_state = icon_state == "qm" ? "jumpsuitdown" : "qm"
+	if (ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_w_uniform(1)
+
 
 /obj/item/clothing/under/rank/cargotech
 	name = "cargo technician's jumpsuit"

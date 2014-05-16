@@ -5,6 +5,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "target_h"
 	density = 0
+	m_amt = 1900
+	g_amt = 300
 	var/hp = 1800
 	var/icon/virtualIcon
 	var/list/bulletholes = list()

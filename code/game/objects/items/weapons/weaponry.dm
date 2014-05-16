@@ -136,6 +136,7 @@
 	force = 20
 	throwforce = 10
 	w_class = 3
+	m_amt = 20000
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 	suicide_act(mob/user)
@@ -282,9 +283,7 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 	if(istype(I, /obj/item/weapon/cell))
 		if(wirecutters)
 			var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
-			user.before_take_item(I)
-			user.before_take_item(src)
-			user.put_in_hands(P)
+			new P(user.loc)
 			user << "<span class='notice'>You fasten power cell to the top of the rod with the cable and wirecutters</span>"
 			del(I)
 			del(src)

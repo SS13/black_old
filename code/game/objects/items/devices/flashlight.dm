@@ -114,6 +114,8 @@
 	flags = FPRINT | TABLEPASS | CONDUCT
 	slot_flags = SLOT_BELT | SLOT_EARS
 	brightness_on = 2
+	m_amt = 30
+	g_amt = 30
 
 //Disduised EMP jammer
 /obj/item/device/flashlight/emp
