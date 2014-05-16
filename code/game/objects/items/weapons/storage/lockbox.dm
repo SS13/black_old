@@ -9,7 +9,7 @@
 	max_w_class = 3
 	max_combined_w_class = 14 //The sum of the w_classes of all the items in this storage item.
 	storage_slots = 4
-	req_access = list(access_armory)
+	req_access = list(access_brig)//This should allow shitcuritrons to use it, detective is left out
 	var/locked = 1
 	var/broken = 0
 	var/icon_locked = "lockbox+l"
