@@ -59,7 +59,7 @@
 
 /obj/item/fluff/val_mcneil_1 //silentthunder: Val McNeil
 	name = "rosary pendant"
-	desc = "A cross on a ring of beads, has McNeil etched onto the back."
+	desc = "A cross on a ring of beads."
 	icon_state = "val_mcneil_1"
 
 /obj/item/fluff/steve_johnson_1 //thebreadbocks: Steve Johnson
