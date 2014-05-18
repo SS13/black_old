@@ -47,7 +47,7 @@
 	if(!ismob(M))
 		return
 	user << "<span class='warning'>You stab [M] with the pen.</span>"
-	M << "\red You feel a tiny prick!" //That's a whole lot of meta!
+	//M << "\red You feel a tiny prick!" //That's a whole lot of meta!
 	if (parrent_alog)
 		M.attack_log += text("\[[time_stamp()]\] <font color='orange'>Has been stabbed with [name]  by [user.name] ([user.ckey])</font>")
 		user.attack_log += text("\[[time_stamp()]\] <font color='red'>Used the [name] to stab [M.name] ([M.ckey])</font>")
