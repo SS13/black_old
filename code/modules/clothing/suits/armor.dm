@@ -32,7 +32,7 @@
 	item_state = "armor"
 
 /obj/item/clothing/suit/armor/vest/security/tan
-	icon_state = "tanmesa"
+	icon_state = "sectan"
 	item_state = "armor"
 
 /obj/item/clothing/suit/armor/vest/warden

@@ -91,7 +91,7 @@
 	darkness_view = -1
 
 /obj/item/clothing/glasses/sunglasses/aviator
-	desc = "Aviator sunglasses it a true classic, preffered by faschionistas of all species all over the galaxy "
+	desc = "Aviator sunglasses, a true classic, preffered by faschionistas of all species all over the galaxy "
 	name = "aviator sunglasses"
 	icon_state = "aviator"
 	item_state = "aviator"
