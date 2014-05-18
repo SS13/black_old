@@ -284,6 +284,7 @@
 	new/obj/item/weapon/reagent_containers/food/snacks/grown/banana(src.loc)
 	new/obj/item/clothing/suit/monkeysuit(src.loc)
 	new/obj/item/clothing/mask/gas/monkeymask(src.loc)
+	del(src)
 
 /obj/effect/landmark/costume/nazi/New()
 	new/obj/item/clothing/under/brown(src.loc)

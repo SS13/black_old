@@ -28,6 +28,8 @@
 		"It Had To Be You"='ItHadToBeYou.ogg',
 		"Janitorial Blues"='KyouWaYuuhiYarou.ogg',
 		"Lujon"='Lujon.ogg',
+		"Another Day's Work"='AnotherDaysWork.ogg',
+		"Razor Walker"='RazorWalker.ogg',
 		"Mute Beat"='MuteBeat.ogg',
 		"Groovy Times"='GroovyTime.ogg',
 		"Under My Skin"='IveGotYouUnderMySkin.ogg',

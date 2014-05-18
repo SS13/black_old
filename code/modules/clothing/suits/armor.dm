@@ -31,6 +31,10 @@
 	icon_state = "armorsec"
 	item_state = "armor"
 
+/obj/item/clothing/suit/armor/vest/security/tan
+	icon_state = "tanmesa"
+	item_state = "armor"
+
 /obj/item/clothing/suit/armor/vest/warden
 	name = "Warden's jacket"
 	desc = "An armoured jacket with silver rank pips and livery."
