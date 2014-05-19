@@ -57,7 +57,7 @@
 	var/name_action
 	var/name_part1
 	var/name_part2
-	icon_state = pick("arcade", "clowncade", "blackcade", "blucade")
+	icon_state = pick("arcade", "clowncade", "yellowcade", "blucade")
 
 	name_action = pick("Defeat ", "Annihilate ", "Save ", "Strike ", "Stop ", "Destroy ", "Robust ", "Romance ", "Pwn ", "Own ", "Ban", "Grief", "Desintegrate")
 

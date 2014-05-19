@@ -47,16 +47,27 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	name = "Food crate"
 	contains = list(/obj/item/weapon/reagent_containers/food/drinks/flour,
 					/obj/item/weapon/reagent_containers/food/drinks/sugar,
-					/obj/item/weapon/reagent_containers/food/drinks/milk,
+					/obj/item/weapon/reagent_containers/food/snacks/meat,
+					/obj/item/weapon/reagent_containers/food/snacks/sausage,
 					/obj/item/weapon/reagent_containers/food/drinks/milk,
 					/obj/item/weapon/storage/fancy/egg_box,
 					/obj/item/weapon/reagent_containers/food/condiment/enzyme,
 					/obj/item/weapon/reagent_containers/food/snacks/grown/banana,
-					/obj/item/weapon/reagent_containers/food/snacks/grown/banana,
+					/obj/item/weapon/reagent_containers/food/snacks/grown/eggplant,
+					/obj/item/weapon/reagent_containers/food/condiment/honey,
 					/obj/item/weapon/reagent_containers/food/snacks/grown/banana)
-	cost = 10
+	cost = 18
 	containertype = /obj/structure/closet/crate/freezer
 	containername = "Food crate"
+	group = "Hospitality"
+
+/datum/supply_packs/fridge
+	name = "Fridge pack"
+	contains = list(/obj/item/weapon/reagent_containers/food/drinks/ice,
+					/obj/item/weapon/reagent_containers/food/drinks/ice)
+	cost = 10
+	containertype = /obj/structure/closet/crate/freezer
+	containername = "Fridge"
 	group = "Hospitality"
 
 /datum/supply_packs/monkey
@@ -104,7 +115,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/ammo_casing/shotgun/beanbag,
 					/obj/item/ammo_casing/shotgun/beanbag)
 	cost = 10
-	containertype = /obj/structure/closet/crate
+	containertype = /obj/structure/closet/crate/ammo
 	containername = "Beanbag shells"
 	group = "Security"
 
@@ -422,7 +433,8 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/storage/box/syringes,
 					/obj/item/weapon/storage/box/beakers,
 					/obj/item/weapon/reagent_containers/glass/bottle/mutagen)*/
-	contains = list(/obj/item/weapon/virusdish/random,
+	contains = list(/obj/item/weapon/storage/fancy/vials,
+					/obj/item/weapon/virusdish/random,
 					/obj/item/weapon/virusdish/random,
 					/obj/item/weapon/virusdish/random,
 					/obj/item/weapon/virusdish/random)
@@ -784,9 +796,9 @@ datum/supply_packs/riotadvanced
 					/obj/item/ammo_casing/shotgun,
 					/obj/item/ammo_casing/shotgun)
 	cost = 20
-	containertype = /obj/structure/closet/crate/secure
+	containertype = /obj/structure/closet/crate/ammo
 	containername = "Shotgun shells"
-	access = access_armory
+	//access = access_armory
 	group = "Security"
 
 /datum/supply_packs/expenergy
