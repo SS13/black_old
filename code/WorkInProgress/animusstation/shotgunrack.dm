@@ -15,12 +15,12 @@
 			if(!gun)
 				if(!user.get_active_hand())
 					user.put_in_active_hand(gun)
-				else
-					gun = get_turf(user)
-					gun = null
 					icon_state = "rack_empty"
 					src.add_fingerprint(usr)
 					update_icon()
+				else
+					gun = get_turf(user)
+					gun = null
 					return
 			else
 				user << "\blue There is no gun on the rack!"
