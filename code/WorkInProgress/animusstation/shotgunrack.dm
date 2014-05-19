@@ -7,7 +7,7 @@
 	opacity = 0
 	density = 0
 	layer = 3.5
-	var/gun
+	var/obj/item/weapon/gun/projectile/shotgun/gun
 
 /obj/machinery/shotgunrack/attack_hand(mob/user as mob)
 	switch(alert("Do you want to take the shotgun off of the wall?",,"Yes","No"))
