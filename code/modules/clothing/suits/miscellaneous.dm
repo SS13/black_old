@@ -112,11 +112,6 @@
 	item_state = "overalls"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS
 
-/obj/item/clothing/suit/apron/surgical
-	name = "surgical apron"
-	desc = "A surgical apron used to keep the blood away from the uniform."
-	icon_state = "surgeon"
-
 /obj/item/clothing/suit/syndicatefake
 	name = "red space suit replica"
 	icon_state = "syndicate"
