@@ -738,9 +738,10 @@
 	desc = "A softdrink vendor provided by Robust Industries, LLC."
 	icon_state = "Colared"
 
-/obj/machinery/vending/cola/New()
+/obj/machinery/vending/cola/alt/New()
 	..()
 	icon_state = pick("Colared", "Cola", "Colaorange")
+	icon_vend = "[icon_state]"
 
 //This one's from bay12
 /obj/machinery/vending/cart

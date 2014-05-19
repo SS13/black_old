@@ -242,7 +242,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_theatre
 	group = "Operations"
 
-/datum/supply_packs/costume
+/*/datum/supply_packs/costume Looks like marker causes some shuttle problems - commenting it out for a while.
 	name = "Random Costume crate"
 	contains = list(/obj/effect/landmark/costume,
 					/obj/effect/landmark/costume)
@@ -250,7 +250,7 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Theatrical costumes"
 	access = access_theatre
-	group = "Operations"
+	group = "Operations"*/
 
 /datum/supply_packs/boxing
 	name = "Boxing gear supply"
