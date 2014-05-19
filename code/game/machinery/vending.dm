@@ -700,11 +700,9 @@
 					/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 30,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 20,/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 30,
 					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25)
 
-
-/obj/machinery/vending/snack/red
-	name = "Getmore Chocolate Corp"
-	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
-	icon_state = "snack"
+/obj/machinery/vending/snack/New()
+	..()
+	icon_state = pick("snackblue", "snack")
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
@@ -735,20 +733,14 @@
 					/obj/item/weapon/reagent_containers/food/drinks/soda_cans/sodawater = 25,/obj/item/weapon/reagent_containers/food/drinks/soda_cans/starkist = 35,
 					/obj/item/weapon/reagent_containers/food/drinks/soda_cans/space_up = 30, /obj/item/weapon/reagent_containers/food/drinks/soda_cans/redwing =40)
 
-/obj/machinery/vending/cola/red
+/obj/machinery/vending/cola/alt
 	name = "Robust Softdrinks"
 	desc = "A softdrink vendor provided by Robust Industries, LLC."
 	icon_state = "Colared"
 
-/obj/machinery/vending/cola/blue
-	name = "Robust Softdrinks"
-	desc = "A softdrink vendor provided by Robust Industries, LLC."
-	icon_state = "Cola"
-
-/obj/machinery/vending/cola/orange
-	name = "Robust Softdrinks"
-	desc = "A softdrink vendor provided by Robust Industries, LLC."
-	icon_state = "Colaorange"
+/obj/machinery/vending/cola/New()
+	..()
+	icon_state = pick("Colared", "Cola", "Colaorange")
 
 //This one's from bay12
 /obj/machinery/vending/cart
