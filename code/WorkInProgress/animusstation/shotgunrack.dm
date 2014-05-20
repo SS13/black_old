@@ -31,6 +31,15 @@
 
 
 /obj/machinery/shotgunrack/attackby(obj/item/weapon/W as obj, mob/user as mob)
+
+	if ( istype(W,/obj/item/weapon/gun/projectile/shotgun/pump/combat) && !gun)
+		user.drop_item()
+		W.loc = src
+		gun = W
+		icon_state = "rack_combat"
+		src.add_fingerprint(usr)
+		update_icon()
+
 	if ( istype(W,/obj/item/weapon/gun/projectile/shotgun/pump) && !gun)
 		user.drop_item()
 		W.loc = src
@@ -39,11 +48,11 @@
 		src.add_fingerprint(usr)
 		update_icon()
 
-	if ( istype(W,/obj/item/weapon/gun/projectile/shotgun/pump/combat) && !gun)
+	if ( istype(W,/obj/item/weapon/gun/projectile/shotgun/doublebarrel/shorty) && !gun)
 		user.drop_item()
 		W.loc = src
 		gun = W
-		icon_state = "rack_combat"
+		icon_state = "rack_cerber"
 		src.add_fingerprint(usr)
 		update_icon()
 
