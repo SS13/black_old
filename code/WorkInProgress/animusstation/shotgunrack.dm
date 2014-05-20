@@ -56,13 +56,29 @@
 		update_icon()
 
 	if ( istype(W, /obj/item/weapon/wrench))
-		src.add_fingerprint(usr)
 		if(gun)
 			user << "\red Remove the weapon first!"
 			return
-		anchored = !anchored
-		user << "You [anchored ? "attached" : "detached"] the shotgun rack."
-		playsound(loc, 'sound/items/Ratchet.ogg', 75, 1)
+		else
+			if (anchored)
+				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+				user << "\blue You begin to unfasten \the [src]."
+				if (do_after(user, 75))
+					user.visible_message( \
+						"[user] unfastens \the [src].", \
+						"\blue You have unfastened \the [src]. Now it can be pulled somewhere else.", \
+						"You hear ratchet.")
+					src.anchored = 0
+			else /*if (anchored)*/
+				playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
+				user << "\blue You begin to fasten \the [src]."
+				if (do_after(user, 75))
+					user.visible_message( \
+						"[user] fastens \the [src].", \
+						"\blue You have fastened \the [src].", \
+						"You hear ratchet.")
+					src.anchored = 1
+			src.add_fingerprint(usr)
 
 	else
 		return ..()
