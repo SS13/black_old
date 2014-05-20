@@ -181,7 +181,8 @@
 		src.visible_message("*click click*")
 		playsound(src.loc, 'sound/weapons/empty.ogg', 100, 1)
 
-/obj/item/weapon/gun/attack(mob/living/M as mob, mob/living/user as mob, def_zone)
+/obj/item/weapon/gun/attack(obj/O as obj, mob/living/M as mob, mob/living/user as mob, def_zone)
+	if (istype(O, /obj/machinery/shotgunrack)) return
 	//Suicide handling.
 	if (M == user && user.zone_sel.selecting == "mouth" && !mouthshoot)
 		mouthshoot = 1

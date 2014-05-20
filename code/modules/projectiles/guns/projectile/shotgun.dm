@@ -54,6 +54,7 @@
 /obj/item/weapon/gun/projectile/shotgun/pump/combat
 	name = "combat shotgun"
 	icon_state = "cshotgun"
+	item_state = "shotgun"
 	max_shells = 8
 	origin_tech = "combat=5;materials=2"
 	ammo_type = "/obj/item/ammo_casing/shotgun"
@@ -72,6 +73,7 @@
 	caliber = "shotgun"
 	origin_tech = "combat=3;materials=1"
 	ammo_type = "/obj/item/ammo_casing/shotgun/beanbag"
+	var/obj/item/ammo_casing/current_shell = null
 
 	New()
 		for(var/i = 1, i <= max_shells, i++)
@@ -81,8 +83,8 @@
 		return
 
 	load_into_chamber()
-//		if(in_chamber)
-//			return 1 {R}
+		if(in_chamber)
+			return 1 //{R}
 		if(!loaded.len)
 			return 0
 
@@ -97,7 +99,21 @@
 		return 0
 
 	attack_self(mob/living/user as mob)
-		if(!(locate(/obj/item/ammo_casing/shotgun) in src) && !loaded.len)
+		if(loaded.len)
+			var/obj/item/ammo_casing/AC = loaded[1]
+			loaded -= AC
+			AC.loc = get_turf(src) //Eject casing onto ground.
+			user << "\blue You unload shell from \the [src]!"
+			if(in_chamber)
+				in_chamber = null
+		else
+			user << "\red Nothing loaded in \the [src]!"
+		for(var/obj/item/ammo_casing/shotgun/shell in src)	//This feels like a hack.	//don't code at 3:30am kids!!
+			if(shell in loaded)
+				loaded -= shell
+				shell.loc = get_turf(src.loc)
+
+/*		if(!(locate(/obj/item/ammo_casing/shotgun) in src) && !loaded.len)
 			user << "<span class='notice'>\The [src] is empty.</span>"
 			return
 
@@ -107,8 +123,8 @@
 				shell.loc = get_turf(src.loc)
 				playsound(src, 'sound/weapons/shotgunshelldrop.ogg', 60, 1)
 
-		user << "<span class='notice'>You break \the [src].</span>"
-		update_icon()
+//		user << "<span class='notice'>You break \the [src].</span>"
+		update_icon() */
 
 	attackby(var/obj/item/A as obj, mob/user as mob)
 		if(istype(A, /obj/item/ammo_casing) && !load_method)
