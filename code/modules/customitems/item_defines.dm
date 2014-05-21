@@ -59,7 +59,7 @@
 
 /obj/item/fluff/val_mcneil_1 //silentthunder: Val McNeil
 	name = "rosary pendant"
-	desc = "A cross on a ring of beads, has McNeil etched onto the back."
+	desc = "A cross on a ring of beads."
 	icon_state = "val_mcneil_1"
 
 /obj/item/fluff/steve_johnson_1 //thebreadbocks: Steve Johnson
@@ -324,7 +324,7 @@
 
 /obj/item/weapon/storage/pill_bottle/fluff/listermedbottle //compactninja: Lister Black
 	name = "Pill bottle (anti-depressants)"
-	desc = "Contains pills used to deal with depression. They appear to be prescribed to Lister Black"
+	desc = "Contains pills used to deal with depression. Prescription label has no name."
 	New()
 		..()
 		new /obj/item/weapon/reagent_containers/pill/fluff/listermed( src )

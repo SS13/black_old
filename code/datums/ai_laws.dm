@@ -12,6 +12,7 @@ var/global/const/base_law_type = /datum/ai_laws/nanotrasen
 
 /datum/ai_laws/asimov
 	name = "Three Laws of Robotics"
+	randomly_selectable = 1
 
 /datum/ai_laws/nanotrasen
 	name = "Prime Directives"

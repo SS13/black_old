@@ -110,6 +110,8 @@
 					if (emagged)
 						dat += "<A href='?src=\ref[src];action=create;item=muzzle;cost=350'>Muzzle</A> <FONT COLOR=blue>(100)</FONT><BR>"
 						dat += "<A href='?src=\ref[src];action=create;item=blindfold;cost=300'>Blindfold</A> <FONT COLOR=blue>(400)</FONT><BR>"
+						dat += "<A href='?src=\ref[src];action=create;item=holster;cost=700'>Holster</A> <FONT COLOR=blue>(400)</FONT><BR>"
+
 
 				else
 					dat += "<BR><FONT COLOR=red>No beaker inside. Please insert a beaker.</FONT><BR>"
@@ -210,6 +212,8 @@
 			new/obj/item/clothing/mask/muzzle(src.loc)
 		if("blindfold")
 			new/obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
+		if("holster")
+			new/obj/item/clothing/tie/holster/armpit(src.loc)
 		if("monkey")
 			new/mob/living/carbon/monkey(src.loc)
 	processing = 0

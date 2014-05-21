@@ -101,6 +101,10 @@
 			src.loc = get_step(src,dir)
 	movement_range--
 	if(movement_range <= 0)
+		energy--
+		movement_range++
+
+	if(energy <= 0)
 		del(src)
 	else
 		sleep(lag)

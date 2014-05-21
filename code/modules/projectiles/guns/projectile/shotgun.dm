@@ -120,8 +120,8 @@
 		for(var/obj/item/ammo_casing/shotgun/shell in src)	//This feels like a hack.	//don't code at 3:30am kids!!
 			if(shell in loaded)
 				loaded -= shell
-				shell.loc = get_turf(src.loc)
-				playsound(src, 'sound/weapons/shotgunshelldrop.ogg', 60, 1)
+			shell.loc = get_turf(src.loc)
+			playsound(src, 'sound/weapons/shotgunshelldrop.ogg', 60, 1)
 
 //		user << "<span class='notice'>You break \the [src].</span>"
 		update_icon() */

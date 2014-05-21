@@ -119,6 +119,7 @@
 		"/obj/item/ammo_magazine",
 		"/obj/item/weapon/reagent_containers/food/snacks/donut/normal",
 		"/obj/item/weapon/reagent_containers/food/snacks/donut/jelly",
+		"/obj/item/weapon/reagent_containers/food/drinks/coffee", //Yeah, some cop necessities here
 		"/obj/item/weapon/melee/baton",
 		"/obj/item/weapon/gun/energy/taser",
 		"/obj/item/weapon/lighter/zippo",

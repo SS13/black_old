@@ -93,6 +93,8 @@ var/global/vs_control/vsc = new
 	settings -= "settings"
 	settings -= "bitflags"
 	settings -= "plc"
+	PickZAS("Plasma - Oh Shit!")
+	PickZAS("ZAS - Hellish")
 
 /vs_control/proc/ChangeSettingsDialog(mob/user,list/L)
 	//var/which = input(user,"Choose a setting:") in L
@@ -196,6 +198,10 @@ var/global/vs_control/vsc = new
 	var/def = input(user, "Which of these presets should be used?") as null|anything in setting_choices
 	if(!def)
 		return
+	world << "\blue <b>[key_name(user)] changed the global plasma/ZAS settings to \"[def]\"</b>"
+	PickZAS(def)
+
+/vs_control/proc/PickZAS(var/def)
 	switch(def)
 		if("Plasma - Standard")
 			plc.CLOTH_CONTAMINATION = 1 //If this is on, plasma does damage by getting into cloth.
@@ -288,9 +294,6 @@ var/global/vs_control/vsc = new
 			airflow_speed_decay = 1
 			airflow_delay = 20
 			airflow_mob_slowdown = 3
-
-
-	world << "\blue <b>[key_name(user)] changed the global plasma/ZAS settings to \"[def]\"</b>"
 
 /pl_control/var/list/settings = list()
 

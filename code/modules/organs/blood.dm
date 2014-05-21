@@ -92,8 +92,8 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 					var/word = pick("dizzy","woosey","faint")
 					src << "\red You feel extremely [word]"
 			if(BLOOD_VOLUME_SURVIVE to BLOOD_VOLUME_BAD)
-				oxyloss += 5
-				toxloss += 5
+				oxyloss += 8
+				//toxloss += 5
 				if(prob(15))
 					var/word = pick("dizzy","woosey","faint")
 					src << "\red You feel extremely [word]"
@@ -107,9 +107,9 @@ var/const/BLOOD_VOLUME_SURVIVE = 122
 		// Without enough blood you slowly go hungry.
 		if(blood_volume < BLOOD_VOLUME_SAFE)
 			if(nutrition >= 300)
-				nutrition -= 10
-			else if(nutrition >= 200)
 				nutrition -= 3
+			else if(nutrition >= 200)
+				nutrition -= 1
 
 		//Bleeding out
 		var/blood_max = 0

@@ -30,6 +30,7 @@
 	var/id
 	var/sync = 0
 	var/part_set
+	var/eject_dir = 2 //This is Guap's
 	var/obj/being_built
 	var/list/queue = list()
 	var/processing_queue = 0
@@ -98,7 +99,7 @@
 						/obj/item/mecha_parts/part/honker_right_arm,
 						/obj/item/mecha_parts/part/honker_left_leg,
 						/obj/item/mecha_parts/part/honker_right_leg
-						), 
+						),
 	"Exosuit Equipment"=list(
 						/obj/item/mecha_parts/mecha_equipment/tool/hydraulic_clamp,
 						/obj/item/mecha_parts/mecha_equipment/tool/drill,
@@ -373,7 +374,7 @@
 	src.overlays -= "fab-active"
 	src.desc = initial(src.desc)
 	if(being_built)
-		src.being_built.Move(get_step(src,SOUTH))
+		src.being_built.Move(get_step(src,eject_dir))
 		src.visible_message("\icon[src] <b>[src]</b> beeps, \"The following has been completed: [src.being_built] is built\".")
 		src.being_built = null
 	src.updateUsrDialog()
@@ -502,7 +503,7 @@
 		temp = "Updating local R&D database..."
 		src.updateUsrDialog()
 		sleep(30) //only sleep if called by user
-	for(var/obj/machinery/computer/rdconsole/RDC in get_area(src))
+	for(var/obj/machinery/computer/rdconsole/RDC in range(10, src))
 		if(!RDC.sync)
 			continue
 		for(var/datum/tech/T in RDC.files.known_tech)

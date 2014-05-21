@@ -1,7 +1,7 @@
 /obj/item/projectile/bullet
 	name = "bullet"
 	icon_state = "bullet"
-	damage = 60
+	damage = 65
 	damage_type = BRUTE
 	nodamage = 0
 	flag = "bullet"
@@ -18,7 +18,7 @@
 
 
 /obj/item/projectile/bullet/midbullet
-	damage = 20
+	damage = 30
 	stun = 5
 	weaken = 5
 
@@ -55,7 +55,7 @@
 	weaken = 15
 
 /obj/item/projectile/bullet/a762
-	damage = 25
+	damage = 30
 
 /obj/item/projectile/bullet/beretta
 	damage = 27

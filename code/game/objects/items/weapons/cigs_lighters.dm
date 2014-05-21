@@ -187,7 +187,23 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		del(src)
 	return ..()
 
+///////////
+// JOINT //
+///////////
+/obj/item/clothing/mask/cigarette/weed
+	name = "joint"
+	desc = "420 smoke weed errday."
+	smoketime = 250
+	chem_volume = 50
+// See paper for creation
 
+obj/item/clothing/mask/cigarette/weed/New()
+	var/datum/reagents/R = new/datum/reagents(30)
+	reagents = R
+	R.my_atom = src
+	R.add_reagent("space_drugs", 10)
+	..()
+	return
 
 ////////////
 // CIGARS //
@@ -341,7 +357,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	name = "Zippo lighter"
 	desc = "The zippo."
 	icon_state = "goldzippo"
-	item_state = "goldzippo"
+	item_state = "zippo"
 	icon_on = "goldzippoon"
 	icon_off = "goldzippo"
 

@@ -1276,7 +1276,7 @@ mob/living/carbon/human/yank_out_object()
 		see_invisible = SEE_INVISIBLE_LIVING
 
 	spawn(0)
-		update_icons()
+		update_body(1)
 
 	if(species)
 		return 1

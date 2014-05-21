@@ -33,13 +33,16 @@
 							/obj/item/toy/prize/marauder					= 1,
 							/obj/item/toy/prize/seraph						= 1,
 							/obj/item/toy/prize/mauler						= 1,
+							/obj/item/clothing/glasses/glasses/anaglyph		= 1,
 							/obj/item/weapon/reagent_containers/food/drinks/cup/nt	= 1,
 							/obj/item/weapon/reagent_containers/food/drinks/cup/pirate	= 1,
 							/obj/item/weapon/reagent_containers/food/snacks/singulolollipop	= 1,
 							/obj/item/toy/prize/odysseus					= 1,
+							/obj/item/weapon/contraband/poster				= 1,
 							/obj/item/clothing/tie/toothnecklace			= 1,
 							/obj/item/toy/prize/phazon						= 1,
 							/obj/item/clothing/tie/medal/toy				= 1,
+							/obj/item/toy/katana							= 1,
 							/obj/item/toy/cards								= 1,
 							/obj/item/toy/c4								= 1,
 							/obj/item/weapon/storage/backpack/toy			= 1,
@@ -54,6 +57,7 @@
 	var/name_action
 	var/name_part1
 	var/name_part2
+	icon_state = pick("arcade", "clowncade", "yellowcade", "blucade")
 
 	name_action = pick("Defeat ", "Annihilate ", "Save ", "Strike ", "Stop ", "Destroy ", "Robust ", "Romance ", "Pwn ", "Own ", "Ban", "Grief", "Desintegrate")
 

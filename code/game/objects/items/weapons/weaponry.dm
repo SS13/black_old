@@ -136,6 +136,7 @@
 	force = 20
 	throwforce = 10
 	w_class = 3
+	m_amt = 20000
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 
 	suicide_act(mob/user)
@@ -246,17 +247,22 @@ obj/item/weapon/wirerod
 	name = "wired rod"
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
-	item_state = "rods"
+	item_state = "quarrel"
 	flags = FPRINT | TABLEPASS | CONDUCT
-	force = 9
-	throwforce = 10
+	force = 3
+	throwforce = 6
 	w_class = 3
-	m_amt = 1875
+	m_amt = 900
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
+	var/wirecutters
 
 obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 	..()
 	if(istype(I, /obj/item/weapon/shard))
+		if(wirecutters)
+			user << "<span class='notice'>There is something on the pole already!</span>"
+			return
+
 		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
 
 		user.before_take_item(I)
@@ -267,13 +273,17 @@ obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 		del(I)
 		del(src)
 
-	else if(istype(I, /obj/item/weapon/wirecutters))
-		var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
-
-		user.before_take_item(I)
-		user.before_take_item(src)
-
-		user.put_in_hands(P)
+	if(istype(I, /obj/item/weapon/wirecutters))
+		icon_state = "stunprod_nocell"
 		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
+		wirecutters = 1
 		del(I)
 		del(src)
+
+	if(istype(I, /obj/item/weapon/cell))
+		if(wirecutters)
+			var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
+			new P(user.loc)
+			user << "<span class='notice'>You fasten power cell to the top of the rod with the cable and wirecutters</span>"
+			del(I)
+			del(src)

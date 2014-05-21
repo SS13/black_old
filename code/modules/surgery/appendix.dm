@@ -51,7 +51,8 @@
 	allowed_tools = list(
 	/obj/item/weapon/hemostat = 100,	\
 	/obj/item/weapon/wirecutters = 75,	\
-	/obj/item/weapon/kitchen/utensil/fork = 20
+	/obj/item/weapon/kitchen/utensil/fork = 20, \
+	/obj/item/weapon/kitchen/utensil/spoon = 20
 	)
 
 	min_duration = 60

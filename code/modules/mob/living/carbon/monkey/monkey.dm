@@ -20,6 +20,27 @@
 	icon_state = "punpun1"
 	ico = "punpun"
 
+/mob/living/carbon/monkey/theater
+	name = "Ms. Clowns"
+	voice_name = "Ms. Clowns"
+	speak_emote = list("chimpers")
+	icon_state = "mimeky1"
+	ico = "mimeky"
+
+/mob/living/carbon/monkey/theater/New()
+	if (prob(50))
+		name = "Ms. Clowns"
+		voice_name = "Ms. Clowns"
+		speak_emote = list("chimpers")
+		icon_state = "mimeky1"
+		ico = "mimeky"
+	else
+		name = "Mr. Mimes"
+		voice_name = "Mr. Mimes"
+		speak_emote = list("chimpers")
+		icon_state = "hunke1"
+		ico = "hunke"
+
 /mob/living/carbon/monkey/tajara
 	name = "farwa"
 	voice_name = "farwa"

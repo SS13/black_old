@@ -445,9 +445,19 @@
 		user << "\blue You refill your flower!"
 		return
 
+	else if (istype(A, /obj/structure/sink) && get_dist(src,A) <= 1)
+		A.reagents.trans_to(src, 10)
+		user << "\blue You refill your flower!"
+		return
+
+	else if (istype(A, /obj/structure/reagent_dispensers/water_cooler) && get_dist(src,A) <= 1)
+		A.reagents.trans_to(src, 10)
+		user << "\blue You refill your flower!"
+		return
+
 	else if (src.reagents.total_volume < 1)
 		src.empty = 1
-		user << "\blue Your flower has run dry!"
+		user << "\blue Your flower has run dry! Find a watertank or a sink to refill it!"
 		return
 
 	else

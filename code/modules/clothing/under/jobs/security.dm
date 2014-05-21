@@ -38,12 +38,12 @@
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
 
-/obj/item/clothing/under/rank/security2
+/obj/item/clothing/under/rank/security/security2
 	name = "security officer's uniform"
 	desc = "It's made of a slightly sturdier material, to allow for robust protection."
-	icon_state = "redshirt2"
-	item_state = "r_suit"
-	item_color = "redshirt2"
+	icon_state = "officertanclothes"
+	item_state = "det"
+	item_color = "officertanclothes"
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
@@ -57,6 +57,12 @@
 	icon_state = "warden_corporate"
 	item_state = "warden_corporate"
 	item_color = "warden_corporate"
+
+/obj/item/clothing/under/rank/warden/warden2
+	icon_state = "wardentanclothes"
+	item_state = "det"
+	item_color = "wardentanclothes"
+
 
 /*
  * Detective
@@ -114,6 +120,11 @@
 	icon_state = "hos_corporate"
 	item_state = "hos_corporate"
 	item_color = "hos_corporate"
+
+/obj/item/clothing/under/rank/head_of_security/head_of_security2
+	icon_state = "hostanclothes"
+	item_state = "det"
+	item_color = "hostanclothes"
 
 /obj/item/clothing/head/helmet/HoS
 	name = "Head of Security Hat"

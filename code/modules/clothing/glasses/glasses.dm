@@ -29,6 +29,12 @@
 	icon_state = "purple"
 	item_state = "glasses"
 
+/obj/item/clothing/glasses/glasses/anaglyph
+	desc = "See the world in not one, but two colors! See a whole lot of three dimensions! Wow, is this some kind of technology magic?"
+	name = "anaglyph glasses"
+	icon_state = "sollux"
+	item_state = "sollux"
+
 /obj/item/clothing/glasses/night
 	name = "Night Vision Goggles"
 	desc = "You can totally see in the dark now!."
@@ -83,6 +89,19 @@
 	icon_state = "sun"
 	item_state = "sunglasses"
 	darkness_view = -1
+
+/obj/item/clothing/glasses/sunglasses/aviator
+	desc = "Aviator sunglasses, a true classic, preffered by faschionistas of all species all over the galaxy "
+	name = "aviator sunglasses"
+	icon_state = "aviator"
+	item_state = "aviator"
+
+/obj/item/clothing/glasses/sunglasses/hip
+	desc = "Oooh yeah, shake that monekymaker, baby!"
+	name = "hip sunglasses"
+	icon_state = "hip_glasses"
+	item_state = "hip_glasses"
+
 
 /obj/item/clothing/glasses/welding
 	name = "welding goggles"

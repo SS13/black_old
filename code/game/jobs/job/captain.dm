@@ -26,7 +26,7 @@
 		H.equip_to_slot_or_del(new /obj/item/device/pda/captain(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/brown(H), slot_shoes)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/caphat(H), slot_head)
-		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses(H), slot_glasses)
+		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/sunglasses/aviator(H), slot_glasses)
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/ids(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H), slot_l_hand)

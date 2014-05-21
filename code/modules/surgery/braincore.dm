@@ -12,6 +12,7 @@
 /datum/surgery_step/brain/saw_skull
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
+	/obj/item/weapon/butch = 85, \
 	/obj/item/weapon/hatchet = 75
 	)
 
@@ -67,6 +68,7 @@
 /datum/surgery_step/brain/saw_spine
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
+	/obj/item/weapon/butch = 85, \
 	/obj/item/weapon/hatchet = 75
 	)
 
@@ -112,7 +114,8 @@
 	allowed_tools = list(
 	/obj/item/weapon/hemostat = 100, 		\
 	/obj/item/weapon/wirecutters = 75, 		\
-	/obj/item/weapon/kitchen/utensil/fork = 20
+	/obj/item/weapon/kitchen/utensil/fork = 20, \
+	/obj/item/weapon/kitchen/utensil/spoon = 20
 	)
 
 	min_duration = 80
@@ -179,6 +182,7 @@
 	allowed_tools = list(
 	/obj/item/weapon/scalpel = 100,		\
 	/obj/item/weapon/kitchenknife = 75,	\
+	/obj/item/weapon/butch = 85,	\
 	/obj/item/weapon/shard = 50, 		\
 	)
 
@@ -204,6 +208,7 @@
 /datum/surgery_step/slime/cut_innards
 	allowed_tools = list(
 	/obj/item/weapon/scalpel = 100,		\
+	/obj/item/weapon/butch = 85,	\
 	/obj/item/weapon/kitchenknife = 75,	\
 	/obj/item/weapon/shard = 50, 		\
 	)
@@ -230,6 +235,8 @@
 /datum/surgery_step/slime/saw_core
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
+	/obj/item/weapon/butch = 85,	\
+	/obj/item/weapon/kitchenknife = 75,	\
 	/obj/item/weapon/hatchet = 75
 	)
 

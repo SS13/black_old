@@ -188,8 +188,17 @@
 	item_state = "captainpack"
 
 /obj/item/weapon/storage/backpack/toy
-	name = "space backpack"
+	name = "oxygen backpack" //metagame galore!
 	icon = 'icons/obj/tank.dmi'
 	desc = "You can look like a real spessman with it! WARNING: this backpack is not suitable for real space EVA!"
 	icon_state = "jetpack-on"
 	item_state = "jetpack-on"
+
+/obj/item/weapon/storage/backpack/toy/New()
+	if(prob(50))
+		icon_state = "jetpack-on"
+		item_state = "jetpack-on"
+	else
+		name = "carbon dioxide backpack"
+		icon_state = "jetpack-black"
+		item_state =  "jetpack-black"

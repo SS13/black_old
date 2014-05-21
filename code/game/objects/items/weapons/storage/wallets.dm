@@ -26,6 +26,7 @@
 		"/obj/item/weapon/stamp",
 		"/obj/item/weapon/reagent_containers/pill",
 		"/obj/item/clothing/tie/medal/",
+		"/obj/item/clothing/ring",
 		"/obj/item/trash/candy",
 		"/obj/item/clothing/tie/holobadge/detective",
 		"/obj/item/clothing/tie/holobadge/forensic",

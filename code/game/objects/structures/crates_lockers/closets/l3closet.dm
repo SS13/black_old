@@ -21,9 +21,12 @@
 	..()
 	sleep(2)
 	contents = list()
-	new /obj/item/clothing/suit/bio_suit/general( src )
-	new /obj/item/clothing/head/bio_hood/general( src )
-
+	if(prob(50))
+		new /obj/item/clothing/suit/bio_suit/general( src )
+		new /obj/item/clothing/head/bio_hood/general( src )
+	else
+		new /obj/item/clothing/suit/bio_suit/hazmat/white( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/white( src )
 
 /obj/structure/closet/l3closet/virology
 	icon_state = "bio_virology"
@@ -34,10 +37,17 @@
 	..()
 	sleep(2)
 	contents = list()
-	new /obj/item/clothing/suit/bio_suit/virology( src )
-	new /obj/item/clothing/head/bio_hood/virology( src )
-	new /obj/item/clothing/mask/breath(src)
-	new /obj/item/weapon/tank/oxygen(src)
+	if(prob(50))
+		new /obj/item/clothing/suit/bio_suit/virology( src )
+		new /obj/item/clothing/head/bio_hood/virology( src )
+		new /obj/item/clothing/mask/breath(src)
+		new /obj/item/weapon/tank/oxygen(src)
+	else
+		new /obj/item/clothing/suit/bio_suit/hazmat/green( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/green( src )
+		new /obj/item/clothing/mask/breath(src)
+		new /obj/item/weapon/tank/oxygen(src)
+
 
 
 /obj/structure/closet/l3closet/security
@@ -49,8 +59,12 @@
 	..()
 	sleep(2)
 	contents = list()
-	new /obj/item/clothing/suit/bio_suit/security( src )
-	new /obj/item/clothing/head/bio_hood/security( src )
+	if(prob(50))
+		new /obj/item/clothing/suit/bio_suit/security( src )
+		new /obj/item/clothing/head/bio_hood/security( src )
+	else
+		new /obj/item/clothing/suit/bio_suit/hazmat/firered( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/firered( src )
 
 
 /obj/structure/closet/l3closet/janitor
@@ -62,9 +76,12 @@
 	..()
 	sleep(2)
 	contents = list()
-	new /obj/item/clothing/suit/bio_suit/janitor( src )
-	new /obj/item/clothing/head/bio_hood/janitor( src )
-
+	if(prob(50))
+		new /obj/item/clothing/suit/bio_suit/janitor( src )
+		new /obj/item/clothing/head/bio_hood/janitor( src )
+	else
+		new /obj/item/clothing/suit/bio_suit/hazmat/janitor( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/janitor( src )
 
 /obj/structure/closet/l3closet/scientist
 	icon_state = "bio_scientist"
@@ -75,5 +92,12 @@
 	..()
 	sleep(2)
 	contents = list()
-	new /obj/item/clothing/suit/bio_suit/scientist( src )
-	new /obj/item/clothing/head/bio_hood/scientist( src )
+	if(prob(50))
+		new /obj/item/clothing/suit/bio_suit/scientist( src )
+		new /obj/item/clothing/head/bio_hood/scientist( src )
+	if(prob(50))
+		new /obj/item/clothing/suit/bio_suit/hazmat/orange( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/orange( src )
+	else
+		new /obj/item/clothing/suit/bio_suit/hazmat/yellow( src )
+		new /obj/item/clothing/head/bio_hood/hazmat/yellow( src )

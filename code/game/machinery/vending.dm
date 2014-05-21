@@ -700,11 +700,9 @@
 					/obj/item/weapon/reagent_containers/food/snacks/sosjerky = 30,/obj/item/weapon/reagent_containers/food/snacks/no_raisin = 20,/obj/item/weapon/reagent_containers/food/snacks/spacetwinkie = 30,
 					/obj/item/weapon/reagent_containers/food/snacks/cheesiehonkers = 25)
 
-
-/obj/machinery/vending/snack/red
-	name = "Getmore Chocolate Corp"
-	desc = "A snack machine courtesy of the Getmore Chocolate Corporation, based out of Mars"
-	icon_state = "snack"
+/obj/machinery/vending/snack/New()
+	..()
+	icon_state = pick("snackblue", "snack")
 
 /obj/machinery/vending/sustenance
 	name = "\improper Sustenance Vendor"
@@ -735,20 +733,15 @@
 					/obj/item/weapon/reagent_containers/food/drinks/soda_cans/sodawater = 25,/obj/item/weapon/reagent_containers/food/drinks/soda_cans/starkist = 35,
 					/obj/item/weapon/reagent_containers/food/drinks/soda_cans/space_up = 30, /obj/item/weapon/reagent_containers/food/drinks/soda_cans/redwing =40)
 
-/obj/machinery/vending/cola/red
+/obj/machinery/vending/cola/alt
 	name = "Robust Softdrinks"
 	desc = "A softdrink vendor provided by Robust Industries, LLC."
 	icon_state = "Colared"
 
-/obj/machinery/vending/cola/blue
-	name = "Robust Softdrinks"
-	desc = "A softdrink vendor provided by Robust Industries, LLC."
-	icon_state = "Cola"
-
-/obj/machinery/vending/cola/orange
-	name = "Robust Softdrinks"
-	desc = "A softdrink vendor provided by Robust Industries, LLC."
-	icon_state = "Colaorange"
+/obj/machinery/vending/cola/alt/New()
+	..()
+	icon_state = pick("Colared", "Cola", "Colaorange")
+	icon_vend = "[icon_state]"
 
 //This one's from bay12
 /obj/machinery/vending/cart
@@ -851,7 +844,7 @@
 	products = list(/obj/item/seeds/bananaseed = 3,/obj/item/seeds/berryseed = 3,/obj/item/seeds/carrotseed = 3,/obj/item/seeds/chantermycelium = 3,/obj/item/seeds/chiliseed = 3,
 					/obj/item/seeds/cornseed = 3, /obj/item/seeds/eggplantseed = 3, /obj/item/seeds/potatoseed = 3, /obj/item/seeds/replicapod = 3,/obj/item/seeds/soyaseed = 3,
 					/obj/item/seeds/sunflowerseed = 3,/obj/item/seeds/tomatoseed = 3,/obj/item/seeds/towermycelium = 3,/obj/item/seeds/wheatseed = 3,/obj/item/seeds/appleseed = 3,
-					/obj/item/seeds/poppyseed = 3,/obj/item/seeds/ambrosiavulgarisseed = 3,/obj/item/seeds/whitebeetseed = 3,/obj/item/seeds/watermelonseed = 3,/obj/item/seeds/limeseed = 3,
+					/obj/item/seeds/poppyseed = 3,/obj/item/seeds/ambrosiavulgarisseed = 3,/obj/item/seeds/sugarcaneseed = 3,/obj/item/seeds/whitebeetseed = 3,/obj/item/seeds/watermelonseed = 3,/obj/item/seeds/limeseed = 3,
 					/obj/item/seeds/lemonseed = 3,/obj/item/seeds/orangeseed = 3,/obj/item/seeds/grassseed = 3,/obj/item/seeds/cocoapodseed = 3,
 					/obj/item/seeds/cabbageseed = 3,/obj/item/seeds/grapeseed = 3,/obj/item/seeds/pumpkinseed = 3,/obj/item/seeds/cherryseed = 3,/obj/item/seeds/plastiseed = 3,/obj/item/seeds/riceseed = 3)
 	contraband = list(/obj/item/seeds/amanitamycelium = 2,/obj/item/seeds/glowshroom = 2,/obj/item/seeds/libertymycelium = 2,/obj/item/seeds/nettleseed = 2,

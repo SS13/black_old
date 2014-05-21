@@ -85,3 +85,9 @@
 	name = "fingerless gloves"
 	icon_state = "fingerless_black"
 	item_state = "fingerless_black"
+
+/obj/item/clothing/gloves/ring
+	name = "engagement ring"
+	desc = "An engahement ring, likely made of gold. Looks pretty generic."
+	icon_state = "ring"
+	item_state = "ring"

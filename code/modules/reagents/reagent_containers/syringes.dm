@@ -88,6 +88,11 @@
 						if(NOCLONE in T.mutations) //target done been et, no more blood in him
 							user << "\red You are unable to locate any blood."
 							return
+						if(target != user)
+							target.visible_message("<span class='danger'>[user] is trying to take a blood sample from  [target]!</span>", \
+							"<span class='userdanger'>[user] is trying to take a blood sample from [target]!</span>")
+							if(!do_mob(user, target))
+								return
 
 						var/datum/reagent/B = T.take_blood(src,amount)
 

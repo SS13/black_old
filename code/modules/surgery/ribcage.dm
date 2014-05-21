@@ -12,6 +12,7 @@
 /datum/surgery_step/ribcage/saw_ribcage
 	allowed_tools = list(
 	/obj/item/weapon/circular_saw = 100, \
+	/obj/item/weapon/butch	= 85, \
 	/obj/item/weapon/hatchet = 75
 	)
 

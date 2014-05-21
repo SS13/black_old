@@ -30,6 +30,8 @@
 	desc = "An outdated medical apparatus for listening to the sounds of the human body. It also makes you look like you know what you're doing."
 	icon_state = "stethoscope"
 	item_color = "stethoscope"
+	m_amt = 40
+	g_amt = 5
 
 /obj/item/clothing/tie/stethoscope/attack(mob/living/carbon/human/M, mob/living/user)
 	if(ishuman(M) && isliving(user))
@@ -160,8 +162,8 @@
 	item_color = "hydro"
 
 /obj/item/clothing/tie/armband/med
-	name = "medical guard armband"
-	desc = "An armband, worn by the station's security forces to display which department they're assigned to. This one is white."
+	name = "white armband"
+	//desc = "An armband, worn by the station's security forces to display which department they're assigned to. This one is white."
 	icon_state = "med"
 	item_color = "med"
 

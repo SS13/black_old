@@ -93,7 +93,7 @@ var/list/beam_master = list()
 /obj/item/projectile/beam/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
-	damage = 40
+	damage = 45
 
 /obj/item/projectile/beam/xray
 	name = "xray beam"
@@ -103,18 +103,21 @@ var/list/beam_master = list()
 /obj/item/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
-	damage = 50
+	damage = 55
 
 
 /obj/item/projectile/beam/deathlaser
 	name = "death laser"
 	icon_state = "heavylaser"
-	damage = 60
+	damage = 65
 
 /obj/item/projectile/beam/emitter
 	name = "emitter beam"
 	icon_state = "emitter"
-	damage = 45
+
+/obj/item/projectile/beam/emitter/New()
+	damage = rand(30,300)
+
 
 
 /obj/item/projectile/beam/lastertag/blue

@@ -360,3 +360,15 @@ var/list/valid_secondary_effect_types = list(\
 		my_effect.UpdateMove()
 	if(secondary_effect)
 		secondary_effect.UpdateMove()
+
+/obj/machinery/artifact/shield/New()
+	..()
+	del(my_effect)
+	del(secondary_effect)
+	my_effect = new /datum/artifact_effect/forcefield(src)
+
+/obj/machinery/artifact/dna/New()
+	..()
+	del(my_effect)
+	del(secondary_effect)
+	my_effect = new /datum/artifact_effect/dnaswitch(src)

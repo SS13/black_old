@@ -62,6 +62,7 @@
 	user << "<span class='notice'>You put [i] in [src].</span>"
 	papers.Add(i)
 	amount++
+	update_icon()
 
 
 /obj/item/weapon/paper_bin/examine()
