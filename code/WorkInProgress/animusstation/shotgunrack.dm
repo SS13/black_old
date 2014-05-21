@@ -1,4 +1,4 @@
-/obj/machinery/shotgunrack
+/obj/structure/shotgunrack
 	name = "Shotgun Rack"
 	desc = "A rack to display your shotgun."
 	icon = 'icons/obj/shotgunrack.dmi'
@@ -9,7 +9,7 @@
 	layer = 3.5
 	var/gun
 
-/obj/machinery/shotgunrack/attack_hand(mob/user as mob)
+/obj/structure/shotgunrack/attack_hand(mob/user as mob)
 	if(gun)
 		switch(alert("Do you want to take the shotgun off of the wall?",,"Yes","No"))
 			if("Yes")
@@ -30,7 +30,7 @@
 		return
 
 
-/obj/machinery/shotgunrack/attackby(obj/item/weapon/W as obj, mob/user as mob)
+/obj/structure/shotgunrack/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if ( istype(W,/obj/item/weapon/gun/projectile/shotgun/pump/combat) && !gun)
 		user.drop_item()
@@ -89,7 +89,6 @@
 					src.anchored = 1
 			src.add_fingerprint(usr)
 
-	else
-		return ..()
+
 
 
