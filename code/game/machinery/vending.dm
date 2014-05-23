@@ -736,7 +736,6 @@
 /obj/machinery/vending/cola/alt
 	name = "Robust Softdrinks"
 	desc = "A softdrink vendor provided by Robust Industries, LLC."
-	icon_state = "Colared"
 
 /obj/machinery/vending/cola/alt/New()
 	..()
