@@ -14,9 +14,7 @@
 	var/brightness_on = 4 //luminosity when on
 
 /obj/item/device/flashlight/black
-	name = "flashlightblack"
 	desc = "A hand-held emergency light. Comes in stylish black color."
-	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlightblack"
 	item_state = "flashlightblack"
 
@@ -167,6 +165,16 @@
 		user << "<span class='warning'>The [src] needs time to recharge!</span>"
 	return
 
+/obj/item/device/flashlight/seclite
+	name = "seclite"
+	desc = "A Seclite-brand robust flashlight used by security all over the alaxy. Glows brighter, hits stronger."
+	icon_state = "seclite"
+	item_state = "seclite"
+	m_amt = 420
+	g_amt = 300
+	force = 8
+	brightness_on = 5 // A little better than the standard flashlight.
+
 // the desk lamps are a bit special
 /obj/item/device/flashlight/lamp
 	name = "desk lamp"
@@ -176,8 +184,8 @@
 	brightness_on = 5
 	w_class = 4
 	flags = FPRINT | TABLEPASS | CONDUCT
-	m_amt = 0
-	g_amt = 0
+	m_amt = 50
+	g_amt = 90
 	on = 1
 
 

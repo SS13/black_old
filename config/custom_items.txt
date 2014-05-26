@@ -1,2 +1,4 @@
 testunit: Faith Leech: /obj/item/clothing/suit/storage/labcoat/fluff/pink
 nyancommissar: Iriko Sagamura: /obj/item/clothing/under/ks13suit
+gazbax: John Wallcroft: /obj/item/clothing/under/syndicate
+egorkor: Graham Maclagan: /obj/item/clothing/under/syndicate/tacticool

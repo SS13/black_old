@@ -58,6 +58,31 @@
 		new /obj/item/clothing/gloves/latex(src)
 		new /obj/item/clothing/gloves/latex(src)
 
+/obj/item/weapon/storage/box/proximitysensors
+	name = "box of proximitiy sensors"
+	icon_state = "idOld"
+	desc = "Contains proximity sensors. WARNING: DON'T LICK THE SENSORS!"
+	New()
+		..()
+		new /obj/item/device/assembly/prox_sensor(src)
+		new /obj/item/device/assembly/prox_sensor(src)
+		new /obj/item/device/assembly/prox_sensor(src)
+		new /obj/item/device/assembly/prox_sensor(src)
+		new /obj/item/device/assembly/prox_sensor(src)
+		new /obj/item/device/assembly/prox_sensor(src)
+
+/obj/item/weapon/storage/box/timers
+	name = "box of timers"
+	icon_state = "idOld"
+	desc = "Contains Nanotrasen-brand timers. WARNING: TIMER ACCURACY NOT GUARANTEED!"
+	New()
+		..()
+		new /obj/item/device/assembly/timer(src)
+		new /obj/item/device/assembly/timer(src)
+		new /obj/item/device/assembly/timer(src)
+		new /obj/item/device/assembly/timer(src)
+		new /obj/item/device/assembly/timer(src)
+
 /obj/item/weapon/storage/box/masks
 	name = "sterile masks"
 	desc = "This box contains masks of sterility."
