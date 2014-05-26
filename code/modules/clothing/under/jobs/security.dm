@@ -28,13 +28,35 @@
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
 
+/obj/item/clothing/under/rank/security/navy
+	name = "security officer's navy jumpsuit"
+	icon_state = "officerdnavyclothes"
+	item_state = "suit-command"
+	item_color = "officerdnavyclothes"
+
+/obj/item/clothing/under/rank/security/navy/verb/rollup()
+	set name = "Roll jumpsuit sleeves"
+	set category = "Object"
+	set src in usr
+	item_color = item_color == "officerdnavyclothes" ? "officerdnavyclothes_rolled" : "officerdnavyclothes"
+	if (ishuman(loc))
+		var/mob/living/carbon/human/H = loc
+		H.update_inv_w_uniform(1)
+
+/obj/item/clothing/under/rank/warden/navy
+	name = "warden's navy jumpsuit"
+	icon_state = "wardendnavyclothes"
+	item_state = "suit-command"
+	item_color = "wardendnavyclothes"
+
+
 /obj/item/clothing/under/rank/dispatch
 	name = "dispatcher's uniform"
 	desc = "A dress shirt and khakis with a security patch sewn on."
 	icon_state = "dispatch"
-	item_state = "dispatch"
+	item_state = "lawyer_blue"
 	item_color = "dispatch"
-	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
+	armor = list(melee = 5, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.9
 
@@ -115,6 +137,12 @@
 	armor = list(melee = 10, bullet = 0, laser = 0,energy = 0, bomb = 0, bio = 0, rad = 0)
 	flags = FPRINT | TABLEPASS
 	siemens_coefficient = 0.8
+
+/obj/item/clothing/under/rank/head_of_security/navy
+	name = "head of security's navy jumpsuit"
+	icon_state = "hosdnavyclothes"
+	item_state = "suit-command"
+	item_color = "hosdnavyclothes"
 
 /obj/item/clothing/under/rank/head_of_security/corp
 	icon_state = "hos_corporate"

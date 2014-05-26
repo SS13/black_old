@@ -15,6 +15,7 @@
 	w_class = 4.0
 	g_amt = 7500
 	m_amt = 1000
+	health = 130
 	origin_tech = "materials=2"
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
@@ -30,6 +31,17 @@
 				cooldown = world.time
 		else
 			..()
+
+/obj/item/weapon/shield/riot/attack(mob/M as mob, mob/user as mob)
+	health -= force
+	..()
+	if(health <= 0)
+		user.drop_item()
+		user.visible_message("\red [user] breaks their shield [M]!",\
+			"\red The shield cracks and brakes!",\
+			"You hear loud metallic noise!")
+		new /obj/item/weapon/brokenriot(src.loc)
+		del(src)
 
 /obj/item/weapon/shield/metal
 	name = "metal shield"

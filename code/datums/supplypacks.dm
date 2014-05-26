@@ -719,6 +719,19 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_armory
 	group = "Security"
 
+
+/datum/supply_packs/securitynavyuniform //You know you like to dress your officers
+	name = "Security navy uniforms"
+	contains = list(/obj/item/clothing/under/rank/security/navy,
+					/obj/item/clothing/under/rank/security/navy,
+					/obj/item/clothing/under/rank/security/navy,
+					/obj/item/clothing/under/rank/security/navy)
+	cost = 40
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Security uniforms crate"
+	access = access_armory
+	group = "Security"
+
 datum/supply_packs/riotadvanced
 	name = "Advanced riot gear crate"
 	contains = list(/obj/item/weapon/melee/classic_baton/nightstick,
@@ -731,9 +744,6 @@ datum/supply_packs/riotadvanced
 					/obj/item/clothing/gloves/combat,
 					/obj/item/clothing/gloves/combat,
 					/obj/item/weapon/storage/box/flashbangs,
-					/obj/item/weapon/handcuffs,
-					/obj/item/weapon/handcuffs,
-					/obj/item/weapon/handcuffs,
 					/obj/item/clothing/head/helmet/riot/tinted,
 					/obj/item/clothing/suit/armor/riot,
 					/obj/item/clothing/head/helmet/riot/tinted,

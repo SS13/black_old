@@ -168,6 +168,9 @@ Frequency:
 	for(var/mob/O in hearers(user, null))
 		O.show_message("<span class='notice'>Locked In.</span>", 2)
 	var/obj/effect/portal/P = new /obj/effect/portal( get_turf(src) )
+	playsound(src.loc, "sparks", 75, 1, -1)
+	log_admin("[user] ([user.key]) just opened a portal with their hand tele.")
+	message_admins("[user] ([user.key]) just opened a portal with their hand tele", 1)
 	P.target = T
 	P.creator = src
 	src.add_fingerprint(user)

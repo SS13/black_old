@@ -4,7 +4,7 @@
 	desc = "It looks like it could use some more flair."
 	name = "bartender's uniform"
 	icon_state = "ba_suit"
-	item_state = "ba_suit"
+	item_state = "sl_suit"
 	item_color = "ba_suit"
 	flags = FPRINT | TABLEPASS
 
@@ -12,7 +12,7 @@
 	desc = "It looks like it could use less flair."
 	name = "bartender's uniform"
 	icon_state = "ba_suitred"
-	item_state = "ba_suitred"
+	item_state = "sl_suit"
 	item_color = "ba_suitred"
 
 
