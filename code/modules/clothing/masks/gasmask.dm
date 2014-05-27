@@ -157,7 +157,7 @@
 				phrase_sound = "dredd"
 
 		usr.visible_message("[usr]'s Compli-o-Nator: <font color='red' size='2'><b>[phrase_text]</b></font>")
-		playsound(src.loc, "sound/voice/complionator/[phrase_sound].ogg", 100, 1)
+		playsound(usr, "sound/voice/complionator/[phrase_sound].ogg", 100, 1)
 		cooldown = world.time
 
 

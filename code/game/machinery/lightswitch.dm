@@ -53,6 +53,7 @@
 	for(var/area/A in area.master.related)
 		A.lightswitch = on
 		A.updateicon()
+		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 
 		for(var/obj/machinery/light_switch/L in A)
 			L.on = on

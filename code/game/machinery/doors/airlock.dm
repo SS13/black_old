@@ -376,6 +376,11 @@ obj/machinery/door/airlock/glass_genetics
 	icon = 'icons/obj/doors/Doorsci.dmi'
 	assembly_type = /obj/structure/door_assembly/door_assembly_science
 
+/obj/machinery/door/airlock/shuttle
+	name = "Shuttle Airlock"
+	icon = 'icons/obj/doors/doorshuttle.dmi'
+	assembly_type = /obj/structure/door_assembly/door_assembly_fre
+
 /obj/machinery/door/airlock/glass_science
 	name = "Glass Airlocks"
 	icon = 'icons/obj/doors/Doorsciglass.dmi'

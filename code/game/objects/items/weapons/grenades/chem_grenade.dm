@@ -203,6 +203,7 @@
 
 /obj/item/weapon/grenade/chem_grenade/incendiary
 	name = "Incendiary Grenade"
+	icon_state = "firegrenade"
 	desc = "Used for clearing rooms of living things."
 	path = 1
 	stage = 2

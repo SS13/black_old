@@ -39,6 +39,7 @@
 		if(current_shell)//We have a shell in the chamber
 			current_shell.loc = get_turf(src)//Eject casing
 			current_shell = null
+			sleep(10)//So next sound won't get muffled
 			playsound(M, 'sound/weapons/shotgunshelldrop.ogg', 50, 1)
 			if(in_chamber)
 				in_chamber = null
@@ -160,9 +161,8 @@
 	name = "shorty shotgun"
 	desc = "A short version of double-barreled shotgun. Favored by outlaws and back alley troublemakers."
 	icon_state = "cerber"
-	item_state = "gun"
+	item_state = "sawnshotgun"
 	max_shells = 2
-
 	flags =  FPRINT | TABLEPASS | CONDUCT | USEDELAY
 	slot_flags = SLOT_BELT
 	caliber = "shotgun"
