@@ -201,6 +201,7 @@
 			if (in_chamber.damage_type != HALLOSS)
 				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]")
 				user.death()
+				new /obj/effect/decal/cleanable/blood/splatter(user.loc)
 			else
 				user << "<span class = 'notice'>Ow...</span>"
 				user.apply_effect(110,AGONY,0)

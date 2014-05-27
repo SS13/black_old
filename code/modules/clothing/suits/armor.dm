@@ -27,9 +27,10 @@
 
 /obj/item/clothing/suit/armor/vest/security
 	name = "security armor"
-	desc = "An armored vest that protects against some damage. This one has NanoTrasen corporate badge."
+	desc = "Dragonskin armored vest that protects against some damage. This one has NanoTrasen corporate badge."
 	icon_state = "armorsec"
 	item_state = "armor"
+	armor = list(melee = 45, bullet = 20, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 
 /obj/item/clothing/suit/armor/vest/security/tan
 	icon_state = "sectan"

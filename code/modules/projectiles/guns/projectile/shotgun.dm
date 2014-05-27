@@ -161,9 +161,8 @@
 	name = "shorty shotgun"
 	desc = "A short version of double-barreled shotgun. Favored by outlaws and back alley troublemakers."
 	icon_state = "cerber"
-	item_state = "gun"
+	item_state = "sawnshotgun"
 	max_shells = 2
-
 	flags =  FPRINT | TABLEPASS | CONDUCT | USEDELAY
 	slot_flags = SLOT_BELT
 	caliber = "shotgun"

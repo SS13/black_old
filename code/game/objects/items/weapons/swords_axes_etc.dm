@@ -72,7 +72,7 @@
 	desc = "Lightweight, nylon fiberglass, rubber grip handle, pitch black. Never did beating petty criminal scumbags feel any better. Ever."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "batonblack"
-	item_state = "classic_batonblack"
+	item_state = "classic_baton"
 
 /obj/item/weapon/melee/classic_baton/attack(mob/M as mob, mob/living/user as mob)
 	if ((CLUMSY in user.mutations) && prob(50))
@@ -133,7 +133,7 @@
 		"\red You extend the baton.",\
 		"You hear an ominous click.")
 		icon_state = "telebaton_1"
-		item_state = "telebaton_1"
+		item_state = "quarrel"
 		w_class = 3
 		force = 15//quite robust
 		attack_verb = list("smacked", "struck", "slapped")

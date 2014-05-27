@@ -682,11 +682,11 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	group = "Security"
 
 /datum/supply_packs/armor
-	name = "Armor crate"
+	name = "Dragonskin Armor crate"
 	contains = list(/obj/item/clothing/head/helmet,
 					/obj/item/clothing/head/helmet,
-					/obj/item/clothing/suit/armor/vest,
-					/obj/item/clothing/suit/armor/vest)
+					/obj/item/clothing/suit/armor/vest/security,
+					/obj/item/clothing/suit/armor/vest/security)
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Armor crate"

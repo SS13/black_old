@@ -172,7 +172,8 @@
 	item_state = "seclite"
 	m_amt = 420
 	g_amt = 300
-	force = 8
+	force = 6
+	throwforce = 3
 	brightness_on = 5 // A little better than the standard flashlight.
 
 // the desk lamps are a bit special
