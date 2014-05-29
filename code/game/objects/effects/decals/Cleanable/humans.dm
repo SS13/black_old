@@ -56,6 +56,19 @@
 
 	amount--
 
+
+/obj/effect/decal/cleanable/blood/attackby(obj/item/weapon/reagent_containers/glass/rag/W as obj, mob/user as mob)
+	if(istype(W,/obj/item/weapon/reagent_containers/glass/rag))
+		if(do_after(user,60))
+			user << "<span class='notice'>You have finished wiping!</span>"
+			W.icon_state = "ragbloody"
+			W.desc = "This rag is covered in blood."
+			W.name = "bloody rag"
+			W.blood_DNA = list()
+			W.blood_DNA |= blood_DNA.Copy()
+			del(src)
+		return
+
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = "dried [src.name]"
 	desc = "It's dark red and crusty. Someone is not doing their job."

@@ -18,7 +18,7 @@
 		switch(mode)
 			if(0)
 				if (screwdrived)
-					if(prob(30))
+					if(prob(20))
 						user.drop_item()
 						explosion(src.loc,0,0,2,2)	//Yeah, these niggas don't mess around - check your weapons before you rechannel energy!
 						user.visible_message("<span class='notice'>[user]'s [src] makes odd electronic noize and blows up!</span>")
@@ -34,7 +34,7 @@
 					modifystate = "energykill"
 			if(1)
 				if (screwdrived)
-					if(prob(30))
+					if(prob(20))
 						user.drop_item()
 						explosion(src.loc,0,0,2,2)
 						user.visible_message("<span class='notice'>[user]'s [src] makes odd electronic noize and blows up!</span>")
