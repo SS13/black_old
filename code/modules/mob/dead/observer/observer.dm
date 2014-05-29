@@ -257,7 +257,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/blowout()
 	set name = "Blow Out Candle"
 	set desc= "Blow out a nearby candle. Ooooh, misticism!"
-	set category = "Object"
+	set category = "Ghost"
 
 
 	if(bootime > world.time) return
@@ -272,7 +272,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 				O.show_message("\blue A sudden gust of wind puts the candle out...", 5)
 	else
 		return
-	//Maybe in the future we can add more <i>spooky</i> code here!
 	return
 
 /mob/dead/observer/memory()

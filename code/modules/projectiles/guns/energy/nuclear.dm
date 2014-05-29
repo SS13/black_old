@@ -30,6 +30,8 @@
 					charge_cost = 100
 					fire_sound = 'sound/weapons/Laser.ogg'
 					user << "\red [src.name] is now set to kill."
+					playsound(src.loc, 'sound/weapons/Safety.ogg', 50, 1)
+					user.visible_message("\blue [user] clicks a swith on their [src.name]!")
 					projectile_type = "/obj/item/projectile/beam"
 					modifystate = "energykill"
 			if(1)
@@ -46,6 +48,8 @@
 					charge_cost = 100
 					fire_sound = 'sound/weapons/Taser.ogg'
 					user << "\red [src.name] is now set to stun."
+					playsound(src.loc, 'sound/weapons/Safety.ogg', 50, 1)
+					user.visible_message("\blue [user] clicks a swith on their [src.name]!")
 					projectile_type = "/obj/item/projectile/energy/electrode"
 					modifystate = "energystun"
 		update_icon()

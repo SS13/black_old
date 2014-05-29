@@ -251,7 +251,6 @@
 /obj/item/clothing/head/chicken/proc/bwakproc(mob/user)
 	if(user.canmove && !user.stat && !user.restrained())
 		usr.visible_message("[usr]: <font color='red' size='2'><b>BWAK BWAK BWAK! BWAK!</b></font>")
-		playsound(loc, 'sound/effects/bwak.ogg', 50, 1)
 
 /obj/item/clothing/head/chicken/verb/bwak()
 	set name = "BWAK BWAK!"

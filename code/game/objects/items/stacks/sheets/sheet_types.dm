@@ -67,6 +67,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	null, \
 	new/datum/stack_recipe("apc frame", /obj/item/apc_frame, 2), \
 	new/datum/stack_recipe("air alarm frame", /obj/item/alarm_frame, 2), \
+	new/datum/stack_recipe("pipe fitting", /obj/item/pipe, 6), \
 	new/datum/stack_recipe("fire alarm frame", /obj/item/firealarm_frame, 2), \
 	null, \
 	new/datum/stack_recipe("iron door", /obj/structure/mineral_door/iron, 20, one_per_turf = 1, on_floor = 1), \
@@ -156,7 +157,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
  */
 /obj/item/stack/sheet/cloth
 	name = "cloth"
-	desc = "This roll of cloth is made from only the finest chemicals and bunny rabbits."
+	desc = "This roll of cloth is made from unknown fibers, likely synthetic"
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
 	item_state = "paper"
@@ -164,6 +165,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 
 var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 	new/datum/stack_recipe("bandages", /obj/item/stack/medical/bandage, 1), \
+	new/datum/stack_recipe("a rag", /obj/item/weapon/reagent_containers/glass/rag, 1), \
 	new/datum/stack_recipe("cloth mask", /obj/item/clothing/mask/cloth, 1), \
 	new/datum/stack_recipe("white armband", /obj/item/clothing/tie/armband/med, 1), \
 	new/datum/stack_recipe("kufiya", /obj/item/clothing/head/sheik, 3), \

@@ -250,40 +250,51 @@ obj/item/weapon/wirerod
 	item_state = "quarrel"
 	flags = FPRINT | TABLEPASS | CONDUCT
 	force = 3
-	throwforce = 6
+	throwforce = 5
 	w_class = 3
-	m_amt = 900
+	m_amt = 1000
 	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
-	var/wirecutters
+	var/wirecutters = 0
 
 obj/item/weapon/wirerod/attackby(var/obj/item/I, mob/user as mob)
 	..()
 	if(istype(I, /obj/item/weapon/shard))
 		if(wirecutters)
-			user << "<span class='notice'>There is something on the pole already!</span>"
+			user << "<span class='notice'>There are wirecutters on the pole already!</span>"
 			return
 
 		var/obj/item/weapon/twohanded/spear/S = new /obj/item/weapon/twohanded/spear
-
 		user.before_take_item(I)
 		user.before_take_item(src)
-
 		user.put_in_hands(S)
 		user << "<span class='notice'>You fasten the glass shard to the top of the rod with the cable.</span>"
+		user.visible_message("<span class='notice'>[user] fastens a glass shard on top of the rod, making a spear.</span>")
+		playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 		del(I)
 		del(src)
 
 	if(istype(I, /obj/item/weapon/wirecutters))
-		icon_state = "stunprod_nocell"
-		user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
-		wirecutters = 1
-		del(I)
-		del(src)
+		if(wirecutters)
+			user << "<span class='notice'>There are wirecutters on the pole already!</span>"
+			return
+
+		else
+			icon_state = "stunprod_nocell"
+			user << "<span class='notice'>You fasten the wirecutters to the top of the rod with the cable, prongs outward.</span>"
+			desc = "A rod with some wire wrapped around the top. Has cable attached, and wirecutters at the top. If only there was a power source...."
+			playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
+			wirecutters = 1
+			del(I)
 
 	if(istype(I, /obj/item/weapon/cell))
 		if(wirecutters)
 			var/obj/item/weapon/melee/baton/cattleprod/P = new /obj/item/weapon/melee/baton/cattleprod
-			new P(user.loc)
-			user << "<span class='notice'>You fasten power cell to the top of the rod with the cable and wirecutters</span>"
+			user.put_in_hands(P)
+			user << "<span class='notice'>You fasten power cell to the top of the rod with cable and wirecutters.</span>"
+			user.visible_message("<span class='notice'>[user] fastens a power cell to the rod wit a cable and wirecutters on it...</span>")
+			playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 			del(I)
 			del(src)
+		else
+			user << "<span class='notice'>You need to add sonething to the end of the pole to conduct charge, before you can add cell.</span>"
+		return

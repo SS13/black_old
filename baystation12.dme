@@ -807,6 +807,7 @@
 #include "code\modules\clothing\under\jobs\security.dm"
 #include "code\modules\crafting\cloth.dm"
 #include "code\modules\crafting\clothing.dm"
+#include "code\modules\crafting\gun assembly.dm"
 #include "code\modules\crafting\medical_craft.dm"
 #include "code\modules\customitems\item_defines.dm"
 #include "code\modules\customitems\item_spawning.dm"

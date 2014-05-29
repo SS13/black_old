@@ -48,6 +48,8 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/device/flashlight/pen(), \
 		new /obj/item/device/radio/headset(), \
 		new /obj/item/device/radio/off(), \
+		new /obj/item/weapon/shovel(), \
+		new /obj/item/weapon/pickaxe(), \
 		new /obj/item/device/assembly/infra(), \
 		new /obj/item/device/assembly/timer(), \
 		new /obj/item/device/assembly/prox_sensor(), \

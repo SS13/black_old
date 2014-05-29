@@ -207,6 +207,7 @@
 
 /obj/effect/spider/cocoon/Del()
 	src.visible_message("\red \the [src] splits open.")
+	new/obj/item/stack/sheet/cloth(src.loc)
 	for(var/atom/movable/A in contents)
 		A.loc = src.loc
 	..()
