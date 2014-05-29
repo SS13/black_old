@@ -28,6 +28,7 @@
 				user << "\blue You try to add a new cell to the circuitry..."
 				if(do_after(user, 60))
 					modified_cell = 1
+					del(W)
 					playsound(src.loc, 'sound/weapons/Safety.ogg', 30, 1)
 					user.visible_message("\red [user] has connected [W] to [src] circuitry!")
 					user << "\blue You connect a new cell to [src] circuitry!"

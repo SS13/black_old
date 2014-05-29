@@ -41,6 +41,7 @@
 		C.use(1)
 		R.use(1)
 		user << "\red You tie wires to the rod."
+		playsound(src.loc, 'sound/weapons/cablecuff.ogg', 50, 1)
 
 
 		return
