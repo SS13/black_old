@@ -177,7 +177,7 @@
 					shottas--
 					gun.icon_state = "projectile"
 
-				//gun.pixel_x = i*4
+				gun.pixel_x = 4 //Hey, 8 was too much
 				overlays += gun
 
 		overlays += icon(src.icon,"door")

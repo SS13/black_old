@@ -12,6 +12,7 @@
 	var/speak_chance = 0
 	var/list/emote_hear = list()	//Hearable emotes
 	var/list/emote_see = list()		//Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps
+	var/speaksound = 0
 
 	var/turns_per_move = 1
 	var/turns_since_move = 0
@@ -120,6 +121,7 @@
 					var/randomValue = rand(1,length)
 					if(randomValue <= speak.len)
 						say(pick(speak))
+						playsound(loc, "sound/effects/[speaksound].ogg", 70, 1) //Animals should be loud if they have sound to them
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
@@ -128,6 +130,7 @@
 							emote(pick(emote_hear),2)
 				else
 					say(pick(speak))
+					playsound(loc, "sound/effects/[speaksound].ogg", 70, 1) //Animals should be loud if they have sound to them
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					emote(pick(emote_see),1)

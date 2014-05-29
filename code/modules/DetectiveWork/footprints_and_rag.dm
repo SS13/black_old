@@ -18,10 +18,12 @@
 	w_class = 1
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
+	item_state = "lgloves"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5)
 	volume = 5
 	can_be_placed_into = null
+	blood_DNA = list()
 
 /obj/item/weapon/reagent_containers/glass/rag/attack_self(mob/user as mob)
 	return
@@ -42,11 +44,22 @@
 			user.visible_message("[user] finishes wiping off the [A]!")
 			A.clean_blood()
 			del(A.fingerprints)
+	if(istype(A, /turf/simulated) || istype(A, /obj/effect/decal/cleanable) || istype(A, /obj/effect/overlay))
+		user.visible_message("<span class='warning'>[user] begins to wipe the blood off of \the [get_turf(A)].</span>")
+		if (A.blood_DNA)
+			blood_DNA |= A.blood_DNA.Copy() //Does this work? Magic!
+		if(do_after(user, 40))
+			A.clean_blood(get_turf(A))
+			user << "<span class='notice'>You have finished wiping!</span>"
+			icon_state = "ragbloody"
+			desc = "This rag is covered in blood."
+			name = "bloody rag"
 	return
 
 /obj/item/weapon/reagent_containers/glass/rag/examine()
 	if (!usr)
 		return
-	usr << "That's \a [src]."
+	usr << "That's \a [name]."
 	usr << desc
 	return
+

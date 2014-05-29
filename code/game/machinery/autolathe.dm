@@ -54,6 +54,7 @@ var/global/list/autolathe_recipes = list( \
 		new /obj/item/weapon/light/tube(), \
 		new /obj/item/weapon/light/bulb(), \
 		new /obj/item/ashtray/glass(), \
+		new /obj/item/clothing/ears/earmuffs(), \
 		new /obj/item/weapon/camera_assembly(), \
 	)
 

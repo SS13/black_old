@@ -1106,7 +1106,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 		user << "\blue Paper scanned." //concept of scanning paper copyright brainoblivion 2009
 
 
-/obj/item/device/pda/proc/explode() //This needs tuning.
+/obj/item/device/pda/proc/explode() //This needs tuning. Okay, I tuned it.
 	if(!src.detonate) return
 	var/turf/T = get_turf(src.loc)
 
@@ -1117,7 +1117,7 @@ var/global/list/obj/item/device/pda/PDAs = list()
 	if(T)
 		T.hotspot_expose(700,125)
 
-		explosion(T, -1, -1, 2, 3)
+		explosion(T, 0, 0, 2, 3)
 
 	del(src)
 	return

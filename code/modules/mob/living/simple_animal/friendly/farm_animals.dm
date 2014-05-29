@@ -103,17 +103,20 @@
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
+	speaksound = "moo"
 	health = 50
 	var/datum/reagents/udder = null
 
 /mob/living/simple_animal/cow/New()
 	udder = new(50)
+	speak_chance =rand(1,2)
 	udder.my_atom = src
 	..()
 
 /mob/living/simple_animal/cow/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(stat == CONSCIOUS && istype(O, /obj/item/weapon/reagent_containers/glass))
 		user.visible_message("<span class='notice'>[user] milks [src] using \the [O].</span>")
+		playsound(loc, 'sound/effects/moo.ogg', 70, 1)
 		var/obj/item/weapon/reagent_containers/glass/G = O
 		var/transfered = udder.trans_id_to(G, "milk", rand(5,10))
 		if(G.reagents.total_volume >= G.volume)
@@ -132,6 +135,7 @@
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M as mob)
 	if(!stat && M.a_intent == "disarm" && icon_state != icon_dead)
 		M.visible_message("<span class='warning'>[M] tips over [src].</span>","<span class='notice'>You tip over [src].</span>")
+		playsound(loc, 'sound/effects/moo.ogg', 70, 1)
 		Weaken(30)
 		icon_state = icon_dead
 		spawn(rand(20,50))
@@ -197,7 +201,7 @@ var/global/chicken_count = 0
 	speak_emote = list("clucks","croons")
 	emote_hear = list("clucks")
 	emote_see = list("pecks at the ground","flaps its wings viciously")
-	speak_chance = 2
+	speak_chance = 3
 	turns_per_move = 3
 	meat_type = /obj/item/weapon/reagent_containers/food/snacks/meat
 	meat_amount = 2
@@ -205,6 +209,7 @@ var/global/chicken_count = 0
 	response_disarm = "gently pushes aside the"
 	response_harm   = "kicks the"
 	attacktext = "kicks"
+	speaksound = "bwak"
 	health = 10
 	var/eggsleft = 0
 	var/body_color
@@ -220,6 +225,7 @@ var/global/chicken_count = 0
 	icon_dead = "chicken_[body_color]_dead"
 	pixel_x = rand(-6, 6)
 	pixel_y = rand(0, 10)
+	speak_chance =rand(1,4)
 	chicken_count += 1
 
 /mob/living/simple_animal/chicken/Die()
@@ -234,6 +240,9 @@ var/global/chicken_count = 0
 			del(O)
 			eggsleft += rand(1, 4)
 			//world << eggsleft
+			if (prob(50))
+				playsound(loc, 'sound/effects/bwak.ogg', 70, 1)
+
 		else
 			user << "\blue [name] doesn't seem hungry!"
 	else
@@ -245,6 +254,7 @@ var/global/chicken_count = 0
 		return
 	if(!stat && prob(3) && eggsleft > 0)
 		visible_message("[src] [pick("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")]")
+		playsound(loc, 'sound/effects/bwak.ogg', 70, 1)
 		eggsleft--
 		var/obj/item/weapon/reagent_containers/food/snacks/egg/E = new(get_turf(src))
 		E.pixel_x = rand(-6,6)

@@ -42,7 +42,7 @@
 	if(isnull(AC) || !istype(AC))
 		return 0
 	AC.loc = get_turf(src) //Eject casing onto ground.
-	sleep(5)//So next sound won't get muffled
+	sleep(8)//So next sound won't get muffled
 	playsound(src, 'sound/weapons/bulletcasingdrop.ogg', 50, 1)
 	if(AC.BB)
 		AC.desc += " This one is spent."	//descriptions are magic - only when there's a projectile in the casing
@@ -79,7 +79,7 @@
 			num_loaded++
 	if(num_loaded)
 		user << "\blue You load [num_loaded] shell\s into the gun!"
-		playsound(A, 'sound/weapons/bulletinchamber.ogg', 50, 1)
+		playsound(src, 'sound/weapons/bulletinchamber.ogg', 50, 1)
 	A.update_icon()
 	update_icon()
 	return
