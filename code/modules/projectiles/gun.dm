@@ -77,7 +77,7 @@
 	if(screwdrivedtaser)	//this one is for guns/energy/stun
 		if(istype(user, /mob/living))
 			var/mob/living/M = user
-			if(prob(50))
+			if(prob(20))
 				M << ("<span class='danger'>[src] sends an electric shock through you and blows up in your face.</span>")
 				user.visible_message("<span class='notice'>[user]'s [src] makes odd electronic noize and blows up!</span>")
 				playsound(M, 'sound/weapons/empty.ogg', 60, 1)
@@ -91,7 +91,7 @@
 	if(screwdrivedlaser)	//this one is for guns/energy/laser
 		if(istype(user, /mob/living))
 			var/mob/living/M = user
-			if(prob(50))
+			if(prob(20))
 				M << ("<span class='danger'>[src] sends an electric shock through you and blows up in your face.</span>")
 				user.visible_message("<span class='notice'>[user]'s [src] makes odd electronic noize and blows up!</span>")
 				playsound(M, 'sound/weapons/empty.ogg', 60, 1)

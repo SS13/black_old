@@ -86,14 +86,3 @@
 			user.SetLuminosity(user.luminosity - CANDLE_LUM)
 			SetLuminosity(CANDLE_LUM)
 
-
-/obj/item/candle/Crossed(var/mob/dead/observer/H)
-	if(istype(H))
-		if(lit)
-			lit = 0
-			update_icon()
-			SetLuminosity(0)
-			for(var/mob/O in hearers(src, null))
-				O.show_message("\blue A sudden gust of wind puts the candle out...", 5)
-	else
-		return

@@ -28,14 +28,6 @@ obj/effect/decal/cleanable/ash/Crossed(var/mob/living/carbon/human/H)
 		new /obj/effect/decal/cleanable/dirt(src.loc)
 		del(src)
 
-obj/effect/decal/cleanable/ash/Crossed(var/mob/dead/observer/H)
-	if(istype(H))
-		new /obj/effect/decal/cleanable/dirt(src.loc)
-		for(var/mob/O in hearers(src, null))
-			O.show_message("\blue A sudden gust of wind smudges the pile of ash...", 5)
-		del(src)
-
-
 /obj/effect/decal/cleanable/greenglow
 
 	New()

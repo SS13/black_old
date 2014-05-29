@@ -318,6 +318,7 @@
 	name = "Shaker"
 	desc = "A metal shaker to mix drinks in."
 	icon_state = "shaker"
+	item_state = "buildpipe"
 	action_button_name = "Shake!"
 	amount_per_transfer_from_this = 10
 	volume = 100
