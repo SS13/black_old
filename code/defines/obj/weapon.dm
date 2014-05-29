@@ -790,7 +790,7 @@
 	desc = "This energy gun is dead beyond repair"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "egun-broken"
-	item_state = "gun"
+	item_state = "energystun0"
 	w_class = 3.0
 	m_amt = 40
 	New()
@@ -802,7 +802,7 @@
 	desc = "This laser gun is dead beyond repair"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "laser-broken"
-	item_state = "gun"
+	item_state = "laser0"
 	w_class = 3.0
 	m_amt = 50
 	New()
@@ -814,7 +814,7 @@
 	desc = "This taser gun is dead beyond repair"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "taser-broken"
-	item_state = "gun"
+	item_state = "taser0"
 	w_class = 3.0
 	m_amt = 30
 	New()

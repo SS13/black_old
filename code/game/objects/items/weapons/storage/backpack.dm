@@ -105,7 +105,6 @@
 	name = "ERT commander backpack"
 	desc = "A backpack for the ERT commander."
 	icon_state = "ertpack"
-	item_state = "ertpack"
 
 /obj/item/weapon/storage/backpack/captain
 	name = "captain's backpack"

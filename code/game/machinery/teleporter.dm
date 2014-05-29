@@ -51,6 +51,7 @@
 			else
 				for(var/mob/O in hearers(src, null))
 					O.show_message("\blue Locked In", 2)
+					playsound(loc, 'sound/effects/phasein.ogg', 40, 1)
 				src.locked = L
 				one_time_use = 1
 

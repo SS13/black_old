@@ -1354,6 +1354,8 @@ datum/design/nuclear_gun
 	reliability_base = 76
 	build_path = "/obj/item/weapon/gun/energy/gun/nuclear"
 	locked = 1
+	category = "Weapons"
+
 
 datum/design/stunrevolver
 	name = "Stun Revolver"
@@ -1364,6 +1366,8 @@ datum/design/stunrevolver
 	materials = list("$metal" = 4000)
 	build_path = "/obj/item/weapon/gun/energy/stunrevolver"
 	locked = 1
+	category = "Weapons"
+
 
 datum/design/lasercannon
 	name = "Laser Cannon"
@@ -1374,6 +1378,7 @@ datum/design/lasercannon
 	materials = list("$metal" = 10000, "$glass" = 1000, "$diamond" = 2000)
 	build_path = "/obj/item/weapon/gun/energy/lasercannon"
 	locked = 1
+	category = "Weapons"
 
 datum/design/decloner
 	name = "Decloner"
@@ -1384,6 +1389,7 @@ datum/design/decloner
 	materials = list("$gold" = 5000,"$uranium" = 10000, "mutagen" = 40)
 	build_path = "/obj/item/weapon/gun/energy/decloner"
 	locked = 1
+	category = "Weapons"
 
 datum/design/chemsprayer
 	name = "Chem Sprayer"
@@ -1412,6 +1418,7 @@ datum/design/largecrossbow
 	build_type = PROTOLATHE
 	materials = list("$metal" = 5000, "$glass" = 1000, "$uranium" = 1000, "$silver" = 1000)
 	build_path = "/obj/item/weapon/gun/energy/crossbow/largecrossbow"
+	category = "Weapons"
 
 datum/design/temp_gun
 	name = "Temperature Gun"
@@ -1422,6 +1429,7 @@ datum/design/temp_gun
 	materials = list("$metal" = 5000, "$glass" = 500, "$silver" = 3000)
 	build_path = "/obj/item/weapon/gun/energy/temperature"
 	locked = 1
+	category = "Weapons"
 
 datum/design/flora_gun
 	name = "Floral Somatoray"
@@ -1451,15 +1459,38 @@ datum/design/smg
 	materials = list("$metal" = 8000, "$silver" = 2000, "$diamond" = 1000)
 	build_path = "/obj/item/weapon/gun/projectile/automatic"
 	locked = 1
+	category = "Weapons"
+
+datum/design/pistol
+	name = "Makarov Pistol"
+	desc = "A small, easily concealable gun. Uses 9mm rounds."
+	id = "pistol"
+	req_tech = list("combat" = 4, "materials" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 7000, "$silver" = 1000, "$diamond" = 200)
+	build_path = "/obj/item/weapon/gun/projectile/pistol"
+	locked = 1
+	category = "Weapons"
+
+datum/design/silencer
+	name = "silencer"
+	desc = "A silencer for using with 9mm firearms."
+	id = "silencer"
+	req_tech = list("combat" = 2, "materials" = 2)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 1700, "$silver" = 250)
+	build_path = "/obj/item/weapon/silencer"
+	category = "Weapons"
 
 datum/design/ammo_9mm
 	name = "Ammunition Box (9mm)"
 	desc = "A box of prototype 9mm ammunition."
 	id = "ammo_9mm"
-	req_tech = list("combat" = 4, "materials" = 3)
+	req_tech = list("combat" = 4, "materials" = 2)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 3750, "$silver" = 100)
 	build_path = "/obj/item/ammo_magazine/c9mm"
+	category = "Weapons"
 
 datum/design/stunshell
 	name = "Stun Shell"
@@ -1469,6 +1500,7 @@ datum/design/stunshell
 	build_type = PROTOLATHE
 	materials = list("$metal" = 4000)
 	build_path = "/obj/item/ammo_casing/shotgun/stunshell"
+	category = "Weapons"
 
 /////////////////////////////////////////
 /////////////////Mining//////////////////
@@ -1629,7 +1661,7 @@ datum/design/science_hud
 
 
 /////////////////////////////////////////
-//////////// Armor / Suits //////////////
+//////////// Armor / Suits ///////////////
 /////////////////////////////////////////
 
 /datum/design/laserproof //This allows for peaceful and sneaky traitors to complete missions
@@ -1639,7 +1671,16 @@ datum/design/science_hud
 	req_tech = list("combat" = 3, "materials" = 4, "powerstorage" = 3, "magnets" = 2)
 	build_type = PROTOLATHE
 	materials = list("$metal" = 15000, "$glass" = 5000, "$silver" = 100, "$diamond" = 100)
-	build_path = /obj/item/clothing/suit/armor/laserproof
+	build_path = "/obj/item/clothing/suit/armor/laserproof"
+
+/datum/design/sechailer
+	name = "security mask"
+	desc = "An elite Security gas mask with integrated 'Compli-o-nator 3000', space ressistant lenses and rebreather. Do not tamper with the device. This one is intended for privates."
+	id = "sechailer"
+	req_tech = list("combat" = 2, "materials" = 1)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 300, "$glass" = 200, "$silver" = 50)
+	build_path = "/obj/item/clothing/mask/gas/sechailer/officer"
 
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////
@@ -1692,7 +1733,7 @@ datum/design/cart_hop
 	build_type = PROTOLATHE
 	materials = list("$metal" = 500, "$glass" = 500)
 	build_path = "/obj/item/weapon/cartridge/hop"
-	locked = 1
+//	locked = 1
 
 datum/design/cart_hos
 	name = "R.O.B.U.S.T. DELUXE Cartridge"
@@ -1712,7 +1753,7 @@ datum/design/cart_ce
 	build_type = PROTOLATHE
 	materials = list("$metal" = 500, "$glass" = 500)
 	build_path = "/obj/item/weapon/cartridge/ce"
-	locked = 1
+//	locked = 1
 
 datum/design/cart_cmo
 	name = "Med-U DELUXE Cartridge"
@@ -1722,7 +1763,7 @@ datum/design/cart_cmo
 	build_type = PROTOLATHE
 	materials = list("$metal" = 500, "$glass" = 500)
 	build_path = "/obj/item/weapon/cartridge/cmo"
-	locked = 1
+//	locked = 1
 
 datum/design/cart_rd
 	name = "Signal Ace DELUXE Cartridge"
@@ -1732,7 +1773,7 @@ datum/design/cart_rd
 	build_type = PROTOLATHE
 	materials = list("$metal" = 500, "$glass" = 500)
 	build_path = "/obj/item/weapon/cartridge/rd"
-	locked = 1
+//	locked = 1
 
 datum/design/cart_captain
 	name = "Value-PAK Cartridge"

@@ -7,7 +7,7 @@
 	var/event = ""
 	var/screen = 1
 	var/confirmed = 0 //This variable is set by the device that confirms the request.
-	var/confirm_delay = 20 //(2 seconds)
+	var/confirm_delay = 150 //(150 seconds)
 	var/busy = 0 //Busy when waiting for authentication or an event request has been sent from this device.
 	var/obj/machinery/keycard_auth/event_source
 	var/mob/event_triggered_by
@@ -111,6 +111,7 @@
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	icon_state = "auth_on"
+	playsound(loc, 'sound/machines/twobeep.ogg', 20, 1)
 	for(var/obj/machinery/keycard_auth/KA in world)
 		if(KA == src) continue
 		KA.reset()

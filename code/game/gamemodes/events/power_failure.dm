@@ -3,6 +3,8 @@
 	if(announce)
 		command_alert("Abnormal activity detected in [station_name()]'s powernet. As a precautionary measure, the station's power will be shut off for an indeterminate duration.", "Critical Power Failure")
 		for(var/mob/M in player_list)
+			M << sound('sound/effects/powerout.ogg')
+			spawn(80)
 			M << sound('sound/AI/poweroff.ogg')
 	for(var/obj/machinery/power/smes/S in world)
 		if(istype(get_area(S), /area/turret_protected) || S.z != 1)
@@ -53,15 +55,17 @@
 	if(announce)
 		command_alert("Power has been restored to [station_name()]. We apologize for the inconvenience.", "Power Systems Nominal")
 		for(var/mob/M in player_list)
+			M << sound('sound/effects/poweron.ogg')
+			spawn(60)
 			M << sound('sound/AI/poweron.ogg')
 	for(var/obj/machinery/power/apc/C in world)
 		if(C.cell && C.z == 1)
-			C.cell.charge = C.cell.maxcharge
+			C.cell.charge = C.cell.maxcharge/rand(2,4) //Yeah, no shit it's a damn blackout
 	for(var/obj/machinery/power/smes/S in world)
 		if(istype(get_area(S), /area/turret_protected) || S.z != 1)
 			continue
-		S.charge = S.capacity
-		S.output = 200000
+		S.charge = S.capacity/rand(400,850) //This should do it - there was a power failure, so why restore their power, let alone alltogether? Capacity is 5e6, hence result is 12500 to 6 k of energy per one SMES
+		S.output = 80000
 		S.online = 1
 		S.updateicon()
 		S.power_change()
@@ -75,13 +79,13 @@
 /proc/power_restore_quick(var/announce = 1)
 
 	if(announce)
-		command_alert("All SMESs on [station_name()] have been recharged. We apologize for the inconvenience.", "Power Systems Nominal")
+		command_alert("All SMESs on [station_name()] have been recharged to a certain extent. We apologize for the inconvenience.", "Power Systems Nominal")
 		for(var/mob/M in player_list)
 			M << sound('sound/AI/poweron.ogg')
 	for(var/obj/machinery/power/smes/S in world)
 		if(S.z != 1)
 			continue
-		S.charge = S.capacity
+		S.charge = S.capacity/200 //Dunno, should we leave this as it is?
 		S.output = 200000
 		S.online = 1
 		S.updateicon()

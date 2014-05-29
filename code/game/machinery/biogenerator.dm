@@ -105,6 +105,7 @@
 					dat += "<A href='?src=\ref[src];action=create;item=tbelt;cost=400'>Utility belt</A> <FONT COLOR=blue>(300)</FONT><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=shoes;cost=300'>Shoes</A> <FONT COLOR=blue>(100)</FONT><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=satchel;cost=500'>Leather Satchel</A> <FONT COLOR=blue>(400)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=briefcase;cost=1000'>Leather Briefcase</A> <FONT COLOR=blue>(400)</FONT><BR>"
 					//dat += "Other<BR>"
 					//dat += "<A href='?src=\ref[src];action=create;item=monkey;cost=500'>Monkey</A> <FONT COLOR=blue>(500)</FONT><BR>"
 					if (emagged)
@@ -212,6 +213,8 @@
 			new/obj/item/clothing/mask/muzzle(src.loc)
 		if("blindfold")
 			new/obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
+		if("briefcase")
+			new /obj/item/weapon/storage/briefcase(src.loc)
 		if("holster")
 			new/obj/item/clothing/tie/holster/armpit(src.loc)
 		if("monkey")

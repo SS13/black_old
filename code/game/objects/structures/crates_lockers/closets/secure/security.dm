@@ -161,7 +161,8 @@
 		new /obj/item/weapon/reagent_containers/spray/pepper(src)
 		new /obj/item/weapon/melee/baton(src)
 		new /obj/item/weapon/gun/energy/taser(src)
-		new /obj/item/weapon/storage/box/holobadge(src)
+		new /obj/item/clothing/mask/gas/sechailer/warden(src)
+//		new /obj/item/weapon/storage/box/holobadge(src)
 		return
 
 
@@ -196,7 +197,7 @@
 		new /obj/item/clothing/glasses/sunglasses/sechud(src)
 		new /obj/item/taperoll/police(src)
 		new /obj/item/device/hailer(src)
-		new /obj/item/clothing/tie/storage/brown_vest(src)
+		//new /obj/item/clothing/tie/storage/brown_vest(src)
 		//new /obj/item/clothing/head/soft/sec/corp(src)
 		//new /obj/item/clothing/head/beret/sec(src)
 		new /obj/item/clothing/under/rank/security/security2(src)

@@ -39,8 +39,8 @@
 		if(current_shell)//We have a shell in the chamber
 			current_shell.loc = get_turf(src)//Eject casing
 			current_shell = null
-			sleep(10)//So next sound won't get muffled
-			playsound(M, 'sound/weapons/shotgunshelldrop.ogg', 50, 1)
+			sleep(8)//So next sound won't get muffled
+			playsound(M, 'sound/weapons/shotgunshelldrop.ogg', 60, 1)
 			if(in_chamber)
 				in_chamber = null
 		if(!loaded.len)	return 0
@@ -138,24 +138,13 @@
 				name = "sawn-off shotgun"
 				desc = "Omar's coming!"
 				user << "<span class='warning'>You shorten the barrel of \the [src]!</span>"
-		if(istype(A, /obj/item/weapon/reagent_containers/food/snacks/grown/potato))
-			user.visible_message("<span class='danger'>[user] begins stuffing potatoes into the barrel of \the [src]!</span>")
-			user << "<span class='notice'>You begin stuffing potatoes in the barrel \the [src].</span>"
-			if(do_after(user, 30))
-				potato = 1
-				del(A)
 		if(istype(A, /obj/item/stack/rods))
 			user.visible_message("<span class='danger'>[user] begins cleaning the barrel of \the [src]!</span>")
 			user << "<span class='notice'>You begin cleaning the barrel of \the [src].</span>"
-			if(do_after(user, 30))
-				if (potato)
-					potato = 0
-					user.visible_message("<span class='danger'>A potato falls out of the barrel!</span>")
+			if(do_after(user, 50))
+				if (prob(1))
+					user.visible_message("<span class='danger'>A potato falls out of the barrel!</span>") //I don't know why I still hasn't deleted this. It's hillarious!
 					new /obj/item/weapon/reagent_containers/food/snacks/grown/potato(src.loc)
-
-				else
-					potato = 0
-
 
 /obj/item/weapon/gun/projectile/shotgun/doublebarrel/shorty
 	name = "shorty shotgun"

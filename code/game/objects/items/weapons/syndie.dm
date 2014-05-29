@@ -34,6 +34,7 @@
 
 /obj/item/weapon/syndie/c4explosive/proc/detonate()
 	icon_state = "c-4[size]_1"
+	playsound(loc, 'sound/items/countdown.ogg', 75, 1)
 	spawn(50)
 		explosion(get_turf(src), power, power*2, power*3, power*4, power*4)
 		for(var/dirn in cardinal)		//This is to guarantee that C4 at least breaks down all immediately adjacent walls and doors.
@@ -65,6 +66,7 @@
 		if("c-4detonator_0")
 			src.icon_state = "c-4detonator_1"
 			user << "You flick open the lighter."
+			user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open the Zippo lighter.</span>") //Yeah, so it looks more like the lighter
 
 		if("c-4detonator_1")
 			if(!pr_open)
@@ -81,4 +83,5 @@
 					if("Close the lighter.")
 						src.icon_state = "c-4detonator_0"
 						user << "You close the lighter."
+						user.visible_message("<span class='rose'>You hear a quiet click, as [user] closes the Zippo lighter without even looking at what they're doing. Wow.")
 				pr_open = 0

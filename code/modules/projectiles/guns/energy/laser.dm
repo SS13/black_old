@@ -9,6 +9,20 @@
 	origin_tech = "combat=3;magnets=2"
 	projectile_type = "/obj/item/projectile/beam"
 
+/obj/item/weapon/gun/energy/laser/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/screwdriver))
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 30, 1)
+		user.visible_message("\red [user] [screwdrivedlaser ? "put in place" : "unscrewed"] [src] power capacitor regulator with [W]!")
+		screwdrivedlaser = !screwdrivedlaser
+		return
+
+
+/obj/item/weapon/gun/energy/laser/examine()
+	..()
+	if (screwdrivedlaser)
+		usr << "Power capacitor regulator looks tampered with."
+		return
+
 /obj/item/weapon/gun/energy/laser/practice
 	name = "practice laser gun"
 	desc = "A modified version of the basic laser gun, this one fires less concentrated energy bolts designed for target practice."

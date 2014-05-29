@@ -21,7 +21,8 @@
 	var/silenced = 0
 	var/recoil = 0
 	var/ejectshell = 1
-	var/potato = 0
+	var/screwdrivedtaser = 0
+	var/screwdrivedlaser = 0
 	var/clumsy_check = 1
 	var/tmp/list/mob/living/target //List of who yer targeting.
 	var/tmp/lock_time = -100
@@ -73,16 +74,34 @@
 				M.drop_item()
 				del(src)
 				return
-	if(potato)	//this one is for double-barrel only yet.
+	if(screwdrivedtaser)	//this one is for guns/energy/stun
 		if(istype(user, /mob/living))
 			var/mob/living/M = user
-			M << "<span class='danger'>[src] blows up in your face.</span>"
-			playsound(M, 'sound/weapons/gunshot_det.ogg', 80, 1)
-			M.take_organ_damage(0,20)
-			M.drop_item()
-			new /obj/item/weapon/blownshotgun(src.loc)
-			del(src)
-			return
+			if(prob(50))
+				M << ("<span class='danger'>[src] sends an electric shock through you and blows up in your face.</span>")
+				user.visible_message("<span class='notice'>[user]'s [src] makes odd electronic noize and blows up!</span>")
+				playsound(M, 'sound/weapons/empty.ogg', 60, 1)
+				explosion(src.loc,0,0,1,2)
+				M.drop_item()
+				M.Weaken(10)
+				new /obj/item/weapon/brokentaser(user.loc)
+				del(src)
+				return
+
+	if(screwdrivedlaser)	//this one is for guns/energy/laser
+		if(istype(user, /mob/living))
+			var/mob/living/M = user
+			if(prob(50))
+				M << ("<span class='danger'>[src] sends an electric shock through you and blows up in your face.</span>")
+				user.visible_message("<span class='notice'>[user]'s [src] makes odd electronic noize and blows up!</span>")
+				playsound(M, 'sound/weapons/empty.ogg', 60, 1)
+				explosion(src.loc,0,0,2,2)
+				M.drop_item()
+				M.Weaken(10)
+				new /obj/item/weapon/brokenlaser(user.loc)
+				del(src)
+				return
+
 	if (!user.IsAdvancedToolUser())
 		user << "\red You don't have the dexterity to do this!"
 		return

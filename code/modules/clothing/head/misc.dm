@@ -243,6 +243,23 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	siemens_coefficient = 2.0
+	action_button_name = "BWAK!"
+
+/obj/item/clothing/head/chicken/attack_self(mob/user)
+	bwakproc(user)
+
+/obj/item/clothing/head/chicken/proc/bwakproc(mob/user)
+	if(user.canmove && !user.stat && !user.restrained())
+		usr.visible_message("[usr]: <font color='red' size='2'><b>BWAK BWAK BWAK! BWAK!</b></font>")
+		playsound(loc, 'sound/effects/bwak.ogg', 50, 1)
+
+/obj/item/clothing/head/chicken/verb/bwak()
+	set name = "BWAK BWAK!"
+	set category = "Object"
+	set src in usr
+
+	bwakproc(usr)
+
 
 /obj/item/clothing/head/bearpelt
 	name = "bear pelt hat"

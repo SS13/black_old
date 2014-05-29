@@ -167,14 +167,15 @@
 
 /obj/item/device/flashlight/seclite
 	name = "seclite"
-	desc = "A Seclite-brand robust flashlight used by security all over the alaxy. Glows brighter, hits stronger."
+	desc = "A Seclite-brand robust flashlight used by security all over the galaxy. Glows brighter, hits stronger."
 	icon_state = "seclite"
 	item_state = "seclite"
 	m_amt = 420
 	g_amt = 300
 	force = 6
 	throwforce = 3
-	brightness_on = 5 // A little better than the standard flashlight.
+	brightness_on = 4
+	hitsound = 'sound/weapons/flash.ogg'
 
 // the desk lamps are a bit special
 /obj/item/device/flashlight/lamp

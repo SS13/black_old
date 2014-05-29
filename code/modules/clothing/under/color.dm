@@ -43,6 +43,7 @@
 	if (ishuman(loc))
 		var/mob/living/carbon/human/H = loc
 		H.update_inv_w_uniform(1)
+		playsound(loc, 'sound/effects/rustle1.ogg', 30, 1)
 
 /obj/item/clothing/under/color/orange
 	name = "orange jumpsuit"
