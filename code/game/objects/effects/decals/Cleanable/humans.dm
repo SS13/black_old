@@ -59,7 +59,8 @@
 
 /obj/effect/decal/cleanable/blood/attackby(obj/item/weapon/reagent_containers/glass/rag/W as obj, mob/user as mob)
 	if(istype(W,/obj/item/weapon/reagent_containers/glass/rag))
-		if(do_after(user,60))
+		user << "<span class='notice'>You begin wiping the blood</span>"	//Ooh, sneaky, none but user sees it!
+		if(do_after(user,70))
 			user << "<span class='notice'>You have finished wiping!</span>"
 			W.icon_state = "ragbloody"
 			W.desc = "This rag is covered in blood."
