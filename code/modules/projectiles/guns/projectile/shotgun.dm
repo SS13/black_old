@@ -169,9 +169,9 @@
 	icon_state = "handmadeshotgun"
 	item_state = "shotgun"
 	max_shells = 1
-	ammo_type = "null"
 	flags =  FPRINT | TABLEPASS | CONDUCT | USEDELAY
 	caliber = "shotgun"
+	ammo_type = "null"
 
 
 /obj/item/weapon/gun/projectile/shotgun/doublebarrel/shorty

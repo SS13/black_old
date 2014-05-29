@@ -34,6 +34,7 @@
 			user << "<span class='userdanger'>*click*</span>"
 			del(I)
 			del(src)
+			update_icon(user)
 
 /obj/item/weapon/gunassembly/trigger
 	name = "gun stock assembly"
@@ -54,6 +55,7 @@
 			user << "<span class='userdanger'>*click*</span>"
 			del(I)
 			del(src)
+			update_icon(user)
 
 
 /obj/item/weapon/gunassembly/barrel
@@ -64,7 +66,7 @@
 
 /obj/item/weapon/gunassembly/barrel/attackby(var/obj/item/S, mob/user as mob)
 	if(istype(S, /obj/item/weapon/screwdriver))
-		var/obj/item/weapon/gunassembly/furnitured/W = new /obj/item/weapon/gunassembly/furnitured
+		var/obj/item/weapon/gunassembly/furnished/W = new /obj/item/weapon/gunassembly/furnished
 		user.visible_message("<span class='notice'>[user] is fiddling with the [src.name]...</span>")
 		if (do_after(user, 60))
 			user << "<span  class='notice'>You screw furniture to the [src.name]...</span>"
@@ -73,45 +75,44 @@
 			user.put_in_hands(W)
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			user << "<span class='userdanger'>*click*</span>"
-			del(S)
 			del(src)
+			update_icon(user)
 
 
 
-/obj/item/weapon/gunassembly/furnitured
-	name = "furnitured gun frame assembly"
+/obj/item/weapon/gunassembly/furnished
+	name = "furnished gun frame assembly"
 	desc = "Gun frame assembly. Has barrel attached, but reciever is not welded."
 	icon_state = "furnitured"
 	item_state = "shotgun"
 
-/obj/item/weapon/gunassembly/furnitured/attackby(var/obj/item/S, mob/user as mob)
-	if(istype(S,/obj/item/weapon/screwdriver))
+/obj/item/weapon/gunassembly/furnished/attackby(var/obj/item/S, mob/user as mob)
+	if(istype(S,/obj/item/weapon/weldingtool))
 		var/obj/item/weapon/gunassembly/screwed/W = new /obj/item/weapon/gunassembly/screwed
 		user.visible_message("<span class='notice'>[user] is fiddling with the [src.name]...</span>")
 		if (do_after(user, 60))
-			user << "<span  class='notice'>You screw furniture to the [src.name]...</span>"
-			user.drop_item(S)
+			user << "<span  class='notice'>You weld the reciever on the [src.name]...</span>"
 			user.before_take_item(src)
 			user.put_in_hands(W)
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 			user << "<span class='userdanger'>*click*</span>"
-			del(S)
 			del(src)
+			update_icon(user)
 
 /obj/item/weapon/gunassembly/screwed
 	name = "gun frame"
-	desc = "Gun frame assembly. It is almost finished, only missing trigger plate and a few welded seams."
+	desc = "Gun frame assembly. It is almost finished, only missing a few nuts"
 	icon_state = "furnitured"
 	item_state = "shotgun"
 
 /obj/item/weapon/gunassembly/screwed/attackby(var/obj/item/weapon/W as obj,  mob/user as mob)
-	if(istype(W,/obj/item/weapon/weldingtool))
+	if(istype(W,/obj/item/weapon/wrench))
 		user.visible_message("<span class='notice'>[user] is fiddling with the [src.name]...</span>")
 		if (do_after(user, 80))
-			user << "<span  class='notice'>You finish seaming [src.name], making a one-shot shotgun!</span>"
-			new /obj/item/weapon/gun/projectile/shotgun/doublebarrel/singlebarrel/(src.loc)
+			user << "<span  class='notice'>You finish tightening the screws on [src.name], making a one-shot shotgun!</span>"
+			new/obj/item/weapon/gun/projectile/shotgun/doublebarrel/singlebarrel(user.loc)
 			del(src)
-			playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+			update_icon(user)
+			playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 			user << "<span class='userdanger'>*cling*</span>"
-			user.visible_message("<span class='notice'>[user] has some kind  of firearm!</span>")
-
+			user.visible_message("<span class='notice'>[user] has assembled some kind of firearm!</span>")

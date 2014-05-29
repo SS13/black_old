@@ -60,6 +60,7 @@
 			name = "punctured hazard vest"
 			user.visible_message("\blue [user] cuts holes in [src]")
 			playsound(src.loc, 'sound/items/Wirecutter.ogg', 50, 1)
+			update_icon(user)
 			return
 	if (istype(O, /obj/item/weapon/cable_coil))
 		var/obj/item/weapon/cable_coil/C = O
@@ -70,6 +71,7 @@
 			name = "hazard vest with wires"
 			playsound(src.loc, 'sound/weapons/cablecuff.ogg', 50, 1)
 			wired = 1
+			update_icon(user)
 			return
 		else
 			usr << "\blue There are no pockets that the coil would fit in."
@@ -79,10 +81,11 @@
 		if(wired)
 			C.use(1)
 			usr << "\blue You tie a sheet of steel to the inside of the vest with cables."
-			icon_state = "hazard_hole_wire_metal"
+			icon_state = "hazard_wire_metal"
 			name = "hazard vest with a steel plate"
 			playsound(src.loc, 'sound/weapons/cablecuff.ogg', 50, 1)
 			armored = 1
+			update_icon(user)
 			return
 		else
 			usr << "\blue There are no pockets that the coil would fit in."
@@ -92,8 +95,9 @@
 			usr << "\blue You tie a sheet of steel to the inside of the vest with cables."
 			playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 			user.visible_message("\blue [user] welds a steel plate to a cable webbing inside of [src]")
-			new	/obj/item/clothing/suit/armor/vest/hazard(src.loc)
-			del(src)
+			new	/obj/item/clothing/suit/armor/vest/hazard(user.loc)
+			user.drop_item(O)
+			update_icon(user)
 			return
 		else
 			usr << "\blue You can't figure out a way to use welding tool here..."
