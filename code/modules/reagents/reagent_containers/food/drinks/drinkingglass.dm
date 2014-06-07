@@ -660,13 +660,13 @@
 			src.visible_message("\red [src] slams into [hit_atom] spilling its contents!")
 			new/obj/effect/effect/water(src.loc)
 			reagents.reagent_list.len = 0
-			icon_state = "glass_empty"
+			on_reagent_change()
 	return ..()
 
 /obj/item/weapon/reagent_containers/food/drinks/drinkingglass/proc/die()
 	src.visible_message("\red [src] shatters spilling its contents!")
 	playsound(src, "shatter", 40, 1)
-	new/obj/item/weapon/shard/glass
+	new/obj/item/weapon/shard(src.loc)
 	if (reagents.reagent_list.len > 0)
 		new/obj/effect/effect/water(src.loc)
 	del(src)

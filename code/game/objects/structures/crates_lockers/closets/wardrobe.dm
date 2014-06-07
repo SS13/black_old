@@ -237,7 +237,7 @@
 	icon_state = "sciuniform"
 	icon_closed = "sciuniform"
 
-/obj/structure/closet/wardrobe/toxins_white/New()
+/obj/structure/closet/wardrobe/toxins_purple/New()
 	new /obj/item/clothing/under/rank/scientist(src)
 	new /obj/item/clothing/under/rank/scientist(src)
 	new /obj/item/clothing/under/rank/scientist(src)
@@ -247,9 +247,6 @@
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/white(src)
 	new /obj/item/clothing/shoes/white(src)
-	new /obj/item/clothing/shoes/slippers
-	new /obj/item/clothing/shoes/slippers
-	new /obj/item/clothing/shoes/slippers
 	return
 
 

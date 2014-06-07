@@ -430,7 +430,7 @@
 		return 0
 	else
 		usr << "You crumple the paper into a tight ball."
-		new/obj/item/weapon/paper/crumpled(src.loc)
+		new /obj/item/weapon/paper/crumpled( get_turf(usr.loc))
 		del(src)
 	..()
 
