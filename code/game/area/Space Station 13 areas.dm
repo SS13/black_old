@@ -421,6 +421,10 @@ proc/process_ghost_teleport_locs()
 /area/centcom/holding
 	name = "\improper Holding Facility"
 
+/area/centcom/prison
+	name = "\improper Prison Cells"
+
+
 //SYNDICATES
 
 /area/syndicate_mothership

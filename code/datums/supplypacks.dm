@@ -682,12 +682,22 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	access = access_heads
 	group = "Security"
 
-/datum/supply_packs/armor
-	name = "Dragonskin Armor crate"
+/datum/supply_packs/armorsecurity
+	name = "Security armor crate"
 	contains = list(/obj/item/clothing/head/helmet,
 					/obj/item/clothing/head/helmet,
 					/obj/item/clothing/suit/armor/vest/security,
 					/obj/item/clothing/suit/armor/vest/security)
+	cost = 25
+	containertype = /obj/structure/closet/crate/secure
+	containername = "Security armor crate"
+	access = access_security
+	group = "Security"
+
+/datum/supply_packs/armor
+	name = "Armor crate"
+	contains = list(/obj/item/clothing/suit/armor/vest,
+					/obj/item/clothing/suit/armor/vest)
 	cost = 15
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Armor crate"
@@ -717,19 +727,6 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 	cost = 60
 	containertype = /obj/structure/closet/crate/secure
 	containername = "Riot gear crate"
-	access = access_armory
-	group = "Security"
-
-
-/datum/supply_packs/securitynavyuniform //You know you like to dress your officers
-	name = "Security navy uniforms"
-	contains = list(/obj/item/clothing/under/rank/security/navy,
-					/obj/item/clothing/under/rank/security/navy,
-					/obj/item/clothing/under/rank/security/navy,
-					/obj/item/clothing/under/rank/security/navy)
-	cost = 40
-	containertype = /obj/structure/closet/crate/secure
-	containername = "Security uniforms crate"
 	access = access_armory
 	group = "Security"
 

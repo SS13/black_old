@@ -146,7 +146,7 @@
 			new /obj/item/weapon/storage/backpack/security(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
-		new /obj/item/clothing/suit/armor/vest/security/tan(src)
+		new /obj/item/clothing/suit/armor/vest/security(src)
 		new /obj/item/clothing/under/rank/warden(src)
 		//new /obj/item/clothing/under/rank/warden/warden2(src)
 		new /obj/item/clothing/under/rank/warden/navy(src)
@@ -182,9 +182,10 @@
 		sleep(2)
 		if(prob(50))
 			new /obj/item/weapon/storage/backpack/security(src)
+			new /obj/item/clothing/tie/storage/black_vest(src)
 		else
 			new /obj/item/weapon/storage/backpack/satchel_sec(src)
-		new /obj/item/clothing/suit/armor/vest/security/tan(src)
+		new /obj/item/clothing/suit/armor/vest/security(src)
 		new /obj/item/clothing/head/helmet(src)
 //		new /obj/item/weapon/cartridge/security(src)
 		new /obj/item/device/radio/headset/headset_sec(src)
@@ -200,7 +201,7 @@
 		//new /obj/item/clothing/tie/storage/brown_vest(src)
 		//new /obj/item/clothing/head/soft/sec/corp(src)
 		//new /obj/item/clothing/head/beret/sec(src)
-		new /obj/item/clothing/under/rank/security/security2(src)
+		new /obj/item/clothing/under/rank/security/navy(src)
 		return
 
 
