@@ -108,9 +108,17 @@
 		..()
 		reagents.add_reagent("toxin", 50)
 
+/obj/item/weapon/reagent_containers/pill/paracetamol
+	name = "Paracetamol pill"
+	desc = "Most probably know this as Tylenol, but this chemical is a mild, simple painkiller."
+	icon_state = "pill2"
+	New()
+		..()
+		reagents.add_reagent("paracetamol", 10)
+
 /obj/item/weapon/reagent_containers/pill/hyronalin
 	name = "Hyronalin pill."
-	desc = "Hyronalin is a medicinal drug used to counter the effect of radiation poisoning.."
+	desc = "Hyronalin is a medicinal drug used to counter the effect of radiation poisoning."
 	icon_state = "pill17"
 	New()
 		..()

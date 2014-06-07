@@ -431,6 +431,22 @@
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
 	return ..()
 
+/obj/item/weapon/shard/glass
+	name = "glass shards"
+	icon = 'icons/ashtray.dmi'
+	icon_state = "ashtray_bork_gl"
+	sharp = 1
+	desc = "A few small glass shards."
+	force = 2.0
+	throwforce = 3.0
+	item_state = "shard-glass"
+	g_amt = 100
+	attack_verb = list("stabbed", "slashed", "sliced", "cut")
+
+/obj/item/weapon/shard/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	return ..()
+
 /*/obj/item/weapon/syndicate_uplink
 	name = "station bounced radio"
 	desc = "Remain silent about this..."

@@ -206,7 +206,7 @@
 
 /obj/structure/sign/carp
 	name = "Space Carp Display"
-	desc = "Rather peculiar display of a spess carp. Somebody is quite good at space fishing."
+	desc = "Rather peculiar display of a spess carp. Somebody is quite good at space fishing. You think your finger would fit into it's mouth nicely."
 	icon_state = "carp"
 
 /obj/structure/sign/carp/attack_paw(var/mob/living/carbon/human/H)

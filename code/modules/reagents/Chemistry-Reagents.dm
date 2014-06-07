@@ -741,6 +741,21 @@ datum
 				..()
 				return
 
+
+		paracetamol
+			name = "Paracetamol"
+			id = "paracetamol"
+			description = "Most probably know this as Tylenol, but this chemical is a mild, simple painkiller."
+			reagent_state = LIQUID
+			color = "#C855DC"
+			overdose = 60
+
+			on_mob_life(var/mob/living/M as mob)
+				if (volume > overdose)
+					M.hallucination = max(M.hallucination, 2)
+				..()
+				return
+
 		tramadol
 			name = "Tramadol"
 			id = "tramadol"
@@ -749,6 +764,12 @@ datum
 			color = "#C8A5DC"
 			overdose = REAGENTS_OVERDOSE
 
+			on_mob_life(var/mob/living/M as mob)
+				if (volume > overdose)
+					M.hallucination = max(M.hallucination, 2)
+				..()
+				return
+
 		oxycodone
 			name = "Oxycodone"
 			id = "oxycodone"
@@ -756,6 +777,13 @@ datum
 			reagent_state = LIQUID
 			color = "#C805DC"
 			overdose = REAGENTS_OVERDOSE
+
+			on_mob_life(var/mob/living/M as mob)
+				if (volume > overdose)
+					M.druggy = max(M.druggy, 10)
+					M.hallucination = max(M.hallucination, 3)
+				..()
+				return
 
 		virus_food
 			name = "Virus Food"

@@ -20,18 +20,20 @@
 	if (istype(W, /obj/item/stack/rods))
 		if (W:amount >= 4)
 			new /obj/item/weapon/table_parts/reinforced( user.loc )
-			user << "\blue You reinforce thae [name]."
+			user << "\blue You reinforce the [name]."
 			W:use(4)
 			del(src)
 		else if (W:amount < 4)
 			user << "\red You need at least four rods to do this."
 
 /obj/item/weapon/table_parts/attack_self(mob/user as mob)
+	user << "\blue You begin to assemble a table..."
+	sleep(40)
+	playsound(src.loc, 'sound/items/Screwdriver2.ogg', 50, 1)
 	new /obj/structure/table( user.loc )
 	user.drop_item()
 	del(src)
 	return
-
 
 /*
  * Reinforced Table Parts
@@ -43,6 +45,9 @@
 		del(src)
 
 /obj/item/weapon/table_parts/reinforced/attack_self(mob/user as mob)
+	user << "\blue You begin to assemble a reinforced table..."
+	sleep(50)
+	playsound(src.loc, 'sound/items/Deconstruct.ogg', 50, 1)
 	new /obj/structure/table/reinforced( user.loc )
 	user.drop_item()
 	del(src)
@@ -67,6 +72,9 @@
 		del(src)
 
 /obj/item/weapon/table_parts/wood/attack_self(mob/user as mob)
+	user << "\blue You begin to assemble a wooden table..."
+	sleep(40)
+	playsound(src.loc, 'sound/items/Screwdriver2.ogg', 50, 1)
 	new /obj/structure/table/woodentable( user.loc )
 	user.drop_item()
 	del(src)
@@ -86,11 +94,13 @@
 		del(src)
 
 /obj/item/weapon/table_parts/poker/attack_self(mob/user as mob)
+	user << "\blue You begin to assemble a gambling table..."
+	sleep(40)
+	playsound(src.loc, 'sound/items/Screwdriver2.ogg', 50, 1)
 	new /obj/structure/table/poker( user.loc )
 	user.drop_item()
 	del(src)
 	return
-
 
 /*
  * Rack Parts
@@ -104,6 +114,9 @@
 	return
 
 /obj/item/weapon/rack_parts/attack_self(mob/user as mob)
+	user << "\blue You begin to assemble a rack..."
+	sleep(40)
+	playsound(src.loc, 'sound/items/Screwdriver2.ogg', 50, 1)
 	var/obj/structure/rack/R = new /obj/structure/rack( user.loc )
 	R.add_fingerprint(user)
 	user.drop_item()

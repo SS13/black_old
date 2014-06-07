@@ -64,7 +64,7 @@
 	for(var/obj/machinery/power/smes/S in world)
 		if(istype(get_area(S), /area/turret_protected) || S.z != 1)
 			continue
-		S.charge = S.capacity/rand(400,850) //This should do it - there was a power failure, so why restore their power, let alone alltogether? Capacity is 5e6, hence result is 12500 to 6 k of energy per one SMES
+		S.charge = S.capacity/rand(300,850) //This should do it - there was a power failure, so why restore their power, let alone alltogether? Capacity is 5e6, hence result is 16949 to 5882 of energy per one SMES
 		S.output = 80000
 		S.online = 1
 		S.updateicon()
@@ -85,7 +85,7 @@
 	for(var/obj/machinery/power/smes/S in world)
 		if(S.z != 1)
 			continue
-		S.charge = S.capacity/200 //Dunno, should we leave this as it is?
+		S.charge = S.capacity/50 //Dunno, should we leave this as it is? Now set to 100k per unit
 		S.output = 200000
 		S.online = 1
 		S.updateicon()

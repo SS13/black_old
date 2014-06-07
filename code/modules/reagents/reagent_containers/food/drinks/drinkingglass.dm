@@ -4,6 +4,7 @@
 	name = "glass"
 	desc = "Your standard drinking glass."
 	icon_state = "glass_empty"
+	health = 5.0
 	amount_per_transfer_from_this = 10
 	volume = 50
 
@@ -648,4 +649,25 @@
 		..()
 		reagents.add_reagent("cola", 50)
 		on_reagent_change()
+
+/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/throw_impact(atom/hit_atom)
+	if (health > 0)
+		health = max(0,health - 3)
+		if (health < 1)
+			die()
+			return
+		if (reagents.reagent_list.len > 0)
+			src.visible_message("\red [src] slams into [hit_atom] spilling its contents!")
+			new/obj/effect/effect/water(src.loc)
+			reagents.reagent_list.len = 0
+			icon_state = "glass_empty"
+	return ..()
+
+/obj/item/weapon/reagent_containers/food/drinks/drinkingglass/proc/die()
+	src.visible_message("\red [src] shatters spilling its contents!")
+	playsound(src, "shatter", 40, 1)
+	new/obj/item/weapon/shard/glass
+	if (reagents.reagent_list.len > 0)
+		new/obj/effect/effect/water(src.loc)
+	del(src)
 
