@@ -281,17 +281,15 @@
 		user.visible_message("You hear a click.")
 		icon_state = "knifezippoon"
 		item_state = "zippo"
-		w_class = 3
-		force = 10
+		force = 15
 		attack_verb = list("stabbed", "cut", "slashed")
 	else
 		user.visible_message("You hear a click.")
 		icon_state = "knifezippo"
 		item_state = "zippo"
-		w_class = 2
 		force = 3
 		attack_verb = list("hit", "punched")
-	playsound(src.loc, 'sound/weapons/empty.ogg', 20, 1)
+	playsound(src.loc, 'sound/weapons/empty.ogg', 40, 1)
 	add_fingerprint(user)
 
 	if(blood_overlay && (blood_DNA.len >= 1))

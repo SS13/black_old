@@ -1,7 +1,7 @@
 
 //########################## CONTRABAND ;3333333333333333333 -Agouri ###################################################
 
-#define NUM_OF_POSTER_DESIGNS 48
+#define NUM_OF_POSTER_DESIGNS 47
 
 /obj/item/weapon/contraband
 	name = "contraband item"
@@ -225,11 +225,6 @@ obj/structure/sign/poster/New(var/serial)
 		if(47)
 			name += " - Pinup Girl Val"
 			desc += "Luscious Val McNeil, the vertically challenged Legal Extraordinaire, winner of Miss Space two years running and favoured pinup girl of Lawyers Weekly."
-
-		if(48)
-			name += " - Responsible medbay habits, No #259"
-			desc += "A poster with a nervous looking geneticist on it states; \"Friends Don't Tell Friends They're Clones. It can cause severe and irreparable emotional trauma. Always do the right thing and never tell them that they were dead.\""
-
 		else
 			name = "This shit just bugged. Report it to Agouri - polyxenitopalidou@gmail.com"
 			desc = "Why are you still here?"

@@ -411,10 +411,11 @@ var/list/all_supply_groups = list("Operations","Security","Hospitality","Enginee
 					/obj/item/weapon/reagent_containers/glass/bottle/antitoxin,
 					/obj/item/weapon/reagent_containers/glass/bottle/inaprovaline,
 					/obj/item/weapon/reagent_containers/glass/bottle/stoxin,
+					/obj/item/weapon/storage/pill_bottle/paracetamol,
 					/obj/item/weapon/storage/box/syringes,
 					/obj/item/weapon/storage/box/autoinjectors,
 					/obj/item/weapon/storage/box/bodybags)
-	cost = 19
+	cost = 20
 	containertype = /obj/structure/closet/crate/medical
 	containername = "Medical crate"
 	group = "Medical / Science"

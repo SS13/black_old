@@ -606,8 +606,8 @@ Auto Patrol: []"},
 
 			if(istype(C, /mob/living/carbon/human))
 				src.threatlevel = src.assess_perp(C)
-			else if((src.idcheck) && (istype(C, /mob/living/carbon/monkey)))
-				src.threatlevel = 4
+			//else if((src.idcheck) && (istype(C, /mob/living/carbon/monkey)))
+				//src.threatlevel = 4
 
 		else if(istype(M, /mob/living/simple_animal/hostile))
 			if(M.stat == DEAD)
@@ -688,7 +688,7 @@ Auto Patrol: []"},
 /obj/machinery/bot/secbot/Bump(M as mob|obj) //Leave no door unopened!
 	if((istype(M, /obj/machinery/door)) && (!isnull(src.botcard)))
 		var/obj/machinery/door/D = M
-		if(!istype(D, /obj/machinery/door/firedoor) && D.check_access(src.botcard))
+		if (!istype(D, /obj/machinery/door/firedoor) && D.check_access(src.botcard) && !istype(D,/obj/machinery/door/poddoor))
 			D.open()
 			src.frustration = 0
 	else if((istype(M, /mob/living/)) && (!src.anchored))

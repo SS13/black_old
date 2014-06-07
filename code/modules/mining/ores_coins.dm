@@ -92,19 +92,22 @@
 	var/comment = "Head!"
 	if(result == 1)
 		comment = "Head"
-		user.visible_message("<span class='notice'>[user] has flipped [src]. Catches it in the air. [comment]</span>")
+		user.visible_message("<span class='notice'>[user] has flipped [src]. They catch it in the air. [comment]</span>")
 		playsound(user.loc, 'sound/items/coinflip_caught.ogg', 40, 1)
 	if(result == 2)
 		comment = "Tail!"
-		user.visible_message("<span class='notice'>[user] has flipped [src]. Catches it in the air. [comment]</span>")
+		user.visible_message("<span class='notice'>[user] has flipped [src]. They catch it in the air. [comment]</span>")
 		playsound(user.loc, 'sound/items/coinflip_caught.ogg', 40, 1)
 	if(result == 3)
 		user.drop_item()
 		user.visible_message("<span class='notice'>[user] has flipped [src], but could not catch it! [src] lands on the floor! </span>")
-		playsound(user.loc, 'sound/items/coinflip_drop.ogg', 50, 1)
+		if(prob(50))
+			playsound(user.loc, 'sound/items/coinflip_drop.ogg', 40, 1)
+		else
+			playsound(user.loc, 'sound/items/coinflip_drop2.ogg', 40, 1)
 
 		spamcheck = 1
-	spawn(30)
+	spawn(40)
 		spamcheck = 0
 
 /obj/item/weapon/coin/New()
