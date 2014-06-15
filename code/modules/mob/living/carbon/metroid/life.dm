@@ -468,8 +468,8 @@
 			if(hungry || starving) //Only add to the list if we need to
 				for(var/mob/living/L in view(7,src))
 
-					//Ignore other slimes, dead mobs and simple_animals
-					if(isslime(L) || L.stat != CONSCIOUS || isanimal(L))
+					//Ignore other slimes, dead mobs
+					if(isslime(L) || L.stat != CONSCIOUS)
 						continue
 
 					if(issilicon(L))

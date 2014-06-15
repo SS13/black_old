@@ -406,6 +406,7 @@
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
+	item_state = "table_parts"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	m_amt = 3750
 

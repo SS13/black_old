@@ -121,8 +121,8 @@
  * Toy gun: Why isnt this an /obj/item/weapon/gun?
  */
 /obj/item/toy/gun
-	name = "cap gun"
-	desc = "There are 0 caps left. Looks almost like the real thing! Ages 8 and up. Please recycle in an autolathe when you're out of caps!"
+	name = "revolver" //Renamed to match the real one. Meta time!
+	desc = "There are 0 caps left. A plastic toy gun, made to look almost like the real thing, it can be easily mistaken for a real revolver. Ages 8 and up. Autolathe-recycable."
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "revolver"
 	item_state = "gun"
@@ -316,7 +316,7 @@
  * Toy swords
  */
 /obj/item/toy/sword
-	name = "toy sword"
+	name = "energy sword"//Renamed to match the real one. Laughs will be had
 	desc = "A cheap, plastic replica of an energy sword. Realistic sounds! Ages 8 and up."
 	icon = 'icons/obj/weapons.dmi'
 	icon_state = "sword0"

@@ -329,8 +329,9 @@ What a mess.*/
 			if ("Print Record")
 				if (!( printing ))
 					printing = 1
+					playsound(loc, 'sound/items/poster_being_created.ogg', 60, 1)
 					src.updateUsrDialog()
-					sleep(50)
+					sleep(40)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 					P.info = "<CENTER><B>Security Record</B></CENTER><BR>"
 					if ((istype(active1, /datum/data/record) && data_core.general.Find(active1)))
@@ -346,7 +347,8 @@ What a mess.*/
 					else
 						P.info += "<B>Security Record Lost!</B><BR>"
 					P.info += "</TT>"
-					P.name = "paper - 'Security Record'"
+					//P.name = "paper - 'Security Record'"
+					P.name = text("Security Record - '[]'", active1.fields["name"])
 					printing = null
 //RECORD DELETE
 			if ("Delete All Records")

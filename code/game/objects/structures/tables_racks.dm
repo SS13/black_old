@@ -462,7 +462,7 @@
 		usr << "<span class='notice'>It won't budge.</span>"
 	else
 		usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
-		playsound(loc, 'sound/weapons/tablehit1.ogg', 50, 1)
+		playsound(loc, 'sound/machines/door_close.ogg', 50, 1)
 
 		return
 

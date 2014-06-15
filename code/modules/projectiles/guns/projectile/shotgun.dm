@@ -55,8 +55,10 @@
 		pumped = 0
 		if(current_shell)//We have a shell in the chamber
 			current_shell.loc = get_turf(src)//Eject casing
+			current_shell.SpinAnimation(5, 1)
+			current_shell.icon_state = "[current_shell.icon_state]-spent"//This should change casing sprite to that of a spent one
 			current_shell = null
-			sleep(8)//So next sound won't get muffled
+			sleep(3)//So next sound won't get muffled
 			playsound(M, 'sound/weapons/shotgunshelldrop.ogg', 60, 1)
 			if(in_chamber)
 				in_chamber = null
@@ -107,6 +109,7 @@
 		var/obj/item/ammo_casing/AC = loaded[1] //load next casing.
 		loaded -= AC //Remove casing from loaded list.
 		AC.desc += " This one is spent."
+		AC.icon_state = "[AC.icon_state]-spent"//This should change casing sprite to that of a spent one
 
 		if(AC.BB)
 			in_chamber = AC.BB //Load projectile into chamber.

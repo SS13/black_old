@@ -16,6 +16,7 @@
 	desc = "Retracts stuff."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "retractor"
+	item_state = "spoon"
 	m_amt = 10000
 	g_amt = 5000
 	flags = FPRINT | TABLEPASS | CONDUCT
@@ -130,6 +131,7 @@ LOOK FOR SURGERY.DM*/
 	desc = "You think you have seen this before."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "hemostat"
+	item_state = "spoon"
 	m_amt = 5000
 	g_amt = 2500
 	flags = FPRINT | TABLEPASS | CONDUCT
@@ -265,6 +267,7 @@ LOOK FOR SURGERY.DM*/
 	desc = "This stops bleeding."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "cautery"
+	item_state = "spoon"
 	m_amt = 5000
 	g_amt = 2500
 	flags = FPRINT | TABLEPASS | CONDUCT
@@ -796,6 +799,7 @@ LOOK FOR SURGERY.DM*/
 	name = "bone gel"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone-gel"
+	item_state = "brutepack"
 	force = 0
 	w_class = 2.0
 	throwforce = 1.0
@@ -804,6 +808,7 @@ LOOK FOR SURGERY.DM*/
 	name = "FixOVein"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "fixovein"
+	item_state = "brutepack"
 	force = 0
 	throwforce = 1.0
 	origin_tech = "materials=1;biotech=3"
@@ -814,6 +819,7 @@ LOOK FOR SURGERY.DM*/
 	name = "bone setter"
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "bone setter"
+	item_state = "spoon"
 	force = 8.0
 	throwforce = 9.0
 	throw_speed = 3

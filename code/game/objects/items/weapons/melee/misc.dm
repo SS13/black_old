@@ -26,7 +26,8 @@ obj/item/weapon/melee/scourge
 	throwforce = 1
 	w_class = 2
 	origin_tech = "combat=1"
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined", "punished", "chastise", "penalized")
+	attack_verb = list("flogged", "whipped", "lashed", "disciplined", "punished", "chastised", "penalized")
+	hitsound = 'sound/effects/snap.ogg'
 
 	suicide_act(mob/user)
 		viewers(user) << "\red <b>[user] is strangling \himself with the [src.name]! It looks like \he's trying to commit suicide.</b>"
@@ -34,7 +35,7 @@ obj/item/weapon/melee/scourge
 
 obj/item/weapon/melee/scourge/whip
 	name = "archeological whip"
-	desc = "Legend says ancient archeologists never left home without such a thing, Weird, right?"
+	desc = "Legend says ancient archeologists never left home without such a thing. Weird, right?"
 	icon_state = "indianawhip"
 	item_state = "scourge"
 	attack_verb = list("flogged", "whipped", "lashed")

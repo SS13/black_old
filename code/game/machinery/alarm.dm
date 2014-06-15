@@ -1477,7 +1477,7 @@ FIRE ALARM
 	return
 
 /obj/machinery/firealarm/proc/reset()
-	if (!( src.working ))
+	if (stat & (NOPOWER|BROKEN)) // can't reset alarm if it's unpowered or broken.
 		return
 	var/area/A = src.loc
 	A = A.loc
@@ -1488,7 +1488,7 @@ FIRE ALARM
 	return
 
 /obj/machinery/firealarm/proc/alarm()
-	if (!( src.working ))
+	if (stat & (NOPOWER|BROKEN))  // can't activate alarm if it's unpowered or broken.
 		return
 	var/area/A = src.loc
 	A = A.loc

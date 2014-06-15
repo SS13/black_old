@@ -1,5 +1,7 @@
 /obj/structure/girder
 	icon_state = "girder"
+	name = "girder"
+	desc = "A regular girder, base for a wall."
 	anchored = 1
 	density = 1
 	layer = 2
@@ -193,11 +195,15 @@
 		return
 
 /obj/structure/girder/displaced
+	name = "displaced girder"
+	desc = "Looks like a regular girder, but screws are visibly loose"
 	icon_state = "displaced"
 	anchored = 0
 	health = 50
 
 /obj/structure/girder/reinforced
+	name = "reinforced girder"
+	desc = "Looks like a regular girder, but made sturdier. This is a base of a reinforced wall"
 	icon_state = "reinforced"
 	state = 2
 	health = 400
