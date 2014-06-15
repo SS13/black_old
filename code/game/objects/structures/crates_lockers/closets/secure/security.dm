@@ -201,6 +201,7 @@
 		//new /obj/item/clothing/tie/storage/brown_vest(src)
 		//new /obj/item/clothing/head/soft/sec/corp(src)
 		//new /obj/item/clothing/head/beret/sec(src)
+		new /obj/item/clothing/head/beret/centcom/officer(src)
 		new /obj/item/clothing/under/rank/security/navy(src)
 		return
 
