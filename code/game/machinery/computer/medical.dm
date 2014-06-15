@@ -22,6 +22,15 @@
 /obj/machinery/computer/med_data/attack_paw(user as mob)
 	return src.attack_hand(user)
 
+/obj/machinery/computer/med_data/attackby(obj/item/O as obj, user as mob)
+	if(istype(O, /obj/item/weapon/card/id) && !scan)
+		usr.drop_item()
+		O.loc = src
+		scan = O
+		user << "You insert [O]."
+	else
+		..()
+
 /obj/machinery/computer/med_data/attack_hand(mob/user as mob)
 	if(..())
 		return
@@ -463,7 +472,8 @@
 			if (href_list["print_p"])
 				if (!( src.printing ))
 					src.printing = 1
-					sleep(50)
+					playsound(loc, 'sound/items/poster_being_created.ogg', 60, 1)
+					sleep(40)
 					var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( src.loc )
 					P.info = "<CENTER><B>Medical Record</B></CENTER><BR>"
 					if ((istype(src.active1, /datum/data/record) && data_core.general.Find(src.active1)))
@@ -479,7 +489,8 @@
 					else
 						P.info += "<B>Medical Record Lost!</B><BR>"
 					P.info += "</TT>"
-					P.name = "paper- 'Medical Record'"
+					//P.name = "paper- 'Medical Record'"
+					P.name = text("Medical Record - '[]'", active1.fields["name"])
 					src.printing = null
 
 	src.add_fingerprint(usr)

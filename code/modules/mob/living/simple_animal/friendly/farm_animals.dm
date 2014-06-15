@@ -109,7 +109,7 @@
 
 /mob/living/simple_animal/cow/New()
 	udder = new(50)
-	speak_chance =rand(1,2)
+	speak_chance = 2
 	udder.my_atom = src
 	..()
 

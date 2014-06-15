@@ -118,6 +118,8 @@
 	new /obj/item/clothing/under/roman(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/helmet/roman , /obj/item/clothing/head/helmet/roman/legionaire )
 	new CHOICE(src.loc)
+	if (prob(50))
+		new /obj/item/weapon/shield/riot/roman(src.loc)
 	del(src)
 
 /obj/effect/landmark/costume/madscientist/New()

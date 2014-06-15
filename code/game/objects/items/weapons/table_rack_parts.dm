@@ -18,12 +18,13 @@
 		//SN src = null
 		del(src)
 	if (istype(W, /obj/item/stack/rods))
-		if (W:amount >= 4)
+		var/obj/item/stack/rods/R = W
+		if (R.amount >= 4)
 			new /obj/item/weapon/table_parts/reinforced( user.loc )
 			user << "\blue You reinforce the [name]."
-			W:use(4)
+			R.use(4)
 			del(src)
-		else if (W:amount < 4)
+		else if (R.amount < 4)
 			user << "\red You need at least four rods to do this."
 
 /obj/item/weapon/table_parts/attack_self(mob/user as mob)

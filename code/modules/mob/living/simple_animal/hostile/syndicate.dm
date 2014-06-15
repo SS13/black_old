@@ -5,19 +5,19 @@
 	icon_living = "syndicate"
 	icon_dead = "syndicate_dead"
 	icon_gib = "syndicate_gib"
-	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes the"
 	response_disarm = "shoves the"
 	response_harm = "hits the"
 	speed = 4
 	stop_automated_movement_when_pulled = 0
-	maxHealth = 140
-	health = 140
+	maxHealth = 120
+	health = 120
 	harm_intent_damage = 5
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	attacktext = "punches"
+	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = "harm"
 	var/corpse = /obj/effect/landmark/mobcorpse/syndicatesoldier
 	var/weapon1
@@ -30,10 +30,17 @@
 	max_co2 = 5
 	min_n2 = 0
 	max_n2 = 0
+	minbodytemp = 230	//Below -50 Degrees Celcius
+	maxbodytemp = 400	//Above 50 Degrees Celcius
 	unsuitable_atoms_damage = 15
 	wall_smash = 1
 	faction = "syndicate"
 	status_flags = CANPUSH
+	speak = list("Death to Nanotrasen!","I hate NT scum!","I wish I was somwhere else.","Can't wait to kick some Nanotrasen ass!","Huh.","Hail Syndicate!","Only good Nanotrasen employee is a dead one.","Huh?","Those Nanotrasen dogs are as good as dead.","I once beat a NT employee to death with my bare arms.","I’m here to kick ass and chew ambrosia leaves and I’m all out of ambrosia")
+	speak_emote = list("says")
+	emote_hear = list("says")
+	emote_see = list("grunts","shrugs","yawns","chuckles","sighs","coughs","looks around")
+	speak_chance = 2
 
 /mob/living/simple_animal/hostile/syndicate/Die()
 	..()
@@ -57,6 +64,7 @@
 	weapon2 = /obj/item/weapon/shield/energy
 	attacktext = "slashes"
 	status_flags = 0
+	attack_sound = 'sound/weapons/bladeslice.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	if(O.force)
@@ -147,6 +155,10 @@
 	attacktext = "cuts"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = "syndicate"
+	speak = list("Bzzzt")
+	speak_emote = list("beeps","buzzes")
+	emote_hear = list("beeps")
+	emote_see = list("buzzes","beeps")
 	min_oxy = 0
 	max_oxy = 0
 	min_tox = 0
