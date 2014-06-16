@@ -462,7 +462,7 @@
 
 /obj/item/clothing/under/waffen
 	name = "Das Offiziersuniform"
-	desc = "Eine einheitliche bekannt in der ganzen Galaxie. Marsch u"ber La"nder, Minderheiten auszurotten! Heil Kapitan!"
+	desc = "Eine einheitliche bekannt in der ganzen Galaxie. Marsch uber Lander, Minderheiten auszurotten! Heil Kapitan!"
 	icon_state = "waffen"
 	item_state = "bl_suit"
 	item_color = "waffen"
