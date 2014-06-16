@@ -112,6 +112,13 @@
 	flags = FPRINT|TABLEPASS
 	flags_inv = 0
 
+/obj/item/clothing/head/waffen
+	name = "Das Offizierskappe"
+	desc = "Eine herrliches Stuck von Kopfbedeckungen"
+	icon_state = "waffen"
+	item_state = "waffen"
+	flags = FPRINT|TABLEPASS
+
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
 	desc = "A helmet made out of a box."

@@ -57,7 +57,7 @@
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 3
+	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	alt_titles = list("Security Lieutenant","Security Assistant Chief")
@@ -97,7 +97,7 @@
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
-	spawn_positions = 2
+	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	alt_titles = list("Forensic Technician")
@@ -147,7 +147,7 @@
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 5
-	spawn_positions = 9
+	spawn_positions = 5
 	supervisors = "the head of security and superior officers"
 	selection_color = "#ffeeee"
 	alt_titles = list("Security Cadet","Security Corporal","Security Sergeant","Security Master Sergeant")
