@@ -449,10 +449,28 @@
 	attackby(obj/item/weapon/match/W as obj, mob/user as mob)
 		if(istype(W, /obj/item/weapon/match) && W.lit == 0)
 			W.lit = 1
+			W.luminosity = 1
 			W.icon_state = "match_lit"
 			processing_objects.Add(W)
 		W.update_icon()
 		return
+
+
+/obj/item/weapon/match/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	if(!istype(M, /mob))
+		return
+
+	if(istype(M.wear_mask, /obj/item/clothing/mask/cigarette) && user.zone_sel.selecting == "mouth" && lit)
+		var/obj/item/clothing/mask/cigarette/cig = M.wear_mask
+		if(!src.lit)
+			return
+		else
+			if(M == user)
+				cig.attackby(src, user)
+			else
+				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights the [cig.name].</span>")
+	else
+		..()
 
 /obj/item/weapon/storage/box/autoinjectors
 	name = "box of injectors"

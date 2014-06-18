@@ -1682,6 +1682,15 @@ datum/design/science_hud
 	materials = list("$metal" = 300, "$glass" = 200, "$silver" = 50)
 	build_path = "/obj/item/clothing/mask/gas/sechailer/officer"
 
+/datum/design/modkit
+	name = "hardsuit modification kit"
+	desc = "A kit containing all the needed tools and parts to modify a hardsuit for another species. This one looks like it's meant for Tajara."
+	id = "modkit"
+	req_tech = list("materials" = 2, "magnets" = 1)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 5000, "$gold" = 100, "$silver" = 100)
+	build_path = "/obj/item/weapon/modkit/tajaran"
+
 /////////////////////////////////////////
 //////////////Borg Upgrades//////////////
 /////////////////////////////////////////

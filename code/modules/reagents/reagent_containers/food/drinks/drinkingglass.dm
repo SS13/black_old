@@ -4,6 +4,7 @@
 	name = "glass"
 	desc = "Your standard drinking glass."
 	icon_state = "glass_empty"
+	item_state = "beaker"
 	health = 5.0
 	amount_per_transfer_from_this = 10
 	volume = 50

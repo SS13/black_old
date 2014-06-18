@@ -1002,19 +1002,6 @@ Auto Patrol: []"},
 					user << "<span class='notice'>Taser gun attached.</span>"
 
 		if(9)
-			if( istype(W, /obj/item/weapon/melee/baton) )
-				playsound(src.loc, 'sound/items/ratchet.ogg', 100, 1)
-				var/turf/T = get_turf(user)
-				user << "<span class='notice'>Now attaching the stun baton to the frame...</span>"
-				sleep(30)
-				if(get_turf(user) == T)
-					build_step++
-					name = "armed [name]"
-					user << "<span class='notice'>Stun baton attached.</span>"
-					user.drop_item()
-					del(W)
-
-		if(10)
 			if( istype(W, /obj/item/weapon/cell) )
 				build_step++
 				user << "<span class='notice'>You complete the ED-209.</span>"

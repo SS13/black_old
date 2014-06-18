@@ -52,7 +52,7 @@
 
 
 /datum/job/warden
-	title = "Warden"
+	title = "Security Lieutenant"
 	flag = WARDEN
 	department_flag = ENGSEC
 	faction = "Station"
@@ -60,7 +60,7 @@
 	spawn_positions = 1
 	supervisors = "the head of security"
 	selection_color = "#ffeeee"
-	alt_titles = list("Security Lieutenant","Security Assistant Chief")
+	alt_titles = list("Security Assistant Chief")
 	access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels, access_morgue)
 	minimal_access = list(access_security, access_sec_doors, access_brig, access_armory, access_court, access_maint_tunnels)
 	minimal_player_age = 7
@@ -166,6 +166,8 @@
 		H.equip_to_slot_or_del(new /obj/item/device/pda/security(H), slot_belt)
 		H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_s_store)
 		H.equip_to_slot_or_del(new /obj/item/device/flash(H), slot_l_store)
+		if(H.mind.role_alt_title && H.mind.role_alt_title == "Security Cadet")
+			H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/dispatch(H), slot_w_uniform)
 		if(H.backbag == 1)
 			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
 			H.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(H), slot_l_hand)
