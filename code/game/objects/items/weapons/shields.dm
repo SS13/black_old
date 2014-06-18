@@ -19,6 +19,7 @@
 	origin_tech = "materials=2"
 	attack_verb = list("shoved", "bashed")
 	var/cooldown = 0 //shield bash cooldown. based on world.time
+	hitsound = 'sound/items/trayhit1.ogg'
 
 	IsShield()
 		return 1
