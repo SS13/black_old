@@ -31,6 +31,7 @@
 
 		M << "\red <B>BANG</B>"
 		playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
+		new/obj/effect/explosion(src.loc)
 
 //Checking for protections
 		var/eye_safety = 0

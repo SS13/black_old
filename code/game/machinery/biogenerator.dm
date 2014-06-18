@@ -108,12 +108,12 @@
 					dat += "<A href='?src=\ref[src];action=create;item=shoes;cost=300'>Shoes</A> <FONT COLOR=blue>(300)</FONT><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=satchel;cost=500'>Leather Satchel</A> <FONT COLOR=blue>(500)</FONT><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=briefcase;cost=1000'>Leather Briefcase</A> <FONT COLOR=blue>(1000)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=holster;cost=1300'>Holster</A> <FONT COLOR=blue>(1300)</FONT><BR>"
 					//dat += "Other<BR>"
 					//dat += "<A href='?src=\ref[src];action=create;item=monkey;cost=500'>Monkey</A> <FONT COLOR=blue>(500)</FONT><BR>"
 					if (emagged)
 						dat += "<A href='?src=\ref[src];action=create;item=muzzle;cost=350'>Muzzle</A> <FONT COLOR=blue>(350)</FONT><BR>"
 						dat += "<A href='?src=\ref[src];action=create;item=blindfold;cost=300'>Blindfold</A> <FONT COLOR=blue>(300)</FONT><BR>"
-						dat += "<A href='?src=\ref[src];action=create;item=holster;cost=700'>Holster</A> <FONT COLOR=blue>(700)</FONT><BR>"
 
 
 				else

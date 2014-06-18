@@ -272,9 +272,10 @@
 	name = "tray"
 	icon = 'icons/obj/food.dmi'
 	icon_state = "tray"
+	item_state = "tile"
 	desc = "A metal tray to lay food on."
-	throwforce = 12.0
-	throwforce = 10.0
+	force = 12.0
+	throwforce = 10.0 //Ooh, used to be 12-10, both throwforce
 	throw_speed = 1
 	throw_range = 5
 	w_class = 3.0

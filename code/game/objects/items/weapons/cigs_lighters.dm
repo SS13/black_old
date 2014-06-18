@@ -32,6 +32,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(smoketime < 1)
 		icon_state = "match_burnt"
 		lit = -1
+		luminosity = 0
 		processing_objects.Remove(src)
 		return
 	if(location)
@@ -41,6 +42,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 /obj/item/weapon/match/dropped(mob/user as mob)
 	if(lit == 1)
 		lit = -1
+		luminosity = 0
 		damtype = "brute"
 		icon_state = "match_burnt"
 		item_state = "cigoff"

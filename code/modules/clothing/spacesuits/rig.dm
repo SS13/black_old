@@ -5,6 +5,9 @@
 	desc = "A kit containing all the needed tools and parts to modify a hardsuit for another species. This one looks like it's meant for Tajara."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "royce_kit"
+	item_state = "electropack"
+	m_amt = 400
+	g_amt = 50
 
 /obj/item/clothing/head/helmet/space/rig/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I,/obj/item/weapon/modkit/tajaran))
