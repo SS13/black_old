@@ -1005,13 +1005,17 @@ datum/supply_packs/riotadvanced
 					/obj/item/clothing/under/suit_jacket/female,
 					/obj/item/clothing/under/suit_jacket/really_black,
 					/obj/item/clothing/under/suit_jacket/red,
+					/obj/item/clothing/under/sl_suit,
+					/obj/item/clothing/shoes/laceup,
 					/obj/item/clothing/shoes/black,
-					/obj/item/clothing/shoes/black,
+					/obj/item/clothing/tie,
+					/obj/item/clothing/tie/black,
+					/obj/item/clothing/tie/red,
 					/obj/item/clothing/suit/wcoat)
 	name = "Formalwear closet"
 	cost = 30
 	containertype = /obj/structure/closet
-	containername = "Formalwear for the best occasions."
+	containername = "Formalwear closet"
 	group = "Operations"
 
 /datum/supply_packs/rust_injector
