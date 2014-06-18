@@ -39,6 +39,9 @@
 		icon_state = "rack_combat"
 		src.add_fingerprint(usr)
 		update_icon()
+		for(var/mob/M in viewers(src, null))
+			if(M.client)
+				M.show_message(text("\blue [user] puts his shotgun onto the rack."), 2)
 
 	if ( istype(W,/obj/item/weapon/gun/projectile/shotgun/pump) && !gun)
 		user.drop_item()
@@ -47,6 +50,9 @@
 		icon_state = "rack_pump"
 		src.add_fingerprint(usr)
 		update_icon()
+		for(var/mob/M in viewers(src, null))
+			if(M.client)
+				M.show_message(text("\blue [user] puts his shotgun onto the rack."), 2)
 
 	if ( istype(W,/obj/item/weapon/gun/projectile/shotgun/doublebarrel/shorty) && !gun)
 		user.drop_item()
@@ -55,6 +61,9 @@
 		icon_state = "rack_cerber"
 		src.add_fingerprint(usr)
 		update_icon()
+		for(var/mob/M in viewers(src, null))
+			if(M.client)
+				M.show_message(text("\blue [user] puts his shotgun onto the rack."), 2)
 
 	if ( istype(W,/obj/item/weapon/gun/projectile/shotgun/doublebarrel) && !gun)
 		user.drop_item()
@@ -63,6 +72,9 @@
 		icon_state = "rack_dbarrel"
 		src.add_fingerprint(usr)
 		update_icon()
+		for(var/mob/M in viewers(src, null))
+			if(M.client)
+				M.show_message(text("\blue [user] puts his shotgun onto the rack."), 2)
 
 	if ( istype(W, /obj/item/weapon/wrench))
 		if(gun)
