@@ -4,6 +4,7 @@
 	icon_state = "energystun100"
 	item_state = null	//so the human update icon uses the icon_state instead.
 	fire_sound = 'sound/weapons/Taser.ogg'
+	var/screwdrived = 0
 
 	charge_cost = 100 //How much energy is needed to fire.
 	projectile_type = "/obj/item/projectile/energy/electrode"
@@ -16,22 +17,56 @@
 	attack_self(mob/living/user as mob)
 		switch(mode)
 			if(0)
-				mode = 1
-				charge_cost = 100
-				fire_sound = 'sound/weapons/Laser.ogg'
-				user << "\red [src.name] is now set to kill."
-				projectile_type = "/obj/item/projectile/beam"
-				modifystate = "energykill"
+				if (screwdrived)
+					if(prob(20))
+						user.drop_item()
+						explosion(src.loc,0,0,2,2)	//Yeah, these niggas don't mess around - check your weapons before you rechannel energy!
+						user.visible_message("<span class='notice'>[user]'s [src] makes odd electronic noize and blows up!</span>")
+						new /obj/item/weapon/brokenegun(user.loc)
+						del(src)
+
+				else
+					mode = 1
+					charge_cost = 100
+					fire_sound = 'sound/weapons/Laser.ogg'
+					user << "\red [src.name] is now set to kill."
+					playsound(src.loc, 'sound/weapons/Safety.ogg', 50, 1)
+					user.visible_message("\blue [user] clicks a switch on their [src.name]!")
+					projectile_type = "/obj/item/projectile/beam"
+					modifystate = "energykill"
 			if(1)
-				mode = 0
-				charge_cost = 100
-				fire_sound = 'sound/weapons/Taser.ogg'
-				user << "\red [src.name] is now set to stun."
-				projectile_type = "/obj/item/projectile/energy/electrode"
-				modifystate = "energystun"
+				if (screwdrived)
+					if(prob(20))
+						user.drop_item()
+						explosion(src.loc,0,0,2,2)
+						user.visible_message("<span class='notice'>[user]'s [src] makes odd electronic noize and blows up!</span>")
+						new /obj/item/weapon/brokenegun(user.loc)
+						del(src)
+
+				else
+					mode = 0
+					charge_cost = 100
+					fire_sound = 'sound/weapons/Taser.ogg'
+					user << "\red [src.name] is now set to stun."
+					playsound(src.loc, 'sound/weapons/Safety.ogg', 50, 1)
+					user.visible_message("\blue [user] clicks a switch on their [src.name]!")
+					projectile_type = "/obj/item/projectile/energy/electrode"
+					modifystate = "energystun"
 		update_icon()
 
+/obj/item/weapon/gun/energy/gun/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/screwdriver))
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 40, 1)
+		user.visible_message("\red [user] [screwdrived ? "put in place" : "unscrewed"] [src] power capacitor regulator with [W]!")
+		screwdrived = !screwdrived
+		charge_cost = rand(50,300)	//Every time you mess with the capacitor, it messes up charge per shot. Bolts have same power bacause magic
+	return
 
+/obj/item/weapon/gun/energy/gun/examine()
+	..()
+	if (screwdrived)
+		usr << "Power capacitor regulator looks tampered with."
+		return
 
 /obj/item/weapon/gun/energy/gun/nuclear
 	name = "Advanced Energy Gun"

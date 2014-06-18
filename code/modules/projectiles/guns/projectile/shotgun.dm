@@ -33,14 +33,33 @@
 		return
 
 
+	attackby(var/obj/item/A as obj, mob/user as mob)
+		if(istype(A, /obj/item/weapon/surgicaldrill) || istype(A, /obj/item/weapon/melee/energy) || istype(A, /obj/item/weapon/pickaxe/plasmacutter))
+			user << "<span class='notice'>You begin to extend the tube magazine of \the [src].</span>"
+			if(loaded.len)
+				afterattack(user, user)
+				afterattack(user, user)
+				playsound(user, fire_sound, 50, 1)
+				user.visible_message("<span class='danger'>The shotgun goes off!</span>", "<span class='danger'>The shotgun goes off in your face!</span>")
+				return
+			if(do_after(user, 60))
+				icon_state = "shotgun+ammo"
+				max_shells = 5
+				update_icon()
+				desc = "Useful for sweeping alleys. This one looks to be modified to take one additional shell."
+				user << "<span class='warning'>You extend the tube nagazine of \the [src]!</span>"
+
+
 	proc/pump(mob/M as mob)
 		playsound(M, 'sound/weapons/shotgunpump.ogg', 60, 1)
 		pumped = 0
 		if(current_shell)//We have a shell in the chamber
 			current_shell.loc = get_turf(src)//Eject casing
+			current_shell.SpinAnimation(5, 1)
+			current_shell.icon_state = "[current_shell.icon_state]-spent"//This should change casing sprite to that of a spent one
 			current_shell = null
-			sleep(10)//So next sound won't get muffled
-			playsound(M, 'sound/weapons/shotgunshelldrop.ogg', 50, 1)
+			sleep(3)//So next sound won't get muffled
+			playsound(M, 'sound/weapons/shotgunshelldrop.ogg', 60, 1)
 			if(in_chamber)
 				in_chamber = null
 		if(!loaded.len)	return 0
@@ -90,6 +109,7 @@
 		var/obj/item/ammo_casing/AC = loaded[1] //load next casing.
 		loaded -= AC //Remove casing from loaded list.
 		AC.desc += " This one is spent."
+		AC.icon_state = "[AC.icon_state]-spent"//This should change casing sprite to that of a spent one
 
 		if(AC.BB)
 			in_chamber = AC.BB //Load projectile into chamber.
@@ -138,23 +158,23 @@
 				name = "sawn-off shotgun"
 				desc = "Omar's coming!"
 				user << "<span class='warning'>You shorten the barrel of \the [src]!</span>"
-		if(istype(A, /obj/item/weapon/reagent_containers/food/snacks/grown/potato))
-			user.visible_message("<span class='danger'>[user] begins stuffing potatoes into the barrel of \the [src]!</span>")
-			user << "<span class='notice'>You begin stuffing potatoes in the barrel \the [src].</span>"
-			if(do_after(user, 30))
-				potato = 1
-				del(A)
 		if(istype(A, /obj/item/stack/rods))
 			user.visible_message("<span class='danger'>[user] begins cleaning the barrel of \the [src]!</span>")
 			user << "<span class='notice'>You begin cleaning the barrel of \the [src].</span>"
-			if(do_after(user, 30))
-				if (potato)
-					potato = 0
-					user.visible_message("<span class='danger'>A potato falls out of the barrel!</span>")
+			if(do_after(user, 50))
+				if (prob(1))
+					user.visible_message("<span class='danger'>A potato falls out of the barrel!</span>") //I don't know why I still hasn't deleted this. It's hillarious!
 					new /obj/item/weapon/reagent_containers/food/snacks/grown/potato(src.loc)
 
-				else
-					potato = 0
+/obj/item/weapon/gun/projectile/shotgun/doublebarrel/singlebarrel //Meh, too lazy to do it otherwise
+	name = "single-barelled shotgun"
+	desc = "A simple, yet deadly handmade firearm, only housing one round. It's missing a sling, so you can't put it on you back."
+	icon_state = "handmadeshotgun"
+	item_state = "shotgun"
+	max_shells = 1
+	flags =  FPRINT | TABLEPASS | CONDUCT | USEDELAY
+	caliber = "shotgun"
+	ammo_type = "null"
 
 
 /obj/item/weapon/gun/projectile/shotgun/doublebarrel/shorty
@@ -166,3 +186,4 @@
 	flags =  FPRINT | TABLEPASS | CONDUCT | USEDELAY
 	slot_flags = SLOT_BELT
 	caliber = "shotgun"
+	ammo_type = "/obj/item/ammo_casing/shotgun"

@@ -85,3 +85,4 @@
 		if(lit)
 			user.SetLuminosity(user.luminosity - CANDLE_LUM)
 			SetLuminosity(CANDLE_LUM)
+

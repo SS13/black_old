@@ -82,6 +82,11 @@
 	name = "wooden comfy chair"
 	desc = "A wery comfortable wooden chair with butt-softening padding for you seating pleasure. Luxurious."
 
+/obj/structure/stool/bed/chair/wood/bench
+	icon_state = "capchair"
+	name = "wooden bench"
+	desc = "A rather tasteless wooden bench. Somebody failed very much at carving."
+
 /obj/structure/stool/bed/chair/wood/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)

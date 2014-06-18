@@ -239,6 +239,41 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	//Maybe in the future we can add more <i>spooky</i> code here!
 	return
 
+/mob/dead/observer/verb/smudgeash()
+	set category = "Ghost"
+	set name = "Smudge a pile of ash"
+	set desc= "Smudge a pile of ash. Ooooh, spiritism!"
+
+	if(bootime > world.time) return
+	var/obj/effect/decal/cleanable/ash/A = locate(/obj/effect/decal/cleanable/ash) in view(1, src)
+	if(A)
+		bootime = world.time + 200
+		new /obj/effect/decal/cleanable/dirt(A.loc)
+		for(var/mob/O in hearers(src, null))
+			O.show_message("\blue A sudden gust of wind smudges the pile of ash...", 5)
+		del(A)
+		return
+
+/mob/dead/observer/verb/blowout()
+	set name = "Blow Out Candle"
+	set desc= "Blow out a nearby candle. Ooooh, misticism!"
+	set category = "Ghost"
+
+
+	if(bootime > world.time) return
+	var/obj/item/candle/C = locate(/obj/item/candle) in view(1, src)
+	if(C)
+		bootime = world.time + 100
+		if (C.lit)
+			C.lit = 0
+			C.update_icon()
+			C.SetLuminosity(0)
+			for(var/mob/O in hearers(src, null))
+				O.show_message("\blue A sudden gust of wind puts the candle out...", 5)
+	else
+		return
+	return
+
 /mob/dead/observer/memory()
 	set hidden = 1
 	src << "\red You are dead! You have no mind to store memory!"

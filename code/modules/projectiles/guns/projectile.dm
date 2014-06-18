@@ -42,10 +42,12 @@
 	if(isnull(AC) || !istype(AC))
 		return 0
 	AC.loc = get_turf(src) //Eject casing onto ground.
-	sleep(5)//So next sound won't get muffled
+	AC.SpinAnimation(10, 1) //next gen special effects
+	sleep(3)//So next sound won't get muffled
 	playsound(src, 'sound/weapons/bulletcasingdrop.ogg', 50, 1)
 	if(AC.BB)
 		AC.desc += " This one is spent."	//descriptions are magic - only when there's a projectile in the casing
+		AC.icon_state = "s-casing-spent"//This should change casing sprite to that of a spent one
 		in_chamber = AC.BB //Load projectile into chamber.
 		AC.BB.loc = src //Set projectile loc to gun.
 		return 1
@@ -79,7 +81,7 @@
 			num_loaded++
 	if(num_loaded)
 		user << "\blue You load [num_loaded] shell\s into the gun!"
-		playsound(A, 'sound/weapons/bulletinchamber.ogg', 50, 1)
+		playsound(src, 'sound/weapons/bulletinchamber.ogg', 50, 1)
 	A.update_icon()
 	update_icon()
 	return
@@ -92,6 +94,7 @@
 			var/obj/item/ammo_casing/AC = loaded[1]
 			loaded -= AC
 			AC.loc = get_turf(src) //Eject casing onto ground.
+			AC.SpinAnimation(10, 1) //next gen special effects
 			user << "\blue You unload shell from \the [src]!"
 			playsound(src, 'sound/weapons/bulletcasingdrop.ogg', 50, 1)
 		if (load_method == MAGAZINE)

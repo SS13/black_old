@@ -158,16 +158,6 @@ obj/item/weapon/gun/energy/staff
 	update_icon()
 		return
 
-
-/obj/item/weapon/gun/energy/meteorgun/pen
-	name = "meteor pen"
-	desc = "The pen is mightier than the sword."
-	icon = 'icons/obj/bureaucracy.dmi'
-	icon_state = "pen"
-	item_state = "pen"
-	w_class = 1
-
-
 /obj/item/weapon/gun/energy/mindflayer
 	name = "mind flayer"
 	desc = "A prototype weapon recovered from the ruins of Research-Station Epsilon."

@@ -118,6 +118,8 @@
 	new /obj/item/clothing/under/roman(src.loc)
 	var/CHOICE = pick( /obj/item/clothing/head/helmet/roman , /obj/item/clothing/head/helmet/roman/legionaire )
 	new CHOICE(src.loc)
+	if (prob(50))
+		new /obj/item/weapon/shield/riot/roman(src.loc)
 	del(src)
 
 /obj/effect/landmark/costume/madscientist/New()
@@ -170,6 +172,25 @@
 	new /obj/item/weapon/melee/scourge(src.loc)
 	new /obj/item/clothing/shoes/jackboots(src.loc)
 	new	/obj/item/clothing/gloves/black(src.loc)
+	del(src)
+
+/obj/effect/landmark/costume/dominator/New()
+	new /obj/item/clothing/under/prosecutor_suit(src.loc)
+	new /obj/item/weapon/melee/scourge(src.loc)
+	new	/obj/item/clothing/gloves/black(src.loc)
+	new /obj/item/clothing/under/snmsuit(src.loc)
+	new /obj/item/clothing/mask/muzzle/ballgag(src.loc)
+	del(src)
+
+/obj/effect/landmark/costume/sexynurse/New()
+	new /obj/item/clothing/under/rank/nurse/nursenew(src.loc)
+	new /obj/item/clothing/gloves/nylon(src.loc)
+	new	/obj/item/clothing/head/nursehat(src.loc)
+	del(src)
+
+/obj/effect/landmark/costume/gaylordmcfaggot/New()
+	new /obj/item/clothing/under/stripper/mankini(src.loc)
+	new /obj/item/clothing/glasses/sunglasses/hip(src.loc)
 	del(src)
 
 /obj/effect/landmark/costume/scratch/New()
@@ -287,10 +308,18 @@
 	del(src)
 
 /obj/effect/landmark/costume/nazi/New()
-	new/obj/item/clothing/under/brown(src.loc)
-	new/obj/item/clothing/tie/armband(src.loc)
-	if(prob(10))
+	new/obj/item/clothing/under/waffen(src.loc)
+	new/obj/item/clothing/head/waffen(src.loc)
+	if(prob(50))
 		new/obj/item/clothing/shoes/jackboots
+	del(src)
+
+/obj/effect/landmark/costume/vampire/New()
+	new/obj/item/clothing/suit/charcoalcoat(src.loc)
+	new/obj/item/clothing/head/that(src.loc)
+	new/obj/item/clothing/shoes/leather(src.loc)
+	new/obj/item/weapon/reagent_containers/food/snacks/grown/bloodtomato(src.loc)
+	new/obj/item/clothing/mask/vampire(src.loc)
 	del(src)
 
 /obj/effect/landmark/costume/xenos/New()

@@ -460,24 +460,9 @@
 	item_state = "w_suit"
 	item_color = "xenorobe"
 
-/*
- *Star Wars
- */
-
-/obj/item/clothing/under/rebel
-	name = "Rebel Jumpsuit"
-	icon_state = "rebel"
-	item_state = "rebel"
-	item_color = "rebel"
-
-/obj/item/clothing/under/rebel_pilot
-	name = "Rebel pilot Jumpsuit"
-	icon_state = "rebel_pilot"
-	item_state = "rebel_pilot"
-	item_color = "rebel_pilot"
-
-/obj/item/clothing/under/imperial_officer
-	name = "Imperial offiser Jumpsuit"
-	icon_state = "imp_officer"
-	item_state = "imp_officer"
-	item_color = "imp_officer"
+/obj/item/clothing/under/waffen
+	name = "Das Offiziersuniform"
+	desc = "Eine einheitliche bekannt in der ganzen Galaxie. Marsch uber Lander, Minderheiten auszurotten! Heil Kapitan!"
+	icon_state = "waffen"
+	item_state = "bl_suit"
+	item_color = "waffen"

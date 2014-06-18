@@ -148,19 +148,19 @@ A list of items and costs is stored under the datum of every game mode, alongsid
 		var/buyItem = pick(randomItems)
 
 		switch(buyItem) //Ok, this gets a little messy, sorry.
-			if("/obj/item/weapon/circuitboard/teleporter")
+			if("/obj/item/weapon/circuitboard/teleporter" , "/obj/item/weapon/syndie/c4explosive/heavy")
 				uses -= 20
 			if("/obj/item/toy/syndicateballoon" , "/obj/item/weapon/storage/box/syndie_kit/imp_uplink" , "/obj/item/weapon/storage/box/syndicate")
 				uses -= 10
-			if("/obj/item/weapon/aiModule/syndicate" , "/obj/item/device/radio/beacon/syndicate")
+			if("/obj/item/weapon/aiModule/syndicate" , "/obj/item/device/radio/beacon/syndicate", "obj/item/weapon/syndie/c4explosive")
 				uses -= 7
-			if("/obj/item/weapon/gun/projectile")
+			if("/obj/item/weapon/gun/projectile", "/obj/item/weapon/gun/projectile/cobra")
 				uses -= 6
 			if("/obj/item/weapon/gun/energy/crossbow" , "/obj/item/device/powersink")
 				uses -= 5
 			if("/obj/item/weapon/melee/energy/sword" , "/obj/item/clothing/mask/gas/voice" , "/obj/item/device/chameleon" , "/obj/item/device/flashlight/emp")
 				uses -= 4
-			if("/obj/item/weapon/storage/box/emps" , "/obj/item/weapon/pen/paralysis" , "/obj/item/weapon/cartridge/syndicate" , "/obj/item/clothing/under/chameleon" , \
+			if("/obj/item/weapon/storage/box/emps" , "/obj/item/weapon/pen/paralysis" , "/obj/item/weapon/pen/sleepypen" , "/obj/item/weapon/cartridge/syndicate" , "/obj/item/clothing/under/chameleon" , \
 			"/obj/item/weapon/card/emag" , "/obj/item/weapon/storage/box/syndie_kit/space" , "/obj/item/device/encryptionkey/binary" , \
 			"/obj/item/weapon/storage/box/syndie_kit/imp_freedom" , "/obj/item/clothing/glasses/thermal/syndi","/obj/item/weapon/melee/knifezippo")
 				uses -= 3

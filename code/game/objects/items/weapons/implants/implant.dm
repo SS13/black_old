@@ -164,6 +164,8 @@ Implant Specifics:<BR>"}
 			log_game("Explosive implant triggered in [T] ([T.key]).")
 
 			T.gib()
+		imp_in.visible_message("\red Something beeps inside [imp_in][part ? "'s [part.display_name]" : ""]!")
+		playsound(loc, 'sound/items/countdown.ogg', 75, 1, -3)
 		explosion(get_turf(imp_in), 1, 3, 4, 6, 3)
 		var/turf/t = get_turf(imp_in)
 

@@ -284,7 +284,7 @@ proc/move_mining_shuttle()
 	throwforce = 4.0
 	item_state = "shovel"
 	w_class = 3.0
-	m_amt = 50
+	m_amt = 3750
 	origin_tech = "materials=1;engineering=1"
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 

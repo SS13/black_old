@@ -8,6 +8,47 @@
 	m_amt = 2000
 	origin_tech = "combat=3;magnets=2"
 	projectile_type = "/obj/item/projectile/beam"
+	var/modified_cell = 0
+
+/obj/item/weapon/gun/energy/laser/attackby(obj/item/weapon/W as obj, mob/user as mob)
+	if(istype(W, /obj/item/weapon/screwdriver))
+		playsound(src.loc, 'sound/items/Screwdriver.ogg', 30, 1)
+		user.visible_message("\red [user] [screwdrivedlaser ? "put in place" : "unscrewed"] [src] power capacitor regulator with [W]!")
+		screwdrivedlaser = !screwdrivedlaser
+		return
+	if(istype(W, /obj/item/weapon/cell))
+		if(!screwdrivedlaser)
+			user << "\red Capacitor regulator is in place, you can't get to the power cell!"
+			return
+		if(screwdrivedlaser)
+			if(modified_cell)
+				user << "\blue The circuitry has already been modified."
+				return
+			else
+				user << "\blue You try to add a new cell to the circuitry..."
+				if(do_after(user, 60))
+					modified_cell = 1
+					del(W)
+					playsound(src.loc, 'sound/weapons/Safety.ogg', 30, 1)
+					user.visible_message("\red [user] has connected [W] to [src] circuitry!")
+					user << "\blue You connect a new cell to [src] circuitry!"
+					charge_cost = 100-rand(30,50)
+					overlays += "laserammo"
+					update_icon()
+					return
+
+	return
+
+
+
+/obj/item/weapon/gun/energy/laser/examine()
+	..()
+	if (screwdrivedlaser)
+		usr << "Power capacitor regulator looks tampered with."
+		return
+	if (modified_cell)
+		usr << "It seems to have an aftermarket cell connected."
+		return
 
 /obj/item/weapon/gun/energy/laser/practice
 	name = "practice laser gun"

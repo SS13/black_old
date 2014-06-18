@@ -20,6 +20,16 @@
 	flags = FPRINT | TABLEPASS | ONESIZEFITSALL
 	armor = list(melee = 50, bullet = 15, laser = 50, energy = 10, bomb = 25, bio = 0, rad = 0)
 
+
+/obj/item/clothing/suit/armor/vest/hazard
+	name = "makeshift armor"
+	desc = "An armored vest made of a standart hazard engineering vest with a steel plate welded to a webbing of cables."
+	icon_state = "armorhazard"
+	item_state = "hazard"
+	armor = list(melee = 25, bullet = 10, laser = 30, energy = 5, bomb = 10, bio = 0, rad = 5)
+	allowed = list(/obj/item/weapon/gun/energy,/obj/item/weapon/reagent_containers/spray/pepper,/obj/item/weapon/gun/projectile,/obj/item/ammo_magazine,/obj/item/ammo_casing,/obj/item/weapon/melee/baton,/obj/item/weapon/handcuffs)
+
+
 /obj/item/clothing/suit/armor/vest/ronin
 	name = "ronin armor"
 	icon_state = "armor_ronin"

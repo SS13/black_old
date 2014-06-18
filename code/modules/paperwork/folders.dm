@@ -3,6 +3,7 @@
 	desc = "A folder."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "folder"
+	item_state = "paper"
 	w_class = 2
 	pressure_resistance = 2
 

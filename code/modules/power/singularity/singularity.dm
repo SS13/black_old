@@ -36,6 +36,7 @@ var/global/list/uneatable = list(
 /obj/machinery/singularity/New(loc, var/starting_energy = 50, var/temp = 0)
 	//CARN: admin-alert for chuckle-fuckery.
 	admin_investigate_setup()
+	playsound(loc, 'sound/effects/poweron.ogg', 90, 1)
 
 	src.energy = starting_energy
 	if(temp)

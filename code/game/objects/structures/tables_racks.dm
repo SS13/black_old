@@ -12,7 +12,7 @@
  */
 /obj/structure/table
 	name = "table"
-	desc = "A square piece of metal standing on four metal legs. It can not move."
+	desc = "A square piece of metal standing on four metal legs. It can not move, but can be flipped on the side.."
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "table"
 	density = 1
@@ -287,27 +287,31 @@
 	if(HULK in user.mutations)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		visible_message("<span class='danger'>[user] smashes the [src] apart!</span>")
+		playsound(loc, 'sound/weapons/tablehit1.ogg', 50, 1)
 		destroy()
 
 /obj/structure/table/attack_alien(mob/user)
 	visible_message("<span class='danger'>[user] slices [src] apart!</span>")
+	playsound(loc, 'sound/weapons/tablehit1.ogg', 50, 1)
 	destroy()
 
 /obj/structure/table/attack_animal(mob/living/simple_animal/user)
 	if(user.wall_smash)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
+		playsound(loc, 'sound/weapons/tablehit1.ogg', 50, 1)
 		destroy()
 
 /obj/structure/table/attack_hand(mob/user)
 	if(HULK in user.mutations)
 		visible_message("<span class='danger'>[user] smashes [src] apart!</span>")
+		playsound(loc, 'sound/weapons/tablehit1.ogg', 50, 1)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
 		destroy()
 
 	if(usr.a_intent == "disarm" && get_dist(user, src) <= 1 && !usr.buckled)
 		visible_message("<span class='notice'>[user] trying to clumb on the [src].</span>")
 		if(do_mob(user, get_turf(user), 8))
-			if(prob(50))
+			if(prob(60))
 				visible_message("<span class='notice'>[user] climbs on the [src].</span>")
 				usr.loc = src.loc
 			else
@@ -458,6 +462,8 @@
 		usr << "<span class='notice'>It won't budge.</span>"
 	else
 		usr.visible_message("<span class='warning'>[usr] flips \the [src]!</span>")
+		playsound(loc, 'sound/machines/door_close.ogg', 50, 1)
+
 		return
 
 /obj/structure/table/proc/unflipping_check(var/direction)
@@ -539,7 +545,7 @@
  */
 /obj/structure/table/woodentable
 	name = "wooden table"
-	desc = "Do not apply fire to this. Rumour says it burns easily."
+	desc = "Do not apply fire to this. Rumour says it burns easily. It'll be pretty easy to flip over."
 	icon_state = "wood_table"
 	parts = /obj/item/weapon/table_parts/wood
 	health = 50
@@ -558,7 +564,7 @@
  */
 /obj/structure/table/reinforced
 	name = "reinforced table"
-	desc = "A version of the four legged table. It is stronger."
+	desc = "A version of the four legged table. It is stronger, but is secured to the floor and probalby can not be flipped."
 	icon_state = "reinf_table"
 	health = 200
 	var/status = 2

@@ -8,6 +8,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"
+	item_state = "paper"
 	throwforce = 0
 	w_class = 1.0
 	throw_range = 1
@@ -384,9 +385,55 @@
 /obj/item/weapon/paper/crumpled
 	name = "paper scrap"
 	icon_state = "scrap"
+	throw_range = 6
+	throw_speed = 2
 
 /obj/item/weapon/paper/crumpled/update_icon()
 	return
+
+/obj/item/weapon/paper/crumpled/attackby(obj/item/weapon/P as obj, mob/user as mob)
+	if(istype(P, /obj/item/weapon/lighter))
+		var/class = "<span class='warning'>"
+
+		if(P:lit && !user.restrained())
+			if(istype(P, /obj/item/weapon/lighter))
+				class = "<span class='rose'>"
+
+			user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like \he's trying to burn it!", \
+			"[class]You hold \the [P] up to \the [src], burning it slowly.")
+
+			spawn(10)
+				if(get_dist(src, user) < 2 && user.get_active_hand() == P && P:lit)
+					user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
+					"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
+
+					if(user.get_inactive_hand() == src)
+						user.drop_from_inventory(src)
+
+					new /obj/effect/decal/cleanable/ash(src.loc)
+					del(src)
+
+				else
+					user << "\red You must hold \the [P] steady to burn \the [src]."
+
+	add_fingerprint(user)
+	return
+
+/obj/item/weapon/paper/verb/crumple()
+	set name = "Crumple Paper"
+	set category = "Object"
+	set src in usr
+	var/mob/M = usr
+	if (istype(M, /mob/dead/)) return
+	if (usr.stat) return
+	if(src.info)
+		usr << "You don't want to crumple a paper with something written on it, lest the text be lost."
+		return 0
+	else
+		usr << "You crumple the paper into a tight ball."
+		new /obj/item/weapon/paper/crumpled( get_turf(usr.loc))
+		del(src)
+	..()
 
 /obj/item/weapon/paper/crumpled/bloody
 	icon_state = "scrap_bloodied"

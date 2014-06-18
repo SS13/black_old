@@ -406,6 +406,7 @@
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "rack_parts"
+	item_state = "table_parts"
 	flags = FPRINT | TABLEPASS| CONDUCT
 	m_amt = 3750
 
@@ -426,6 +427,10 @@
 		viewers(user) << pick("\red <b>[user] is slitting \his wrists with the shard of glass! It looks like \he's trying to commit suicide.</b>", \
 							"\red <b>[user] is slitting \his throat with the shard of glass! It looks like \he's trying to commit suicide.</b>")
 		return (BRUTELOSS)
+
+/obj/item/weapon/shard/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
+	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
+	return ..()
 
 /obj/item/weapon/shard/attack(mob/living/carbon/M as mob, mob/living/carbon/user as mob)
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 50, 1, -1)
@@ -790,7 +795,7 @@
 	desc = "This energy gun is dead beyond repair"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "egun-broken"
-	item_state = "gun"
+	item_state = "energystun0"
 	w_class = 3.0
 	m_amt = 40
 	New()
@@ -802,7 +807,7 @@
 	desc = "This laser gun is dead beyond repair"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "laser-broken"
-	item_state = "gun"
+	item_state = "laser0"
 	w_class = 3.0
 	m_amt = 50
 	New()
@@ -814,7 +819,7 @@
 	desc = "This taser gun is dead beyond repair"
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "taser-broken"
-	item_state = "gun"
+	item_state = "taser0"
 	w_class = 3.0
 	m_amt = 30
 	New()

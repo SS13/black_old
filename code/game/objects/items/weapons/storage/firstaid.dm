@@ -212,6 +212,20 @@
 		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
 		new /obj/item/weapon/reagent_containers/pill/inaprovaline( src )
 
+/obj/item/weapon/storage/pill_bottle/paracetamol
+	name = "Pill bottle (paracetamol)"
+	desc = "Contains mild, simple painkiller."
+
+	New()
+		..()
+		new /obj/item/weapon/reagent_containers/pill/paracetamol( src )
+		new /obj/item/weapon/reagent_containers/pill/paracetamol( src )
+		new /obj/item/weapon/reagent_containers/pill/paracetamol( src )
+		new /obj/item/weapon/reagent_containers/pill/paracetamol( src )
+		new /obj/item/weapon/reagent_containers/pill/paracetamol( src )
+		new /obj/item/weapon/reagent_containers/pill/paracetamol( src )
+		new /obj/item/weapon/reagent_containers/pill/paracetamol( src )
+
 
 /obj/item/weapon/storage/pill_bottle/dice
 	name = "bag of dice"

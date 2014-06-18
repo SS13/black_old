@@ -18,10 +18,12 @@
 	w_class = 1
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "rag"
+	item_state = "lgloves"
 	amount_per_transfer_from_this = 5
 	possible_transfer_amounts = list(5)
 	volume = 5
 	can_be_placed_into = null
+	blood_DNA = list()
 
 /obj/item/weapon/reagent_containers/glass/rag/attack_self(mob/user as mob)
 	return
@@ -47,6 +49,7 @@
 /obj/item/weapon/reagent_containers/glass/rag/examine()
 	if (!usr)
 		return
-	usr << "That's \a [src]."
+	usr << "That's \a [name]."
 	usr << desc
 	return
+

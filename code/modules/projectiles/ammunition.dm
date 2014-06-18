@@ -7,6 +7,7 @@
 	slot_flags = SLOT_BELT
 	throwforce = 1
 	w_class = 1.0
+	m_amt = 1
 	var/caliber = ""							//Which kind of guns it can be loaded into
 	var/projectile_type = ""//The bullet type to create when New() is called
 	var/obj/item/projectile/BB = null 			//The loaded bullet

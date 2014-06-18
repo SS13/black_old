@@ -99,18 +99,21 @@
 					dat += "<A href='?src=\ref[src];action=create;item=ez;cost=10'>E-Z-Nutrient</A> <FONT COLOR=blue>(10)</FONT> | <A href='?src=\ref[src];action=create;item=ez5;cost=50'>x5</A><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=l4z;cost=20'>Left 4 Zed</A> <FONT COLOR=blue>(20)</FONT> | <A href='?src=\ref[src];action=create;item=l4z5;cost=100'>x5</A><BR>"
 					dat += "<A href='?src=\ref[src];action=create;item=rh;cost=25'>Robust Harvest</A> <FONT COLOR=blue>(25)</FONT> | <A href='?src=\ref[src];action=create;item=rh5;cost=125'>x5</A><BR>"
+					dat += "Cloth<BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=cloth;cost=100'>Roll of Cloth</A> <FONT COLOR=blue>(100)</FONT><BR>"
 					dat += "Leather<BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=wallet;cost=150'>Wallet</A> <FONT COLOR=blue>(100)</FONT><BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=gloves;cost=350'>Botanical gloves</A> <FONT COLOR=blue>(250)</FONT><BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=tbelt;cost=400'>Utility belt</A> <FONT COLOR=blue>(300)</FONT><BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=shoes;cost=300'>Shoes</A> <FONT COLOR=blue>(100)</FONT><BR>"
-					dat += "<A href='?src=\ref[src];action=create;item=satchel;cost=500'>Leather Satchel</A> <FONT COLOR=blue>(400)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=wallet;cost=150'>Wallet</A> <FONT COLOR=blue>(150)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=gloves;cost=350'>Botanical gloves</A> <FONT COLOR=blue>(350)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=tbelt;cost=400'>Utility belt</A> <FONT COLOR=blue>(400)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=shoes;cost=300'>Shoes</A> <FONT COLOR=blue>(300)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=satchel;cost=500'>Leather Satchel</A> <FONT COLOR=blue>(500)</FONT><BR>"
+					dat += "<A href='?src=\ref[src];action=create;item=briefcase;cost=1000'>Leather Briefcase</A> <FONT COLOR=blue>(1000)</FONT><BR>"
 					//dat += "Other<BR>"
 					//dat += "<A href='?src=\ref[src];action=create;item=monkey;cost=500'>Monkey</A> <FONT COLOR=blue>(500)</FONT><BR>"
 					if (emagged)
-						dat += "<A href='?src=\ref[src];action=create;item=muzzle;cost=350'>Muzzle</A> <FONT COLOR=blue>(100)</FONT><BR>"
-						dat += "<A href='?src=\ref[src];action=create;item=blindfold;cost=300'>Blindfold</A> <FONT COLOR=blue>(400)</FONT><BR>"
-						dat += "<A href='?src=\ref[src];action=create;item=holster;cost=700'>Holster</A> <FONT COLOR=blue>(400)</FONT><BR>"
+						dat += "<A href='?src=\ref[src];action=create;item=muzzle;cost=350'>Muzzle</A> <FONT COLOR=blue>(350)</FONT><BR>"
+						dat += "<A href='?src=\ref[src];action=create;item=blindfold;cost=300'>Blindfold</A> <FONT COLOR=blue>(300)</FONT><BR>"
+						dat += "<A href='?src=\ref[src];action=create;item=holster;cost=700'>Holster</A> <FONT COLOR=blue>(700)</FONT><BR>"
 
 
 				else
@@ -198,6 +201,9 @@
 			new/obj/item/nutrient/rh(src.loc)
 			new/obj/item/nutrient/rh(src.loc)
 			new/obj/item/nutrient/rh(src.loc)
+		if("cloth")
+			new/obj/item/stack/sheet/cloth(src.loc)
+			new/obj/item/stack/sheet/cloth(src.loc)
 		if("wallet")
 			new/obj/item/weapon/storage/wallet(src.loc)
 		if("gloves")
@@ -212,6 +218,8 @@
 			new/obj/item/clothing/mask/muzzle(src.loc)
 		if("blindfold")
 			new/obj/item/clothing/glasses/sunglasses/blindfold(src.loc)
+		if("briefcase")
+			new /obj/item/weapon/storage/briefcase(src.loc)
 		if("holster")
 			new/obj/item/clothing/tie/holster/armpit(src.loc)
 		if("monkey")

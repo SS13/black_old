@@ -59,6 +59,7 @@
 				return
 			if ((istype(W, /obj/item/device/multitool)) && (src.open == 1)&& (!src.l_hacking))
 				user.show_message(text("\red Now attempting to reset internal memory, please hold."), 1)
+				playsound(src.loc, 'sound/machines/lockreset.ogg', 30, 1)
 				src.l_hacking = 1
 				if (do_after(usr, 100))
 					if (prob(40))

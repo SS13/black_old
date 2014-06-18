@@ -296,7 +296,8 @@
 		if ("print")
 			if (!( printing ))
 				printing = 1
-				sleep(50)
+				playsound(loc, 'sound/items/poster_being_created.ogg', 60, 1)
+				sleep(40)
 				var/obj/item/weapon/paper/P = new /obj/item/weapon/paper( loc )
 				/*var/t1 = "<B>Crew Manifest:</B><BR>"
 				var/list/L = list()

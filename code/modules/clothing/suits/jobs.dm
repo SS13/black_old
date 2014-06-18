@@ -110,6 +110,7 @@
 	name = "black jacket"
 	desc = "A blue forensics technician jacket."
 	icon_state = "forensics_black"
+//
 //Engineering
 /obj/item/clothing/suit/storage/hazardvest
 	name = "hazard vest"
@@ -117,8 +118,10 @@
 	icon_state = "hazard"
 	item_state = "hazard"
 	blood_overlay_type = "armor"
-	allowed = list (/obj/item/device/analyzer, /obj/item/device/flashlight, /obj/item/device/multitool, /obj/item/device/pipe_painter, /obj/item/device/radio, /obj/item/device/t_scanner, \
-	/obj/item/weapon/crowbar, /obj/item/weapon/screwdriver, /obj/item/weapon/weldingtool, /obj/item/weapon/wirecutters, /obj/item/weapon/wrench, /obj/item/weapon/tank/emergency_oxygen)
+	var/punctured = 0
+	var/wired = 0
+	var/armored = 0
+	allowed = list (/obj/item/device/analyzer,/obj/item/device/flashlight,/obj/item/device/multitool,/obj/item/device/pipe_painter,/obj/item/device/radio,/obj/item/device/t_scanner,/obj/item/weapon/crowbar,/obj/item/weapon/screwdriver,/obj/item/weapon/wrench,/obj/item/weapon/tank/emergency_oxygen)
 
 //Lawyer
 /obj/item/clothing/suit/storage/lawyer/bluejacket

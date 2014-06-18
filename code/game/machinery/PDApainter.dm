@@ -79,6 +79,7 @@
 		storedpda.icon_state = P.icon_state
 		storedpda.desc = P.desc
 		playsound(src, 'sound/items/poster_being_created.ogg', 50, 1)
+		sleep(30)
 		storedpda.loc = get_turf(src.loc)
 		storedpda = null
 		update_icon()

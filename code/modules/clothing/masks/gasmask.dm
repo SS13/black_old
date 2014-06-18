@@ -18,6 +18,13 @@
 	desc = "A face-covering mask that can be connected to an air supply. Filters harmful gases from the air. This one has twice as many filters as usual."
 	icon_state = "gas_dual"
 	item_state = "gas_dual"
+	gas_filter_strength = 2
+
+/obj/item/clothing/mask/gas/red
+	name = "gas mask"
+	desc = "A face-covering mask that can be connected to an air supply. Filters harmful gases from the air. This one has red lenses."
+	icon_state = "gas_red"
+	item_state = "gas_red"
 
 // **** Security gas mask ****
 

@@ -105,7 +105,6 @@
 	name = "ERT commander backpack"
 	desc = "A backpack for the ERT commander."
 	icon_state = "ertpack"
-	item_state = "ertpack"
 
 /obj/item/weapon/storage/backpack/captain
 	name = "captain's backpack"
@@ -188,7 +187,7 @@
 	item_state = "captainpack"
 
 /obj/item/weapon/storage/backpack/toy
-	name = "oxygen backpack" //metagame galore!
+	name = "Backpack (Oxygen)" //metagame galore!
 	icon = 'icons/obj/tank.dmi'
 	desc = "You can look like a real spessman with it! WARNING: this backpack is not suitable for real space EVA!"
 	icon_state = "jetpack-on"
@@ -199,6 +198,6 @@
 		icon_state = "jetpack-on"
 		item_state = "jetpack-on"
 	else
-		name = "carbon dioxide backpack"
+		name = "Backpack (Carbon Dioxide)"
 		icon_state = "jetpack-black"
 		item_state =  "jetpack-black"

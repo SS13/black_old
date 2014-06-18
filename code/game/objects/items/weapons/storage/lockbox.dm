@@ -49,31 +49,31 @@
 				playsound(src.loc, "sparks", 50, 1)
 				for(var/mob/O in viewers(user, 3))
 					O.show_message(text("\blue The locker has been sliced open by [] with an energy blade!", user), 1, text("\red You hear metal being sliced and sparks flying."), 2)
-
-			if (istype(W, /obj/item/weapon/screwdriver))
-				if (do_after(user, 20))
-					src.open =! src.open
-					user.show_message(text("\blue You [] the service panel.", (src.open ? "open" : "close")))
-					desc = "Lock panel is open, exposing the lock mechanism!"
-				return
-			if ((istype(W, /obj/item/device/multitool)) && (src.open == 1)&& (!src.l_hacking))
-				user.show_message(text("\red Now attempting to reset lock, please hold."), 1)
-				src.l_hacking = 1
-				for(var/mob/O in viewers(user, 3))
-					O.show_message(text("\blue [] is tampering with lockbox locking mechanism", user), 1)
-				if (do_after(usr, 100))
-
-					if (prob(15))
-						user.show_message(text("\red Lock reset. Give it a few seconds to reinitialize."), 1)
-						playsound(src.loc, "click", 75, 1, -1)
-						sleep(80)
-						src.l_hacking = 0
-					else
-						user.show_message(text("\red Unable to reset lock. Try again."), 1)
-						src.l_hacking = 0
 			else
 				for(var/mob/O in viewers(user, 3))
 					O.show_message(text("\blue The locker has been broken by [] with an electromagnetic card!", user), 1, text("You hear a faint electrical spark."), 2)
+		
+		else if (istype(W, /obj/item/weapon/screwdriver))
+			if (do_after(user, 20))
+				src.open =! src.open
+				user.show_message(text("\blue You [] the service panel.", (src.open ? "open" : "close")))
+				desc = "Lock panel is open, exposing the lock mechanism!"
+			return
+		else if ((istype(W, /obj/item/device/multitool)) && (src.open == 1)&& (!src.l_hacking))
+			user.show_message(text("\red Now attempting to reset lock, please hold."), 1)
+			src.l_hacking = 1
+			for(var/mob/O in viewers(user, 3))
+				O.show_message(text("\blue [] is tampering with lockbox locking mechanism", user), 1)
+			if (do_after(usr, 100))
+
+				if (prob(15))
+					user.show_message(text("\red Lock reset. Give it a few seconds to reinitialize."), 1)
+					playsound(src.loc, "click", 75, 1, -1)
+					sleep(80)
+					src.l_hacking = 0
+				else
+					user.show_message(text("\red Unable to reset lock. Try again."), 1)
+					src.l_hacking = 0
 
 		if(!locked)
 			..()

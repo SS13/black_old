@@ -112,6 +112,13 @@
 	flags = FPRINT|TABLEPASS
 	flags_inv = 0
 
+/obj/item/clothing/head/waffen
+	name = "Das Offizierskappe"
+	desc = "Eine herrliches Stuck von Kopfbedeckungen"
+	icon_state = "waffen"
+	item_state = "waffen"
+	flags = FPRINT|TABLEPASS
+
 /obj/item/clothing/head/cardborg
 	name = "cardborg helmet"
 	desc = "A helmet made out of a box."
@@ -243,6 +250,22 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 	flags = FPRINT | TABLEPASS | BLOCKHAIR
 	siemens_coefficient = 2.0
+	action_button_name = "BWAK!"
+
+/obj/item/clothing/head/chicken/attack_self(mob/user)
+	bwakproc(user)
+
+/obj/item/clothing/head/chicken/proc/bwakproc(mob/user)
+	if(user.canmove && !user.stat && !user.restrained())
+		usr.visible_message("[usr]: <font color='red' size='2'><b>BWAK BWAK BWAK! BWAK!</b></font>")
+
+/obj/item/clothing/head/chicken/verb/bwak()
+	set name = "BWAK BWAK!"
+	set category = "Object"
+	set src in usr
+
+	bwakproc(usr)
+
 
 /obj/item/clothing/head/bearpelt
 	name = "bear pelt hat"

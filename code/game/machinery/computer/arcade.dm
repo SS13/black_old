@@ -38,6 +38,7 @@
 							/obj/item/weapon/reagent_containers/food/drinks/cup/pirate	= 1,
 							/obj/item/weapon/reagent_containers/food/snacks/singulolollipop	= 1,
 							/obj/item/toy/prize/odysseus					= 1,
+							/obj/item/clothing/mask/fakemoustache			= 1,
 							/obj/item/weapon/contraband/poster				= 1,
 							/obj/item/clothing/tie/toothnecklace			= 1,
 							/obj/item/toy/prize/phazon						= 1,

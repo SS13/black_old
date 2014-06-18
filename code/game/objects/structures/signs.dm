@@ -206,9 +206,21 @@
 
 /obj/structure/sign/carp
 	name = "Space Carp Display"
-	desc = "Rather peculiar display of a spess carp. Somebody is quite good at space fishing."
+	desc = "Rather peculiar display of a spess carp. Somebody is quite good at space fishing. You think your finger would fit into it's mouth nicely."
 	icon_state = "carp"
 
+/obj/structure/sign/carp/attack_paw(var/mob/living/carbon/human/H)
+	src.attack_hand(H)
+
+/obj/structure/sign/carp/attack_hand(var/mob/living/carbon/human/H)
+	if(istype(H))
+		src.loc.visible_message("<span class='notice'>[H] puts a finger into carp's mouth </span>")	//You gotta interact with it in some hilartious way, right?
+		sleep(20)
+		if(prob(30))
+			src.loc.visible_message("<span class='danger'>[H] puts a finger into carp's mouth and scratches their finger on fish teeth!</span>")
+			H.apply_damage(6,BRUTE,(pick("l_hand", "r_hand")))
+			playsound(src.loc, 'sound/weapons/bite.ogg', 75, 1)	//Hularious, haha! See?
+		return
 
 /obj/structure/sign/soviet/passport
 	name = "My comrade"

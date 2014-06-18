@@ -67,6 +67,7 @@ var/global/list/datum/stack_recipe/metal_recipes = list ( \
 	null, \
 	new/datum/stack_recipe("apc frame", /obj/item/apc_frame, 2), \
 	new/datum/stack_recipe("air alarm frame", /obj/item/alarm_frame, 2), \
+	new/datum/stack_recipe("pipe fitting", /obj/item/pipe, 6), \
 	new/datum/stack_recipe("fire alarm frame", /obj/item/firealarm_frame, 2), \
 	null, \
 	new/datum/stack_recipe("iron door", /obj/structure/mineral_door/iron, 20, one_per_turf = 1, on_floor = 1), \
@@ -127,10 +128,12 @@ var/global/list/datum/stack_recipe/plasteel_recipes = list ( \
 var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	new/datum/stack_recipe("wooden sandals", /obj/item/clothing/shoes/sandal, 1), \
 	new/datum/stack_recipe("wood floor tile", /obj/item/stack/tile/wood, 1, 4, 20), \
+	new/datum/stack_recipe("wooden weapon stock", /obj/item/weapon/gunassembly/stock, 4), \
 	new/datum/stack_recipe("table parts", /obj/item/weapon/table_parts/wood, 2), \
 	new/datum/stack_recipe("wooden chair", /obj/structure/stool/bed/chair/wood/normal, 3, time = 10, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wooden comfy chair", /obj/structure/stool/bed/chair/wood/comfy, 5, time = 10, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wooden cabinet", /obj/structure/closet/cabinet, 12, time = 15, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("wooden bench", /obj/structure/stool/bed/chair/wood/bench, 8, time = 10, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("coffin", /obj/structure/closet/coffin, 5, time = 15, one_per_turf = 1, on_floor = 1), \
@@ -155,7 +158,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
  */
 /obj/item/stack/sheet/cloth
 	name = "cloth"
-	desc = "This roll of cloth is made from only the finest chemicals and bunny rabbits."
+	desc = "This roll of cloth is made from unknown fibers, likely synthetic"
 	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
 	item_state = "paper"
@@ -163,6 +166,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 
 var/global/list/datum/stack_recipe/cloth_recipes = list ( \
 	new/datum/stack_recipe("bandages", /obj/item/stack/medical/bandage, 1), \
+	new/datum/stack_recipe("a rag", /obj/item/weapon/reagent_containers/glass/rag, 1), \
 	new/datum/stack_recipe("cloth mask", /obj/item/clothing/mask/cloth, 1), \
 	new/datum/stack_recipe("white armband", /obj/item/clothing/tie/armband/med, 1), \
 	new/datum/stack_recipe("kufiya", /obj/item/clothing/head/sheik, 3), \

@@ -77,9 +77,9 @@
 	if(href_list["send"])
 		if(tofax)
 			Centcomm_fax(tofax.info, tofax.name, usr)
-			usr << "Message transmitted."
+			usr << "Message transmitted. Device must be recalibrated before sending next message, please wait..."
 			sendcooldown = 1
-			spawn(1500) // three minute cooldown. might mess with this number a bit as time goes on. I just halved it.
+			spawn(1000) // three minute cooldown. might mess with this number a bit as time goes on. I just halved it. And then some.
 				sendcooldown = 0
 
 	if(href_list["remove"])
