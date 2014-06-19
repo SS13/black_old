@@ -147,6 +147,7 @@ var/global/list/datum/stack_recipe/wood_recipes = list ( \
 	desc = "One can only guess that this is a bunch of wood."
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
+	item_state = "daederic"
 	origin_tech = "materials=1;biotech=1"
 
 /obj/item/stack/sheet/mineral/wood/New(var/loc, var/amount=null)

@@ -203,6 +203,16 @@ datum/design/air_management
 	materials = list("$glass" = 2000, "sacid" = 20)
 	build_path = "/obj/item/weapon/circuitboard/air_management"
 
+datum/design/atmoscontrol
+	name = "Circuit Design (Central Atmospherics Computer)"
+	desc = "Allows for the construction of circuit boards used to build a Central Atmospherics Computer."
+	id = "atmoscontrol"
+	req_tech = list("programming" = 4, "engineering" = 3) //Seems high enough to keep the chucklefucks at bay
+	build_type = IMPRINTER
+	materials = list("$glass" = 4500, "$gold" = 500, "sacid" = 20)
+	build_path = "/obj/item/weapon/circuitboard/atmoscontrol"
+
+
 /* Uncomment if someone makes these buildable
 datum/design/general_alert
 	name = "Circuit Design (General Alert Console)"

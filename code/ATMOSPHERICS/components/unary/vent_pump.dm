@@ -201,7 +201,7 @@
 		if(signal.data["power"] != null)
 			on = text2num(signal.data["power"])
 
-		if("power_toggle" in signal.data)
+		if(signal.data["power_toggle"] != null)
 			on = !on
 
 		if(signal.data["checks"] != null)
