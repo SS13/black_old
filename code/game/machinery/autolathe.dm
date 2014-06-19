@@ -242,6 +242,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 				amount = min(amount, round((max_g_amount-src.g_amount)/g_amt))
 				flick("autolathe_r",src)//plays glass insertion animation
 			stack.use(amount)
+			playsound(src, 'sound/items/Screwdriver2.ogg', 50, 1)
 		else
 			usr.before_take_item(O)
 			O.loc = src
@@ -281,6 +282,7 @@ var/global/list/autolathe_recipes_hidden = list( \
 					use_power(power)
 					icon_state = "autolathe"
 					flick("autolathe_n",src)
+					playsound(src, 'sound/items/poster_being_created.ogg', 50, 1)
 					spawn(16)
 						use_power(power)
 						spawn(16)

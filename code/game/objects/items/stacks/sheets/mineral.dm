@@ -46,6 +46,7 @@ var/global/list/datum/stack_recipe/sandstone_recipes = list ( \
 /obj/item/stack/sheet/mineral/diamond
 	name = "diamond"
 	icon_state = "sheet-diamond"
+	item_state = "implantcase"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
@@ -70,6 +71,7 @@ var/global/list/datum/stack_recipe/diamond_recipes = list ( \
 /obj/item/stack/sheet/mineral/uranium
 	name = "uranium"
 	icon_state = "sheet-uranium"
+	item_state = "cigpacket"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
@@ -95,6 +97,7 @@ var/global/list/datum/stack_recipe/uranium_recipes = list ( \
 /obj/item/stack/sheet/mineral/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
+	item_state = "brick"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
@@ -117,6 +120,7 @@ var/global/list/datum/stack_recipe/plasma_recipes = list ( \
 /obj/item/stack/sheet/mineral/plastic
 	name = "Plastic"
 	icon_state = "sheet-plastic"
+	item_state = "bedsheet"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
@@ -126,9 +130,14 @@ var/global/list/datum/stack_recipe/plasma_recipes = list ( \
 	perunit = 2000
 
 var/global/list/datum/stack_recipe/plastic_recipes = list ( \
+	new/datum/stack_recipe("plastic flaps", /obj/structure/mopbucket, 40, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("mop bucket", /obj/structure/mopbucket, 15, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic crate", /obj/structure/closet/pcrate, 10, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("bucket", /obj/item/weapon/reagent_containers/glass/bucket, 7, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("blood pack", /obj/item/weapon/reagent_containers/blood/empty, 5, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic fork", /obj/item/weapon/kitchen/utensil/pfork, 1, on_floor = 1), \
+	new/datum/stack_recipe("six sided die", /obj/item/weapon/dice, 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic spoon", /obj/item/weapon/kitchen/utensil/pspoon, 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic knife", /obj/item/weapon/kitchen/utensil/pknife, 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic bag", /obj/item/weapon/storage/bag/plasticbag, 3, on_floor = 1), \
@@ -146,6 +155,7 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 /obj/item/stack/sheet/mineral/gold
 	name = "gold"
 	icon_state = "sheet-gold"
+	item_state = "toolbox_yellow"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
@@ -171,6 +181,7 @@ var/global/list/datum/stack_recipe/gold_recipes = list ( \
 /obj/item/stack/sheet/mineral/silver
 	name = "silver"
 	icon_state = "sheet-silver"
+	item_state = "w_shoes"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
@@ -196,6 +207,7 @@ var/global/list/datum/stack_recipe/silver_recipes = list ( \
 /obj/item/stack/sheet/mineral/clown
 	name = "bananium"
 	icon_state = "sheet-clown"
+	item_state = "bike_horn"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
@@ -233,6 +245,7 @@ var/global/list/datum/stack_recipe/silver_recipes = list ( \
 /obj/item/stack/sheet/mineral/adamantine
 	name = "adamantine"
 	icon_state = "sheet-adamantine"
+	item_state = "brick"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
@@ -247,6 +260,7 @@ var/global/list/datum/stack_recipe/silver_recipes = list ( \
 /obj/item/stack/sheet/mineral/mythril
 	name = "mythril"
 	icon_state = "sheet-mythril"
+	item_state = "brick"
 	force = 5.0
 	throwforce = 5
 	w_class = 3.0
