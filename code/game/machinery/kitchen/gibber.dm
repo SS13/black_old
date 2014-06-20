@@ -224,4 +224,81 @@
 		src.operating = 0
 		update_icon()
 
+/obj/machinery/casino_roulette
+	name = "Gaming Roulette"
+	desc = "Gambling for the cream of society."
+	icon = 'barsigns.dmi'
+	icon_state = "rouletteoff"
+	anchored = 1
+	density = 1
+	var/working = 0
 
+	attack_hand(var/mob/user as mob)
+		user.machine = src
+		switch(alert(user, "You are using the Gaming Roulette right now! Will you place your bets on Black, Red or Zero?",,"Black","Red","Zero"))
+			if("Red")
+				user << "\red You have placed your bet on Red!"
+				for(var/mob/O in hearers(src, null))
+					O.show_message(text("<b>[]</b> says, '[user] has placed their bet on Red!'", src), 1)
+				src.working = 1
+				src.icon_state = "rouletteon"
+				for(var/mob/O in hearers(src, null))
+					O.show_message(text("<b>[]</b> says, 'Let's roll!'", src), 1)
+				var/roll = rand(1,10000)
+				spawn(100)
+					if (roll >= 1 && roll <= 100)
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Wonderfull! Zero occured!'", src), 1)
+					else if (roll > 100 && roll <= 5000)
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Red occured!'", src), 1)
+					else
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Black occured!'", src), 1)
+					src.working = 0
+					src.icon_state = "rouletteoff"
+				return
+			if("Black")
+				user << "\red You have placed your bet on Black!"
+				for(var/mob/O in hearers(src, null))
+					O.show_message(text("<b>[]</b> says, '[user] has placed their bet on Black!'", src), 1)
+				src.working = 1
+				src.icon_state = "rouletteon"
+				for(var/mob/O in hearers(src, null))
+					O.show_message(text("<b>[]</b> says, 'Let's roll!'", src), 1)
+				var/roll = rand(1,10000)
+				spawn(100)
+					if (roll >= 1 && roll <= 100)
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Wonderfull! Zero occured!'", src), 1)
+					else if (roll > 100 && roll <= 5000)
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Red occured!'", src), 1)
+					else
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Black occured!'", src), 1)
+					src.working = 0
+					src.icon_state = "rouletteoff"
+				return
+			if("Zero")
+				user << "\red You have placed your bet on Zero!"
+				for(var/mob/O in hearers(src, null))
+					O.show_message(text("<b>[]</b> says, '[user] has placed their bet on Zero!'", src), 1)
+				src.working = 1
+				src.icon_state = "rouletteon"
+				for(var/mob/O in hearers(src, null))
+					O.show_message(text("<b>[]</b> says, 'Let's roll!'", src), 1)
+				var/roll = rand(1,10000)
+				spawn(100)
+					if (roll >= 1 && roll <= 100)
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Wonderfull! Zero occured!'", src), 1)
+					else if (roll > 100 && roll <= 5000)
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Red occured!'", src), 1)
+					else
+						for(var/mob/O in hearers(src, null))
+							O.show_message(text("<b>[]</b> says, 'Black occured!'", src), 1)
+					src.working = 0
+					src.icon_state = "rouletteoff"
+				return
