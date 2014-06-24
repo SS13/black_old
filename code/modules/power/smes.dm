@@ -303,7 +303,7 @@
 
 /obj/machinery/power/smes/proc/ion_act()
 	if(src.z == 1)
-		if(prob(1)) //explosion
+		if(prob(10)) //explosion
 			world << "\red SMES explosion in [src.loc.loc]"
 			for(var/mob/M in viewers(src))
 				M.show_message("\red The [src.name] is making strange noises!", 3, "\red You hear sizzling electronics.", 2)
@@ -315,7 +315,7 @@
 			explosion(src.loc, -1, 0, 1, 3, 0)
 			del(src)
 			return
-		if(prob(15)) //Power drain
+		if(prob(30)) //Power drain
 			world << "\red SMES power drain in [src.loc.loc]"
 			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 			s.set_up(3, 1, src)
@@ -324,7 +324,7 @@
 				emp_act(1)
 			else
 				emp_act(2)
-		if(prob(5)) //smoke only
+		if(prob(30)) //smoke only
 			world << "\red SMES smoke in [src.loc.loc]"
 			var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
 			smoke.set_up(3, 0, src.loc)
@@ -345,6 +345,33 @@
 		online = initial(online)
 	..()
 
+/obj/machinery/power/smes/blob_act()
+	if(prob(30))
+		var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
+		smoke.set_up(3, 0, src.loc)
+		smoke.attach(src)
+		smoke.start()
+		explosion(src.loc, -1, 0, 1, 3, 0)
+		new /obj/effect/decal/cleanable/molten_item(src.loc)
+		del(src)
+		visible_message("<span class='danger'>[src] explodes!</span>")
+		message_admins("SMES exploded ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+		log_game("SMES exploded by blob at ([x],[y],[z])")
+
+
+/obj/machinery/power/smes/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(prob(max(0, exposed_temperature - 873)))
+		if(prob(50))
+			var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
+			smoke.set_up(3, 0, src.loc)
+			smoke.attach(src)
+			smoke.start()
+			explosion(src.loc, -1, 0, 1, 3, 0)
+			new /obj/effect/decal/cleanable/molten_item(src.loc)
+			del(src)
+			visible_message("<span class='danger'>[src] explodes!</span>")
+			message_admins("SMES exploded ([x],[y],[z] - <A HREF='?_src_=holder;adminplayerobservecoodjump=1;X=[x];Y=[y];Z=[z]'>JMP</a>)",0,1)
+			log_game("SMES exploded from overheating at ([x],[y],[z])")
 
 
 /obj/machinery/power/smes/magical

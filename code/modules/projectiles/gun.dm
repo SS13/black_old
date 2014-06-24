@@ -4,10 +4,10 @@
 	icon = 'icons/obj/gun.dmi'
 	icon_state = "detective"
 	item_state = "gun"
-	flags =  FPRINT | TABLEPASS | CONDUCT |  USEDELAY
+	flags = FPRINT | TABLEPASS | CONDUCT | USEDELAY
 	slot_flags = SLOT_BELT
 	m_amt = 2000
-	w_class = 3.0
+	w_class = 3
 	throwforce = 5
 	throw_speed = 4
 	throw_range = 5
@@ -32,7 +32,7 @@
 	var/tmp/told_cant_shoot = 0 //So that it doesn't spam them with the fact they cannot hit them.
 	var/firerate = 1 	// 0 for one bullet after tarrget moves and aim is lowered,
 						//1 for keep shooting until aim is lowered
-	var/fire_delay = 6
+	var/fire_delay = 3
 	var/last_fired = 0
 
 	proc/ready_to_fire()
@@ -55,10 +55,10 @@
 /obj/item/weapon/gun/afterattack(atom/A as mob|obj|turf|area, mob/living/user as mob|obj, flag, params)
 	if(flag)	return //we're placing gun on a table or in backpack
 	if(istype(target, /obj/machinery/recharger) && istype(src, /obj/item/weapon/gun/energy))	return//Shouldnt flag take care of this?
-	if(user && user.client && user.client.gun_mode && !(A in target))
-		PreFire(A,user,params) //They're using the new gun system, locate what they're aiming at.
-	else
-		Fire(A,user,params) //Otherwise, fire normally.
+//	if(user && user.client && user.client.gun_mode && !(A in target))
+//		PreFire(A,user,params) //They're using the new gun system, locate what they're aiming at.
+//	else
+	Fire(A,user,params) //Otherwise, fire normally.
 
 /obj/item/weapon/gun/proc/isHandgun()
 	return 1
@@ -220,10 +220,17 @@
 			if (in_chamber.damage_type != HALLOSS)
 				user.apply_damage(in_chamber.damage*2.5, in_chamber.damage_type, "head", used_weapon = "Point blank shot in the mouth with \a [in_chamber]")
 				user.death()
-				new /obj/effect/decal/cleanable/blood/splatter(user.loc)
+				new /obj/effect/decal/cleanable/blood(user.loc)
 			else
 				user << "<span class = 'notice'>Ow...</span>"
 				user.apply_effect(110,AGONY,0)
+
+			M.attack_log += text("\[[]\] <b>[]/[]</b> shot <b>[]/[]</b> point blank with a <b>[]</b>", time_stamp(), user, user.ckey, M, M.ckey, src)
+			user.attack_log += text("\[[]\] <b>[]/[]</b> shot <b>[]/[]</b> point blank with a <b>[]</b>", time_stamp(), user, user.ckey, M, M.ckey, src)
+			//log_admin("ATTACK: [user] ([user.ckey]) shot [M] ([M.ckey]) point blank with [src].")
+			msg_admin_attack("[user] ([user.ckey])(<A HREF='?_src_=holder;adminplayerobservejump=\ref[user]'>JMP</A>) shot [M] ([M.ckey]) point blank with [src].", 0)
+			log_attack("[user] ([user.ckey]) shot [M] ([M.ckey]) point blank with [src].")
+
 			del(in_chamber)
 			mouthshoot = 0
 			return
@@ -239,6 +246,7 @@
 			in_chamber.damage *= 1.5
 			in_chamber.stun *= 2.0
 			in_chamber.weaken *= 2.0
+		if(in_chamber.stun > in_chamber.paralyze)
 			in_chamber.stutter *= 2.5
 			Fire(M,user)
 			return

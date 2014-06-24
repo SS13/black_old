@@ -95,6 +95,18 @@
 	else
 		..()
 
+/obj/structure/stool/bed/chair/wood/fire_act()
+	if(prob(75))
+		new /obj/item/stack/sheet/mineral/wood(src.loc)
+		new /obj/effect/decal/cleanable/ash(src.loc)
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		del(src)
+	else
+		new /obj/effect/decal/cleanable/ash(src.loc)
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		del(src) //This probably should not cause any problems as long as unbuckle() is in place
+
+
 /obj/structure/stool/bed/chair/comfy
 	name = "comfy chair"
 	desc = "It looks comfy."

@@ -82,7 +82,8 @@
 			playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
 			user.visible_message("\blue [user] welds a steel plate to a cable webbing inside of [src]")
 			new	/obj/item/clothing/suit/armor/vest/hazard(user.loc)
-			user.drop_item(O)
+			//user.drop_item(O)
+			del(src)
 			update_icon(user)
 			return
 		else

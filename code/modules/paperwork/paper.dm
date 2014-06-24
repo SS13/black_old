@@ -42,6 +42,13 @@
 		updateinfolinks()
 		return
 
+/obj/item/weapon/paper/fire_act()
+	if(prob(95))
+		new /obj/effect/decal/cleanable/ash(src.loc)
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		del(src)
+
+
 /obj/item/weapon/paper/update_icon()
 	if(info)
 		icon_state = "paper_words"

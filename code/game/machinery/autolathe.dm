@@ -65,6 +65,8 @@ var/global/list/autolathe_recipes_hidden = list( \
 		new /obj/item/weapon/rcd(), \
 		new /obj/item/target(), \
 		new /obj/item/device/radio/electropack(), \
+		new /obj/item/weapon/stamp/denied(), \
+		new /obj/item/weapon/stamp/approved(), \
 		new /obj/item/weapon/weldingtool/largetank(), \
 		new /obj/item/weapon/handcuffs(), \
 		new /obj/item/device/flashlight/seclite(), \
@@ -283,11 +285,11 @@ var/global/list/autolathe_recipes_hidden = list( \
 					icon_state = "autolathe"
 					flick("autolathe_n",src)
 					playsound(src, 'sound/items/poster_being_created.ogg', 50, 1)
-					spawn(16)
+					spawn(10)
 						use_power(power)
-						spawn(16)
+						spawn(10)
 							use_power(power)
-							spawn(16)
+							spawn(10)
 								src.m_amount -= template.m_amt*multiplier
 								src.g_amount -= template.g_amt*multiplier
 								if(src.m_amount < 0)

@@ -193,11 +193,11 @@
 	icon_state = "jetpack-on"
 	item_state = "jetpack-on"
 
-/obj/item/weapon/storage/backpack/toy/New()
+/*/obj/item/weapon/storage/backpack/toy/New()
 	if(prob(50))
 		icon_state = "jetpack-on"
 		item_state = "jetpack-on"
 	else
 		name = "Backpack (Carbon Dioxide)"
 		icon_state = "jetpack-black"
-		item_state =  "jetpack-black"
+		item_state =  "jetpack-black"*/

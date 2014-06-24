@@ -205,7 +205,11 @@ obj/machinery/hydroponics/proc/weedinvasion() // If a weed growth is sufficient,
 	dead = 0
 	if(myseed) // In case there's nothing in the tray beforehand
 		del(myseed)
-	switch(rand(1,18))		// randomly pick predominative weed
+	switch(rand(1,22))		// randomly pick predominative weed
+		if(21 to 22)
+			myseed = new /obj/item/seeds/glowshroom
+		if(19 to 20)
+			myseed = new /obj/item/seeds/plastiseed //So plastic will eventually be made
 		if(16 to 18)
 			myseed = new /obj/item/seeds/reishimycelium
 		if(14 to 15)

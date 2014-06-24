@@ -70,7 +70,7 @@
 		user.visible_message("<span class='notice'>[user] is fiddling with the [src.name]...</span>")
 		if (do_after(user, 60))
 			user << "<span  class='notice'>You screw furniture to the [src.name]...</span>"
-			user.drop_item(S)
+			//user.drop_item(S)
 			user.before_take_item(src)
 			user.put_in_hands(W)
 			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)

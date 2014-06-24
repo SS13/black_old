@@ -63,14 +63,33 @@ var/list/mechtoys = list(
 /obj/structure/plasticflaps/ex_act(severity)
 	switch(severity)
 		if (1)
+			new /obj/item/stack/sheet/mineral/plastic(src.loc)
 			del(src)
 		if (2)
 			if (prob(50))
+				new /obj/item/stack/sheet/mineral/plastic(src.loc)
 				del(src)
 		if (3)
 			if (prob(5))
+				new /obj/item/stack/sheet/mineral/plastic(src.loc)
 				del(src)
 
+/obj/structure/plasticflaps/attackby(obj/item/weapon/W as obj, mob/user as mob) //Melt it with a welding tool. You shall pass!
+	if (istype(W, /obj/item/weapon/weldingtool))
+		var/obj/item/weapon/weldingtool/WT = W
+		add_fingerprint(user)
+		if(WT.remove_fuel(0, user))
+			if(WT.isOn())
+				user << "\blue You are now melting [src] with your [WT]. Hold steady, this will take a while."
+				user.visible_message("\red <b> \The [user] is trying to melt [src] with [WT]!</b>")
+				playsound(src.loc, 'sound/items/Welder.ogg', 50, 1)
+				if (do_after(user, 400)) //Seems reasonable. I guess that is slightly longer then deconstructing a regular wall
+					user.visible_message("\blue [src] melt down, leaving a pile of molten plastic behind.")
+					new /obj/item/stack/sheet/mineral/plastic(src.loc)
+					new /obj/effect/decal/cleanable/molten_item(src.loc)
+					del(src)
+			else
+				return
 /obj/structure/plasticflaps/mining //A specific type for mining that doesn't allow airflow because of them damn crates
 	name = "\improper Airtight plastic flaps"
 	desc = "Heavy duty, airtight, plastic flaps."

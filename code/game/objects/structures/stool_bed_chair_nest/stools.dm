@@ -75,6 +75,12 @@
 		new /obj/item/stack/sheet/metal(src.loc)
 		del(src)
 
+/obj/structure/stool/fire_act()
+	if(prob(50))
+		new /obj/effect/decal/cleanable/molten_item(src.loc) //Chance to melt
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		del(src)
+
 /obj/structure/stool/attackby(obj/item/weapon/W as obj, mob/user as mob)
 	if(istype(W, /obj/item/weapon/wrench))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)

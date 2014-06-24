@@ -101,6 +101,7 @@
 					src.anchored = 1
 			src.add_fingerprint(usr)
 
+	else return
 
 
 
