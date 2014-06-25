@@ -80,3 +80,9 @@
 		icon_state = "paper_bin0"
 	else
 		icon_state = "paper_bin1"
+
+/obj/item/weapon/paper_bin/fire_act()
+	if(prob(95))
+		new /obj/effect/decal/cleanable/ash(src.loc)
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		del(src)

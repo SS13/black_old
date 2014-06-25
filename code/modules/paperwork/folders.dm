@@ -7,6 +7,13 @@
 	w_class = 2
 	pressure_resistance = 2
 
+/obj/item/weapon/paper/fire_act()
+	if(prob(80)) //So generally safer than just leaving papers around
+		new /obj/effect/decal/cleanable/ash(src.loc)
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		del(src)
+
+
 /obj/item/weapon/folder/blue
 	desc = "A blue folder."
 	icon_state = "folder_blue"

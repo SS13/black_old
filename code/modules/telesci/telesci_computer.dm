@@ -12,7 +12,7 @@
 	var/z_co = 1
 	var/power_off
 	var/rotation_off
-	var/angle_off
+	//var/angle_off
 
 	var/rotation = 0
 	var/angle = 45
@@ -20,9 +20,9 @@
 
 	// Based on the power used
 	var/teleport_cooldown = 0
-	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 80, 100) // every index requires a bluespace crystal
+	var/list/power_options = list(5, 10, 20, 25, 30, 40, 50, 80, 100, 150) // every index requires a bluespace crystal
 	var/teleporting = 0
-	var/starting_crystals = 3
+	var/starting_crystals = 4
 	var/list/crystals = list()
 
 /obj/machinery/computer/telescience/New()
@@ -36,13 +36,13 @@
 
 /obj/machinery/computer/telescience/examine()
 	..()
-	usr << "There are [crystals.len] bluespace crystals in the crystal ports."
+	usr << "There are [crystals.len ? crystals.len : "no"] bluespace crystals in the crystal slots."
 
 /obj/machinery/computer/telescience/initialize()
 	..()
 	link_telepad()
 	for(var/i = 1; i <= starting_crystals; i++)
-		crystals += new /obj/item/bluespace_crystal/artificial(null) // starting crystals
+		crystals += new /obj/item/weapon/bluespace_crystal(null) // starting crystals
 	power = power_options[1]
 
 /obj/machinery/computer/telescience/proc/link_telepad()
@@ -59,24 +59,21 @@
 			icon_state = initial(icon_state)
 			stat &= ~NOPOWER
 
-/obj/machinery/computer/telescience/attack_paw(mob/user)
-	user << "You are too primitive to use this computer."
-	return
-
 /obj/machinery/computer/telescience/attackby(obj/item/W, mob/user)
-	if(istype(W, /obj/item/bluespace_crystal))
+	if(istype(W, /obj/item/weapon/bluespace_crystal))
 		if(crystals.len >= power_options.len)
-			user << "<span class='warning'>There are not enough crystal ports.</span>"
+			user << "<span class='warning'>There are not enough crystal slots.</span>"
 			return
 		user.drop_item()
 		crystals += W
 		W.loc = null
-		user.visible_message("<span class='notice'>[user] inserts a [W] into the [src]'s crystal port.</span>")
+		user.visible_message("<span class='notice'>[user] inserts [W] into \the [src]'s crystal slot.</span>")
+	if(istype(W, /obj/item/device/telepadremote) && telepad)
+		var/obj/item/device/telepadremote/R = W
+		R.linked = src
+		user << "\blue Telepad linked!"
 	else
 		..()
-
-/obj/machinery/computer/telescience/attack_ai(mob/user)
-	src.attack_hand(user)
 
 /obj/machinery/computer/telescience/attack_hand(mob/user)
 	if(..())
@@ -84,29 +81,21 @@
 	interact(user)
 
 /obj/machinery/computer/telescience/interact(mob/user)
-	user.machine = src
-	in_use = 1
-
-	var/t = "<div class='statusDisplay'>[temp_msg]</div><BR>"
-	t += "<A href='?src=\ref[src];setrotation=1'>Set Bearing</A>"
-	t += "<div class='statusDisplay'>[rotation]°</div>"
-	t += "<A href='?src=\ref[src];setangle=1'>Set Elevation</A>"
-	t += "<div class='statusDisplay'>[angle]°</div>"
-	t += "<span class='linkOn'>Set Power</span>"
-	t += "<div class='statusDisplay'>"
+	var/t = "<div class='statusDisplay'>[temp_msg]</div>"
+	t += "<BR><A href='?src=\ref[src];setrotation=1'>Bearing: [rotation]°</A>"
+	t += "<BR><A href='?src=\ref[src];setangle=1'>Elevation: [angle]°</A>"
+	t += "<BR>Power:"
 
 	for(var/i = 1; i <= power_options.len; i++)
 		if(crystals.len < i)
-			t += "<span class='linkOff'>[power_options[i]]</span>"
+			t += "[power_options[i]] "
 			continue
 		if(power == power_options[i])
-			t += "<span class='linkOn'>[power_options[i]]</span>"
+			t += "\[[power_options[i]]\] "
 			continue
-		t += "<A href='?src=\ref[src];setpower=[i]'>[power_options[i]]</A>"
+		t += "<A href='?src=\ref[src];setpower=[i]'>[power_options[i]]</A> "
 
-	t += "</div>"
-	t += "<A href='?src=\ref[src];setz=1'>Set Sector</A>"
-	t += "<div class='statusDisplay'>[z_co ? z_co : "NULL"]</div>"
+	t += "<A href='?src=\ref[src];setz=1'>Sector: [z_co ? z_co : "NULL"]</A>"
 
 	t += "<BR><A href='?src=\ref[src];send=1'>Send</A>"
 	t += " <A href='?src=\ref[src];receive=1'>Receive</A>"
@@ -122,9 +111,8 @@
 		t += "Time: [round(last_tele_data.time, 0.1)] secs<BR>"
 	t += "</div>"
 
-	var/datum/browser/popup = new(user, "telesci", name, 300, 500)
-	popup.set_content(t)
-	popup.open()
+	user << browse("<TITLE>Telepad Control Console</TITLE><HR>[t]", "window=telesci;size=300x500")
+	onclose(user, "telesci")
 	return
 
 /obj/machinery/computer/telescience/proc/sparks()
@@ -141,7 +129,6 @@
 	return
 
 /obj/machinery/computer/telescience/proc/doteleport(mob/user)
-
 	if(teleport_cooldown > world.time)
 		temp_msg = "Telepad is recharging power.<BR>Please wait [round((teleport_cooldown - world.time) / 10)] seconds."
 		return
@@ -151,10 +138,9 @@
 		return
 
 	if(telepad)
-
 		var/truePower = Clamp(power + power_off, 1, 1000)
 		var/trueRotation = rotation + rotation_off
-		var/trueAngle = Clamp(angle + angle_off, 1, 90)
+		var/trueAngle = Clamp(angle, 1, 90)
 
 		var/datum/projectile_data/proj_data = projectile_trajectory(telepad.x, telepad.y, trueRotation, trueAngle, truePower)
 		last_tele_data = proj_data
@@ -184,7 +170,7 @@
 			teles_left -= 1
 
 			// use a lot of power
-			use_power(power * 10)
+			use_power(power * 20)
 
 			var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
 			s.set_up(5, 1, get_turf(telepad))
@@ -209,7 +195,7 @@
 				dest = target
 
 			flick("pad-beam", telepad)
-			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, 1)
+			playsound(telepad.loc, 'sound/weapons/emitter2.ogg', 25, 1, 3, 5)
 			for(var/atom/movable/ROI in source)
 				// if is anchored, don't let through
 				if(ROI.anchored)
@@ -238,9 +224,9 @@
 		telefail()
 		temp_msg = "ERROR!<BR>Elevation is less than 1 or greater than 90."
 		return
-	if(z_co == 2 || z_co < 1 || z_co > 10)
+	if(z_co == 2 || z_co < 1 || z_co > 6)
 		telefail()
-		temp_msg = "ERROR! Sector is less than 1, <BR>greater than 10, or equal to 2."
+		temp_msg = "ERROR! Sector is less than 1, <BR>greater than 6, or equal to 2."
 		return
 	if(teles_left > 0)
 		doteleport(user)
@@ -257,31 +243,28 @@
 	power = 0
 
 /obj/machinery/computer/telescience/Topic(href, href_list)
-	if(..())
+	if(..() && !(locate(/obj/item/device/telepadremote) in usr))
 		return
 	if(href_list["setrotation"])
 		var/new_rot = input("Please input desired bearing in degrees.", name, rotation) as num
-		if(..()) // Check after we input a value, as they could've moved after they entered something
+		if(..() && !(locate(/obj/item/device/telepadremote) in usr)) // Check after we input a value, as they could've moved after they entered something
 			return
 		rotation = Clamp(new_rot, -900, 900)
 		rotation = round(rotation, 0.01)
 
 	if(href_list["setangle"])
 		var/new_angle = input("Please input desired elevation in degrees.", name, angle) as num
-		if(..())
+		if(..() && !(locate(/obj/item/device/telepadremote) in usr))
 			return
 		angle = Clamp(round(new_angle, 0.1), 1, 9999)
 
 	if(href_list["setpower"])
-		var/index = href_list["setpower"]
-		index = text2num(index)
-		if(index != null && power_options[index])
-			if(crystals.len >= index)
-				power = power_options[index]
+		var/index = text2num(href_list["setpower"])
+		power = power_options[index]
 
 	if(href_list["setz"])
 		var/new_z = input("Please input desired sector.", name, z_co) as num
-		if(..())
+		if(..() && !(locate(/obj/item/device/telepadremote) in usr))
 			return
 		z_co = Clamp(round(new_z), 1, 10)
 
@@ -299,14 +282,15 @@
 		temp_msg = "NOTICE:<BR>Calibration successful."
 
 	if(href_list["eject"])
+		if(..())
+			return
 		eject()
 		temp_msg = "NOTICE:<BR>Bluespace crystals ejected."
 
-	updateDialog()
-	return 1
+	interact(usr)
 
 /obj/machinery/computer/telescience/proc/recalibrate()
-	teles_left = rand(30, 40)
-	angle_off = rand(-25, 25)
+	teles_left = rand(50, 70)
+	//angle_off = rand(-25, 25)
 	power_off = rand(-4, 0)
-	rotation_off = rand(-10, 10)
+	rotation_off = rand(-25, 25)

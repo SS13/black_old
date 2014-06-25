@@ -200,15 +200,15 @@
 	..()
 
 /mob/living/simple_animal/spiderbot/Die()
-
 	living_mob_list -= src
 	dead_mob_list += src
 
 	if(camera)
 		camera.status = 0
 
-	held_item.loc = src.loc
-	held_item = null
+	if(held_item)
+		held_item.loc = src.loc
+		held_item = null
 
 	robogibs(src.loc, viruses)
 	src.Del()

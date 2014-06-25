@@ -1,3 +1,5 @@
+//Code finished by Rampoch at Animusstation
+
 /obj/structure/coatrack
 	name = "Coat Rack"
 	desc = "A hanger for your coat and hat."

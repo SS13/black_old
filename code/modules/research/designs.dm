@@ -1604,7 +1604,7 @@ datum/design/bag_holding
 	build_type = PROTOLATHE
 	materials = list("$diamond" = 1500, "$plasma" = 1500)
 	reliability = 100
-	build_path = /obj/item/bluespace_crystal/artificial
+	build_path = /obj/item/weapon/bluespace_crystal/artificial
 
 /////////////////////////////////////////
 /////////////////HUDs////////////////////
@@ -1717,6 +1717,25 @@ datum/design/borg_syndicate_module
 /////////////////////////////////////////
 /////////////PDA and Radio stuff/////////
 /////////////////////////////////////////
+/datum/design/electropack
+	name = "electropack" //Radio operated, so fits here, right? Besides, this is the only legit way to make
+	desc = "Dance my monkeys! DANCE!!."
+	id = "electropack"
+	req_tech = list("powerstorage" = 2, "magnets" = 1)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 10000, "$gold" = 50)
+	build_path = "/obj/item/device/radio/electropack"
+
+
+datum/design/megaphone //Closest to it was "radio stuff"
+	name = "megaphone"
+	desc = "A device used to project your voice. Loudly."
+	id = "megaphone"
+	req_tech = list("engineering" = 2, "powerstorage" = 1)
+	build_type = PROTOLATHE
+	materials = list("$metal" = 1500, "$glass" = 700, "$silver" = 100)
+	build_path = "/obj/item/device/megaphone"
+
 datum/design/binaryencrypt
 	name = "Binary Encrpytion Key"
 	desc = "An encyption key for a radio headset.  Contains cypherkeys."

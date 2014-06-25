@@ -9,7 +9,7 @@
 /datum/event/radiation_storm/start()
 	spawn()
 		world << sound('sound/AI/radiation.ogg')
-		command_alert("High levels of radiation detected near the station. Please evacuate into one of the shielded maintenance tunnels.", "Anomaly Alert")
+		command_alert("High levels of radiation detected near the station. Please evacuate into one of the shielded maintenance tunnels, crew quarters, or permanent imprisonment cell.", "Anomaly Alert")
 		make_maint_all_access()
 
 
@@ -25,7 +25,7 @@
 					continue
 				if(T.z != 1)
 					continue
-				if(istype(T.loc, /area/maintenance) || istype(T.loc, /area/crew_quarters))
+				if(istype(T.loc, /area/maintenance) || istype(T.loc, /area/crew_quarters) || istype(T.loc, /area/security/permabrig))
 					continue
 
 				if(istype(H,/mob/living/carbon/human))

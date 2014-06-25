@@ -242,6 +242,8 @@ log transactions
 			if("attempt_auth")
 				if(linked_db && !ticks_left_locked_down)
 					var/tried_account_num = text2num(href_list["account_num"])
+					if(!tried_account_num && held_card)
+						tried_account_num = held_card.associated_account_number
 					if(!tried_account_num)
 						tried_account_num = held_card.associated_account_number
 					var/tried_pin = text2num(href_list["account_pin"])

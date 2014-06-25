@@ -247,6 +247,16 @@ BLIND     // can't see anything
 	var/obj/item/clothing/tie/hastie = null
 	var/displays_id = 1
 
+/obj/item/clothing/under/fire_act()
+	if(prob(70))
+		new /obj/effect/decal/cleanable/ash(src.loc)
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		del(src)
+
+/obj/item/clothing/under/blob_act() //No more indestructable captain's pantaloons
+	if(prob(50))
+		del(src)
+
 /obj/item/clothing/under/attackby(obj/item/I, mob/user)
 	if(!hastie && istype(I, /obj/item/clothing/tie))
 		user.drop_item()

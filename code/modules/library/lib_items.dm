@@ -74,6 +74,21 @@
 		else
 	return
 
+/obj/structure/bookcase/fire_act()
+	if(prob(30))
+		new /obj/effect/decal/cleanable/ash(src.loc)
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		for(var/obj/item/weapon/book/b in contents)
+			b.loc = (get_turf(src))
+		del(src)
+
+/obj/structure/bookcase/blob_act()
+	if(prob(30))
+		visible_message("<span class='notice'>[src] breaks down!</span>")
+		for(var/obj/item/weapon/book/b in contents)
+			b.loc = (get_turf(src))
+		del(src)
+
 /obj/structure/bookcase/update_icon()
 	if(contents.len < 5)
 		icon_state = "book-[contents.len]"

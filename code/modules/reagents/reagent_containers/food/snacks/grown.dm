@@ -243,6 +243,7 @@
 		..()
 		spawn(5)	//So potency can be set in the proc that creates these crops
 			reagents.add_reagent("plasticide", 1+round((potency / 10), 1))
+			reagents.add_reagent("ethanol", 1+round((potency / 15), 1)) ///Yeah, that's more like to put thos guys to making plastic.
 			bitesize = 1+round(reagents.total_volume / 2, 1)
 
 /obj/item/weapon/reagent_containers/food/snacks/grown/glowberries

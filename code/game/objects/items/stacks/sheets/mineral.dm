@@ -5,6 +5,7 @@ Mineral Sheets
 		- Diamond
 		- Uranium
 		- Plasma
+		- Plastic
 		- Gold
 		- Silver
 		- Clown
@@ -117,6 +118,9 @@ var/global/list/datum/stack_recipe/plasma_recipes = list ( \
 	pixel_y = rand(0,4)-4
 	..()
 
+/*
+ * Plastic
+ */
 /obj/item/stack/sheet/mineral/plastic
 	name = "Plastic"
 	icon_state = "sheet-plastic"
@@ -135,12 +139,14 @@ var/global/list/datum/stack_recipe/plastic_recipes = list ( \
 	new/datum/stack_recipe("plastic crate", /obj/structure/closet/pcrate, 10, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("bucket", /obj/item/weapon/reagent_containers/glass/bucket, 7, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("blood pack", /obj/item/weapon/reagent_containers/blood/empty, 5, one_per_turf = 1, on_floor = 1), \
+	new/datum/stack_recipe("plastic bag", /obj/item/weapon/storage/bag/plasticbag, 3, on_floor = 1), \
+	new/datum/stack_recipe("plastic bottle", /obj/item/weapon/reagent_containers/food/condiment, 2, on_floor = 1), \
 	new/datum/stack_recipe("plastic ashtray", /obj/item/ashtray/plastic, 2, one_per_turf = 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic fork", /obj/item/weapon/kitchen/utensil/pfork, 1, on_floor = 1), \
 	new/datum/stack_recipe("six sided die", /obj/item/weapon/dice, 1, on_floor = 1), \
+	new/datum/stack_recipe("pen", /obj/item/weapon/pen, 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic spoon", /obj/item/weapon/kitchen/utensil/pspoon, 1, on_floor = 1), \
 	new/datum/stack_recipe("plastic knife", /obj/item/weapon/kitchen/utensil/pknife, 1, on_floor = 1), \
-	new/datum/stack_recipe("plastic bag", /obj/item/weapon/storage/bag/plasticbag, 3, on_floor = 1), \
 	)
 
 /obj/item/stack/sheet/mineral/plastic/New(var/loc, var/amount=null)

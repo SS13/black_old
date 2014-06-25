@@ -42,6 +42,7 @@ would spawn and follow the beaker, even if it is carried or thrown.
 	//var/turf/T = src.loc
 	//if (istype(T, /turf))
 	//	T.firelevel = 0 //TODO: FIX
+	create_reagents(10)
 	spawn( 70 )
 		delete()
 		return

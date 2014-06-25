@@ -168,6 +168,7 @@
 		if(!gameover)
 			src.gameover = 1
 			src.temp = "[src.enemy_name] has fallen! Rejoice!"
+			playsound(src.loc, 'sound/machines/ping.ogg', 50, 1)
 
 			if(emagged)
 				feedback_inc("arcade_win_emagged")

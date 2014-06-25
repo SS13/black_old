@@ -13,6 +13,10 @@
 	amount_per_transfer_from_this = 10
 	volume = 250
 	possible_transfer_amounts = null
+	New()
+		..()
+		src.pixel_x = rand(-10.0, 10)
+		src.pixel_y = rand(-10.0, 10)
 
 
 /obj/item/weapon/reagent_containers/spray/afterattack(atom/A as mob|obj, mob/user as mob)

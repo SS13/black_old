@@ -283,6 +283,12 @@
 	if(prob(75))
 		destroy()
 
+/obj/structure/table/fire_act()
+	if(prob(40))
+		new /obj/effect/decal/cleanable/molten_item(src.loc) //Chance to melt
+		visible_message("<span class='notice'>[src] melts in the fire!</span>")
+		del(src)
+
 /obj/structure/table/attack_paw(mob/user)
 	if(HULK in user.mutations)
 		user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ))
@@ -549,6 +555,12 @@
 	icon_state = "wood_table"
 	parts = /obj/item/weapon/table_parts/wood
 	health = 50
+
+/obj/structure/table/woodentable/fire_act()
+	if(prob(75))
+		visible_message("<span class='notice'>[src] catches fire and burns down!</span>")
+		new /obj/effect/decal/cleanable/ash(src.loc)
+		destroy()
 
 
 /obj/structure/table/poker //No specialties, Just a mapping object.

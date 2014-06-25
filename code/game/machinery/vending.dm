@@ -111,6 +111,18 @@
 
 	return
 
+/obj/machinery/vending/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	if(prob(max(0, exposed_temperature - 673)))   //0% at <400C, 100% at >500C
+		if(prob(50))
+			playsound(src.loc, 'sound/effects/sparks4.ogg', 50, 1)
+			var/datum/effect/effect/system/harmless_smoke_spread/smoke = new /datum/effect/effect/system/harmless_smoke_spread()
+			smoke.set_up(3, 0, src.loc)
+			smoke.attach(src)
+			smoke.start()
+			src.malfunction()
+			visible_message("<span class='notice'>[src] shuts down!</span>")
+			log_game("[src] broken by temperature at ([x],[y],[z])")
+
 /obj/machinery/vending/proc/build_inventory(var/list/productlist,hidden=0,req_coin=0)
 	for(var/typepath in productlist)
 		var/amount = productlist[typepath]
