@@ -169,6 +169,11 @@
 	var/obj/item/weapon/storage/bag/trash/mybag	= null
 	var/callme = "pimpin' ride"	//how do people refer to it?
 
+/obj/structure/stool/bed/chair/janicart/bike
+	name = "Energy_Bike"
+	icon = 'icons/obj/vehicles.dmi'
+	icon_state = "bike"
+
 
 /obj/structure/stool/bed/chair/janicart/New()
 	handle_rotation()

@@ -168,6 +168,34 @@
 		return 1
 
 
+/datum/job/mailman
+	title = "Mailman"
+	flag = MAILMAN
+	department_flag = CIVILIAN
+	faction = "Station"
+	total_positions = 2
+	spawn_positions = 2
+	supervisors = "the quartermaster and the head of personnel"
+	selection_color = "#dddddd"
+	access = list(access_maint_tunnels, access_mailsorting, access_cargo, access_cargo_bot, access_qm, access_mint, access_mining, access_mining_station)
+	minimal_access = list(access_maint_tunnels, access_cargo, access_cargo_bot, access_mailsorting)
+
+
+	equip(var/mob/living/carbon/human/H)
+		if(!H)	return 0
+		H.equip_to_slot_or_del(new /obj/item/device/radio/headset/headset_cargo(H), slot_l_ear)
+		H.equip_to_slot_or_del(new /obj/item/clothing/under/rank/cargotech(H), slot_w_uniform)
+		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/white(H), slot_shoes)
+		H.equip_to_slot_or_del(new /obj/item/device/pda/cargo(H), slot_belt)
+//		H.equip_to_slot_or_del(new /obj/item/clothing/gloves/black(H), slot_gloves)
+		if(H.backbag == 1)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H), slot_r_hand)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H), slot_l_hand)
+		else
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/box/survival(H.back), slot_in_backpack)
+			H.equip_to_slot_or_del(new /obj/item/weapon/storage/wallet/random(H.back), slot_in_backpack)
+		return 1
+
 
 /datum/job/mining
 	title = "Shaft Miner"
